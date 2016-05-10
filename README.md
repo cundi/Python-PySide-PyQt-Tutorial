@@ -3,7 +3,11 @@
  
  A full guide on Qt for Python – PySide and PyQt. With PySide and PyQt Python code examples, tutorials and references. Authored by Jason Fruit who has worked with Python since 2000. In fact, he loves it so much, he even used it to name his children.  
 
+<<<<<<< HEAD
  系列文章原始链接：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
+=======
+系列文章原始链接：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
+>>>>>>> origin/master
 
 - Part 0: Overview of Python GUI Development: Comparing GUI Frameworks
 - Part 1: Introduction to PyQt and PySide
@@ -13,6 +17,7 @@
 - Part 5: PySide/PyQt Tutorial: Using Built-In Signals and Slots
 - Part 6: PySide/PyQt Tutorial: Creating Your Own Signals and Slots
 - Part 7: PySide/PyQt Tutorial: The QListWidget
+<<<<<<< HEAD
 - Part 8: PySide/PyQT Tutorial: QListView and QStandardItemModel  
 
 # PyQt-Tutorial
@@ -47,3 +52,6 @@ The editor includes features for:
 - Part 3: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-3/147
 
 - Part 4: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-4/148
+=======
+- Part 8: PySide/PyQT Tutorial: QListView and QStandardItemModel
+>>>>>>> origin/master
