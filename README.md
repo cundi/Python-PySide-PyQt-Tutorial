@@ -1,22 +1,20 @@
 # PySide-PyQt-Tutorial
  
- A full guide on Qt for Python – PySide and PyQt. With PySide and PyQt Python code examples, tutorials and references. Authored by Jason Fruit who has worked with Python since 2000. In fact, he loves it so much, he even used it to name his children.  
-
- 这是一份完整的基于Qt的针对Python，即，PySide和PyQt的教程。
+这是一份完整的基于Qt的针对Python，即，PySide和PyQt的教程。此教程由Jason Fruit授权，他从2000年就开始使用Python工作。实际上，他太爱Python了，甚至用Python给自己的小孩取名字。  
 
 本系列来自：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
 
 教程内容：  
 
-- Part 0: Overview of Python GUI Development: Comparing GUI Frameworks
-- Part 1: Introduction to PyQt and PySide
-- Part 2: Install PySide and PyQt on Windows, Mac and Linux
-- Part 3: Intro to PySide/PyQt: Basic Widgets and Hello, World!
-- Part 4: PySide/PyQt Tutorial: Interactive Widgets and Layout Containers
-- Part 5: PySide/PyQt Tutorial: Using Built-In Signals and Slots
-- Part 6: PySide/PyQt Tutorial: Creating Your Own Signals and Slots
-- Part 7: PySide/PyQt Tutorial: The QListWidget
-- Part 8: PySide/PyQT Tutorial: QListView and QStandardItemModel  
+- Part 0: Python GUI开发概览：GUI框架比较
+- Part 1: 介绍 PyQt 和 PySide
+- Part 2: 在Windows, Mac 和 Linux上安装PySide和PyQt
+- Part 3: 介绍PySide/PyQt：基础部件和Hello, World!
+- Part 4: PySide/PyQt 教程: 交互式部件和布局容器Interactive Widgets and Layout Containers
+- Part 5: PySide/PyQt 教程: 使用内建信号和插槽
+- Part 6: PySide/PyQt 教程: 创建自己的信号和插槽Creating Your Own Signals and Slots
+- Part 7: PySide/PyQt 教程: 部件 QListWidget
+- Part 8: PySide/PyQT 教程: QListView 和 QStandardItemModel
 
 # PyQt-Tutorial
 
@@ -31,18 +29,18 @@
 
 教程内容：  
 
-- Introduction
-- First programs
-- Menus and toolbars
-- Layout management
-- Events and signals
-- Dialogs
-- Widgets
-- Widgets II
-- Drag & drop
-- Painting
-- Custom widgets
-- The Tetris game
+- 引言
+- 第一个程序
+- 菜单和工具条
+- 布局管理
+- 事件和信号
+- 对话
+- 部件
+- 部件（二）
+- 拖拽
+- 画图
+- 自定义部件
+- 游戏：俄罗斯方块
 
 
 # PyQt5-Beginner-tutorial
