@@ -1,10 +1,12 @@
 # PySide-PyQt-Tutorial
- PySide 和 PyQt 入门指南  
  
  A full guide on Qt for Python – PySide and PyQt. With PySide and PyQt Python code examples, tutorials and references. Authored by Jason Fruit who has worked with Python since 2000. In fact, he loves it so much, he even used it to name his children.  
 
-系列文章原始链接：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
+ 这是一份完整的基于Qt的针对Python，即，PySide和PyQt的教程。
 
+本系列来自：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
+
+教程内容：  
 
 - Part 0: Overview of Python GUI Development: Comparing GUI Frameworks
 - Part 1: Introduction to PyQt and PySide
@@ -24,11 +26,10 @@
 
 本系列来自: http://zetcode.com/gui/pyqt5/
 
-PyQt5 tutorial
 
-This is PyQt5 tutorial. The tutorial is suited for beginners and intermediate programmers. After reading this tutorial, you will be able to program non trivial PyQt5 applications.  
+本PyQt5教程适用于新手以及中级水平的程序员。学习本教程之后，你能够编写普通的PyQt5应用。  
 
-Table of contents  
+教程内容：  
 
 - Introduction
 - First programs
@@ -52,19 +53,19 @@ Table of contents
 
 本系列来自：https://github.com/goldsborough/Writer-Tutorial
 
-The editor includes features for:  
+编辑器实现的功能有:  
 
-- File management
-- Rich-text formatting
-- Table insertion and management
-- Find-and-replace
-- Inserting images
+- 文件管理
+- 富文本格式化
+- 表格插入与管理
+- 查找和替换
+- 插入图片
 
 
-- Part 1: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-one/143
+- 第一部分: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-one/143
 
-- Part 2: http://www.binpress.com/tutorial/developing-a-pyqt-text-editor-part-2/145
+- 第二部分: http://www.binpress.com/tutorial/developing-a-pyqt-text-editor-part-2/145
 
-- Part 3: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-3/147
+- 第三部分: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-3/147
 
-- Part 4: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-4/148
+- 第四部分: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-4/148
