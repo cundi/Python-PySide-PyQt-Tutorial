@@ -6,6 +6,8 @@ In this part of the PyQt5 tutorial we learn some basic functionality.
 
 This is a simple example showing a small window. Yet we can do a lot with this window. We can resize it, maximise it or minimise it. This requires a lot of coding. Someone already coded this functionality. Because it repeats in most applications, there is no need to code it over again. PyQt5 is a high level toolkit. If we would code in a lower level toolkit, the following code example could easily have hundreds of lines.  
 
+这是一个显示小窗口的简单例子。我们还可以
+
 ```python
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-

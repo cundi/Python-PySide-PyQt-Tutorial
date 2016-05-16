@@ -1,6 +1,6 @@
 # PySide-PyQt-Tutorial
  
-这是一份完整的基于Qt的针对Python，即，PySide和PyQt的教程。此教程由Jason Fruit授权，他从2000年就开始使用Python工作。实际上，他太爱Python了，甚至用Python给自己的小孩取名字。  
+这是一份完整的基于Qt的针对Python，即，PySide和PyQt的教程。此教程由Jason Fruit授权，他从2000年就开始使用Python工作。实际上，他太爱Python了，甚至用给自己的小孩取名Python。  
 
 本系列来自：http://pythoncentral.io/series/python-pyside-pyqt-tutorial/  
 
