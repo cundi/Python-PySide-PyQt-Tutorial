@@ -6,7 +6,7 @@ Last Updated: Monday 8th December 2014`
 
 This installment gives a introduction to the very most basic points of PySide and PyQt. We'll talk a bit about the kinds of objects they use, and talk through a couple of very simple examples that will give you a basic idea of how Python/Qt applications are constructed.  
 
-本部分对PySide and PyQt的非常基础的关键点给出了说明。我们会涉及到PySide和PyQt所使用的对象种类，然后通过几个非常简单的例子让你有个基本的Python/Qt应用创建概念。  
+本部分对PySide和PyQt的最基础的关键点给出了说明。我们会涉及到PySide和PyQt所使用的对象种类，然后通过几个非常简单的例子让你有个基本的Python/Qt应用创建概念。  
 
 First, a basic overview of Qt objects. Qt provides a lot of classes to handle all manner of things: XML, multimedia, database integration, and networking, among others, but the ones we're most concerned with right now are the visible elements — windows, dialogs, and controls. All visible elements of Qt are called widgets, and are descended from a common parent class, QWidget. Throughout this tutorial, we'll use "widget" as a general term for any visible element of a Qt application.  
 
@@ -98,9 +98,9 @@ This is, at base, the outline of any Qt application. Every application, no matte
 
 这就是对任意Qt应用的基本概述。对于每个应用来说，不论你打开了多少个窗口，你有且只有一个QApplication对象，
 
-A widget is created with no parent, which means that it is displayed as a window; this is the starting window of the application. It is shown, and then the QApplication object's exec_ method is called, which starts the application's main event loop.  
+A widget is created with no parent, which means that it is displayed as a window; this is the starting window of the application. It is shown, and then the QApplication object's `exec_` method is called, which starts the application's main event loop.  
 
-不使用父类继承创建部件，就是说这个部件作为窗口显示；这是一个应用的启动窗口。
+不使用父来创建部件，就是说这个部件作为窗口显示；这是一个应用的启动窗口。
 
 Some specifics about this example:  
 
@@ -119,7 +119,7 @@ Some specifics about this example:
 ## Two Basic Widgets 两个基本部件
 Let's look at a two of the most basic Python/Qt widgets. First, we'll review the parent of them all, QWidget; then, we'll look at one of the simplest of the widgets that inherit from it.  
 
-让我们来看看最基本的两个Python/Qt部件。首先，我们回顾所有部件的父类，QWidget；然后我们来看看从
+让我们来看看最基本的两个Python/Qt部件。首先，我们回顾所有部件的父类，QWidget；然后我们来浏览继承自QWidget的部件中最简单的一个。  
 
 ### QWidget
 A QWidget's constructor takes two arguments, parent QWidget, and flags QWindowFlags, both of which are shared by all its descendants. The parent of a widget owns the widget, and when the parent is destroyed, the child is destroyed when its parent is, and its geometry is usually limited by that of its parent. If the parent is None or no parent is supplied, the widget is owned by the application's QApplication object and is a top-level widget, i.e. a window. The flags argument controls various properties of the widget if it is displayed as a window; usually, the default, 0, is the right choice.  
@@ -142,7 +142,7 @@ widget = QWidget(some_parent)
 
 A QWidget is frequently used to create a top-level window, thus:  
 
-QWidget通常用于创建一个顶层窗口，所以你要编写代码如下：  
+QWidget通常用于创建一个底层窗口，所以你要编写代码如下：  
 
 ```python
 qt_app = QApplication(sys.argv)
@@ -234,7 +234,7 @@ class HelloWorldApp(QLabel):
         # 将对象初始化为一个QLabel
         QLabel.__init__(self, "Hello, world!")
  
-        # Set the size, alignment, and title
+        # 设置大小，对齐和标题
         self.setMinimumSize(QSize(600, 400))
         self.setAlignment(Qt.AlignCenter)
         self.setWindowTitle('Hello, world!')
