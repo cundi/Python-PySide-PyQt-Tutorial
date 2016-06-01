@@ -1,27 +1,9 @@
-# coding: utf-8
-# 允许访问命令行参数
+# coding:utf-8
 import sys
-
-# Import the core and GUI elements of Qt
-#
-from PySide.QtCore import *
 from PySide.QtGui import *
+from PySide.QtCore import *
 
 
-
-# class HelloWorldApp(QLabel):
-#   def __init__(self):
-#       QLabel.__init__(self, "hey !")
-
-#       self.setMinimumSize(QSize(600,400))
-#       self.setAlignment(Qt.AlignCenter)
-#       self.setWindowTitle("Qt Wd")
-
-#   def run(self):
-#       self.show()
-#       qt_app.exec_()
-
-# HelloWorldApp().run(
 qt_app = QApplication(sys.argv)
 
 class AbsolutePositioningExample(QWidget):
@@ -69,7 +51,7 @@ class AbsolutePositioningExample(QWidget):
         # The recipient control is an entry textbox
         self.recipient = QLineEdit(self)
         # Add some ghost text to indicate what sort of thing to enter
-        self.recipient.setPlaceholderText('world' or 'Matey')
+        self.recipient.setPlaceholderText(" 'world' or 'Matey' ")
         # Same width as the salutation
         self.recipient.setMinimumWidth(285)
         # Same indent as salutation but 25 pixels lower
@@ -87,7 +69,7 @@ class AbsolutePositioningExample(QWidget):
         self.greeting.move(110, 75)
 
         # The build button is a push button 构造按钮是一个push按钮
-        self.build_button = QPushButton('Build Greeting', self)
+        self.build_button = QPushButton('&Build Greeting', self)
 
         # 将按钮到右下角，而且要比其他的交互部件小
         self.build_button.setMinimumWidth(145)

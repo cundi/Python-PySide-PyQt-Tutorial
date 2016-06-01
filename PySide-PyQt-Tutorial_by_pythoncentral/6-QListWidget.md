@@ -24,8 +24,7 @@ for i in range(10):
 Or in bulk:  
 
 ```python
-items = ['Item %s' % (i + 1)
-         for i in range(10)]
+items = ['Item %s' % (i + 1) for i in range(10)]
 self.list.addItems(items)
 ```
 
