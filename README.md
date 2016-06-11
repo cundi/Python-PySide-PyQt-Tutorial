@@ -1,6 +1,6 @@
 # Qt / PyQt / PySide 发展图谱
 
-![history](Images/qt_pyqt_pyside.png)
+![history](Images/qt_pyqt_pyside_history.png)
 
 
 # PySide-PyQt-Tutorial
