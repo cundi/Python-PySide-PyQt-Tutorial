@@ -11,20 +11,24 @@ Note: This tutorial assumes you're at least familiar with the things mentioned i
 
 In this post I'll write a simple app that fetches top posts from few different subreddits (subsections of reddit.com) while following API rules of 1 request per 2 seconds to illustrate the issues you encounter if you try to do it all in one thread. The design will be simple as that's not the main point of the post, and the backend will only use modules built into python (and PyQt of course) to reduce number of 3rd party dependencies required.  
 
-Final project goal:  
+## Final project goal:  
 
-App Description
-Allow user to enter n number of subreddit names into an line edit field, separated by a comma.
-Have a list where post titles will be displayed.
-Have a progress bar that updates as the number of fetched subreddits increases.
-Allow user to cancel the updating at any time.
-App Design
-The design is going to be simple and not a focus of this tutorial. Here's the screenshot:
-App Preview Design
-App Preview Design
-And you can find the Qt Designer .ui file on GitHub's gist here: https://gist.github.com/Nikola-K/19d0c2b94c26200888bc (the whole project will also be linked at the bottom)
-Code prerequisites
-Reddit part
+### App Description
+- Allow user to enter n number of subreddit names into an line edit field, separated by a comma.
+- Have a list where post titles will be displayed.
+- Have a progress bar that updates as the number of fetched subreddits increases.
+- Allow user to cancel the updating at any time.
+
+### App Design
+The design is going to be simple and not a focus of this tutorial. Here's the screenshot:  
+
+![App Preview Design](images/001.png)
+App Preview Design  
+
+And you can find the Qt Designer .ui file on GitHub's gist here: https://gist.github.com/Nikola-K/19d0c2b94c26200888bc (the whole project will also be linked at the bottom)  
+
+### Code prerequisites
+#### Reddit part
 Since this part isn't the focus of the tutorial I will skip any exception checking etc and just assume that the response from reddit will be valid. The code for fetching the top posts from a list of subreddits is:  
 
 ```python
@@ -54,7 +58,7 @@ if __name__ == '__main__':
 
 The reason for the time.sleep(2) is because reddit allows only 1 request per 2 seconds to be executed.  
 
-Basic GUI code
+### Basic GUI code
 The GUI code will be set up just like in the previous tutorial I wrote. If you don't understand what some parts of it are doing check out that blog post before continuing.  
 
 ```python
@@ -80,17 +84,19 @@ if __name__ == '__main__':
     main()
 ```
 
-The app without threading.
+#### The app without threading.
 So if you haven't worked with PyQt or threading before you might be thinking: "Ok, I've got the reddit code, and I've got the GUI - I just call the reddit function and populate the data and it'll work" Well, it will technically work, but since the whole thing is one one main GUI thread your whole app will be frozen while the application/function executes.  
 
 Here's what will happen:  
 
-GIF of non threaded app running
-GIF of non threaded app running
-The main thread is locked
-The list isn't updated until the process finishes
-The edit list and all GUI elements are no longer functional even though they appear to be.
-No way to stop the execution once the function is started.
+![GIF of non threaded app running](images/app_without_threading.gif)
+GIF of non threaded app running  
+
+- The main thread is locked
+- The list isn't updated until the process finishes
+- The edit list and all GUI elements are no longer functional even though they appear to be.
+- No way to stop the execution once the function is started.
+
 And here's the code that I used:  
 
 ```python
@@ -148,10 +154,12 @@ if __name__ == '__main__':
     main()
 ```
 
-Threading
-Okay, now that we've seen what kind of issues we'll have if we don't use threads with PyQt and we do something that takes time on the main thread we'll start re-writing the code above with help of a QThread class.
-So, what we need to do is write a thread that will do the same thing as the get_top_post and get_top_from_subreddits in the previous code, and then update the UI as the new posts get fetched. We will also enable user to stop the thread that has already been started by clicking on the "Stop" button.
-Basic QThread Structure
+### Threading
+Okay, now that we've seen what kind of issues we'll have if we don't use threads with PyQt and we do something that takes time on the main thread we'll start re-writing the code above with help of a QThread class.  
+
+So, what we need to do is write a thread that will do the same thing as the get_top_post and get_top_from_subreddits in the previous code, and then update the UI as the new posts get fetched. We will also enable user to stop the thread that has already been started by clicking on the "Stop" button.  
+
+## Basic QThread Structure
 The QThread we'll be using in this tutorial is a simple and the whole thing is written like this:  
 
 ```python
@@ -170,18 +178,31 @@ class YourThreadName(QThread):
         # your logic here
 ```
 
-So the QThread is a simple class that you can pass arguments to when creating a new instance since it has a normal __init__ method. Also you don't call the run method itself, but instead you call start - calling run directly in some cases can also freeze your main thread depending on how the run method is implemented in your thread.
-So the example usage of that thread above inside for example QMainWindow class would be:
+So the `QThread` is a simple class that you can pass arguments to when creating a new instance since it has a normal `__init__` method. Also you don't call the run method itself, but instead you call start - calling run directly in some cases can also freeze your main thread depending on how the run method is implemented in your thread.  
+
+So the example usage of that thread above inside for example QMainWindow class would be:  
+
+```python
 self.myThread = YourThreadName()
 self.myThread.start()
-and that's it, whatever is in the run method of your thread class will be executed. You can use something like isRunning method to see whether the thread is still running in your code.
-The full documentation of methods can be found here: http://pyqt.sourceforge.net/Docs/PyQt4/qthread.html
-Most of the time you'll just be using these, which are all self explanatory: quit, start, terminate, isFinished, isRunning
-QThread also has these signals which are useful: finished, started, terminated
-Our code in a thread
-The process of moving the reddit code into a QThread is pretty simple, and besides some changes in the run method the main part of the code stays the same.
-Another small difference is that we'll pass a list of subreddits upon thread instantiation and then assign it to a instance variable which we'll use in the run method.
-Here's the complete code:
+```
+
+and that's it, whatever is in the `run` method of your thread class will be executed. You can use something like `isRunning` method to see whether the thread is still running in your code.  
+
+The full documentation of methods can be found here: http://pyqt.sourceforge.net/Docs/PyQt4/qthread.html  
+
+Most of the time you'll just be using these, which are all self explanatory: quit, start, terminate, isFinished, isRunning  
+
+QThread also has these signals which are useful: finished, started, terminated  
+
+### Our code in a thread
+The process of moving the reddit code into a QThread is pretty simple, and besides some changes in the run method the main part of the code stays the same.  
+
+Another small difference is that we'll pass a list of subreddits upon thread instantiation and then assign it to a instance variable which we'll use in the run method.  
+
+Here's the complete code:  
+
+```python
 class getPostsThread(QThread):
 
     def __init__(self, subreddits):
@@ -204,54 +225,102 @@ class getPostsThread(QThread):
         for subreddit in self.subreddits:
             top_post = self._get_top_post(subreddit)
             self.sleep(2)
-The _get_top_post is just copied from the original reddit code and the run method goes over the self.subreddits variable which is defined when we create a new thread. We also don't need to use the time.sleep(int) because there's a sleep method on all QThread objects which we can use.
-It's pretty self explanatory and the way we'd use that is by first making a list of subreddit names to pass to the thread and then calling it from the main UI code like this:
- self.get_thread = getPostsThread(subreddit_list)
+```
+
+The `_get_top_post` is just copied from the original reddit code and the run method goes over the self.subreddits variable which is defined when we create a new thread. We also don't need to use the time.sleep(int) because there's a sleep method on all QThread objects which we can use.  
+
+It's pretty self explanatory and the way we'd use that is by first making a list of subreddit names to pass to the thread and then calling it from the main UI code like this:  
+
+```python
+self.get_thread = getPostsThread(subreddit_list)
 self.get_thread.start()
-That's it. The code will run in the background on a separate thread than the main UI one and will fetch all top posts from the list of subreddits specified, however it will not update any UI elements and will give no feedback to the user, which is not you want to have more often than not.
-However we can't simply say: self.progress_bar.setValue(int) in our QThread code since the self in that case would refer to the QThread instance and not the UI class.
-The proper way to do communication between the threads and the UI thread is by using signals.
-Signals
-Since we have all the code running properly in background we need to get the data such as post title to our main UI thread so that we can update the appropriate UI elements such as the progress bar and the list of fetched items.
-Built in signals
-We'll first start off with just notifying the user when all the posts have been fetched by using only built in signals that every QThread instance has.
-First we'll write a function that we want to be executed once the thread is finished, we'll just have it show a message that it's done. We put it in our main UI class as a function:
+```
+
+That's it. The code will run in the background on a separate thread than the main UI one and will fetch all top posts from the list of subreddits specified, however it will not update any UI elements and will give no feedback to the user, which is not you want to have more often than not.  
+
+However we can't simply say: `self.progress_bar.setValue(int)` in our `QThread` code since the `self` in that case would refer to the QThread instance and not the `UI` class.  
+
+The proper way to do communication between the threads and the UI thread is by using signals.  
+
+### Signals
+Since we have all the code running properly in background we need to get the data such as post title to our main UI thread so that we can update the appropriate UI elements such as the progress bar and the list of fetched items.  
+
+#### Built in signals
+We'll first start off with just notifying the user when all the posts have been fetched by using only built in signals that every `QThread` instance has.  
+
+First we'll write a function that we want to be executed once the thread is finished, we'll just have it show a message that it's done. We put it in our main UI class as a function:  
+
+```python
 def done(self):
     QtGui.QMessageBox.information(self, "Done!", "Done fetching posts!")
-Now we need to connect one of the Qt Signals specified here: http://pyqt.sourceforge.net/Docs/PyQt4/qthread.html
-We want the finished one so the code looks like this, first we make a new instance, connect the finished signal with our done function and then we start the thread.
+```
+
+Now we need to connect one of the Qt Signals specified here: http://pyqt.sourceforge.net/Docs/PyQt4/qthread.html  
+
+We want the finished one so the code looks like this, first we make a new instance, connect the finished signal with our done function and then we start the thread.  
+
+```python
 self.get_thread = getPostsThread(subreddit_list)
 self.connect(self.get_thread, SIGNAL("finished()"), self.done)
 self.get_thread.start()
-It's pretty straightforward, and the only difference between that and a custom signal is that we'll have to define custom signal in the QThread class, but the code used in the main thread stays the same.
-Which brings me to:
-Custom signals
-To be able to use custom signals like the built in ones in the code above we need to define them in the QThread.
-There are multiple ways of doing this, but I mostly stick with this:
+```
+
+It's pretty straightforward, and the only difference between that and a custom signal is that we'll have to define custom signal in the QThread class, but the code used in the main thread stays the same.  
+
+Which brings me to:  
+
+#### Custom signals
+To be able to use custom signals like the built in ones in the code above we need to define them in the `QThread`.  
+
+There are multiple ways of doing this, but I mostly stick with this:  
+
+```python
 self.emit(SIGNAL('add_post(QString)'), top_post)
-I find it readable and easy to work with, but you can see a different way to do it on this link and decide what to use yourself.
-The way we'd catch that signal in the main thread is pretty much identical to the finished one:
+```
+
+I find it readable and easy to work with, but you can see a different way to do it on this link and decide what to use yourself.  
+
+The way we'd catch that signal in the main thread is pretty much identical to the finished one:  
+
+```python
 self.connect(self.get_thread, SIGNAL("add_post(QString)"), self.add_post)
-But there's one important difference between that signal and the built in finished one. This signal will actually pass an object (in this case QString) to the add_post function, and we need to catch that. You can pass pretty much anything you want, or you can simply leave it empty. If you do decide to pass something the function that will be connected to the signal must be able to accept that argument.
-In this case we'll write the add_post function like this:
+```
+
+But there's one important difference between that signal and the built in finished one. This signal will actually pass an object (in this case QString) to the add_post function, and we need to catch that. You can pass pretty much anything you want, or you can simply leave it empty. If you do decide to pass something the function that will be connected to the signal must be able to accept that argument.  
+
+In this case we'll write the add_post function like this:  
+
+```python
 def add_post(self, post_text):
     self.list_submissions.addItem(post_text)
     self.progress_bar.setValue(self.progress_bar.value()+1)
-We'll add the text that the thread passed to the function, which will be a submission title and some other info, and we'll increase the value of the progress bar by one - we should set the maximum (100%) value to be equal to the number of subreddits we're fetching the data with.
-Another thing I didn't find a lot of info online about which I think is an important one is how to pass a custom class instance or any other type of python object, e.g. a list, custom class, etc is to use SIGNAL('signal_name(PyQt_PyObject)', any_python_object) when defining a new signal.
-Connecting everything
-At this point we have everything required, we just need to combine it all together. We have:
-Thread for getting top posts from reddit
-Basic understanding of connections
-Understanding of how to implement custom signals
-How to use built in signals.
-So let's start combining it, we'll write it like this:
-User clicks the Start button, a function called start_getting_top_posts gets executed, the function will also clear any existing items in the list.
-start_getting_top_posts gets the string with user supplied list of subreddits and creates a list out of it. Sets the max value of progress bar to the number of items in the subreddit list. Then it creates a new getPostsThread thread with that list and starts it.
-getPostsThread fetches the top post from reddit and executes add_post signal which is connected to the add_post function in the main thread.
-add_post adds the text passed to it and increases the value of progress bar by one.
-Once getPostsThread is finished (ot terminated) a finshed signal is fired off which is connected to done function in the main code which will show a message window notifying the user that it's done. And Stop button is hidden.
-At the same time we'll also bind terminated event to the same done function in main thread and we'll connect clicking Stop button execute terminate() on the already started thread.  
+```
+
+We'll add the text that the thread passed to the function, which will be a submission title and some other info, and we'll increase the value of the progress bar by one - we should set the maximum (100%) value to be equal to the number of subreddits we're fetching the data with.  
+
+Another thing I didn't find a lot of info online about which I think is an important one is how to pass a custom class instance or any other type of python object, e.g. a list, custom class, etc is to use SIGNAL('signal_name(PyQt_PyObject)', any_python_object) when defining a new signal.  
+
+### Connecting everything
+At this point we have everything required, we just need to combine it all together. We have:  
+
+- Thread for getting top posts from reddit
+- Basic understanding of connections
+- Understanding of how to implement custom signals
+- How to use built in signals.
+
+So let's start combining it, we'll write it like this:  
+
+- User clicks the `Start` button, a function called `start_getting_top_posts` gets executed, the function will also clear any existing items in the list.
+
+- `start_getting_top_posts` gets the string with user supplied list of subreddits and creates a list out of it. Sets the max value of progress bar to the number of items in the subreddit list. Then it creates a new `getPostsThread` thread with that list and starts it.
+
+- getPostsThread fetches the top post from reddit and executes add_post signal which is connected to the add_post function in the main thread.
+
+- `add_post` adds the text passed to it and increases the value of progress bar by one.
+
+- Once `getPostsThread` is finished (ot terminated) a `finshed` signal is fired off which is connected to `done` function in the main code which will show a message window notifying the user that it's done. And `Stop` button is hidden.  
+
+At the same time we'll also bind `terminated` event to the same `done` function in main thread and we'll connect clicking `Stop` button execute `terminate()` on the already started thread.  
 
 The final code then looks like this:  
 
@@ -416,15 +485,20 @@ if __name__ == '__main__':
 
 And here's how the app looks like:  
 
-Final version demo
-Final version demo
+![Final version demo](images/final_code.gif)
+Final version demo  
+
 You'll notice that:  
 
-List is updated as soon as the post is fetched.
-UI remains responsive.
-No locking of main GUI thread.
-Ability to terminate the thread at any time.
-That concludes this tutorial, if you have any specific questions you can always contact me by clicking "contact" on the main page.
-Final project files
+- List is updated as soon as the post is fetched.
+- UI remains responsive.
+- No locking of main GUI thread.
+- Ability to terminate the thread at any time.
+
+That concludes this tutorial, if you have any specific questions you can always contact me by clicking "contact" on the main page.  
+
+### Final project files
 All files, ui, converted ui, and the main python file can be seen and downloaded here:
-https://gist.github.com/Nikola-K/8b5b510a5c85c3e207fb
+https://gist.github.com/Nikola-K/8b5b510a5c85c3e207fb  
+
+
