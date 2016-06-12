@@ -1,0 +1,107 @@
+.. module:: PySide.QtGui
+.. _QScrollBar:
+
+QScrollBar
+**********
+
+.. inheritance-diagram:: QScrollBar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initStyleOption<PySide.QtGui.QScrollBar.initStyleOption>` (option)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QScrollBar` widget provides a vertical or horizontal scroll bar.
+
+    A scroll bar is a control that enables the user to access parts of a document that is larger than the widget used to display it. It provides a visual indication of the user's current position within the document and the amount of the document that is visible. Scroll bars are usually equipped with other controls that enable more accurate navigation. Qt displays scroll bars in a way that is appropriate for each platform.
+
+    If you need to provide a scrolling view onto another widget, it may be more convenient to use the :class:`PySide.QtGui.QScrollArea` class because this provides a viewport widget and scroll bars. :class:`PySide.QtGui.QScrollBar` is useful if you need to implement similar functionality for specialized widgets using :class:`PySide.QtGui.QAbstractScrollArea` ; for example, if you decide to subclass :class:`PySide.QtGui.QAbstractItemView` . For most other situations where a slider control is used to obtain a value within a given range, the :class:`PySide.QtGui.QSlider` class may be more appropriate for your needs.
+
+    Each scroll bar has a value that indicates how far the slider is from the start of the scroll bar; this is obtained with :meth:`PySide.QtGui.QAbstractSlider.value` and set with :meth:`PySide.QtGui.QAbstractSlider.setValue` . This value always lies within the range of values defined for the scroll bar, from :meth:`PySide.QtGui.QAbstractSlider.minimum` to :meth:`maximum()<PySide.QtGui.QAbstractSlider.minimum>` inclusive. The range of acceptable values can be set with :meth:`PySide.QtGui.QAbstractSlider.setMinimum` and :meth:`PySide.QtGui.QAbstractSlider.setMaximum` . At the minimum value, the top edge of the slider (for a vertical scroll bar) or left edge (for a horizontal scroll bar) will be at the top (or left) end of the scroll bar. At the maximum value, the bottom (or right) edge of the slider will be at the bottom (or right) end of the scroll bar.
+
+    The length of the slider is usually related to the value of the page step, and typically represents the proportion of the document area shown in a scrolling view. The page step is the amount that the value changes by when the user presses the **Page Up** and **Page Down** keys, and is set with :meth:`PySide.QtGui.QAbstractSlider.setPageStep` . Smaller changes to the value defined by the line step are made using the cursor keys, and this quantity is set with :meth:`PySide.QtGui.QAbstractSlider.setSingleStep` .
+
+    Note that the range of values used is independent of the actual size of the scroll bar widget. You do not need to take this into account when you choose values for the range and the page step.
+
+    The range of values specified for the scroll bar are often determined differently to those for a :class:`PySide.QtGui.QSlider` because the length of the slider needs to be taken into account. If we have a document with 100 lines, and we can only show 20 lines in a widget, we may wish to construct a scroll bar with a page step of 20, a minimum value of 0, and a maximum value of 80. This would give us a scroll bar with five "pages".
+
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qscrollbar-values.png|The relationship between a document length, the range of values used in a scroll bar, and the page step is simple in many common situations. The scroll bar's range of values is determined by subtracting a chosen page step from some value representing the length of the document. In such cases, the following equation is useful: *document length* = :meth:`PySide.QtGui.QAbstractSlider.maximum` - :meth:`PySide.QtGui.QAbstractSlider.minimum` + :meth:`PySide.QtGui.QAbstractSlider.pageStep` .|
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    :class:`PySide.QtGui.QScrollBar` only provides integer ranges. Note that although :class:`PySide.QtGui.QScrollBar` handles very large numbers, scroll bars on current screens cannot usefully represent ranges above about 100,000 pixels. Beyond that, it becomes difficult for the user to control the slider using either the keyboard or the mouse, and the scroll arrows will have limited use.
+
+    ScrollBar inherits a comprehensive set of signals from :class:`PySide.QtGui.QAbstractSlider` :
+
+
+    * :meth:`PySide.QtGui.QAbstractSlider.valueChanged` is emitted when the scroll bar's value has changed. The :meth:`~PySide.QtGui.QScrollBar.tracking` determines whether this signal is emitted during user interaction.
+    * :meth:`PySide.QtGui.QAbstractSlider.rangeChanged` is emitted when the scroll bar's range of values has changed.
+    * :meth:`PySide.QtGui.QAbstractSlider.sliderPressed` is emitted when the user starts to drag the slider.
+    * :meth:`PySide.QtGui.QAbstractSlider.sliderMoved` is emitted when the user drags the slider.
+    * :meth:`PySide.QtGui.QAbstractSlider.sliderReleased` is emitted when the user releases the slider.
+    * :meth:`PySide.QtGui.QAbstractSlider.actionTriggered` is emitted when the scroll bar is changed by user interaction or via the :meth:`PySide.QtGui.QAbstractSlider.triggerAction` function.
+
+    A scroll bar can be controlled by the keyboard, but it has a default :meth:`PySide.QtGui.QWidget.focusPolicy` of :attr:`Qt.NoFocus<Qt.FocusPolicy>` . Use :meth:`PySide.QtGui.QWidget.setFocusPolicy` to enable keyboard interaction with the scroll bar:
+
+
+    * Left/Right move a horizontal scroll bar by one single step.
+    * Up/Down move a vertical scroll bar by one single step.
+    * PageUp moves up one page.
+    * PageDown moves down one page.
+    * Home moves to the start (mininum).
+    * End moves to the end (maximum).
+
+    The slider itself can be controlled by using the :meth:`PySide.QtGui.QAbstractSlider.triggerAction` function to simulate user interaction with the scroll bar controls. This is useful if you have many different widgets that use a common range of values.
+
+    Most GUI styles use the :meth:`PySide.QtGui.QAbstractSlider.pageStep` value to calculate the size of the slider.
+
+    +----------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-horizontalscrollbar.png|A scroll bar shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` . |
+    +----------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-horizontalscrollbar.png|A scroll bar shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .|
+    +----------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-horizontalscrollbar.png|A scroll bar shown in the :ref:`Plastique widget style<gallery-plastique.html>` . |
+    +----------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QScrollArea`  :class:`PySide.QtGui.QSlider`  :class:`PySide.QtGui.QDial`  :class:`PySide.QtGui.QSpinBox`  :ref:`GUI Design Handbook: Scroll Bar<guibooks.html>`  :ref:`Sliders Example<widgets/sliders>` 
+
+.. class:: QScrollBar([parent=None])
+           QScrollBar(arg__1[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param arg__1: :attr:`PySide.QtCore.Qt.Orientation`
+
+    Constructs a vertical scroll bar.
+
+    The ``parent`` argument is sent to the :class:`PySide.QtGui.QWidget` constructor.
+
+    The :meth:`PySide.QtGui.QAbstractSlider.minimum` defaults to 0, the :meth:`PySide.QtGui.QAbstractSlider.maximum` to 99, with a :meth:`PySide.QtGui.QAbstractSlider.singleStep` size of 1 and a :meth:`PySide.QtGui.QAbstractSlider.pageStep` size of 10, and an initial :meth:`PySide.QtGui.QAbstractSlider.value` of 0.
+
+
+
+
+.. method:: PySide.QtGui.QScrollBar.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionSlider`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QScrollBar` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionSlider` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+

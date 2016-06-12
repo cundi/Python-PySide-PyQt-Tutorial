@@ -1,0 +1,178 @@
+.. module:: PySide.QtCore
+.. _QFSFileEngine:
+
+QFSFileEngine
+*************
+
+.. inheritance-diagram:: QFSFileEngine
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`endEntryList<PySide.QtCore.QFSFileEngine.endEntryList>` ()
+*    def :meth:`open<PySide.QtCore.QFSFileEngine.open>` (flags, fd)
+*    def :meth:`open<PySide.QtCore.QFSFileEngine.open>` (flags, fd, handleFlags)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentPath<PySide.QtCore.QFSFileEngine.currentPath>` ([path=""])
+*    def :meth:`drives<PySide.QtCore.QFSFileEngine.drives>` ()
+*    def :meth:`homePath<PySide.QtCore.QFSFileEngine.homePath>` ()
+*    def :meth:`rootPath<PySide.QtCore.QFSFileEngine.rootPath>` ()
+*    def :meth:`setCurrentPath<PySide.QtCore.QFSFileEngine.setCurrentPath>` (path)
+*    def :meth:`tempPath<PySide.QtCore.QFSFileEngine.tempPath>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QFSFileEngine` class implements Qt's default file engine.
+
+    This class is part of the file engine framework in Qt. If you only want to access files or directories, use :class:`PySide.QtCore.QFile` , :class:`PySide.QtCore.QFileInfo` or :class:`PySide.QtCore.QDir` instead.
+
+    :class:`PySide.QtCore.QFSFileEngine` is the default file engine for accessing regular files. It is provided for convenience; by subclassing this class, you can alter its behavior slightly, without having to write a complete :class:`PySide.QtCore.QAbstractFileEngine` subclass. To install your custom file engine, you must also subclass :class:`PySide.QtCore.QAbstractFileEngineHandler` and create an instance of your handler.
+
+    It can also be useful to create a :class:`PySide.QtCore.QFSFileEngine` object directly if you need to use the local file system inside :meth:`QAbstractFileEngine.create()<PySide.QtCore.QAbstractFileEngine.create>` , in order to avoid recursion (as higher-level classes tend to call :meth:`QAbstractFileEngine.create()<PySide.QtCore.QAbstractFileEngine.create>` ).
+
+
+.. class:: QFSFileEngine()
+           QFSFileEngine(file)
+
+    :param file: unicode
+
+    Constructs a :class:`PySide.QtCore.QFSFileEngine` .
+
+
+    Constructs a :class:`PySide.QtCore.QFSFileEngine` for the file name ``file`` .
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.currentPath([path=""])
+
+
+    :param path: unicode
+    :rtype: unicode
+
+
+
+
+    For Unix, returns the current working directory for the file engine.
+
+    For Windows, returns the canonicalized form of the current path used by the file engine for the drive specified by ``fileName`` . On Windows, each drive has its own current directory, so a different path is returned for file names that include different drive names (e.g. A: or C:).
+
+    .. seealso::  :meth:`PySide.QtCore.QFSFileEngine.setCurrentPath` 
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.drives()
+
+
+    :rtype: 
+
+
+
+
+    For Windows, returns the list of drives in the file system as a list of :class:`PySide.QtCore.QFileInfo` objects. On unix, Mac OS X and Windows CE, only the root path is returned. On Windows, this function returns all drives (A:, C:, D:, etc.).
+
+    For Unix, the list contains just the root path "/".
+
+
+
+.. method:: PySide.QtCore.QFSFileEngine.endEntryList()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractFileEngineIterator`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.homePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the home path of the current user.
+
+    .. seealso::  :meth:`PySide.QtCore.QFSFileEngine.rootPath` 
+
+
+.. method:: PySide.QtCore.QFSFileEngine.open(flags, fd)
+
+
+    :param flags: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :param fd: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFSFileEngine.open(flags, fd, handleFlags)
+
+
+    :param flags: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :param fd: :class:`PySide.QtCore.int`
+    :param handleFlags: :class:`PySide.QtCore.QFile.FileHandleFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.rootPath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the root path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFSFileEngine.homePath` 
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.setCurrentPath(path)
+
+
+    :param path: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the current path (e.g., for :class:`PySide.QtCore.QDir` ), to ``path`` . Returns true if the new path exists; otherwise this function does nothing, and returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFSFileEngine.currentPath` 
+
+
+.. staticmethod:: PySide.QtCore.QFSFileEngine.tempPath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the temporary path (i.e., a path in which it is safe to store temporary files).
+
+
+
+

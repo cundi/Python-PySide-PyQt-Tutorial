@@ -1,0 +1,564 @@
+.. module:: PySide.QtGui
+.. _QPen:
+
+QPen
+****
+
+.. inheritance-diagram:: QPen
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QPen.__eq__>` (p)
+*    def :meth:`__ne__<PySide.QtGui.QPen.__ne__>` (p)
+*    def :meth:`brush<PySide.QtGui.QPen.brush>` ()
+*    def :meth:`capStyle<PySide.QtGui.QPen.capStyle>` ()
+*    def :meth:`color<PySide.QtGui.QPen.color>` ()
+*    def :meth:`dashOffset<PySide.QtGui.QPen.dashOffset>` ()
+*    def :meth:`dashPattern<PySide.QtGui.QPen.dashPattern>` ()
+*    def :meth:`isCosmetic<PySide.QtGui.QPen.isCosmetic>` ()
+*    def :meth:`isSolid<PySide.QtGui.QPen.isSolid>` ()
+*    def :meth:`joinStyle<PySide.QtGui.QPen.joinStyle>` ()
+*    def :meth:`miterLimit<PySide.QtGui.QPen.miterLimit>` ()
+*    def :meth:`setBrush<PySide.QtGui.QPen.setBrush>` (brush)
+*    def :meth:`setCapStyle<PySide.QtGui.QPen.setCapStyle>` (pcs)
+*    def :meth:`setColor<PySide.QtGui.QPen.setColor>` (color)
+*    def :meth:`setCosmetic<PySide.QtGui.QPen.setCosmetic>` (cosmetic)
+*    def :meth:`setDashOffset<PySide.QtGui.QPen.setDashOffset>` (doffset)
+*    def :meth:`setDashPattern<PySide.QtGui.QPen.setDashPattern>` (pattern)
+*    def :meth:`setJoinStyle<PySide.QtGui.QPen.setJoinStyle>` (pcs)
+*    def :meth:`setMiterLimit<PySide.QtGui.QPen.setMiterLimit>` (limit)
+*    def :meth:`setStyle<PySide.QtGui.QPen.setStyle>` (arg__1)
+*    def :meth:`setWidth<PySide.QtGui.QPen.setWidth>` (width)
+*    def :meth:`setWidthF<PySide.QtGui.QPen.setWidthF>` (width)
+*    def :meth:`style<PySide.QtGui.QPen.style>` ()
+*    def :meth:`swap<PySide.QtGui.QPen.swap>` (other)
+*    def :meth:`width<PySide.QtGui.QPen.width>` ()
+*    def :meth:`widthF<PySide.QtGui.QPen.widthF>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPen` class defines how a :class:`PySide.QtGui.QPainter` should draw lines and outlines of shapes.
+
+    A pen has a :meth:`PySide.QtGui.QPen.style` , :meth:`PySide.QtGui.QPen.width` , :meth:`PySide.QtGui.QPen.brush` , :meth:`PySide.QtGui.QPen.capStyle` and :meth:`PySide.QtGui.QPen.joinStyle` .
+
+    The pen style defines the line type. The brush is used to fill strokes generated with the pen. Use the :class:`PySide.QtGui.QBrush` class to specify fill styles. The cap style determines the line end caps that can be drawn using :class:`PySide.QtGui.QPainter` , while the join style describes how joins between two lines are drawn. The pen width can be specified in both integer ( :meth:`PySide.QtGui.QPen.width` ) and floating point ( :meth:`PySide.QtGui.QPen.widthF` ) precision. A line width of zero indicates a cosmetic pen. This means that the pen width is always drawn one pixel wide, independent of the :class:`transformation<~PySide.QtGui.QPainter#Coordinate Transformations>` set on the painter.
+
+    The various settings can easily be modified using the corresponding :meth:`PySide.QtGui.QPen.setStyle` , :meth:`PySide.QtGui.QPen.setWidth` , :meth:`PySide.QtGui.QPen.setBrush` , :meth:`PySide.QtGui.QPen.setCapStyle` and :meth:`PySide.QtGui.QPen.setJoinStyle` functions (note that the painter's pen must be reset when altering the pen's properties).
+
+    For example:
+
+    ::
+
+        painter = QPainter(self)
+        pen = QPen(Qt.green, 3, Qt.DashDotLine, Qt.RoundCap, Qt.RoundJoin)
+        painter.setPen(pen)
+
+
+    which is equivalent to
+
+    ::
+
+        painter = QPainter(self)
+        pen = QPen()  # creates a default pen
+
+        pen.setStyle(Qt.DashDotLine)
+        pen.setWidth(3)
+        pen.setBrush(Qt.green)
+        pen.setCapStyle(Qt.RoundCap)
+        pen.setJoinStyle(Qt.RoundJoin)
+
+        painter.setPen(pen)
+
+
+    The default pen is a solid black brush with 0 width, square cap style ( :attr:`Qt.SquareCap<Qt.PenCapStyle>` ), and bevel join style ( :attr:`Qt.BevelJoin<Qt.PenJoinStyle>` ).
+
+    In addition :class:`PySide.QtGui.QPen` provides the :meth:`PySide.QtGui.QPen.color` and :meth:`PySide.QtGui.QPen.setColor` convenience functions to extract and set the color of the pen's brush, respectively. Pens may also be compared and streamed.
+
+    For more information about painting in general, see the :ref:`Paint System<paintsystem.html>` documentation.
+
+    .. _PySide.QtGui.QPen_pen-style:
+
+
+
+Pen Style
+^^^^^^^^^
+
+    Qt provides several built-in styles represented by the :attr:`Qt.PenStyle` enum:
+
+    +-----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-solid.png  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-dash.png      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-dot.png   |
+    +-----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.SolidLine<Qt.PenStyle>`                                                              |:attr:`Qt.DashLine<Qt.PenStyle>`                                                                  |:attr:`Qt.DotLine<Qt.PenStyle>`                                                               |
+    +-----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-dashdot.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-dashdotdot.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-custom.png|
+    +-----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.DashDotLine<Qt.PenStyle>`                                                            |:attr:`Qt.DashDotDotLine<Qt.PenStyle>`                                                            |:attr:`Qt.CustomDashLine<Qt.PenStyle>`                                                        |
+    +-----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+
+    Simply use the :meth:`PySide.QtGui.QPen.setStyle` function to convert the pen style to either of the built-in styles, except the :attr:`Qt.CustomDashLine<Qt.PenStyle>` style which we will come back to shortly. Setting the style to :attr:`Qt.NoPen<Qt.PenStyle>` tells the painter to not draw lines or outlines. The default pen style is :attr:`Qt.SolidLine<Qt.PenStyle>` .
+
+    Since Qt 4.1 it is also possible to specify a custom dash pattern using the :meth:`PySide.QtGui.QPen.setDashPattern` function which implicitly converts the style of the pen to :attr:`Qt.CustomDashLine<Qt.PenStyle>` . The pattern argument, a :class:`QVector` , must be specified as an even number of :class:`PySide.QtCore.qreal` entries where the entries 1, 3, 5... are the dashes and 2, 4, 6... are the spaces. For example, the custom pattern shown above is created using the following code:
+
+    ::
+
+        pen = QPen()
+        space = 4;
+        dashes = [1, space, 3, space, 9, space, 27, space, 9, space]
+        pen.setDashPattern(dashes)
+
+
+    Note that the dash pattern is specified in units of the pens width, e.g. a dash of length 5 in width 10 is 50 pixels long.
+
+    The currently set dash pattern can be retrieved using the :meth:`PySide.QtGui.QPen.dashPattern` function. Use the :meth:`PySide.QtGui.QPen.isSolid` function to determine whether the pen has a solid fill, or not.
+
+    .. _PySide.QtGui.QPen_cap-style:
+
+
+
+Cap Style
+^^^^^^^^^
+
+    The cap style defines how the end points of lines are drawn using :class:`PySide.QtGui.QPainter` . The cap style only apply to wide lines, i.e. when the width is 1 or greater. The :attr:`Qt.PenCapStyle` enum provides the following styles:
+
+    +----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-square.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-flat.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-roundcap.png|
+    +----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.SquareCap<Qt.PenCapStyle>`                                                          |:attr:`Qt.FlatCap<Qt.PenCapStyle>`                                                          |:attr:`Qt.RoundCap<Qt.PenCapStyle>`                                                             |
+    +----------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+
+    The :attr:`Qt.SquareCap<Qt.PenCapStyle>` style is a square line end that covers the end point and extends beyond it by half the line width. The :attr:`Qt.FlatCap<Qt.PenCapStyle>` style is a square line end that does not cover the end point of the line. And the :attr:`Qt.RoundCap<Qt.PenCapStyle>` style is a rounded line end covering the end point.
+
+    The default is :attr:`Qt.SquareCap<Qt.PenCapStyle>` .
+
+    Whether or not end points are drawn when the pen width is 0 or 1 depends on the cap style. Using :attr:`Qt.SquareCap<Qt.PenCapStyle>` or :attr:`Qt.RoundCap<Qt.PenCapStyle>` they are drawn, using :attr:`Qt.FlatCap<Qt.PenCapStyle>` they are not drawn.
+
+    .. _PySide.QtGui.QPen_join-style:
+
+
+
+Join Style
+^^^^^^^^^^
+
+    The join style defines how joins between two connected lines can be drawn using :class:`PySide.QtGui.QPainter` . The join style only apply to wide lines, i.e. when the width is 1 or greater. The :attr:`Qt.PenJoinStyle` enum provides the following styles:
+
+    +---------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-bevel.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-miter.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-roundjoin.png|
+    +---------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.BevelJoin<Qt.PenJoinStyle>`                                                        |:attr:`Qt.MiterJoin<Qt.PenJoinStyle>`                                                        |:attr:`Qt.RoundJoin<Qt.PenJoinStyle>`                                                            |
+    +---------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+    The :attr:`Qt.BevelJoin<Qt.PenJoinStyle>` style fills the triangular notch between the two lines. The :attr:`Qt.MiterJoin<Qt.PenJoinStyle>` style extends the lines to meet at an angle. And the :attr:`Qt.RoundJoin<Qt.PenJoinStyle>` style fills a circular arc between the two lines.
+
+    The default is :attr:`Qt.BevelJoin<Qt.PenJoinStyle>` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-miterlimit.png
+
+    When the :attr:`Qt.MiterJoin<Qt.PenJoinStyle>` style is applied, it is possible to use the :meth:`PySide.QtGui.QPen.setMiterLimit` function to specify how far the miter join can extend from the join point. The :meth:`PySide.QtGui.QPen.miterLimit` is used to reduce artifacts between line joins where the lines are close to parallel.
+
+    The :meth:`PySide.QtGui.QPen.miterLimit` must be specified in units of the pens width, e.g. a miter limit of 5 in width 10 is 50 pixels long. The default miter limit is 2, i.e. twice the pen width in pixels.
+
+    +--------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-demo.png|** :ref:`The Path Stroking Demo<demos/pathstroke>` ****\                                                                                         |
+    |                                                                                            |                                                                                                                                                 |
+    |                                                                                            |    The Path Stroking demo shows Qt's built-in dash patterns and shows how custom patterns can be used to extend the range of available patterns.|
+    +--------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QPainter`  :class:`PySide.QtGui.QBrush`  :ref:`Path Stroking Demo<demos/pathstroke>`  :ref:`Scribble Example<widgets/scribble>` 
+
+.. class:: QPen()
+           QPen(arg__1)
+           QPen(brush, width[, s=Qt.SolidLine[, c=Qt.SquareCap[, j=Qt.BevelJoin]]])
+           QPen(color)
+           QPen(pen)
+
+    :param width: :class:`PySide.QtCore.qreal`
+    :param pen: :class:`PySide.QtGui.QPen`
+    :param j: :attr:`PySide.QtCore.Qt.PenJoinStyle`
+    :param brush: :class:`PySide.QtGui.QBrush`
+    :param s: :attr:`PySide.QtCore.Qt.PenStyle`
+    :param arg__1: :attr:`PySide.QtCore.Qt.PenStyle`
+    :param c: :attr:`PySide.QtCore.Qt.PenCapStyle`
+    :param color: :class:`PySide.QtGui.QColor`
+
+    Constructs a default black solid line pen with 0 width.
+
+
+
+
+
+
+    Constructs a solid line pen with 0 width and the given ``color`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setBrush`  :meth:`PySide.QtGui.QPen.setColor` 
+
+    Constructs a pen that is a copy of the given ``pen`` .
+
+
+.. method:: PySide.QtGui.QPen.brush()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to fill strokes generated with this pen.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setBrush` 
+
+
+.. method:: PySide.QtGui.QPen.capStyle()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.PenCapStyle`
+
+
+
+
+    Returns the pen's cap style.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setCapStyle`  :class:`Cap Style<~PySide.QtGui.QPen#Cap Style>` 
+
+
+.. method:: PySide.QtGui.QPen.color()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the color of this pen's brush.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.brush`  :meth:`PySide.QtGui.QPen.setColor` 
+
+
+.. method:: PySide.QtGui.QPen.dashOffset()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the dash offset for the pen.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setDashOffset` 
+
+
+.. method:: PySide.QtGui.QPen.dashPattern()
+
+
+    :rtype: 
+
+
+
+
+    Returns the dash pattern of this pen.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setDashPattern`  :meth:`PySide.QtGui.QPen.style`  :meth:`PySide.QtGui.QPen.isSolid` 
+
+
+.. method:: PySide.QtGui.QPen.isCosmetic()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the pen is cosmetic; otherwise returns false.
+
+    Cosmetic pens are used to draw strokes that have a constant width regardless of any transformations applied to the :class:`PySide.QtGui.QPainter` they are used with. Drawing a shape with a cosmetic pen ensures that its outline will have the same thickness at different scale factors.
+
+    A zero width pen is cosmetic by default; pens with a non-zero width are non-cosmetic.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setCosmetic`  :meth:`PySide.QtGui.QPen.widthF` 
+
+
+.. method:: PySide.QtGui.QPen.isSolid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the pen has a solid fill, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.style`  :meth:`PySide.QtGui.QPen.dashPattern` 
+
+
+.. method:: PySide.QtGui.QPen.joinStyle()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.PenJoinStyle`
+
+
+
+
+    Returns the pen's join style.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setJoinStyle`  :class:`Join Style<~PySide.QtGui.QPen#Join Style>` 
+
+
+.. method:: PySide.QtGui.QPen.miterLimit()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the miter limit of the pen. The miter limit is only relevant when the join style is set to :attr:`Qt.MiterJoin<Qt.PenJoinStyle>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setMiterLimit`  :class:`Join Style<~PySide.QtGui.QPen#Join Style>` 
+
+
+.. method:: PySide.QtGui.QPen.__ne__(p)
+
+
+    :param p: :class:`PySide.QtGui.QPen`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the pen is different from the given ``pen`` ; otherwise false. Two pens are different if they have different styles, widths or colors.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.operator==` 
+
+
+.. method:: PySide.QtGui.QPen.__eq__(p)
+
+
+    :param p: :class:`PySide.QtGui.QPen`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the pen is equal to the given ``pen`` ; otherwise false. Two pens are equal if they have equal styles, widths and colors.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.operator!=` 
+
+
+.. method:: PySide.QtGui.QPen.setBrush(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the brush used to fill strokes generated with this pen to the given ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.brush`  :meth:`PySide.QtGui.QPen.setColor` 
+
+
+.. method:: PySide.QtGui.QPen.setCapStyle(pcs)
+
+
+    :param pcs: :attr:`PySide.QtCore.Qt.PenCapStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPen.setColor(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Sets the color of this pen's brush to the given ``color`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setBrush`  :meth:`PySide.QtGui.QPen.color` 
+
+
+.. method:: PySide.QtGui.QPen.setCosmetic(cosmetic)
+
+
+    :param cosmetic: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this pen to cosmetic or non-cosmetic, depending on the value of ``cosmetic`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.isCosmetic` 
+
+
+.. method:: PySide.QtGui.QPen.setDashOffset(doffset)
+
+
+    :param doffset: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the dash offset (the starting point on the dash pattern) for this pen to the ``offset`` specified. The offset is measured in terms of the units used to specify the dash pattern.
+
+    +---------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-dashpattern.png|For example, a pattern where each stroke is four units long, followed by a gap of two units, will begin with the stroke when drawn as a line.                                                                                                                         |
+    |                                                                                                   |                                                                                                                                                                                                                                                                      |
+    |                                                                                                   |    However, if the dash offset is set to 4.0, any line drawn will begin with the gap. Values of the offset up to 4.0 will cause part of the stroke to be drawn first, and values of the offset between 4.0 and 6.0 will cause the line to begin with part of the gap.|
+    +---------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. note::  This implicitly converts the style of the pen to :attr:`Qt.CustomDashLine<Qt.PenStyle>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.dashOffset` 
+
+
+.. method:: PySide.QtGui.QPen.setDashPattern(pattern)
+
+
+    :param pattern: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPen.setJoinStyle(pcs)
+
+
+    :param pcs: :attr:`PySide.QtCore.Qt.PenJoinStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPen.setMiterLimit(limit)
+
+
+    :param limit: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the miter limit of this pen to the given ``limit`` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qpen-miterlimit.png
+
+    The miter limit describes how far a miter join can extend from the join point. This is used to reduce artifacts between line joins where the lines are close to parallel.
+
+    This value does only have effect when the pen style is set to :attr:`Qt.MiterJoin<Qt.PenJoinStyle>` . The value is specified in units of the pen's width, e.g. a miter limit of 5 in width 10 is 50 pixels long. The default miter limit is 2, i.e. twice the pen width in pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.miterLimit`  :meth:`PySide.QtGui.QPen.setJoinStyle`  :class:`Join Style<~PySide.QtGui.QPen#Join Style>` 
+
+
+.. method:: PySide.QtGui.QPen.setStyle(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.PenStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPen.setWidth(width)
+
+
+    :param width: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the pen width to the given ``width`` in pixels with integer precision.
+
+    A line width of zero indicates a cosmetic pen. This means that the pen width is always drawn one pixel wide, independent of the :class:`transformation<~PySide.QtGui.QPainter#Coordinate Transformations>` set on the painter.
+
+    Setting a pen width with a negative value is not supported.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setWidthF`  :meth:`PySide.QtGui.QPen.width` 
+
+
+.. method:: PySide.QtGui.QPen.setWidthF(width)
+
+
+    :param width: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the pen width to the given ``width`` in pixels with floating point precision.
+
+    A line width of zero indicates a cosmetic pen. This means that the pen width is always drawn one pixel wide, independent of the :class:`transformation<~PySide.QtGui.QPainter#Coordinate Transformations>` on the painter.
+
+    Setting a pen width with a negative value is not supported.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setWidth`  :meth:`PySide.QtGui.QPen.widthF` 
+
+
+.. method:: PySide.QtGui.QPen.style()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.PenStyle`
+
+
+
+
+    Returns the pen style.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setStyle`  :class:`Pen Style<~PySide.QtGui.QPen#Pen Style>` 
+
+
+.. method:: PySide.QtGui.QPen.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QPen`
+
+
+
+
+    Swaps pen ``other`` with this pen. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtGui.QPen.width()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the pen width with integer precision.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setWidth`  :meth:`PySide.QtGui.QPen.widthF` 
+
+
+.. method:: PySide.QtGui.QPen.widthF()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the pen width with floating point precision.
+
+    .. seealso::  :meth:`PySide.QtGui.QPen.setWidthF`  :meth:`PySide.QtGui.QPen.width` 
+
+
+

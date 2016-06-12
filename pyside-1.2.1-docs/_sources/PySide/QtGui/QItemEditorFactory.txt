@@ -1,0 +1,151 @@
+.. module:: PySide.QtGui
+.. _QItemEditorFactory:
+
+QItemEditorFactory
+******************
+
+.. inheritance-diagram:: QItemEditorFactory
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`registerEditor<PySide.QtGui.QItemEditorFactory.registerEditor>` (type, creator)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createEditor<PySide.QtGui.QItemEditorFactory.createEditor>` (type, parent)
+*    def :meth:`valuePropertyName<PySide.QtGui.QItemEditorFactory.valuePropertyName>` (type)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultFactory<PySide.QtGui.QItemEditorFactory.defaultFactory>` ()
+*    def :meth:`setDefaultFactory<PySide.QtGui.QItemEditorFactory.setDefaultFactory>` (factory)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QItemEditorFactory` class provides widgets for editing item data in views and delegates.
+
+    When editing data in an item view, editors are created and displayed by a delegate. :class:`PySide.QtGui.QItemDelegate` , which is the delegate by default installed on Qt's item views, uses a :class:`PySide.QtGui.QItemEditorFactory` to create editors for it. A default unique instance provided by :class:`PySide.QtGui.QItemEditorFactory` is used by all item delegates. If you set a new default factory with :meth:`PySide.QtGui.QItemEditorFactory.setDefaultFactory` , the new factory will be used by existing and new delegates.
+
+    A factory keeps a collection of :class:`PySide.QtGui.QItemEditorCreatorBase` instances, which are specialized editors that produce editors for one particular :class:`PySide.QtCore.QVariant` data type (All Qt models store their data in :class:`PySide.QtCore.QVariant` s).
+
+    .. _PySide.QtGui.QItemEditorFactory_standard-editing-widgets:
+
+
+
+Standard Editing Widgets
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The standard factory implementation provides editors for a variety of data types. These are created whenever a delegate needs to provide an editor for data supplied by a model. The following table shows the relationship between types and the standard editors provided.
+
+    +--------------------------------+------------------------------------+
+    |Type                            |Editor Widget                       |
+    +--------------------------------+------------------------------------+
+    |bool                            |:class:`PySide.QtGui.QComboBox`     |
+    +--------------------------------+------------------------------------+
+    |double                          |:class:`PySide.QtGui.QDoubleSpinBox`|
+    +--------------------------------+------------------------------------+
+    |int                             |:class:`PySide.QtGui.QSpinBox`      |
+    +--------------------------------+                                    +
+    |unsigned int                    |                                    |
+    +--------------------------------+------------------------------------+
+    |:class:`PySide.QtCore.QDate`    |:class:`PySide.QtGui.QDateEdit`     |
+    +--------------------------------+------------------------------------+
+    |:class:`PySide.QtCore.QDateTime`|:class:`PySide.QtGui.QDateTimeEdit` |
+    +--------------------------------+------------------------------------+
+    |:class:`PySide.QtGui.QPixmap`   |:class:`PySide.QtGui.QLabel`        |
+    +--------------------------------+------------------------------------+
+    |:class:`PySide.QtCore.QString`  |:class:`PySide.QtGui.QLineEdit`     |
+    +--------------------------------+------------------------------------+
+    |:class:`PySide.QtCore.QTime`    |:class:`PySide.QtGui.QTimeEdit`     |
+    +--------------------------------+------------------------------------+
+
+    Additional editors can be registered with the :meth:`PySide.QtGui.QItemEditorFactory.registerEditor` function.
+
+    .. seealso::  :class:`PySide.QtGui.QItemDelegate`  :ref:`Model/View Programming<model-view-programming.html>`  :ref:`Color Editor Factory Example<itemviews/coloreditorfactory>` 
+
+.. class:: QItemEditorFactory()
+
+
+    Constructs a new item editor factory.
+
+
+.. method:: PySide.QtGui.QItemEditorFactory.createEditor(type, parent)
+
+
+    :param type: :class:`PySide.QtCore.QVariant::Type`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QItemEditorFactory.defaultFactory()
+
+
+    :rtype: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Returns the default item editor factory.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemEditorFactory.setDefaultFactory` 
+
+
+.. method:: PySide.QtGui.QItemEditorFactory.registerEditor(type, creator)
+
+
+    :param type: :class:`PySide.QtCore.QVariant::Type`
+    :param creator: :class:`PySide.QtGui.QItemEditorCreatorBase`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QItemEditorFactory.setDefaultFactory(factory)
+
+
+    :param factory: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Sets the default item editor factory to the given ``factory`` . Both new and existing delegates will use the new factory.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemEditorFactory.defaultFactory` 
+
+
+.. method:: PySide.QtGui.QItemEditorFactory.valuePropertyName(type)
+
+
+    :param type: :class:`PySide.QtCore.QVariant::Type`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+
+
+
+

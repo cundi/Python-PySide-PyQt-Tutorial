@@ -1,0 +1,110 @@
+.. module:: PySide.QtXml
+.. _QXmlSimpleReader:
+
+QXmlSimpleReader
+****************
+
+.. inheritance-diagram:: QXmlSimpleReader
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlSimpleReader` class provides an implementation of a simple XML parser.
+
+    This XML reader is suitable for a wide range of applications. It is able to parse well-formed XML and can report the namespaces of elements to a content handler; however, it does not parse any external entities. For historical reasons, Attribute Value Normalization and End-of-Line Handling as described in the XML 1.0 specification is not performed.
+
+    The easiest pattern of use for this class is to create a reader instance, define an input source, specify the handlers to be used by the reader, and parse the data.
+
+    For example, we could use a :class:`PySide.QtCore.QFile` to supply the input. Here, we create a reader, and define an input source to be used by the reader:
+
+    ::
+
+            xmlReader = QXmlSimpleReader()
+            source = QXmlInputSource(filename)
+
+
+    A handler lets us perform actions when the reader encounters certain types of content, or if errors in the input are found. The reader must be told which handler to use for each type of event. For many common applications, we can create a custom handler by subclassing :class:`PySide.QtXml.QXmlDefaultHandler` , and use this to handle both error and content events:
+
+    ::
+
+            handler = Handler()
+            xmlReader.setContentHandler(handler)
+            xmlReader.setErrorHandler(handler)
+
+
+    If you don't set at least the content and error handlers, the parser will fall back on its default behavior---and will do nothing.
+
+    The most convenient way to handle the input is to read it in a single pass using the :meth:`PySide.QtXml.QXmlSimpleReader.parse` function with an argument that specifies the input source:
+
+    ::
+
+            ok = xmlReader.parse(source)
+
+            if not ok:
+                print "Parsing failed."
+
+
+    If you can't parse the entire input in one go (for example, it is huge, or is being delivered over a network connection), data can be fed to the parser in pieces. This is achieved by telling :meth:`PySide.QtXml.QXmlSimpleReader.parse` to work incrementally, and making subsequent calls to the :meth:`PySide.QtXml.QXmlSimpleReader.parseContinue` function, until all the data has been processed.
+
+    A common way to perform incremental parsing is to connect the ``readyRead()`` signal of a :class:`network reply<PySide.QtNetwork.QNetworkReply>` a slot, and handle the incoming data there. See :class:`PySide.QtNetwork.QNetworkAccessManager` .
+
+    Aspects of the parsing behavior can be adapted using :meth:`PySide.QtXml.QXmlSimpleReader.setFeature` and :meth:`PySide.QtXml.QXmlSimpleReader.setProperty` .
+
+    ::
+
+        xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", True)
+
+
+    :class:`PySide.QtXml.QXmlSimpleReader` is not reentrant. If you want to use the class in threaded code, lock the code using :class:`PySide.QtXml.QXmlSimpleReader` with a locking mechanism, such as a :class:`PySide.QtCore.QMutex` .
+
+
+.. class:: QXmlSimpleReader()
+
+
+    Constructs a simple XML reader.
+
+
+.. method:: PySide.QtXml.QXmlSimpleReader.parse(input, incremental)
+
+
+    :param input: :class:`PySide.QtXml.QXmlInputSource`
+    :param incremental: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reads an XML document from ``input`` and parses it. Returns true if the parsing is completed successfully; otherwise returns false, indicating that an error occurred.
+
+    If ``incremental`` is false, this function will return false if the XML file is not read completely. The parsing cannot be continued in this case.
+
+    If ``incremental`` is true, the parser does not return false if it reaches the end of the ``input`` before reaching the end of the XML file. Instead, it stores the state of the parser so that parsing can be continued later when more data is available. In such a case, you can use the function :meth:`PySide.QtXml.QXmlSimpleReader.parseContinue` to continue with parsing. This class stores a pointer to the input source ``input`` and the :meth:`PySide.QtXml.QXmlSimpleReader.parseContinue` function tries to read from that input source. Therefore, you should not delete the input source ``input`` until you no longer need to call :meth:`PySide.QtXml.QXmlSimpleReader.parseContinue` .
+
+    If this function is called with ``incremental`` set to true while an incremental parse is in progress, a new parsing session will be started, and the previous session will be lost.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlSimpleReader.parseContinue`  :class:`PySide.QtNetwork.QTcpSocket` 
+
+
+.. method:: PySide.QtXml.QXmlSimpleReader.parseContinue()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Continues incremental parsing, taking input from the :class:`PySide.QtXml.QXmlInputSource` that was specified with the most recent call to :meth:`PySide.QtXml.QXmlSimpleReader.parse` . To use this function, you *must* have called :meth:`PySide.QtXml.QXmlSimpleReader.parse` with the incremental argument set to true.
+
+    Returns false if a parsing error occurs; otherwise returns true, even if the end of the XML file has not been reached. You can continue parsing at a later stage by calling this function again when there is more data available to parse.
+
+    Calling this function when there is no data available in the input source indicates to the reader that the end of the XML file has been reached. If the input supplied up to this point was not well-formed then a parsing error occurs, and false is returned. If the input supplied was well-formed, true is returned. It is important to end the input in this way because it allows you to reuse the reader to parse other XML files.
+
+    Calling this function after the end of file has been reached, but without available data will cause false to be returned whether the previous input was well-formed or not.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlSimpleReader.parse`  :meth:`QXmlInputSource.data()<PySide.QtXml.QXmlInputSource.data>`  :meth:`QXmlInputSource.next()<PySide.QtXml.QXmlInputSource.next>` 
+
+
+

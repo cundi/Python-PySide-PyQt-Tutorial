@@ -1,0 +1,282 @@
+.. module:: PySide.phonon
+.. _Phonon.SeekSlider:
+
+Phonon.SeekSlider
+*****************
+
+.. inheritance-diagram:: Phonon.SeekSlider
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hasTracking<PySide.phonon.Phonon.SeekSlider.hasTracking>` ()
+*    def :meth:`iconSize<PySide.phonon.Phonon.SeekSlider.iconSize>` ()
+*    def :meth:`isIconVisible<PySide.phonon.Phonon.SeekSlider.isIconVisible>` ()
+*    def :meth:`mediaObject<PySide.phonon.Phonon.SeekSlider.mediaObject>` ()
+*    def :meth:`orientation<PySide.phonon.Phonon.SeekSlider.orientation>` ()
+*    def :meth:`pageStep<PySide.phonon.Phonon.SeekSlider.pageStep>` ()
+*    def :meth:`setPageStep<PySide.phonon.Phonon.SeekSlider.setPageStep>` (milliseconds)
+*    def :meth:`setSingleStep<PySide.phonon.Phonon.SeekSlider.setSingleStep>` (milliseconds)
+*    def :meth:`setTracking<PySide.phonon.Phonon.SeekSlider.setTracking>` (tracking)
+*    def :meth:`singleStep<PySide.phonon.Phonon.SeekSlider.singleStep>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setIconSize<PySide.phonon.Phonon.SeekSlider.setIconSize>` (size)
+*    def :meth:`setIconVisible<PySide.phonon.Phonon.SeekSlider.setIconVisible>` (arg__1)
+*    def :meth:`setMediaObject<PySide.phonon.Phonon.SeekSlider.setMediaObject>` (arg__1)
+*    def :meth:`setOrientation<PySide.phonon.Phonon.SeekSlider.setOrientation>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.SeekSlider` class provides a slider for seeking to positions in media streams.
+
+    The :class:`~PySide.phonon.Phonon.SeekSlider` connects to a :class:`Phonon.MediaObject` , and controls the seek position in the object's media stream.
+
+    The slider will connect to the necessary signals to keep track of the sliders maximum, minimum, and current values. It will also disable itself for non-seekable streams, and update the media object when the current value of the slider changes.
+
+    Here follows a typical example of :class:`~PySide.phonon.Phonon.SeekSlider` usage:
+
+    ::
+
+            moo = Phonon.MediaObject()
+            device = Phonon.AudioOutput()
+            Phonon.createPath(moo, device)
+            moo.setCurrentSource(QString("/home/gvatteka/Music/Lumme-Badloop.ogg"))
+
+            slider = Phonon.SeekSlider()
+            slider.setMediaObject(moo)
+
+            slider.show()
+            moo.play()
+
+
+    .. seealso::  :class:`Phonon.VolumeSlider`  :class:`Phonon.VideoWidget`  :ref:`Music Player Example<phonon/qmusicplayer>`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.SeekSlider(media[, parent=None])
+           PySide.phonon.Phonon.SeekSlider([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param media: :class:`PySide.phonon.Phonon::MediaObject`
+
+    Constructs a seek slider widget for the specified ``media`` with the given ``parent`` .
+
+
+    Constructs a seek slider widget with the given ``parent`` .
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.hasTracking()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether slider tracking is enabled.
+
+    If tracking is enabled (the default), the media seeks while the slider is being dragged. If tracking is disabled, the media seeks only when the user releases the slider.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.iconSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the icon size used for the mute button/icon..
+
+    The default size is defined by the GUI style.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.isIconVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the icon next to the slider is visible.
+
+    By default the icon is visible if the platform provides an icon; else it's hidden.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.mediaObject()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaObject`
+
+
+
+
+    Return the media object this :class:`~PySide.phonon.Phonon.SeekSlider` controls.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::SeekSlider.setMediaObject` 
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the slider.
+
+    The orientation must be :attr:`Qt.Vertical<Qt.Orientation>` or :attr:`Qt.Horizontal<Qt.Orientation>` (the default).
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.pageStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the page step interval.
+
+    The larger of two natural steps that a slider provides and typically corresponds to the user pressing PageUp or PageDown.
+
+    Defaults to 5 seconds.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setIconSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the icon size used for the mute button/icon..
+
+    The default size is defined by the GUI style.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setIconVisible(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the icon next to the slider is visible.
+
+    By default the icon is visible if the platform provides an icon; else it's hidden.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setMediaObject(arg__1)
+
+
+    :param arg__1: :class:`PySide.phonon.Phonon::MediaObject`
+
+
+
+
+    Sets the media object to be controlled by this slider to the ``media`` specified.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::SeekSlider.mediaObject` 
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setOrientation(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the slider.
+
+    The orientation must be :attr:`Qt.Vertical<Qt.Orientation>` or :attr:`Qt.Horizontal<Qt.Orientation>` (the default).
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setPageStep(milliseconds)
+
+
+    :param milliseconds: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the page step interval.
+
+    The larger of two natural steps that a slider provides and typically corresponds to the user pressing PageUp or PageDown.
+
+    Defaults to 5 seconds.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setSingleStep(milliseconds)
+
+
+    :param milliseconds: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the single step interval.
+
+    The smaller of two natural steps that a slider provides and typically corresponds to the user pressing an arrow key.
+
+    Defaults to 0.5 seconds.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.setTracking(tracking)
+
+
+    :param tracking: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether slider tracking is enabled.
+
+    If tracking is enabled (the default), the media seeks while the slider is being dragged. If tracking is disabled, the media seeks only when the user releases the slider.
+
+
+
+.. method:: PySide.phonon.Phonon.SeekSlider.singleStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the single step interval.
+
+    The smaller of two natural steps that a slider provides and typically corresponds to the user pressing an arrow key.
+
+    Defaults to 0.5 seconds.
+
+
+
+

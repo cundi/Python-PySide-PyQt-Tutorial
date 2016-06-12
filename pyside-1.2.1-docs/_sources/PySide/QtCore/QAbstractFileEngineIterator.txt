@@ -1,0 +1,219 @@
+.. module:: PySide.QtCore
+.. _QAbstractFileEngineIterator:
+
+QAbstractFileEngineIterator
+***************************
+
+.. inheritance-diagram:: QAbstractFileEngineIterator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFilePath<PySide.QtCore.QAbstractFileEngineIterator.currentFilePath>` ()
+*    def :meth:`filters<PySide.QtCore.QAbstractFileEngineIterator.filters>` ()
+*    def :meth:`nameFilters<PySide.QtCore.QAbstractFileEngineIterator.nameFilters>` ()
+*    def :meth:`path<PySide.QtCore.QAbstractFileEngineIterator.path>` ()
+*    def :meth:`setPath<PySide.QtCore.QAbstractFileEngineIterator.setPath>` (path)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFileInfo<PySide.QtCore.QAbstractFileEngineIterator.currentFileInfo>` ()
+*    def :meth:`currentFileName<PySide.QtCore.QAbstractFileEngineIterator.currentFileName>` ()
+*    def :meth:`hasNext<PySide.QtCore.QAbstractFileEngineIterator.hasNext>` ()
+*    def :meth:`next<PySide.QtCore.QAbstractFileEngineIterator.next>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractFileEngineIterator` class provides an iterator interface for custom file engines.
+
+    If all you want is to iterate over entries in a directory, see :class:`PySide.QtCore.QDirIterator` instead. This class is only for custom file engine authors.
+
+    :class:`PySide.QtCore.QAbstractFileEngineIterator` is a unidirectional single-use virtual iterator that plugs into :class:`PySide.QtCore.QDirIterator` , providing transparent proxy iteration for custom file engines.
+
+    You can subclass :class:`PySide.QtCore.QAbstractFileEngineIterator` to provide an iterator when writing your own file engine. To plug the iterator into your file system, you simply return an instance of this subclass from a reimplementation of :meth:`QAbstractFileEngine.beginEntryList()<PySide.QtCore.QAbstractFileEngine.beginEntryList>` .
+
+    Example:
+
+    ::
+
+        # @arg filters QDir.Filters
+        # @arg filterNames [str, ...]
+        # @return QAbstractFileEngineIterator
+        def beginEntryList(filters, filterNames):
+            return CustomFileEngineIterator(filters, filterNames)
+
+
+    :class:`PySide.QtCore.QAbstractFileEngineIterator` is associated with a path, name filters, and entry filters. The path is the directory that the iterator lists entries in. The name filters and entry filters are provided for file engines that can optimize directory listing at the iterator level (e.g., network file systems that need to minimize network traffic), but they can also be ignored by the iterator subclass; :class:`PySide.QtCore.QAbstractFileEngineIterator` already provides the required filtering logics in the matchesFilters() function. You can call dirName() to get the directory name, :meth:`PySide.QtCore.QAbstractFileEngineIterator.nameFilters` to get a stringlist of name filters, and :meth:`PySide.QtCore.QAbstractFileEngineIterator.filters` to get the entry filters.
+
+    The pure virtual function :meth:`PySide.QtCore.QAbstractFileEngineIterator.hasNext` returns true if the current directory has at least one more entry (i.e., the directory name is valid and accessible, and we have not reached the end of the entry list), and false otherwise. Reimplement :meth:`PySide.QtCore.QAbstractFileEngineIterator.next` to seek to the next entry.
+
+    The pure virtual function :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFileName` returns the name of the current entry without advancing the iterator. The :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFilePath` function is provided for convenience; it returns the full path of the current entry.
+
+    Here is an example of how to implement an iterator that returns each of three fixed entries in sequence.
+
+    ::
+
+        class CustomIterator(QAbstractFileEngineIterator):
+            def __init__(self, nameFilters, filters):
+                QAbstractFileEngineIterator.__init__(self, nameFilters, filters)
+
+                self.index = 0
+                # In a real iterator, these entries are fetched from the
+                # file system based on the value of path().
+                self.entries << "entry1" << "entry2" << "entry3"
+
+            def hasNext(self):
+                return self.index < self.entries.size() - 1
+
+            def next(self):
+               if not self.hasNext():
+                   return None
+               index += 1
+               return currentFilePath()
+
+            def currentFileName(self):
+               return self.entries.at(index)
+
+
+    Note: :class:`PySide.QtCore.QAbstractFileEngineIterator` does not deal with QDir::IteratorFlags; it simply returns entries for a single directory.
+
+    .. seealso::  :class:`PySide.QtCore.QDirIterator` 
+
+.. class:: QAbstractFileEngineIterator(filters, nameFilters)
+
+    :param nameFilters: list of strings
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.currentFileInfo()
+
+
+    :rtype: :class:`PySide.QtCore.QFileInfo`
+
+
+
+
+    The virtual function returns a :class:`PySide.QtCore.QFileInfo` for the current directory entry. This function is provided for convenience. It can also be slightly faster than creating a :class:`PySide.QtCore.QFileInfo` object yourself, as the object returned by this function might contain cached information that :class:`PySide.QtCore.QFileInfo` otherwise would have to access through the file engine.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFileName` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.currentFileName()
+
+
+    :rtype: unicode
+
+
+
+
+    This pure virtual function returns the name of the current directory entry, excluding the path.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFilePath` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.currentFilePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path to the current directory entry. It's the same as prepending :meth:`PySide.QtCore.QAbstractFileEngineIterator.path` to the return value of :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFileName` .
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngineIterator.currentFileName` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.filters()
+
+
+    :rtype: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+    Returns the entry filters for this iterator.
+
+    .. seealso::  :meth:`QDir.filter()<PySide.QtCore.QDir.filter>`  :meth:`PySide.QtCore.QAbstractFileEngineIterator.nameFilters`  :meth:`PySide.QtCore.QAbstractFileEngineIterator.path` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.hasNext()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This pure virtual function returns true if there is at least one more entry in the current directory (i.e., the iterator path is valid and accessible, and the iterator has not reached the end of the entry list).
+
+    .. seealso::  :meth:`QDirIterator.hasNext()<PySide.QtCore.QDirIterator.hasNext>` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.nameFilters()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the name filters for this iterator.
+
+    .. seealso::  :meth:`QDir.nameFilters()<PySide.QtCore.QDir.nameFilters>`  :meth:`PySide.QtCore.QAbstractFileEngineIterator.filters`  :meth:`PySide.QtCore.QAbstractFileEngineIterator.path` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.next()
+
+
+    :rtype: unicode
+
+
+
+
+    This pure virtual function advances the iterator to the next directory entry, and returns the file path to the current entry.
+
+    This function can optionally make use of :meth:`PySide.QtCore.QAbstractFileEngineIterator.nameFilters` and :meth:`PySide.QtCore.QAbstractFileEngineIterator.filters` to optimize its performance.
+
+    Reimplement this function in a subclass to advance the iterator.
+
+    .. seealso::  :meth:`QDirIterator.next()<PySide.QtCore.QDirIterator.next>` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.path()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path for this iterator. :class:`PySide.QtCore.QDirIterator` is responsible for assigning this path; it cannot change during the iterator's lifetime.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngineIterator.nameFilters`  :meth:`PySide.QtCore.QAbstractFileEngineIterator.filters` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngineIterator.setPath(path)
+
+
+    :param path: unicode
+
+
+
+
+
+
+

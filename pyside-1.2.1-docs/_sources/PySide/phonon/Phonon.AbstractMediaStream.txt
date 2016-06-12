@@ -1,0 +1,252 @@
+.. module:: PySide.phonon
+.. _Phonon.AbstractMediaStream:
+
+Phonon.AbstractMediaStream
+**************************
+
+.. inheritance-diagram:: Phonon.AbstractMediaStream
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`endOfData<PySide.phonon.Phonon.AbstractMediaStream.endOfData>` ()
+*    def :meth:`error<PySide.phonon.Phonon.AbstractMediaStream.error>` (errorType, errorString)
+*    def :meth:`setStreamSeekable<PySide.phonon.Phonon.AbstractMediaStream.setStreamSeekable>` (arg__1)
+*    def :meth:`setStreamSize<PySide.phonon.Phonon.AbstractMediaStream.setStreamSize>` (arg__1)
+*    def :meth:`streamSeekable<PySide.phonon.Phonon.AbstractMediaStream.streamSeekable>` ()
+*    def :meth:`streamSize<PySide.phonon.Phonon.AbstractMediaStream.streamSize>` ()
+*    def :meth:`writeData<PySide.phonon.Phonon.AbstractMediaStream.writeData>` (data)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`enoughData<PySide.phonon.Phonon.AbstractMediaStream.enoughData>` ()
+*    def :meth:`needData<PySide.phonon.Phonon.AbstractMediaStream.needData>` ()
+*    def :meth:`reset<PySide.phonon.Phonon.AbstractMediaStream.reset>` ()
+*    def :meth:`seekStream<PySide.phonon.Phonon.AbstractMediaStream.seekStream>` (offset)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.AbstractMediaStream` class is the base class for custom media data streams.
+
+    This class is subclassed to provide custom data streams for :class:`Phonon.MediaSource` s.
+
+    The :class:`Phonon.MediaSource` knows how to handle the most common media sources, such as files and CD. If you need to fetch multimedia from other sources, you can reimplement this class, which can be used by a :class:`Phonon.MediaSource` .
+
+    When a backend needs more data from the stream, :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` will be called. You must then use :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData` to write the data to the backend. You can either write one time and wait for a new :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` call, or continue to write data until you receive an :meth:`PySide.phonon.Phonon::AbstractMediaStream.enoughData` call. When the stream is at its end, call :meth:`PySide.phonon.Phonon::AbstractMediaStream.endOfData` instead of :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData` .
+
+    Before the custom stream is passed to a :class:`Phonon.MediaSource` , :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSize` needs to be called, and also :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSeekable` (if the stream is seekable). A good place to do this work is in the constructor. A seekable stream must also reimplement :meth:`PySide.phonon.Phonon::AbstractMediaStream.seekStream` .
+
+    We show two examples. The first writes data repeatedly until it receives the :meth:`PySide.phonon.Phonon::AbstractMediaStream.enoughData` call, while the second only writes once and waits for a new :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` call.
+
+    Example where data is written repeatedly.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:0" not found>
+
+    Example where data is written once:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:1" not found>
+
+    .. seealso::  :class:`Phonon.MediaSource`  :class:`Phonon.MediaObject` 
+
+.. class:: PySide.phonon.Phonon.AbstractMediaStream([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an :class:`~PySide.phonon.Phonon.AbstractMediaStream` object with the given ``parent`` .
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.endOfData()
+
+
+
+
+
+
+    Tells the backend that the media data stream is at its end.
+
+    .. warning::  Don't call this function before the first :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` is emitted.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.enoughData()
+
+
+
+
+
+
+    If your stream is a push stream, reimplement this function to be notified when the backend has enough data and your stream object may take a break.
+
+    This method is important for pushing data to the backend in order to not fill the backend buffer unnecessarily.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.error(errorType, errorString)
+
+
+    :param errorType: :attr:`PySide.phonon.Phonon.ErrorType`
+    :param errorString: unicode
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.needData()
+
+
+
+
+
+
+    Reimplement this function to be notified when the backend needs data.
+
+    When this function is called you should write data to the backend (See :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData` ).
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.endOfData`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.enoughData` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.reset()
+
+
+
+
+
+
+    Reimplement this function to reset the stream. Subsequent calls to writeData should start from the first position of the data unless a seek is requested.
+
+    The function is necessary for the case where a non-seekable MediaStream is played more than once. For a seekable stream the implementation can simply call
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:2" not found>
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.seekStream(offset)
+
+
+    :param offset: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Reimplement this function if your stream is seekable.
+
+    When this function is called the next call to writeData has to be at the requested ``offset`` .
+
+    .. warning::  Do not call the parent implementation.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSeekable`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.streamSeekable`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.setStreamSeekable(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets whether your data stream is seekable. ``s`` should be true if the stream is seekable; otherwise false.
+
+    Defaults to ``false`` .
+
+    If you set this to ``true`` you have to implement the :meth:`PySide.phonon.Phonon::AbstractMediaStream.seekStream` function.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.streamSeekable` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.setStreamSize(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the ``size`` of the stream in number of bytes.
+
+    A negative value means that the length of the stream cannot be known.
+
+    Defaults to 0.
+
+    This function has to be called. A backend will not call :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` until the stream size is set.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.streamSize` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.streamSeekable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether your data stream is set as seekable.
+
+    Defaults to ``false`` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSeekable` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.streamSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the stream size that was set with :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSize` .
+
+    A negative value means that the length of the stream cannot be known.
+
+    Defaults to 0.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.setStreamSize` 
+
+
+.. method:: PySide.phonon.Phonon.AbstractMediaStream.writeData(data)
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sends the media ``data`` to the backend for decoding.
+
+    Use this function to send data to the backend after :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` has been called.
+
+    If your stream is a push stream, data should be written until the :meth:`PySide.phonon.Phonon::AbstractMediaStream.enoughData` function is called. For a pull stream, write data once before the call to :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` function returns.
+
+    If the data is depleted, call :meth:`PySide.phonon.Phonon::AbstractMediaStream.endOfData` instead of :meth:`PySide.phonon.Phonon::AbstractMediaStream.writeData` .
+
+    .. warning::  Don't call this function before the first :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData` is emitted.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AbstractMediaStream.needData`  :meth:`PySide.phonon.Phonon::AbstractMediaStream.endOfData` 
+
+
+

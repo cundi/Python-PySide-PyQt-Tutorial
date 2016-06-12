@@ -1,0 +1,435 @@
+.. module:: PySide.phonon
+.. _Phonon.MediaController:
+
+Phonon.MediaController
+**********************
+
+.. inheritance-diagram:: Phonon.MediaController
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoplayTitles<PySide.phonon.Phonon.MediaController.autoplayTitles>` ()
+*    def :meth:`availableAngles<PySide.phonon.Phonon.MediaController.availableAngles>` ()
+*    def :meth:`availableAudioChannels<PySide.phonon.Phonon.MediaController.availableAudioChannels>` ()
+*    def :meth:`availableChapters<PySide.phonon.Phonon.MediaController.availableChapters>` ()
+*    def :meth:`availableSubtitles<PySide.phonon.Phonon.MediaController.availableSubtitles>` ()
+*    def :meth:`availableTitles<PySide.phonon.Phonon.MediaController.availableTitles>` ()
+*    def :meth:`currentAngle<PySide.phonon.Phonon.MediaController.currentAngle>` ()
+*    def :meth:`currentAudioChannel<PySide.phonon.Phonon.MediaController.currentAudioChannel>` ()
+*    def :meth:`currentChapter<PySide.phonon.Phonon.MediaController.currentChapter>` ()
+*    def :meth:`currentSubtitle<PySide.phonon.Phonon.MediaController.currentSubtitle>` ()
+*    def :meth:`currentTitle<PySide.phonon.Phonon.MediaController.currentTitle>` ()
+*    def :meth:`setCurrentAudioChannel<PySide.phonon.Phonon.MediaController.setCurrentAudioChannel>` (stream)
+*    def :meth:`setCurrentSubtitle<PySide.phonon.Phonon.MediaController.setCurrentSubtitle>` (stream)
+*    def :meth:`supportedFeatures<PySide.phonon.Phonon.MediaController.supportedFeatures>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`nextTitle<PySide.phonon.Phonon.MediaController.nextTitle>` ()
+*    def :meth:`previousTitle<PySide.phonon.Phonon.MediaController.previousTitle>` ()
+*    def :meth:`setAutoplayTitles<PySide.phonon.Phonon.MediaController.setAutoplayTitles>` (arg__1)
+*    def :meth:`setCurrentAngle<PySide.phonon.Phonon.MediaController.setCurrentAngle>` (angleNumber)
+*    def :meth:`setCurrentChapter<PySide.phonon.Phonon.MediaController.setCurrentChapter>` (chapterNumber)
+*    def :meth:`setCurrentTitle<PySide.phonon.Phonon.MediaController.setCurrentTitle>` (titleNumber)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`angleChanged<PySide.phonon.Phonon.MediaController.angleChanged>` (angleNumber)
+*    def :meth:`availableAnglesChanged<PySide.phonon.Phonon.MediaController.availableAnglesChanged>` (availableAngles)
+*    def :meth:`availableAudioChannelsChanged<PySide.phonon.Phonon.MediaController.availableAudioChannelsChanged>` ()
+*    def :meth:`availableChaptersChanged<PySide.phonon.Phonon.MediaController.availableChaptersChanged>` (availableChapters)
+*    def :meth:`availableSubtitlesChanged<PySide.phonon.Phonon.MediaController.availableSubtitlesChanged>` ()
+*    def :meth:`availableTitlesChanged<PySide.phonon.Phonon.MediaController.availableTitlesChanged>` (availableTitles)
+*    def :meth:`chapterChanged<PySide.phonon.Phonon.MediaController.chapterChanged>` (chapterNumber)
+*    def :meth:`titleChanged<PySide.phonon.Phonon.MediaController.titleChanged>` (titleNumber)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.MediaController` class controls optional features of a media file/device.
+
+    Some media sources have content that the :class:`Phonon.MediaObject` does not provide control over, for instance, chapters in a DVD file. The functionality the media controller offers is dependent on the type of media source that is played back. Commonly, the media controller allows you to:
+
+
+    * Navigate between **chapters**.
+    * Navigate between **titles**.
+    * Select between **angles**.
+
+    The :attr:`Phonon.MediaController.Feature` enum explains these terms in more detail, and their context in playback of CD and DVD.
+
+    The media controller keeps a :class:`Phonon.MediaObject` , of which :meth:`media source<PySide.phonon.Phonon.MediaObject.currentSource>` is played back. You can still call the media object's functions, e.g., :meth:`PySide.phonon.Phonon.MediaObject.stop` ; this is all handled correctly by the media controller. You have the option of letting the media controller play all titles of a source in sequence by setting the :meth:`autoplay titles<PySide.phonon.Phonon::MediaController.autoplayTitles>` option.
+
+    To start a playback using a media object, you call :meth:`PySide.phonon.Phonon.MediaObject.play` on the media object. To play a specific title, use :meth:`PySide.phonon.Phonon::MediaController.setCurrentTitle` and then call :meth:`PySide.phonon.Phonon.MediaObject.play` .
+
+    .. warning::  The :class:`Phonon.MediaController` class is not yet supported by Qt backends.
+
+    .. seealso::  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.MediaController(parent)
+
+    :param parent: :class:`PySide.phonon.Phonon::MediaObject`
+
+    Constructs a new :class:`~PySide.phonon.Phonon.MediaController` with the media object (``parent`` ) to be used by the media controller.
+
+    .. seealso::  :class:`~PySide.phonon.Phonon.MediaObject`  :attr:`Phonon.MediaController.Feature` 
+
+.. attribute:: PySide.phonon.Phonon.MediaController.Feature
+
+    The values of this enum are interpreted differently depending on the type of media source, e.g., DVD or CD. We give examples for these sources.
+
+    +-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                                                                                                                                              |
+    +===============================+=========================================================================================================================================================================================================+
+    |Phonon.MediaController.Angles  |In the VOB (DVD) format, it is possible to to give several video streams of the same scene, each of which displays the scene from a different angle. The DVD viewer can then change between these angles.|
+    +-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaController.Chapters|In the VOB format, chapters are points in a single video stream that can be played and seeked to separately.                                                                                             |
+    +-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaController.Titles  |On a CD, a title is a separate sound track. On DVD, a title is a separate VOB file.                                                                                                                      |
+    +-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.angleChanged(angleNumber)
+
+
+    :param angleNumber: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.autoplayTitles()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if titles will automatically be played when the media is played; otherwise returns false.
+
+    The media controller will play the titles of the media source in sequence when the media object's :meth:`PySide.phonon.Phonon.MediaObject.play` function is called. If the autoplay option is disabled, the media object will play the :meth:`MediaController.currentTitle()<PySide.phonon.Phonon.MediaController.currentTitle>` {current title} and then finish the playback.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.setAutoplayTitles`  :meth:`PySide.phonon.Phonon::MediaController.currentTitle` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableAngles()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the available angles that is available for the current media source.
+
+    .. seealso::  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableAnglesChanged(availableAngles)
+
+
+    :param availableAngles: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableAudioChannels()
+
+
+    :rtype: 
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableAudioChannelsChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableChapters()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of chapters the current media source contains.
+
+    .. seealso::  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableChaptersChanged(availableChapters)
+
+
+    :param availableChapters: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableSubtitles()
+
+
+    :rtype: 
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableSubtitlesChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableTitles()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of titles that the current media source contains.
+
+    .. seealso::  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.availableTitlesChanged(availableTitles)
+
+
+    :param availableTitles: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.chapterChanged(chapterNumber)
+
+
+    :param chapterNumber: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.currentAngle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the angle that is currently used.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.setCurrentAngle`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.currentAudioChannel()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::AudioChannelDescription`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.currentChapter()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the chapter that is currently being played back.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.setCurrentChapter`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.currentSubtitle()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::SubtitleDescription`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.currentTitle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the title that is currently played back.
+
+    The current title is 0 (the first) by default.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.setCurrentTitle`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.nextTitle()
+
+
+
+
+
+
+    Skips to the next title.
+
+    If it was playing before the title change it will start playback on the next title if autoplayTitles is enabled.
+
+    .. seealso::  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.previousTitle()
+
+
+
+
+
+
+    Skips to the previous title.
+
+    If it was playing before the title change it will start playback on the previous title if autoplayTitles is enabled.
+
+    .. seealso::  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setAutoplayTitles(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the titles to play automatically when the media is played if ``enable`` is true; otherwise disables this option.
+
+    The media controller will play the titles of the media source in sequence when the media object's :meth:`PySide.phonon.Phonon.MediaObject.play` function is called. If the autoplay option is disabled, the media object will play the :meth:`MediaController.currentTitle()<PySide.phonon.Phonon.MediaController.currentTitle>` {current title} and then finish the playback.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.autoplayTitles`  :meth:`PySide.phonon.Phonon::MediaController.currentTitle` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setCurrentAngle(angleNumber)
+
+
+    :param angleNumber: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current angle to the given ``angleNumber`` if the media file or device supports navigation by angle number.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.currentAngle`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setCurrentAudioChannel(stream)
+
+
+    :param stream: :class:`PySide.phonon.Phonon::AudioChannelDescription`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setCurrentChapter(chapterNumber)
+
+
+    :param chapterNumber: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current chapter to the given ``chapterNumber`` if the media file or device supports navigation by chapter number.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.currentChapter`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setCurrentSubtitle(stream)
+
+
+    :param stream: :class:`PySide.phonon.Phonon::SubtitleDescription`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.setCurrentTitle(titleNumber)
+
+
+    :param titleNumber: :class:`PySide.QtCore.int`
+
+
+
+
+    Skips to the given title ``titleNumber`` .
+
+    If it was playing before the title change it will start playback on the new title if autoplayTitles is enabled.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaController.currentTitle`  :attr:`Phonon.MediaController.Feature` 
+
+
+.. method:: PySide.phonon.Phonon.MediaController.supportedFeatures()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaController.Features`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaController.titleChanged(titleNumber)
+
+
+    :param titleNumber: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

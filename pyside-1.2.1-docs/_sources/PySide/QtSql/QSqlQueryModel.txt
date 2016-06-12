@@ -1,0 +1,254 @@
+.. module:: PySide.QtSql
+.. _QSqlQueryModel:
+
+QSqlQueryModel
+**************
+
+.. inheritance-diagram:: QSqlQueryModel
+    :parts: 2
+
+**Inherited by:** :ref:`QSqlTableModel`, :ref:`QSqlRelationalTableModel`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indexInQuery<PySide.QtSql.QSqlQueryModel.indexInQuery>` (item)
+*    def :meth:`lastError<PySide.QtSql.QSqlQueryModel.lastError>` ()
+*    def :meth:`query<PySide.QtSql.QSqlQueryModel.query>` ()
+*    def :meth:`record<PySide.QtSql.QSqlQueryModel.record>` ()
+*    def :meth:`record<PySide.QtSql.QSqlQueryModel.record>` (row)
+*    def :meth:`setLastError<PySide.QtSql.QSqlQueryModel.setLastError>` (error)
+*    def :meth:`setQuery<PySide.QtSql.QSqlQueryModel.setQuery>` (query)
+*    def :meth:`setQuery<PySide.QtSql.QSqlQueryModel.setQuery>` (query[, db=QSqlDatabase()])
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtSql.QSqlQueryModel.clear>` ()
+*    def :meth:`queryChange<PySide.QtSql.QSqlQueryModel.queryChange>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlQueryModel` class provides a read-only data model for SQL result sets.
+
+    :class:`PySide.QtSql.QSqlQueryModel` is a high-level interface for executing SQL statements and traversing the result set. It is built on top of the lower-level :class:`PySide.QtSql.QSqlQuery` and can be used to provide data to view classes such as :class:`PySide.QtGui.QTableView` . For example:
+
+    ::
+
+            model =  QSqlQueryModel()
+            model.setQuery("SELECT name, salary FROM employee")
+            model.setHeaderData(0, Qt.Horizontal, tr("Name"))
+            model.setHeaderData(1, Qt.Horizontal, tr("Salary"))
+
+
+            view =  QTableView()
+
+            view.setModel(model)
+
+            view.show()
+
+
+    We set the model's query, then we set up the labels displayed in the view header.
+
+    :class:`PySide.QtSql.QSqlQueryModel` can also be used to access a database programmatically, without binding it to a view:
+
+    ::
+
+            model = QSqlQueryModel()
+            model.setQuery("SELECT * FROM employee")
+            salary = model.record(4).value("salary")
+
+
+    The code snippet above extracts the ``salary`` field from record 4 in the result set of the query ``SELECT * from employee`` . Assuming that ``salary`` is column 2, we can rewrite the last line as follows:
+
+    ::
+
+            salary = model.data(model.index(4, 2))
+
+
+    The model is read-only by default. To make it read-write, you must subclass it and reimplement :meth:`PySide.QtCore.QAbstractItemModel.setData` and :meth:`PySide.QtCore.QAbstractItemModel.flags` . Another option is to use :class:`PySide.QtSql.QSqlTableModel` , which provides a read-write model based on a single database table.
+
+    The :ref:`sql/querymodel` example illustrates how to use :class:`PySide.QtSql.QSqlQueryModel` to display the result of a query. It also shows how to subclass :class:`PySide.QtSql.QSqlQueryModel` to customize the contents of the data before showing it to the user, and how to create a read-write model based on :class:`PySide.QtSql.QSqlQueryModel` .
+
+    If the database doesn't return the number of selected rows in a query, the model will fetch rows incrementally. See :meth:`PySide.QtSql.QSqlQueryModel.fetchMore` for more information.
+
+    .. seealso::  :class:`PySide.QtSql.QSqlTableModel`  :class:`PySide.QtSql.QSqlRelationalTableModel`  :class:`PySide.QtSql.QSqlQuery`  :ref:`Model/View Programming<model-view-programming.html>`  :ref:`Query Model Example<sql/querymodel>` 
+
+.. class:: QSqlQueryModel([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates an empty :class:`PySide.QtSql.QSqlQueryModel` with the given ``parent`` .
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.clear()
+
+
+
+
+
+
+    Clears the model and releases any acquired resource.
+
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.indexInQuery(item)
+
+
+    :param item: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the index of the value in the database result set for the given ``item`` in the model.
+
+    The return value is identical to ``item`` if no columns or rows have been inserted, removed, or moved around.
+
+    Returns an invalid model index if ``item`` is out of bounds or if ``item`` does not point to a value in the result set.
+
+    .. seealso::  :meth:`QSqlTableModel.indexInQuery()<PySide.QtSql.QSqlTableModel.indexInQuery>`  :meth:`PySide.QtSql.QSqlQueryModel.insertColumns`  :meth:`PySide.QtSql.QSqlQueryModel.removeColumns` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.lastError()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    Returns information about the last error that occurred on the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.setLastError`  :meth:`PySide.QtSql.QSqlQueryModel.query` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.query()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlQuery`
+
+
+
+
+    Returns the :class:`PySide.QtSql.QSqlQuery` associated with this model.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.setQuery` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.queryChange()
+
+
+
+
+
+
+    This virtual function is called whenever the query changes. The default implementation does nothing.
+
+    :meth:`PySide.QtSql.QSqlQueryModel.query` returns the new query.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.query`  :meth:`PySide.QtSql.QSqlQueryModel.setQuery` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.record()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+    This is an overloaded function.
+
+    Returns an empty record containing information about the fields of the current query.
+
+    If the model is not initialized, an empty record will be returned.
+
+    .. seealso::  :meth:`QSqlRecord.isEmpty()<PySide.QtSql.QSqlRecord.isEmpty>` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.record(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+    Returns the record containing information about the fields of the current query. If ``row`` is the index of a valid row, the record will be populated with values from that row.
+
+    If the model is not initialized, an empty record will be returned.
+
+    .. seealso::  :meth:`QSqlRecord.isEmpty()<PySide.QtSql.QSqlRecord.isEmpty>` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.setLastError(error)
+
+
+    :param error: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    Protected function which allows derived classes to set the value of the last error that occurred on the database to ``error`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.setQuery(query)
+
+
+    :param query: :class:`PySide.QtSql.QSqlQuery`
+
+
+
+
+    Resets the model and sets the data provider to be the given ``query`` . Note that the query must be active and must not be isForwardOnly().
+
+    :meth:`PySide.QtSql.QSqlQueryModel.lastError` can be used to retrieve verbose information if there was an error setting the query.
+
+    .. note::  Calling :meth:`PySide.QtSql.QSqlQueryModel.setQuery` will remove any inserted columns.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.query`  :meth:`QSqlQuery.isActive()<PySide.QtSql.QSqlQuery.isActive>`  :meth:`QSqlQuery.setForwardOnly()<PySide.QtSql.QSqlQuery.setForwardOnly>`  :meth:`PySide.QtSql.QSqlQueryModel.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlQueryModel.setQuery(query[, db=QSqlDatabase()])
+
+
+    :param query: unicode
+    :param db: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    This is an overloaded function.
+
+    Executes the query ``query`` for the given database connection ``db`` . If no database (or an invalid database) is specified, the default connection is used.
+
+    :meth:`PySide.QtSql.QSqlQueryModel.lastError` can be used to retrieve verbose information if there was an error setting the query.
+
+    Example:
+
+    ::
+
+        model = QSqlQueryModel()
+        model.setQuery("select * from MyTable")
+        if model.lastError().isValid():
+            print model.lastError()
+
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.query`  :meth:`PySide.QtSql.QSqlQueryModel.queryChange`  :meth:`PySide.QtSql.QSqlQueryModel.lastError` 
+
+
+

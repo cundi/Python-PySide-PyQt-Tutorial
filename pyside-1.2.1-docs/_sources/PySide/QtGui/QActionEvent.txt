@@ -1,0 +1,69 @@
+.. module:: PySide.QtGui
+.. _QActionEvent:
+
+QActionEvent
+************
+
+.. inheritance-diagram:: QActionEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`action<PySide.QtGui.QActionEvent.action>` ()
+*    def :meth:`before<PySide.QtGui.QActionEvent.before>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QActionEvent` class provides an event that is generated when a :class:`PySide.QtGui.QAction` is added, removed, or changed.
+
+    Actions can be added to widgets using :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` . This generates an :attr:`ActionAdded<QEvent.Type>` event, which you can handle to provide custom behavior. For example, :class:`PySide.QtGui.QToolBar` reimplements :meth:`QWidget.actionEvent()<PySide.QtGui.QWidget.actionEvent>` to create :class:`PySide.QtGui.QToolButton` s for the actions.
+
+    .. seealso::  :class:`PySide.QtGui.QAction`  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QWidget.removeAction()<PySide.QtGui.QWidget.removeAction>`  :meth:`QWidget.actions()<PySide.QtGui.QWidget.actions>` 
+
+.. class:: QActionEvent(type, action[, before=None])
+
+    :param action: :class:`PySide.QtGui.QAction`
+    :param type: :class:`PySide.QtCore.int`
+    :param before: :class:`PySide.QtGui.QAction`
+
+    Constructs an action event. The ``type`` can be :attr:`ActionChanged<QEvent.Type>` , :attr:`ActionAdded<QEvent.Type>` , or :attr:`ActionRemoved<QEvent.Type>` .
+
+    ``action`` is the action that is changed, added, or removed. If ``type`` is :attr:`ActionAdded<QEvent.Type>` , the action is to be inserted before the action ``before`` . If ``before`` is 0, the action is appended.
+
+
+.. method:: PySide.QtGui.QActionEvent.action()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the action that is changed, added, or removed.
+
+    .. seealso::  :meth:`PySide.QtGui.QActionEvent.before` 
+
+
+.. method:: PySide.QtGui.QActionEvent.before()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    If :meth:`PySide.QtCore.QEvent.type` is :attr:`ActionAdded<QEvent.Type>` , returns the action that should appear before :meth:`PySide.QtGui.QActionEvent.action` . If this function returns 0, the action should be appended to already existing actions on the same widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QActionEvent.action`  :meth:`QWidget.actions()<PySide.QtGui.QWidget.actions>` 
+
+
+

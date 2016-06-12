@@ -1,0 +1,167 @@
+.. module:: PySide.QtNetwork
+.. _QAbstractNetworkCache:
+
+QAbstractNetworkCache
+*********************
+
+.. inheritance-diagram:: QAbstractNetworkCache
+    :parts: 2
+
+**Inherited by:** :ref:`QNetworkDiskCache`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QAbstractNetworkCache` class provides the interface for cache implementations.
+
+    :class:`PySide.QtNetwork.QAbstractNetworkCache` is the base class for every standard cache that is used be :class:`PySide.QtNetwork.QNetworkAccessManager` . :class:`PySide.QtNetwork.QAbstractNetworkCache` is an abstract class and cannot be instantiated.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkDiskCache` 
+
+.. class:: QAbstractNetworkCache([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an abstract network cache with the given ``parent`` .
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.cacheSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current size taken up by the cache. Depending upon the cache implementation this might be disk or memory size.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.clear` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.clear()
+
+
+
+
+
+
+    Removes all items from the cache. Unless there was failures clearing the cache :meth:`PySide.QtNetwork.QAbstractNetworkCache.cacheSize` should return 0 after a call to clear.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.cacheSize`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.remove` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.data(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the data associated with ``url`` .
+
+    It is up to the application that requests the data to delete the :class:`PySide.QtCore.QIODevice` when done with it.
+
+    If there is no cache for ``url`` , the url is invalid, or if there is an internal cache error 0 is returned.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.metaData`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.prepare` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.insert(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Inserts the data in ``device`` and the prepared meta data into the cache. After this function is called the data and meta data should be retrievable using :meth:`PySide.QtNetwork.QAbstractNetworkCache.data` and :meth:`PySide.QtNetwork.QAbstractNetworkCache.metaData` .
+
+    To cancel a prepared inserted call :meth:`PySide.QtNetwork.QAbstractNetworkCache.remove` on the metadata's url.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.prepare`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.remove` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.metaData(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtNetwork.QNetworkCacheMetaData`
+
+
+
+
+    Returns the meta data for the url ``url`` .
+
+    If the url is valid and the cache contains the data for url, a valid :class:`PySide.QtNetwork.QNetworkCacheMetaData` is returned.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.updateMetaData`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.data` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.prepare(metaData)
+
+
+    :param metaData: :class:`PySide.QtNetwork.QNetworkCacheMetaData`
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the device that should be populated with the data for the cache item ``metaData`` . When all of the data has been written :meth:`PySide.QtNetwork.QAbstractNetworkCache.insert` should be called. If metaData is invalid or the url in the metadata is invalid 0 is returned.
+
+    The cache owns the device and will take care of deleting it when it is inserted or removed.
+
+    To cancel a prepared inserted call :meth:`PySide.QtNetwork.QAbstractNetworkCache.remove` on the metadata's url.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.remove`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.updateMetaData`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.insert` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.remove(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the cache entry for ``url`` , returning true if success otherwise false.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.clear`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.prepare` 
+
+
+.. method:: PySide.QtNetwork.QAbstractNetworkCache.updateMetaData(metaData)
+
+
+    :param metaData: :class:`PySide.QtNetwork.QNetworkCacheMetaData`
+
+
+
+
+    Updates the cache meta date for the metaData's url to ``metaData``\
+
+    If the cache does not contains a cache item for the url then no action is taken.
+
+    In the base class this is a pure virtual function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractNetworkCache.metaData`  :meth:`PySide.QtNetwork.QAbstractNetworkCache.prepare` 
+
+
+

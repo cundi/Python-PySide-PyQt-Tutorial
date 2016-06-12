@@ -1,0 +1,205 @@
+.. module:: PySide.QtCore
+.. _QReadWriteLock:
+
+QReadWriteLock
+**************
+
+.. inheritance-diagram:: QReadWriteLock
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`lockForRead<PySide.QtCore.QReadWriteLock.lockForRead>` ()
+*    def :meth:`lockForWrite<PySide.QtCore.QReadWriteLock.lockForWrite>` ()
+*    def :meth:`tryLockForRead<PySide.QtCore.QReadWriteLock.tryLockForRead>` ()
+*    def :meth:`tryLockForRead<PySide.QtCore.QReadWriteLock.tryLockForRead>` (timeout)
+*    def :meth:`tryLockForWrite<PySide.QtCore.QReadWriteLock.tryLockForWrite>` ()
+*    def :meth:`tryLockForWrite<PySide.QtCore.QReadWriteLock.tryLockForWrite>` (timeout)
+*    def :meth:`unlock<PySide.QtCore.QReadWriteLock.unlock>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QReadWriteLock` class provides read-write locking.
+
+    A read-write lock is a synchronization tool for protecting resources that can be accessed for reading and writing. This type of lock is useful if you want to allow multiple threads to have simultaneous read-only access, but as soon as one thread wants to write to the resource, all other threads must be blocked until the writing is complete.
+
+    In many cases, :class:`PySide.QtCore.QReadWriteLock` is a direct competitor to :class:`PySide.QtCore.QMutex` . :class:`PySide.QtCore.QReadWriteLock` is a good choice if there are many concurrent reads and writing occurs infrequently.
+
+    Example:
+
+    ::
+
+        lock = QReadWriteLock()
+
+        class ReaderThread:
+            # ...
+            def run():
+                # ...
+                lock.lockForRead()
+                read_file()
+                lock.unlock()
+                # ...
+
+        class WriterThread:
+            #...
+            def run():
+                # ...
+                lock.lockForWrite()
+                write_file()
+                lock.unlock()
+                # ...
+
+
+    To ensure that writers aren't blocked forever by readers, readers attempting to obtain a lock will not succeed if there is a blocked writer waiting for access, even if the lock is currently only accessed by other readers. Also, if the lock is accessed by a writer and another writer comes in, that writer will have priority over any readers that might also be waiting.
+
+    Like :class:`PySide.QtCore.QMutex` , a :class:`PySide.QtCore.QReadWriteLock` can be recursively locked by the same thread when constructed in :attr:`QReadWriteLock.RecursionMode` . In such cases, :meth:`PySide.QtCore.QReadWriteLock.unlock` must be called the same number of times :meth:`PySide.QtCore.QReadWriteLock.lockForWrite` or :meth:`PySide.QtCore.QReadWriteLock.lockForRead` was called. Note that the lock type cannot be changed when trying to lock recursively, i.e. it is not possible to lock for reading in a thread that already has locked for writing (and vice versa).
+
+    .. seealso::  :class:`PySide.QtCore.QReadLocker`  :class:`PySide.QtCore.QWriteLocker`  :class:`PySide.QtCore.QMutex`  :class:`PySide.QtCore.QSemaphore` 
+
+.. class:: QReadWriteLock()
+           QReadWriteLock(recursionMode)
+
+    :param recursionMode: :attr:`PySide.QtCore.QReadWriteLock.RecursionMode`
+
+    Constructs a :class:`PySide.QtCore.QReadWriteLock` object in :attr:`NonRecursive<QReadWriteLock.RecursionMode>` mode.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.lockForRead`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite` 
+
+    Constructs a :class:`PySide.QtCore.QReadWriteLock` object in the given ``recursionMode`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.lockForRead`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite`  :attr:`QReadWriteLock.RecursionMode` 
+
+.. attribute:: PySide.QtCore.QReadWriteLock.RecursionMode
+
+    +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                                                                                                                                                    |
+    +===========================+===============================================================================================================================================================================================================================+
+    |QReadWriteLock.Recursive   |In this mode, a thread can lock the same :class:`PySide.QtCore.QReadWriteLock` multiple times and the mutex won't be unlocked until a corresponding number of :meth:`PySide.QtCore.QReadWriteLock.unlock` calls have been made.|
+    +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QReadWriteLock.NonRecursive|In this mode, a thread may only lock a :class:`PySide.QtCore.QReadWriteLock` once.                                                                                                                                             |
+    +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.QReadWriteLock` 
+
+.. method:: PySide.QtCore.QReadWriteLock.lockForRead()
+
+
+
+
+
+
+    Locks the lock for reading. This function will block the current thread if any thread (including the current) has locked for writing.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite`  :meth:`PySide.QtCore.QReadWriteLock.tryLockForRead` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.lockForWrite()
+
+
+
+
+
+
+    Locks the lock for writing. This function will block the current thread if another thread has locked for reading or writing.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForRead`  :meth:`PySide.QtCore.QReadWriteLock.tryLockForWrite` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.tryLockForRead()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Attempts to lock for reading. If the lock was obtained, this function returns true, otherwise it returns false instead of waiting for the lock to become available, i.e. it does not block.
+
+    The lock attempt will fail if another thread has locked for writing.
+
+    If the lock was obtained, the lock must be unlocked with :meth:`PySide.QtCore.QReadWriteLock.unlock` before another thread can successfully lock it.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForRead` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.tryLockForRead(timeout)
+
+
+    :param timeout: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Attempts to lock for reading. This function returns true if the lock was obtained; otherwise it returns false. If another thread has locked for writing, this function will wait for at most ``timeout`` milliseconds for the lock to become available.
+
+    Note: Passing a negative number as the ``timeout`` is equivalent to calling :meth:`PySide.QtCore.QReadWriteLock.lockForRead` , i.e. this function will wait forever until lock can be locked for reading when ``timeout`` is negative.
+
+    If the lock was obtained, the lock must be unlocked with :meth:`PySide.QtCore.QReadWriteLock.unlock` before another thread can successfully lock it.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForRead` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.tryLockForWrite(timeout)
+
+
+    :param timeout: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Attempts to lock for writing. This function returns true if the lock was obtained; otherwise it returns false. If another thread has locked for reading or writing, this function will wait for at most ``timeout`` milliseconds for the lock to become available.
+
+    Note: Passing a negative number as the ``timeout`` is equivalent to calling :meth:`PySide.QtCore.QReadWriteLock.lockForWrite` , i.e. this function will wait forever until lock can be locked for writing when ``timeout`` is negative.
+
+    If the lock was obtained, the lock must be unlocked with :meth:`PySide.QtCore.QReadWriteLock.unlock` before another thread can successfully lock it.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.tryLockForWrite()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Attempts to lock for writing. If the lock was obtained, this function returns true; otherwise, it returns false immediately.
+
+    The lock attempt will fail if another thread has locked for reading or writing.
+
+    If the lock was obtained, the lock must be unlocked with :meth:`PySide.QtCore.QReadWriteLock.unlock` before another thread can successfully lock it.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.unlock`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite` 
+
+
+.. method:: PySide.QtCore.QReadWriteLock.unlock()
+
+
+
+
+
+
+    Unlocks the lock.
+
+    Attempting to unlock a lock that is not locked is an error, and will result in program termination.
+
+    .. seealso::  :meth:`PySide.QtCore.QReadWriteLock.lockForRead`  :meth:`PySide.QtCore.QReadWriteLock.lockForWrite`  :meth:`PySide.QtCore.QReadWriteLock.tryLockForRead`  :meth:`PySide.QtCore.QReadWriteLock.tryLockForWrite` 
+
+
+

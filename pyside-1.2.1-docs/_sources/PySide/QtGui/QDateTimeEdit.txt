@@ -1,0 +1,1007 @@
+.. module:: PySide.QtGui
+.. _QDateTimeEdit:
+
+QDateTimeEdit
+*************
+
+.. inheritance-diagram:: QDateTimeEdit
+    :parts: 2
+
+**Inherited by:** :ref:`QTimeEdit`, :ref:`QDateEdit`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`calendarPopup<PySide.QtGui.QDateTimeEdit.calendarPopup>` ()
+*    def :meth:`calendarWidget<PySide.QtGui.QDateTimeEdit.calendarWidget>` ()
+*    def :meth:`clearMaximumDate<PySide.QtGui.QDateTimeEdit.clearMaximumDate>` ()
+*    def :meth:`clearMaximumDateTime<PySide.QtGui.QDateTimeEdit.clearMaximumDateTime>` ()
+*    def :meth:`clearMaximumTime<PySide.QtGui.QDateTimeEdit.clearMaximumTime>` ()
+*    def :meth:`clearMinimumDate<PySide.QtGui.QDateTimeEdit.clearMinimumDate>` ()
+*    def :meth:`clearMinimumDateTime<PySide.QtGui.QDateTimeEdit.clearMinimumDateTime>` ()
+*    def :meth:`clearMinimumTime<PySide.QtGui.QDateTimeEdit.clearMinimumTime>` ()
+*    def :meth:`currentSection<PySide.QtGui.QDateTimeEdit.currentSection>` ()
+*    def :meth:`currentSectionIndex<PySide.QtGui.QDateTimeEdit.currentSectionIndex>` ()
+*    def :meth:`date<PySide.QtGui.QDateTimeEdit.date>` ()
+*    def :meth:`dateTime<PySide.QtGui.QDateTimeEdit.dateTime>` ()
+*    def :meth:`displayFormat<PySide.QtGui.QDateTimeEdit.displayFormat>` ()
+*    def :meth:`displayedSections<PySide.QtGui.QDateTimeEdit.displayedSections>` ()
+*    def :meth:`maximumDate<PySide.QtGui.QDateTimeEdit.maximumDate>` ()
+*    def :meth:`maximumDateTime<PySide.QtGui.QDateTimeEdit.maximumDateTime>` ()
+*    def :meth:`maximumTime<PySide.QtGui.QDateTimeEdit.maximumTime>` ()
+*    def :meth:`minimumDate<PySide.QtGui.QDateTimeEdit.minimumDate>` ()
+*    def :meth:`minimumDateTime<PySide.QtGui.QDateTimeEdit.minimumDateTime>` ()
+*    def :meth:`minimumTime<PySide.QtGui.QDateTimeEdit.minimumTime>` ()
+*    def :meth:`sectionAt<PySide.QtGui.QDateTimeEdit.sectionAt>` (index)
+*    def :meth:`sectionCount<PySide.QtGui.QDateTimeEdit.sectionCount>` ()
+*    def :meth:`sectionText<PySide.QtGui.QDateTimeEdit.sectionText>` (section)
+*    def :meth:`setCalendarPopup<PySide.QtGui.QDateTimeEdit.setCalendarPopup>` (enable)
+*    def :meth:`setCalendarWidget<PySide.QtGui.QDateTimeEdit.setCalendarWidget>` (calendarWidget)
+*    def :meth:`setCurrentSection<PySide.QtGui.QDateTimeEdit.setCurrentSection>` (section)
+*    def :meth:`setCurrentSectionIndex<PySide.QtGui.QDateTimeEdit.setCurrentSectionIndex>` (index)
+*    def :meth:`setDateRange<PySide.QtGui.QDateTimeEdit.setDateRange>` (min, max)
+*    def :meth:`setDateTimeRange<PySide.QtGui.QDateTimeEdit.setDateTimeRange>` (min, max)
+*    def :meth:`setDisplayFormat<PySide.QtGui.QDateTimeEdit.setDisplayFormat>` (format)
+*    def :meth:`setMaximumDate<PySide.QtGui.QDateTimeEdit.setMaximumDate>` (max)
+*    def :meth:`setMaximumDateTime<PySide.QtGui.QDateTimeEdit.setMaximumDateTime>` (dt)
+*    def :meth:`setMaximumTime<PySide.QtGui.QDateTimeEdit.setMaximumTime>` (max)
+*    def :meth:`setMinimumDate<PySide.QtGui.QDateTimeEdit.setMinimumDate>` (min)
+*    def :meth:`setMinimumDateTime<PySide.QtGui.QDateTimeEdit.setMinimumDateTime>` (dt)
+*    def :meth:`setMinimumTime<PySide.QtGui.QDateTimeEdit.setMinimumTime>` (min)
+*    def :meth:`setSelectedSection<PySide.QtGui.QDateTimeEdit.setSelectedSection>` (section)
+*    def :meth:`setTimeRange<PySide.QtGui.QDateTimeEdit.setTimeRange>` (min, max)
+*    def :meth:`setTimeSpec<PySide.QtGui.QDateTimeEdit.setTimeSpec>` (spec)
+*    def :meth:`time<PySide.QtGui.QDateTimeEdit.time>` ()
+*    def :meth:`timeSpec<PySide.QtGui.QDateTimeEdit.timeSpec>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`dateTimeFromText<PySide.QtGui.QDateTimeEdit.dateTimeFromText>` (text)
+*    def :meth:`textFromDateTime<PySide.QtGui.QDateTimeEdit.textFromDateTime>` (dt)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setDate<PySide.QtGui.QDateTimeEdit.setDate>` (date)
+*    def :meth:`setDateTime<PySide.QtGui.QDateTimeEdit.setDateTime>` (dateTime)
+*    def :meth:`setTime<PySide.QtGui.QDateTimeEdit.setTime>` (time)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`dateChanged<PySide.QtGui.QDateTimeEdit.dateChanged>` (date)
+*    def :meth:`dateTimeChanged<PySide.QtGui.QDateTimeEdit.dateTimeChanged>` (date)
+*    def :meth:`timeChanged<PySide.QtGui.QDateTimeEdit.timeChanged>` (date)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDateTimeEdit` class provides a widget for editing dates and times.
+
+    :class:`PySide.QtGui.QDateTimeEdit` allows the user to edit dates by using the keyboard or the arrow keys to increase and decrease date and time values. The arrow keys can be used to move from section to section within the :class:`PySide.QtGui.QDateTimeEdit` box. Dates and times appear in accordance with the format set; see :meth:`PySide.QtGui.QDateTimeEdit.setDisplayFormat` .
+
+    ::
+
+        dateEdit = QDateTimeEdit(QDate.currentDate())
+        dateEdit.setMinimumDate(QDate.currentDate().addDays(-365))
+        dateEdit.setMaximumDate(QDate.currentDate().addDays(365))
+        dateEdit.setDisplayFormat("yyyy.MM.dd")
+
+
+    Here we've created a new :class:`PySide.QtGui.QDateTimeEdit` object initialized with today's date, and restricted the valid date range to today plus or minus 365 days. We've set the order to month, day, year.
+
+    The minimum value for :class:`PySide.QtGui.QDateTimeEdit` is 14 September 1752, and 2 January 4713BC for :class:`PySide.QtCore.QDate` . You can change this by calling :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate` , :meth:`PySide.QtGui.QDateTimeEdit.setMaximumDate` , :meth:`PySide.QtGui.QDateTimeEdit.setMinimumTime` , and :meth:`PySide.QtGui.QDateTimeEdit.setMaximumTime` .
+
+    .. _PySide.QtGui.QDateTimeEdit_using-a-pop-up-calendar-widget:
+
+
+
+Using a Pop-up Calendar Widget
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QDateTimeEdit` can be configured to allow a :class:`PySide.QtGui.QCalendarWidget` to be used to select dates. This is enabled by setting the :meth:`PySide.QtGui.QDateTimeEdit.calendarPopup` property. Additionally, you can supply a custom calendar widget for use as the calendar pop-up by calling the :meth:`PySide.QtGui.QDateTimeEdit.setCalendarWidget` function. The existing calendar widget can be retrieved with :meth:`PySide.QtGui.QDateTimeEdit.calendarWidget` .
+
+    +---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-datetimeedit.png|A date time editing widget shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .|
+    +---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-datetimeedit.png|A date time editing widget shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` . |
+    +---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-datetimeedit.png|A date time editing widget shown in the :ref:`Plastique widget style<gallery-plastique.html>` . |
+    +---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QDateEdit`  :class:`PySide.QtGui.QTimeEdit`  :class:`PySide.QtCore.QDate`  :class:`PySide.QtCore.QTime` 
+
+.. class:: QDateTimeEdit([parent=None])
+           QDateTimeEdit(d[, parent=None])
+           QDateTimeEdit(dt[, parent=None])
+           QDateTimeEdit(t[, parent=None])
+           QDateTimeEdit(val, parserType[, parent=None])
+
+    :param val: object
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param t: :class:`PySide.QtCore.QTime`
+    :param d: :class:`PySide.QtCore.QDate`
+    :param dt: :class:`PySide.QtCore.QDateTime`
+    :param parserType: :class:`PySide.QtCore.QVariant::Type`
+
+    Constructs an empty date time editor with a ``parent`` .
+
+
+    Constructs an empty date time editor with a ``parent`` . The value is set to ``date`` .
+
+
+    Constructs an empty date time editor with a ``parent`` . The value is set to ``datetime`` .
+
+
+    Constructs an empty date time editor with a ``parent`` . The value is set to ``time`` .
+
+
+
+
+.. attribute:: PySide.QtGui.QDateTimeEdit.Section
+
+    +---------------------------+-----------+
+    |Constant                   |Description|
+    +===========================+===========+
+    |QDateTimeEdit.NoSection    |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.AmPmSection  |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.MSecSection  |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.SecondSection|           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.MinuteSection|           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.HourSection  |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.DaySection   |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.MonthSection |           |
+    +---------------------------+-----------+
+    |QDateTimeEdit.YearSection  |           |
+    +---------------------------+-----------+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.calendarPopup()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the current calendar pop-up showing mode..
+
+    The calendar pop-up will be shown upon clicking the arrow button. This property is valid only if there is a valid date display format.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setDisplayFormat` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.calendarWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QCalendarWidget`
+
+
+
+
+    Returns the calendar widget for the editor if :meth:`PySide.QtGui.QDateTimeEdit.calendarPopup` is set to true and ( :ref:`sections()<qml-presenting-data.html>` & :attr:`DateSections_Mask<QDateTimeEdit.Section>` ) != 0.
+
+    This function creates and returns a calendar widget if none has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setCalendarWidget` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMaximumDate()
+
+
+
+
+
+
+    This property holds the maximum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDate` is adjusted if necessary to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to December 31, 7999.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMaximumDateTime()
+
+
+
+
+
+
+    This property holds the maximum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime` .
+
+    By default, this property contains a date that refers to 31 December, 7999 and a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMaximumTime()
+
+
+
+
+
+
+    This property holds the maximum time of the date time edit.
+
+    When setting this property, the :meth:`PySide.QtGui.QDateTimeEdit.minimumTime` is adjusted if necessary to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMinimumDate()
+
+
+
+
+
+
+    This property holds the minimum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDate` is adjusted if necessary, to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to September 14, 1752. The minimum date must be at least the first day in year 100, otherwise :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate` has no effect.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMinimumDateTime()
+
+
+
+
+
+
+    This property holds the minimum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`
+
+    By default, this property contains a date that refers to September 14, 1752 and a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.clearMinimumTime()
+
+
+
+
+
+
+    This property holds the minimum time of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumTime` is adjusted if necessary, to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.currentSection()
+
+
+    :rtype: :attr:`PySide.QtGui.QDateTimeEdit.Section`
+
+
+
+
+    This property holds the current section of the spinbox ``setCurrentSection()`` .
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.currentSectionIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current section index of the spinbox.
+
+    If the format is 'yyyy/MM/dd', the displayText is '2001/05/21' and the cursorPosition is 5 :meth:`PySide.QtGui.QDateTimeEdit.currentSectionIndex` returns 1. If the cursorPosition is 3 :meth:`PySide.QtGui.QDateTimeEdit.currentSectionIndex` is 0 etc.
+
+    ``setCurrentSection()``\
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.currentSection` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.date()
+
+
+    :rtype: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QDate` that is set in the widget.
+
+    By default, this property contains a date that refers to January 1, 2000.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.time`  :meth:`PySide.QtGui.QDateTimeEdit.dateTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.dateChanged(date)
+
+
+    :param date: :class:`PySide.QtCore.QDate`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.dateTime()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QDateTime` that is set in the :class:`PySide.QtGui.QDateTimeEdit` .
+
+    When setting this property the timespec of the :class:`PySide.QtGui.QDateTimeEdit` remains the same and the timespec of the new :class:`PySide.QtCore.QDateTime` is ignored.
+
+    By default, this property contains a date that refers to January 1, 2000 and a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.date`  :meth:`PySide.QtGui.QDateTimeEdit.time` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.dateTimeChanged(date)
+
+
+    :param date: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.dateTimeFromText(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns an appropriate datetime for the given ``text`` .
+
+    This virtual function is used by the datetime edit whenever it needs to interpret text entered by the user as a value.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.textFromDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.validate` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.displayFormat()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the format used to display the time/date of the date time edit.
+
+    This format is the same as the one used described in :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>` and :meth:`QDateTime.fromString()<PySide.QtCore.QDateTime.fromString>`
+
+    Example format strings (assuming that the date is 2nd of July 1969):
+
+    +----------+----------+
+    |Format    |Result    |
+    +----------+----------+
+    |dd.MM.yyyy|02.07.1969|
+    +----------+----------+
+    |MMM d yy  |Jul 2 69  |
+    +----------+----------+
+    |MMMM d yy |July 2 69 |
+    +----------+----------+
+
+    Note that if you specify a two digit year, it will be interpreted to be in the century in which the date time edit was initialized. The default century is the 21 (2000-2099).
+
+    If you specify an invalid format the format will not be set.
+
+    .. seealso::  :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>`  :meth:`PySide.QtGui.QDateTimeEdit.displayedSections` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.displayedSections()
+
+
+    :rtype: :class:`PySide.QtGui.QDateTimeEdit.Sections`
+
+
+
+
+    This property holds the currently displayed fields of the date time edit.
+
+    Returns a bit set of the displayed sections for this format. ``setDisplayFormat()`` , :meth:`PySide.QtGui.QDateTimeEdit.displayFormat`
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.maximumDate()
+
+
+    :rtype: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the maximum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDate` is adjusted if necessary to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to December 31, 7999.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.maximumDateTime()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the maximum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime` .
+
+    By default, this property contains a date that refers to 31 December, 7999 and a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.maximumTime()
+
+
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the maximum time of the date time edit.
+
+    When setting this property, the :meth:`PySide.QtGui.QDateTimeEdit.minimumTime` is adjusted if necessary to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.minimumDate()
+
+
+    :rtype: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the minimum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDate` is adjusted if necessary, to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to September 14, 1752. The minimum date must be at least the first day in year 100, otherwise :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate` has no effect.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.minimumDateTime()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the minimum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`
+
+    By default, this property contains a date that refers to September 14, 1752 and a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.minimumTime()
+
+
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the minimum time of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumTime` is adjusted if necessary, to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.sectionAt(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :attr:`PySide.QtGui.QDateTimeEdit.Section`
+
+
+
+
+    Returns the Section at ``index`` .
+
+    If the format is 'yyyy/MM/dd', sectionAt(0) returns :attr:`YearSection<QDateTimeEdit.Section>` , sectionAt(1) returns :attr:`MonthSection<QDateTimeEdit.Section>` , and sectionAt(2) returns :attr:`YearSection<QDateTimeEdit.Section>` ,
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.sectionCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of sections displayed. If the format is 'yyyy/yy/yyyy', :meth:`PySide.QtGui.QDateTimeEdit.sectionCount` returns 3.
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.sectionText(section)
+
+
+    :param section: :attr:`PySide.QtGui.QDateTimeEdit.Section`
+    :rtype: unicode
+
+
+
+
+    Returns the text from the given ``section`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.currentSection` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setCalendarPopup(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the current calendar pop-up showing mode..
+
+    The calendar pop-up will be shown upon clicking the arrow button. This property is valid only if there is a valid date display format.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setDisplayFormat` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setCalendarWidget(calendarWidget)
+
+
+    :param calendarWidget: :class:`PySide.QtGui.QCalendarWidget`
+
+
+
+
+    Sets the given ``calendarWidget`` as the widget to be used for the calendar pop-up. The editor does not automatically take ownership of the calendar widget.
+
+    .. note:: \ :meth:`PySide.QtGui.QDateTimeEdit.calendarPopup` must be set to true before setting the calendar widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.calendarWidget`  :meth:`PySide.QtGui.QDateTimeEdit.calendarPopup` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setCurrentSection(section)
+
+
+    :param section: :attr:`PySide.QtGui.QDateTimeEdit.Section`
+
+
+
+
+    This property holds the current section of the spinbox ``setCurrentSection()`` .
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setCurrentSectionIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current section index of the spinbox.
+
+    If the format is 'yyyy/MM/dd', the displayText is '2001/05/21' and the cursorPosition is 5 :meth:`PySide.QtGui.QDateTimeEdit.currentSectionIndex` returns 1. If the cursorPosition is 3 :meth:`PySide.QtGui.QDateTimeEdit.currentSectionIndex` is 0 etc.
+
+    ``setCurrentSection()``\
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.currentSection` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setDate(date)
+
+
+    :param date: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QDate` that is set in the widget.
+
+    By default, this property contains a date that refers to January 1, 2000.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.time`  :meth:`PySide.QtGui.QDateTimeEdit.dateTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setDateRange(min, max)
+
+
+    :param min: :class:`PySide.QtCore.QDate`
+    :param max: :class:`PySide.QtCore.QDate`
+
+
+
+
+    Convenience function to set minimum and maximum date with one function call.
+
+    ::
+
+        setDateRange(min, max)
+
+
+    is analogous to:
+
+    ::
+
+        setMinimumDate(min)
+        setMaximumDate(max)
+
+
+    If either ``min`` or ``max`` are not valid, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`QDate.isValid()<PySide.QtCore.QDate.isValid>` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setDateTime(dateTime)
+
+
+    :param dateTime: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QDateTime` that is set in the :class:`PySide.QtGui.QDateTimeEdit` .
+
+    When setting this property the timespec of the :class:`PySide.QtGui.QDateTimeEdit` remains the same and the timespec of the new :class:`PySide.QtCore.QDateTime` is ignored.
+
+    By default, this property contains a date that refers to January 1, 2000 and a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.date`  :meth:`PySide.QtGui.QDateTimeEdit.time` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setDateTimeRange(min, max)
+
+
+    :param min: :class:`PySide.QtCore.QDateTime`
+    :param max: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Convenience function to set minimum and maximum date time with one function call.
+
+    ::
+
+        setDateTimeRange(min, max)
+
+
+    is analogous to:
+
+    ::
+
+        setMinimumDateTime(min)
+        setMaximumDateTime(max)
+
+
+    If either ``min`` or ``max`` are not valid, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`QDateTime.isValid()<PySide.QtCore.QDateTime.isValid>` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setDisplayFormat(format)
+
+
+    :param format: unicode
+
+
+
+
+    This property holds the format used to display the time/date of the date time edit.
+
+    This format is the same as the one used described in :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>` and :meth:`QDateTime.fromString()<PySide.QtCore.QDateTime.fromString>`
+
+    Example format strings (assuming that the date is 2nd of July 1969):
+
+    +----------+----------+
+    |Format    |Result    |
+    +----------+----------+
+    |dd.MM.yyyy|02.07.1969|
+    +----------+----------+
+    |MMM d yy  |Jul 2 69  |
+    +----------+----------+
+    |MMMM d yy |July 2 69 |
+    +----------+----------+
+
+    Note that if you specify a two digit year, it will be interpreted to be in the century in which the date time edit was initialized. The default century is the 21 (2000-2099).
+
+    If you specify an invalid format the format will not be set.
+
+    .. seealso::  :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>`  :meth:`PySide.QtGui.QDateTimeEdit.displayedSections` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMaximumDate(max)
+
+
+    :param max: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the maximum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDate` is adjusted if necessary to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to December 31, 7999.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMaximumDateTime(dt)
+
+
+    :param dt: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the maximum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime` .
+
+    By default, this property contains a date that refers to 31 December, 7999 and a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMaximumTime(max)
+
+
+    :param max: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the maximum time of the date time edit.
+
+    When setting this property, the :meth:`PySide.QtGui.QDateTimeEdit.minimumTime` is adjusted if necessary to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 23:59:59 and 999 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMinimumDate(min)
+
+
+    :param min: :class:`PySide.QtCore.QDate`
+
+
+
+
+    This property holds the minimum date of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDate` is adjusted if necessary, to ensure that the range remains valid. If the date is not a valid :class:`PySide.QtCore.QDate` object, this function does nothing.
+
+    By default, this property contains a date that refers to September 14, 1752. The minimum date must be at least the first day in year 100, otherwise :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate` has no effect.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMinimumDateTime(dt)
+
+
+    :param dt: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    This property holds the minimum datetime of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime` is adjusted if necessary to ensure that the range remains valid. If the datetime is not a valid :class:`PySide.QtCore.QDateTime` object, this function does nothing.
+
+    The default :meth:`PySide.QtGui.QDateTimeEdit.minimumDateTime` can be restored with :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDateTime`
+
+    By default, this property contains a date that refers to September 14, 1752 and a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setDateTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.setDateRange`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDateTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMaximumTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setMinimumTime(min)
+
+
+    :param min: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the minimum time of the date time edit.
+
+    When setting this property the :meth:`PySide.QtGui.QDateTimeEdit.maximumTime` is adjusted if necessary, to ensure that the range remains valid. If the time is not a valid :class:`PySide.QtCore.QTime` object, this function does nothing.
+
+    By default, this property contains a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.minimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setTimeRange` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setSelectedSection(section)
+
+
+    :param section: :attr:`PySide.QtGui.QDateTimeEdit.Section`
+
+
+
+
+    Selects ``section`` . If ``section`` doesn't exist in the currently displayed sections this function does nothing. If ``section`` is :attr:`NoSection<QDateTimeEdit.Section>` this function will unselect all text in the editor. Otherwise this function will move the cursor and the current section to the selected section.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.currentSection` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setTime(time)
+
+
+    :param time: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QTime` that is set in the widget.
+
+    By default, this property contains a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.date`  :meth:`PySide.QtGui.QDateTimeEdit.dateTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setTimeRange(min, max)
+
+
+    :param min: :class:`PySide.QtCore.QTime`
+    :param max: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Convenience function to set minimum and maximum time with one function call.
+
+    ::
+
+        setTimeRange(min, max)
+
+
+    is analogous to:
+
+    ::
+
+        setMinimumTime(min)
+        setMaximumTime(max)
+
+
+    If either ``min`` or ``max`` are not valid, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.maximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumDate`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumDate`  :meth:`PySide.QtGui.QDateTimeEdit.setMinimumTime`  :meth:`PySide.QtGui.QDateTimeEdit.maximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.setMaximumTime`  :meth:`PySide.QtGui.QDateTimeEdit.clearMinimumTime`  :meth:`QTime.isValid()<PySide.QtCore.QTime.isValid>` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.setTimeSpec(spec)
+
+
+    :param spec: :attr:`PySide.QtCore.Qt.TimeSpec`
+
+
+
+
+    This property holds the current timespec used by the date time edit..
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.textFromDateTime(dt)
+
+
+    :param dt: :class:`PySide.QtCore.QDateTime`
+    :rtype: unicode
+
+
+
+
+    This virtual function is used by the date time edit whenever it needs to display ``dateTime`` .
+
+    If you reimplement this, you may also need to reimplement :meth:`PySide.QtGui.QDateTimeEdit.validate` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.dateTimeFromText`  :meth:`PySide.QtGui.QDateTimeEdit.validate` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.time()
+
+
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    This property holds the :class:`PySide.QtCore.QTime` that is set in the widget.
+
+    By default, this property contains a time of 00:00:00 and 0 milliseconds.
+
+    .. seealso::  :meth:`PySide.QtGui.QDateTimeEdit.date`  :meth:`PySide.QtGui.QDateTimeEdit.dateTime` 
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.timeChanged(date)
+
+
+    :param date: :class:`PySide.QtCore.QTime`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDateTimeEdit.timeSpec()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TimeSpec`
+
+
+
+
+    This property holds the current timespec used by the date time edit..
+
+
+
+

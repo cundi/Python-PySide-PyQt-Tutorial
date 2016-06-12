@@ -1,0 +1,426 @@
+.. module:: PySide.QtGui
+.. _QAbstractScrollArea:
+
+QAbstractScrollArea
+*******************
+
+.. inheritance-diagram:: QAbstractScrollArea
+    :parts: 2
+
+**Inherited by:** :ref:`QGraphicsView`, :ref:`QDeclarativeView`, :ref:`QAbstractItemView`, :ref:`QTreeView`, :ref:`QHelpContentWidget`, :ref:`QTreeWidget`, :ref:`QHeaderView`, :ref:`QTableView`, :ref:`QTableWidget`, :ref:`QColumnView`, :ref:`QListView`, :ref:`QUndoView`, :ref:`QListWidget`, :ref:`QHelpIndexWidget`, :ref:`QScrollArea`, :ref:`QPlainTextEdit`, :ref:`QTextEdit`, :ref:`QTextBrowser`, :ref:`QMdiArea`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addScrollBarWidget<PySide.QtGui.QAbstractScrollArea.addScrollBarWidget>` (widget, alignment)
+*    def :meth:`cornerWidget<PySide.QtGui.QAbstractScrollArea.cornerWidget>` ()
+*    def :meth:`horizontalScrollBar<PySide.QtGui.QAbstractScrollArea.horizontalScrollBar>` ()
+*    def :meth:`horizontalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy>` ()
+*    def :meth:`maximumViewportSize<PySide.QtGui.QAbstractScrollArea.maximumViewportSize>` ()
+*    def :meth:`scrollBarWidgets<PySide.QtGui.QAbstractScrollArea.scrollBarWidgets>` (alignment)
+*    def :meth:`setCornerWidget<PySide.QtGui.QAbstractScrollArea.setCornerWidget>` (widget)
+*    def :meth:`setHorizontalScrollBar<PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBar>` (scrollbar)
+*    def :meth:`setHorizontalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBarPolicy>` (arg__1)
+*    def :meth:`setVerticalScrollBar<PySide.QtGui.QAbstractScrollArea.setVerticalScrollBar>` (scrollbar)
+*    def :meth:`setVerticalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.setVerticalScrollBarPolicy>` (arg__1)
+*    def :meth:`setViewport<PySide.QtGui.QAbstractScrollArea.setViewport>` (widget)
+*    def :meth:`setViewportMargins<PySide.QtGui.QAbstractScrollArea.setViewportMargins>` (left, top, right, bottom)
+*    def :meth:`setViewportMargins<PySide.QtGui.QAbstractScrollArea.setViewportMargins>` (margins)
+*    def :meth:`verticalScrollBar<PySide.QtGui.QAbstractScrollArea.verticalScrollBar>` ()
+*    def :meth:`verticalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy>` ()
+*    def :meth:`viewport<PySide.QtGui.QAbstractScrollArea.viewport>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`scrollContentsBy<PySide.QtGui.QAbstractScrollArea.scrollContentsBy>` (dx, dy)
+*    def :meth:`viewportEvent<PySide.QtGui.QAbstractScrollArea.viewportEvent>` (arg__1)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setupViewport<PySide.QtGui.QAbstractScrollArea.setupViewport>` (viewport)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractScrollArea` widget provides a scrolling area with on-demand scroll bars.
+
+    :class:`PySide.QtGui.QAbstractScrollArea` is a low-level abstraction of a scrolling area. The area provides a central widget called the viewport, in which the contents of the area is to be scrolled (i.e, the visible parts of the contents are rendered in the viewport).
+
+    Next to the viewport is a vertical scroll bar, and below is a horizontal scroll bar. When all of the area contents fits in the viewport, each scroll bar can be either visible or hidden depending on the scroll bar's :attr:`Qt.ScrollBarPolicy` . When a scroll bar is hidden, the viewport expands in order to cover all available space. When a scroll bar becomes visible again, the viewport shrinks in order to make room for the scroll bar.
+
+    It is possible to reserve a margin area around the viewport, see :meth:`PySide.QtGui.QAbstractScrollArea.setViewportMargins` . The feature is mostly used to place a :class:`PySide.QtGui.QHeaderView` widget above or beside the scrolling area. Subclasses of :class:`PySide.QtGui.QAbstractScrollArea` should implement margins.
+
+    When inheriting :class:`PySide.QtGui.QAbstractScrollArea` , you need to do the following:
+
+
+    * Control the scroll bars by setting their range, value, page step, and tracking their movements.
+    * Draw the contents of the area in the viewport according to the values of the scroll bars.
+    * Handle events received by the viewport in :meth:`PySide.QtGui.QAbstractScrollArea.viewportEvent` - notably resize events.
+    * Use ``viewport->update()`` to update the contents of the viewport instead of :meth:`PySide.QtGui.QWidget.update` as all painting operations take place on the viewport.
+
+    With a scroll bar policy of :attr:`Qt.ScrollBarAsNeeded<Qt.ScrollBarPolicy>` (the default), :class:`PySide.QtGui.QAbstractScrollArea` shows scroll bars when they provide a non-zero scrolling range, and hides them otherwise.
+
+    The scroll bars and viewport should be updated whenever the viewport receives a resize event or the size of the contents changes. The viewport also needs to be updated when the scroll bars values change. The initial values of the scroll bars are often set when the area receives new contents.
+
+    We give a simple example, in which we have implemented a scroll area that can scroll any :class:`PySide.QtGui.QWidget` . We make the widget a child of the viewport; this way, we do not have to calculate which part of the widget to draw but can simply move the widget with :meth:`QWidget.move()<PySide.QtGui.QWidget.move>` . When the area contents or the viewport size changes, we do the following:
+
+    ::
+
+                areaSize = viewport().size()
+                widgetSize = widget.size()
+
+                self.verticalScrollBar().setPageStep(widgetSize.height())
+                self.horizontalScrollBar().setPageStep(widgetSize.width())
+                self.verticalScrollBar().setRange(0, widgetSize.height() - areaSize.height())
+                self.horizontalScrollBar().setRange(0, widgetSize.width() - areaSize.width())
+                self.updateWidgetPosition()
+
+
+    When the scroll bars change value, we need to update the widget position, i.e., find the part of the widget that is to be drawn in the viewport:
+
+    ::
+
+                hvalue = self.horizontalScrollBar().value()
+                vvalue = self.verticalScrollBar().value()
+                topLeft = self.viewport().rect().topLeft()
+
+                self.widget.move(topLeft.x() - hvalue, topLeft.y() - vvalue)
+
+
+    In order to track scroll bar movements, reimplement the virtual function :meth:`PySide.QtGui.QAbstractScrollArea.scrollContentsBy` . In order to fine-tune scrolling behavior, connect to a scroll bar's :meth:`QAbstractSlider.actionTriggered()<PySide.QtGui.QAbstractSlider.actionTriggered>` signal and adjust the :meth:`QAbstractSlider.sliderPosition<PySide.QtGui.QAbstractSlider.sliderPosition>` as you wish.
+
+    For convenience, :class:`PySide.QtGui.QAbstractScrollArea` makes all viewport events available in the virtual :meth:`PySide.QtGui.QAbstractScrollArea.viewportEvent` handler. :class:`PySide.QtGui.QWidget` 's specialized handlers are remapped to viewport events in the cases where this makes sense. The remapped specialized handlers are: :meth:`PySide.QtGui.QAbstractScrollArea.paintEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mousePressEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseReleaseEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseDoubleClickEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseMoveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.wheelEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragEnterEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragMoveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragLeaveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dropEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.contextMenuEvent` , and :meth:`PySide.QtGui.QAbstractScrollArea.resizeEvent` .
+
+    :class:`PySide.QtGui.QScrollArea` , which inherits :class:`PySide.QtGui.QAbstractScrollArea` , provides smooth scrolling for any :class:`PySide.QtGui.QWidget` (i.e., the widget is scrolled pixel by pixel). You only need to subclass :class:`PySide.QtGui.QAbstractScrollArea` if you need more specialized behavior. This is, for instance, true if the entire contents of the area is not suitable for being drawn on a :class:`PySide.QtGui.QWidget` or if you do not want smooth scrolling.
+
+    .. seealso::  :class:`PySide.QtGui.QScrollArea` 
+
+.. class:: QAbstractScrollArea([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a viewport.
+
+    The ``parent`` argument is sent to the :class:`PySide.QtGui.QWidget` constructor.
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.addScrollBarWidget(widget, alignment)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.cornerWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget in the corner between the two scroll bars.
+
+    By default, no corner widget is present.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.setCornerWidget` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.horizontalScrollBar()
+
+
+    :rtype: :class:`PySide.QtGui.QScrollBar`
+
+
+
+
+    Returns the horizontal scroll bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBar`  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy`  :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBar` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ScrollBarPolicy`
+
+
+
+
+    This property holds the policy for the horizontal scroll bar.
+
+    The default policy is :attr:`Qt.ScrollBarAsNeeded<Qt.ScrollBarPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.maximumViewportSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size of the viewport as if the scroll bars had no valid scrolling range.
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.scrollBarWidgets(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.scrollContentsBy(dx, dy)
+
+
+    :param dx: :class:`PySide.QtCore.int`
+    :param dy: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual handler is called when the scroll bars are moved by ``dx`` , ``dy`` , and consequently the viewport's contents should be scrolled accordingly.
+
+    The default implementation simply calls :meth:`PySide.QtGui.QWidget.update` on the entire :meth:`PySide.QtGui.QAbstractScrollArea.viewport` , subclasses can reimplement this handler for optimization purposes, or - like :class:`PySide.QtGui.QScrollArea` - to move a contents widget. The parameters ``dx`` and ``dy`` are there for convenience, so that the class knows how much should be scrolled (useful e.g. when doing pixel-shifts). You may just as well ignore these values and scroll directly to the position the scroll bars indicate.
+
+    Calling this function in order to scroll programmatically is an error, use the scroll bars instead (e.g. by calling :meth:`QScrollBar.setValue()<PySide.QtGui.QScrollBar.setValue>` directly).
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setCornerWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget in the corner between the two scroll bars to be ``widget`` .
+
+    You will probably also want to set at least one of the scroll bar modes to ``AlwaysOn`` .
+
+    Passing 0 shows no widget in the corner.
+
+    Any previous corner widget is hidden.
+
+    You may call :meth:`PySide.QtGui.QAbstractScrollArea.setCornerWidget` with the same widget at different times.
+
+    All widgets set here will be deleted by the scroll area when it is destroyed unless you separately reparent the widget after setting some other corner widget (or 0).
+
+    Any *newly* set widget should have no current parent.
+
+    By default, no corner widget is present.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.cornerWidget`  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy`  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBar(scrollbar)
+
+
+    :param scrollbar: :class:`PySide.QtGui.QScrollBar`
+
+
+
+
+    Replaces the existing horizontal scroll bar with ``scrollBar`` , and sets all the former scroll bar's slider properties on the new scroll bar. The former scroll bar is then deleted.
+
+    :class:`PySide.QtGui.QAbstractScrollArea` already provides horizontal and vertical scroll bars by default. You can call this function to replace the default horizontal scroll bar with your own custom scroll bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBar`  :meth:`PySide.QtGui.QAbstractScrollArea.setVerticalScrollBar` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBarPolicy(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.ScrollBarPolicy`
+
+
+
+
+    This property holds the policy for the horizontal scroll bar.
+
+    The default policy is :attr:`Qt.ScrollBarAsNeeded<Qt.ScrollBarPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setVerticalScrollBar(scrollbar)
+
+
+    :param scrollbar: :class:`PySide.QtGui.QScrollBar`
+
+
+
+
+    Replaces the existing vertical scroll bar with ``scrollBar`` , and sets all the former scroll bar's slider properties on the new scroll bar. The former scroll bar is then deleted.
+
+    :class:`PySide.QtGui.QAbstractScrollArea` already provides vertical and horizontal scroll bars by default. You can call this function to replace the default vertical scroll bar with your own custom scroll bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBar`  :meth:`PySide.QtGui.QAbstractScrollArea.setHorizontalScrollBar` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setVerticalScrollBarPolicy(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.ScrollBarPolicy`
+
+
+
+
+    This property holds the policy for the vertical scroll bar.
+
+    The default policy is :attr:`Qt.ScrollBarAsNeeded<Qt.ScrollBarPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setViewport(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the viewport to be the given ``widget`` . The :class:`PySide.QtGui.QAbstractScrollArea` will take ownership of the given ``widget`` .
+
+    If ``widget`` is 0, :class:`PySide.QtGui.QAbstractScrollArea` will assign a new :class:`PySide.QtGui.QWidget` instance for the viewport.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.viewport` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setViewportMargins(left, top, right, bottom)
+
+
+    :param left: :class:`PySide.QtCore.int`
+    :param top: :class:`PySide.QtCore.int`
+    :param right: :class:`PySide.QtCore.int`
+    :param bottom: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the margins around the scrolling area to ``left`` , ``top`` , ``right`` and ``bottom`` . This is useful for applications such as spreadsheets with "locked" rows and columns. The marginal space is is left blank; put widgets in the unused area.
+
+    Note that this function is frequently called by :class:`PySide.QtGui.QTreeView` and :class:`PySide.QtGui.QTableView` , so margins must be implemented by :class:`PySide.QtGui.QAbstractScrollArea` subclasses. Also, if the subclasses are to be used in item views, they should not call this function.
+
+    By default all margins are zero.
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setViewportMargins(margins)
+
+
+    :param margins: :class:`PySide.QtCore.QMargins`
+
+
+
+
+    Sets ``margins`` around the scrolling area. This is useful for applications such as spreadsheets with "locked" rows and columns. The marginal space is is left blank; put widgets in the unused area.
+
+    By default all margins are zero.
+
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.setupViewport(viewport)
+
+
+    :param viewport: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This slot is called by :class:`PySide.QtGui.QAbstractScrollArea` after setViewport(``viewport`` ) has been called. Reimplement this function in a subclass of :class:`PySide.QtGui.QAbstractScrollArea` to initialize the new ``viewport`` before it is used.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.setViewport` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.verticalScrollBar()
+
+
+    :rtype: :class:`PySide.QtGui.QScrollBar`
+
+
+
+
+    Returns the vertical scroll bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.setVerticalScrollBar`  :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy`  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBar` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ScrollBarPolicy`
+
+
+
+
+    This property holds the policy for the vertical scroll bar.
+
+    The default policy is :attr:`Qt.ScrollBarAsNeeded<Qt.ScrollBarPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.viewport()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the viewport widget.
+
+    Use the :meth:`QScrollArea.widget()<PySide.QtGui.QScrollArea.widget>` function to retrieve the contents of the viewport widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractScrollArea.setViewport`  :meth:`QScrollArea.widget()<PySide.QtGui.QScrollArea.widget>` 
+
+
+.. method:: PySide.QtGui.QAbstractScrollArea.viewportEvent(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The main event handler for the scrolling area (the :meth:`PySide.QtGui.QAbstractScrollArea.viewport` widget). It handles the ``event`` specified, and can be called by subclasses to provide reasonable default behavior.
+
+    Returns true to indicate to the event system that the event has been handled, and needs no further processing; otherwise returns false to indicate that the event should be propagated further.
+
+    You can reimplement this function in a subclass, but we recommend using one of the specialized event handlers instead.
+
+    Specialized handlers for viewport events are: :meth:`PySide.QtGui.QAbstractScrollArea.paintEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mousePressEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseReleaseEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseDoubleClickEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.mouseMoveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.wheelEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragEnterEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragMoveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dragLeaveEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.dropEvent` , :meth:`PySide.QtGui.QAbstractScrollArea.contextMenuEvent` , and :meth:`PySide.QtGui.QAbstractScrollArea.resizeEvent` .
+
+
+
+

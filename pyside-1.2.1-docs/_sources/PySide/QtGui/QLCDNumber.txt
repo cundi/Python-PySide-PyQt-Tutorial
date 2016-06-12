@@ -1,0 +1,475 @@
+.. module:: PySide.QtGui
+.. _QLCDNumber:
+
+QLCDNumber
+**********
+
+.. inheritance-diagram:: QLCDNumber
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`checkOverflow<PySide.QtGui.QLCDNumber.checkOverflow>` (num)
+*    def :meth:`checkOverflow<PySide.QtGui.QLCDNumber.checkOverflow>` (num)
+*    def :meth:`digitCount<PySide.QtGui.QLCDNumber.digitCount>` ()
+*    def :meth:`intValue<PySide.QtGui.QLCDNumber.intValue>` ()
+*    def :meth:`mode<PySide.QtGui.QLCDNumber.mode>` ()
+*    def :meth:`numDigits<PySide.QtGui.QLCDNumber.numDigits>` ()
+*    def :meth:`segmentStyle<PySide.QtGui.QLCDNumber.segmentStyle>` ()
+*    def :meth:`setDigitCount<PySide.QtGui.QLCDNumber.setDigitCount>` (nDigits)
+*    def :meth:`setMode<PySide.QtGui.QLCDNumber.setMode>` (arg__1)
+*    def :meth:`setNumDigits<PySide.QtGui.QLCDNumber.setNumDigits>` (nDigits)
+*    def :meth:`setSegmentStyle<PySide.QtGui.QLCDNumber.setSegmentStyle>` (arg__1)
+*    def :meth:`smallDecimalPoint<PySide.QtGui.QLCDNumber.smallDecimalPoint>` ()
+*    def :meth:`value<PySide.QtGui.QLCDNumber.value>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`display<PySide.QtGui.QLCDNumber.display>` (num)
+*    def :meth:`display<PySide.QtGui.QLCDNumber.display>` (num)
+*    def :meth:`display<PySide.QtGui.QLCDNumber.display>` (str)
+*    def :meth:`setBinMode<PySide.QtGui.QLCDNumber.setBinMode>` ()
+*    def :meth:`setDecMode<PySide.QtGui.QLCDNumber.setDecMode>` ()
+*    def :meth:`setHexMode<PySide.QtGui.QLCDNumber.setHexMode>` ()
+*    def :meth:`setOctMode<PySide.QtGui.QLCDNumber.setOctMode>` ()
+*    def :meth:`setSmallDecimalPoint<PySide.QtGui.QLCDNumber.setSmallDecimalPoint>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`overflow<PySide.QtGui.QLCDNumber.overflow>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QLCDNumber` widget displays a number with LCD-like digits.
+
+    It can display a number in just about any size. It can display decimal, hexadecimal, octal or binary numbers. It is easy to connect to data sources using the :meth:`PySide.QtGui.QLCDNumber.display` slot, which is overloaded to take any of five argument types.
+
+    There are also slots to change the base with :meth:`PySide.QtGui.QLCDNumber.setMode` and the decimal point with :meth:`PySide.QtGui.QLCDNumber.setSmallDecimalPoint` .
+
+    :class:`PySide.QtGui.QLCDNumber` emits the :meth:`PySide.QtGui.QLCDNumber.overflow` signal when it is asked to display something beyond its range. The range is set by :meth:`PySide.QtGui.QLCDNumber.setDigitCount` , but :meth:`PySide.QtGui.QLCDNumber.setSmallDecimalPoint` also influences it. If the display is set to hexadecimal, octal or binary, the integer equivalent of the value is displayed.
+
+    These digits and other symbols can be shown: 0/O, 1, 2, 3, 4, 5/S, 6, 7, 8, 9/g, minus, decimal point, A, B, C, D, E, F, h, H, L, o, P, r, u, U, Y, colon, degree sign (which is specified as single quote in the string) and space. :class:`PySide.QtGui.QLCDNumber` substitutes spaces for illegal characters.
+
+    It is not possible to retrieve the contents of a :class:`PySide.QtGui.QLCDNumber` object, although you can retrieve the numeric value with :meth:`PySide.QtGui.QLCDNumber.value` . If you really need the text, we recommend that you connect the signals that feed the :meth:`PySide.QtGui.QLCDNumber.display` slot to another slot as well and store the value there.
+
+    Incidentally, :class:`PySide.QtGui.QLCDNumber` is the very oldest part of Qt, tracing its roots back to a BASIC program on the Sinclair Spectrum.
+
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/motif-lcdnumber.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cde-lcdnumber.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windows-lcdnumber.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-lcdnumber.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-lcdnumber.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-lcdnumber.png|
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |LCD number widgets shown in various widget styles (from left to right): :ref:`Motif<gallery-motif.html>` , :ref:`CDE<gallery-cde.html>` , :ref:`Windows<gallery-windows.html>` , :ref:`Windows XP<gallery-windowsxp.html>` , :ref:`Macintosh<gallery-macintosh.html>` , :ref:`Plastique<gallery-plastique.html>` .                                                                                                                                                                                                                                                                                                           |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QLabel`  :class:`PySide.QtGui.QFrame`  :ref:`Digital Clock Example<widgets/digitalclock>`  :ref:`Tetrix Example<widgets/tetrix>` 
+
+.. class:: QLCDNumber([parent=None])
+           QLCDNumber(numDigits[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param numDigits: :class:`PySide.QtCore.uint`
+
+    Constructs an LCD number, sets the number of digits to 5, the base to decimal, the decimal point mode to 'small' and the frame style to a raised box. The :meth:`PySide.QtGui.QLCDNumber.segmentStyle` is set to ``Outline`` .
+
+    The ``parent`` argument is passed to the :class:`PySide.QtGui.QFrame` constructor.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setDigitCount`  :meth:`PySide.QtGui.QLCDNumber.setSmallDecimalPoint` 
+
+    Constructs an LCD number, sets the number of digits to ``numDigits`` , the base to decimal, the decimal point mode to 'small' and the frame style to a raised box. The :meth:`PySide.QtGui.QLCDNumber.segmentStyle` is set to ``Filled`` .
+
+    The ``parent`` argument is passed to the :class:`PySide.QtGui.QFrame` constructor.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setDigitCount`  :meth:`PySide.QtGui.QLCDNumber.setSmallDecimalPoint` 
+
+.. attribute:: PySide.QtGui.QLCDNumber.Mode
+
+    This type determines how numbers are shown.
+
+    +--------------+-----------+
+    |Constant      |Description|
+    +==============+===========+
+    |QLCDNumber.Hex|Hexadecimal|
+    +--------------+-----------+
+    |QLCDNumber.Dec|Decimal    |
+    +--------------+-----------+
+    |QLCDNumber.Oct|Octal      |
+    +--------------+-----------+
+    |QLCDNumber.Bin|Binary     |
+    +--------------+-----------+
+
+    If the display is set to hexadecimal, octal or binary, the integer equivalent of the value is displayed.
+
+
+.. attribute:: PySide.QtGui.QLCDNumber.SegmentStyle
+
+    This type determines the visual appearance of the :class:`PySide.QtGui.QLCDNumber` widget.
+
+    +------------------+-------------------------------------------------------+
+    |Constant          |Description                                            |
+    +==================+=======================================================+
+    |QLCDNumber.Outline|gives raised segments filled with the background color.|
+    +------------------+-------------------------------------------------------+
+    |QLCDNumber.Filled |gives raised segments filled with the windowText color.|
+    +------------------+-------------------------------------------------------+
+    |QLCDNumber.Flat   |gives flat segments filled with the windowText color.  |
+    +------------------+-------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QLCDNumber.checkOverflow(num)
+
+
+    :param num: :class:`PySide.QtCore.double`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``num`` is too big to be displayed in its entirety; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.display`  :meth:`PySide.QtGui.QLCDNumber.digitCount`  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.checkOverflow(num)
+
+
+    :param num: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if ``num`` is too big to be displayed in its entirety; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.display`  :meth:`PySide.QtGui.QLCDNumber.digitCount`  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.digitCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current number of digits displayed.
+
+    Corresponds to the current number of digits. If :meth:`QLCDNumber.smallDecimalPoint<PySide.QtGui.QLCDNumber.smallDecimalPoint>` is false, the decimal point occupies one digit position.
+
+    By default, this property contains a value of 5.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.display(num)
+
+
+    :param num: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the displayed value.
+
+    This property corresponds to the current value displayed by the LCDNumber.
+
+    If the displayed value is not a number, the property has a value of 0.
+
+    By default, this property contains a value of 0.
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.display(num)
+
+
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Displays the number ``num`` .
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.display(str)
+
+
+    :param str: unicode
+
+
+
+
+    Displays the number represented by the string ``s`` .
+
+    This version of the function disregards :meth:`PySide.QtGui.QLCDNumber.mode` and :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint` .
+
+    These digits and other symbols can be shown: 0/O, 1, 2, 3, 4, 5/S, 6, 7, 8, 9/g, minus, decimal point, A, B, C, D, E, F, h, H, L, o, P, r, u, U, Y, colon, degree sign (which is specified as single quote in the string) and space. :class:`PySide.QtGui.QLCDNumber` substitutes spaces for illegal characters.
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.intValue()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the displayed value rounded to the nearest integer.
+
+    This property corresponds to the nearest integer to the current value displayed by the LCDNumber. This is the value used for hexadecimal, octal and binary modes.
+
+    If the displayed value is not a number, the property has a value of 0.
+
+    By default, this property contains a value of 0.
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.mode()
+
+
+    :rtype: :attr:`PySide.QtGui.QLCDNumber.Mode`
+
+
+
+
+    This property holds the current display mode (number base).
+
+    Corresponds to the current display mode, which is one of ``Bin`` , ``Oct`` , ``Dec`` (the default) and ``Hex`` . ``Dec`` mode can display floating point values, the other modes display the integer equivalent.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint`  :meth:`PySide.QtGui.QLCDNumber.setHexMode`  :meth:`PySide.QtGui.QLCDNumber.setDecMode`  :meth:`PySide.QtGui.QLCDNumber.setOctMode`  :meth:`PySide.QtGui.QLCDNumber.setBinMode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.numDigits()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current number of digits displayed.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.digitCount` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.overflow()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.segmentStyle()
+
+
+    :rtype: :attr:`PySide.QtGui.QLCDNumber.SegmentStyle`
+
+
+
+
+    This property holds the style of the LCDNumber.
+
+    +---------------------------------+----------------------------------------------------------+
+    |Style                            |Result                                                    |
+    +---------------------------------+----------------------------------------------------------+
+    |``Outline``\                     |Produces raised segments filled with the background color |
+    +---------------------------------+----------------------------------------------------------+
+    |``Filled`` (this is the default).|Produces raised segments filled with the foreground color.|
+    +---------------------------------+----------------------------------------------------------+
+    |``Flat``\                        |Produces flat segments filled with the foreground color.  |
+    +---------------------------------+----------------------------------------------------------+
+
+    ``Outline`` and ``Filled`` will additionally use :meth:`QPalette.light()<PySide.QtGui.QPalette.light>` and :meth:`QPalette.dark()<PySide.QtGui.QPalette.dark>` for shadow effects.
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.setBinMode()
+
+
+
+
+
+
+    Calls setMode(Bin). Provided for convenience (e.g. for connecting buttons to it).
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setMode`  :meth:`PySide.QtGui.QLCDNumber.setHexMode`  :meth:`PySide.QtGui.QLCDNumber.setDecMode`  :meth:`PySide.QtGui.QLCDNumber.setOctMode`  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setDecMode()
+
+
+
+
+
+
+    Calls setMode(Dec). Provided for convenience (e.g. for connecting buttons to it).
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setMode`  :meth:`PySide.QtGui.QLCDNumber.setHexMode`  :meth:`PySide.QtGui.QLCDNumber.setOctMode`  :meth:`PySide.QtGui.QLCDNumber.setBinMode`  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setDigitCount(nDigits)
+
+
+    :param nDigits: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current number of digits displayed.
+
+    Corresponds to the current number of digits. If :meth:`QLCDNumber.smallDecimalPoint<PySide.QtGui.QLCDNumber.smallDecimalPoint>` is false, the decimal point occupies one digit position.
+
+    By default, this property contains a value of 5.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setHexMode()
+
+
+
+
+
+
+    Calls setMode(Hex). Provided for convenience (e.g. for connecting buttons to it).
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setMode`  :meth:`PySide.QtGui.QLCDNumber.setDecMode`  :meth:`PySide.QtGui.QLCDNumber.setOctMode`  :meth:`PySide.QtGui.QLCDNumber.setBinMode`  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setMode(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QLCDNumber.Mode`
+
+
+
+
+    This property holds the current display mode (number base).
+
+    Corresponds to the current display mode, which is one of ``Bin`` , ``Oct`` , ``Dec`` (the default) and ``Hex`` . ``Dec`` mode can display floating point values, the other modes display the integer equivalent.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.smallDecimalPoint`  :meth:`PySide.QtGui.QLCDNumber.setHexMode`  :meth:`PySide.QtGui.QLCDNumber.setDecMode`  :meth:`PySide.QtGui.QLCDNumber.setOctMode`  :meth:`PySide.QtGui.QLCDNumber.setBinMode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setNumDigits(nDigits)
+
+
+    :param nDigits: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current number of digits displayed.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.digitCount` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setOctMode()
+
+
+
+
+
+
+    Calls setMode(Oct). Provided for convenience (e.g. for connecting buttons to it).
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.setMode`  :meth:`PySide.QtGui.QLCDNumber.setHexMode`  :meth:`PySide.QtGui.QLCDNumber.setDecMode`  :meth:`PySide.QtGui.QLCDNumber.setBinMode`  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.setSegmentStyle(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QLCDNumber.SegmentStyle`
+
+
+
+
+    This property holds the style of the LCDNumber.
+
+    +---------------------------------+----------------------------------------------------------+
+    |Style                            |Result                                                    |
+    +---------------------------------+----------------------------------------------------------+
+    |``Outline``\                     |Produces raised segments filled with the background color |
+    +---------------------------------+----------------------------------------------------------+
+    |``Filled`` (this is the default).|Produces raised segments filled with the foreground color.|
+    +---------------------------------+----------------------------------------------------------+
+    |``Flat``\                        |Produces flat segments filled with the foreground color.  |
+    +---------------------------------+----------------------------------------------------------+
+
+    ``Outline`` and ``Filled`` will additionally use :meth:`QPalette.light()<PySide.QtGui.QPalette.light>` and :meth:`QPalette.dark()<PySide.QtGui.QPalette.dark>` for shadow effects.
+
+
+
+.. method:: PySide.QtGui.QLCDNumber.setSmallDecimalPoint(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the style of the decimal point.
+
+    If true the decimal point is drawn between two digit positions. Otherwise it occupies a digit position of its own, i.e. is drawn in a digit position. The default is false.
+
+    The inter-digit space is made slightly wider when the decimal point is drawn between the digits.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.smallDecimalPoint()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the style of the decimal point.
+
+    If true the decimal point is drawn between two digit positions. Otherwise it occupies a digit position of its own, i.e. is drawn in a digit position. The default is false.
+
+    The inter-digit space is made slightly wider when the decimal point is drawn between the digits.
+
+    .. seealso::  :meth:`PySide.QtGui.QLCDNumber.mode` 
+
+
+.. method:: PySide.QtGui.QLCDNumber.value()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the displayed value.
+
+    This property corresponds to the current value displayed by the LCDNumber.
+
+    If the displayed value is not a number, the property has a value of 0.
+
+    By default, this property contains a value of 0.
+
+
+
+

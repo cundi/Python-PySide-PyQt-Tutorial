@@ -1,0 +1,190 @@
+.. module:: PySide.QtGui
+.. _QGraphicsPixmapItem:
+
+QGraphicsPixmapItem
+*******************
+
+.. inheritance-diagram:: QGraphicsPixmapItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`offset<PySide.QtGui.QGraphicsPixmapItem.offset>` ()
+*    def :meth:`pixmap<PySide.QtGui.QGraphicsPixmapItem.pixmap>` ()
+*    def :meth:`setOffset<PySide.QtGui.QGraphicsPixmapItem.setOffset>` (offset)
+*    def :meth:`setOffset<PySide.QtGui.QGraphicsPixmapItem.setOffset>` (x, y)
+*    def :meth:`setPixmap<PySide.QtGui.QGraphicsPixmapItem.setPixmap>` (pixmap)
+*    def :meth:`setShapeMode<PySide.QtGui.QGraphicsPixmapItem.setShapeMode>` (mode)
+*    def :meth:`setTransformationMode<PySide.QtGui.QGraphicsPixmapItem.setTransformationMode>` (mode)
+*    def :meth:`shapeMode<PySide.QtGui.QGraphicsPixmapItem.shapeMode>` ()
+*    def :meth:`transformationMode<PySide.QtGui.QGraphicsPixmapItem.transformationMode>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsPixmapItem` class provides a pixmap item that you can add to a :class:`PySide.QtGui.QGraphicsScene` .
+
+    To set the item's pixmap, pass a :class:`PySide.QtGui.QPixmap` to :class:`PySide.QtGui.QGraphicsPixmapItem` 's constructor, or call the :meth:`PySide.QtGui.QGraphicsPixmapItem.setPixmap` function. The :meth:`PySide.QtGui.QGraphicsPixmapItem.pixmap` function returns the current pixmap.
+
+    :class:`PySide.QtGui.QGraphicsPixmapItem` uses pixmap's optional alpha mask to provide a reasonable implementation of :meth:`PySide.QtGui.QGraphicsPixmapItem.boundingRect` , :meth:`PySide.QtGui.QGraphicsPixmapItem.shape` , and :meth:`PySide.QtGui.QGraphicsPixmapItem.contains` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicsview-pixmapitem.png
+
+    The pixmap is drawn at the item's (0, 0) coordinate, as returned by :meth:`PySide.QtGui.QGraphicsPixmapItem.offset` . You can change the drawing offset by calling :meth:`PySide.QtGui.QGraphicsPixmapItem.setOffset` .
+
+    You can set the pixmap's transformation mode by calling :meth:`PySide.QtGui.QGraphicsPixmapItem.setTransformationMode` . By default, :attr:`Qt.FastTransformation<Qt.TransformationMode>` is used, which provides fast, non-smooth scaling. :attr:`Qt.SmoothTransformation<Qt.TransformationMode>` enables :attr:`QPainter.SmoothPixmapTransform<QPainter.RenderHint>` on the painter, and the quality depends on the platform and viewport. The result is usually not as good as calling QPixmap::scale() directly. Call :meth:`PySide.QtGui.QGraphicsPixmapItem.transformationMode` to get the current transformation mode for the item.
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsPathItem`  :class:`PySide.QtGui.QGraphicsRectItem`  :class:`PySide.QtGui.QGraphicsEllipseItem`  :class:`PySide.QtGui.QGraphicsTextItem`  :class:`PySide.QtGui.QGraphicsPolygonItem`  :class:`PySide.QtGui.QGraphicsLineItem`  :ref:`Graphics View Framework<graphicsview.html>` 
+
+.. class:: QGraphicsPixmapItem([parent=None[, scene=None]])
+           QGraphicsPixmapItem(pixmap[, parent=None[, scene=None]])
+
+    :param scene: :class:`PySide.QtGui.QGraphicsScene`
+    :param parent: :class:`PySide.QtGui.QGraphicsItem`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+.. attribute:: PySide.QtGui.QGraphicsPixmapItem.ShapeMode
+
+    This enum describes how :class:`PySide.QtGui.QGraphicsPixmapItem` calculates its shape and opaque area.
+
+    The default value is :attr:`MaskShape<QGraphicsPixmapItem.ShapeMode>` .
+
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                                                                                                                                                              |
+    +======================================+=========================================================================================================================================================================================================================================================+
+    |QGraphicsPixmapItem.MaskShape         |The shape is determined by calling :meth:`QPixmap.mask()<PySide.QtGui.QPixmap.mask>` . This shape includes only the opaque pixels of the pixmap. Because the shape is more complex, however, it can be slower than the other modes, and uses more memory.|
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGraphicsPixmapItem.BoundingRectShape |The shape is determined by tracing the outline of the pixmap. This is the fastest shape mode, but it does not take into account any transparent areas on the pixmap.                                                                                     |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGraphicsPixmapItem.HeuristicMaskShape|The shape is determine by calling :meth:`QPixmap.createHeuristicMask()<PySide.QtGui.QPixmap.createHeuristicMask>` . The performance and memory consumption is similar to :attr:`MaskShape<QGraphicsPixmapItem.ShapeMode>` .                              |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.offset()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the pixmap item's *offset* , which defines the point of the top-left corner of the pixmap, in local coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.setOffset` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.pixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the item's pixmap, or an invalid :class:`PySide.QtGui.QPixmap` if no pixmap has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.setPixmap` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.setOffset(x, y)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+    :param y: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This convenience function is equivalent to calling setOffset( :class:`PySide.QtCore.QPointF` (``x`` , ``y`` )).
+
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.setOffset(offset)
+
+
+    :param offset: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the pixmap item's offset to ``offset`` . :class:`PySide.QtGui.QGraphicsPixmapItem` will draw its pixmap using ``offset`` for its top-left corner.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.offset` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.setPixmap(pixmap)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets the item's pixmap to ``pixmap`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.pixmap` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.setShapeMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QGraphicsPixmapItem.ShapeMode`
+
+
+
+
+    Sets the item's shape mode to ``mode`` . The shape mode describes how :class:`PySide.QtGui.QGraphicsPixmapItem` calculates its shape. The default mode is :attr:`MaskShape<QGraphicsPixmapItem.ShapeMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.shapeMode`  :attr:`QGraphicsPixmapItem.ShapeMode` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.setTransformationMode(mode)
+
+
+    :param mode: :attr:`PySide.QtCore.Qt.TransformationMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.shapeMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QGraphicsPixmapItem.ShapeMode`
+
+
+
+
+    Returns the item's shape mode. The shape mode describes how :class:`PySide.QtGui.QGraphicsPixmapItem` calculates its shape. The default mode is :attr:`MaskShape<QGraphicsPixmapItem.ShapeMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.setShapeMode`  :attr:`QGraphicsPixmapItem.ShapeMode` 
+
+
+.. method:: PySide.QtGui.QGraphicsPixmapItem.transformationMode()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TransformationMode`
+
+
+
+
+    Returns the transformation mode of the pixmap. The default mode is :attr:`Qt.FastTransformation<Qt.TransformationMode>` , which provides quick transformation with no smoothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsPixmapItem.setTransformationMode` 
+
+
+

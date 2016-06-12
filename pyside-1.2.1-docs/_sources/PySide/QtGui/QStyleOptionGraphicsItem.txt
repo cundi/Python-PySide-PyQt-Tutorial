@@ -1,0 +1,99 @@
+.. module:: PySide.QtGui
+.. _QStyleOptionGraphicsItem:
+
+QStyleOptionGraphicsItem
+************************
+
+.. inheritance-diagram:: QStyleOptionGraphicsItem
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`levelOfDetailFromTransform<PySide.QtGui.QStyleOptionGraphicsItem.levelOfDetailFromTransform>` (worldTransform)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStyleOptionGraphicsItem` class is used to describe the parameters needed to draw a :class:`PySide.QtGui.QGraphicsItem` .
+
+    For performance reasons, the access to the member variables is direct (i.e., using the ``.`` or ``->`` operator). This low-level feel makes the structures straightforward to use and emphasizes that these are simply parameters.
+
+    For an example demonstrating how style options can be used, see the :ref:`Styles<widgets/styles>` example.
+
+    .. seealso::  :class:`PySide.QtGui.QStyleOption`  :meth:`QGraphicsItem.paint()<PySide.QtGui.QGraphicsItem.paint>` 
+
+.. class:: QStyleOptionGraphicsItem()
+           QStyleOptionGraphicsItem(other)
+           QStyleOptionGraphicsItem(version)
+
+    :param version: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtGui.QStyleOptionGraphicsItem`
+
+    Constructs a :class:`PySide.QtGui.QStyleOptionGraphicsItem` .
+
+
+    Constructs a copy of ``other`` .
+
+
+
+.. attribute:: PySide.QtGui.QStyleOptionGraphicsItem.StyleOptionVersion
+
+    This enum is used to hold information about the version of the style option, and is defined for each :class:`PySide.QtGui.QStyleOption` subclass.
+
+    +--------------------------------+-----------+
+    |Constant                        |Description|
+    +================================+===========+
+    |QStyleOptionGraphicsItem.Version|1          |
+    +--------------------------------+-----------+
+
+    The version is used by :class:`PySide.QtGui.QStyleOption` subclasses to implement extensions without breaking compatibility. If you use :meth:`~PySide.QtGui.QStyleOptionGraphicsItem.qstyleoption\_cast` , you normally do not need to check it.
+
+    .. seealso::  :attr:`QStyleOptionGraphicsItem.StyleOptionType` 
+
+.. attribute:: PySide.QtGui.QStyleOptionGraphicsItem.StyleOptionType
+
+    This enum is used to hold information about the type of the style option, and is defined for each :class:`PySide.QtGui.QStyleOption` subclass.
+
+    +-----------------------------+-----------------------------------------------------------------------------------------------------+
+    |Constant                     |Description                                                                                          |
+    +=============================+=====================================================================================================+
+    |QStyleOptionGraphicsItem.Type|The type of style option provided ( :attr:`SO_GraphicsItem<QStyleOption.OptionType>` for this class).|
+    +-----------------------------+-----------------------------------------------------------------------------------------------------+
+
+    The type is used internally by :class:`PySide.QtGui.QStyleOption` , its subclasses, and :meth:`~PySide.QtGui.QStyleOptionGraphicsItem.qstyleoption\_cast` to determine the type of style option. In general you do not need to worry about this unless you want to create your own :class:`PySide.QtGui.QStyleOption` subclass and your own styles.
+
+    .. seealso::  :attr:`QStyleOptionGraphicsItem.StyleOptionVersion` 
+
+.. attribute:: PySide.QtGui.QStyleOptionGraphicsItem.exposedRect
+
+
+.. attribute:: PySide.QtGui.QStyleOptionGraphicsItem.matrix
+
+
+.. attribute:: PySide.QtGui.QStyleOptionGraphicsItem.levelOfDetail
+
+
+.. staticmethod:: PySide.QtGui.QStyleOptionGraphicsItem.levelOfDetailFromTransform(worldTransform)
+
+
+    :param worldTransform: :class:`PySide.QtGui.QTransform`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the level of detail from the ``worldTransform`` .
+
+    Its value represents the maximum value of the height and width of a unity rectangle, mapped using the ``worldTransform`` of the painter used to draw the item. By default, if no transformations are applied, its value is 1. If zoomed out 1:2, the level of detail will be 0.5, and if zoomed in 2:1, its value is 2.
+
+
+
+

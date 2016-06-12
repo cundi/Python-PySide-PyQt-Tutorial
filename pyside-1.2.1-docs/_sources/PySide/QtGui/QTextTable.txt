@@ -1,0 +1,349 @@
+.. module:: PySide.QtGui
+.. _QTextTable:
+
+QTextTable
+**********
+
+.. inheritance-diagram:: QTextTable
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`appendColumns<PySide.QtGui.QTextTable.appendColumns>` (count)
+*    def :meth:`appendRows<PySide.QtGui.QTextTable.appendRows>` (count)
+*    def :meth:`cellAt<PySide.QtGui.QTextTable.cellAt>` (c)
+*    def :meth:`cellAt<PySide.QtGui.QTextTable.cellAt>` (position)
+*    def :meth:`cellAt<PySide.QtGui.QTextTable.cellAt>` (row, col)
+*    def :meth:`columns<PySide.QtGui.QTextTable.columns>` ()
+*    def :meth:`insertColumns<PySide.QtGui.QTextTable.insertColumns>` (pos, num)
+*    def :meth:`insertRows<PySide.QtGui.QTextTable.insertRows>` (pos, num)
+*    def :meth:`mergeCells<PySide.QtGui.QTextTable.mergeCells>` (cursor)
+*    def :meth:`mergeCells<PySide.QtGui.QTextTable.mergeCells>` (row, col, numRows, numCols)
+*    def :meth:`removeColumns<PySide.QtGui.QTextTable.removeColumns>` (pos, num)
+*    def :meth:`removeRows<PySide.QtGui.QTextTable.removeRows>` (pos, num)
+*    def :meth:`resize<PySide.QtGui.QTextTable.resize>` (rows, cols)
+*    def :meth:`rowEnd<PySide.QtGui.QTextTable.rowEnd>` (c)
+*    def :meth:`rowStart<PySide.QtGui.QTextTable.rowStart>` (c)
+*    def :meth:`rows<PySide.QtGui.QTextTable.rows>` ()
+*    def :meth:`setFormat<PySide.QtGui.QTextTable.setFormat>` (format)
+*    def :meth:`splitCell<PySide.QtGui.QTextTable.splitCell>` (row, col, numRows, numCols)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextTable` class represents a table in a :class:`PySide.QtGui.QTextDocument` .
+
+    A table is a group of cells ordered into rows and columns. Each table contains at least one row and one column. Each cell contains a block, and is surrounded by a frame.
+
+    Tables are usually created and inserted into a document with the :meth:`QTextCursor.insertTable()<PySide.QtGui.QTextCursor.insertTable>` function. For example, we can insert a table with three rows and two columns at the current cursor position in an editor using the following lines of code:
+
+    ::
+
+            cursor = QTextCursor(editor.textCursor())
+
+            cursor.movePosition(QTextCursor.Start)
+        
+            table = cursor.insertTable(rows, columns, tableFormat)
+
+
+    The table format is either defined when the table is created or changed later with :meth:`PySide.QtGui.QTextTable.setFormat` .
+
+    The table currently being edited by the cursor is found with :meth:`QTextCursor.currentTable()<PySide.QtGui.QTextCursor.currentTable>` . This allows its format or dimensions to be changed after it has been inserted into a document.
+
+    A table's size can be changed with :meth:`PySide.QtGui.QTextTable.resize` , or by using :meth:`PySide.QtGui.QTextTable.insertRows` , :meth:`PySide.QtGui.QTextTable.insertColumns` , :meth:`PySide.QtGui.QTextTable.removeRows` , or :meth:`PySide.QtGui.QTextTable.removeColumns` . Use :meth:`PySide.QtGui.QTextTable.cellAt` to retrieve table cells.
+
+    The starting and ending positions of table rows can be found by moving a cursor within a table, and using the :meth:`PySide.QtGui.QTextTable.rowStart` and :meth:`PySide.QtGui.QTextTable.rowEnd` functions to obtain cursors at the start and end of each row.
+
+    Rows and columns within a :class:`PySide.QtGui.QTextTable` can be merged and split using the :meth:`PySide.QtGui.QTextTable.mergeCells` and :meth:`PySide.QtGui.QTextTable.splitCell` functions. However, only cells that span multiple rows or columns can be split. (Merging or splitting does not increase or decrease the number of rows and columns.)
+
+    Note that if you have merged multiple columns and rows into one cell, you will not be able to split the merged cell into new cells spanning over more than one row or column. To be able to split cells spanning over several rows and columns you need to do this over several iterations.
+
+    +--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/texttable-split.png|Suppose we have a 2x3 table of names and addresses. To merge both columns in the first row we invoke :meth:`PySide.QtGui.QTextTable.mergeCells` with ``row`` = 0, ``column`` = 0, ``numRows`` = 1 and ``numColumns`` = 2.|
+    |                                                                                                  |                                                                                                                                                                                                                         |
+    |                                                                                                  |    ::                                                                                                                                                                                                                   |
+    |                                                                                                  |                                                                                                                                                                                                                         |
+    |                                                                                                  |            table.mergeCells(0, 0, 1, 2)                                                                                                                                                                                 |
+    +--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/texttable-merge.png|This gives us the following table. To split the first row of the table back into two cells, we invoke the :meth:`PySide.QtGui.QTextTable.splitCell` function with ``numRows`` and ``numCols`` = 1.                       |
+    |                                                                                                  |                                                                                                                                                                                                                         |
+    |                                                                                                  |    ::                                                                                                                                                                                                                   |
+    |                                                                                                  |                                                                                                                                                                                                                         |
+    |                                                                                                  |            table.splitCell(0, 0, 1, 1)                                                                                                                                                                                  |
+    +--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/texttable-split.png|This results in the original table.                                                                                                                                                                                      |
+    +--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QTextTableFormat` 
+
+.. class:: QTextTable(doc)
+
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+
+
+.. method:: PySide.QtGui.QTextTable.appendColumns(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Appends ``count`` columns at the right side of the table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.removeColumns`  :meth:`PySide.QtGui.QTextTable.appendRows` 
+
+
+.. method:: PySide.QtGui.QTextTable.appendRows(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Appends ``count`` rows at the bottom of the table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.removeColumns`  :meth:`PySide.QtGui.QTextTable.appendColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.cellAt(row, col)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param col: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextTableCell`
+
+
+
+
+    Returns the table cell at the given ``row`` and ``column`` in the table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.columns`  :meth:`PySide.QtGui.QTextTable.rows` 
+
+
+.. method:: PySide.QtGui.QTextTable.cellAt(position)
+
+
+    :param position: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextTableCell`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the table cell that contains the character at the given ``position`` in the document.
+
+
+
+.. method:: PySide.QtGui.QTextTable.cellAt(c)
+
+
+    :param c: :class:`PySide.QtGui.QTextCursor`
+    :rtype: :class:`PySide.QtGui.QTextTableCell`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the table cell containing the given ``cursor`` .
+
+
+
+.. method:: PySide.QtGui.QTextTable.columns()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of columns in the table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.rows` 
+
+
+.. method:: PySide.QtGui.QTextTable.insertColumns(pos, num)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts a number of ``columns`` before the column with the specified ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.removeColumns`  :meth:`PySide.QtGui.QTextTable.appendRows`  :meth:`PySide.QtGui.QTextTable.appendColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.insertRows(pos, num)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts a number of ``rows`` before the row with the specified ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.removeColumns`  :meth:`PySide.QtGui.QTextTable.appendRows`  :meth:`PySide.QtGui.QTextTable.appendColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.mergeCells(row, col, numRows, numCols)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param col: :class:`PySide.QtCore.int`
+    :param numRows: :class:`PySide.QtCore.int`
+    :param numCols: :class:`PySide.QtCore.int`
+
+
+
+
+    Merges the cell at the specified ``row`` and ``column`` with the adjacent cells into one cell. The new cell will span ``numRows`` rows and ``numCols`` columns. If ``numRows`` or ``numCols`` is less than the current number of rows or columns the cell spans then this method does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.splitCell` 
+
+
+.. method:: PySide.QtGui.QTextTable.mergeCells(cursor)
+
+
+    :param cursor: :class:`PySide.QtGui.QTextCursor`
+
+
+
+
+    This is an overloaded function.
+
+    Merges the cells selected by the provided ``cursor`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.splitCell` 
+
+
+.. method:: PySide.QtGui.QTextTable.removeColumns(pos, num)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    Removes a number of ``columns`` starting with the column at the specified ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.appendRows`  :meth:`PySide.QtGui.QTextTable.appendColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.removeRows(pos, num)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    Removes a number of ``rows`` starting with the row at the specified ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.resize`  :meth:`PySide.QtGui.QTextTable.removeColumns`  :meth:`PySide.QtGui.QTextTable.appendRows`  :meth:`PySide.QtGui.QTextTable.appendColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.resize(rows, cols)
+
+
+    :param rows: :class:`PySide.QtCore.int`
+    :param cols: :class:`PySide.QtCore.int`
+
+
+
+
+    Resizes the table to contain the required number of ``rows`` and ``columns`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.insertRows`  :meth:`PySide.QtGui.QTextTable.insertColumns`  :meth:`PySide.QtGui.QTextTable.removeRows`  :meth:`PySide.QtGui.QTextTable.removeColumns` 
+
+
+.. method:: PySide.QtGui.QTextTable.rowEnd(c)
+
+
+    :param c: :class:`PySide.QtGui.QTextCursor`
+    :rtype: :class:`PySide.QtGui.QTextCursor`
+
+
+
+
+    Returns a cursor pointing to the end of the row that contains the given ``cursor`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.rowStart` 
+
+
+.. method:: PySide.QtGui.QTextTable.rowStart(c)
+
+
+    :param c: :class:`PySide.QtGui.QTextCursor`
+    :rtype: :class:`PySide.QtGui.QTextCursor`
+
+
+
+
+    Returns a cursor pointing to the start of the row that contains the given ``cursor`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.rowEnd` 
+
+
+.. method:: PySide.QtGui.QTextTable.rows()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rows in the table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.columns` 
+
+
+.. method:: PySide.QtGui.QTextTable.setFormat(format)
+
+
+    :param format: :class:`PySide.QtGui.QTextTableFormat`
+
+
+
+
+    Sets the table's ``format`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.format` 
+
+
+.. method:: PySide.QtGui.QTextTable.splitCell(row, col, numRows, numCols)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param col: :class:`PySide.QtCore.int`
+    :param numRows: :class:`PySide.QtCore.int`
+    :param numCols: :class:`PySide.QtCore.int`
+
+
+
+
+    Splits the specified cell at ``row`` and ``column`` into an array of multiple cells with dimensions specified by ``numRows`` and ``numCols`` .
+
+    .. note::  It is only possible to split cells that span multiple rows or columns, such as rows that have been merged using :meth:`PySide.QtGui.QTextTable.mergeCells` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextTable.mergeCells` 
+
+
+

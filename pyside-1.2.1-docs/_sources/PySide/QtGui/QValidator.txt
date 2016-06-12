@@ -1,0 +1,139 @@
+.. module:: PySide.QtGui
+.. _QValidator:
+
+QValidator
+**********
+
+.. inheritance-diagram:: QValidator
+    :parts: 2
+
+**Inherited by:** :ref:`QRegExpValidator`, :ref:`QDoubleValidator`, :ref:`QIntValidator`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`locale<PySide.QtGui.QValidator.locale>` ()
+*    def :meth:`setLocale<PySide.QtGui.QValidator.setLocale>` (locale)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fixup<PySide.QtGui.QValidator.fixup>` (arg__1)
+*    def :meth:`validate<PySide.QtGui.QValidator.validate>` (arg__1, arg__2)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QValidator` class provides validation of input text.
+
+    The class itself is abstract. Two subclasses, :class:`PySide.QtGui.QIntValidator` and :class:`PySide.QtGui.QDoubleValidator` , provide basic numeric-range checking, and :class:`PySide.QtGui.QRegExpValidator` provides general checking using a custom regular expression.
+
+    If the built-in validators aren't sufficient, you can subclass :class:`PySide.QtGui.QValidator` . The class has two virtual functions: :meth:`PySide.QtGui.QValidator.validate` and :meth:`PySide.QtGui.QValidator.fixup` .
+
+    :meth:`PySide.QtGui.QValidator.validate` must be implemented by every subclass. It returns :attr:`Invalid<QValidator.State>` , :attr:`Intermediate<QValidator.State>` or :attr:`Acceptable<QValidator.State>` depending on whether its argument is valid (for the subclass's definition of valid).
+
+    These three states require some explanation. An :attr:`Invalid<QValidator.State>` string is *clearly* invalid. :attr:`Intermediate<QValidator.State>` is less obvious: the concept of validity is difficult to apply when the string is incomplete (still being edited). :class:`PySide.QtGui.QValidator` defines :attr:`Intermediate<QValidator.State>` as the property of a string that is neither clearly invalid nor acceptable as a final result. :attr:`Acceptable<QValidator.State>` means that the string is acceptable as a final result. One might say that any string that is a plausible intermediate state during entry of an :attr:`Acceptable<QValidator.State>` string is :attr:`Intermediate<QValidator.State>` .
+
+    Here are some examples:
+
+
+    * For a line edit that accepts integers from 10 to 1000 inclusive, 42 and 123 are :attr:`Acceptable<QValidator.State>` , the empty string and 5 are :attr:`Intermediate<QValidator.State>` , and "asdf" and 1114 is :attr:`Invalid<QValidator.State>` .
+    * For an editable combobox that accepts URLs, any well-formed URL is :attr:`Acceptable<QValidator.State>` , "http://example.com/," is :attr:`Intermediate<QValidator.State>` (it might be a cut and paste action that accidentally took in a comma at the end), the empty string is :attr:`Intermediate<QValidator.State>` (the user might select and delete all of the text in preparation for entering a new URL) and "http:///./" is :attr:`Invalid<QValidator.State>` .
+    * For a spin box that accepts lengths, "11cm" and "1in" are :attr:`Acceptable<QValidator.State>` , "11" and the empty string are :attr:`Intermediate<QValidator.State>` , and "http://example.com" and "hour" are :attr:`Invalid<QValidator.State>` .
+
+    :meth:`PySide.QtGui.QValidator.fixup` is provided for validators that can repair some user errors. The default implementation does nothing. :class:`PySide.QtGui.QLineEdit` , for example, will call :meth:`PySide.QtGui.QValidator.fixup` if the user presses Enter (or Return) and the content is not currently valid. This allows the :meth:`PySide.QtGui.QValidator.fixup` function the opportunity of performing some magic to make an :attr:`Invalid<QValidator.State>` string :attr:`Acceptable<QValidator.State>` .
+
+    A validator has a locale, set with :meth:`PySide.QtGui.QValidator.setLocale` . It is typically used to parse localized data. For example, :class:`PySide.QtGui.QIntValidator` and :class:`PySide.QtGui.QDoubleValidator` use it to parse localized representations of integers and doubles.
+
+    :class:`PySide.QtGui.QValidator` is typically used with :class:`PySide.QtGui.QLineEdit` , :class:`PySide.QtGui.QSpinBox` and :class:`PySide.QtGui.QComboBox` .
+
+    .. seealso::  :class:`PySide.QtGui.QIntValidator`  :class:`PySide.QtGui.QDoubleValidator`  :class:`PySide.QtGui.QRegExpValidator`  :ref:`Line Edits Example<widgets/lineedits>` 
+
+.. class:: QValidator([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Sets up the validator. The ``parent`` parameter is passed on to the :class:`PySide.QtCore.QObject` constructor.
+
+
+.. attribute:: PySide.QtGui.QValidator.State
+
+    This enum type defines the states in which a validated string can exist.
+
+    +-----------------------+-------------------------------------------------------------+
+    |Constant               |Description                                                  |
+    +=======================+=============================================================+
+    |QValidator.Invalid     |The string is *clearly* invalid.                             |
+    +-----------------------+-------------------------------------------------------------+
+    |QValidator.Intermediate|The string is a plausible intermediate value.                |
+    +-----------------------+-------------------------------------------------------------+
+    |QValidator.Acceptable  |The string is acceptable as a final result; i.e. it is valid.|
+    +-----------------------+-------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QValidator.fixup(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    This function attempts to change ``input`` to be valid according to this validator's rules. It need not result in a valid string: callers of this function must re-test afterwards; the default does nothing.
+
+    Reimplementations of this function can change ``input`` even if they do not produce a valid string. For example, an ISBN validator might want to delete every character except digits and "-", even if the result is still not a valid ISBN; a surname validator might want to remove whitespace from the start and end of the string, even if the resulting string is not in the list of accepted surnames.
+
+
+
+.. method:: PySide.QtGui.QValidator.locale()
+
+
+    :rtype: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Returns the locale for the validator. The locale is by default initialized to the same as QLocale().
+
+    .. seealso::  :meth:`PySide.QtGui.QValidator.setLocale`  :meth:`QLocale.QLocale()<PySide.QtCore.QLocale.QLocale>` 
+
+
+.. method:: PySide.QtGui.QValidator.setLocale(locale)
+
+
+    :param locale: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Sets the ``locale`` that will be used for the validator. Unless setLocale has been called, the validator will use the default locale set with :meth:`QLocale.setDefault()<PySide.QtCore.QLocale.setDefault>` . If a default locale has not been set, it is the operating system's locale.
+
+    .. seealso::  :meth:`PySide.QtGui.QValidator.locale`  :meth:`QLocale.setDefault()<PySide.QtCore.QLocale.setDefault>` 
+
+
+.. method:: PySide.QtGui.QValidator.validate(arg__1, arg__2)
+
+
+    :param arg__1: unicode
+    :param arg__2: :class:`PySide.QtCore.int`
+    :rtype: PyObject
+
+
+
+
+    This virtual function returns :attr:`Invalid<QValidator.State>` if ``input`` is invalid according to this validator's rules, :attr:`Intermediate<QValidator.State>` if it is likely that a little more editing will make the input acceptable (e.g. the user types "4" into a widget which accepts integers between 10 and 99), and :attr:`Acceptable<QValidator.State>` if the input is valid.
+
+    The function can change both ``input`` and ``pos`` (the cursor position) if required.
+
+
+
+

@@ -1,0 +1,380 @@
+.. module:: PySide.QtOpenGL
+.. _QGLFramebufferObject:
+
+QGLFramebufferObject
+********************
+
+.. inheritance-diagram:: QGLFramebufferObject
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`attachment<PySide.QtOpenGL.QGLFramebufferObject.attachment>` ()
+*    def :meth:`bind<PySide.QtOpenGL.QGLFramebufferObject.bind>` ()
+*    def :meth:`drawTexture<PySide.QtOpenGL.QGLFramebufferObject.drawTexture>` (point, textureId[, textureTarget=0x0DE1])
+*    def :meth:`drawTexture<PySide.QtOpenGL.QGLFramebufferObject.drawTexture>` (target, textureId[, textureTarget=0x0DE1])
+*    def :meth:`format<PySide.QtOpenGL.QGLFramebufferObject.format>` ()
+*    def :meth:`handle<PySide.QtOpenGL.QGLFramebufferObject.handle>` ()
+*    def :meth:`isBound<PySide.QtOpenGL.QGLFramebufferObject.isBound>` ()
+*    def :meth:`isValid<PySide.QtOpenGL.QGLFramebufferObject.isValid>` ()
+*    def :meth:`release<PySide.QtOpenGL.QGLFramebufferObject.release>` ()
+*    def :meth:`size<PySide.QtOpenGL.QGLFramebufferObject.size>` ()
+*    def :meth:`texture<PySide.QtOpenGL.QGLFramebufferObject.texture>` ()
+*    def :meth:`toImage<PySide.QtOpenGL.QGLFramebufferObject.toImage>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bindDefault<PySide.QtOpenGL.QGLFramebufferObject.bindDefault>` ()
+*    def :meth:`blitFramebuffer<PySide.QtOpenGL.QGLFramebufferObject.blitFramebuffer>` (target, targetRect, source, sourceRect[, buffers=0x00004000[, filter=0x2600]])
+*    def :meth:`hasOpenGLFramebufferBlit<PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferBlit>` ()
+*    def :meth:`hasOpenGLFramebufferObjects<PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferObjects>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtOpenGL.QGLFramebufferObject` class encapsulates an OpenGL framebuffer object.
+
+    The :class:`PySide.QtOpenGL.QGLFramebufferObject` class encapsulates an OpenGL framebuffer object, defined by the ``GL_EXT_framebuffer_object`` extension. In addition it provides a rendering surface that can be painted on with a :class:`PySide.QtGui.QPainter` , rendered to using native GL calls, or both. This surface can be bound and used as a regular texture in your own GL drawing code. By default, the :class:`PySide.QtOpenGL.QGLFramebufferObject` class generates a 2D GL texture (using the ``GL_TEXTURE_2D`` target), which is used as the internal rendering target.
+
+    **It is important to have a current GL context when creating a :class:`PySide.QtOpenGL.QGLFramebufferObject` **, otherwise initialization will fail.**\
+
+    OpenGL framebuffer objects and pbuffers (see :class:`PySide.QtOpenGL.QGLPixelBuffer` ) can both be used to render to offscreen surfaces, but there are a number of advantages with using framebuffer objects instead of pbuffers:
+
+    When using a :class:`PySide.QtGui.QPainter` to paint to a :class:`PySide.QtOpenGL.QGLFramebufferObject` you should take care that the :class:`PySide.QtOpenGL.QGLFramebufferObject` is created with the :attr:`CombinedDepthStencil<QGLFramebufferObject.Attachment>` attachment for :class:`PySide.QtGui.QPainter` to be able to render correctly. Note that you need to create a :class:`PySide.QtOpenGL.QGLFramebufferObject` with more than one sample per pixel for primitives to be antialiased when drawing using a :class:`PySide.QtGui.QPainter` . To create a multisample framebuffer object you should use one of the constructors that take a :class:`PySide.QtOpenGL.QGLFramebufferObject` parameter, and set the QGLFramebufferObject::samples() property to a non-zero value.
+
+    When painting to a :class:`PySide.QtOpenGL.QGLFramebufferObject` using :class:`PySide.QtGui.QPainter` , the state of the current GL context will be altered by the paint engine to reflect its needs. Applications should not rely upon the GL state being reset to its original conditions, particularly the current shader program, GL viewport, texture units, and drawing modes.
+
+    For multisample framebuffer objects a color render buffer is created, otherwise a texture with the specified texture target is created. The color render buffer or texture will have the specified internal format, and will be bound to the ``GL_COLOR_ATTACHMENT0`` attachment in the framebuffer object.
+
+    If you want to use a framebuffer object with multisampling enabled as a texture, you first need to copy from it to a regular framebuffer object using QGLContext::blitFramebuffer().
+
+    .. _PySide.QtOpenGL.QGLFramebufferObject_threading:
+
+
+
+Threading
+^^^^^^^^^
+
+    As of Qt 4.8, it's possible to draw into a :class:`PySide.QtOpenGL.QGLFramebufferObject` using a :class:`PySide.QtGui.QPainter` in a separate thread. Note that OpenGL 2.0 or OpenGL ES 2.0 is required for this to work. Also, under X11, it's necessary to set the :attr:`Qt.AA_X11InitThreads<Qt.ApplicationAttribute>` application attribute.
+
+    .. seealso::  :ref:`Framebuffer Object Example<opengl/framebufferobject>` 
+
+.. class:: QGLFramebufferObject(size[, target=0x0DE1])
+           QGLFramebufferObject(size, attachment[, target=0x0DE1[, internal_format=0x8058]])
+           QGLFramebufferObject(size, format)
+           QGLFramebufferObject(width, height[, target=0x0DE1])
+           QGLFramebufferObject(width, height, attachment[, target=0x0DE1[, internal_format=0x8058]])
+           QGLFramebufferObject(width, height, format)
+
+    :param width: :class:`PySide.QtCore.int`
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+    :param size: :class:`PySide.QtCore.QSize`
+    :param format: :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat`
+    :param height: :class:`PySide.QtCore.int`
+    :param internal_format: :class:`PySide.QtOpenGL.GLenum`
+    :param attachment: :attr:`PySide.QtOpenGL.QGLFramebufferObject.Attachment`
+
+    Constructs an OpenGL framebuffer object and binds a 2D GL texture to the buffer of the size ``size`` . The texture is bound to the ``GL_COLOR_ATTACHMENT0`` target in the framebuffer object.
+
+    The ``target`` parameter is used to specify the GL texture target. The default target is ``GL_TEXTURE_2D`` . Keep in mind that ``GL_TEXTURE_2D`` textures must have a power of 2 width and height (e.g. 256x512), unless you are using OpenGL 2.0 or higher.
+
+    By default, no depth and stencil buffers are attached. This behavior can be toggled using one of the overloaded constructors.
+
+    The default internal texture format is ``GL_RGBA8`` for desktop OpenGL, and ``GL_RGBA`` for OpenGL/ES.
+
+    It is important that you have a current GL context set when creating the :class:`PySide.QtOpenGL.QGLFramebufferObject` , otherwise the initialization will fail.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.size`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.texture`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.attachment` 
+
+    This is an overloaded function.
+
+    Constructs an OpenGL framebuffer object and binds a texture to the buffer of the given ``size`` .
+
+    The ``attachment`` parameter describes the depth/stencil buffer configuration, ``target`` the texture target and ``internal_format`` the internal texture format. The default texture target is ``GL_TEXTURE_2D`` , while the default internal format is ``GL_RGBA8`` for desktop OpenGL and ``GL_RGBA`` for OpenGL/ES.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.size`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.texture`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.attachment` 
+
+    This is an overloaded function.
+
+    Constructs an OpenGL framebuffer object of the given ``size`` based on the supplied ``format`` .
+
+
+    This is an overloaded function.
+
+    Constructs an OpenGL framebuffer object and binds a 2D GL texture to the buffer of the given ``width`` and ``height`` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.size`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.texture` 
+
+    This is an overloaded function.
+
+    Constructs an OpenGL framebuffer object and binds a texture to the buffer of the given ``width`` and ``height`` .
+
+    The ``attachment`` parameter describes the depth/stencil buffer configuration, ``target`` the texture target and ``internal_format`` the internal texture format. The default texture target is ``GL_TEXTURE_2D`` , while the default internal format is ``GL_RGBA8`` for desktop OpenGL and ``GL_RGBA`` for OpenGL/ES.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.size`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.texture`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.attachment` 
+
+    This is an overloaded function.
+
+    Constructs an OpenGL framebuffer object of the given ``width`` and ``height`` based on the supplied ``format`` .
+
+
+.. attribute:: PySide.QtOpenGL.QGLFramebufferObject.Attachment
+
+    This enum type is used to configure the depth and stencil buffers attached to the framebuffer object when it is created.
+
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                 |Description                                                                                                                                                                                                      |
+    +=========================================+=================================================================================================================================================================================================================+
+    |QGLFramebufferObject.NoAttachment        |No attachment is added to the framebuffer object. Note that the OpenGL depth and stencil tests won't work when rendering to a framebuffer object without any depth or stencil buffers. This is the default value.|
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLFramebufferObject.CombinedDepthStencil|If the ``GL_EXT_packed_depth_stencil`` extension is present, a combined depth and stencil buffer is attached. If the extension is not present, only a depth buffer is attached.                                  |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLFramebufferObject.Depth               |A depth buffer is attached to the framebuffer object.                                                                                                                                                            |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.attachment` 
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.attachment()
+
+
+    :rtype: :attr:`PySide.QtOpenGL.QGLFramebufferObject.Attachment`
+
+
+
+
+    Returns the status of the depth and stencil buffers attached to this framebuffer object.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.bind()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Switches rendering from the default, windowing system provided framebuffer to this framebuffer object. Returns true upon success, false otherwise.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.release` 
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLFramebufferObject.bindDefault()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Switches rendering back to the default, windowing system provided framebuffer. Returns true upon success, false otherwise.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.bind`  :meth:`PySide.QtOpenGL.QGLFramebufferObject.release` 
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLFramebufferObject.blitFramebuffer(target, targetRect, source, sourceRect[, buffers=0x00004000[, filter=0x2600]])
+
+
+    :param target: :class:`PySide.QtOpenGL.QGLFramebufferObject`
+    :param targetRect: :class:`PySide.QtCore.QRect`
+    :param source: :class:`PySide.QtOpenGL.QGLFramebufferObject`
+    :param sourceRect: :class:`PySide.QtCore.QRect`
+    :param buffers: :class:`PySide.QtOpenGL.GLbitfield`
+    :param filter: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Blits from the ``sourceRect`` rectangle in the ``source`` framebuffer object to the ``targetRect`` rectangle in the ``target`` framebuffer object.
+
+    If ``source`` or ``target`` is 0, the default framebuffer will be used instead of a framebuffer object as source or target respectively.
+
+    The ``buffers`` parameter should be a mask consisting of any combination of ``GL_COLOR_BUFFER_BIT`` , ``GL_DEPTH_BUFFER_BIT`` , and ``GL_STENCIL_BUFFER_BIT`` . Any buffer type that is not present both in the source and target buffers is ignored.
+
+    The ``sourceRect`` and ``targetRect`` rectangles may have different sizes; in this case ``buffers`` should not contain ``GL_DEPTH_BUFFER_BIT`` or ``GL_STENCIL_BUFFER_BIT`` . The ``filter`` parameter should be set to ``GL_LINEAR`` or ``GL_NEAREST`` , and specifies whether linear or nearest interpolation should be used when scaling is performed.
+
+    If ``source`` equals ``target`` a copy is performed within the same buffer. Results are undefined if the source and target rectangles overlap and have different sizes. The sizes must also be the same if any of the framebuffer objects are multisample framebuffers.
+
+    Note that the scissor test will restrict the blit area if enabled.
+
+    This function will have no effect unless :meth:`PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferBlit` returns true.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferBlit` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.drawTexture(target, textureId[, textureTarget=0x0DE1])
+
+
+    :param target: :class:`PySide.QtCore.QRectF`
+    :param textureId: :class:`PySide.QtOpenGL.GLuint`
+    :param textureTarget: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Draws the given texture, ``textureId`` , to the given target rectangle, ``target`` , in OpenGL model space. The ``textureTarget`` should be a 2D texture target.
+
+    The framebuffer object should be bound when calling this function.
+
+    Equivalent to the corresponding :meth:`QGLContext.drawTexture()<PySide.QtOpenGL.QGLContext.drawTexture>` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.drawTexture(point, textureId[, textureTarget=0x0DE1])
+
+
+    :param point: :class:`PySide.QtCore.QPointF`
+    :param textureId: :class:`PySide.QtOpenGL.GLuint`
+    :param textureTarget: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Draws the given texture, ``textureId`` , at the given ``point`` in OpenGL model space. The ``textureTarget`` should be a 2D texture target.
+
+    The framebuffer object should be bound when calling this function.
+
+    Equivalent to the corresponding :meth:`QGLContext.drawTexture()<PySide.QtOpenGL.QGLContext.drawTexture>` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.format()
+
+
+    :rtype: :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat`
+
+
+
+
+    Returns the format of this framebuffer object.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.handle()
+
+
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Returns the GL framebuffer object handle for this framebuffer object (returned by the ``glGenFrameBuffersEXT()`` function). This handle can be used to attach new images or buffers to the framebuffer. The user is responsible for cleaning up and destroying these objects.
+
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferBlit()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the OpenGL ``GL_EXT_framebuffer_blit`` extension is present on this system; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.blitFramebuffer` 
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLFramebufferObject.hasOpenGLFramebufferObjects()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the OpenGL ``GL_EXT_framebuffer_object`` extension is present on this system; otherwise returns false.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.isBound()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the framebuffer object is currently bound to a context, otherwise false is returned.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the framebuffer object is valid.
+
+    The framebuffer can become invalid if the initialization process fails, the user attaches an invalid buffer to the framebuffer object, or a non-power of two width/height is specified as the texture size if the texture target is ``GL_TEXTURE_2D`` . The non-power of two limitation does not apply if the OpenGL version is 2.0 or higher, or if the GL\_ARB\_texture\_non\_power\_of\_two extension is present.
+
+    The framebuffer can also become invalid if the :class:`PySide.QtOpenGL.QGLContext` that the framebuffer was created within is destroyed and there are no other shared contexts that can take over ownership of the framebuffer.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.release()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Switches rendering back to the default, windowing system provided framebuffer. Returns true upon success, false otherwise.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObject.bind` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.size()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size of the texture attached to this framebuffer object.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.texture()
+
+
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Returns the texture id for the texture attached as the default rendering target in this framebuffer object. This texture id can be bound as a normal texture in your own GL code.
+
+    If a multisample framebuffer object is used then the value returned from this function will be invalid.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObject.toImage()
+
+
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns the contents of this framebuffer object as a :class:`PySide.QtGui.QImage` .
+
+
+
+

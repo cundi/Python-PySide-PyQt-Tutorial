@@ -1,0 +1,285 @@
+.. module:: PySide.QtGui
+.. _QFontInfo:
+
+QFontInfo
+*********
+
+.. inheritance-diagram:: QFontInfo
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bold<PySide.QtGui.QFontInfo.bold>` ()
+*    def :meth:`exactMatch<PySide.QtGui.QFontInfo.exactMatch>` ()
+*    def :meth:`family<PySide.QtGui.QFontInfo.family>` ()
+*    def :meth:`fixedPitch<PySide.QtGui.QFontInfo.fixedPitch>` ()
+*    def :meth:`italic<PySide.QtGui.QFontInfo.italic>` ()
+*    def :meth:`overline<PySide.QtGui.QFontInfo.overline>` ()
+*    def :meth:`pixelSize<PySide.QtGui.QFontInfo.pixelSize>` ()
+*    def :meth:`pointSize<PySide.QtGui.QFontInfo.pointSize>` ()
+*    def :meth:`pointSizeF<PySide.QtGui.QFontInfo.pointSizeF>` ()
+*    def :meth:`rawMode<PySide.QtGui.QFontInfo.rawMode>` ()
+*    def :meth:`strikeOut<PySide.QtGui.QFontInfo.strikeOut>` ()
+*    def :meth:`style<PySide.QtGui.QFontInfo.style>` ()
+*    def :meth:`styleHint<PySide.QtGui.QFontInfo.styleHint>` ()
+*    def :meth:`styleName<PySide.QtGui.QFontInfo.styleName>` ()
+*    def :meth:`underline<PySide.QtGui.QFontInfo.underline>` ()
+*    def :meth:`weight<PySide.QtGui.QFontInfo.weight>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFontInfo` class provides general information about fonts.
+
+    The :class:`PySide.QtGui.QFontInfo` class provides the same access functions as :class:`PySide.QtGui.QFont` , e.g. :meth:`PySide.QtGui.QFontInfo.family` , :meth:`PySide.QtGui.QFontInfo.pointSize` , :meth:`PySide.QtGui.QFontInfo.italic` , :meth:`PySide.QtGui.QFontInfo.weight` , :meth:`PySide.QtGui.QFontInfo.fixedPitch` , :meth:`PySide.QtGui.QFontInfo.styleHint` etc. But whilst the :class:`PySide.QtGui.QFont` access functions return the values that were set, a :class:`PySide.QtGui.QFontInfo` object returns the values that apply to the font that will actually be used to draw the text.
+
+    For example, when the program asks for a 25pt Courier font on a machine that has a non-scalable 24pt Courier font, :class:`PySide.QtGui.QFont` will (normally) use the 24pt Courier for rendering. In this case, :meth:`QFont.pointSize()<PySide.QtGui.QFont.pointSize>` returns 25 and :meth:`QFontInfo.pointSize()<PySide.QtGui.QFontInfo.pointSize>` returns 24.
+
+    There are three ways to create a :class:`PySide.QtGui.QFontInfo` object.
+
+    .. seealso::  :class:`PySide.QtGui.QFont`  :class:`PySide.QtGui.QFontMetrics`  :class:`PySide.QtGui.QFontDatabase` 
+
+.. class:: QFontInfo(arg__1)
+           QFontInfo(arg__1)
+
+    :param arg__1: :class:`PySide.QtGui.QFont`
+
+    Constructs a font info object for ``font`` .
+
+    The font must be screen-compatible, i.e. a font you use when drawing text in :class:`widgets<PySide.QtGui.QWidget>` or :class:`pixmaps<PySide.QtGui.QPixmap>` , not :class:`PySide.QtGui.QPicture` or :class:`PySide.QtGui.QPrinter` .
+
+    The font info object holds the information for the font that is passed in the constructor at the time it is created, and is not updated if the font's attributes are changed later.
+
+    Use :meth:`QPainter.fontInfo()<PySide.QtGui.QPainter.fontInfo>` to get the font info when painting. This will give correct results also when painting on paint device that is not screen-compatible.
+
+
+    Constructs a copy of ``fi`` .
+
+
+.. method:: PySide.QtGui.QFontInfo.bold()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :meth:`PySide.QtGui.QFontInfo.weight` would return a value greater than :attr:`QFont.Normal<QFont.Weight>` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontInfo.weight`  :meth:`QFont.bold()<PySide.QtGui.QFont.bold>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.exactMatch()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the matched window system font is exactly the same as the one specified by the font; otherwise returns false.
+
+    .. seealso::  :meth:`QFont.exactMatch()<PySide.QtGui.QFont.exactMatch>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.family()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the family name of the matched window system font.
+
+    .. seealso::  :meth:`QFont.family()<PySide.QtGui.QFont.family>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.fixedPitch()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the fixed pitch value of the matched window system font.
+
+    .. seealso::  :meth:`QFont.fixedPitch()<PySide.QtGui.QFont.fixedPitch>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.italic()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the italic value of the matched window system font.
+
+    .. seealso::  :meth:`QFont.italic()<PySide.QtGui.QFont.italic>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.overline()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the overline value of the matched window system font.
+
+    Here we read the overline flag directly from the :class:`PySide.QtGui.QFont` . This is OK for X11 and for Windows because we always get what we want.
+
+    .. seealso::  :meth:`QFont.overline()<PySide.QtGui.QFont.overline>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.pixelSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the pixel size of the matched window system font.
+
+    .. seealso::  :meth:`QFont.pointSize()<PySide.QtGui.QFont.pointSize>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.pointSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the point size of the matched window system font.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontInfo.pointSizeF`  :meth:`QFont.pointSize()<PySide.QtGui.QFont.pointSize>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.pointSizeF()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the point size of the matched window system font.
+
+    .. seealso::  :meth:`QFont.pointSizeF()<PySide.QtGui.QFont.pointSizeF>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.rawMode()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font is a raw mode font; otherwise returns false.
+
+    If it is a raw mode font, all other functions in :class:`PySide.QtGui.QFontInfo` will return the same values set in the :class:`PySide.QtGui.QFont` , regardless of the font actually used.
+
+    .. seealso::  :meth:`QFont.rawMode()<PySide.QtGui.QFont.rawMode>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.strikeOut()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the strikeout value of the matched window system font.
+
+    This is OK for X11 and for Windows because we always get what we want.
+
+    .. seealso::  :meth:`QFont.strikeOut()<PySide.QtGui.QFont.strikeOut>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.style()
+
+
+    :rtype: :attr:`PySide.QtGui.QFont.Style`
+
+
+
+
+    Returns the style value of the matched window system font.
+
+    .. seealso::  :meth:`QFont.style()<PySide.QtGui.QFont.style>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.styleHint()
+
+
+    :rtype: :attr:`PySide.QtGui.QFont.StyleHint`
+
+
+
+
+    Returns the style of the matched window system font.
+
+    Currently only returns the style hint set in :class:`PySide.QtGui.QFont` .
+
+    .. seealso::  :meth:`QFont.styleHint()<PySide.QtGui.QFont.styleHint>`  :attr:`QFont.StyleHint` 
+
+
+.. method:: PySide.QtGui.QFontInfo.styleName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the style name of the matched window system font on system that supports it.
+
+    .. seealso::  :meth:`QFont.styleName()<PySide.QtGui.QFont.styleName>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.underline()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the underline value of the matched window system font.
+
+    Here we read the underline flag directly from the :class:`PySide.QtGui.QFont` . This is OK for X11 and for Windows because we always get what we want.
+
+    .. seealso::  :meth:`QFont.underline()<PySide.QtGui.QFont.underline>` 
+
+
+.. method:: PySide.QtGui.QFontInfo.weight()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the weight of the matched window system font.
+
+    .. seealso::  :meth:`QFont.weight()<PySide.QtGui.QFont.weight>`  :meth:`PySide.QtGui.QFontInfo.bold` 
+
+
+

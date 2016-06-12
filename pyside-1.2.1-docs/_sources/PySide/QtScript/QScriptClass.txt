@@ -1,0 +1,272 @@
+.. module:: PySide.QtScript
+.. _QScriptClass:
+
+QScriptClass
+************
+
+.. inheritance-diagram:: QScriptClass
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`engine<PySide.QtScript.QScriptClass.engine>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`extension<PySide.QtScript.QScriptClass.extension>` (extension[, argument=None])
+*    def :meth:`name<PySide.QtScript.QScriptClass.name>` ()
+*    def :meth:`newIterator<PySide.QtScript.QScriptClass.newIterator>` (object)
+*    def :meth:`property<PySide.QtScript.QScriptClass.property>` (object, name, id)
+*    def :meth:`propertyFlags<PySide.QtScript.QScriptClass.propertyFlags>` (object, name, id)
+*    def :meth:`prototype<PySide.QtScript.QScriptClass.prototype>` ()
+*    def :meth:`setProperty<PySide.QtScript.QScriptClass.setProperty>` (object, name, id, value)
+*    def :meth:`supportsExtension<PySide.QtScript.QScriptClass.supportsExtension>` (extension)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtScript.QScriptClass` class provides an interface for defining custom behavior of (a class of) Qt Script objects.
+
+    The :class:`PySide.QtScript.QScriptClass` class defines an interface for handling various aspects of interaction with the Qt Script objects associated with the class. Such objects are created by calling :meth:`QScriptEngine.newObject()<PySide.QtScript.QScriptEngine.newObject>` , passing a pointer to the :class:`PySide.QtScript.QScriptClass` as argument.
+
+    By subclassing :class:`PySide.QtScript.QScriptClass` , you can define precisely how access to properties of the objects that use your class is handled. This enables a fully dynamic handling of properties, e.g. it's more powerful than :meth:`QScriptEngine.newQObject()<PySide.QtScript.QScriptEngine.newQObject>` . For example, you can use :class:`PySide.QtScript.QScriptClass` to implement array-type objects (i.e. objects that handle the ``length`` property, and properties whose names are valid array indexes, in a special way), or to implement a "live" (runtime-defined) proxy to an underlying object.
+
+    If you just need to handle access to a set of properties that are known at the time an object is created (i.e. "semi-statically"), you might consider using :meth:`QScriptValue.setProperty()<PySide.QtScript.QScriptValue.setProperty>` to define getter/setter functions for the relevant properties, rather than subclassing :class:`PySide.QtScript.QScriptClass` .
+
+    Reimplement :meth:`~PySide.QtScript.QScriptClass.queryProperty` to specify which properties are handled in a custom way by your script class (i.e. should be **delegated** to the :class:`PySide.QtScript.QScriptClass` ), and which properties should be handled just like normal Qt Script object properties.
+
+    Reimplement :meth:`PySide.QtScript.QScriptClass.property` and :meth:`PySide.QtScript.QScriptClass.setProperty` to perform the actual access (read or write) to the properties that your class handles. Additionally, you can reimplement :meth:`PySide.QtScript.QScriptClass.propertyFlags` to specify custom flags for your properties.
+
+    Reimplement :meth:`PySide.QtScript.QScriptClass.newIterator` to provide an iterator for objects of your custom class. This is only necessary if objects of your class can have custom properties that you want to be reported when an object is used together with the :class:`PySide.QtScript.QScriptValueIterator` class, or when an object is used in a for-in enumeration statement in a script.
+
+    When implementing custom classes of objects, you typically use :meth:`QScriptValue.setData()<PySide.QtScript.QScriptValue.setData>` to store instance-specific data as part of object initialization; the data won't be accessible from scripts directly, but you can access it in e.g. your reimplementations of :meth:`PySide.QtScript.QScriptClass.property` and :meth:`PySide.QtScript.QScriptClass.setProperty` (by calling :meth:`QScriptValue.data()<PySide.QtScript.QScriptValue.data>` ) to perform custom processing.
+
+    Reimplement :meth:`PySide.QtScript.QScriptClass.prototype` to provide a custom prototype object for your script class.
+
+    Reimplement :meth:`PySide.QtScript.QScriptClass.supportsExtension` and :meth:`PySide.QtScript.QScriptClass.extension` if your custom script class supports one or more of the extensions specified by the Extension enum.
+
+    .. seealso::  :class:`PySide.QtScript.QScriptClassPropertyIterator`  :meth:`QScriptEngine.newObject()<PySide.QtScript.QScriptEngine.newObject>`  :ref:`Custom Script Class Example<script/customclass>` 
+
+.. class:: QScriptClass(engine)
+
+    :param engine: :class:`PySide.QtScript.QScriptEngine`
+
+    Constructs a :class:`PySide.QtScript.QScriptClass` object to be used in the given ``engine`` .
+
+    The engine does not take ownership of the :class:`PySide.QtScript.QScriptClass` object.
+
+
+.. attribute:: PySide.QtScript.QScriptClass.QueryFlag
+
+    This enum describes flags that are used to query a :class:`PySide.QtScript.QScriptClass` regarding how access to a property should be handled.
+
+    +-------------------------------+--------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                     |
+    +===============================+================================================================================+
+    |QScriptClass.HandlesReadAccess |The :class:`PySide.QtScript.QScriptClass` handles read access to this property. |
+    +-------------------------------+--------------------------------------------------------------------------------+
+    |QScriptClass.HandlesWriteAccess|The :class:`PySide.QtScript.QScriptClass` handles write access to this property.|
+    +-------------------------------+--------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`~PySide.QtScript.QScriptClass.queryProperty` 
+
+.. attribute:: PySide.QtScript.QScriptClass.Extension
+
+    This enum specifies the possible extensions to a :class:`PySide.QtScript.QScriptClass` .
+
+    +------------------------+------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                         |
+    +========================+====================================================================================+
+    |QScriptClass.Callable   |Instances of this class can be called as functions.                                 |
+    +------------------------+------------------------------------------------------------------------------------+
+    |QScriptClass.HasInstance|Instances of this class implement [[ :attr:`HasInstance<QScriptClass.Extension>` ]].|
+    +------------------------+------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.extension` 
+
+.. method:: PySide.QtScript.QScriptClass.engine()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptEngine`
+
+
+
+
+    Returns the engine that this :class:`PySide.QtScript.QScriptClass` is associated with.
+
+
+
+.. method:: PySide.QtScript.QScriptClass.extension(extension[, argument=None])
+
+
+    :param extension: :attr:`PySide.QtScript.QScriptClass.Extension`
+    :param argument: object
+    :rtype: object
+
+
+
+
+    This virtual function can be reimplemented in a :class:`PySide.QtScript.QScriptClass` subclass to provide support for extensions. The optional ``argument`` can be provided as input to the ``extension`` ; the result must be returned in the form of a :class:`PySide.QtCore.QVariant` . You can call :meth:`PySide.QtScript.QScriptClass.supportsExtension` to check if an extension is supported by the :class:`PySide.QtScript.QScriptClass` . By default, no extensions are supported, and this function returns an invalid :class:`PySide.QtCore.QVariant` .
+
+    If you implement the Callable extension, Qt Script will call this function when an instance of your class is called as a function (e.g. from a script or using :meth:`QScriptValue.call()<PySide.QtScript.QScriptValue.call>` ). The ``argument`` will contain a pointer to the :class:`PySide.QtScript.QScriptContext` that represents the function call, and you should return a :class:`PySide.QtCore.QVariant` that holds the result of the function call. In the following example the sum of the arguments to the script function are added up and returned:
+
+    ::
+
+        if extension == Callable:
+            context = argument
+            engine = context.engine()
+            sum = 0
+            for i in range(0, context.argumentCount()):
+                sum += context.argument(i).toNumber()
+            return sum
+
+
+    If you implement the :attr:`HasInstance<QScriptClass.Extension>` extension, Qt Script will call this function as part of evaluating the ``instanceof`` operator, as described in ECMA-262 Section 11.8.6. The ``argument`` is a :class:`~PySide.QtScript.QScriptValueList` containing two items: The first item is the object that :attr:`HasInstance<QScriptClass.Extension>` is being applied to (an instance of your class), and the second item can be any value. :meth:`PySide.QtScript.QScriptClass.extension` should return true if the value delegates behavior to the object, false otherwise.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.supportsExtension` 
+
+
+.. method:: PySide.QtScript.QScriptClass.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the script class.
+
+    Qt Script uses this name to generate a default string representation of objects in case you do not provide a toString function.
+
+    The default implementation returns a null string.
+
+
+
+.. method:: PySide.QtScript.QScriptClass.newIterator(object)
+
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+    :rtype: :class:`PySide.QtScript.QScriptClassPropertyIterator`
+
+
+
+
+    Returns an iterator for traversing custom properties of the given ``object`` .
+
+    The default implementation returns 0, meaning that there are no custom properties to traverse.
+
+    Reimplement this function if objects of your script class can have one or more custom properties (e.g. those reported to be handled by :meth:`~PySide.QtScript.QScriptClass.queryProperty` ) that you want to appear when an object's properties are enumerated (e.g. by a for-in statement in a script).
+
+    Qt Script takes ownership of the new iterator object.
+
+    .. seealso::  :class:`PySide.QtScript.QScriptValueIterator` 
+
+
+.. method:: PySide.QtScript.QScriptClass.property(object, name, id)
+
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+    :param name: :class:`PySide.QtScript.QScriptString`
+    :param id: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the value of the property with the given ``name`` of the given ``object`` .
+
+    The ``id`` argument is only useful if you assigned a value to it in :meth:`~PySide.QtScript.QScriptClass.queryProperty` .
+
+    The default implementation does nothing and returns an invalid :class:`PySide.QtScript.QScriptValue` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.setProperty`  :meth:`PySide.QtScript.QScriptClass.propertyFlags` 
+
+
+.. method:: PySide.QtScript.QScriptClass.propertyFlags(object, name, id)
+
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+    :param name: :class:`PySide.QtScript.QScriptString`
+    :param id: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtScript.QScriptValue.PropertyFlags`
+
+
+
+
+    Returns the flags of the property with the given ``name`` of the given ``object`` .
+
+    The ``id`` argument is only useful if you assigned a value to it in :meth:`~PySide.QtScript.QScriptClass.queryProperty` .
+
+    The default implementation returns 0.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.property` 
+
+
+.. method:: PySide.QtScript.QScriptClass.prototype()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the object to be used as the prototype of new instances of this class (created with :meth:`QScriptEngine.newObject()<PySide.QtScript.QScriptEngine.newObject>` ).
+
+    The default implementation returns an invalid :class:`PySide.QtScript.QScriptValue` , meaning that the standard Object prototype will be used. Reimplement this function to provide your own custom prototype.
+
+    Typically you initialize your prototype object in the constructor of your class, then return it in this function.
+
+    See the "Making Use of Prototype-Based Inheritance" section in the :ref:`QtScript` documentation for more information on how prototypes are used.
+
+
+
+.. method:: PySide.QtScript.QScriptClass.setProperty(object, name, id, value)
+
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+    :param name: :class:`PySide.QtScript.QScriptString`
+    :param id: :class:`PySide.QtCore.uint`
+    :param value: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Sets the property with the given ``name`` of the given ``object`` to the given ``value`` .
+
+    The ``id`` argument is only useful if you assigned a value to it in :meth:`~PySide.QtScript.QScriptClass.queryProperty` .
+
+    The default implementation does nothing.
+
+    An invalid ``value`` represents a request to remove the property.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.property` 
+
+
+.. method:: PySide.QtScript.QScriptClass.supportsExtension(extension)
+
+
+    :param extension: :attr:`PySide.QtScript.QScriptClass.Extension`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :class:`PySide.QtScript.QScriptClass` supports the given ``extension`` ; otherwise, false is returned. By default, no extensions are supported.
+
+    Reimplement this function to indicate which extensions your custom class supports.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClass.extension` 
+
+
+

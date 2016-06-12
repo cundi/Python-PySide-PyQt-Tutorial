@@ -1,0 +1,303 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeView:
+
+QDeclarativeView
+****************
+
+.. inheritance-diagram:: QDeclarativeView
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`engine<PySide.QtDeclarative.QDeclarativeView.engine>` ()
+*    def :meth:`errors<PySide.QtDeclarative.QDeclarativeView.errors>` ()
+*    def :meth:`initialSize<PySide.QtDeclarative.QDeclarativeView.initialSize>` ()
+*    def :meth:`resizeMode<PySide.QtDeclarative.QDeclarativeView.resizeMode>` ()
+*    def :meth:`rootContext<PySide.QtDeclarative.QDeclarativeView.rootContext>` ()
+*    def :meth:`rootObject<PySide.QtDeclarative.QDeclarativeView.rootObject>` ()
+*    def :meth:`setResizeMode<PySide.QtDeclarative.QDeclarativeView.setResizeMode>` (arg__1)
+*    def :meth:`setSource<PySide.QtDeclarative.QDeclarativeView.setSource>` (arg__1)
+*    def :meth:`source<PySide.QtDeclarative.QDeclarativeView.source>` ()
+*    def :meth:`status<PySide.QtDeclarative.QDeclarativeView.status>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`setRootObject<PySide.QtDeclarative.QDeclarativeView.setRootObject>` (obj)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`continueExecute<PySide.QtDeclarative.QDeclarativeView.continueExecute>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`sceneResized<PySide.QtDeclarative.QDeclarativeView.sceneResized>` (size)
+*    def :meth:`statusChanged<PySide.QtDeclarative.QDeclarativeView.statusChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeView` class provides a widget for displaying a Qt Declarative user interface.
+
+    :class:`PySide.QtDeclarative.QDeclarativeItem` objects can be placed on a standard :class:`PySide.QtGui.QGraphicsScene` and displayed with :class:`PySide.QtGui.QGraphicsView` . :class:`PySide.QtDeclarative.QDeclarativeView` is a :class:`PySide.QtGui.QGraphicsView` subclass provided as a convenience for displaying QML files, and connecting between QML and C++ Qt objects.
+
+    :class:`PySide.QtDeclarative.QDeclarativeView` provides:
+
+    Typical usage:
+
+    ::
+
+                QDeclarativeView *view = new QDeclarativeView;
+                view->setSource(QUrl::fromLocalFile("myqmlfile.qml"));
+                view->show();
+
+
+    Since :class:`PySide.QtDeclarative.QDeclarativeView` is a :class:`PySide.QtGui.QWidget` -based class, it can be used to display QML interfaces within :class:`PySide.QtGui.QWidget` -based GUI applications that do not use the Graphics View framework.
+
+    To receive errors related to loading and executing QML with :class:`PySide.QtDeclarative.QDeclarativeView` , you can connect to the :meth:`PySide.QtDeclarative.QDeclarativeView.statusChanged` signal and monitor for :attr:`QDeclarativeView.Error<QDeclarativeView.Status>` . The errors are available via :meth:`QDeclarativeView.errors()<PySide.QtDeclarative.QDeclarativeView.errors>` .
+
+    If you're using your own :class:`PySide.QtGui.QGraphicsScene` -based scene with :class:`PySide.QtDeclarative.QDeclarativeView` , remember to enable scene's sticky focus mode and to set itemIndexMethod to :attr:`QGraphicsScene.NoIndex<QGraphicsScene.ItemIndexMethod>` .
+
+    .. seealso::  :ref:`Integrating QML Code with Existing Qt UI Code<qml-integration.html>`  :ref:`Using QML Bindings in C++ Applications<qtbinding.html>` 
+
+.. class:: QDeclarativeView([parent=None])
+           QDeclarativeView(source[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param source: :class:`PySide.QtCore.QUrl`
+
+    Constructs a :class:`PySide.QtDeclarative.QDeclarativeView` with the given ``parent`` .
+
+
+    Constructs a :class:`PySide.QtDeclarative.QDeclarativeView` with the given QML ``source`` and ``parent`` .
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeView.ResizeMode
+
+    This enum specifies how to resize the view.
+
+    +-------------------------------------+-------------------------------------------------------------------------+
+    |Constant                             |Description                                                              |
+    +=====================================+=========================================================================+
+    |QDeclarativeView.SizeViewToRootObject|The view resizes with the root item in the QML.                          |
+    +-------------------------------------+-------------------------------------------------------------------------+
+    |QDeclarativeView.SizeRootObjectToView|The view will automatically resize the root item to the size of the view.|
+    +-------------------------------------+-------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeView.Status
+
+    Specifies the loading status of the :class:`PySide.QtDeclarative.QDeclarativeView` .
+
+    +------------------------+------------------------------------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                                             |
+    +========================+========================================================================================================================+
+    |QDeclarativeView.Null   |This :class:`PySide.QtDeclarative.QDeclarativeView` has no source set.                                                  |
+    +------------------------+------------------------------------------------------------------------------------------------------------------------+
+    |QDeclarativeView.Ready  |This :class:`PySide.QtDeclarative.QDeclarativeView` has loaded and created the QML component.                           |
+    +------------------------+------------------------------------------------------------------------------------------------------------------------+
+    |QDeclarativeView.Loading|This :class:`PySide.QtDeclarative.QDeclarativeView` is loading network data.                                            |
+    +------------------------+------------------------------------------------------------------------------------------------------------------------+
+    |QDeclarativeView.Error  |One or more errors has occurred. Call :meth:`PySide.QtDeclarative.QDeclarativeView.errors` to retrieve a list of errors.|
+    +------------------------+------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.continueExecute()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.engine()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+
+
+
+
+    Returns a pointer to the :class:`PySide.QtDeclarative.QDeclarativeEngine` used for instantiating QML Components.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.errors()
+
+
+    :rtype: 
+
+
+
+
+    Return the list of errors that occurred during the last compile or create operation. When the status is not Error, an empty list is returned.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.initialSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the initial size of the root object
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.resizeMode()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeView.ResizeMode`
+
+
+
+
+    This property holds whether the view should resize the canvas contents.
+
+    If this property is set to :attr:`SizeViewToRootObject<QDeclarativeView.ResizeMode>` (the default), the view resizes with the root item in the QML.
+
+    If this property is set to :attr:`SizeRootObjectToView<QDeclarativeView.ResizeMode>` , the view will automatically resize the root item.
+
+    Regardless of this property, the sizeHint of the view is the initial size of the root item. Note though that since QML may load dynamically, that size may change.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.rootContext()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    This function returns the root of the context hierarchy. Each QML component is instantiated in a :class:`PySide.QtDeclarative.QDeclarativeContext` . :class:`PySide.QtDeclarative.QDeclarativeContext` 's are essential for passing data to QML components. In QML, contexts are arranged hierarchically and this hierarchy is managed by the :class:`PySide.QtDeclarative.QDeclarativeEngine` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.rootObject()
+
+
+    :rtype: :class:`PySide.QtGui.QGraphicsObject`
+
+
+
+
+    Returns the view's root :class:`item<PySide.QtGui.QGraphicsObject>` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.sceneResized(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.setResizeMode(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtDeclarative.QDeclarativeView.ResizeMode`
+
+
+
+
+    This property holds whether the view should resize the canvas contents.
+
+    If this property is set to :attr:`SizeViewToRootObject<QDeclarativeView.ResizeMode>` (the default), the view resizes with the root item in the QML.
+
+    If this property is set to :attr:`SizeRootObjectToView<QDeclarativeView.ResizeMode>` , the view will automatically resize the root item.
+
+    Regardless of this property, the sizeHint of the view is the initial size of the root item. Note though that since QML may load dynamically, that size may change.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.setRootObject(obj)
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeView.rootObject` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.setSource(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds The URL of the source of the QML component..
+
+    Changing this property causes the QML component to be reloaded.
+
+    Ensure that the URL provided is full and correct, in particular, use :meth:`QUrl.fromLocalFile()<PySide.QtCore.QUrl.fromLocalFile>` when loading a file from the local filesystem.
+
+    .. seealso::  :ref:`Loading Resources in QML<qdeclarativenetwork.html>` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.source()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds The URL of the source of the QML component..
+
+    Changing this property causes the QML component to be reloaded.
+
+    Ensure that the URL provided is full and correct, in particular, use :meth:`QUrl.fromLocalFile()<PySide.QtCore.QUrl.fromLocalFile>` when loading a file from the local filesystem.
+
+    .. seealso::  :ref:`Loading Resources in QML<qdeclarativenetwork.html>` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.status()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeView.Status`
+
+
+
+
+    The component's current :attr:`status<QDeclarativeView.Status>` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeView.statusChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtDeclarative.QDeclarativeView.Status`
+
+
+
+
+
+
+

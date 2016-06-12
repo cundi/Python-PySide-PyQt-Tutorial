@@ -1,0 +1,142 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeScriptString:
+
+QDeclarativeScriptString
+************************
+
+.. inheritance-diagram:: QDeclarativeScriptString
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`context<PySide.QtDeclarative.QDeclarativeScriptString.context>` ()
+*    def :meth:`scopeObject<PySide.QtDeclarative.QDeclarativeScriptString.scopeObject>` ()
+*    def :meth:`script<PySide.QtDeclarative.QDeclarativeScriptString.script>` ()
+*    def :meth:`setContext<PySide.QtDeclarative.QDeclarativeScriptString.setContext>` (arg__1)
+*    def :meth:`setScopeObject<PySide.QtDeclarative.QDeclarativeScriptString.setScopeObject>` (arg__1)
+*    def :meth:`setScript<PySide.QtDeclarative.QDeclarativeScriptString.setScript>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeScriptString` class encapsulates a script and its context.
+
+    :class:`PySide.QtDeclarative.QDeclarativeScriptString` is used to create :class:`PySide.QtCore.QObject` properties that accept a script "assignment" from QML.
+
+    Normally, the following QML would result in a binding being established for the ``script`` property; i.e. ``script`` would be assigned the value obtained from running ``myObj.value = Math.max(myValue, 100)``\
+
+    ::
+
+                MyType {
+                    script: myObj.value = Math.max(myValue, 100)
+                }
+
+
+    If instead the property had a type of :class:`PySide.QtDeclarative.QDeclarativeScriptString` , the script itself -- *myObj.value = Math.max(myValue, 100)* -- would be passed to the ``script`` property and the class could choose how to handle it. Typically, the class will evaluate the script at some later time using a :class:`PySide.QtDeclarative.QDeclarativeExpression` .
+
+    ::
+
+                QDeclarativeExpression expr(scriptString.context(), scriptString.script(), scriptStr.scopeObject());
+                expr.value();
+
+
+    .. seealso::  :class:`PySide.QtDeclarative.QDeclarativeExpression` 
+
+.. class:: QDeclarativeScriptString()
+           QDeclarativeScriptString(arg__1)
+
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeScriptString`
+
+    Constructs an empty instance.
+
+
+    Copies ``other`` .
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.context()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Returns the context for the script.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.setContext` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.scopeObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the scope object for the script.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.setScopeObject` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.script()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the script text.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.setScript` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.setContext(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Sets the ``context`` for the script.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.context` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.setScopeObject(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Sets the scope ``object`` for the script.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.scopeObject` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeScriptString.setScript(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    Sets the ``script`` text.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeScriptString.script` 
+
+
+

@@ -1,0 +1,116 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlFormatter:
+
+QXmlFormatter
+*************
+
+.. inheritance-diagram:: QXmlFormatter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indentationDepth<PySide.QtXmlPatterns.QXmlFormatter.indentationDepth>` ()
+*    def :meth:`setIndentationDepth<PySide.QtXmlPatterns.QXmlFormatter.setIndentationDepth>` (depth)
+*    def :meth:`startFormattingContent<PySide.QtXmlPatterns.QXmlFormatter.startFormattingContent>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlFormatter` class is an implementation of :class:`PySide.QtXmlPatterns.QXmlSerializer` for transforming :ref:`XQuery<xmlprocessing.html>` output into formatted XML.
+
+    :class:`PySide.QtXmlPatterns.QXmlFormatter` is a subclass of :class:`PySide.QtXmlPatterns.QXmlSerializer` that formats the XML output to make it easier for humans to read.
+
+    :class:`PySide.QtXmlPatterns.QXmlSerializer` outputs XML without adding unnecessary whitespace. In particular, it does not add *newlines* and indentation. To make the XML output easier to read, :class:`PySide.QtXmlPatterns.QXmlFormatter` adds *newlines* and indentation by adding, removing, and modifying :class:`sequence nodes<~PySide.QtXmlPatterns.XQuery Sequence>` that only consist of whitespace. It also modifies whitespace in other places where it is not significant; e.g., between attributes and in the document prologue.
+
+    For example, where the base class :class:`PySide.QtXmlPatterns.QXmlSerializer` would output this:
+
+    ::
+
+        <a><b/><c/><p>Some Text</p></a>
+
+
+    :class:`PySide.QtXmlPatterns.QXmlFormatter` outputs this:
+
+    ::
+
+        <a>
+           <b/>
+           <c/>
+           <p>Some Text</p>
+        </a>
+
+
+    If you just want to serialize your XML in a human-readable format, use :class:`PySide.QtXmlPatterns.QXmlFormatter` as it is. The default indentation level is 4 spaces, but you can set your own indentation value :meth:`PySide.QtXmlPatterns.QXmlFormatter.setIndentationDepth` .
+
+    The *newlines* and indentation added by :class:`PySide.QtXmlPatterns.QXmlFormatter` are suitable for common formats, such as XHTML, SVG, or Docbook, where whitespace is not significant. However, if your XML will be used as input where whitespace is significant, then you must write your own subclass of :class:`PySide.QtXmlPatterns.QXmlSerializer` or :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` .
+
+    Note that using :class:`PySide.QtXmlPatterns.QXmlFormatter` instead of :class:`PySide.QtXmlPatterns.QXmlSerializer` will increase computational overhead and document storage size due to the insertion of whitespace.
+
+    Note also that the indentation style used by :class:`PySide.QtXmlPatterns.QXmlFormatter` remains loosely defined and may change in future versions of Qt. If a specific indentation style is required then either use the base class :class:`PySide.QtXmlPatterns.QXmlSerializer` directly, or write your own subclass of :class:`PySide.QtXmlPatterns.QXmlSerializer` or :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` . Alternatively, you can subclass :class:`PySide.QtXmlPatterns.QXmlFormatter` and reimplement the callbacks there.
+
+    ::
+
+        QXmlQuery query;
+        query.setQuery("doc('index.html')/html/body/p[1]");
+
+        QXmlFormatter formatter(query, myOutputDevice);
+        formatter.setIndentationDepth(2);
+        query.evaluateTo(&formatter);
+
+
+
+.. class:: QXmlFormatter(query, outputDevice)
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlQuery`
+    :param outputDevice: :class:`PySide.QtCore.QIODevice`
+
+    Constructs a formatter that uses the name pool and message handler in ``query`` , and writes the result to ``outputDevice`` as formatted XML.
+
+    ``outputDevice`` is passed directly to :class:`PySide.QtXmlPatterns.QXmlSerializer` 's constructor.
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QXmlSerializer` 
+
+.. method:: PySide.QtXmlPatterns.QXmlFormatter.indentationDepth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of spaces :class:`PySide.QtXmlPatterns.QXmlFormatter` will output for each indentation level. The default is four.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlFormatter.setIndentationDepth` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlFormatter.setIndentationDepth(depth)
+
+
+    :param depth: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets ``depth`` to be the number of spaces :class:`PySide.QtXmlPatterns.QXmlFormatter` will output for level of indentation. The default is four.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlFormatter.indentationDepth` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlFormatter.startFormattingContent()
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,272 @@
+.. module:: PySide.QtGui
+.. _QStackedWidget:
+
+QStackedWidget
+**************
+
+.. inheritance-diagram:: QStackedWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addWidget<PySide.QtGui.QStackedWidget.addWidget>` (w)
+*    def :meth:`count<PySide.QtGui.QStackedWidget.count>` ()
+*    def :meth:`currentIndex<PySide.QtGui.QStackedWidget.currentIndex>` ()
+*    def :meth:`currentWidget<PySide.QtGui.QStackedWidget.currentWidget>` ()
+*    def :meth:`indexOf<PySide.QtGui.QStackedWidget.indexOf>` (arg__1)
+*    def :meth:`insertWidget<PySide.QtGui.QStackedWidget.insertWidget>` (index, w)
+*    def :meth:`removeWidget<PySide.QtGui.QStackedWidget.removeWidget>` (w)
+*    def :meth:`widget<PySide.QtGui.QStackedWidget.widget>` (arg__1)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setCurrentIndex<PySide.QtGui.QStackedWidget.setCurrentIndex>` (index)
+*    def :meth:`setCurrentWidget<PySide.QtGui.QStackedWidget.setCurrentWidget>` (w)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentChanged<PySide.QtGui.QStackedWidget.currentChanged>` (arg__1)
+*    def :meth:`widgetRemoved<PySide.QtGui.QStackedWidget.widgetRemoved>` (index)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStackedWidget` class provides a stack of widgets where only one widget is visible at a time.
+
+    :class:`PySide.QtGui.QStackedWidget` can be used to create a user interface similar to the one provided by :class:`PySide.QtGui.QTabWidget` . It is a convenience layout widget built on top of the :class:`PySide.QtGui.QStackedLayout` class.
+
+    Like :class:`PySide.QtGui.QStackedLayout` , :class:`PySide.QtGui.QStackedWidget` can be constructed and populated with a number of child widgets ("pages"):
+
+    ::
+
+            firstPageWidget =  QWidget()
+            secondPageWidget =  QWidget()
+            thirdPageWidget =  QWidget()
+
+            stackedWidget =  QStackedWidget()
+            stackedWidget.addWidget(firstPageWidget)
+            stackedWidget.addWidget(secondPageWidget)
+            stackedWidget.addWidget(thirdPageWidget)
+
+            layout =  QVBoxLayout()
+            layout.addWidget(stackedWidget)
+            setLayout(layout)
+
+
+    :class:`PySide.QtGui.QStackedWidget` provides no intrinsic means for the user to switch page. This is typically done through a :class:`PySide.QtGui.QComboBox` or a :class:`PySide.QtGui.QListWidget` that stores the titles of the :class:`PySide.QtGui.QStackedWidget` 's pages. For example:
+
+    ::
+
+            pageComboBox = QComboBox()
+            pageComboBox.addItem(tr("Page 1"))
+            pageComboBox.addItem(tr("Page 2"))
+            pageComboBox.addItem(tr("Page 3"))
+            connect(pageComboBox, SIGNAL("activated(int)"),
+                    stackedWidget, SLOT("setCurrentIndex(int)"))
+
+
+
+    When populating a stacked widget, the widgets are added to an internal list. The :meth:`PySide.QtGui.QStackedWidget.indexOf` function returns the index of a widget in that list. The widgets can either be added to the end of the list using the :meth:`PySide.QtGui.QStackedWidget.addWidget` function, or inserted at a given index using the :meth:`PySide.QtGui.QStackedWidget.insertWidget` function. The :meth:`PySide.QtGui.QStackedWidget.removeWidget` function removes a widget from the stacked widget. The number of widgets contained in the stacked widget, can be obtained using the :meth:`PySide.QtGui.QStackedWidget.count` function.
+
+    The :meth:`PySide.QtGui.QStackedWidget.widget` function returns the widget at a given index position. The index of the widget that is shown on screen is given by :meth:`PySide.QtGui.QStackedWidget.currentIndex` and can be changed using :meth:`PySide.QtGui.QStackedWidget.setCurrentIndex` . In a similar manner, the currently shown widget can be retrieved using the :meth:`PySide.QtGui.QStackedWidget.currentWidget` function, and altered using the :meth:`PySide.QtGui.QStackedWidget.setCurrentWidget` function.
+
+    Whenever the current widget in the stacked widget changes or a widget is removed from the stacked widget, the :meth:`PySide.QtGui.QStackedWidget.currentChanged` and :meth:`PySide.QtGui.QStackedWidget.widgetRemoved` signals are emitted respectively.
+
+    .. seealso::  :class:`PySide.QtGui.QStackedLayout`  :class:`PySide.QtGui.QTabWidget`  :ref:`Config Dialog Example<dialogs/configdialog>` 
+
+.. class:: QStackedWidget([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a :class:`PySide.QtGui.QStackedWidget` with the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.addWidget`  :meth:`PySide.QtGui.QStackedWidget.insertWidget` 
+
+.. method:: PySide.QtGui.QStackedWidget.addWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Appends the given ``widget`` to the :class:`PySide.QtGui.QStackedWidget` and returns the index position. Ownership of ``widget`` is passed on to the :class:`PySide.QtGui.QStackedWidget` .
+
+    If the :class:`PySide.QtGui.QStackedWidget` is empty before this function is called, ``widget`` becomes the current widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.insertWidget`  :meth:`PySide.QtGui.QStackedWidget.removeWidget`  :meth:`PySide.QtGui.QStackedWidget.setCurrentWidget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of widgets contained by this stacked widget.
+
+    By default, this property contains a value of 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentIndex`  :meth:`PySide.QtGui.QStackedWidget.widget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.currentChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStackedWidget.currentIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the index position of the widget that is visible.
+
+    The current index is -1 if there is no current widget.
+
+    By default, this property contains a value of -1 because the stack is initially empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentWidget`  :meth:`PySide.QtGui.QStackedWidget.indexOf` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.currentWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the current widget, or 0 if there are no child widgets.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentIndex`  :meth:`PySide.QtGui.QStackedWidget.setCurrentWidget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.indexOf(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the given ``widget`` , or -1 if the given ``widget`` is not a child of the :class:`PySide.QtGui.QStackedWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentIndex`  :meth:`PySide.QtGui.QStackedWidget.widget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.insertWidget(index, w)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts the given ``widget`` at the given ``index`` in the :class:`PySide.QtGui.QStackedWidget` . Ownership of ``widget`` is passed on to the :class:`PySide.QtGui.QStackedWidget` . If ``index`` is out of range, the ``widget`` is appended (in which case it is the actual index of the ``widget`` that is returned).
+
+    If the :class:`PySide.QtGui.QStackedWidget` was empty before this function is called, the given ``widget`` becomes the current widget.
+
+    Inserting a new widget at an index less than or equal to the current index will increment the current index, but keep the current widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.addWidget`  :meth:`PySide.QtGui.QStackedWidget.removeWidget`  :meth:`PySide.QtGui.QStackedWidget.setCurrentWidget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.removeWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes ``widget`` from the :class:`PySide.QtGui.QStackedWidget` . i.e., ``widget`` is *not* deleted but simply removed from the stacked layout, causing it to be hidden.
+
+    .. note::  Ownership of ``widget`` reverts to the application.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.addWidget`  :meth:`PySide.QtGui.QStackedWidget.insertWidget`  :meth:`PySide.QtGui.QStackedWidget.currentWidget` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.setCurrentIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the index position of the widget that is visible.
+
+    The current index is -1 if there is no current widget.
+
+    By default, this property contains a value of -1 because the stack is initially empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentWidget`  :meth:`PySide.QtGui.QStackedWidget.indexOf` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.setCurrentWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the current widget to be the specified ``widget`` . The new current widget must already be contained in this stacked widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentWidget`  :meth:`PySide.QtGui.QStackedWidget.setCurrentIndex` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.widget(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget at the given ``index`` , or 0 if there is no such widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QStackedWidget.currentWidget`  :meth:`PySide.QtGui.QStackedWidget.indexOf` 
+
+
+.. method:: PySide.QtGui.QStackedWidget.widgetRemoved(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

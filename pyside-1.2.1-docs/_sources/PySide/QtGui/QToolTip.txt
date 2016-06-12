@@ -1,0 +1,185 @@
+.. module:: PySide.QtGui
+.. _QToolTip:
+
+QToolTip
+********
+
+.. inheritance-diagram:: QToolTip
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`font<PySide.QtGui.QToolTip.font>` ()
+*    def :meth:`hideText<PySide.QtGui.QToolTip.hideText>` ()
+*    def :meth:`isVisible<PySide.QtGui.QToolTip.isVisible>` ()
+*    def :meth:`palette<PySide.QtGui.QToolTip.palette>` ()
+*    def :meth:`setFont<PySide.QtGui.QToolTip.setFont>` (arg__1)
+*    def :meth:`setPalette<PySide.QtGui.QToolTip.setPalette>` (arg__1)
+*    def :meth:`showText<PySide.QtGui.QToolTip.showText>` (pos, text, w, rect)
+*    def :meth:`showText<PySide.QtGui.QToolTip.showText>` (pos, text[, w=None])
+*    def :meth:`text<PySide.QtGui.QToolTip.text>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QToolTip` class provides tool tips (balloon help) for any widget.
+
+    The tip is a short piece of text reminding the user of the widget's function. It is drawn immediately below the given position in a distinctive black-on-yellow color combination. The tip can be any :class:`rich text<PySide.QtGui.QTextEdit>` formatted string.
+
+    Rich text displayed in a tool tip is implicitly word-wrapped unless specified differently with ``<p style='white-space:pre'>`` .
+
+    The simplest and most common way to set a widget's tool tip is by calling its :meth:`QWidget.setToolTip()<PySide.QtGui.QWidget.setToolTip>` function.
+
+    It is also possible to show different tool tips for different regions of a widget, by using a :class:`PySide.QtGui.QHelpEvent` of type :attr:`QEvent.ToolTip<QEvent.Type>` . Intercept the help event in your widget's :meth:`PySide.QtGui.QWidget.event` function and call :meth:`QToolTip.showText()<PySide.QtGui.QToolTip.showText>` with the text you want to display. The :ref:`Tooltips<widgets/tooltips>` example illustrates this technique.
+
+    If you are calling :meth:`QToolTip.hideText()<PySide.QtGui.QToolTip.hideText>` , or :meth:`QToolTip.showText()<PySide.QtGui.QToolTip.showText>` with an empty string, as a result of a :attr:`ToolTip<QEvent.Type>` -event you should also call :meth:`PySide.QtCore.QEvent.ignore` on the event, to signal that you don't want to start any tooltip specific modes.
+
+    Note that, if you want to show tooltips in an item view, the model/view architecture provides functionality to set an item's tool tip; e.g., the :meth:`QTableWidgetItem.setToolTip()<PySide.QtGui.QTableWidgetItem.setToolTip>` function. However, if you want to provide custom tool tips in an item view, you must intercept the help event in the :meth:`QAbstractItemView.viewportEvent()<PySide.QtGui.QAbstractItemView.viewportEvent>` function and handle it yourself.
+
+    The default tool tip color and font can be customized with :meth:`PySide.QtGui.QToolTip.setPalette` and :meth:`PySide.QtGui.QToolTip.setFont` . When a tooltip is currently on display, :meth:`PySide.QtGui.QToolTip.isVisible` returns true and :meth:`PySide.QtGui.QToolTip.text` the currently visible text.
+
+    .. note::  Tool tips use the inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.
+
+    .. seealso::  :meth:`QWidget.toolTip<PySide.QtGui.QWidget.toolTip>`  :meth:`QAction.toolTip<PySide.QtGui.QAction.toolTip>`  :ref:`Tool Tips Example<widgets/tooltips>` 
+
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.font()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the font used to render tooltips.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.setFont` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.hideText()
+
+
+
+
+
+
+    Hides the tool tip. This is the same as calling :meth:`PySide.QtGui.QToolTip.showText` with an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.showText` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.isVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this tooltip is currently shown.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.showText` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.palette()
+
+
+    :rtype: :class:`PySide.QtGui.QPalette`
+
+
+
+
+    Returns the palette used to render tooltips.
+
+    .. note::  Tool tips use the inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.setPalette` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.setFont(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Sets the ``font`` used to render tooltips.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.font` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.setPalette(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPalette`
+
+
+
+
+    Sets the ``palette`` used to render tooltips.
+
+    .. note::  Tool tips use the inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolTip.palette` 
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.showText(pos, text, w, rect)
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param text: unicode
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Shows ``text`` as a tool tip, with the global position ``pos`` as the point of interest. The tool tip will be shown with a platform specific offset from this point of interest.
+
+    If you specify a non-empty rect the tip will be hidden as soon as you move your cursor out of this area.
+
+    The ``rect`` is in the coordinates of the widget you specify with ``w`` . If the ``rect`` is not empty you must specify a widget. Otherwise this argument can be 0 but it is used to determine the appropriate screen on multi-head systems.
+
+    If ``text`` is empty the tool tip is hidden. If the text is the same as the currently shown tooltip, the tip will *not* move. You can force moving by first hiding the tip with an empty text, and then showing the new tip at the new position.
+
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.showText(pos, text[, w=None])
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param text: unicode
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+    This is analogous to calling QToolTip::showText(``pos`` , ``text`` , ``w`` , :meth:`~PySide.QtGui.QToolTip.QRect` )
+
+
+
+.. staticmethod:: PySide.QtGui.QToolTip.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the tooltip text, if a tooltip is visible, or an empty string if a tooltip is not visible.
+
+
+
+

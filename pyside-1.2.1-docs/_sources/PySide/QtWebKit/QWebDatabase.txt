@@ -1,0 +1,170 @@
+.. module:: PySide.QtWebKit
+.. _QWebDatabase:
+
+QWebDatabase
+************
+
+.. inheritance-diagram:: QWebDatabase
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`displayName<PySide.QtWebKit.QWebDatabase.displayName>` ()
+*    def :meth:`expectedSize<PySide.QtWebKit.QWebDatabase.expectedSize>` ()
+*    def :meth:`fileName<PySide.QtWebKit.QWebDatabase.fileName>` ()
+*    def :meth:`name<PySide.QtWebKit.QWebDatabase.name>` ()
+*    def :meth:`origin<PySide.QtWebKit.QWebDatabase.origin>` ()
+*    def :meth:`size<PySide.QtWebKit.QWebDatabase.size>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`removeAllDatabases<PySide.QtWebKit.QWebDatabase.removeAllDatabases>` ()
+*    def :meth:`removeDatabase<PySide.QtWebKit.QWebDatabase.removeDatabase>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebDatabase` class provides access to HTML 5 databases created with JavaScript.
+
+    The upcoming HTML 5 standard includes support for SQL databases that web sites can create and access on a local computer through JavaScript. :class:`PySide.QtWebKit.QWebDatabase` is the C++ interface to these databases.
+
+    Databases are grouped together in security origins. To get access to all databases defined by a security origin, use :meth:`QWebSecurityOrigin.databases()<PySide.QtWebKit.QWebSecurityOrigin.databases>` . Each database has an internal :meth:`PySide.QtWebKit.QWebDatabase.name` , as well as a user-friendly name, provided by :meth:`PySide.QtWebKit.QWebDatabase.displayName` . These names are specified when creating the database in the JavaScript code.
+
+    :ref:`WebKit<webkit.html>` uses SQLite to create and access the local SQL databases. The location of the database file in the local file system is returned by :meth:`PySide.QtWebKit.QWebDatabase.fileName` . You can access the database directly through the :ref:`QtSql` database module.
+
+    For each database the web site can define an :meth:`PySide.QtWebKit.QWebDatabase.expectedSize` . The current size of the database in bytes is returned by :meth:`PySide.QtWebKit.QWebDatabase.size` .
+
+    For more information refer to the HTML5 Web SQL Database Draft Standard.
+
+    .. seealso::  :class:`PySide.QtWebKit.QWebSecurityOrigin` 
+
+.. class:: QWebDatabase(other)
+
+    :param other: :class:`PySide.QtWebKit.QWebDatabase`
+
+    Constructs a web database from ``other`` .
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.displayName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the database in a format that is suitable for display to the user.
+
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.expectedSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the expected size of the database in bytes as defined by the web author.
+
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file name of the web database.
+
+    The name can be used to access the database through the :ref:`QtSql` database module, for example:
+
+    ::
+
+                QWebDatabase webdb = ...
+                QSqlDatabase sqldb = QSqlDatabase::addDatabase("QSQLITE", "myconnection");
+                sqldb.setDatabaseName(webdb.fileName());
+                if (sqldb.open()) {
+                    QStringList tables = sqldb.tables();
+                    ...
+                }
+
+
+    .. note::  Concurrent access to a database from multiple threads or processes is not very efficient because SQLite is used as :ref:`WebKit<webkit.html>` 's database backend.
+
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the database.
+
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.origin()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebSecurityOrigin`
+
+
+
+
+    Returns the databases's security origin.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebDatabase.removeAllDatabases()
+
+
+
+
+
+
+    Deletes all web databases in the configured offline storage path.
+
+    .. seealso::  :meth:`QWebSettings.setOfflineStoragePath()<PySide.QtWebKit.QWebSettings.setOfflineStoragePath>` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebDatabase.removeDatabase(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtWebKit.QWebDatabase`
+
+
+
+
+    Removes the database ``db`` from its security origin. All data stored in the database ``db`` will be destroyed.
+
+
+
+.. method:: PySide.QtWebKit.QWebDatabase.size()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current size of the database in bytes.
+
+
+
+

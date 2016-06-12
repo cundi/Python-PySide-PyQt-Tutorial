@@ -1,0 +1,365 @@
+.. module:: PySide.QtGui
+.. _QSessionManager:
+
+QSessionManager
+***************
+
+.. inheritance-diagram:: QSessionManager
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allowsErrorInteraction<PySide.QtGui.QSessionManager.allowsErrorInteraction>` ()
+*    def :meth:`allowsInteraction<PySide.QtGui.QSessionManager.allowsInteraction>` ()
+*    def :meth:`cancel<PySide.QtGui.QSessionManager.cancel>` ()
+*    def :meth:`discardCommand<PySide.QtGui.QSessionManager.discardCommand>` ()
+*    def :meth:`isPhase2<PySide.QtGui.QSessionManager.isPhase2>` ()
+*    def :meth:`release<PySide.QtGui.QSessionManager.release>` ()
+*    def :meth:`requestPhase2<PySide.QtGui.QSessionManager.requestPhase2>` ()
+*    def :meth:`restartCommand<PySide.QtGui.QSessionManager.restartCommand>` ()
+*    def :meth:`restartHint<PySide.QtGui.QSessionManager.restartHint>` ()
+*    def :meth:`sessionId<PySide.QtGui.QSessionManager.sessionId>` ()
+*    def :meth:`sessionKey<PySide.QtGui.QSessionManager.sessionKey>` ()
+*    def :meth:`setDiscardCommand<PySide.QtGui.QSessionManager.setDiscardCommand>` (arg__1)
+*    def :meth:`setManagerProperty<PySide.QtGui.QSessionManager.setManagerProperty>` (name, value)
+*    def :meth:`setManagerProperty<PySide.QtGui.QSessionManager.setManagerProperty>` (name, value)
+*    def :meth:`setRestartCommand<PySide.QtGui.QSessionManager.setRestartCommand>` (arg__1)
+*    def :meth:`setRestartHint<PySide.QtGui.QSessionManager.setRestartHint>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSessionManager` class provides access to the session manager.
+
+    A session manager in a desktop environment (in which Qt GUI applications live) keeps track of a session, which is a group of running applications, each of which has a particular state. The state of an application contains (most notably) the documents the application has open and the position and size of its windows.
+
+    The session manager is used to save the session, e.g., when the machine is shut down, and to restore a session, e.g., when the machine is started up. We recommend that you use :class:`PySide.QtCore.QSettings` to save an application's settings, for example, window positions, recently used files, etc. When the application is restarted by the session manager, you can restore the settings.
+
+    :class:`PySide.QtGui.QSessionManager` provides an interface between the application and the session manager so that the program can work well with the session manager. In Qt, session management requests for action are handled by the two virtual functions :meth:`QApplication.commitData()<PySide.QtGui.QApplication.commitData>` and :meth:`QApplication.saveState()<PySide.QtGui.QApplication.saveState>` . Both provide a reference to a session manager object as argument, to allow the application to communicate with the session manager. The session manager can only be accessed through these functions.
+
+    No user interaction is possible *unless* the application gets explicit permission from the session manager. You ask for permission by calling :meth:`PySide.QtGui.QSessionManager.allowsInteraction` or, if it is really urgent, :meth:`PySide.QtGui.QSessionManager.allowsErrorInteraction` . Qt does not enforce this, but the session manager may.
+
+    You can try to abort the shutdown process by calling :meth:`PySide.QtGui.QSessionManager.cancel` . The default commitData() function does this if some top-level window rejected its closeEvent().
+
+    For sophisticated session managers provided on Unix/X11, :class:`PySide.QtGui.QSessionManager` offers further possibilities to fine-tune an application's session management behavior: :meth:`PySide.QtGui.QSessionManager.setRestartCommand` , :meth:`PySide.QtGui.QSessionManager.setDiscardCommand` , :meth:`PySide.QtGui.QSessionManager.setRestartHint` , :meth:`PySide.QtCore.QObject.setProperty` , :meth:`PySide.QtGui.QSessionManager.requestPhase2` . See the respective function descriptions for further details.
+
+    .. seealso::  :class:`PySide.QtGui.QApplication`  :ref:`Session Management<session.html>` 
+
+
+
+.. attribute:: PySide.QtGui.QSessionManager.RestartHint
+
+    This enum type defines the circumstances under which this application wants to be restarted by the session manager. The current values are:
+
+    +----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                          |Description                                                                                                                                                    |
+    +==================================+===============================================================================================================================================================+
+    |QSessionManager.RestartIfRunning  |If the application is still running when the session is shut down, it wants to be restarted at the start of the next session.                                  |
+    +----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSessionManager.RestartAnyway     |The application wants to be started at the start of the next session, no matter what. (This is useful for utilities that run just after startup and then quit.)|
+    +----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSessionManager.RestartImmediately|The application wants to be started immediately whenever it is not running.                                                                                    |
+    +----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSessionManager.RestartNever      |The application does not want to be restarted automatically.                                                                                                   |
+    +----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    The default hint is ``RestartIfRunning`` .
+
+
+.. method:: PySide.QtGui.QSessionManager.allowsErrorInteraction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if error interaction is permitted; otherwise returns false.
+
+    This is similar to :meth:`PySide.QtGui.QSessionManager.allowsInteraction` , but also enables the application to tell the user about any errors that occur. Session managers may give error interaction requests higher priority, which means that it is more likely that an error interaction is permitted. However, you are still not guaranteed that the session manager will allow interaction.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.allowsInteraction`  :meth:`PySide.QtGui.QSessionManager.release`  :meth:`PySide.QtGui.QSessionManager.cancel` 
+
+
+.. method:: PySide.QtGui.QSessionManager.allowsInteraction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Asks the session manager for permission to interact with the user. Returns true if interaction is permitted; otherwise returns false.
+
+    The rationale behind this mechanism is to make it possible to synchronize user interaction during a shutdown. Advanced session managers may ask all applications simultaneously to commit their data, resulting in a much faster shutdown.
+
+    When the interaction is completed we strongly recommend releasing the user interaction semaphore with a call to :meth:`PySide.QtGui.QSessionManager.release` . This way, other applications may get the chance to interact with the user while your application is still busy saving data. (The semaphore is implicitly released when the application exits.)
+
+    If the user decides to cancel the shutdown process during the interaction phase, you must tell the session manager that this has happened by calling :meth:`PySide.QtGui.QSessionManager.cancel` .
+
+    Here's an example of how an application's :meth:`QApplication.commitData()<PySide.QtGui.QApplication.commitData>` might be implemented:
+
+    ::
+
+        class MyApplication (QApplication):
+        # ...
+            def commitData(QSessionManager& manager)
+                if manager.allowsInteraction():
+                    ret = QMessageBox.warning(
+                            mainWindow,
+                            QObject.tr("My Application"),
+                            QObject.tr("Save changes to document?"),
+                            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+
+                    if ret == QMessageBox.Save:
+                        manager.release()
+                        if not saveDocument():
+                            manager.cancel()
+                    elif ret == QMessageBox.Discard:
+                        pass
+                    else:
+                        manager.cancel()
+                else:
+                    # we did not get permission to interact, then
+                    # do something reasonable instead
+                    pass
+
+
+    If an error occurred within the application while saving its data, you may want to try :meth:`PySide.QtGui.QSessionManager.allowsErrorInteraction` instead.
+
+    .. seealso::  :meth:`QApplication.commitData()<PySide.QtGui.QApplication.commitData>`  :meth:`PySide.QtGui.QSessionManager.release`  :meth:`PySide.QtGui.QSessionManager.cancel` 
+
+
+.. method:: PySide.QtGui.QSessionManager.cancel()
+
+
+
+
+
+
+    Tells the session manager to cancel the shutdown process. Applications should not call this function without asking the user first.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.allowsInteraction`  :meth:`PySide.QtGui.QSessionManager.allowsErrorInteraction` 
+
+
+.. method:: PySide.QtGui.QSessionManager.discardCommand()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the currently set discard command.
+
+    To iterate over the list, you can use the :ref:`foreach<containers.html>` pseudo-keyword:
+
+    ::
+
+        for command in mySession.discardCommand():
+            do_something(command)
+
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.setDiscardCommand`  :meth:`PySide.QtGui.QSessionManager.restartCommand`  :meth:`PySide.QtGui.QSessionManager.setRestartCommand` 
+
+
+.. method:: PySide.QtGui.QSessionManager.isPhase2()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the session manager is currently performing a second session management phase; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.requestPhase2` 
+
+
+.. method:: PySide.QtGui.QSessionManager.release()
+
+
+
+
+
+
+    Releases the session manager's interaction semaphore after an interaction phase.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.allowsInteraction`  :meth:`PySide.QtGui.QSessionManager.allowsErrorInteraction` 
+
+
+.. method:: PySide.QtGui.QSessionManager.requestPhase2()
+
+
+
+
+
+
+    Requests a second session management phase for the application. The application may then return immediately from the :meth:`QApplication.commitData()<PySide.QtGui.QApplication.commitData>` or :meth:`QApplication.saveState()<PySide.QtGui.QApplication.saveState>` function, and they will be called again once most or all other applications have finished their session management.
+
+    The two phases are useful for applications such as the X11 window manager that need to store information about another application's windows and therefore have to wait until these applications have completed their respective session management tasks.
+
+    .. note::  If another application has requested a second phase it may get called before, simultaneously with, or after your application's second phase.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.isPhase2` 
+
+
+.. method:: PySide.QtGui.QSessionManager.restartCommand()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the currently set restart command.
+
+    To iterate over the list, you can use the :ref:`foreach<containers.html>` pseudo-keyword:
+
+    ::
+
+        for command in mySession.restartCommand():
+            do_something(command)
+
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.setRestartCommand`  :meth:`PySide.QtGui.QSessionManager.restartHint` 
+
+
+.. method:: PySide.QtGui.QSessionManager.restartHint()
+
+
+    :rtype: :attr:`PySide.QtGui.QSessionManager.RestartHint`
+
+
+
+
+    Returns the application's current restart hint. The default is ``RestartIfRunning`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.setRestartHint` 
+
+
+.. method:: PySide.QtGui.QSessionManager.sessionId()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the identifier of the current session.
+
+    If the application has been restored from an earlier session, this identifier is the same as it was in the earlier session.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.sessionKey`  :meth:`QApplication.sessionId()<PySide.QtGui.QApplication.sessionId>` 
+
+
+.. method:: PySide.QtGui.QSessionManager.sessionKey()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the session key in the current session.
+
+    If the application has been restored from an earlier session, this key is the same as it was when the previous session ended.
+
+    The session key changes with every call of commitData() or saveState().
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.sessionId`  :meth:`QApplication.sessionKey()<PySide.QtGui.QApplication.sessionKey>` 
+
+
+.. method:: PySide.QtGui.QSessionManager.setDiscardCommand(arg__1)
+
+
+    :param arg__1: list of strings
+
+
+
+
+    Sets the discard command to the given ``list`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.discardCommand`  :meth:`PySide.QtGui.QSessionManager.setRestartCommand` 
+
+
+.. method:: PySide.QtGui.QSessionManager.setManagerProperty(name, value)
+
+
+    :param name: unicode
+    :param value: list of strings
+
+
+
+
+    Low-level write access to the application's identification and state record are kept in the session manager.
+
+    The property called ``name`` has its value set to the string list ``value`` .
+
+
+
+.. method:: PySide.QtGui.QSessionManager.setManagerProperty(name, value)
+
+
+    :param name: unicode
+    :param value: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Low-level write access to the application's identification and state records are kept in the session manager.
+
+    The property called ``name`` has its value set to the string ``value`` .
+
+
+
+.. method:: PySide.QtGui.QSessionManager.setRestartCommand(arg__1)
+
+
+    :param arg__1: list of strings
+
+
+
+
+    If the session manager is capable of restoring sessions it will execute ``command`` in order to restore the application. The command defaults to
+
+    ::
+
+        appname -session id
+
+
+    The ``-session`` option is mandatory; otherwise :class:`PySide.QtGui.QApplication` cannot tell whether it has been restored or what the current session identifier is. See :meth:`QApplication.isSessionRestored()<PySide.QtGui.QApplication.isSessionRestored>` and :meth:`QApplication.sessionId()<PySide.QtGui.QApplication.sessionId>` for details.
+
+    If your application is very simple, it may be possible to store the entire application state in additional command line options. This is usually a very bad idea because command lines are often limited to a few hundred bytes. Instead, use :class:`PySide.QtCore.QSettings` , temporary files, or a database for this purpose. By marking the data with the unique :meth:`PySide.QtGui.QSessionManager.sessionId` , you will be able to restore the application in a future session.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.restartCommand`  :meth:`PySide.QtGui.QSessionManager.setDiscardCommand`  :meth:`PySide.QtGui.QSessionManager.setRestartHint` 
+
+
+.. method:: PySide.QtGui.QSessionManager.setRestartHint(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QSessionManager.RestartHint`
+
+
+
+
+    Sets the application's restart hint to ``hint`` . On application startup, the hint is set to ``RestartIfRunning`` .
+
+    .. note::  These flags are only hints, a session manager may or may not respect them.
+
+    We recommend setting the restart hint in :meth:`QApplication.saveState()<PySide.QtGui.QApplication.saveState>` because most session managers perform a checkpoint shortly after an application's startup.
+
+    .. seealso::  :meth:`PySide.QtGui.QSessionManager.restartHint` 
+
+
+

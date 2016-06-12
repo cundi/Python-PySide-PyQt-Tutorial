@@ -1,0 +1,317 @@
+.. module:: PySide.phonon
+.. _Phonon.VideoWidget:
+
+Phonon.VideoWidget
+******************
+
+.. inheritance-diagram:: Phonon.VideoWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aspectRatio<PySide.phonon.Phonon.VideoWidget.aspectRatio>` ()
+*    def :meth:`brightness<PySide.phonon.Phonon.VideoWidget.brightness>` ()
+*    def :meth:`contrast<PySide.phonon.Phonon.VideoWidget.contrast>` ()
+*    def :meth:`hue<PySide.phonon.Phonon.VideoWidget.hue>` ()
+*    def :meth:`saturation<PySide.phonon.Phonon.VideoWidget.saturation>` ()
+*    def :meth:`scaleMode<PySide.phonon.Phonon.VideoWidget.scaleMode>` ()
+*    def :meth:`snapshot<PySide.phonon.Phonon.VideoWidget.snapshot>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`enterFullScreen<PySide.phonon.Phonon.VideoWidget.enterFullScreen>` ()
+*    def :meth:`exitFullScreen<PySide.phonon.Phonon.VideoWidget.exitFullScreen>` ()
+*    def :meth:`setAspectRatio<PySide.phonon.Phonon.VideoWidget.setAspectRatio>` (arg__1)
+*    def :meth:`setBrightness<PySide.phonon.Phonon.VideoWidget.setBrightness>` (value)
+*    def :meth:`setContrast<PySide.phonon.Phonon.VideoWidget.setContrast>` (value)
+*    def :meth:`setFullScreen<PySide.phonon.Phonon.VideoWidget.setFullScreen>` (fullscreen)
+*    def :meth:`setHue<PySide.phonon.Phonon.VideoWidget.setHue>` (value)
+*    def :meth:`setSaturation<PySide.phonon.Phonon.VideoWidget.setSaturation>` (value)
+*    def :meth:`setScaleMode<PySide.phonon.Phonon.VideoWidget.setScaleMode>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.VideoWidget` class provides a widget that is used to display video.
+
+    The :class:`~PySide.phonon.Phonon.VideoWidget` class renders the video of a media stream on a :class:`PySide.QtGui.QWidget` . It is connected to the :class:`Phonon.MediaObject` , of which video stream it should render. You connect the two objects using the :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>` function.
+
+    The widget has some possibilities to manipulate the video stream. You can change the :meth:`PySide.phonon.Phonon::VideoWidget.brightness` , :meth:`PySide.phonon.Phonon::VideoWidget.hue` , :meth:`PySide.phonon.Phonon::VideoWidget.saturation` , and :meth:`PySide.phonon.Phonon::VideoWidget.contrast` .
+
+    Resizing of the video is handled automatically, but you can affect the way the video is resized with the :meth:`PySide.phonon.Phonon::VideoWidget.aspectRatio` and :meth:`PySide.phonon.Phonon::VideoWidget.scaleMode` properties. By default, the widget will use the aspect ratio of the video stream itself.
+
+    The video widget takes the size of the video when it receives a new video stream (i.e., when a new :class:`~PySide.phonon.Phonon.MediaSource` is set on the :class:`~PySide.phonon.Phonon.MediaObject` to which it is connected). If you need to know the size of the video, you can call :meth:`PySide.QtGui.QWidget.sizeHint` after the video has been loaded (i.e., after the :class:`~PySide.phonon.Phonon.MediaObject` leaves the :attr:`LoadingState<Phonon.State>` ).
+
+    It is also possible to go to :meth:`full screen<~PySide.phonon.Phonon.VideoWidget.fullScreen>` mode.
+
+    A typical example of usage follows below:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:21" not found>
+
+    .. seealso::  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.VideoWidget([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new video widget with the specified ``parent`` .
+
+
+.. attribute:: PySide.phonon.Phonon.VideoWidget.AspectRatio
+
+    Defines the width:height to be used for the video.
+
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                            |Description                                                                                                                                                |
+    +====================================+===========================================================================================================================================================+
+    |Phonon.VideoWidget.AspectRatioAuto  |Let the decoder find the aspect ratio automatically from the media file (this is the default).                                                             |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.VideoWidget.AspectRatioWidget|Fits the video into the widget making the aspect ratio depend solely on the size of the widget. This way the aspect ratio is freely resizeable by the user.|
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.VideoWidget.AspectRatio4_3   |Make width/height == 4/3, which is the old TV size and monitor size (1024/768 == 4/3). (4:3)                                                               |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.VideoWidget.AspectRatio16_9  |Make width/height == 16/9, which is the size of most current media. (16:9)                                                                                 |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.phonon.Phonon.VideoWidget.ScaleMode
+
+    The :attr:`Phonon.VideoWidget.ScaleMode` enum describes how to treat aspect ratio during resizing of video.
+
+    +-------------------------------+---------------------------------------------------------------+
+    |Constant                       |Description                                                    |
+    +===============================+===============================================================+
+    |Phonon.VideoWidget.FitInView   |The video will be fitted to fill the view keeping aspect ratio.|
+    +-------------------------------+---------------------------------------------------------------+
+    |Phonon.VideoWidget.ScaleAndCrop|The video is scaled                                            |
+    +-------------------------------+---------------------------------------------------------------+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.aspectRatio()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon::VideoWidget.AspectRatio`
+
+
+
+
+    Defaults to :attr:`AspectRatioAuto<Phonon.VideoWidget.AspectRatio>` .
+
+    .. seealso::  :attr:`Phonon.VideoWidget.AspectRatio` 
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.brightness()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds brightness of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.contrast()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the contrast of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.enterFullScreen()
+
+
+
+
+
+
+    Convenience slot, calling setFullScreen(true)
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.exitFullScreen()
+
+
+
+
+
+
+    Convenience slot, calling setFullScreen(false)
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.hue()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the hue of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.saturation()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds saturation of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.scaleMode()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon::VideoWidget.ScaleMode`
+
+
+
+
+    If the size of the widget and the size of the video are not equal. The video will be zoomed to fit the widget. The smaller zoom (AddBarsScaleMode) adds black bars at the left/right or top/bottom to make all of the image visible (default). The bigger zoom (ExpandMode) fills the widget completely, keeping all information in one direction and leaving parts of the image outside of the widget in the other direction.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setAspectRatio(arg__1)
+
+
+    :param arg__1: :attr:`PySide.phonon.Phonon::VideoWidget.AspectRatio`
+
+
+
+
+    Defaults to :attr:`AspectRatioAuto<Phonon.VideoWidget.AspectRatio>` .
+
+    .. seealso::  :attr:`Phonon.VideoWidget.AspectRatio` 
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setBrightness(value)
+
+
+    :param value: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds brightness of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setContrast(value)
+
+
+    :param value: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the contrast of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setFullScreen(fullscreen)
+
+
+    :param fullscreen: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the video is shown using the complete screen.
+
+    The property differs from :meth:`QWidget.fullScreen<PySide.QtGui.QWidget.fullScreen>` in that it is writeable.
+
+    By default the widget is not shown in :meth:`~PySide.phonon.Phonon.VideoWidget.fullScreen` .
+
+    .. warning::  When switching to full screen mode using :meth:`PySide.phonon.Phonon::VideoWidget.setFullScreen` , the widget onto which the video is rendered is shown as a top-level window. Key event forwarding is handled by :class:`~PySide.phonon.Phonon.VideoWidget` , but if you need to handle other events, e.g., mouse events, you should handle fullscreen mode yourself.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setHue(value)
+
+
+    :param value: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the hue of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setSaturation(value)
+
+
+    :param value: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds saturation of the video.
+
+    Default is 0. Acceptable values are in range of -1, 1.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.setScaleMode(arg__1)
+
+
+    :param arg__1: :attr:`PySide.phonon.Phonon::VideoWidget.ScaleMode`
+
+
+
+
+    If the size of the widget and the size of the video are not equal. The video will be zoomed to fit the widget. The smaller zoom (AddBarsScaleMode) adds black bars at the left/right or top/bottom to make all of the image visible (default). The bigger zoom (ExpandMode) fills the widget completely, keeping all information in one direction and leaving parts of the image outside of the widget in the other direction.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoWidget.snapshot()
+
+
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns a snapshot of the current frame shown in the widget.
+
+
+
+

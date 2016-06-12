@@ -1,0 +1,85 @@
+.. module:: PySide.QtGui
+.. _QAccessibleEvent:
+
+QAccessibleEvent
+****************
+
+.. inheritance-diagram:: QAccessibleEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`child<PySide.QtGui.QAccessibleEvent.child>` ()
+*    def :meth:`setValue<PySide.QtGui.QAccessibleEvent.setValue>` (aText)
+*    def :meth:`value<PySide.QtGui.QAccessibleEvent.value>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAccessibleEvent` class is used to query addition accessibility information about complex widgets.
+
+    The event can be of type :attr:`QEvent.AccessibilityDescription<QEvent.Type>` or :attr:`QEvent.AccessibilityHelp<QEvent.Type>` .
+
+    Some :class:`~PySide.QtGui.QAccessibleInterface` implementations send QAccessibleEvents to the widget they wrap to obtain the description or help text of a widget or of its children. The widget can answer by calling :meth:`PySide.QtGui.QAccessibleEvent.setValue` with the requested information.
+
+    The default :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` implementation simply sets the text to be the widget's :meth:`tooltip<PySide.QtGui.QWidget.toolTip>` (for :attr:`AccessibilityDescription<QEvent.Type>` event) or its :meth:`"What's This?" text<PySide.QtGui.QWidget.whatsThis>` (for :attr:`AccessibilityHelp<QEvent.Type>` event).
+
+
+.. class:: QAccessibleEvent(type, child)
+
+    :param child: :class:`PySide.QtCore.int`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+    Constructs an accessibility event of the given ``type`` , which must be :attr:`QEvent.AccessibilityDescription<QEvent.Type>` or :attr:`QEvent.AccessibilityHelp<QEvent.Type>` .
+
+    ``child`` is the (1-based) index of the child to which the request applies. If ``child`` is 0, the request is for the widget itself.
+
+    .. seealso::  :meth:`PySide.QtGui.QAccessibleEvent.child` 
+
+.. method:: PySide.QtGui.QAccessibleEvent.child()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the (1-based) index of the child to which the request applies. If the child is 0, the request is for the widget itself.
+
+
+
+.. method:: PySide.QtGui.QAccessibleEvent.setValue(aText)
+
+
+    :param aText: unicode
+
+
+
+
+    Set the description or help text for the given :meth:`PySide.QtGui.QAccessibleEvent.child` to ``text`` , thereby answering the request.
+
+    .. seealso::  :meth:`PySide.QtGui.QAccessibleEvent.value` 
+
+
+.. method:: PySide.QtGui.QAccessibleEvent.value()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text set using :meth:`PySide.QtGui.QAccessibleEvent.setValue` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAccessibleEvent.setValue` 
+
+
+

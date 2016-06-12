@@ -1,0 +1,230 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkInterface:
+
+QNetworkInterface
+*****************
+
+.. inheritance-diagram:: QNetworkInterface
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addressEntries<PySide.QtNetwork.QNetworkInterface.addressEntries>` ()
+*    def :meth:`flags<PySide.QtNetwork.QNetworkInterface.flags>` ()
+*    def :meth:`hardwareAddress<PySide.QtNetwork.QNetworkInterface.hardwareAddress>` ()
+*    def :meth:`humanReadableName<PySide.QtNetwork.QNetworkInterface.humanReadableName>` ()
+*    def :meth:`index<PySide.QtNetwork.QNetworkInterface.index>` ()
+*    def :meth:`isValid<PySide.QtNetwork.QNetworkInterface.isValid>` ()
+*    def :meth:`name<PySide.QtNetwork.QNetworkInterface.name>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allAddresses<PySide.QtNetwork.QNetworkInterface.allAddresses>` ()
+*    def :meth:`allInterfaces<PySide.QtNetwork.QNetworkInterface.allInterfaces>` ()
+*    def :meth:`interfaceFromIndex<PySide.QtNetwork.QNetworkInterface.interfaceFromIndex>` (index)
+*    def :meth:`interfaceFromName<PySide.QtNetwork.QNetworkInterface.interfaceFromName>` (name)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkInterface` class provides a listing of the host's IP addresses and network interfaces.
+
+    :class:`PySide.QtNetwork.QNetworkInterface` represents one network interface attached to the host where the program is being run. Each network interface may contain zero or more IP addresses, each of which is optionally associated with a netmask and/or a broadcast address. The list of such trios can be obtained with :meth:`PySide.QtNetwork.QNetworkInterface.addressEntries` . Alternatively, when the netmask or the broadcast addresses aren't necessary, use the :meth:`PySide.QtNetwork.QNetworkInterface.allAddresses` convenience function to obtain just the IP addresses.
+
+    :class:`PySide.QtNetwork.QNetworkInterface` also reports the interface's hardware address with :meth:`PySide.QtNetwork.QNetworkInterface.hardwareAddress` .
+
+    Not all operating systems support reporting all features. Only the IPv4 addresses are guaranteed to be listed by this class in all platforms. In particular, IPv6 address listing is only supported on Windows XP and more recent versions, Linux, MacOS X and the BSDs.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkAddressEntry` 
+
+.. class:: QNetworkInterface()
+           QNetworkInterface(other)
+
+    :param other: :class:`PySide.QtNetwork.QNetworkInterface`
+
+    Constructs an empty network interface object.
+
+
+    Creates a copy of the :class:`PySide.QtNetwork.QNetworkInterface` object contained in ``other`` .
+
+
+.. attribute:: PySide.QtNetwork.QNetworkInterface.InterfaceFlag
+
+    Specifies the flags associated with this network interface. The possible values are:
+
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                                                         |
+    +================================+====================================================================================================================================+
+    |QNetworkInterface.IsUp          |the network interface is active                                                                                                     |
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkInterface.IsRunning     |the network interface has resources allocated                                                                                       |
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkInterface.CanBroadcast  |the network interface works in broadcast mode                                                                                       |
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkInterface.IsLoopBack    |the network interface is a loopback interface: that is, it's a virtual interface whose destination is the host computer itself      |
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkInterface.IsPointToPoint|the network interface is a point-to-point interface: that is, there is one, single other address that can be directly reached by it.|
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkInterface.CanMulticast  |the network interface supports multicasting                                                                                         |
+    +--------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+
+    Note that one network interface cannot be both broadcast-based and point-to-point.
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.addressEntries()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of IP addresses that this interface possesses along with their associated netmasks and broadcast addresses.
+
+    If the netmask or broadcast address information is not necessary, you can call the :meth:`PySide.QtNetwork.QNetworkInterface.allAddresses` function to obtain just the IP addresses.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkInterface.allAddresses()
+
+
+    :rtype: 
+
+
+
+
+    This convenience function returns all IP addresses found on the host machine. It is equivalent to calling :meth:`PySide.QtNetwork.QNetworkInterface.addressEntries` on all the objects returned by :meth:`PySide.QtNetwork.QNetworkInterface.allInterfaces` to obtain lists of :class:`PySide.QtNetwork.QHostAddress` objects then calling QHostAddress::ip() on each of these.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkInterface.allInterfaces()
+
+
+    :rtype: 
+
+
+
+
+    Returns a listing of all the network interfaces found on the host machine.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.flags()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkInterface.InterfaceFlags`
+
+
+
+
+    Returns the flags associated with this network interface.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.hardwareAddress()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the low-level hardware address for this interface. On Ethernet interfaces, this will be a MAC address in string representation, separated by colons.
+
+    Other interface types may have other types of hardware addresses. Implementations should not depend on this function returning a valid MAC address.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.humanReadableName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the human-readable name of this network interface on Windows, such as "Local Area Connection", if the name could be determined. If it couldn't, this function returns the same as :meth:`PySide.QtNetwork.QNetworkInterface.name` . The human-readable name is a name that the user can modify in the Windows Control Panel, so it may change during the execution of the program.
+
+    On Unix, this function currently always returns the same as :meth:`PySide.QtNetwork.QNetworkInterface.name` , since Unix systems don't store a configuration for human-readable names.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.index()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the interface system index, if known. This is an integer assigned by the operating system to identify this interface and it generally doesn't change. It matches the scope ID field in IPv6 addresses.
+
+    If the index isn't known, this function returns 0.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkInterface.interfaceFromIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtNetwork.QNetworkInterface`
+
+
+
+
+    Returns a :class:`PySide.QtNetwork.QNetworkInterface` object for the interface whose internal ID is ``index`` . Network interfaces have a unique identifier called the "interface index" to distinguish it from other interfaces on the system. Often, this value is assigned progressively and interfaces being removed and then added again get a different value every time.
+
+    This index is also found in the IPv6 address' scope ID field.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkInterface.interfaceFromName(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtNetwork.QNetworkInterface`
+
+
+
+
+    Returns a :class:`PySide.QtNetwork.QNetworkInterface` object for the interface named ``name`` . If no such interface exists, this function returns an invalid :class:`PySide.QtNetwork.QNetworkInterface` object.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkInterface.name`  :meth:`PySide.QtNetwork.QNetworkInterface.isValid` 
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QNetworkInterface` object contains valid information about a network interface.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkInterface.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of this network interface. On Unix systems, this is a string containing the type of the interface and optionally a sequence number, such as "eth0", "lo" or "pcn0". On Windows, it's an internal ID that cannot be changed by the user.
+
+
+
+

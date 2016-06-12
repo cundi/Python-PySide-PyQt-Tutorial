@@ -1,0 +1,1010 @@
+.. module:: PySide.QtCore
+.. _QProcess:
+
+QProcess
+********
+
+.. inheritance-diagram:: QProcess
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`closeReadChannel<PySide.QtCore.QProcess.closeReadChannel>` (channel)
+*    def :meth:`closeWriteChannel<PySide.QtCore.QProcess.closeWriteChannel>` ()
+*    def :meth:`environment<PySide.QtCore.QProcess.environment>` ()
+*    def :meth:`error<PySide.QtCore.QProcess.error>` ()
+*    def :meth:`exitCode<PySide.QtCore.QProcess.exitCode>` ()
+*    def :meth:`exitStatus<PySide.QtCore.QProcess.exitStatus>` ()
+*    def :meth:`processChannelMode<PySide.QtCore.QProcess.processChannelMode>` ()
+*    def :meth:`processEnvironment<PySide.QtCore.QProcess.processEnvironment>` ()
+*    def :meth:`readAllStandardError<PySide.QtCore.QProcess.readAllStandardError>` ()
+*    def :meth:`readAllStandardOutput<PySide.QtCore.QProcess.readAllStandardOutput>` ()
+*    def :meth:`readChannel<PySide.QtCore.QProcess.readChannel>` ()
+*    def :meth:`setEnvironment<PySide.QtCore.QProcess.setEnvironment>` (environment)
+*    def :meth:`setProcessChannelMode<PySide.QtCore.QProcess.setProcessChannelMode>` (mode)
+*    def :meth:`setProcessEnvironment<PySide.QtCore.QProcess.setProcessEnvironment>` (environment)
+*    def :meth:`setProcessState<PySide.QtCore.QProcess.setProcessState>` (state)
+*    def :meth:`setReadChannel<PySide.QtCore.QProcess.setReadChannel>` (channel)
+*    def :meth:`setStandardErrorFile<PySide.QtCore.QProcess.setStandardErrorFile>` (fileName[, mode=QIODevice.Truncate])
+*    def :meth:`setStandardInputFile<PySide.QtCore.QProcess.setStandardInputFile>` (fileName)
+*    def :meth:`setStandardOutputFile<PySide.QtCore.QProcess.setStandardOutputFile>` (fileName[, mode=QIODevice.Truncate])
+*    def :meth:`setStandardOutputProcess<PySide.QtCore.QProcess.setStandardOutputProcess>` (destination)
+*    def :meth:`setWorkingDirectory<PySide.QtCore.QProcess.setWorkingDirectory>` (dir)
+*    def :meth:`start<PySide.QtCore.QProcess.start>` (program, arguments[, mode=QIODevice.ReadWrite])
+*    def :meth:`start<PySide.QtCore.QProcess.start>` (program[, mode=QIODevice.ReadWrite])
+*    def :meth:`state<PySide.QtCore.QProcess.state>` ()
+*    def :meth:`waitForFinished<PySide.QtCore.QProcess.waitForFinished>` ([msecs=30000])
+*    def :meth:`waitForStarted<PySide.QtCore.QProcess.waitForStarted>` ([msecs=30000])
+*    def :meth:`workingDirectory<PySide.QtCore.QProcess.workingDirectory>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`setupChildProcess<PySide.QtCore.QProcess.setupChildProcess>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`kill<PySide.QtCore.QProcess.kill>` ()
+*    def :meth:`terminate<PySide.QtCore.QProcess.terminate>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`error<PySide.QtCore.QProcess.error>` (error)
+*    def :meth:`finished<PySide.QtCore.QProcess.finished>` (exitCode)
+*    def :meth:`finished<PySide.QtCore.QProcess.finished>` (exitCode, exitStatus)
+*    def :meth:`readyReadStandardError<PySide.QtCore.QProcess.readyReadStandardError>` ()
+*    def :meth:`readyReadStandardOutput<PySide.QtCore.QProcess.readyReadStandardOutput>` ()
+*    def :meth:`started<PySide.QtCore.QProcess.started>` ()
+*    def :meth:`stateChanged<PySide.QtCore.QProcess.stateChanged>` (state)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`execute<PySide.QtCore.QProcess.execute>` (program)
+*    def :meth:`execute<PySide.QtCore.QProcess.execute>` (program, arguments)
+*    def :meth:`startDetached<PySide.QtCore.QProcess.startDetached>` (program)
+*    def :meth:`startDetached<PySide.QtCore.QProcess.startDetached>` (program, arguments)
+*    def :meth:`startDetached<PySide.QtCore.QProcess.startDetached>` (program, arguments, workingDirectory)
+*    def :meth:`systemEnvironment<PySide.QtCore.QProcess.systemEnvironment>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QProcess` class is used to start external programs and to communicate with them.
+
+    .. _PySide.QtCore.QProcess_running-a-process:
+
+
+
+Running a Process
+^^^^^^^^^^^^^^^^^
+
+    To start a process, pass the name and command line arguments of the program you want to run as arguments to :meth:`PySide.QtCore.QProcess.start` . Arguments are supplied as individual strings in a :class:`PySide.QtCore.QStringList` .
+
+    For example, the following code snippet runs the analog clock example in the Motif style on X11 platforms by passing strings containing "-style" and "motif" as two items in the list of arguments:
+
+    ::
+
+            ...
+            ...
+            program = "./path/to/Qt/examples/widgets/analogclock"
+            arguments = ["-style", "motif"]
+
+            myProcess = QProcess(parent)
+            myProcess.start(program, arguments)
+
+
+    :class:`PySide.QtCore.QProcess` then enters the :attr:`Starting<QProcess.ProcessState>` state, and when the program has started, :class:`PySide.QtCore.QProcess` enters the :attr:`Running<QProcess.ProcessState>` state and emits :meth:`PySide.QtCore.QProcess.started` .
+
+    :class:`PySide.QtCore.QProcess` allows you to treat a process as a sequential I/O device. You can write to and read from the process just as you would access a network connection using :class:`PySide.QtNetwork.QTcpSocket` . You can then write to the process's standard input by calling :meth:`PySide.QtCore.QIODevice.write` , and read the standard output by calling :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readLine` , and :meth:`PySide.QtCore.QIODevice.getChar` . Because it inherits :class:`PySide.QtCore.QIODevice` , :class:`PySide.QtCore.QProcess` can also be used as an input source for :class:`PySide.QtXml.QXmlReader` , or for generating data to be uploaded using :class:`PySide.QtNetwork.QFtp` .
+
+    .. note::  On Windows CE and Symbian, reading and writing to a process is not supported.
+
+    When the process exits, :class:`PySide.QtCore.QProcess` reenters the :attr:`NotRunning<QProcess.ProcessState>` state (the initial state), and emits :meth:`PySide.QtCore.QProcess.finished` .
+
+    The :meth:`PySide.QtCore.QProcess.finished` signal provides the exit code and exit status of the process as arguments, and you can also call :meth:`PySide.QtCore.QProcess.exitCode` to obtain the exit code of the last process that finished, and :meth:`PySide.QtCore.QProcess.exitStatus` to obtain its exit status. If an error occurs at any point in time, :class:`PySide.QtCore.QProcess` will emit the :meth:`PySide.QtCore.QProcess.error` signal. You can also call :meth:`PySide.QtCore.QProcess.error` to find the type of error that occurred last, and :meth:`PySide.QtCore.QProcess.state` to find the current process state.
+
+    .. _PySide.QtCore.QProcess_communicating-via-channels:
+
+
+
+Communicating via Channels
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Processes have two predefined output channels: The standard output channel (``stdout`` ) supplies regular console output, and the standard error channel (``stderr`` ) usually supplies the errors that are printed by the process. These channels represent two separate streams of data. You can toggle between them by calling :meth:`PySide.QtCore.QProcess.setReadChannel` . :class:`PySide.QtCore.QProcess` emits :meth:`PySide.QtCore.QIODevice.readyRead` when data is available on the current read channel. It also emits :meth:`PySide.QtCore.QProcess.readyReadStandardOutput` when new standard output data is available, and when new standard error data is available, :meth:`PySide.QtCore.QProcess.readyReadStandardError` is emitted. Instead of calling :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readLine` , or :meth:`PySide.QtCore.QIODevice.getChar` , you can explicitly read all data from either of the two channels by calling :meth:`PySide.QtCore.QProcess.readAllStandardOutput` or :meth:`PySide.QtCore.QProcess.readAllStandardError` .
+
+    The terminology for the channels can be misleading. Be aware that the process's output channels correspond to :class:`PySide.QtCore.QProcess` 's *read* channels, whereas the process's input channels correspond to :class:`PySide.QtCore.QProcess` 's *write* channels. This is because what we read using :class:`PySide.QtCore.QProcess` is the process's output, and what we write becomes the process's input.
+
+    :class:`PySide.QtCore.QProcess` can merge the two output channels, so that standard output and standard error data from the running process both use the standard output channel. Call :meth:`PySide.QtCore.QProcess.setProcessChannelMode` with :attr:`MergedChannels<QProcess.ProcessChannelMode>` before starting the process to activative this feature. You also have the option of forwarding the output of the running process to the calling, main process, by passing :attr:`ForwardedChannels<QProcess.ProcessChannelMode>` as the argument.
+
+    Certain processes need special environment settings in order to operate. You can set environment variables for your process by calling :meth:`PySide.QtCore.QProcess.setEnvironment` . To set a working directory, call :meth:`PySide.QtCore.QProcess.setWorkingDirectory` . By default, processes are run in the current working directory of the calling process.
+
+    .. note::  On Symbian, setting environment or working directory is not supported. The working directory will always be the private directory of the running process.
+
+    .. note::  On QNX, setting the working directory may cause all application threads, with the exception of the :class:`PySide.QtCore.QProcess` caller thread, to temporarily freeze, owing to a limitation in the operating system.
+
+    .. _PySide.QtCore.QProcess_synchronous-process-api:
+
+
+
+Synchronous Process API
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QProcess` provides a set of functions which allow it to be used without an event loop, by suspending the calling thread until certain signals are emitted:
+
+
+    * :meth:`PySide.QtCore.QProcess.waitForStarted` blocks until the process has started.
+    * :meth:`PySide.QtCore.QProcess.waitForReadyRead` blocks until new data is available for reading on the current read channel.
+    * :meth:`PySide.QtCore.QProcess.waitForBytesWritten` blocks until one payload of data has been written to the process.
+    * :meth:`PySide.QtCore.QProcess.waitForFinished` blocks until the process has finished.
+
+    Calling these functions from the main thread (the thread that calls :meth:`QApplication.exec()<PySide.QtGui.QApplication.exec>` ) may cause your user interface to freeze.
+
+    The following example runs ``gzip`` to compress the string "Qt rocks!", without an event loop:
+
+    ::
+
+            gzip = QProcess()
+            gzip.start("gzip", ["-c"])
+            if not gzip.waitForStarted():
+                return False
+
+            gzip.write("Qt rocks!")
+            gzip.closeWriteChannel()
+
+            if not gzip.waitForFinished():
+                return False
+
+            result = gzip.readAll()
+
+
+    .. _PySide.QtCore.QProcess_notes-for-windows-users:
+
+
+
+Notes for Windows Users
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    Some Windows commands (for example, ``dir`` ) are not provided by separate applications, but by the command interpreter itself. If you attempt to use :class:`PySide.QtCore.QProcess` to execute these commands directly, it won't work. One possible solution is to execute the command interpreter itself (``cmd.exe`` on some Windows systems), and ask the interpreter to execute the desired command.
+
+    .. _PySide.QtCore.QProcess_symbian-platform-security-requirements:
+
+
+
+Symbian Platform Security Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Symbian, processes which use the functions :meth:`PySide.QtCore.QProcess.kill` or :meth:`PySide.QtCore.QProcess.terminate` must have the ``PowerMgmt`` platform security capability. If the client process lacks this capability, these functions will fail.
+
+    Platform security capabilities are added via the :ref:`TARGET.CAPABILITY<qmake-variable-reference.html>` qmake variable.
+
+    .. seealso::  :class:`PySide.QtCore.QBuffer`  :class:`PySide.QtCore.QFile`  :class:`PySide.QtNetwork.QTcpSocket` 
+
+.. class:: QProcess([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QProcess` object with the given ``parent`` .
+
+
+.. attribute:: PySide.QtCore.QProcess.ProcessError
+
+    This enum describes the different types of errors that are reported by :class:`PySide.QtCore.QProcess` .
+
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant              |Description                                                                                                                                     |
+    +======================+================================================================================================================================================+
+    |QProcess.FailedToStart|The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.             |
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.Crashed      |The process crashed some time after starting successfully.                                                                                      |
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.Timedout     |The last waitFor...() function timed out. The state of :class:`PySide.QtCore.QProcess` is unchanged, and you can try calling waitFor...() again.|
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.WriteError   |An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.|
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.ReadError    |An error occurred when attempting to read from the process. For example, the process may not be running.                                        |
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.UnknownError |An unknown error occurred. This is the default return value of :meth:`PySide.QtCore.QProcess.error` .                                           |
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.error` 
+
+.. attribute:: PySide.QtCore.QProcess.ProcessChannelMode
+
+    This enum describes the process channel modes of :class:`PySide.QtCore.QProcess` . Pass one of these values to :meth:`PySide.QtCore.QProcess.setProcessChannelMode` to set the current read channel mode.
+
+    +--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                  |Description                                                                                                                                                                                                                                                                                                                                                         |
+    +==========================+====================================================================================================================================================================================================================================================================================================================================================================+
+    |QProcess.SeparateChannels |:class:`PySide.QtCore.QProcess` manages the output of the running process, keeping standard output and standard error data in separate internal buffers. You can select the :class:`PySide.QtCore.QProcess` 's current read channel by calling :meth:`PySide.QtCore.QProcess.setReadChannel` . This is the default channel mode of :class:`PySide.QtCore.QProcess` .|
+    +--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.MergedChannels   |:class:`PySide.QtCore.QProcess` merges the output of the running process into the standard output channel (``stdout``). The standard error channel (``stderr``) will not receive any data. The standard output and standard error data of the running process are interleaved.                                                                                      |
+    +--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QProcess.ForwardedChannels|:class:`PySide.QtCore.QProcess` forwards the output of the running process onto the main process. Anything the child process writes to its standard output and standard error will be written to the standard output and standard error of the main process.                                                                                                        |
+    +--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setProcessChannelMode` 
+
+.. attribute:: PySide.QtCore.QProcess.ProcessChannel
+
+    This enum describes the process channels used by the running process. Pass one of these values to :meth:`PySide.QtCore.QProcess.setReadChannel` to set the current read channel of :class:`PySide.QtCore.QProcess` .
+
+    +-----------------------+----------------------------------------------------+
+    |Constant               |Description                                         |
+    +=======================+====================================================+
+    |QProcess.StandardOutput|The standard output (stdout) of the running process.|
+    +-----------------------+----------------------------------------------------+
+    |QProcess.StandardError |The standard error (stderr) of the running process. |
+    +-----------------------+----------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+.. attribute:: PySide.QtCore.QProcess.ProcessState
+
+    This enum describes the different states of :class:`PySide.QtCore.QProcess` .
+
+    +-------------------+------------------------------------------------------------------+
+    |Constant           |Description                                                       |
+    +===================+==================================================================+
+    |QProcess.NotRunning|The process is not running.                                       |
+    +-------------------+------------------------------------------------------------------+
+    |QProcess.Starting  |The process is starting, but the program has not yet been invoked.|
+    +-------------------+------------------------------------------------------------------+
+    |QProcess.Running   |The process is running and is ready for reading and writing.      |
+    +-------------------+------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.state` 
+
+.. attribute:: PySide.QtCore.QProcess.ExitStatus
+
+    This enum describes the different exit statuses of :class:`PySide.QtCore.QProcess` .
+
+    +-------------------+----------------------------+
+    |Constant           |Description                 |
+    +===================+============================+
+    |QProcess.NormalExit|The process exited normally.|
+    +-------------------+----------------------------+
+    |QProcess.CrashExit |The process crashed.        |
+    +-------------------+----------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.exitStatus` 
+
+.. method:: PySide.QtCore.QProcess.closeReadChannel(channel)
+
+
+    :param channel: :attr:`PySide.QtCore.QProcess.ProcessChannel`
+
+
+
+
+    Closes the read channel ``channel`` . After calling this function, :class:`PySide.QtCore.QProcess` will no longer receive data on the channel. Any data that has already been received is still available for reading.
+
+    Call this function to save memory, if you are not interested in the output of the process.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.closeWriteChannel`  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.closeWriteChannel()
+
+
+
+
+
+
+    Schedules the write channel of :class:`PySide.QtCore.QProcess` to be closed. The channel will close once all data has been written to the process. After calling this function, any attempts to write to the process will fail.
+
+    Closing the write channel is necessary for programs that read input data until the channel has been closed. For example, the program "more" is used to display text data in a console on both Unix and Windows. But it will not display the text data until :class:`PySide.QtCore.QProcess` 's write channel has been closed. Example:
+
+    ::
+
+        more = QProcess()
+        more.start("more")
+        more.write("Text to display")
+        more.closeWriteChannel()
+        #QProcess will emit readyRead() once "more" starts printing
+
+
+    The write channel is implicitly opened when :meth:`PySide.QtCore.QProcess.start` is called.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.closeReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.environment()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the environment that :class:`PySide.QtCore.QProcess` will use when starting a process, or an empty :class:`PySide.QtCore.QStringList` if no environment has been set using :meth:`PySide.QtCore.QProcess.setEnvironment` or setEnvironmentHash(). If no environment has been set, the environment of the calling process will be used.
+
+    .. note::  The environment settings are ignored on Windows CE and Symbian, as there is no concept of an environment.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.processEnvironment`  :meth:`PySide.QtCore.QProcess.setEnvironment`  :meth:`PySide.QtCore.QProcess.systemEnvironment` 
+
+
+.. method:: PySide.QtCore.QProcess.error()
+
+
+    :rtype: :attr:`PySide.QtCore.QProcess.ProcessError`
+
+
+
+
+    Returns the type of error that occurred last.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.state` 
+
+
+.. method:: PySide.QtCore.QProcess.error(error)
+
+
+    :param error: :attr:`PySide.QtCore.QProcess.ProcessError`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.execute(program, arguments)
+
+
+    :param program: unicode
+    :param arguments: list of strings
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Starts the program ``program`` with the arguments ``arguments`` in a new process, waits for it to finish, and then returns the exit code of the process. Any data the new process writes to the console is forwarded to the calling process.
+
+    The environment and working directory are inherited from the calling process.
+
+    On Windows, arguments that contain spaces are wrapped in quotes.
+
+    If the process cannot be started, -2 is returned. If the process crashes, -1 is returned. Otherwise, the process' exit code is returned.
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.execute(program)
+
+
+    :param program: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Starts the program ``program`` in a new process. ``program`` is a single string of text containing both the program name and its arguments. The arguments are separated by one or more spaces.
+
+
+
+.. method:: PySide.QtCore.QProcess.exitCode()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the exit code of the last process that finished.
+
+
+
+.. method:: PySide.QtCore.QProcess.exitStatus()
+
+
+    :rtype: :attr:`PySide.QtCore.QProcess.ExitStatus`
+
+
+
+
+    Returns the exit status of the last process that finished.
+
+    On Windows, if the process was terminated with TerminateProcess() from another application this function will still return :attr:`NormalExit<QProcess.ExitStatus>` unless the exit code is less than 0.
+
+
+
+.. method:: PySide.QtCore.QProcess.finished(exitCode, exitStatus)
+
+
+    :param exitCode: :class:`PySide.QtCore.int`
+    :param exitStatus: :attr:`PySide.QtCore.QProcess.ExitStatus`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.finished(exitCode)
+
+
+    :param exitCode: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.kill()
+
+
+
+
+
+
+    Kills the current process, causing it to exit immediately.
+
+    On Windows, :meth:`PySide.QtCore.QProcess.kill` uses TerminateProcess, and on Unix and Mac OS X, the SIGKILL signal is sent to the process.
+
+    On Symbian, this function requires platform security capability ``PowerMgmt`` . If absent, the process will panic with KERN-EXEC 46.
+
+    .. note::  Killing running processes from other processes will typically cause a panic in Symbian due to platform security.
+
+    .. seealso::  :ref:`Symbian Platform Security Requirements<symbian-platform-security-requirements.html>`  :meth:`PySide.QtCore.QProcess.terminate` 
+
+
+.. method:: PySide.QtCore.QProcess.processChannelMode()
+
+
+    :rtype: :attr:`PySide.QtCore.QProcess.ProcessChannelMode`
+
+
+
+
+    Returns the channel mode of the :class:`PySide.QtCore.QProcess` standard output and standard error channels.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setProcessChannelMode`  :attr:`QProcess.ProcessChannelMode`  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.processEnvironment()
+
+
+    :rtype: :class:`PySide.QtCore.QProcessEnvironment`
+
+
+
+
+    Returns the environment that :class:`PySide.QtCore.QProcess` will use when starting a process, or an empty object if no environment has been set using :meth:`PySide.QtCore.QProcess.setEnvironment` or :meth:`PySide.QtCore.QProcess.setProcessEnvironment` . If no environment has been set, the environment of the calling process will be used.
+
+    .. note::  The environment settings are ignored on Windows CE, as there is no concept of an environment.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setProcessEnvironment`  :meth:`PySide.QtCore.QProcess.setEnvironment`  :meth:`QProcessEnvironment.isEmpty()<PySide.QtCore.QProcessEnvironment.isEmpty>` 
+
+
+.. method:: PySide.QtCore.QProcess.readAllStandardError()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Regardless of the current read channel, this function returns all data available from the standard error of the process as a :class:`PySide.QtCore.QByteArray` .
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.readyReadStandardError`  :meth:`PySide.QtCore.QProcess.readAllStandardOutput`  :meth:`PySide.QtCore.QProcess.readChannel`  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.readAllStandardOutput()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Regardless of the current read channel, this function returns all data available from the standard output of the process as a :class:`PySide.QtCore.QByteArray` .
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.readyReadStandardOutput`  :meth:`PySide.QtCore.QProcess.readAllStandardError`  :meth:`PySide.QtCore.QProcess.readChannel`  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.readChannel()
+
+
+    :rtype: :attr:`PySide.QtCore.QProcess.ProcessChannel`
+
+
+
+
+    Returns the current read channel of the :class:`PySide.QtCore.QProcess` .
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.readyReadStandardError()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.readyReadStandardOutput()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.setEnvironment(environment)
+
+
+    :param environment: list of strings
+
+
+
+
+    Sets the environment that :class:`PySide.QtCore.QProcess` will use when starting a process to the ``environment`` specified which consists of a list of key=value pairs.
+
+    For example, the following code adds the ``C:\\BIN`` directory to the list of executable paths (``PATHS`` ) on Windows:
+
+    ::
+
+        import re
+        from PySide.QtCore import QProcess
+
+        process = QProcess()
+
+        env = QProcess.systemEnvironment()
+        env.append("TMPDIR=C:\\MyApp\\temp") # Add an environment variable
+        regex = re.compile(r'^PATH=(.*)', re.IGNORECASE)
+        env = [regex.sub(r'PATH=\1;C:\\Bin', var) for var in env]
+        process.setEnvironment(env)
+        process.start("myapp")
+
+
+    .. note::  This function is less efficient than the :meth:`PySide.QtCore.QProcess.setProcessEnvironment` function.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.environment`  :meth:`PySide.QtCore.QProcess.setProcessEnvironment`  :meth:`PySide.QtCore.QProcess.systemEnvironment` 
+
+
+.. method:: PySide.QtCore.QProcess.setProcessChannelMode(mode)
+
+
+    :param mode: :attr:`PySide.QtCore.QProcess.ProcessChannelMode`
+
+
+
+
+    Sets the channel mode of the :class:`PySide.QtCore.QProcess` standard output and standard error channels to the ``mode`` specified. This mode will be used the next time :meth:`PySide.QtCore.QProcess.start` is called. For example:
+
+    ::
+
+        builder = QProcess()
+        builder.setProcessChannelMode(QProcess.MergedChannels)
+        builder.start("make", ["-j2"])
+
+        import sys
+        if not builder.waitForFinished():
+            sys.stderr.write("Make failed:" + builder.errorString())
+        else
+            sys.stderr.write("Make output:" + builder.readAll())
+
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.processChannelMode`  :attr:`QProcess.ProcessChannelMode`  :meth:`PySide.QtCore.QProcess.setReadChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.setProcessEnvironment(environment)
+
+
+    :param environment: :class:`PySide.QtCore.QProcessEnvironment`
+
+
+
+
+    Sets the environment that :class:`PySide.QtCore.QProcess` will use when starting a process to the ``environment`` object.
+
+    For example, the following code adds the ``C:\\BIN`` directory to the list of executable paths (``PATHS`` ) on Windows and sets ``TMPDIR`` :
+
+    ::
+
+        process = QProcess()
+        env = QProcessEnvironment.systemEnvironment()
+        env.insert("TMPDIR", "C:\\MyApp\\temp") # Add an environment variable
+        env.insert("PATH", env.value("Path") + ";C:\\Bin")
+        process.setProcessEnvironment(env)
+        process.start("myapp")
+
+
+    Note how, on Windows, environment variable names are case-insensitive.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.processEnvironment`  :meth:`QProcessEnvironment.systemEnvironment()<PySide.QtCore.QProcessEnvironment.systemEnvironment>`  :meth:`PySide.QtCore.QProcess.setEnvironment` 
+
+
+.. method:: PySide.QtCore.QProcess.setProcessState(state)
+
+
+    :param state: :attr:`PySide.QtCore.QProcess.ProcessState`
+
+
+
+
+    Sets the current state of the :class:`PySide.QtCore.QProcess` to the ``state`` specified.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.state` 
+
+
+.. method:: PySide.QtCore.QProcess.setReadChannel(channel)
+
+
+    :param channel: :attr:`PySide.QtCore.QProcess.ProcessChannel`
+
+
+
+
+    Sets the current read channel of the :class:`PySide.QtCore.QProcess` to the given ``channel`` . The current input channel is used by the functions :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readAll` , :meth:`PySide.QtCore.QIODevice.readLine` , and :meth:`PySide.QtCore.QIODevice.getChar` . It also determines which channel triggers :class:`PySide.QtCore.QProcess` to emit :meth:`PySide.QtCore.QIODevice.readyRead` .
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.readChannel` 
+
+
+.. method:: PySide.QtCore.QProcess.setStandardErrorFile(fileName[, mode=QIODevice.Truncate])
+
+
+    :param fileName: unicode
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.setStandardInputFile(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    Redirects the process' standard input to the file indicated by ``fileName`` . When an input redirection is in place, the :class:`PySide.QtCore.QProcess` object will be in read-only mode (calling :meth:`PySide.QtCore.QIODevice.write` will result in error).
+
+    If the file ``fileName`` does not exist at the moment :meth:`PySide.QtCore.QProcess.start` is called or is not readable, starting the process will fail.
+
+    Calling :meth:`PySide.QtCore.QProcess.setStandardInputFile` after the process has started has no effect.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setStandardOutputFile`  :meth:`PySide.QtCore.QProcess.setStandardErrorFile`  :meth:`PySide.QtCore.QProcess.setStandardOutputProcess` 
+
+
+.. method:: PySide.QtCore.QProcess.setStandardOutputFile(fileName[, mode=QIODevice.Truncate])
+
+
+    :param fileName: unicode
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.setStandardOutputProcess(destination)
+
+
+    :param destination: :class:`PySide.QtCore.QProcess`
+
+
+
+
+    Pipes the standard output stream of this process to the ``destination`` process' standard input.
+
+    The following shell command:
+
+    ::
+
+        command1 | command2
+
+
+    Can be accomplished with QProcesses with the following code:
+
+    ::
+
+        process1 = QProcess()
+        process2 = QProcess()
+
+        process1.setStandardOutputProcess(process2)
+
+        process1.start("command1")
+        process2.start("command2")
+
+
+
+
+.. method:: PySide.QtCore.QProcess.setWorkingDirectory(dir)
+
+
+    :param dir: unicode
+
+
+
+
+    Sets the working directory to ``dir`` . :class:`PySide.QtCore.QProcess` will start the process in this directory. The default behavior is to start the process in the working directory of the calling process.
+
+    .. note::  The working directory setting is ignored on Symbian; the private directory of the process is considered its working directory.
+
+    .. note::  On QNX, this may cause all application threads to temporarily freeze.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.workingDirectory`  :meth:`PySide.QtCore.QProcess.start` 
+
+
+.. method:: PySide.QtCore.QProcess.setupChildProcess()
+
+
+
+
+
+
+    This function is called in the child process context just before the program is executed on Unix or Mac OS X (i.e., after *fork()* , but before *execve()* ). Reimplement this function to do last minute initialization of the child process. Example:
+
+    ::
+
+        class SandboxProcess(QProcess):
+            def setupChildProcess(self)
+                # Drop all privileges in the child process, and enter
+                # a chroot jail.
+                os.setgroups(0, 0)
+                os.chroot("/etc/safe")
+                os.chdir("/")
+                os.setgid(safeGid)
+                os.setuid(safeUid)
+                os.umask(0)
+
+
+
+    You cannot exit the process (by calling exit(), for instance) from this function. If you need to stop the program before it starts execution, your workaround is to emit :meth:`PySide.QtCore.QProcess.finished` and then call exit().
+
+    .. warning::  This function is called by :class:`PySide.QtCore.QProcess` on Unix and Mac OS X only. On Windows and QNX, it is not called.
+
+
+
+.. method:: PySide.QtCore.QProcess.start(program, arguments[, mode=QIODevice.ReadWrite])
+
+
+    :param program: unicode
+    :param arguments: list of strings
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.start(program[, mode=QIODevice.ReadWrite])
+
+
+    :param program: unicode
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.startDetached(program, arguments, workingDirectory)
+
+
+    :param program: unicode
+    :param arguments: list of strings
+    :param workingDirectory: unicode
+    :rtype: (retval, pid)
+
+
+
+
+    Starts the program ``program`` with the arguments ``arguments`` in a new process, and detaches from it. Returns true on success; otherwise returns false. If the calling process exits, the detached process will continue to live.
+
+    Note that arguments that contain spaces are not passed to the process as separate arguments.
+
+    **Unix:** The started process will run in its own session and act like a daemon.
+
+    **Windows:** Arguments that contain spaces are wrapped in quotes. The started process will run as a regular standalone process.
+
+    The process will be started in the directory ``workingDirectory`` .
+
+    .. note::  On QNX, this may cause all application threads to temporarily freeze.
+
+    If the function is successful then \*``pid`` is set to the process identifier of the started process.
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.startDetached(program, arguments)
+
+
+    :param program: unicode
+    :param arguments: list of strings
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Starts the program ``program`` with the given ``arguments`` in a new process, and detaches from it. Returns true on success; otherwise returns false. If the calling process exits, the detached process will continue to live.
+
+    .. note::  Arguments that contain spaces are not passed to the process as separate arguments.
+
+    **Unix:** The started process will run in its own session and act like a daemon.
+
+    **Windows:** Arguments that contain spaces are wrapped in quotes. The started process will run as a regular standalone process.
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.startDetached(program)
+
+
+    :param program: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Starts the program ``program`` in a new process. ``program`` is a single string of text containing both the program name and its arguments. The arguments are separated by one or more spaces.
+
+    The ``program`` string can also contain quotes, to ensure that arguments containing spaces are correctly supplied to the new process.
+
+
+
+.. method:: PySide.QtCore.QProcess.started()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QProcess.state()
+
+
+    :rtype: :attr:`PySide.QtCore.QProcess.ProcessState`
+
+
+
+
+    Returns the current state of the process.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.stateChanged`  :meth:`PySide.QtCore.QProcess.error` 
+
+
+.. method:: PySide.QtCore.QProcess.stateChanged(state)
+
+
+    :param state: :attr:`PySide.QtCore.QProcess.ProcessState`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QProcess.systemEnvironment()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the environment of the calling process as a list of key=value pairs. Example:
+
+    ::
+
+        environment = QProcess.systemEnvironment()
+        # environment = [PATH=/usr/bin:/usr/local/bin",
+        #                "USER=greg", "HOME=/home/greg"]
+
+
+    This function does not cache the system environment. Therefore, it's possible to obtain an updated version of the environment if low-level C library functions like ``setenv`` ot ``putenv`` have been called.
+
+    However, note that repeated calls to this function will recreate the list of environment variables, which is a non-trivial operation.
+
+    .. note::  For new code, it is recommended to use :meth:`QProcessEnvironment.systemEnvironment()<PySide.QtCore.QProcessEnvironment.systemEnvironment>`
+
+    .. seealso::  :meth:`QProcessEnvironment.systemEnvironment()<PySide.QtCore.QProcessEnvironment.systemEnvironment>`  :meth:`PySide.QtCore.QProcess.environment`  :meth:`PySide.QtCore.QProcess.setEnvironment` 
+
+
+.. method:: PySide.QtCore.QProcess.terminate()
+
+
+
+
+
+
+    Attempts to terminate the process.
+
+    The process may not exit as a result of calling this function (it is given the chance to prompt the user for any unsaved files, etc).
+
+    On Windows, :meth:`PySide.QtCore.QProcess.terminate` posts a WM\_CLOSE message to all toplevel windows of the process and then to the main thread of the process itself. On Unix and Mac OS X the SIGTERM signal is sent.
+
+    Console applications on Windows that do not run an event loop, or whose event loop does not handle the WM\_CLOSE message, can only be terminated by calling :meth:`PySide.QtCore.QProcess.kill` .
+
+    On Symbian, this function requires platform security capability ``PowerMgmt`` . If absent, the process will panic with KERN-EXEC 46.
+
+    .. note::  Terminating running processes from other processes will typically cause a panic in Symbian due to platform security.
+
+    .. seealso::  :ref:`Symbian Platform Security Requirements<symbian-platform-security-requirements.html>`  :meth:`PySide.QtCore.QProcess.kill` 
+
+
+.. method:: PySide.QtCore.QProcess.waitForFinished([msecs=30000])
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Blocks until the process has finished and the :meth:`PySide.QtCore.QProcess.finished` signal has been emitted, or until ``msecs`` milliseconds have passed.
+
+    Returns true if the process finished; otherwise returns false (if the operation timed out, if an error occurred, or if this :class:`PySide.QtCore.QProcess` is already finished).
+
+    This function can operate without an event loop. It is useful when writing non-GUI applications and when performing I/O operations in a non-GUI thread.
+
+    .. warning::  Calling this function from the main (GUI) thread might cause your user interface to freeze.
+
+    If msecs is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.finished`  :meth:`PySide.QtCore.QProcess.waitForStarted`  :meth:`PySide.QtCore.QProcess.waitForReadyRead`  :meth:`PySide.QtCore.QProcess.waitForBytesWritten` 
+
+
+.. method:: PySide.QtCore.QProcess.waitForStarted([msecs=30000])
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Blocks until the process has started and the :meth:`PySide.QtCore.QProcess.started` signal has been emitted, or until ``msecs`` milliseconds have passed.
+
+    Returns true if the process was started successfully; otherwise returns false (if the operation timed out or if an error occurred).
+
+    This function can operate without an event loop. It is useful when writing non-GUI applications and when performing I/O operations in a non-GUI thread.
+
+    .. warning::  Calling this function from the main (GUI) thread might cause your user interface to freeze.
+
+    If msecs is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.started`  :meth:`PySide.QtCore.QProcess.waitForReadyRead`  :meth:`PySide.QtCore.QProcess.waitForBytesWritten`  :meth:`PySide.QtCore.QProcess.waitForFinished` 
+
+
+.. method:: PySide.QtCore.QProcess.workingDirectory()
+
+
+    :rtype: unicode
+
+
+
+
+    If :class:`PySide.QtCore.QProcess` has been assigned a working directory, this function returns the working directory that the :class:`PySide.QtCore.QProcess` will enter before the program has started. Otherwise, (i.e., no directory has been assigned,) an empty string is returned, and :class:`PySide.QtCore.QProcess` will use the application's current working directory instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcess.setWorkingDirectory` 
+
+
+

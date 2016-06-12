@@ -1,0 +1,764 @@
+.. module:: PySide.phonon
+.. _Phonon.MediaObject:
+
+Phonon.MediaObject
+******************
+
+.. inheritance-diagram:: Phonon.MediaObject
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clearQueue<PySide.phonon.Phonon.MediaObject.clearQueue>` ()
+*    def :meth:`currentSource<PySide.phonon.Phonon.MediaObject.currentSource>` ()
+*    def :meth:`currentTime<PySide.phonon.Phonon.MediaObject.currentTime>` ()
+*    def :meth:`enqueue<PySide.phonon.Phonon.MediaObject.enqueue>` (source)
+*    def :meth:`enqueue<PySide.phonon.Phonon.MediaObject.enqueue>` (sources)
+*    def :meth:`enqueue<PySide.phonon.Phonon.MediaObject.enqueue>` (urls)
+*    def :meth:`errorString<PySide.phonon.Phonon.MediaObject.errorString>` ()
+*    def :meth:`errorType<PySide.phonon.Phonon.MediaObject.errorType>` ()
+*    def :meth:`hasVideo<PySide.phonon.Phonon.MediaObject.hasVideo>` ()
+*    def :meth:`isSeekable<PySide.phonon.Phonon.MediaObject.isSeekable>` ()
+*    def :meth:`metaData<PySide.phonon.Phonon.MediaObject.metaData>` ()
+*    def :meth:`metaData<PySide.phonon.Phonon.MediaObject.metaData>` (key)
+*    def :meth:`metaData<PySide.phonon.Phonon.MediaObject.metaData>` (key)
+*    def :meth:`prefinishMark<PySide.phonon.Phonon.MediaObject.prefinishMark>` ()
+*    def :meth:`queue<PySide.phonon.Phonon.MediaObject.queue>` ()
+*    def :meth:`remainingTime<PySide.phonon.Phonon.MediaObject.remainingTime>` ()
+*    def :meth:`setCurrentSource<PySide.phonon.Phonon.MediaObject.setCurrentSource>` (source)
+*    def :meth:`setPrefinishMark<PySide.phonon.Phonon.MediaObject.setPrefinishMark>` (msecToEnd)
+*    def :meth:`setQueue<PySide.phonon.Phonon.MediaObject.setQueue>` (sources)
+*    def :meth:`setQueue<PySide.phonon.Phonon.MediaObject.setQueue>` (urls)
+*    def :meth:`setTransitionTime<PySide.phonon.Phonon.MediaObject.setTransitionTime>` (msec)
+*    def :meth:`state<PySide.phonon.Phonon.MediaObject.state>` ()
+*    def :meth:`tickInterval<PySide.phonon.Phonon.MediaObject.tickInterval>` ()
+*    def :meth:`totalTime<PySide.phonon.Phonon.MediaObject.totalTime>` ()
+*    def :meth:`transitionTime<PySide.phonon.Phonon.MediaObject.transitionTime>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.phonon.Phonon.MediaObject.clear>` ()
+*    def :meth:`pause<PySide.phonon.Phonon.MediaObject.pause>` ()
+*    def :meth:`play<PySide.phonon.Phonon.MediaObject.play>` ()
+*    def :meth:`seek<PySide.phonon.Phonon.MediaObject.seek>` (time)
+*    def :meth:`setTickInterval<PySide.phonon.Phonon.MediaObject.setTickInterval>` (newTickInterval)
+*    def :meth:`stop<PySide.phonon.Phonon.MediaObject.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToFinish<PySide.phonon.Phonon.MediaObject.aboutToFinish>` ()
+*    def :meth:`bufferStatus<PySide.phonon.Phonon.MediaObject.bufferStatus>` (percentFilled)
+*    def :meth:`currentSourceChanged<PySide.phonon.Phonon.MediaObject.currentSourceChanged>` (newSource)
+*    def :meth:`finished<PySide.phonon.Phonon.MediaObject.finished>` ()
+*    def :meth:`hasVideoChanged<PySide.phonon.Phonon.MediaObject.hasVideoChanged>` (hasVideo)
+*    def :meth:`metaDataChanged<PySide.phonon.Phonon.MediaObject.metaDataChanged>` ()
+*    def :meth:`prefinishMarkReached<PySide.phonon.Phonon.MediaObject.prefinishMarkReached>` (msecToEnd)
+*    def :meth:`seekableChanged<PySide.phonon.Phonon.MediaObject.seekableChanged>` (isSeekable)
+*    def :meth:`stateChanged<PySide.phonon.Phonon.MediaObject.stateChanged>` (newstate, oldstate)
+*    def :meth:`tick<PySide.phonon.Phonon.MediaObject.tick>` (time)
+*    def :meth:`totalTimeChanged<PySide.phonon.Phonon.MediaObject.totalTimeChanged>` (newTotalTime)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.MediaObject` class provides an interface for media playback.
+
+    The media object manages a :class:`Phonon.MediaSource` , which supplies the media object with multimedia content, e.g., from a file. A playback in Phonon is always started by calling the :meth:`PySide.phonon.Phonon.MediaObject.play` function.
+
+    The state of play (play, pause, stop, seek) is controlled by the media object, and you can also query the current :meth:`PySide.phonon.Phonon.MediaObject.state` . It keeps track of the playback position in the media stream, and emits the :meth:`PySide.phonon.Phonon.MediaObject.tick` signal when the current position in the stream changes.
+
+    Notice that most functions of this class are asynchronous, so you cannot rely on that a state is entered after a function call before you receive the :meth:`PySide.phonon.Phonon.MediaObject.stateChanged` signal. The description of the :attr:`Phonon.State` enum gives a description of the different states.
+
+    Before :meth:`PySide.phonon.Phonon::MediaObject.play` is called, the media object should be connected to :ref:`output nodes<phonon-overview.html>` , which outputs the media to the underlying hardware. The output nodes required are dependent on the contents of the multimedia file that is played back. Phonon has currently two output nodes: the :class:`Phonon.AudioOutput` for audio content and :class:`Phonon.VideoWidget` for video content. If a :class:`Phonon.MediaSource` contains both audio and video, both nodes need to be connected to the media object.
+
+    ::
+
+        mediaObject = Phonon.MediaObject(self)
+
+        videoWidget = Phonon.VideoWidget(self)
+        Phonon.createPath(mediaObject, videoWidget)
+
+        audioOutput = Phonon.AudioOutput(Phonon.VideoCategory, self)
+        Phonon.createPath(mediaObject, audioOutput)
+        mediaObject.play()
+
+
+    The media object can queue sources for playback. When it has finished to play one source, it will start playing the next in the queue; the new source is then removed from the queue. The queue can be altered at any time.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:7" not found>
+
+    You can also make use of the :meth:`PySide.phonon.Phonon.MediaObject.aboutToFinish` signal, which is guaranteed to be emitted in time for altering the queue.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:8" not found>
+
+    When playback is finishing, i.e., when a media source has been played to the end and the queue is empty, several signals are emitted. First, the media object will emit :meth:`PySide.phonon.Phonon::MediaObject.aboutToFinish` - shortly before the playback has finished - and then :meth:`PySide.phonon.Phonon::MediaObject.finished` . The :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` signal will also be emitted with :attr:`PausedState<Phonon.State>` , which is the state the media object takes when the playback is finished. If you wish to enter another state, you can connect a slot to :meth:`PySide.phonon.Phonon::MediaObject.finished` and set a new state there.
+
+    The media object resolves the meta information, such as title, artist, and album. The meta data is not resolved immediately after a new source is provided, but will be resolved before the object leaves the :attr:`LoadingState<Phonon.State>` . The data is queried by string keys - which should follow the Ogg Vorbis specification http://xiph.org/vorbis/doc/v-comment.html - or by using the :attr:`Phonon.MetaData` enum. The data available will depend on the type and content of the individual media files. :meth:`PySide.phonon.Phonon::MediaObject.metaDataChanged` will be emitted when the media object has resolved new meta data.
+
+    Errors encountered during playback and loading of media sources are reported by emitting a state changed signal with :attr:`ErrorState<Phonon.State>` . The severity of the error can be queried by the :attr:`Phonon.ErrorType` . With a :attr:`NormalError<Phonon.ErrorType>` , it might be possible to continue the playback, for instance, if only audio playback fails for a media source which also has video. A :attr:`FatalError<Phonon.ErrorType>` indicates that Phonon cannot continue playback of the current source, but it is possible to try with a different one. A user readable error message is given by :meth:`PySide.phonon.Phonon::MediaObject.errorString` .
+
+    .. seealso::  :ref:`Symbian Platform Security Requirements<symbian-platform-security-requirements.html>`  :class:`Phonon.MediaSource`  :class:`Phonon.AudioOutput`  :class:`~PySide.phonon.Phonon.VideoWidget`  :ref:`Music Player Example<phonon/qmusicplayer>`  :ref:`Phonon Overview<phonon-overview.html>`  :class:`Phonon.VideoPlayer`  :meth:`Phonon.createPlayer()<PySide.phonon.Phonon.createPlayer>`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.MediaObject([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.aboutToFinish()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.bufferStatus(percentFilled)
+
+
+    :param percentFilled: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.clear()
+
+
+
+
+
+
+    Stops and removes all playing and enqueued media sources.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.setCurrentSource` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.clearQueue()
+
+
+
+
+
+
+    Clears the queue of media sources.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.queue`  :meth:`PySide.phonon.Phonon::MediaObject.enqueue` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.currentSource()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+    Returns the current media source, i.e., the media source that is being played back. The current source is either set with :meth:`PySide.phonon.Phonon::MediaObject.setCurrentSource` or taken from the media :meth:`PySide.phonon.Phonon::MediaObject.queue` when a media source has finished playing.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.setCurrentSource` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.currentSourceChanged(newSource)
+
+
+    :param newSource: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.currentTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current time (in milliseconds), i.e., position in the media stream, of the file currently being played.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.tick`  :meth:`PySide.phonon.Phonon::MediaObject.totalTime`  :meth:`PySide.phonon.Phonon::MediaObject.remainingTime` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.enqueue(sources)
+
+
+    :param sources: 
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.enqueue(urls)
+
+
+    :param urls: 
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.enqueue(source)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+    Appends ``source`` to the queue.
+
+    You can use this function to provide the next source after the :meth:`PySide.phonon.Phonon::MediaObject.aboutToFinish` signal has been emitted.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.aboutToFinish`  :meth:`PySide.phonon.Phonon::MediaObject.setQueue`  :meth:`PySide.phonon.Phonon::MediaObject.clearQueue` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human-readable description of the last error that occurred. The strings given may vary between backends.
+
+    The error description can be used to give a message to the user - and the developer - when the :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` signal is emitted with :attr:`ErrorState<Phonon.State>` .
+
+    .. _PySide.phonon.Phonon.MediaObject_qt-backends:
+
+
+
+Qt Backends
+^^^^^^^^^^^
+
+    On Windows, Qt fetches its error messages from the DirectShow backend. This usually includes an error number, which can be looked up in the DirectShow documentation: http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/dx81\_c/directx\_cpp/htm/errorandsuccesscodes.asp.
+
+    On Linux and Mac, the error strings are not fetched directly from the backend, but are created in the backend.
+
+    .. seealso::  :attr:`Phonon.ErrorState<Phonon.State>`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.errorType()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon.ErrorType`
+
+
+
+
+    Tells your program what to do about the last error that occurred. Use this function after receiving a :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` signal with :attr:`ErrorState<Phonon.State>` .
+
+    .. seealso::  :attr:`Phonon.ErrorType`  :attr:`Phonon.ErrorState<Phonon.State>`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.hasVideo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Check whether the current media source includes a video stream.
+
+    .. warning::  This information is not resolved immediately after a media object gets a new source. Listen to the :meth:`PySide.phonon.Phonon::MediaObject.hasVideoChanged` signal instead.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:11" not found>
+
+    Returns ``true`` if the media contains video data; otherwise, returns ``false`` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.hasVideoChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.hasVideoChanged(hasVideo)
+
+
+    :param hasVideo: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.isSeekable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Check whether it is possible to seek, i.e., change the playback position in the media stream.
+
+    .. warning::  This information is not solved immediately after the media object gets a new media source. The :meth:`PySide.phonon.Phonon::MediaObject.hasVideoChanged` signal is emitted after this information is available.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:12" not found>
+
+    Returns ``true`` if the current media may be seeked; otherwise, returns ``false`` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.seekableChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.metaData(key)
+
+
+    :param key: unicode
+    :rtype: list of strings
+
+
+
+
+    Returns the strings associated with the given ``key`` .
+
+    Backends should use the keys specified in the Ogg Vorbis documentation: http://xiph.org/vorbis/doc/v-comment.html
+
+    Therefore the following should work with every backend:
+
+    Note that meta data is not resolved before the ``metaDataChanged()`` signal is emitted.
+
+    A typical usage looks like this:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:13" not found>
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.metaData(key)
+
+
+    :param key: :attr:`PySide.phonon.Phonon.MetaData`
+    :rtype: list of strings
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.metaData()
+
+
+    :rtype: 
+
+
+
+
+    Returns all meta data in a multi map.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.metaDataChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.metaDataChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.pause()
+
+
+
+
+
+
+    Requests playback to pause, and the media object to enter the :attr:`PausedState<Phonon.State>` . If it was paused already, nothing changes.
+
+    This function is asynchronous and the media might not be paused immediately.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.play`  :meth:`PySide.phonon.Phonon::MediaObject.stop`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.play()
+
+
+
+
+
+
+    Requests playback of the media data to start.
+
+    Playback starts when the :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` signal is emitted with :attr:`PlayingState<Phonon.State>` .
+
+    If the media object is already in a :attr:`PlayingState<Phonon.State>` , nothing happens.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.stop`  :meth:`PySide.phonon.Phonon::MediaObject.pause`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.prefinishMark()
+
+
+    :rtype: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property holds the time when the prefinishMarkReached signal is emitted before playback ends..
+
+    This property specifies the time in milliseconds the :meth:`PySide.phonon.Phonon::MediaObject.prefinishMarkReached` signal is emitted before the playback finishes. A value of ``0`` disables the signal. The signal is only emitted for the last source in the :meth:`media queue<PySide.phonon.Phonon::MediaObject.queue>` .
+
+    Defaults to ``0`` (disabled).
+
+    .. warning::  For some media data the total time cannot be determined accurately, therefore the accuracy of the prefinishMarkReached signal can be bad sometimes. Still, it is better to use this method than to look at :meth:`PySide.phonon.Phonon::MediaObject.totalTime` and :meth:`PySide.phonon.Phonon::MediaObject.currentTime` to emulate the behavior because the backend might have more information available than your application does through :meth:`PySide.phonon.Phonon::MediaObject.totalTime` and :meth:`PySide.phonon.Phonon::MediaObject.currentTime` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.prefinishMarkReached` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.prefinishMarkReached(msecToEnd)
+
+
+    :param msecToEnd: :class:`PySide.QtCore.qint32`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.queue()
+
+
+    :rtype: 
+
+
+
+
+    Returns the queued media sources.
+
+    This does list does not include the current source, returned by :meth:`PySide.phonon.Phonon::MediaObject.currentSource` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.setQueue`  :meth:`PySide.phonon.Phonon::MediaObject.enqueue` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.remainingTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Get the remaining time (in milliseconds) of the file currently being played.
+
+    Returns the remaining time in milliseconds.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.totalTime`  :meth:`PySide.phonon.Phonon::MediaObject.currentTime`  :meth:`PySide.phonon.Phonon::MediaObject.totalTimeChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.seek(time)
+
+
+    :param time: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Requests a seek to the ``time`` indicated, specified in milliseconds.
+
+    You can only seek if :meth:`PySide.phonon.Phonon::MediaObject.state` is :attr:`PlayingState<Phonon.State>` , :attr:`BufferingState<Phonon.State>` or :attr:`PausedState<Phonon.State>` .
+
+    The call is asynchronous, so currentTime can still be the old value right after this method was called. If all you need is a slider that shows the current position and allows the user to seek, use the class :class:`~PySide.phonon.Phonon.SeekSlider` .
+
+    If the current source of the media object is not seekable, calls to this functions do nothing.
+
+    .. seealso::  :class:`~PySide.phonon.Phonon.SeekSlider`  :meth:`PySide.phonon.Phonon::MediaObject.tick` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.seekableChanged(isSeekable)
+
+
+    :param isSeekable: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setCurrentSource(source)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+    Set the media source the :class:`~PySide.phonon.Phonon.MediaObject` should use.
+
+    After the media object receives a new source, it will enter the :attr:`LoadingState<Phonon.State>` . When it is ready to play, it enters the :attr:`StoppedState<Phonon.State>` unless another state has been requested, e.g., by calling :meth:`PySide.phonon.Phonon::MediaObject.play` .
+
+    ``source`` is the :class:`~PySide.phonon.Phonon.MediaSource` object to the media data. You can just as well use a :class:`PySide.QtCore.QUrl` or :class:`PySide.QtCore.QString` (for a local file) here.
+
+    We show an example:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:14" not found>
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.currentSource`  :class:`~PySide.phonon.Phonon.MediaSource` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setPrefinishMark(msecToEnd)
+
+
+    :param msecToEnd: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property holds the time when the prefinishMarkReached signal is emitted before playback ends..
+
+    This property specifies the time in milliseconds the :meth:`PySide.phonon.Phonon::MediaObject.prefinishMarkReached` signal is emitted before the playback finishes. A value of ``0`` disables the signal. The signal is only emitted for the last source in the :meth:`media queue<PySide.phonon.Phonon::MediaObject.queue>` .
+
+    Defaults to ``0`` (disabled).
+
+    .. warning::  For some media data the total time cannot be determined accurately, therefore the accuracy of the prefinishMarkReached signal can be bad sometimes. Still, it is better to use this method than to look at :meth:`PySide.phonon.Phonon::MediaObject.totalTime` and :meth:`PySide.phonon.Phonon::MediaObject.currentTime` to emulate the behavior because the backend might have more information available than your application does through :meth:`PySide.phonon.Phonon::MediaObject.totalTime` and :meth:`PySide.phonon.Phonon::MediaObject.currentTime` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.prefinishMarkReached` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setQueue(urls)
+
+
+    :param urls: 
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setQueue(sources)
+
+
+    :param sources: 
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setTickInterval(newTickInterval)
+
+
+    :param newTickInterval: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property holds The time interval in milliseconds between two ticks..
+
+    The :meth:`PySide.phonon.Phonon::MediaObject.tick` signal is emitted continuously during playback. The tick interval is the time that elapses between the emission of two tick signals. If you set the interval to ``0`` the tick signal gets disabled.
+
+    The :meth:`PySide.phonon.Phonon::MediaObject.tick` signal can, for instance, be used to update widgets that show the current position in the playback of a media source.
+
+    Defaults to ``0`` (disabled).
+
+    .. warning::  The back-end is free to choose a different tick interval close to what you asked for. This means that the following code ``may`` fail:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:9" not found>
+
+    On the other hand the following is guaranteed:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:10" not found>
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.tick` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.setTransitionTime(msec)
+
+
+    :param msec: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property Defines the time between playback of two media sources in the media queue..
+
+    A positive transition time defines a gap of silence between queued media sources.
+
+    A transition time of 0 ms requests gapless playback (i.e., the next source in the media queue starts immediately after the playback of the current source finishes).
+
+    A negative transition time defines a crossfade between the queued media sources.
+
+    Defaults to 0 (gapless playback).
+
+    .. warning::  This feature might not work reliably with every backend.
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.state()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon.State`
+
+
+
+
+    Returns the current :attr:`Phonon.State` of the object.
+
+    .. seealso::  :attr:`Phonon.State`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.stateChanged(newstate, oldstate)
+
+
+    :param newstate: :attr:`PySide.phonon.Phonon.State`
+    :param oldstate: :attr:`PySide.phonon.Phonon.State`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.stop()
+
+
+
+
+
+
+    Requests playback to stop, and the media object to enter the :attr:`StoppedState<Phonon.State>` . If it was stopped before nothing changes.
+
+    This function is asynchronous and the media might not be stopped immediately.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.play`  :meth:`PySide.phonon.Phonon::MediaObject.pause`  :meth:`PySide.phonon.Phonon::MediaObject.stateChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.tick(time)
+
+
+    :param time: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.tickInterval()
+
+
+    :rtype: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property holds The time interval in milliseconds between two ticks..
+
+    The :meth:`PySide.phonon.Phonon::MediaObject.tick` signal is emitted continuously during playback. The tick interval is the time that elapses between the emission of two tick signals. If you set the interval to ``0`` the tick signal gets disabled.
+
+    The :meth:`PySide.phonon.Phonon::MediaObject.tick` signal can, for instance, be used to update widgets that show the current position in the playback of a media source.
+
+    Defaults to ``0`` (disabled).
+
+    .. warning::  The back-end is free to choose a different tick interval close to what you asked for. This means that the following code ``may`` fail:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:9" not found>
+
+    On the other hand the following is guaranteed:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:10" not found>
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.tick` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.totalTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Get the total time (in milliseconds) of the file currently being played.
+
+    Returns the total time in milliseconds.
+
+    .. warning::  The total time is not defined before the media object enters the :attr:`LoadingState<Phonon.State>` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaObject.totalTimeChanged` 
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.totalTimeChanged(newTotalTime)
+
+
+    :param newTotalTime: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.MediaObject.transitionTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint32`
+
+
+
+
+    This property Defines the time between playback of two media sources in the media queue..
+
+    A positive transition time defines a gap of silence between queued media sources.
+
+    A transition time of 0 ms requests gapless playback (i.e., the next source in the media queue starts immediately after the playback of the current source finishes).
+
+    A negative transition time defines a crossfade between the queued media sources.
+
+    Defaults to 0 (gapless playback).
+
+    .. warning::  This feature might not work reliably with every backend.
+
+
+
+

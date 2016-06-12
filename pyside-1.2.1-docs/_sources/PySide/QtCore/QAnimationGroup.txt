@@ -1,0 +1,169 @@
+.. module:: PySide.QtCore
+.. _QAnimationGroup:
+
+QAnimationGroup
+***************
+
+.. inheritance-diagram:: QAnimationGroup
+    :parts: 2
+
+**Inherited by:** :ref:`QSequentialAnimationGroup`, :ref:`QParallelAnimationGroup`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addAnimation<PySide.QtCore.QAnimationGroup.addAnimation>` (animation)
+*    def :meth:`animationAt<PySide.QtCore.QAnimationGroup.animationAt>` (index)
+*    def :meth:`animationCount<PySide.QtCore.QAnimationGroup.animationCount>` ()
+*    def :meth:`clear<PySide.QtCore.QAnimationGroup.clear>` ()
+*    def :meth:`indexOfAnimation<PySide.QtCore.QAnimationGroup.indexOfAnimation>` (animation)
+*    def :meth:`insertAnimation<PySide.QtCore.QAnimationGroup.insertAnimation>` (index, animation)
+*    def :meth:`removeAnimation<PySide.QtCore.QAnimationGroup.removeAnimation>` (animation)
+*    def :meth:`takeAnimation<PySide.QtCore.QAnimationGroup.takeAnimation>` (index)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAnimationGroup` class is an abstract base class for groups of animations.
+
+    An animation group is a container for animations (subclasses of :class:`PySide.QtCore.QAbstractAnimation` ). A group is usually responsible for managing the :attr:`state<QAbstractAnimation.State>` of its animations, i.e., it decides when to start, stop, resume, and pause them. Currently, Qt provides two such groups: :class:`PySide.QtCore.QParallelAnimationGroup` and :class:`PySide.QtCore.QSequentialAnimationGroup` . Look up their class descriptions for details.
+
+    Since :class:`PySide.QtCore.QAnimationGroup` inherits from :class:`PySide.QtCore.QAbstractAnimation` , you can combine groups, and easily construct complex animation graphs. You can query :class:`PySide.QtCore.QAbstractAnimation` for the group it belongs to (using the :meth:`PySide.QtCore.QAbstractAnimation.group` function).
+
+    To start a top-level animation group, you simply use the :meth:`PySide.QtCore.QAbstractAnimation.start` function from :class:`PySide.QtCore.QAbstractAnimation` . By a top-level animation group, we think of a group that itself is not contained within another group. Starting sub groups directly is not supported, and may lead to unexpected behavior.
+
+    :class:`PySide.QtCore.QAnimationGroup` provides methods for adding and retrieving animations. Besides that, you can remove animations by calling :meth:`~PySide.QtCore.QAnimationGroup.remove` , and clear the animation group by calling :meth:`PySide.QtCore.QAnimationGroup.clear` . You may keep track of changes in the group's animations by listening to :attr:`QEvent.ChildAdded<QEvent.Type>` and :attr:`QEvent.ChildRemoved<QEvent.Type>` events.
+
+    :class:`PySide.QtCore.QAnimationGroup` takes ownership of the animations it manages, and ensures that they are deleted when the animation group is deleted.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractAnimation`  :class:`PySide.QtCore.QVariantAnimation`  :ref:`The Animation Framework<animation-overview.html>` 
+
+.. class:: QAnimationGroup([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QAnimationGroup` . ``parent`` is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+
+.. method:: PySide.QtCore.QAnimationGroup.addAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Adds ``animation`` to this group. This will call insertAnimation with index equals to :meth:`PySide.QtCore.QAnimationGroup.animationCount` .
+
+    .. note::  The group takes ownership of the animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.removeAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.animationAt(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Returns a pointer to the animation at ``index`` in this group. This function is useful when you need access to a particular animation. ``index`` is between 0 and :meth:`PySide.QtCore.QAnimationGroup.animationCount` - 1.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.animationCount`  :meth:`PySide.QtCore.QAnimationGroup.indexOfAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.animationCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of animations managed by this group.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.indexOfAnimation`  :meth:`PySide.QtCore.QAnimationGroup.addAnimation`  :meth:`PySide.QtCore.QAnimationGroup.animationAt` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.clear()
+
+
+
+
+
+
+    Removes and deletes all animations in this animation group, and resets the current time to 0.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.addAnimation`  :meth:`PySide.QtCore.QAnimationGroup.removeAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.indexOfAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of ``animation`` . The returned index can be passed to the other functions that take an index as an argument.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.insertAnimation`  :meth:`PySide.QtCore.QAnimationGroup.animationAt`  :meth:`PySide.QtCore.QAnimationGroup.takeAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.insertAnimation(index, animation)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Inserts ``animation`` into this animation group at ``index`` . If ``index`` is 0 the animation is inserted at the beginning. If ``index`` is :meth:`PySide.QtCore.QAnimationGroup.animationCount` , the animation is inserted at the end.
+
+    .. note::  The group takes ownership of the animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.takeAnimation`  :meth:`PySide.QtCore.QAnimationGroup.addAnimation`  :meth:`PySide.QtCore.QAnimationGroup.indexOfAnimation`  :meth:`PySide.QtCore.QAnimationGroup.removeAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.removeAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Removes ``animation`` from this group. The ownership of ``animation`` is transferred to the caller.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.takeAnimation`  :meth:`PySide.QtCore.QAnimationGroup.insertAnimation`  :meth:`PySide.QtCore.QAnimationGroup.addAnimation` 
+
+
+.. method:: PySide.QtCore.QAnimationGroup.takeAnimation(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Returns the animation at ``index`` and removes it from the animation group.
+
+    .. note::  The ownership of the animation is transferred to the caller.
+
+    .. seealso::  :meth:`PySide.QtCore.QAnimationGroup.removeAnimation`  :meth:`PySide.QtCore.QAnimationGroup.addAnimation`  :meth:`PySide.QtCore.QAnimationGroup.insertAnimation`  :meth:`PySide.QtCore.QAnimationGroup.indexOfAnimation` 
+
+
+

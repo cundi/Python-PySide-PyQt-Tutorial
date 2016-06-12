@@ -1,0 +1,396 @@
+.. module:: PySide.QtNetwork
+.. _QSslCertificate:
+
+QSslCertificate
+***************
+
+.. inheritance-diagram:: QSslCertificate
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QSslCertificate.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QSslCertificate.__ne__>` (other)
+*    def :meth:`alternateSubjectNames<PySide.QtNetwork.QSslCertificate.alternateSubjectNames>` ()
+*    def :meth:`clear<PySide.QtNetwork.QSslCertificate.clear>` ()
+*    def :meth:`digest<PySide.QtNetwork.QSslCertificate.digest>` ([algorithm=QCryptographicHash.Md5])
+*    def :meth:`effectiveDate<PySide.QtNetwork.QSslCertificate.effectiveDate>` ()
+*    def :meth:`expiryDate<PySide.QtNetwork.QSslCertificate.expiryDate>` ()
+*    def :meth:`handle<PySide.QtNetwork.QSslCertificate.handle>` ()
+*    def :meth:`isNull<PySide.QtNetwork.QSslCertificate.isNull>` ()
+*    def :meth:`isValid<PySide.QtNetwork.QSslCertificate.isValid>` ()
+*    def :meth:`issuerInfo<PySide.QtNetwork.QSslCertificate.issuerInfo>` (info)
+*    def :meth:`issuerInfo<PySide.QtNetwork.QSslCertificate.issuerInfo>` (tag)
+*    def :meth:`publicKey<PySide.QtNetwork.QSslCertificate.publicKey>` ()
+*    def :meth:`serialNumber<PySide.QtNetwork.QSslCertificate.serialNumber>` ()
+*    def :meth:`subjectInfo<PySide.QtNetwork.QSslCertificate.subjectInfo>` (info)
+*    def :meth:`subjectInfo<PySide.QtNetwork.QSslCertificate.subjectInfo>` (tag)
+*    def :meth:`toDer<PySide.QtNetwork.QSslCertificate.toDer>` ()
+*    def :meth:`toPem<PySide.QtNetwork.QSslCertificate.toPem>` ()
+*    def :meth:`version<PySide.QtNetwork.QSslCertificate.version>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fromData<PySide.QtNetwork.QSslCertificate.fromData>` (data[, format=QSsl.Pem])
+*    def :meth:`fromDevice<PySide.QtNetwork.QSslCertificate.fromDevice>` (device[, format=QSsl.Pem])
+*    def :meth:`fromPath<PySide.QtNetwork.QSslCertificate.fromPath>` (path[, format=QSsl.Pem[, syntax=QRegExp.FixedString]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QSslCertificate` class provides a convenient API for an X509 certificate.
+
+    :class:`PySide.QtNetwork.QSslCertificate` stores an X509 certificate, and is commonly used to verify the identity and store information about the local host, a remotely connected peer, or a trusted third party Certificate Authority.
+
+    There are many ways to construct a :class:`PySide.QtNetwork.QSslCertificate` . The most common way is to call :meth:`QSslSocket.peerCertificate()<PySide.QtNetwork.QSslSocket.peerCertificate>` , which returns a :class:`PySide.QtNetwork.QSslCertificate` object, or :meth:`QSslSocket.peerCertificateChain()<PySide.QtNetwork.QSslSocket.peerCertificateChain>` , which returns a list of them. You can also load certificates from a DER (binary) or PEM (Base64) encoded bundle, typically stored as one or more local files, or in a Qt Resource.
+
+    You can call :meth:`PySide.QtNetwork.QSslCertificate.isNull` to check if your certificate is null. By default, :class:`PySide.QtNetwork.QSslCertificate` constructs a null certificate. To check if the certificate is valid, call :meth:`PySide.QtNetwork.QSslCertificate.isValid` . A null certificate is invalid, but an invalid certificate is not necessarily null. If you want to reset all contents in a certificate, call :meth:`PySide.QtNetwork.QSslCertificate.clear` .
+
+    After loading a certificate, you can find information about the certificate, its subject, and its issuer, by calling one of the many accessor functions, including :meth:`PySide.QtNetwork.QSslCertificate.version` , :meth:`PySide.QtNetwork.QSslCertificate.serialNumber` , :meth:`PySide.QtNetwork.QSslCertificate.issuerInfo` and :meth:`PySide.QtNetwork.QSslCertificate.subjectInfo` . You can call :meth:`PySide.QtNetwork.QSslCertificate.effectiveDate` and :meth:`PySide.QtNetwork.QSslCertificate.expiryDate` to check when the certificate starts being effective and when it expires. The :meth:`PySide.QtNetwork.QSslCertificate.publicKey` function returns the certificate subject's public key as a :class:`PySide.QtNetwork.QSslKey` . You can call :meth:`PySide.QtNetwork.QSslCertificate.issuerInfo` or :meth:`PySide.QtNetwork.QSslCertificate.subjectInfo` to get detailed information about the certificate issuer and its subject.
+
+    Internally, :class:`PySide.QtNetwork.QSslCertificate` is stored as an X509 structure. You can access this handle by calling :meth:`PySide.QtNetwork.QSslCertificate.handle` , but the results are likely to not be portable.
+
+    .. seealso::  :class:`PySide.QtNetwork.QSslSocket`  :class:`PySide.QtNetwork.QSslKey`  :class:`PySide.QtNetwork.QSslCipher`  :class:`PySide.QtNetwork.QSslError` 
+
+.. class:: QSslCertificate(device[, format=QSsl.Pem])
+           QSslCertificate([encoded=QByteArray()[, format=QSsl.Pem]])
+           QSslCertificate(other)
+
+    :param encoded: :class:`PySide.QtCore.QByteArray`
+    :param format: :attr:`PySide.QtNetwork.QSsl.EncodingFormat`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param other: :class:`PySide.QtNetwork.QSslCertificate`
+
+
+
+
+
+    Constructs an identical copy of ``other`` .
+
+
+.. attribute:: PySide.QtNetwork.QSslCertificate.SubjectInfo
+
+    Describes keys that you can pass to :meth:`QSslCertificate.issuerInfo()<PySide.QtNetwork.QSslCertificate.issuerInfo>` or :meth:`QSslCertificate.subjectInfo()<PySide.QtNetwork.QSslCertificate.subjectInfo>` to get information about the certificate issuer or subject.
+
+    +--------------------------------------+---------------------------------------------------------------------+
+    |Constant                              |Description                                                          |
+    +======================================+=====================================================================+
+    |QSslCertificate.Organization          |"O" The name of the organization.                                    |
+    +--------------------------------------+---------------------------------------------------------------------+
+    |QSslCertificate.CommonName            |"CN" The common name; most often this is used to store the host name.|
+    +--------------------------------------+---------------------------------------------------------------------+
+    |QSslCertificate.LocalityName          |"L" The locality.                                                    |
+    +--------------------------------------+---------------------------------------------------------------------+
+    |QSslCertificate.OrganizationalUnitName|"OU" The organizational unit name.                                   |
+    +--------------------------------------+---------------------------------------------------------------------+
+    |QSslCertificate.CountryName           |"C" The country.                                                     |
+    +--------------------------------------+---------------------------------------------------------------------+
+    |QSslCertificate.StateOrProvinceName   |"ST" The state or province.                                          |
+    +--------------------------------------+---------------------------------------------------------------------+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.alternateSubjectNames()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of alternative subject names for this certificate. The alternate subject names typically contain host names, optionally with wildcards, that are valid for this certificate.
+
+    These names are tested against the connected peer's host name, if either the subject information for :attr:`CommonName<QSslCertificate.SubjectInfo>` doesn't define a valid host name, or the subject info name doesn't match the peer's host name.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.subjectInfo` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.clear()
+
+
+
+
+
+
+    Clears the contents of this certificate, making it a null certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.isNull` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.digest([algorithm=QCryptographicHash.Md5])
+
+
+    :param algorithm: :attr:`PySide.QtCore.QCryptographicHash.Algorithm`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.effectiveDate()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date-time that the certificate becomes valid, or an empty :class:`PySide.QtCore.QDateTime` if this is a null certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.expiryDate` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.expiryDate()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date-time that the certificate expires, or an empty :class:`PySide.QtCore.QDateTime` if this is a null certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.effectiveDate` 
+
+
+.. staticmethod:: PySide.QtNetwork.QSslCertificate.fromData(data[, format=QSsl.Pem])
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param format: :attr:`PySide.QtNetwork.QSsl.EncodingFormat`
+    :rtype: 
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtNetwork.QSslCertificate.fromDevice(device[, format=QSsl.Pem])
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param format: :attr:`PySide.QtNetwork.QSsl.EncodingFormat`
+    :rtype: 
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtNetwork.QSslCertificate.fromPath(path[, format=QSsl.Pem[, syntax=QRegExp.FixedString]])
+
+
+    :param path: unicode
+    :param format: :attr:`PySide.QtNetwork.QSsl.EncodingFormat`
+    :param syntax: :attr:`PySide.QtCore.QRegExp.PatternSyntax`
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.handle()
+
+
+    :rtype: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+    Returns a pointer to the native certificate handle, if there is one, or a null pointer otherwise.
+
+    You can use this handle, together with the native API, to access extended information about the certificate.
+
+    .. warning::  Use of this function has a high probability of being non-portable, and its return value may vary from platform to platform or change from minor release to minor release.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this is a null certificate (i.e., a certificate with no contents); otherwise returns false.
+
+    By default, :class:`PySide.QtNetwork.QSslCertificate` constructs a null certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.isValid`  :meth:`PySide.QtNetwork.QSslCertificate.clear` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this certificate is valid; otherwise returns false.
+
+    Note: Currently, this function checks that the current data-time is within the date-time range during which the certificate is considered valid, and checks that the certificate is not in a blacklist of fraudulent certificates.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.isNull` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.issuerInfo(info)
+
+
+    :param info: :attr:`PySide.QtNetwork.QSslCertificate.SubjectInfo`
+    :rtype: unicode
+
+
+
+
+    Returns the issuer information for the ``subject`` from the certificate, or an empty string if there is no information for ``subject`` in the certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.subjectInfo` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.issuerInfo(tag)
+
+
+    :param tag: :class:`PySide.QtCore.QByteArray`
+    :rtype: unicode
+
+
+
+
+    Returns the issuer information for ``tag`` from the certificate, or an empty string if there is no information for ``tag`` in the certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.subjectInfo` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QSslCertificate`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this certificate is not the same as ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QSslCertificate`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this certificate is the same as ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.publicKey()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslKey`
+
+
+
+
+    Returns the certificate subject's public key.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.serialNumber()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the certificate's serial number string in decimal format. In case the serial number cannot be converted to decimal format (i.e. if it is bigger than 4294967295, which means it does not fit into 4 bytes), its hexadecimal version is returned.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.subjectInfo(info)
+
+
+    :param info: :attr:`PySide.QtNetwork.QSslCertificate.SubjectInfo`
+    :rtype: unicode
+
+
+
+
+    Returns the information for the ``subject`` , or an empty string if there is no information for ``subject`` in the certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.issuerInfo` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.subjectInfo(tag)
+
+
+    :param tag: :class:`PySide.QtCore.QByteArray`
+    :rtype: unicode
+
+
+
+
+    Returns the subject information for ``tag`` , or an empty string if there is no information for ``tag`` in the certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslCertificate.issuerInfo` 
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.toDer()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns this certificate converted to a DER (binary) encoded representation.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.toPem()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns this certificate converted to a PEM (Base64) encoded representation.
+
+
+
+.. method:: PySide.QtNetwork.QSslCertificate.version()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the certificate's version string.
+
+
+
+

@@ -1,0 +1,325 @@
+.. module:: PySide.QtGui
+.. _QGraphicsLinearLayout:
+
+QGraphicsLinearLayout
+*********************
+
+.. inheritance-diagram:: QGraphicsLinearLayout
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addItem<PySide.QtGui.QGraphicsLinearLayout.addItem>` (item)
+*    def :meth:`addStretch<PySide.QtGui.QGraphicsLinearLayout.addStretch>` ([stretch=1])
+*    def :meth:`alignment<PySide.QtGui.QGraphicsLinearLayout.alignment>` (item)
+*    def :meth:`dump<PySide.QtGui.QGraphicsLinearLayout.dump>` ([indent=0])
+*    def :meth:`insertItem<PySide.QtGui.QGraphicsLinearLayout.insertItem>` (index, item)
+*    def :meth:`insertStretch<PySide.QtGui.QGraphicsLinearLayout.insertStretch>` (index[, stretch=1])
+*    def :meth:`itemSpacing<PySide.QtGui.QGraphicsLinearLayout.itemSpacing>` (index)
+*    def :meth:`orientation<PySide.QtGui.QGraphicsLinearLayout.orientation>` ()
+*    def :meth:`removeItem<PySide.QtGui.QGraphicsLinearLayout.removeItem>` (item)
+*    def :meth:`setAlignment<PySide.QtGui.QGraphicsLinearLayout.setAlignment>` (item, alignment)
+*    def :meth:`setItemSpacing<PySide.QtGui.QGraphicsLinearLayout.setItemSpacing>` (index, spacing)
+*    def :meth:`setOrientation<PySide.QtGui.QGraphicsLinearLayout.setOrientation>` (orientation)
+*    def :meth:`setSpacing<PySide.QtGui.QGraphicsLinearLayout.setSpacing>` (spacing)
+*    def :meth:`setStretchFactor<PySide.QtGui.QGraphicsLinearLayout.setStretchFactor>` (item, stretch)
+*    def :meth:`spacing<PySide.QtGui.QGraphicsLinearLayout.spacing>` ()
+*    def :meth:`stretchFactor<PySide.QtGui.QGraphicsLinearLayout.stretchFactor>` (item)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsLinearLayout` class provides a horizontal or vertical layout for managing widgets in Graphics View.
+
+    The default orientation for a linear layout is :attr:`Qt.Horizontal<Qt.Orientation>` . You can choose a vertical orientation either by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.setOrientation` , or by passing :attr:`Qt.Vertical<Qt.Orientation>` to :class:`PySide.QtGui.QGraphicsLinearLayout` 's constructor.
+
+    The most common way to use :class:`PySide.QtGui.QGraphicsLinearLayout` is to construct an object on the heap with no parent, add widgets and layouts by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.addItem` , and finally assign the layout to a widget by calling :meth:`QGraphicsWidget.setLayout()<PySide.QtGui.QGraphicsWidget.setLayout>` .
+
+    ::
+
+        scene = QGraphicsScene()
+        textEdit = scene.addWidget(QTextEdit())
+        pushButton = scene.addWidget(QPushButton())
+
+        layout = QGraphicsLinearLayout()
+        layout.addItem(textEdit)
+        layout.addItem(pushButton)
+
+        form = QGraphicsWidget()
+        form.setLayout(layout)
+        scene.addItem(form)
+
+
+    You can add widgets, layouts, stretches ( :meth:`PySide.QtGui.QGraphicsLinearLayout.addStretch` , :meth:`PySide.QtGui.QGraphicsLinearLayout.insertStretch` or :meth:`PySide.QtGui.QGraphicsLinearLayout.setStretchFactor` ), and spacings ( :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing` ) to a linear layout. The layout takes ownership of the items. In some cases when the layout item also inherits from :class:`PySide.QtGui.QGraphicsItem` (such as :class:`PySide.QtGui.QGraphicsWidget` ) there will be a ambiguity in ownership because the layout item belongs to two ownership hierarchies. See the documentation of :meth:`QGraphicsLayoutItem.setOwnedByLayout()<PySide.QtGui.QGraphicsLayoutItem.setOwnedByLayout>` how to handle this. You can access each item in the layout by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.count` and :meth:`PySide.QtGui.QGraphicsLinearLayout.itemAt` . Calling :meth:`PySide.QtGui.QGraphicsLinearLayout.removeAt` or :meth:`PySide.QtGui.QGraphicsLinearLayout.removeItem` will remove an item from the layout, without destroying it.
+
+    .. _PySide.QtGui.QGraphicsLinearLayout_size-hints-and-size-policies-in-qgraphicslinearlayout:
+
+
+
+Size Hints and Size Policies in QGraphicsLinearLayout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QGraphicsLinearLayout` respects each item's size hints and size policies, and when the layout contains more space than the items can fill, each item is arranged according to the layout's alignment for that item. You can set an alignment for each item by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.setAlignment` , and check the alignment for any item by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.alignment` . By default, items are aligned to the top left.
+
+    .. _PySide.QtGui.QGraphicsLinearLayout_spacing-within-qgraphicslinearlayout:
+
+
+
+Spacing within QGraphicsLinearLayout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Between the items, the layout distributes some space. The actual amount of space depends on the managed widget's current style, but the common spacing is 4. You can also set your own spacing by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.setSpacing` , and get the current spacing value by calling :meth:`PySide.QtGui.QGraphicsLinearLayout.spacing` . If you want to configure individual spacing for your items, you can call :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing` .
+
+    .. _PySide.QtGui.QGraphicsLinearLayout_stretch-factor-in-qgraphicslinearlayout:
+
+
+
+Stretch Factor in QGraphicsLinearLayout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    You can assign a stretch factor to each item to control how much space it will get compared to the other items. By default, two identical widgets arranged in a linear layout will have the same size, but if the first widget has a stretch factor of 1 and the second widget has a stretch factor of 2, the first widget will get 1/3 of the available space, and the second will get 2/3.
+
+    :class:`PySide.QtGui.QGraphicsLinearLayout` calculates the distribution of sizes by adding up the stretch factors of all items, and then dividing the available space accordingly. The default stretch factor is 0 for all items; a factor of 0 means the item does not have any defined stretch factor; effectively this is the same as setting the stretch factor to 1. The stretch factor only applies to the available space in the lengthwise direction of the layout (following its orientation). If you want to control both the item's horizontal and vertical stretch, you can use :class:`PySide.QtGui.QGraphicsGridLayout` instead.
+
+    .. _PySide.QtGui.QGraphicsLinearLayout_qgraphicslinearlayout-compared-to-other-layouts:
+
+
+
+QGraphicsLinearLayout Compared to Other Layouts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QGraphicsLinearLayout` is very similar to :class:`PySide.QtGui.QVBoxLayout` and :class:`PySide.QtGui.QHBoxLayout` , but in contrast to these classes, it is used to manage :class:`PySide.QtGui.QGraphicsWidget` and :class:`PySide.QtGui.QGraphicsLayout` instead of :class:`PySide.QtGui.QWidget` and :class:`PySide.QtGui.QLayout` .
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsGridLayout`  :class:`PySide.QtGui.QGraphicsWidget` 
+
+.. class:: QGraphicsLinearLayout([parent=None])
+           QGraphicsLinearLayout(orientation[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+    Constructs a :class:`PySide.QtGui.QGraphicsLinearLayout` instance using :attr:`Qt.Horizontal<Qt.Orientation>` orientation. ``parent`` is passed to :class:`PySide.QtGui.QGraphicsLayout` 's constructor.
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.addItem(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    This convenience function is equivalent to calling insertItem(-1, ``item`` ).
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.addStretch([stretch=1])
+
+
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    This convenience function is equivalent to calling insertStretch(-1, ``stretch`` ).
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.alignment(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the alignment for ``item`` . The default alignment is :attr:`Qt.AlignTop<Qt.AlignmentFlag>` | :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` .
+
+    The alignment decides how the item is positioned within its assigned space in the case where there's more space available in the layout than the widgets can occupy.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.setAlignment` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.dump([indent=0])
+
+
+    :param indent: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.insertItem(index, item)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    Inserts ``item`` into the layout at ``index`` , or before any item that is currently at ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.addItem`  :meth:`PySide.QtGui.QGraphicsLinearLayout.itemAt`  :meth:`PySide.QtGui.QGraphicsLinearLayout.insertStretch`  :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.insertStretch(index[, stretch=1])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts a stretch of ``stretch`` at ``index`` , or before any item that is currently at ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.addStretch`  :meth:`PySide.QtGui.QGraphicsLinearLayout.setStretchFactor`  :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing`  :meth:`PySide.QtGui.QGraphicsLinearLayout.insertItem` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.itemSpacing(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the spacing after item at ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    Returns the layout orientation.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.setOrientation` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.removeItem(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    Removes ``item`` from the layout without destroying it. Ownership of ``item`` is transferred to the caller.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.removeAt`  :meth:`PySide.QtGui.QGraphicsLinearLayout.insertItem` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.setAlignment(item, alignment)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.setItemSpacing(index, spacing)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the spacing after item at ``index`` to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.itemSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.setOrientation(orientation)
+
+
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.setSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the layout's spacing to ``spacing`` . Spacing refers to the vertical and horizontal distances between items.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.spacing`  :meth:`PySide.QtGui.QGraphicsLinearLayout.setItemSpacing`  :meth:`PySide.QtGui.QGraphicsLinearLayout.setStretchFactor`  :meth:`QGraphicsGridLayout.setSpacing()<PySide.QtGui.QGraphicsGridLayout.setSpacing>` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.setStretchFactor(item, stretch)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor for ``item`` to ``stretch`` . If an item's stretch factor changes, this function will invalidate the layout.
+
+    Setting ``stretch`` to 0 removes the stretch factor from the item, and is effectively equivalent to setting ``stretch`` to 1.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.stretchFactor` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.spacing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the layout's spacing. Spacing refers to the vertical and horizontal distances between items.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.setSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsLinearLayout.stretchFactor(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor for ``item`` . The default stretch factor is 0, meaning that the item has no assigned stretch factor.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLinearLayout.setStretchFactor` 
+
+
+

@@ -1,0 +1,387 @@
+.. module:: PySide.QtSvg
+.. _QSvgRenderer:
+
+QSvgRenderer
+************
+
+.. inheritance-diagram:: QSvgRenderer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`animated<PySide.QtSvg.QSvgRenderer.animated>` ()
+*    def :meth:`animationDuration<PySide.QtSvg.QSvgRenderer.animationDuration>` ()
+*    def :meth:`boundsOnElement<PySide.QtSvg.QSvgRenderer.boundsOnElement>` (id)
+*    def :meth:`currentFrame<PySide.QtSvg.QSvgRenderer.currentFrame>` ()
+*    def :meth:`defaultSize<PySide.QtSvg.QSvgRenderer.defaultSize>` ()
+*    def :meth:`elementExists<PySide.QtSvg.QSvgRenderer.elementExists>` (id)
+*    def :meth:`framesPerSecond<PySide.QtSvg.QSvgRenderer.framesPerSecond>` ()
+*    def :meth:`isValid<PySide.QtSvg.QSvgRenderer.isValid>` ()
+*    def :meth:`matrixForElement<PySide.QtSvg.QSvgRenderer.matrixForElement>` (id)
+*    def :meth:`setCurrentFrame<PySide.QtSvg.QSvgRenderer.setCurrentFrame>` (arg__1)
+*    def :meth:`setFramesPerSecond<PySide.QtSvg.QSvgRenderer.setFramesPerSecond>` (num)
+*    def :meth:`setViewBox<PySide.QtSvg.QSvgRenderer.setViewBox>` (viewbox)
+*    def :meth:`setViewBox<PySide.QtSvg.QSvgRenderer.setViewBox>` (viewbox)
+*    def :meth:`viewBox<PySide.QtSvg.QSvgRenderer.viewBox>` ()
+*    def :meth:`viewBoxF<PySide.QtSvg.QSvgRenderer.viewBoxF>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`load<PySide.QtSvg.QSvgRenderer.load>` (contents)
+*    def :meth:`load<PySide.QtSvg.QSvgRenderer.load>` (contents)
+*    def :meth:`load<PySide.QtSvg.QSvgRenderer.load>` (filename)
+*    def :meth:`render<PySide.QtSvg.QSvgRenderer.render>` (p)
+*    def :meth:`render<PySide.QtSvg.QSvgRenderer.render>` (p, bounds)
+*    def :meth:`render<PySide.QtSvg.QSvgRenderer.render>` (p, elementId[, bounds=QRectF()])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`repaintNeeded<PySide.QtSvg.QSvgRenderer.repaintNeeded>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSvg.QSvgRenderer` class is used to draw the contents of SVG files onto paint devices.
+
+    Using :class:`PySide.QtSvg.QSvgRenderer` , Scalable Vector Graphics (SVG) can be rendered onto any :class:`PySide.QtGui.QPaintDevice` subclass, including :class:`PySide.QtGui.QWidget` , :class:`PySide.QtGui.QImage` , and :class:`PySide.QtOpenGL.QGLWidget` .
+
+    :class:`PySide.QtSvg.QSvgRenderer` provides an API that supports basic features of SVG rendering, such as loading and rendering of static drawings, and more interactive features like animation. Since the rendering is performed using :class:`PySide.QtGui.QPainter` , SVG drawings can be rendered on any subclass of :class:`PySide.QtGui.QPaintDevice` .
+
+    SVG drawings are either loaded when an :class:`PySide.QtSvg.QSvgRenderer` is constructed, or loaded later using the :meth:`PySide.QtSvg.QSvgRenderer.load` functions. Data is either supplied directly as serialized XML, or indirectly using a file name. If a valid file has been loaded, either when the renderer is constructed or at some later time, :meth:`PySide.QtSvg.QSvgRenderer.isValid` returns true; otherwise it returns false. :class:`PySide.QtSvg.QSvgRenderer` provides the :meth:`PySide.QtSvg.QSvgRenderer.render` slot to render the current document, or the current frame of an animated document, using a given painter.
+
+    The :meth:`PySide.QtSvg.QSvgRenderer.defaultSize` function provides information about the amount of space that is required to render the currently loaded SVG file. This is useful for paint devices, such as :class:`PySide.QtGui.QWidget` , that often need to supply a size hint to their parent layout. The default size of a drawing may differ from its visible area, found using the :meth:`PySide.QtSvg.QSvgRenderer.viewBox` property.
+
+    Animated SVG drawings are supported, and can be controlled with a simple collection of functions and properties:
+
+
+    * The :meth:`PySide.QtSvg.QSvgRenderer.animated` function indicates whether a drawing contains animation information.
+    * The :meth:`PySide.QtSvg.QSvgRenderer.framesPerSecond` property contains the rate at which the animation plays.
+
+    Finally, the :class:`PySide.QtSvg.QSvgRenderer` class provides the :meth:`PySide.QtSvg.QSvgRenderer.repaintNeeded` signal which is emitted whenever the rendering of the document needs to be updated.
+
+    .. seealso::  :class:`PySide.QtSvg.QSvgWidget`  :ref:`QtSvg Module<QtSvg>`  :ref:`SVG Viewer Example<painting/svgviewer>`  :class:`PySide.QtGui.QPicture` 
+
+.. class:: QSvgRenderer([parent=None])
+           QSvgRenderer(contents[, parent=None])
+           QSvgRenderer(contents[, parent=None])
+           QSvgRenderer(filename[, parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param contents: :class:`PySide.QtCore.QXmlStreamReader`
+    :param filename: unicode
+
+    Constructs a new renderer with the given ``parent`` .
+
+
+    Constructs a new renderer with the given ``parent`` and loads the SVG data using the stream reader specified by ``contents`` .
+
+
+    Constructs a new renderer with the given ``parent`` and loads the SVG data from the byte array specified by ``contents`` .
+
+
+    Constructs a new renderer with the given ``parent`` and loads the contents of the SVG file with the specified ``filename`` .
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.animated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the current document contains animated elements; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.framesPerSecond` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.animationDuration()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of frames in the animation, or 0 if the current document is not animated.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.animated`  :meth:`PySide.QtSvg.QSvgRenderer.framesPerSecond` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.boundsOnElement(id)
+
+
+    :param id: unicode
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns bounding rectangle of the item with the given ``id`` . The transformation matrix of parent elements is not affecting the bounds of the element.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.matrixForElement` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.currentFrame()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current frame of the document's animation, or 0 if the document is not animated.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.animationDuration`  :meth:`PySide.QtSvg.QSvgRenderer.framesPerSecond`  :meth:`PySide.QtSvg.QSvgRenderer.animated` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.defaultSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the default size of the document contents.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.elementExists(id)
+
+
+    :param id: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the element with the given ``id`` exists in the currently parsed SVG file and is a renderable element.
+
+    Note: this method returns true only for elements that can be rendered. Which implies that elements that are considered part of the fill/stroke style properties, e.g. radialGradients even tough marked with "id" attributes will not be found by this method.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.framesPerSecond()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of frames per second to be shown.
+
+    The number of frames per second is 0 if the current document is not animated.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.animated` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is a valid current document; otherwise returns false.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.load(contents)
+
+
+    :param contents: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads the specified SVG format ``contents`` , returning true if the content was successfully parsed; otherwise returns false.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.load(filename)
+
+
+    :param filename: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads the SVG file specified by ``filename`` , returning true if the content was successfully parsed; otherwise returns false.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.load(contents)
+
+
+    :param contents: :class:`PySide.QtCore.QXmlStreamReader`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads the specified SVG in ``contents`` , returning true if the content was successfully parsed; otherwise returns false.
+
+    The reader will be used from where it currently is positioned. If ``contents`` is ``null`` , behavior is undefined.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.matrixForElement(id)
+
+
+    :param id: unicode
+    :rtype: :class:`PySide.QtGui.QMatrix`
+
+
+
+
+    Returns the transformation matrix for the element with the given ``id`` . The matrix is a product of the transformation of the element's parents. The transformation of the element itself is not included.
+
+    To find the bounding rectangle of the element in logical coordinates, you can apply the matrix on the rectangle returned from :meth:`PySide.QtSvg.QSvgRenderer.boundsOnElement` .
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.boundsOnElement` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.render(p, bounds)
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+    :param bounds: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Renders the current document, or the current frame of an animated document, using the given ``painter`` on the specified ``bounds`` within the painter. If the bounding rectangle is not specified the SVG file is mapped to the whole paint device.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.render(p, elementId[, bounds=QRectF()])
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+    :param elementId: unicode
+    :param bounds: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Renders the given element with ``elementId`` using the given ``painter`` on the specified ``bounds`` . If the bounding rectangle is not specified the SVG element is mapped to the whole paint device.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.render(p)
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Renders the current document, or the current frame of an animated document, using the given ``painter`` .
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.repaintNeeded()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.setCurrentFrame(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current frame of the document's animation, or 0 if the document is not animated.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.animationDuration`  :meth:`PySide.QtSvg.QSvgRenderer.framesPerSecond`  :meth:`PySide.QtSvg.QSvgRenderer.animated` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.setFramesPerSecond(num)
+
+
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of frames per second to be shown.
+
+    The number of frames per second is 0 if the current document is not animated.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.animated` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.setViewBox(viewbox)
+
+
+    :param viewbox: :class:`PySide.QtCore.QRect`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.viewBox` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.setViewBox(viewbox)
+
+
+    :param viewbox: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    This property holds the rectangle specifying the visible area of the document in logical coordinates.
+
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.viewBox()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns :meth:`PySide.QtSvg.QSvgRenderer.viewBoxF` . :meth:`~PySide.QtSvg.QSvgRenderer.toRect` .
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgRenderer.setViewBox`  :meth:`PySide.QtSvg.QSvgRenderer.viewBoxF` 
+
+
+.. method:: PySide.QtSvg.QSvgRenderer.viewBoxF()
+
+
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    This property holds the rectangle specifying the visible area of the document in logical coordinates.
+
+
+
+

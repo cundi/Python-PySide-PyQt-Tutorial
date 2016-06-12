@@ -1,0 +1,362 @@
+.. module:: PySide.QtGui
+.. _QSystemTrayIcon:
+
+QSystemTrayIcon
+***************
+
+.. inheritance-diagram:: QSystemTrayIcon
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`contextMenu<PySide.QtGui.QSystemTrayIcon.contextMenu>` ()
+*    def :meth:`geometry<PySide.QtGui.QSystemTrayIcon.geometry>` ()
+*    def :meth:`icon<PySide.QtGui.QSystemTrayIcon.icon>` ()
+*    def :meth:`isVisible<PySide.QtGui.QSystemTrayIcon.isVisible>` ()
+*    def :meth:`setContextMenu<PySide.QtGui.QSystemTrayIcon.setContextMenu>` (menu)
+*    def :meth:`setIcon<PySide.QtGui.QSystemTrayIcon.setIcon>` (icon)
+*    def :meth:`setToolTip<PySide.QtGui.QSystemTrayIcon.setToolTip>` (tip)
+*    def :meth:`showMessage<PySide.QtGui.QSystemTrayIcon.showMessage>` (title, msg[, icon=Information[, msecs=10000]])
+*    def :meth:`toolTip<PySide.QtGui.QSystemTrayIcon.toolTip>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`hide<PySide.QtGui.QSystemTrayIcon.hide>` ()
+*    def :meth:`setVisible<PySide.QtGui.QSystemTrayIcon.setVisible>` (visible)
+*    def :meth:`show<PySide.QtGui.QSystemTrayIcon.show>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activated<PySide.QtGui.QSystemTrayIcon.activated>` (reason)
+*    def :meth:`messageClicked<PySide.QtGui.QSystemTrayIcon.messageClicked>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isSystemTrayAvailable<PySide.QtGui.QSystemTrayIcon.isSystemTrayAvailable>` ()
+*    def :meth:`supportsMessages<PySide.QtGui.QSystemTrayIcon.supportsMessages>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSystemTrayIcon` class provides an icon for an application in the system tray.
+
+    Modern operating systems usually provide a special area on the desktop, called the *system tray* or *notification area* , where long-running applications can display icons and short messages.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/system-tray.png
+
+    The :class:`PySide.QtGui.QSystemTrayIcon` class can be used on the following platforms:
+
+
+    * All supported versions of Windows.
+    * All window managers for X11 that implement the :ref:`freedesktop.org<http://www.freedesktop.org/>` system tray specification, including recent versions of KDE and GNOME.
+    * All supported versions of Mac OS X. Note that the Growl notification system must be installed for :meth:`QSystemTrayIcon.showMessage()<PySide.QtGui.QSystemTrayIcon.showMessage>` to display messages.
+
+    To check whether a system tray is present on the user's desktop, call the :meth:`QSystemTrayIcon.isSystemTrayAvailable()<PySide.QtGui.QSystemTrayIcon.isSystemTrayAvailable>` static function.
+
+    To add a system tray entry, create a :class:`PySide.QtGui.QSystemTrayIcon` object, call :meth:`PySide.QtGui.QSystemTrayIcon.setContextMenu` to provide a context menu for the icon, and call :meth:`PySide.QtGui.QSystemTrayIcon.show` to make it visible in the system tray. Status notification messages ("balloon messages") can be displayed at any time using :meth:`PySide.QtGui.QSystemTrayIcon.showMessage` .
+
+    If the system tray is unavailable when a system tray icon is constructed, but becomes available later, :class:`PySide.QtGui.QSystemTrayIcon` will automatically add an entry for the application in the system tray if the icon is :meth:`~PySide.QtGui.QSystemTrayIcon.visible` .
+
+    The :meth:`PySide.QtGui.QSystemTrayIcon.activated` signal is emitted when the user activates the icon.
+
+    Only on X11, when a tooltip is requested, the :class:`PySide.QtGui.QSystemTrayIcon` receives a :class:`PySide.QtGui.QHelpEvent` of type :attr:`QEvent.ToolTip<QEvent.Type>` . Additionally, the :class:`PySide.QtGui.QSystemTrayIcon` receives wheel events of type :attr:`QEvent.Wheel<QEvent.Type>` . These are not supported on any other platform.
+
+    .. seealso::  :class:`PySide.QtGui.QDesktopServices`  :class:`PySide.QtGui.QDesktopWidget`  :ref:`Desktop Integration<desktop-integration.html>`  :ref:`System Tray Icon Example<desktop/systray>` 
+
+.. class:: QSystemTrayIcon([parent=None])
+           QSystemTrayIcon(icon[, parent=None])
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtGui.QSystemTrayIcon` object with the given ``parent`` .
+
+    The icon is initially invisible.
+
+    .. seealso::  :meth:`~PySide.QtGui.QSystemTrayIcon.visible` 
+
+    Constructs a :class:`PySide.QtGui.QSystemTrayIcon` object with the given ``icon`` and ``parent`` .
+
+    The icon is initially invisible.
+
+    .. seealso::  :meth:`~PySide.QtGui.QSystemTrayIcon.visible` 
+
+.. attribute:: PySide.QtGui.QSystemTrayIcon.MessageIcon
+
+    This enum describes the icon that is shown when a balloon message is displayed.
+
+    +---------------------------+---------------------------------+
+    |Constant                   |Description                      |
+    +===========================+=================================+
+    |QSystemTrayIcon.NoIcon     |No icon is shown.                |
+    +---------------------------+---------------------------------+
+    |QSystemTrayIcon.Information|An information icon is shown.    |
+    +---------------------------+---------------------------------+
+    |QSystemTrayIcon.Warning    |A standard warning icon is shown.|
+    +---------------------------+---------------------------------+
+    |QSystemTrayIcon.Critical   |A critical warning icon is shown.|
+    +---------------------------+---------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QMessageBox` 
+
+.. attribute:: PySide.QtGui.QSystemTrayIcon.ActivationReason
+
+    This enum describes the reason the system tray was activated.
+
+    +---------------------------+--------------------------------------------------------------+
+    |Constant                   |Description                                                   |
+    +===========================+==============================================================+
+    |QSystemTrayIcon.Unknown    |Unknown reason                                                |
+    +---------------------------+--------------------------------------------------------------+
+    |QSystemTrayIcon.Context    |The context menu for the system tray entry was requested      |
+    +---------------------------+--------------------------------------------------------------+
+    |QSystemTrayIcon.DoubleClick|The system tray entry was double clicked                      |
+    +---------------------------+--------------------------------------------------------------+
+    |QSystemTrayIcon.Trigger    |The system tray entry was clicked                             |
+    +---------------------------+--------------------------------------------------------------+
+    |QSystemTrayIcon.MiddleClick|The system tray entry was clicked with the middle mouse button|
+    +---------------------------+--------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.activated` 
+
+.. method:: PySide.QtGui.QSystemTrayIcon.activated(reason)
+
+
+    :param reason: :attr:`PySide.QtGui.QSystemTrayIcon.ActivationReason`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.contextMenu()
+
+
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Returns the current context menu for the system tray entry.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.setContextMenu` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.geometry()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of the system tray icon in screen coordinates.
+
+    .. seealso::  :meth:`~PySide.QtGui.QSystemTrayIcon.visible` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.hide()
+
+
+
+
+
+
+    Hides the system tray entry.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.show`  :meth:`~PySide.QtGui.QSystemTrayIcon.visible` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the system tray icon.
+
+    On Windows, the system tray icon size is 16x16; on X11, the preferred size is 22x22. The icon will be scaled to the appropriate size as necessary.
+
+
+
+.. staticmethod:: PySide.QtGui.QSystemTrayIcon.isSystemTrayAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the system tray is available; otherwise returns false.
+
+    If the system tray is currently unavailable but becomes available later, :class:`PySide.QtGui.QSystemTrayIcon` will automatically add an entry in the system tray if it is :meth:`~PySide.QtGui.QSystemTrayIcon.visible` .
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.isVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the system tray entry is visible.
+
+    Setting this property to true or calling :meth:`PySide.QtGui.QSystemTrayIcon.show` makes the system tray icon visible; setting this property to false or calling :meth:`PySide.QtGui.QSystemTrayIcon.hide` hides it.
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.messageClicked()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.setContextMenu(menu)
+
+
+    :param menu: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Sets the specified ``menu`` to be the context menu for the system tray icon.
+
+    The menu will pop up when the user requests the context menu for the system tray icon by clicking the mouse button.
+
+    On Mac OS X, this is currenly converted to a NSMenu, so the aboutToHide() signal is not emitted.
+
+    .. note::  The system tray icon does not take ownership of the menu. You must ensure that it is deleted at the appropriate time by, for example, creating the menu with a suitable parent object.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.contextMenu` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.setIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the system tray icon.
+
+    On Windows, the system tray icon size is 16x16; on X11, the preferred size is 22x22. The icon will be scaled to the appropriate size as necessary.
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.setToolTip(tip)
+
+
+    :param tip: unicode
+
+
+
+
+    This property holds the tooltip for the system tray entry.
+
+    On some systems, the tooltip's length is limited. The tooltip will be truncated if necessary.
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.setVisible(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the system tray entry is visible.
+
+    Setting this property to true or calling :meth:`PySide.QtGui.QSystemTrayIcon.show` makes the system tray icon visible; setting this property to false or calling :meth:`PySide.QtGui.QSystemTrayIcon.hide` hides it.
+
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.show()
+
+
+
+
+
+
+    Shows the icon in the system tray.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.hide`  :meth:`~PySide.QtGui.QSystemTrayIcon.visible` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.showMessage(title, msg[, icon=Information[, msecs=10000]])
+
+
+    :param title: unicode
+    :param msg: unicode
+    :param icon: :attr:`PySide.QtGui.QSystemTrayIcon.MessageIcon`
+    :param msecs: :class:`PySide.QtCore.int`
+
+
+
+
+    Shows a balloon message for the entry with the given ``title`` , ``message`` and ``icon`` for the time specified in ``millisecondsTimeoutHint`` . ``title`` and ``message`` must be plain text strings.
+
+    Message can be clicked by the user; the :meth:`PySide.QtGui.QSystemTrayIcon.messageClicked` signal will emitted when this occurs.
+
+    Note that display of messages are dependent on the system configuration and user preferences, and that messages may not appear at all. Hence, it should not be relied upon as the sole means for providing critical information.
+
+    On Windows, the ``millisecondsTimeoutHint`` is usually ignored by the system when the application has focus.
+
+    On Mac OS X, the Growl notification system must be installed for this function to display messages.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.show`  :meth:`PySide.QtGui.QSystemTrayIcon.supportsMessages` 
+
+
+.. staticmethod:: PySide.QtGui.QSystemTrayIcon.supportsMessages()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the system tray supports balloon messages; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSystemTrayIcon.showMessage` 
+
+
+.. method:: PySide.QtGui.QSystemTrayIcon.toolTip()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the tooltip for the system tray entry.
+
+    On some systems, the tooltip's length is limited. The tooltip will be truncated if necessary.
+
+
+
+

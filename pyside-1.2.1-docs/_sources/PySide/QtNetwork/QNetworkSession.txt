@@ -1,0 +1,532 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkSession:
+
+QNetworkSession
+***************
+
+.. inheritance-diagram:: QNetworkSession
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.7
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeTime<PySide.QtNetwork.QNetworkSession.activeTime>` ()
+*    def :meth:`bytesReceived<PySide.QtNetwork.QNetworkSession.bytesReceived>` ()
+*    def :meth:`bytesWritten<PySide.QtNetwork.QNetworkSession.bytesWritten>` ()
+*    def :meth:`configuration<PySide.QtNetwork.QNetworkSession.configuration>` ()
+*    def :meth:`error<PySide.QtNetwork.QNetworkSession.error>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QNetworkSession.errorString>` ()
+*    def :meth:`interface<PySide.QtNetwork.QNetworkSession.interface>` ()
+*    def :meth:`isOpen<PySide.QtNetwork.QNetworkSession.isOpen>` ()
+*    def :meth:`sessionProperty<PySide.QtNetwork.QNetworkSession.sessionProperty>` (key)
+*    def :meth:`setSessionProperty<PySide.QtNetwork.QNetworkSession.setSessionProperty>` (key, value)
+*    def :meth:`state<PySide.QtNetwork.QNetworkSession.state>` ()
+*    def :meth:`waitForOpened<PySide.QtNetwork.QNetworkSession.waitForOpened>` ([msecs=30000])
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`accept<PySide.QtNetwork.QNetworkSession.accept>` ()
+*    def :meth:`close<PySide.QtNetwork.QNetworkSession.close>` ()
+*    def :meth:`ignore<PySide.QtNetwork.QNetworkSession.ignore>` ()
+*    def :meth:`migrate<PySide.QtNetwork.QNetworkSession.migrate>` ()
+*    def :meth:`open<PySide.QtNetwork.QNetworkSession.open>` ()
+*    def :meth:`reject<PySide.QtNetwork.QNetworkSession.reject>` ()
+*    def :meth:`stop<PySide.QtNetwork.QNetworkSession.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`closed<PySide.QtNetwork.QNetworkSession.closed>` ()
+*    def :meth:`error<PySide.QtNetwork.QNetworkSession.error>` (arg__1)
+*    def :meth:`newConfigurationActivated<PySide.QtNetwork.QNetworkSession.newConfigurationActivated>` ()
+*    def :meth:`opened<PySide.QtNetwork.QNetworkSession.opened>` ()
+*    def :meth:`preferredConfigurationChanged<PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged>` (config, isSeamless)
+*    def :meth:`stateChanged<PySide.QtNetwork.QNetworkSession.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkSession` class provides control over the system's access points and enables session management for cases when multiple clients access the same access point.
+
+    A :class:`PySide.QtNetwork.QNetworkSession` enables control over the system's network interfaces. The session's configuration parameter are determined via the :class:`PySide.QtNetwork.QNetworkConfiguration` object to which it is bound. Depending on the type of the session (single access point or service network) a session may be linked to one or more network interfaces. By means of :meth:`opening<PySide.QtNetwork.QNetworkSession.open>` and :meth:`closing<PySide.QtNetwork.QNetworkSession.close>` of network sessions a developer can start and stop the systems network interfaces. If the configuration represents multiple access points (see :attr:`QNetworkConfiguration.ServiceNetwork<QNetworkConfiguration.Type>` ) more advanced features such as roaming may be supported.
+
+    :class:`PySide.QtNetwork.QNetworkSession` supports session management within the same process and depending on the platform's capabilities may support out-of-process sessions. If the same network configuration is used by multiple open sessions the underlying network interface is only terminated once the last session has been closed.
+
+    .. _PySide.QtNetwork.QNetworkSession_roaming:
+
+
+
+Roaming
+^^^^^^^
+
+    Applications may connect to the :meth:`PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged` signal in order to receive notifications when a more suitable access point becomes available. In response to this signal the application must either initiate the roaming via :meth:`PySide.QtNetwork.QNetworkSession.migrate` or :meth:`PySide.QtNetwork.QNetworkSession.ignore` the new access point. Once the session has roamed the :meth:`PySide.QtNetwork.QNetworkSession.newConfigurationActivated` signal is emitted. The application may now test the carrier and must either :meth:`PySide.QtNetwork.QNetworkSession.accept` or :meth:`PySide.QtNetwork.QNetworkSession.reject` it. The session will return to the previous access point if the roaming was rejected. The subsequent state diagram depicts the required state transitions.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/roaming-states.png
+
+    Some platforms may distinguish forced roaming and application level roaming (ALR). ALR implies that the application controls (via :meth:`PySide.QtNetwork.QNetworkSession.migrate` , :meth:`PySide.QtNetwork.QNetworkSession.ignore` , :meth:`PySide.QtNetwork.QNetworkSession.accept` and :meth:`PySide.QtNetwork.QNetworkSession.reject` ) whether a network session can roam from one access point to the next. Such control is useful if the application maintains stateful socket connections and wants to control the transition from one interface to the next. Forced roaming implies that the system automatically roams to the next network without consulting the application. This has the advantage that the application can make use of roaming features without actually being aware of it. It is expected that the application detects that the underlying socket is broken and automatically reconnects via the new network link.
+
+    If the platform supports both modes of roaming, an application indicates its preference by connecting to the :meth:`PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged` signal. Connecting to this signal means that the application wants to take control over the roaming behavior and therefore implies application level roaming. If the client does not connect to the :meth:`PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged` , forced roaming is used. If forced roaming is not supported the network session will not roam by default.
+
+    Some applications may want to suppress any form of roaming altogether. Possible use cases may be high priority downloads or remote services which cannot handle a roaming enabled client. Clients can suppress roaming by connecting to the :meth:`PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged` signal and answer each signal emission with :meth:`PySide.QtNetwork.QNetworkSession.ignore` .
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkConfiguration`  :class:`PySide.QtNetwork.QNetworkConfigurationManager` 
+
+.. class:: QNetworkSession(connConfig[, parent=None])
+
+    :param connConfig: :class:`PySide.QtNetwork.QNetworkConfiguration`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a session based on ``connectionConfig`` with the given ``parent`` .
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkConfiguration` 
+
+.. attribute:: PySide.QtNetwork.QNetworkSession.SessionError
+
+    This enum describes the session errors that can occur.
+
+    +------------------------------------------+--------------------------------------------------------------------------+
+    |Constant                                  |Description                                                               |
+    +==========================================+==========================================================================+
+    |QNetworkSession.UnknownSessionError       |An unidentified error occurred.                                           |
+    +------------------------------------------+--------------------------------------------------------------------------+
+    |QNetworkSession.SessionAbortedError       |The session was aborted by the user or system.                            |
+    +------------------------------------------+--------------------------------------------------------------------------+
+    |QNetworkSession.RoamingError              |The session cannot roam to a new configuration.                           |
+    +------------------------------------------+--------------------------------------------------------------------------+
+    |QNetworkSession.OperationNotSupportedError|The operation is not supported for current configuration.                 |
+    +------------------------------------------+--------------------------------------------------------------------------+
+    |QNetworkSession.InvalidConfigurationError |The operation cannot currently be performed for the current configuration.|
+    +------------------------------------------+--------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtNetwork.QNetworkSession.State
+
+    This enum describes the connectivity state of the session. If the session is based on a single access point configuration the state of the session is the same as the state of the associated network interface.
+
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                                                                                                          |
+    +============================+=====================================================================================================================================================================================================================================================================================================================+
+    |QNetworkSession.Invalid     |The session is invalid due to an invalid configuration. This may happen due to a removed access point or a configuration that was invalid to begin with.                                                                                                                                                             |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.NotAvailable|The session is based on a defined but not yet discovered :class:`PySide.QtNetwork.QNetworkConfiguration` (see :attr:`QNetworkConfiguration.StateFlag` ).                                                                                                                                                             |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.Connecting  |The network session is being established.                                                                                                                                                                                                                                                                            |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.Connected   |The network session is connected. If the current process wishes to use this session it has to register its interest by calling :meth:`PySide.QtNetwork.QNetworkSession.open` . A network session is considered to be ready for socket operations if it :meth:`PySide.QtNetwork.QNetworkSession.isOpen` and connected.|
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.Closing     |The network session is in the process of being shut down.                                                                                                                                                                                                                                                            |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.Disconnected|The network session is not connected. The associated :class:`PySide.QtNetwork.QNetworkConfiguration` has the state :attr:`QNetworkConfiguration.Discovered<QNetworkConfiguration.StateFlag>` .                                                                                                                       |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkSession.Roaming     |The network session is roaming from one access point to another access point.                                                                                                                                                                                                                                        |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. method:: PySide.QtNetwork.QNetworkSession.accept()
+
+
+
+
+
+
+    Instructs the session to permanently accept the new access point. Once this function has been called the session may not return to the old access point.
+
+    The old access point may be closed in the process if there are no other network sessions for it. Therefore any open socket that still uses the old access point may become unusable and should be closed before completing the migration.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.activeTime()
+
+
+    :rtype: :class:`PySide.QtCore.quint64`
+
+
+
+
+    Returns the number of seconds that the session has been active.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.bytesReceived()
+
+
+    :rtype: :class:`PySide.QtCore.quint64`
+
+
+
+
+    Returns the amount of data received in bytes; otherwise 0.
+
+    This field value includes the usage across all open network sessions which use the same network interface.
+
+    If the session is based on a service network configuration the number of sent bytes across all active member configurations are returned.
+
+    This function may not always be supported on all platforms and returns 0. The platform capability can be detected via :attr:`QNetworkConfigurationManager.DataStatistics<QNetworkConfigurationManager.Capability>` .
+
+    .. note::  On some platforms this function may run the main event loop.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.bytesWritten()
+
+
+    :rtype: :class:`PySide.QtCore.quint64`
+
+
+
+
+    Returns the amount of data sent in bytes; otherwise 0.
+
+    This field value includes the usage across all open network sessions which use the same network interface.
+
+    If the session is based on a service network configuration the number of sent bytes across all active member configurations are returned.
+
+    This function may not always be supported on all platforms and returns 0. The platform capability can be detected via :attr:`QNetworkConfigurationManager.DataStatistics<QNetworkConfigurationManager.Capability>` .
+
+    .. note::  On some platforms this function may run the main event loop.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.close()
+
+
+
+
+
+
+    Decreases the session counter on the associated network configuration. If the session counter reaches zero the active network interface is shut down. This also means that :meth:`PySide.QtNetwork.QNetworkSession.state` will only change from :attr:`Connected<QNetworkSession.State>` to :attr:`Disconnected<QNetworkSession.State>` if the current session was the last open session.
+
+    If the platform does not support out-of-process sessions calling this function does not stop the interface. In this case :meth:`PySide.QtNetwork.QNetworkSession.stop` has to be used to force a shut down. The platform capabilities can be detected via :meth:`QNetworkConfigurationManager.capabilities()<PySide.QtNetwork.QNetworkConfigurationManager.capabilities>` .
+
+    Note that this call is asynchronous. Depending on the outcome of this call the results can be enquired by connecting to the :meth:`PySide.QtNetwork.QNetworkSession.stateChanged` , :meth:`PySide.QtNetwork.QNetworkSession.opened` or :meth:`PySide.QtNetwork.QNetworkSession.error` signals.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.open`  :meth:`PySide.QtNetwork.QNetworkSession.stop`  :meth:`PySide.QtNetwork.QNetworkSession.isOpen` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.closed()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.configuration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkConfiguration` that this network session object is based on.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.error(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtNetwork.QNetworkSession.SessionError`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkSession.SessionError`
+
+
+
+
+    Returns the type of error that last occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.state`  :meth:`PySide.QtNetwork.QNetworkSession.errorString` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human-readable description of the last device error that occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.error` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.ignore()
+
+
+
+
+
+
+    This function indicates that the application does not wish to roam the session.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.migrate` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.interface()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkInterface`
+
+
+
+
+    Returns the network interface that is used by this session.
+
+    This function only returns a valid :class:`PySide.QtNetwork.QNetworkInterface` when this session is :attr:`Connected<QNetworkSession.State>` .
+
+    The returned interface may change as a result of a roaming process.
+
+    Note: this function does not work in Symbian emulator due to the way the connectivity is emulated on Windows.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.state` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.isOpen()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this session is open. If the number of all open sessions is greater than zero the underlying network interface will remain connected/up.
+
+    The session can be controlled via :meth:`PySide.QtNetwork.QNetworkSession.open` and :meth:`PySide.QtNetwork.QNetworkSession.close` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.migrate()
+
+
+
+
+
+
+    Instructs the session to roam to the new access point. The old access point remains active until the application calls :meth:`PySide.QtNetwork.QNetworkSession.accept` .
+
+    The :meth:`PySide.QtNetwork.QNetworkSession.newConfigurationActivated` signal is emitted once roaming has been completed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.accept` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.newConfigurationActivated()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.open()
+
+
+
+
+
+
+    Creates an open session which increases the session counter on the underlying network interface. The system will not terminate a network interface until the session reference counter reaches zero. Therefore an open session allows an application to register its use of the interface.
+
+    As a result of calling :meth:`PySide.QtNetwork.QNetworkSession.open` the interface will be started if it is not connected/up yet. Some platforms may not provide support for out-of-process sessions. On such platforms the session counter ignores any sessions held by another process. The platform capabilities can be detected via :meth:`QNetworkConfigurationManager.capabilities()<PySide.QtNetwork.QNetworkConfigurationManager.capabilities>` .
+
+    Note that this call is asynchronous. Depending on the outcome of this call the results can be enquired by connecting to the :meth:`PySide.QtNetwork.QNetworkSession.stateChanged` , :meth:`PySide.QtNetwork.QNetworkSession.opened` or :meth:`PySide.QtNetwork.QNetworkSession.error` signals.
+
+    It is not a requirement to open a session in order to monitor the underlying network interface.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.close`  :meth:`PySide.QtNetwork.QNetworkSession.stop`  :meth:`PySide.QtNetwork.QNetworkSession.isOpen` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.opened()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.preferredConfigurationChanged(config, isSeamless)
+
+
+    :param config: :class:`PySide.QtNetwork.QNetworkConfiguration`
+    :param isSeamless: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.reject()
+
+
+
+
+
+
+    The new access point is not suitable for the application. By calling this function the session returns to the previous access point/configuration. This action may invalidate any socket that has been created via the not desired access point.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.accept` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.sessionProperty(key)
+
+
+    :param key: unicode
+    :rtype: object
+
+
+
+
+    Returns the value for property ``key`` .
+
+    A network session can have properties attached which may describe the session in more details. This function can be used to gain access to those properties.
+
+    The following property keys are guaranteed to be specified on all platforms:
+
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Key                    |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |ActiveConfiguration    |If the session :meth:`PySide.QtNetwork.QNetworkSession.isOpen` this property returns the identifier of the :class:`PySide.QtNetwork.QNetworkConfiguration` that is used by this session; otherwise an empty string.                                                                                                                                                                                                                                                                                                          |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |    The main purpose of this key is to determine which Internet access point is used if the session is based on a :attr:`ServiceNetwork<QNetworkConfiguration.Type>` . The following code snippet highlights the difference:                                                                                                                                                                                                                                                                                                 |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |    ::                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |                QNetworkConfigurationManager mgr;                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    |                       |                QNetworkConfiguration ap = mgr.defaultConfiguration();                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+    |                       |                QNetworkSession *session = new QNetworkSession(ap);                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+    |                       |                ... //code activates session                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |                QString ident = session->sessionProperty("ActiveConfiguration").toString();                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    |                       |                if ( ap.type() == QNetworkConfiguration::ServiceNetwork ) {                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    |                       |                    Q_ASSERT( ap.identifier() != ident );                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+    |                       |                    Q_ASSERT( ap.children().contains( mgr.configurationFromIdentifier(ident) ) );                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    |                       |                } else if ( ap.type() == QNetworkConfiguration::InternetAccessPoint ) {                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+    |                       |                    Q_ASSERT( ap.identifier() == ident );                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+    |                       |                }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |UserChoiceConfiguration|If the session :meth:`PySide.QtNetwork.QNetworkSession.isOpen` and is bound to a :class:`PySide.QtNetwork.QNetworkConfiguration` of type UserChoice, this property returns the identifier of the :class:`PySide.QtNetwork.QNetworkConfiguration` that the configuration resolved to when :meth:`PySide.QtNetwork.QNetworkSession.open` was called; otherwise an empty string.                                                                                                                                                |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |    The purpose of this key is to determine the real :class:`PySide.QtNetwork.QNetworkConfiguration` that the session is using. This key is different from *ActiveConfiguration* in that this key may return an identifier for either a :attr:`service network<QNetworkConfiguration.Type>` or a :attr:`Internet access points<QNetworkConfiguration.Type>` configurations, whereas *ActiveConfiguration* always returns identifiers to :attr:`Internet access points<QNetworkConfiguration.Type>` configurations.           |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |ConnectInBackground    |Setting this property to *true* before calling :meth:`PySide.QtNetwork.QNetworkSession.open` implies that the connection attempt is made but if no connection can be established, the user is not connsulted and asked to select a suitable connection. This property is not set by default and support for it depends on the platform.                                                                                                                                                                                      |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |AutoCloseSessionTimeout|If the session requires polling to keep its state up to date, this property holds the timeout in milliseconds before the session will automatically close. If the value of this property is -1 the session will not automatically close. This property is set to -1 by default.                                                                                                                                                                                                                                              |
+    |                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |                       |    The purpose of this property is to minimize resource use on platforms that use polling to update the state of the session. Applications can set the value of this property to the desired timeout before the session is closed. In response to the :meth:`PySide.QtNetwork.QNetworkSession.closed` signal the network session should be deleted to ensure that all polling is stopped. The session can then be recreated once it is required again. This property has no effect for sessions that do not require polling.|
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.setSessionProperty` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.setSessionProperty(key, value)
+
+
+    :param key: unicode
+    :param value: object
+
+
+
+
+    Sets the property ``value`` on the session. The property is identified using ``key`` . Removing an already set property can be achieved by passing an invalid :class:`PySide.QtCore.QVariant` .
+
+    Note that the *UserChoiceConfiguration* and *ActiveConfiguration* properties are read only and cannot be changed using this method.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.sessionProperty` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.state()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkSession.State`
+
+
+
+
+    Returns the state of the session.
+
+    If the session is based on a single access point configuration the state of the session is the same as the state of the associated network interface. Therefore a network session object can be used to monitor network interfaces.
+
+    A :attr:`QNetworkConfiguration.ServiceNetwork<QNetworkConfiguration.Type>` based session summarizes the state of all its children and therefore returns the :attr:`Connected<QNetworkSession.State>` state if at least one of the service network's :meth:`PySide.QtNetwork.QNetworkConfiguration.children` configurations is active.
+
+    Note that it is not required to hold an open session in order to obtain the network interface state. A connected but closed session may be used to monitor network interfaces whereas an open and connected session object may prevent the network interface from being shut down.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.error`  :meth:`PySide.QtNetwork.QNetworkSession.stateChanged` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.stateChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtNetwork.QNetworkSession.State`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.stop()
+
+
+
+
+
+
+    Invalidates all open sessions against the network interface and therefore stops the underlying network interface. This function always changes the session's :meth:`PySide.QtNetwork.QNetworkSession.state` flag to :attr:`Disconnected<QNetworkSession.State>` .
+
+    On Symbian platform, a 'NetworkControl' capability is required for full interface-level stop (without the capability, only the current session is stopped).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.open`  :meth:`PySide.QtNetwork.QNetworkSession.close` 
+
+
+.. method:: PySide.QtNetwork.QNetworkSession.waitForOpened([msecs=30000])
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Waits until the session has been opened, up to ``msecs`` milliseconds. If the session has been opened, this function returns true; otherwise it returns false. In the case where it returns false, you can call :meth:`PySide.QtNetwork.QNetworkSession.error` to determine the cause of the error.
+
+    The following example waits up to one second for the session to be opened:
+
+    ::
+
+                session->open();
+                if (session->waitForOpened(1000))
+                    qDebug("Open!");
+
+
+    If ``msecs`` is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkSession.open`  :meth:`PySide.QtNetwork.QNetworkSession.error` 
+
+
+

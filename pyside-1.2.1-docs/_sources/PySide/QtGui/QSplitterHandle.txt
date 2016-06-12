@@ -1,0 +1,169 @@
+.. module:: PySide.QtGui
+.. _QSplitterHandle:
+
+QSplitterHandle
+***************
+
+.. inheritance-diagram:: QSplitterHandle
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`closestLegalPosition<PySide.QtGui.QSplitterHandle.closestLegalPosition>` (p)
+*    def :meth:`moveSplitter<PySide.QtGui.QSplitterHandle.moveSplitter>` (p)
+*    def :meth:`opaqueResize<PySide.QtGui.QSplitterHandle.opaqueResize>` ()
+*    def :meth:`orientation<PySide.QtGui.QSplitterHandle.orientation>` ()
+*    def :meth:`setOrientation<PySide.QtGui.QSplitterHandle.setOrientation>` (o)
+*    def :meth:`splitter<PySide.QtGui.QSplitterHandle.splitter>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSplitterHandle` class provides handle functionality of the splitter.
+
+    :class:`PySide.QtGui.QSplitterHandle` is typically what people think about when they think about a splitter. It is the handle that is used to resize the widgets.
+
+    A typical developer using :class:`PySide.QtGui.QSplitter` will never have to worry about :class:`PySide.QtGui.QSplitterHandle` . It is provided for developers who want splitter handles that provide extra features, such as popup menus.
+
+    The typical way one would create splitter handles is to subclass :class:`PySide.QtGui.QSplitter` then reimplement :meth:`QSplitter.createHandle()<PySide.QtGui.QSplitter.createHandle>` to instantiate the custom splitter handle. For example, a minimum :class:`PySide.QtGui.QSplitter` subclass might look like this:
+
+    ::
+
+        class Splitter(QSplitter):
+            def __init__(self, orientation, parent):
+                ...
+
+            def createHandle(self):
+                ...
+        }
+
+
+    The :meth:`PySide.QtGui.QSplitter.createHandle` implementation simply constructs a custom splitter handle, called ``Splitter`` in this example:
+
+    ::
+
+        QSplitterHandle *Splitter::createHandle()
+        {
+            return new SplitterHandle(orientation(), this);
+        }
+
+
+    Information about a given handle can be obtained using functions like :meth:`PySide.QtGui.QSplitterHandle.orientation` and :meth:`PySide.QtGui.QSplitterHandle.opaqueResize` , and is retrieved from its parent splitter. Details like these can be used to give custom handles different appearances depending on the splitter's orientation.
+
+    The complexity of a custom handle subclass depends on the tasks that it needs to perform. A simple subclass might only provide a :meth:`PySide.QtGui.QSplitterHandle.paintEvent` implementation:
+
+    ::
+
+        void SplitterHandle::paintEvent(QPaintEvent *event)
+        {
+            QPainter painter(this);
+            if (orientation() == Qt::Horizontal) {
+                gradient.setStart(rect().left(), rect().height()/2);
+                gradient.setFinalStop(rect().right(), rect().height()/2);
+            } else {
+                gradient.setStart(rect().width()/2, rect().top());
+                gradient.setFinalStop(rect().width()/2, rect().bottom());
+            }
+            painter.fillRect(event->rect(), QBrush(gradient));
+        }
+
+
+    In this example, a predefined gradient is set up differently depending on the orientation of the handle. :class:`PySide.QtGui.QSplitterHandle` provides a reasonable size hint for the handle, so the subclass does not need to provide a reimplementation of :meth:`PySide.QtGui.QSplitterHandle.sizeHint` unless the handle has special size requirements.
+
+    .. seealso::  :class:`PySide.QtGui.QSplitter` 
+
+.. class:: QSplitterHandle(o, parent)
+
+    :param o: :attr:`PySide.QtCore.Qt.Orientation`
+    :param parent: :class:`PySide.QtGui.QSplitter`
+
+
+
+.. method:: PySide.QtGui.QSplitterHandle.closestLegalPosition(p)
+
+
+    :param p: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the closest legal position to ``pos`` of the splitter handle. The positions are measured from the left or top edge of the splitter, even for right-to-left languages.
+
+    .. seealso::  :meth:`QSplitter.closestLegalPosition()<PySide.QtGui.QSplitter.closestLegalPosition>`  :meth:`PySide.QtGui.QSplitterHandle.moveSplitter` 
+
+
+.. method:: PySide.QtGui.QSplitterHandle.moveSplitter(p)
+
+
+    :param p: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the splitter to move this handle to position ``pos`` , which is the distance from the left or top edge of the widget.
+
+    Note that ``pos`` is also measured from the left (or top) for right-to-left languages. This function will map ``pos`` to the appropriate position before calling :meth:`QSplitter.moveSplitter()<PySide.QtGui.QSplitter.moveSplitter>` .
+
+    .. seealso::  :meth:`QSplitter.moveSplitter()<PySide.QtGui.QSplitter.moveSplitter>`  :meth:`PySide.QtGui.QSplitterHandle.closestLegalPosition` 
+
+
+.. method:: PySide.QtGui.QSplitterHandle.opaqueResize()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if widgets are resized dynamically (opaquely), otherwise returns false. This value is controlled by the :class:`PySide.QtGui.QSplitter` .
+
+    .. seealso::  :meth:`QSplitter.opaqueResize()<PySide.QtGui.QSplitter.opaqueResize>` 
+
+
+.. method:: PySide.QtGui.QSplitterHandle.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    Returns the handle's orientation. This is usually propagated from the :class:`PySide.QtGui.QSplitter` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSplitterHandle.setOrientation`  :meth:`QSplitter.orientation()<PySide.QtGui.QSplitter.orientation>` 
+
+
+.. method:: PySide.QtGui.QSplitterHandle.setOrientation(o)
+
+
+    :param o: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QSplitterHandle.splitter()
+
+
+    :rtype: :class:`PySide.QtGui.QSplitter`
+
+
+
+
+    Returns the splitter associated with this splitter handle.
+
+    .. seealso::  :meth:`QSplitter.handle()<PySide.QtGui.QSplitter.handle>` 
+
+
+

@@ -1,0 +1,388 @@
+.. module:: PySide.QtOpenGL
+.. _QGLBuffer:
+
+QGLBuffer
+*********
+
+.. inheritance-diagram:: QGLBuffer
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.7
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allocate<PySide.QtOpenGL.QGLBuffer.allocate>` (count)
+*    def :meth:`allocate<PySide.QtOpenGL.QGLBuffer.allocate>` (data[, count=-1])
+*    def :meth:`bind<PySide.QtOpenGL.QGLBuffer.bind>` ()
+*    def :meth:`bufferId<PySide.QtOpenGL.QGLBuffer.bufferId>` ()
+*    def :meth:`create<PySide.QtOpenGL.QGLBuffer.create>` ()
+*    def :meth:`destroy<PySide.QtOpenGL.QGLBuffer.destroy>` ()
+*    def :meth:`isCreated<PySide.QtOpenGL.QGLBuffer.isCreated>` ()
+*    def :meth:`map<PySide.QtOpenGL.QGLBuffer.map>` (access)
+*    def :meth:`read<PySide.QtOpenGL.QGLBuffer.read>` (offset, count)
+*    def :meth:`release<PySide.QtOpenGL.QGLBuffer.release>` ()
+*    def :meth:`setUsagePattern<PySide.QtOpenGL.QGLBuffer.setUsagePattern>` (value)
+*    def :meth:`size<PySide.QtOpenGL.QGLBuffer.size>` ()
+*    def :meth:`type<PySide.QtOpenGL.QGLBuffer.type>` ()
+*    def :meth:`unmap<PySide.QtOpenGL.QGLBuffer.unmap>` ()
+*    def :meth:`usagePattern<PySide.QtOpenGL.QGLBuffer.usagePattern>` ()
+*    def :meth:`write<PySide.QtOpenGL.QGLBuffer.write>` (offset, data[, count=-1])
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`release<PySide.QtOpenGL.QGLBuffer.release>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtOpenGL.QGLBuffer` class provides functions for creating and managing GL buffer objects.
+
+    Buffer objects are created in the GL server so that the client application can avoid uploading vertices, indices, texture image data, etc every time they are needed.
+
+    :class:`PySide.QtOpenGL.QGLBuffer` objects can be copied around as a reference to the underlying GL buffer object:
+
+    ::
+
+                QGLBuffer buffer1(QGLBuffer::IndexBuffer);
+                buffer1.create();
+                
+                QGLBuffer buffer2 = buffer1;
+
+
+    :class:`PySide.QtOpenGL.QGLBuffer` performs a shallow copy when objects are copied in this manner, but does not implement copy-on-write semantics. The original object will be affected whenever the copy is modified.
+
+
+.. class:: QGLBuffer()
+           QGLBuffer(type)
+           QGLBuffer(other)
+
+    :param other: :class:`PySide.QtOpenGL.QGLBuffer`
+    :param type: :attr:`PySide.QtOpenGL.QGLBuffer.Type`
+
+    Constructs a new buffer object of type :attr:`QGLBuffer.VertexBuffer<QGLBuffer.Type>` .
+
+    Note: this constructor just creates the :class:`PySide.QtOpenGL.QGLBuffer` instance. The actual buffer object in the GL server is not created until :meth:`PySide.QtOpenGL.QGLBuffer.create` is called.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.create` 
+
+
+
+    Constructs a shallow copy of ``other`` .
+
+    Note: :class:`PySide.QtOpenGL.QGLBuffer` does not implement copy-on-write semantics, so ``other`` will be affected whenever the copy is modified.
+
+
+.. attribute:: PySide.QtOpenGL.QGLBuffer.Access
+
+    This enum defines the access mode for :meth:`QGLBuffer.map()<PySide.QtOpenGL.QGLBuffer.map>` .
+
+    +-------------------+--------------------------------------------------+
+    |Constant           |Description                                       |
+    +===================+==================================================+
+    |QGLBuffer.ReadOnly |The buffer will be mapped for reading only.       |
+    +-------------------+--------------------------------------------------+
+    |QGLBuffer.WriteOnly|The buffer will be mapped for writing only.       |
+    +-------------------+--------------------------------------------------+
+    |QGLBuffer.ReadWrite|The buffer will be mapped for reading and writing.|
+    +-------------------+--------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtOpenGL.QGLBuffer.UsagePattern
+
+    This enum defines the usage pattern of a :class:`PySide.QtOpenGL.QGLBuffer` object.
+
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                                                                            |
+    +=====================+=======================================================================================================================================================================+
+    |QGLBuffer.StreamDraw |The data will be set once and used a few times for drawing operations. Under OpenGL/ES 1.1 this is identical to :attr:`StaticDraw<QGLBuffer.UsagePattern>` .           |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.StreamRead |The data will be set once and used a few times for reading data back from the GL server. Not supported under OpenGL/ES.                                                |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.StreamCopy |The data will be set once and used a few times for reading data back from the GL server for use in further drawing operations. Not supported under OpenGL/ES.          |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.StaticDraw |The data will be set once and used many times for drawing operations.                                                                                                  |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.StaticRead |The data will be set once and used many times for reading data back from the GL server. Not supported under OpenGL/ES.                                                 |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.StaticCopy |The data will be set once and used many times for reading data back from the GL server for use in further drawing operations. Not supported under OpenGL/ES.           |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.DynamicDraw|The data will be modified repeatedly and used many times for drawing operations.                                                                                       |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.DynamicRead|The data will be modified repeatedly and used many times for reading data back from the GL server. Not supported under OpenGL/ES.                                      |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.DynamicCopy|The data will be modified repeatedly and used many times for reading data back from the GL server for use in further drawing operations. Not supported under OpenGL/ES.|
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtOpenGL.QGLBuffer.Type
+
+    This enum defines the type of GL buffer object to create with :class:`PySide.QtOpenGL.QGLBuffer` .
+
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                                                              |
+    +===========================+=========================================================================================================================================+
+    |QGLBuffer.VertexBuffer     |Vertex buffer object for use when specifying vertex arrays.                                                                              |
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.IndexBuffer      |Index buffer object for use with ``glDrawElements()``.                                                                                   |
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.PixelPackBuffer  |Pixel pack buffer object for reading pixel data from the GL server (for example, with ``glReadPixels()``). Not supported under OpenGL/ES.|
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QGLBuffer.PixelUnpackBuffer|Pixel unpack buffer object for writing pixel data to the GL server (for example, with ``glTexImage2D()``). Not supported under OpenGL/ES.|
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. method:: PySide.QtOpenGL.QGLBuffer.allocate(data[, count=-1])
+
+
+    :param data: :class:`void`
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Allocates ``count`` bytes of space to the buffer, initialized to the contents of ``data`` . Any previous contents will be removed.
+
+    It is assumed that :meth:`PySide.QtOpenGL.QGLBuffer.create` has been called on this buffer and that it has been bound to the current context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.create`  :meth:`PySide.QtOpenGL.QGLBuffer.read`  :meth:`PySide.QtOpenGL.QGLBuffer.write` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.allocate(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Allocates ``count`` bytes of space to the buffer. Any previous contents will be removed.
+
+    It is assumed that :meth:`PySide.QtOpenGL.QGLBuffer.create` has been called on this buffer and that it has been bound to the current context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.create`  :meth:`PySide.QtOpenGL.QGLBuffer.write` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.bind()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Binds the buffer associated with this object to the current GL context. Returns false if binding was not possible, usually because :meth:`PySide.QtOpenGL.QGLBuffer.type` is not supported on this GL implementation.
+
+    The buffer must be bound to the same :class:`PySide.QtOpenGL.QGLContext` current when :meth:`PySide.QtOpenGL.QGLBuffer.create` was called, or to another :class:`PySide.QtOpenGL.QGLContext` that is sharing with it. Otherwise, false will be returned from this function.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.release`  :meth:`PySide.QtOpenGL.QGLBuffer.create` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.bufferId()
+
+
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Returns the GL identifier associated with this buffer; zero if the buffer has not been created.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.isCreated` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.create()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Creates the buffer object in the GL server. Returns true if the object was created; false otherwise.
+
+    This function must be called with a current :class:`PySide.QtOpenGL.QGLContext` . The buffer will be bound to and can only be used in that context (or any other context that is shared with it).
+
+    This function will return false if the GL implementation does not support buffers, or there is no current :class:`PySide.QtOpenGL.QGLContext` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.isCreated`  :meth:`PySide.QtOpenGL.QGLBuffer.allocate`  :meth:`PySide.QtOpenGL.QGLBuffer.write`  :meth:`PySide.QtOpenGL.QGLBuffer.destroy` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.destroy()
+
+
+
+
+
+
+    Destroys this buffer object, including the storage being used in the GL server. All references to the buffer will become invalid.
+
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.isCreated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this buffer has been created; false otherwise.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.create`  :meth:`PySide.QtOpenGL.QGLBuffer.destroy` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.map(access)
+
+
+    :param access: :attr:`PySide.QtOpenGL.QGLBuffer.Access`
+    :rtype: :class:`void`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.read(offset, count)
+
+
+    :param offset: :class:`PySide.QtCore.int`
+    :param count: :class:`PySide.QtCore.int`
+    :rtype: (retval, data)
+
+
+
+
+    Reads the ``count`` bytes in this buffer starting at ``offset`` into ``data`` . Returns true on success; false if reading from the buffer is not supported. Buffer reading is not supported under OpenGL/ES.
+
+    It is assumed that this buffer has been bound to the current context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.write`  :meth:`PySide.QtOpenGL.QGLBuffer.bind` 
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLBuffer.release(type)
+
+
+    :param type: :attr:`PySide.QtOpenGL.QGLBuffer.Type`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.release()
+
+
+
+
+
+
+    Releases the buffer associated with this object from the current GL context.
+
+    This function must be called with the same :class:`PySide.QtOpenGL.QGLContext` current as when :meth:`PySide.QtOpenGL.QGLBuffer.bind` was called on the buffer.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.bind` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.setUsagePattern(value)
+
+
+    :param value: :attr:`PySide.QtOpenGL.QGLBuffer.UsagePattern`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the size of the data in this buffer, for reading operations. Returns -1 if fetching the buffer size is not supported, or the buffer has not been created.
+
+    It is assumed that this buffer has been bound to the current context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.isCreated`  :meth:`PySide.QtOpenGL.QGLBuffer.bind` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.type()
+
+
+    :rtype: :attr:`PySide.QtOpenGL.QGLBuffer.Type`
+
+
+
+
+    Returns the type of buffer represented by this object.
+
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.unmap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unmaps the buffer after it was mapped into the application's memory space with a previous call to :meth:`PySide.QtOpenGL.QGLBuffer.map` . Returns true if the unmap succeeded; false otherwise.
+
+    It is assumed that this buffer has been bound to the current context, and that it was previously mapped with :meth:`PySide.QtOpenGL.QGLBuffer.map` .
+
+    This function is only supported under OpenGL/ES if the ``GL_OES_mapbuffer`` extension is present.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.map` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.usagePattern()
+
+
+    :rtype: :attr:`PySide.QtOpenGL.QGLBuffer.UsagePattern`
+
+
+
+
+    Returns the usage pattern for this buffer object. The default value is :attr:`StaticDraw<QGLBuffer.UsagePattern>` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.setUsagePattern` 
+
+
+.. method:: PySide.QtOpenGL.QGLBuffer.write(offset, data[, count=-1])
+
+
+    :param offset: :class:`PySide.QtCore.int`
+    :param data: :class:`void`
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Replaces the ``count`` bytes of this buffer starting at ``offset`` with the contents of ``data`` . Any other bytes in the buffer will be left unmodified.
+
+    It is assumed that :meth:`PySide.QtOpenGL.QGLBuffer.create` has been called on this buffer and that it has been bound to the current context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLBuffer.create`  :meth:`PySide.QtOpenGL.QGLBuffer.read`  :meth:`PySide.QtOpenGL.QGLBuffer.allocate` 
+
+
+

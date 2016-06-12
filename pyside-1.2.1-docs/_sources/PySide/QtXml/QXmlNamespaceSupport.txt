@@ -1,0 +1,201 @@
+.. module:: PySide.QtXml
+.. _QXmlNamespaceSupport:
+
+QXmlNamespaceSupport
+********************
+
+.. inheritance-diagram:: QXmlNamespaceSupport
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`popContext<PySide.QtXml.QXmlNamespaceSupport.popContext>` ()
+*    def :meth:`prefix<PySide.QtXml.QXmlNamespaceSupport.prefix>` (arg__1)
+*    def :meth:`prefixes<PySide.QtXml.QXmlNamespaceSupport.prefixes>` ()
+*    def :meth:`prefixes<PySide.QtXml.QXmlNamespaceSupport.prefixes>` (arg__1)
+*    def :meth:`processName<PySide.QtXml.QXmlNamespaceSupport.processName>` (arg__1, arg__2, arg__3, arg__4)
+*    def :meth:`pushContext<PySide.QtXml.QXmlNamespaceSupport.pushContext>` ()
+*    def :meth:`reset<PySide.QtXml.QXmlNamespaceSupport.reset>` ()
+*    def :meth:`setPrefix<PySide.QtXml.QXmlNamespaceSupport.setPrefix>` (arg__1, arg__2)
+*    def :meth:`splitName<PySide.QtXml.QXmlNamespaceSupport.splitName>` (arg__1, arg__2, arg__3)
+*    def :meth:`uri<PySide.QtXml.QXmlNamespaceSupport.uri>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlNamespaceSupport` class is a helper class for XML readers which want to include namespace support.
+
+    You can set the prefix for the current namespace with :meth:`PySide.QtXml.QXmlNamespaceSupport.setPrefix` , and get the list of current prefixes (or those for a given URI) with :meth:`PySide.QtXml.QXmlNamespaceSupport.prefixes` . The namespace URI is available from :meth:`PySide.QtXml.QXmlNamespaceSupport.uri` . Use :meth:`PySide.QtXml.QXmlNamespaceSupport.pushContext` to start a new namespace context, and :meth:`PySide.QtXml.QXmlNamespaceSupport.popContext` to return to the previous namespace context. Use :meth:`PySide.QtXml.QXmlNamespaceSupport.splitName` or :meth:`PySide.QtXml.QXmlNamespaceSupport.processName` to split a name into its prefix and local name.
+
+    .. seealso::  :ref:`Namespace Support via Features<xml-sax.html>` 
+
+.. class:: QXmlNamespaceSupport()
+
+
+    Constructs a :class:`PySide.QtXml.QXmlNamespaceSupport` .
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.popContext()
+
+
+
+
+
+
+    Reverts to the previous namespace context.
+
+    Normally, you should pop the context at the end of each XML element. After popping the context, all namespace prefix mappings that were previously in force are restored.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlNamespaceSupport.pushContext` 
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.prefix(arg__1)
+
+
+    :param arg__1: unicode
+    :rtype: unicode
+
+
+
+
+    Returns one of the prefixes mapped to the namespace URI ``uri`` .
+
+    If more than one prefix is currently mapped to the same URI, this function makes an arbitrary selection; if you want all of the prefixes, use :meth:`PySide.QtXml.QXmlNamespaceSupport.prefixes` instead.
+
+    Note: to check for a default prefix, use the :meth:`PySide.QtXml.QXmlNamespaceSupport.uri` function with an argument of "".
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlNamespaceSupport.setPrefix` 
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.prefixes(arg__1)
+
+
+    :param arg__1: unicode
+    :rtype: list of strings
+
+
+
+
+    This is an overloaded function.
+
+    Returns a list of all prefixes currently declared for the namespace URI ``uri`` .
+
+    The "xml:" prefix is included. If you only want one prefix that is mapped to the namespace URI, and you don't care which one you get, use the :meth:`PySide.QtXml.QXmlNamespaceSupport.prefix` function instead.
+
+    Note: The empty (default) prefix is never included in this list; to check for the presence of a default namespace, call :meth:`PySide.QtXml.QXmlNamespaceSupport.uri` with "" as the argument.
+
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.prefixes()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all the prefixes currently declared.
+
+    If there is a default prefix, this function does not return it in the list; check for the default prefix using :meth:`PySide.QtXml.QXmlNamespaceSupport.uri` with an argument of "".
+
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.processName(arg__1, arg__2, arg__3, arg__4)
+
+
+    :param arg__1: unicode
+    :param arg__2: :class:`PySide.QtCore.bool`
+    :param arg__3: unicode
+    :param arg__4: unicode
+
+
+
+
+    Processes a raw XML 1.0 name in the current context by removing the prefix and looking it up among the prefixes currently declared.
+
+    ``qname`` is the raw XML 1.0 name to be processed. ``isAttribute`` is true if the name is an attribute name.
+
+    This function stores the namespace URI in ``nsuri`` (which will be set to an empty string if the raw name has an undeclared prefix), and stores the local name (without prefix) in ``localname`` (which will be set to an empty string if no namespace is in use).
+
+    Note that attribute names are processed differently than element names: an unprefixed element name gets the default namespace (if any), while an unprefixed attribute name does not.
+
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.pushContext()
+
+
+
+
+
+
+    Starts a new namespace context.
+
+    Normally, you should push a new context at the beginning of each XML element: the new context automatically inherits the declarations of its parent context, and it also keeps track of which declarations were made within this context.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlNamespaceSupport.popContext` 
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.reset()
+
+
+
+
+
+
+    Resets this namespace support object ready for reuse.
+
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.setPrefix(arg__1, arg__2)
+
+
+    :param arg__1: unicode
+    :param arg__2: unicode
+
+
+
+
+    This function declares a prefix ``pre`` in the current namespace context to be the namespace URI ``uri`` . The prefix remains in force until this context is popped, unless it is shadowed in a descendant context.
+
+    Note that there is an asymmetry in this library. :meth:`PySide.QtXml.QXmlNamespaceSupport.prefix` does not return the default "" prefix, even if you have declared one; to check for a default prefix, you must look it up explicitly using :meth:`PySide.QtXml.QXmlNamespaceSupport.uri` . This asymmetry exists to make it easier to look up prefixes for attribute names, where the default prefix is not allowed.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlNamespaceSupport.prefix` 
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.splitName(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: unicode
+    :param arg__2: unicode
+    :param arg__3: unicode
+
+
+
+
+    Splits the name ``qname`` at the ':' and returns the prefix in ``prefix`` and the local name in ``localname`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlNamespaceSupport.processName` 
+
+
+.. method:: PySide.QtXml.QXmlNamespaceSupport.uri(arg__1)
+
+
+    :param arg__1: unicode
+    :rtype: unicode
+
+
+
+
+    Looks up the prefix ``prefix`` in the current context and returns the currently-mapped namespace URI. Use the empty string ("") for the default namespace.
+
+
+
+

@@ -1,0 +1,277 @@
+.. module:: PySide.QtGui
+.. _QAbstractItemDelegate:
+
+QAbstractItemDelegate
+*********************
+
+.. inheritance-diagram:: QAbstractItemDelegate
+    :parts: 2
+
+**Inherited by:** :ref:`QItemDelegate`, :ref:`QSqlRelationalDelegate`, :ref:`QStyledItemDelegate`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractItemDelegate` class is used to display and edit data items from a model.
+
+    A :class:`PySide.QtGui.QAbstractItemDelegate` provides the interface and common functionality for delegates in the model/view architecture. Delegates display individual items in views, and handle the editing of model data.
+
+    The :class:`PySide.QtGui.QAbstractItemDelegate` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` .
+
+    To render an item in a custom way, you must implement :meth:`PySide.QtGui.QAbstractItemDelegate.paint` and :meth:`PySide.QtGui.QAbstractItemDelegate.sizeHint` . The :class:`PySide.QtGui.QItemDelegate` class provides default implementations for these functions; if you do not need custom rendering, subclass that class instead.
+
+    We give an example of drawing a progress bar in items; in our case for a package management program.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/widgetdelegate.png
+
+    We create the ``WidgetDelegate`` class, which inherits from :class:`PySide.QtGui.QStyledItemDelegate` . We do the drawing in the :meth:`PySide.QtGui.QAbstractItemDelegate.paint` function:
+
+    ::
+
+        class WidgetDelegate (QStyledItemDelegate):
+            # ...
+
+            def paint(painter, option, index):
+                if index.column() == 1:
+                    progress = index.data().toInt()
+
+                    progressBarOption = QStyleOptionProgressBar()
+                    progressBarOption.rect = option.rect
+                    progressBarOption.minimum = 0
+                    progressBarOption.maximum = 100
+                    progressBarOption.progress = progress
+                    progressBarOption.text = QString::number(progress) + "%"
+                    progressBarOption.textVisible = True
+
+                    QApplication.style().drawControl(QStyle.CE_ProgressBar, progressBarOption, painter)
+                else:
+                    QStyledItemDelegate.paint(self, painter, option, index)
+
+
+
+    Notice that we use a :class:`PySide.QtGui.QStyleOptionProgressBar` and initialize its members. We can then use the current :class:`PySide.QtGui.QStyle` to draw it.
+
+    To provide custom editing, there are two approaches that can be used. The first approach is to create an editor widget and display it directly on top of the item. To do this you must reimplement :meth:`PySide.QtGui.QAbstractItemDelegate.createEditor` to provide an editor widget, :meth:`PySide.QtGui.QAbstractItemDelegate.setEditorData` to populate the editor with the data from the model, and :meth:`PySide.QtGui.QAbstractItemDelegate.setModelData` so that the delegate can update the model with data from the editor.
+
+    The second approach is to handle user events directly by reimplementing :meth:`PySide.QtGui.QAbstractItemDelegate.editorEvent` .
+
+    .. seealso::  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtGui.QItemDelegate`  :ref:`Pixelator Example<itemviews/pixelator>`  :class:`PySide.QtGui.QStyledItemDelegate`  :class:`PySide.QtGui.QStyle` 
+
+.. class:: QAbstractItemDelegate([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a new abstract item delegate with the given ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QAbstractItemDelegate.EndEditHint
+
+    This enum describes the different hints that the delegate can give to the model and view components to make editing data in a model a comfortable experience for the user.
+
+    +----------------------------+-----------------------------------------------+
+    |Constant                    |Description                                    |
+    +============================+===============================================+
+    |QAbstractItemDelegate.NoHint|There is no recommended action to be performed.|
+    +----------------------------+-----------------------------------------------+
+
+    These hints let the delegate influence the behavior of the view:
+
+    +--------------------------------------+------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                         |
+    +======================================+====================================================================================+
+    |QAbstractItemDelegate.EditNextItem    |The view should use the delegate to open an editor on the next item in the view.    |
+    +--------------------------------------+------------------------------------------------------------------------------------+
+    |QAbstractItemDelegate.EditPreviousItem|The view should use the delegate to open an editor on the previous item in the view.|
+    +--------------------------------------+------------------------------------------------------------------------------------+
+
+    Note that custom views may interpret the concepts of next and previous differently.
+
+    The following hints are most useful when models are used that cache data, such as those that manipulate data locally in order to increase performance or conserve network bandwidth.
+
+    +--------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                     |
+    +======================================+================================================================================================================+
+    |QAbstractItemDelegate.SubmitModelCache|If the model caches data, it should write out cached data to the underlying data store.                         |
+    +--------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QAbstractItemDelegate.RevertModelCache|If the model caches data, it should discard cached data and replace it with data from the underlying data store.|
+    +--------------------------------------+----------------------------------------------------------------------------------------------------------------+
+
+    Although models and views should respond to these hints in appropriate ways, custom components may ignore any or all of them if they are not relevant.
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.closeEditor(editor[, hint=NoHint])
+
+
+    :param editor: :class:`PySide.QtGui.QWidget`
+    :param hint: :attr:`PySide.QtGui.QAbstractItemDelegate.EndEditHint`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.commitData(editor)
+
+
+    :param editor: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.createEditor(parent, option, index)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the editor to be used for editing the data item with the given ``index`` . Note that the index contains information about the model being used. The editor's parent widget is specified by ``parent`` , and the item options by ``option`` .
+
+    The base implementation returns 0. If you want custom editing you will need to reimplement this function.
+
+    The returned editor widget should have :attr:`Qt.StrongFocus<Qt.FocusPolicy>` ; otherwise, :class:`PySide.QtGui.QMouseEvent` s received by the widget will propagate to the view. The view's background will shine through unless the editor paints its own background (e.g., with :meth:`PySide.QtGui.QWidget.setAutoFillBackground` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractItemDelegate.setModelData`  :meth:`PySide.QtGui.QAbstractItemDelegate.setEditorData` 
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.editorEvent(event, model, option, index)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+    :param model: :class:`PySide.QtCore.QAbstractItemModel`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    When editing of an item starts, this function is called with the ``event`` that triggered the editing, the ``model`` , the ``index`` of the item, and the ``option`` used for rendering the item.
+
+    Mouse events are sent to :meth:`PySide.QtGui.QAbstractItemDelegate.editorEvent` even if they don't start editing of the item. This can, for instance, be useful if you wish to open a context menu when the right mouse button is pressed on an item.
+
+    The base implementation returns false (indicating that it has not handled the event).
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.helpEvent(event, view, option, index)
+
+
+    :param event: :class:`PySide.QtGui.QHelpEvent`
+    :param view: :class:`PySide.QtGui.QAbstractItemView`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Whenever a help event occurs, this function is called with the ``event``\ ``view``\ ``option`` and the ``index`` that corresponds to the item where the event occurs.
+
+    Returns true if the delegate can handle the event; otherwise returns false. A return value of true indicates that the data obtained using the index had the required role.
+
+    For :attr:`QEvent.ToolTip<QEvent.Type>` and :attr:`QEvent.WhatsThis<QEvent.Type>` events that were handled successfully, the relevant popup may be shown depending on the user's system configuration.
+
+    .. seealso::  :class:`PySide.QtGui.QHelpEvent` 
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.paint(painter, option, index)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    This pure abstract function must be reimplemented if you want to provide custom rendering. Use the ``painter`` and style ``option`` to render the item specified by the item ``index`` .
+
+    If you reimplement this you must also reimplement :meth:`PySide.QtGui.QAbstractItemDelegate.sizeHint` .
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.setEditorData(editor, index)
+
+
+    :param editor: :class:`PySide.QtGui.QWidget`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the contents of the given ``editor`` to the data for the item at the given ``index`` . Note that the index contains information about the model being used.
+
+    The base implementation does nothing. If you want custom editing you will need to reimplement this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractItemDelegate.setModelData` 
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.setModelData(editor, model, index)
+
+
+    :param editor: :class:`PySide.QtGui.QWidget`
+    :param model: :class:`PySide.QtCore.QAbstractItemModel`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the data for the item at the given ``index`` in the ``model`` to the contents of the given ``editor`` .
+
+    The base implementation does nothing. If you want custom editing you will need to reimplement this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractItemDelegate.setEditorData` 
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.sizeHint(option, index)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This pure abstract function must be reimplemented if you want to provide custom rendering. The options are specified by ``option`` and the model item by ``index`` .
+
+    If you reimplement this you must also reimplement :meth:`PySide.QtGui.QAbstractItemDelegate.paint` .
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.sizeHintChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractItemDelegate.updateEditorGeometry(editor, option, index)
+
+
+    :param editor: :class:`PySide.QtGui.QWidget`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Updates the geometry of the ``editor`` for the item with the given ``index`` , according to the rectangle specified in the ``option`` . If the item has an internal layout, the editor will be laid out accordingly. Note that the index contains information about the model being used.
+
+    The base implementation does nothing. If you want custom editing you must reimplement this function.
+
+
+
+

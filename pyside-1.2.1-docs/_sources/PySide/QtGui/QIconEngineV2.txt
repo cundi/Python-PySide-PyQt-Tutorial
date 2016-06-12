@@ -1,0 +1,148 @@
+.. module:: PySide.QtGui
+.. _QIconEngineV2:
+
+QIconEngineV2
+*************
+
+.. inheritance-diagram:: QIconEngineV2
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`availableSizes<PySide.QtGui.QIconEngineV2.availableSizes>` ([mode=QIcon.Normal[, state=QIcon.Off]])
+*    def :meth:`iconName<PySide.QtGui.QIconEngineV2.iconName>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clone<PySide.QtGui.QIconEngineV2.clone>` ()
+*    def :meth:`key<PySide.QtGui.QIconEngineV2.key>` ()
+*    def :meth:`read<PySide.QtGui.QIconEngineV2.read>` (in)
+*    def :meth:`write<PySide.QtGui.QIconEngineV2.write>` (out)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QIconEngineV2` class provides an abstract base class for :class:`PySide.QtGui.QIcon` renderers.
+
+    An icon engine renders :class:`PySide.QtGui.QIcon` s. With icon engines, you can customize icons. Qt provides a default engine that makes icons adhere to the current style by scaling the icons and providing a disabled appearance.
+
+    An engine is installed on an icon either through a :class:`PySide.QtGui.QIcon` constructor or through a :class:`~PySide.QtGui.QIconEnginePluginV2` . The plugins are used by Qt if a specific engine is not given when the icon is created. See the :class:`PySide.QtGui.QIconEngineV2` class description to learn how to create icon engine plugins.
+
+    An icon engine provides the rendering functions for a :class:`PySide.QtGui.QIcon` . Each icon has a corresponding icon engine that is responsible for drawing the icon with a requested size, mode and state.
+
+    :class:`PySide.QtGui.QIconEngineV2` extends the API of :class:`PySide.QtGui.QIconEngine` to allow streaming of the icon engine contents, and should be used instead of :class:`PySide.QtGui.QIconEngine` for implementing new icon engines.
+
+    .. seealso::  :class:`~PySide.QtGui.QIconEnginePluginV2` 
+
+.. class:: QIconEngineV2()
+
+
+
+
+.. attribute:: PySide.QtGui.QIconEngineV2.IconEngineHook
+
+    These enum values are used for :meth:`PySide.QtGui.QIconEngineV2.virtual\_hook` to allow additional queries to icon engine without breaking binary compatibility.
+
+    +--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                                                                                                                                                                                                                                                                                    |
+    +================================+===============================================================================================================================================================================================================================================================================================================================================================+
+    |QIconEngineV2.AvailableSizesHook|Allows to query the sizes of the contained pixmaps for pixmap-based engines. The ``data`` argument of the :meth:`PySide.QtGui.QIconEngineV2.virtual\_hook` function is a :class:`~PySide.QtGui.AvailableSizesArgument` pointer that should be filled with icon sizes. Engines that work in terms of a scalable, vectorial format normally return an empty list.|
+    +--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIconEngineV2.IconNameHook      |Allows to query the name used to create the icon, for example when instantiating an icon using :meth:`QIcon.fromTheme()<PySide.QtGui.QIcon.fromTheme>` .                                                                                                                                                                                                       |
+    +--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QIconEngineV2.virtual\_hook` 
+
+.. method:: PySide.QtGui.QIconEngineV2.availableSizes([mode=QIcon.Normal[, state=QIcon.Off]])
+
+
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QIconEngineV2.clone()
+
+
+    :rtype: :class:`PySide.QtGui.QIconEngineV2`
+
+
+
+
+    Returns a clone of this icon engine.
+
+
+
+.. method:: PySide.QtGui.QIconEngineV2.iconName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name used to create the engine, if available.
+
+    .. note::  This is a helper method and the actual work is done by :meth:`PySide.QtGui.QIconEngineV2.virtual\_hook` method, hence this method depends on icon engine support and may not work with all icon engines.
+
+
+
+.. method:: PySide.QtGui.QIconEngineV2.key()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a key that identifies this icon engine.
+
+
+
+.. method:: PySide.QtGui.QIconEngineV2.read(in)
+
+
+    :param in: :class:`PySide.QtCore.QDataStream`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reads icon engine contents from the :class:`PySide.QtCore.QDataStream` ``in`` . Returns true if the contents were read; otherwise returns false.
+
+    :class:`PySide.QtGui.QIconEngineV2` 's default implementation always return false.
+
+
+
+.. method:: PySide.QtGui.QIconEngineV2.write(out)
+
+
+    :param out: :class:`PySide.QtCore.QDataStream`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes the contents of this engine to the :class:`PySide.QtCore.QDataStream` ``out`` . Returns true if the contents were written; otherwise returns false.
+
+    :class:`PySide.QtGui.QIconEngineV2` 's default implementation always return false.
+
+
+
+

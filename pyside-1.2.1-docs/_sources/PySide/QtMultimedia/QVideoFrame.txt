@@ -1,0 +1,524 @@
+.. module:: PySide.QtMultimedia
+.. _QVideoFrame:
+
+QVideoFrame
+***********
+
+.. inheritance-diagram:: QVideoFrame
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bits<PySide.QtMultimedia.QVideoFrame.bits>` ()
+*    def :meth:`bytesPerLine<PySide.QtMultimedia.QVideoFrame.bytesPerLine>` ()
+*    def :meth:`endTime<PySide.QtMultimedia.QVideoFrame.endTime>` ()
+*    def :meth:`fieldType<PySide.QtMultimedia.QVideoFrame.fieldType>` ()
+*    def :meth:`handle<PySide.QtMultimedia.QVideoFrame.handle>` ()
+*    def :meth:`handleType<PySide.QtMultimedia.QVideoFrame.handleType>` ()
+*    def :meth:`height<PySide.QtMultimedia.QVideoFrame.height>` ()
+*    def :meth:`isMapped<PySide.QtMultimedia.QVideoFrame.isMapped>` ()
+*    def :meth:`isReadable<PySide.QtMultimedia.QVideoFrame.isReadable>` ()
+*    def :meth:`isValid<PySide.QtMultimedia.QVideoFrame.isValid>` ()
+*    def :meth:`isWritable<PySide.QtMultimedia.QVideoFrame.isWritable>` ()
+*    def :meth:`map<PySide.QtMultimedia.QVideoFrame.map>` (mode)
+*    def :meth:`mapMode<PySide.QtMultimedia.QVideoFrame.mapMode>` ()
+*    def :meth:`mappedBytes<PySide.QtMultimedia.QVideoFrame.mappedBytes>` ()
+*    def :meth:`pixelFormat<PySide.QtMultimedia.QVideoFrame.pixelFormat>` ()
+*    def :meth:`setEndTime<PySide.QtMultimedia.QVideoFrame.setEndTime>` (time)
+*    def :meth:`setFieldType<PySide.QtMultimedia.QVideoFrame.setFieldType>` (arg__1)
+*    def :meth:`setStartTime<PySide.QtMultimedia.QVideoFrame.setStartTime>` (time)
+*    def :meth:`size<PySide.QtMultimedia.QVideoFrame.size>` ()
+*    def :meth:`startTime<PySide.QtMultimedia.QVideoFrame.startTime>` ()
+*    def :meth:`unmap<PySide.QtMultimedia.QVideoFrame.unmap>` ()
+*    def :meth:`width<PySide.QtMultimedia.QVideoFrame.width>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`imageFormatFromPixelFormat<PySide.QtMultimedia.QVideoFrame.imageFormatFromPixelFormat>` (format)
+*    def :meth:`pixelFormatFromImageFormat<PySide.QtMultimedia.QVideoFrame.pixelFormatFromImageFormat>` (format)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QVideoFrame` class provides a representation of a frame of video data.
+
+    A :class:`PySide.QtMultimedia.QVideoFrame` encapsulates the data of a video frame, and information about the frame.
+
+    The contents of a video frame can be mapped to memory using the :meth:`PySide.QtMultimedia.QVideoFrame.map` function. While mapped the video data can accessed using the :meth:`PySide.QtMultimedia.QVideoFrame.bits` function which returns a pointer to a buffer, the total size of which is given by the :meth:`PySide.QtMultimedia.QVideoFrame.mappedBytes` , and the size of each line is given by :meth:`PySide.QtMultimedia.QVideoFrame.bytesPerLine` . The return value of the :meth:`PySide.QtMultimedia.QVideoFrame.handle` function may be used to access frame data using the internal buffer's native APIs.
+
+    The video data in a :class:`PySide.QtMultimedia.QVideoFrame` is encapsulated in a :class:`PySide.QtMultimedia.QAbstractVideoBuffer` . A :class:`PySide.QtMultimedia.QVideoFrame` may be constructed from any buffer type by subclassing the :class:`PySide.QtMultimedia.QAbstractVideoBuffer` class.
+
+    .. note:: \ :class:`PySide.QtMultimedia.QVideoFrame` is explicitly shared, any change made to video frame will also apply to any copies.
+
+
+.. class:: QVideoFrame()
+           QVideoFrame(buffer, size, format)
+           QVideoFrame(image)
+           QVideoFrame(other)
+           QVideoFrame(bytes, size, bytesPerLine, format)
+
+    :param size: :class:`PySide.QtCore.QSize`
+    :param bytes: :class:`PySide.QtCore.int`
+    :param format: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+    :param image: :class:`PySide.QtGui.QImage`
+    :param other: :class:`PySide.QtMultimedia.QVideoFrame`
+    :param bytesPerLine: :class:`PySide.QtCore.int`
+    :param buffer: :class:`PySide.QtMultimedia.QAbstractVideoBuffer`
+
+    Constructs a null video frame.
+
+
+    Constructs a video frame from a ``buffer`` of the given pixel ``format`` and ``size`` in pixels.
+
+    .. note::  This doesn't increment the reference count of the video buffer.
+
+
+    Constructs a video frame from an ``image`` .
+
+    .. note::  This will construct an invalid video frame if there is no frame type equivalent to the image format.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.pixelFormatFromImageFormat` 
+
+    Constructs a copy of ``other`` .
+
+
+    Constructs a video frame of the given pixel ``format`` and ``size`` in pixels.
+
+    The ``bytesPerLine`` (stride) is the length of each scan line in bytes, and ``bytes`` is the total number of bytes that must be allocated for the frame.
+
+
+.. attribute:: PySide.QtMultimedia.QVideoFrame.FieldType
+
+    Specifies the field an interlaced video frame belongs to.
+
+    +----------------------------+-------------------------------------------------+
+    |Constant                    |Description                                      |
+    +============================+=================================================+
+    |QVideoFrame.ProgressiveFrame|The frame is not interlaced.                     |
+    +----------------------------+-------------------------------------------------+
+    |QVideoFrame.TopField        |The frame contains a top field.                  |
+    +----------------------------+-------------------------------------------------+
+    |QVideoFrame.BottomField     |The frame contains a bottom field.               |
+    +----------------------------+-------------------------------------------------+
+    |QVideoFrame.InterlacedFrame |The frame contains a merged top and bottom field.|
+    +----------------------------+-------------------------------------------------+
+
+
+.. attribute:: PySide.QtMultimedia.QVideoFrame.PixelFormat
+
+    Enumerates video data types.
+
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                 |Description                                                                                                                                                                                                                                                                                                                                                                                    |
+    +=========================================+===============================================================================================================================================================================================================================================================================================================================================================================================+
+    |QVideoFrame.Format_Invalid               |The frame is invalid.                                                                                                                                                                                                                                                                                                                                                                          |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_ARGB32                |The frame is stored using a 32-bit ARGB format (0xAARRGGBB). This is equivalent to :attr:`QImage.Format_ARGB32<QImage.Format>` .                                                                                                                                                                                                                                                               |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_ARGB32_Premultiplied  |The frame stored using a premultiplied 32-bit ARGB format (0xAARRGGBB). This is equivalent to :attr:`QImage.Format_ARGB32_Premultiplied<QImage.Format>` .                                                                                                                                                                                                                                      |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_RGB32                 |The frame stored using a 32-bit RGB format (0xffRRGGBB). This is equivalent to :attr:`QImage.Format_RGB32<QImage.Format>`                                                                                                                                                                                                                                                                      |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_RGB24                 |The frame is stored using a 24-bit RGB format (8-8-8). This is equivalent to :attr:`QImage.Format_RGB888<QImage.Format>`                                                                                                                                                                                                                                                                       |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_RGB565                |The frame is stored using a 16-bit RGB format (5-6-5). This is equivalent to :attr:`QImage.Format_RGB16<QImage.Format>` .                                                                                                                                                                                                                                                                      |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_RGB555                |The frame is stored using a 16-bit RGB format (5-5-5). This is equivalent to :attr:`QImage.Format_RGB555<QImage.Format>` .                                                                                                                                                                                                                                                                     |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_ARGB8565_Premultiplied|The frame is stored using a 24-bit premultiplied ARGB format (8-6-6-5).                                                                                                                                                                                                                                                                                                                        |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGRA32                |The frame is stored using a 32-bit ARGB format (0xBBGGRRAA).                                                                                                                                                                                                                                                                                                                                   |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGRA32_Premultiplied  |The frame is stored using a premultiplied 32bit BGRA format.                                                                                                                                                                                                                                                                                                                                   |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGR32                 |The frame is stored using a 32-bit BGR format (0xBBGGRRff).                                                                                                                                                                                                                                                                                                                                    |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGR24                 |The frame is stored using a 24-bit BGR format (0xBBGGRR).                                                                                                                                                                                                                                                                                                                                      |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGR565                |The frame is stored using a 16-bit BGR format (5-6-5).                                                                                                                                                                                                                                                                                                                                         |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGR555                |The frame is stored using a 16-bit BGR format (5-5-5).                                                                                                                                                                                                                                                                                                                                         |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_BGRA5658_Premultiplied|The frame is stored using a 24-bit premultiplied BGRA format (5-6-5-8).                                                                                                                                                                                                                                                                                                                        |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_AYUV444               |The frame is stored using a packed 32-bit AYUV format (0xAAYYUUVV).                                                                                                                                                                                                                                                                                                                            |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_AYUV444_Premultiplied |The frame is stored using a packed premultiplied 32-bit AYUV format (0xAAYYUUVV).                                                                                                                                                                                                                                                                                                              |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_YUV444                |The frame is stored using a 24-bit packed YUV format (8-8-8).                                                                                                                                                                                                                                                                                                                                  |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_YUV420P               |The frame is stored using an 8-bit per component planar YUV format with the U and V planes horizontally and vertically sub-sampled, i.e. the height and width of the U and V planes are half that of the Y plane.                                                                                                                                                                              |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_YV12                  |The frame is stored using an 8-bit per component planar YVU format with the V and U planes horizontally and vertically sub-sampled, i.e. the height and width of the V and U planes are half that of the Y plane.                                                                                                                                                                              |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_UYVY                  |The frame is stored using an 8-bit per component packed YUV format with the U and V planes horizontally sub-sampled (U-Y-V-Y), i.e. two horizontally adjacent pixels are stored as a 32-bit macropixel which has a Y value for each pixel and common U and V values.                                                                                                                           |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_YUYV                  |The frame is stored using an 8-bit per component packed YUV format with the U and V planes horizontally sub-sampled (Y-U-Y-V), i.e. two horizontally adjacent pixels are stored as a 32-bit macropixel which has a Y value for each pixel and common U and V values.                                                                                                                           |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_NV12                  |The frame is stored using an 8-bit per component semi-planar YUV format with a Y plane (Y) followed by a horizontally and vertically sub-sampled, packed UV plane (U-V).                                                                                                                                                                                                                       |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_NV21                  |The frame is stored using an 8-bit per component semi-planar YUV format with a Y plane (Y) followed by a horizontally and vertically sub-sampled, packed VU plane (V-U).                                                                                                                                                                                                                       |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_IMC1                  |The frame is stored using an 8-bit per component planar YUV format with the U and V planes horizontally and vertically sub-sampled. This is similar to the :attr:`Format_YUV420P<QVideoFrame.PixelFormat>` type, except that the bytes per line of the U and V planes are padded out to the same stride as the Y plane.                                                                        |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_IMC2                  |The frame is stored using an 8-bit per component planar YUV format with the U and V planes horizontally and vertically sub-sampled. This is similar to the :attr:`Format_YUV420P<QVideoFrame.PixelFormat>` type, except that the lines of the U and V planes are interleaved, i.e. each line of U data is followed by a line of V data creating a single line of the same stride as the Y data.|
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_IMC3                  |The frame is stored using an 8-bit per component planar YVU format with the V and U planes horizontally and vertically sub-sampled. This is similar to the :attr:`Format_YV12<QVideoFrame.PixelFormat>` type, except that the bytes per line of the V and U planes are padded out to the same stride as the Y plane.                                                                           |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_IMC4                  |The frame is stored using an 8-bit per component planar YVU format with the V and U planes horizontally and vertically sub-sampled. This is similar to the :attr:`Format_YV12<QVideoFrame.PixelFormat>` type, except that the lines of the V and U planes are interleaved, i.e. each line of V data is followed by a line of U data creating a single line of the same stride as the Y data.   |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_Y8                    |The frame is stored using an 8-bit greyscale format.                                                                                                                                                                                                                                                                                                                                           |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_Y16                   |The frame is stored using a 16-bit linear greyscale format. Little endian.                                                                                                                                                                                                                                                                                                                     |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoFrame.Format_User                  |Start value for user defined pixel formats.                                                                                                                                                                                                                                                                                                                                                    |
+    +-----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.bits()
+
+
+    :rtype: :class:`PySide.QtCore.uchar`
+
+
+
+
+    Returns a pointer to the start of the frame data buffer.
+
+    This value is only valid while the frame data is :meth:`mapped<PySide.QtMultimedia.QVideoFrame.map>` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.map`  :meth:`PySide.QtMultimedia.QVideoFrame.mappedBytes`  :meth:`PySide.QtMultimedia.QVideoFrame.bytesPerLine` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.bytesPerLine()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of bytes in a scan line.
+
+    .. note::  This is the bytes per line of the first plane only. The bytes per line of subsequent planes should be calculated as per the frame type.
+
+    This value is only valid while the frame data is :meth:`mapped<PySide.QtMultimedia.QVideoFrame.map>` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.bits`  :meth:`PySide.QtMultimedia.QVideoFrame.map`  :meth:`PySide.QtMultimedia.QVideoFrame.mappedBytes` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.endTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the presentation time when a frame should stop being displayed.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.setEndTime` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.fieldType()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QVideoFrame.FieldType`
+
+
+
+
+    Returns the field an interlaced video frame belongs to.
+
+    If the video is not interlaced this will return WholeFrame.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.setFieldType` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.handle()
+
+
+    :rtype: object
+
+
+
+
+    Returns a type specific handle to a video frame's buffer.
+
+    For an OpenGL texture this would be the texture ID.
+
+    .. seealso::  :meth:`QAbstractVideoBuffer.handle()<PySide.QtMultimedia.QAbstractVideoBuffer.handle>` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.handleType()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.HandleType`
+
+
+
+
+    Returns the type of a video frame's handle.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.height()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the height of a video frame.
+
+
+
+.. staticmethod:: PySide.QtMultimedia.QVideoFrame.imageFormatFromPixelFormat(format)
+
+
+    :param format: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+    :rtype: :attr:`PySide.QtGui.QImage.Format`
+
+
+
+
+    Returns an image format equivalent to a video frame pixel ``format`` . If there is no equivalent format :attr:`QImage.Format_Invalid<QImage.Format>` is returned instead.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.isMapped()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Identifies if a video frame's contents are currently mapped to system memory.
+
+    This is a convenience function which checks that the :attr:`QAbstractVideoBuffer.MapMode` of the frame is not equal to :attr:`QAbstractVideoBuffer.NotMapped<QAbstractVideoBuffer.MapMode>` .
+
+    Returns true if the contents of the video frame are mapped to system memory, and false otherwise.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.mapMode`  :attr:`QAbstractVideoBuffer.MapMode` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.isReadable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Identifies if the mapped contents of a video frame were read from the frame when it was mapped.
+
+    This is a convenience function which checks if the :attr:`QAbstractVideoBuffer.MapMode` contains the :attr:`QAbstractVideoBuffer.WriteOnly<QAbstractVideoBuffer.MapMode>` flag.
+
+    Returns true if the contents of the mapped memory were read from the video frame, and false otherwise.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.mapMode`  :attr:`QAbstractVideoBuffer.MapMode` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Identifies whether a video frame is valid.
+
+    An invalid frame has no video buffer associated with it.
+
+    Returns true if the frame is valid, and false if it is not.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.isWritable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Identifies if the mapped contents of a video frame will be persisted when the frame is unmapped.
+
+    This is a convenience function which checks if the :attr:`QAbstractVideoBuffer.MapMode` contains the :attr:`QAbstractVideoBuffer.WriteOnly<QAbstractVideoBuffer.MapMode>` flag.
+
+    Returns true if the video frame will be updated when unmapped, and false otherwise.
+
+    .. note::  The result of altering the data of a frame that is mapped in read-only mode is undefined. Depending on the buffer implementation the changes may be persisted, or worse alter a shared buffer.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.mapMode`  :attr:`QAbstractVideoBuffer.MapMode` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.map(mode)
+
+
+    :param mode: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.MapMode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.mapMode()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.MapMode`
+
+
+
+
+    Returns the mode a video frame was mapped to system memory in.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.map`  :attr:`QAbstractVideoBuffer.MapMode` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.mappedBytes()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of bytes occupied by the mapped frame data.
+
+    This value is only valid while the frame data is :meth:`mapped<PySide.QtMultimedia.QVideoFrame.map>` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.map` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.pixelFormat()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+
+
+
+
+    Returns the color format of a video frame.
+
+
+
+.. staticmethod:: PySide.QtMultimedia.QVideoFrame.pixelFormatFromImageFormat(format)
+
+
+    :param format: :attr:`PySide.QtGui.QImage.Format`
+    :rtype: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.setEndTime(time)
+
+
+    :param time: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the presentation ``time`` when a frame should stop being displayed.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.endTime` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.setFieldType(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtMultimedia.QVideoFrame.FieldType`
+
+
+
+
+    Sets the ``field`` an interlaced video frame belongs to.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.fieldType` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.setStartTime(time)
+
+
+    :param time: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the presentation ``time`` when the frame should be displayed.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.startTime` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.size()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size of a video frame.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.startTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the presentation time when the frame should be displayed.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.setStartTime` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.unmap()
+
+
+
+
+
+
+    Releases the memory mapped by the :meth:`PySide.QtMultimedia.QVideoFrame.map` function.
+
+    If the :attr:`QAbstractVideoBuffer.MapMode` included the :attr:`QAbstractVideoBuffer.WriteOnly<QAbstractVideoBuffer.MapMode>` flag this will persist the current content of the mapped memory to the video frame.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoFrame.map` 
+
+
+.. method:: PySide.QtMultimedia.QVideoFrame.width()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the width of a video frame.
+
+
+
+

@@ -1,0 +1,221 @@
+.. module:: PySide.QtGui
+.. _QSound:
+
+QSound
+******
+
+.. inheritance-diagram:: QSound
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fileName<PySide.QtGui.QSound.fileName>` ()
+*    def :meth:`isFinished<PySide.QtGui.QSound.isFinished>` ()
+*    def :meth:`loops<PySide.QtGui.QSound.loops>` ()
+*    def :meth:`loopsRemaining<PySide.QtGui.QSound.loopsRemaining>` ()
+*    def :meth:`setLoops<PySide.QtGui.QSound.setLoops>` (arg__1)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`play<PySide.QtGui.QSound.play>` ()
+*    def :meth:`stop<PySide.QtGui.QSound.stop>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isAvailable<PySide.QtGui.QSound.isAvailable>` ()
+*    def :meth:`play<PySide.QtGui.QSound.play>` (filename)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSound` class provides access to the platform audio facilities.
+
+    Qt provides the most commonly required audio operation in GUI applications: asynchronously playing a sound file. This is most easily accomplished using the static :meth:`PySide.QtGui.QSound.play` function:
+
+    ::
+
+        QSound.play("mysounds/bells.wav")
+
+
+    Alternatively, create a :class:`PySide.QtGui.QSound` object from the sound file first and then call the :meth:`PySide.QtGui.QSound.play` slot:
+
+    ::
+
+        bells = QSound("mysounds/bells.wav")
+        bells.play()
+
+
+    Once created a :class:`PySide.QtGui.QSound` object can be queried for its :meth:`PySide.QtGui.QSound.fileName` and total number of :meth:`PySide.QtGui.QSound.loops` (i.e. the number of times the sound will play). The number of repetitions can be altered using the :meth:`PySide.QtGui.QSound.setLoops` function. While playing the sound, the :meth:`PySide.QtGui.QSound.loopsRemaining` function returns the remaining number of repetitions. Use the :meth:`PySide.QtGui.QSound.isFinished` function to determine whether the sound has finished playing.
+
+    Sounds played using a :class:`PySide.QtGui.QSound` object may use more memory than the static :meth:`PySide.QtGui.QSound.play` function, but it may also play more immediately (depending on the underlying platform audio facilities). Use the static :meth:`PySide.QtGui.QSound.isAvailable` function to determine whether sound facilities exist on the platform. Which facilities that are actually used varies:
+
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |Platform             |Audio Facility                                                                                                        |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |Microsoft Windows    |The underlying multimedia system is used; only WAVE format sound files are supported.                                 |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |X11                  |The Network Audio System is used if available, otherwise all operations work silently. NAS supports WAVE and AU files.|
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |Mac OS X             |NSSound is used. All formats that NSSound supports, including QuickTime formats, are supported by Qt for Mac OS X.    |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |Qt for Embedded Linux|A built-in mixing sound server is used, accessing ``/dev/dsp`` directly. Only the WAVE format is supported.           |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+    |Symbian              |CMdaAudioPlayerUtility is used. All formats that Symbian OS or devices support are supported also by Qt.              |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------+
+
+    Note that :class:`PySide.QtGui.QSound` does not support :ref:`resources<resources.html>` . This might be fixed in a future Qt version.
+
+
+.. class:: QSound(filename[, parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param filename: unicode
+
+    Constructs a :class:`PySide.QtGui.QSound` object from the file specified by the given ``filename`` and with the given ``parent`` .
+
+    This may use more memory than the static :meth:`PySide.QtGui.QSound.play` function, but it may also play more immediately (depending on the underlying platform audio facilities).
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.play` 
+
+.. method:: PySide.QtGui.QSound.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the filename associated with this :class:`PySide.QtGui.QSound` object.
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.QSound` 
+
+
+.. staticmethod:: PySide.QtGui.QSound.isAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if sound facilities exist on the platform; otherwise returns false.
+
+    If no sound is available, all :class:`PySide.QtGui.QSound` operations work silently and quickly. An application may choose either to notify the user if sound is crucial to the application or to operate silently without bothering the user.
+
+    Note: On Windows this always returns true because some sound card drivers do not implement a way to find out whether it is available or not.
+
+
+
+.. method:: PySide.QtGui.QSound.isFinished()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the sound has finished playing; otherwise returns false.
+
+    .. warning::  On Windows this function always returns true for unlooped sounds.
+
+
+
+.. method:: PySide.QtGui.QSound.loops()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of times the sound will play.
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.loopsRemaining`  :meth:`PySide.QtGui.QSound.setLoops` 
+
+
+.. method:: PySide.QtGui.QSound.loopsRemaining()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the remaining number of times the sound will loop (this value decreases each time the sound is played).
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.loops`  :meth:`PySide.QtGui.QSound.isFinished` 
+
+
+.. staticmethod:: PySide.QtGui.QSound.play(filename)
+
+
+    :param filename: unicode
+
+
+
+
+    Plays the sound stored in the file specified by the given ``filename`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.stop`  :meth:`PySide.QtGui.QSound.loopsRemaining`  :meth:`PySide.QtGui.QSound.isFinished` 
+
+
+.. method:: PySide.QtGui.QSound.play()
+
+
+
+
+
+
+    This is an overloaded function.
+
+    Starts playing the sound specified by this :class:`PySide.QtGui.QSound` object.
+
+    The function returns immediately. Depending on the platform audio facilities, other sounds may stop or be mixed with the new sound. The sound can be played again at any time, possibly mixing or replacing previous plays of the sound.
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.fileName` 
+
+
+.. method:: PySide.QtGui.QSound.setLoops(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the sound to repeat the given ``number`` of times when it is played.
+
+    Note that passing the value -1 will cause the sound to loop indefinitely.
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.loops` 
+
+
+.. method:: PySide.QtGui.QSound.stop()
+
+
+
+
+
+
+    Stops the sound playing.
+
+    Note that on Windows the current loop will finish if a sound is played in a loop.
+
+    .. seealso::  :meth:`PySide.QtGui.QSound.play` 
+
+
+

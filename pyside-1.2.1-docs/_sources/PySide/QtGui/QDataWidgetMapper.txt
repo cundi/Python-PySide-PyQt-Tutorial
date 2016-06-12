@@ -1,0 +1,591 @@
+.. module:: PySide.QtGui
+.. _QDataWidgetMapper:
+
+QDataWidgetMapper
+*****************
+
+.. inheritance-diagram:: QDataWidgetMapper
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addMapping<PySide.QtGui.QDataWidgetMapper.addMapping>` (widget, section)
+*    def :meth:`addMapping<PySide.QtGui.QDataWidgetMapper.addMapping>` (widget, section, propertyName)
+*    def :meth:`clearMapping<PySide.QtGui.QDataWidgetMapper.clearMapping>` ()
+*    def :meth:`currentIndex<PySide.QtGui.QDataWidgetMapper.currentIndex>` ()
+*    def :meth:`itemDelegate<PySide.QtGui.QDataWidgetMapper.itemDelegate>` ()
+*    def :meth:`mappedPropertyName<PySide.QtGui.QDataWidgetMapper.mappedPropertyName>` (widget)
+*    def :meth:`mappedSection<PySide.QtGui.QDataWidgetMapper.mappedSection>` (widget)
+*    def :meth:`mappedWidgetAt<PySide.QtGui.QDataWidgetMapper.mappedWidgetAt>` (section)
+*    def :meth:`model<PySide.QtGui.QDataWidgetMapper.model>` ()
+*    def :meth:`orientation<PySide.QtGui.QDataWidgetMapper.orientation>` ()
+*    def :meth:`removeMapping<PySide.QtGui.QDataWidgetMapper.removeMapping>` (widget)
+*    def :meth:`rootIndex<PySide.QtGui.QDataWidgetMapper.rootIndex>` ()
+*    def :meth:`setItemDelegate<PySide.QtGui.QDataWidgetMapper.setItemDelegate>` (delegate)
+*    def :meth:`setModel<PySide.QtGui.QDataWidgetMapper.setModel>` (model)
+*    def :meth:`setOrientation<PySide.QtGui.QDataWidgetMapper.setOrientation>` (aOrientation)
+*    def :meth:`setRootIndex<PySide.QtGui.QDataWidgetMapper.setRootIndex>` (index)
+*    def :meth:`setSubmitPolicy<PySide.QtGui.QDataWidgetMapper.setSubmitPolicy>` (policy)
+*    def :meth:`submitPolicy<PySide.QtGui.QDataWidgetMapper.submitPolicy>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`setCurrentIndex<PySide.QtGui.QDataWidgetMapper.setCurrentIndex>` (index)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`revert<PySide.QtGui.QDataWidgetMapper.revert>` ()
+*    def :meth:`setCurrentModelIndex<PySide.QtGui.QDataWidgetMapper.setCurrentModelIndex>` (index)
+*    def :meth:`submit<PySide.QtGui.QDataWidgetMapper.submit>` ()
+*    def :meth:`toFirst<PySide.QtGui.QDataWidgetMapper.toFirst>` ()
+*    def :meth:`toLast<PySide.QtGui.QDataWidgetMapper.toLast>` ()
+*    def :meth:`toNext<PySide.QtGui.QDataWidgetMapper.toNext>` ()
+*    def :meth:`toPrevious<PySide.QtGui.QDataWidgetMapper.toPrevious>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentIndexChanged<PySide.QtGui.QDataWidgetMapper.currentIndexChanged>` (index)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDataWidgetMapper` class provides mapping between a section of a data model to widgets.
+
+    :class:`PySide.QtGui.QDataWidgetMapper` can be used to create data-aware widgets by mapping them to sections of an item model. A section is a column of a model if the orientation is horizontal (the default), otherwise a row.
+
+    Every time the current index changes, each widget is updated with data from the model via the property specified when its mapping was made. If the user edits the contents of a widget, the changes are read using the same property and written back to the model. By default, each widget's :meth:`user property<~PySide.QtGui.QDataWidgetMapper.Q\_PROPERTY>` is used to transfer data between the model and the widget. Since Qt 4.3, an additional :meth:`PySide.QtGui.QDataWidgetMapper.addMapping` function enables a named property to be used instead of the default user property.
+
+    It is possible to set an item delegate to support custom widgets. By default, a :class:`PySide.QtGui.QItemDelegate` is used to synchronize the model with the widgets.
+
+    Let us assume that we have an item model named ``model`` with the following contents:
+
+    +-+------------+---------+
+    |1|Qt Norway   |Oslo     |
+    +-+------------+---------+
+    |2|Qt Australia|Brisbane |
+    +-+------------+---------+
+    |3|Qt USA      |Palo Alto|
+    +-+------------+---------+
+    |4|Qt China    |Beijing  |
+    +-+------------+---------+
+    |5|Qt Germany  |Berlin   |
+    +-+------------+---------+
+
+    The following code will map the columns of the model to widgets called ``mySpinBox`` , ``myLineEdit`` and ``myCountryChooser`` :
+
+    ::
+
+        mapper = QDataWidgetMapper
+        mapper.setModel(model)
+        mapper.addMapping(mySpinBox, 0)
+        mapper.addMapping(myLineEdit, 1)
+        mapper.addMapping(myCountryChooser, 2)
+        mapper.toFirst()
+
+
+    After the call to :meth:`PySide.QtGui.QDataWidgetMapper.toFirst` , ``mySpinBox`` displays the value ``1`` , ``myLineEdit`` displays ``Qt Norway`` and ``myCountryChooser`` displays ``Oslo`` . The navigational functions :meth:`PySide.QtGui.QDataWidgetMapper.toFirst` , :meth:`PySide.QtGui.QDataWidgetMapper.toNext` , :meth:`PySide.QtGui.QDataWidgetMapper.toPrevious` , :meth:`PySide.QtGui.QDataWidgetMapper.toLast` and :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` can be used to navigate in the model and update the widgets with contents from the model.
+
+    The :meth:`PySide.QtGui.QDataWidgetMapper.setRootIndex` function enables a particular item in a model to be specified as the root index - children of this item will be mapped to the relevant widgets in the user interface.
+
+    :class:`PySide.QtGui.QDataWidgetMapper` supports two submit policies, ``AutoSubmit`` and ``ManualSubmit`` . ``AutoSubmit`` will update the model as soon as the current widget loses focus, ``ManualSubmit`` will not update the model unless :meth:`PySide.QtGui.QDataWidgetMapper.submit` is called. ``ManualSubmit`` is useful when displaying a dialog that lets the user cancel all modifications. Also, other views that display the model won't update until the user finishes all their modifications and submits.
+
+    Note that :class:`PySide.QtGui.QDataWidgetMapper` keeps track of external modifications. If the contents of the model are updated in another module of the application, the widgets are updated as well.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractItemModel`  :class:`PySide.QtGui.QAbstractItemDelegate` 
+
+.. class:: QDataWidgetMapper([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtGui.QDataWidgetMapper` with parent object ``parent`` . By default, the orientation is horizontal and the submit policy is ``AutoSubmit`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setOrientation`  :meth:`PySide.QtGui.QDataWidgetMapper.setSubmitPolicy` 
+
+.. attribute:: PySide.QtGui.QDataWidgetMapper.SubmitPolicy
+
+    This enum describes the possible submit policies a :class:`PySide.QtGui.QDataWidgetMapper` supports.
+
+    +------------------------------+---------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                            |
+    +==============================+=======================================================================================+
+    |QDataWidgetMapper.AutoSubmit  |Whenever a widget loses focus, the widget's current value is set to the item model.    |
+    +------------------------------+---------------------------------------------------------------------------------------+
+    |QDataWidgetMapper.ManualSubmit|The model is not updated until :meth:`PySide.QtGui.QDataWidgetMapper.submit` is called.|
+    +------------------------------+---------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.addMapping(widget, section)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param section: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds a mapping between a ``widget`` and a ``section`` from the model. The ``section`` is a column in the model if the orientation is horizontal (the default), otherwise a row.
+
+    For the following example, we assume a model ``myModel`` that has two columns: the first one contains the names of people in a group, and the second column contains their ages. The first column is mapped to the :class:`PySide.QtGui.QLineEdit` ``nameLineEdit`` , and the second is mapped to the :class:`PySide.QtGui.QSpinBox` ``ageSpinBox`` :
+
+    ::
+
+        mapper = QDataWidgetMapper()
+        mapper.setModel(myModel)
+        mapper.addMapping(nameLineEdit, 0)
+        mapper.addMapping(ageSpinBox, 1)
+
+
+    **Notes:**\
+
+
+    * If the ``widget`` is already mapped to a section, the old mapping will be replaced by the new one.
+    * Only one-to-one mappings between sections and widgets are allowed. It is not possible to map a single section to multiple widgets, or to map a single widget to multiple sections.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.removeMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.mappedSection`  :meth:`PySide.QtGui.QDataWidgetMapper.clearMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.addMapping(widget, section, propertyName)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param section: :class:`PySide.QtCore.int`
+    :param propertyName: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Essentially the same as :meth:`PySide.QtGui.QDataWidgetMapper.addMapping` , but adds the possibility to specify the property to use specifying ``propertyName`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.clearMapping()
+
+
+
+
+
+
+    Clears all mappings.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.removeMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.currentIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current row or column.
+
+    The widgets are populated with with data from the row at ``index`` if the orientation is horizontal (the default), otherwise with data from the column at ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentModelIndex`  :meth:`PySide.QtGui.QDataWidgetMapper.toFirst`  :meth:`PySide.QtGui.QDataWidgetMapper.toNext`  :meth:`PySide.QtGui.QDataWidgetMapper.toPrevious`  :meth:`PySide.QtGui.QDataWidgetMapper.toLast` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.currentIndexChanged(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.itemDelegate()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractItemDelegate`
+
+
+
+
+    Returns the current item delegate.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setItemDelegate` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.mappedPropertyName(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the name of the property that is used when mapping data to the given ``widget`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.mappedSection`  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.removeMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.mappedSection(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the section the ``widget`` is mapped to or -1 if the widget is not mapped.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.removeMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.mappedWidgetAt(section)
+
+
+    :param section: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget that is mapped at ``section`` , or 0 if no widget is mapped at that section.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.removeMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.model()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the current model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setModel` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the model.
+
+    If the orientation is :attr:`Qt.Horizontal<Qt.Orientation>` (the default), a widget is mapped to a column of a data model. The widget will be populated with the model's data from its mapped column and the row that :meth:`PySide.QtGui.QDataWidgetMapper.currentIndex` points at.
+
+    Use :attr:`Qt.Horizontal<Qt.Orientation>` for tabular data that looks like this:
+
+    +-+------------+--------------+
+    |1|Qt Norway   |Oslo          |
+    +-+------------+--------------+
+    |2|Qt Australia|Brisbane      |
+    +-+------------+--------------+
+    |3|Qt USA      |Silicon Valley|
+    +-+------------+--------------+
+    |4|Qt China    |Beijing       |
+    +-+------------+--------------+
+    |5|Qt Germany  |Berlin        |
+    +-+------------+--------------+
+
+    If the orientation is set to :attr:`Qt.Vertical<Qt.Orientation>` , a widget is mapped to a row. Calling :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` will change the current column. The widget will be populates with the model's data from its mapped row and the column that :meth:`PySide.QtGui.QDataWidgetMapper.currentIndex` points at.
+
+    Use :attr:`Qt.Vertical<Qt.Orientation>` for tabular data that looks like this:
+
+    +---------+------------+--------------+--------+----------+
+    |1        |2           |3             |4       |5         |
+    +---------+------------+--------------+--------+----------+
+    |Qt Norway|Qt Australia|Qt USA        |Qt China|Qt Germany|
+    +---------+------------+--------------+--------+----------+
+    |Oslo     |Brisbane    |Silicon Valley|Beijing |Berlin    |
+    +---------+------------+--------------+--------+----------+
+
+    Changing the orientation clears all existing mappings.
+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.removeMapping(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes the mapping for the given ``widget`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.addMapping`  :meth:`PySide.QtGui.QDataWidgetMapper.clearMapping` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.revert()
+
+
+
+
+
+
+    Repopulates all widgets with the current data of the model. All unsubmitted changes will be lost.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.submit`  :meth:`PySide.QtGui.QDataWidgetMapper.setSubmitPolicy` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.rootIndex()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the current root index.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setRootIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setCurrentIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current row or column.
+
+    The widgets are populated with with data from the row at ``index`` if the orientation is horizontal (the default), otherwise with data from the column at ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentModelIndex`  :meth:`PySide.QtGui.QDataWidgetMapper.toFirst`  :meth:`PySide.QtGui.QDataWidgetMapper.toNext`  :meth:`PySide.QtGui.QDataWidgetMapper.toPrevious`  :meth:`PySide.QtGui.QDataWidgetMapper.toLast` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setCurrentModelIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the current index to the row of the ``index`` if the orientation is horizontal (the default), otherwise to the column of the ``index`` .
+
+    Calls :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` internally. This convenience slot can be connected to the signal :meth:`PySide.QtGui.QItemSelectionModel.currentRowChanged` or :meth:`PySide.QtGui.QItemSelectionModel.currentColumnChanged` of another view's :class:`selection model<PySide.QtGui.QItemSelectionModel>` .
+
+    The following example illustrates how to update all widgets with new data whenever the selection of a :class:`PySide.QtGui.QTableView` named ``myTableView`` changes:
+
+    ::
+
+        mapper = QDataWidgetMapper()
+        connect(myTableView.selectionModel(), SIGNAL("currentRowChanged(QModelIndex,QModelIndex)"),
+                mapper, SLOT(setCurrentModelIndex(QModelIndex)))
+
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.currentIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setItemDelegate(delegate)
+
+
+    :param delegate: :class:`PySide.QtGui.QAbstractItemDelegate`
+
+
+
+
+    Sets the item delegate to ``delegate`` . The delegate will be used to write data from the model into the widget and from the widget to the model, using :meth:`QAbstractItemDelegate.setEditorData()<PySide.QtGui.QAbstractItemDelegate.setEditorData>` and :meth:`QAbstractItemDelegate.setModelData()<PySide.QtGui.QAbstractItemDelegate.setModelData>` .
+
+    The delegate also decides when to apply data and when to change the editor, using :meth:`QAbstractItemDelegate.commitData()<PySide.QtGui.QAbstractItemDelegate.commitData>` and :meth:`QAbstractItemDelegate.closeEditor()<PySide.QtGui.QAbstractItemDelegate.closeEditor>` .
+
+    .. warning::  You should not share the same instance of a delegate between widget mappers or views. Doing so can cause incorrect or unintuitive editing behavior since each view connected to a given delegate may receive the :meth:`PySide.QtGui.QAbstractItemDelegate.closeEditor` signal, and attempt to access, modify or close an editor that has already been closed.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.itemDelegate` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setModel(model)
+
+
+    :param model: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Sets the current model to ``model`` . If another model was set, all mappings to that old model are cleared.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.model` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setOrientation(aOrientation)
+
+
+    :param aOrientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the model.
+
+    If the orientation is :attr:`Qt.Horizontal<Qt.Orientation>` (the default), a widget is mapped to a column of a data model. The widget will be populated with the model's data from its mapped column and the row that :meth:`PySide.QtGui.QDataWidgetMapper.currentIndex` points at.
+
+    Use :attr:`Qt.Horizontal<Qt.Orientation>` for tabular data that looks like this:
+
+    +-+------------+--------------+
+    |1|Qt Norway   |Oslo          |
+    +-+------------+--------------+
+    |2|Qt Australia|Brisbane      |
+    +-+------------+--------------+
+    |3|Qt USA      |Silicon Valley|
+    +-+------------+--------------+
+    |4|Qt China    |Beijing       |
+    +-+------------+--------------+
+    |5|Qt Germany  |Berlin        |
+    +-+------------+--------------+
+
+    If the orientation is set to :attr:`Qt.Vertical<Qt.Orientation>` , a widget is mapped to a row. Calling :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` will change the current column. The widget will be populates with the model's data from its mapped row and the column that :meth:`PySide.QtGui.QDataWidgetMapper.currentIndex` points at.
+
+    Use :attr:`Qt.Vertical<Qt.Orientation>` for tabular data that looks like this:
+
+    +---------+------------+--------------+--------+----------+
+    |1        |2           |3             |4       |5         |
+    +---------+------------+--------------+--------+----------+
+    |Qt Norway|Qt Australia|Qt USA        |Qt China|Qt Germany|
+    +---------+------------+--------------+--------+----------+
+    |Oslo     |Brisbane    |Silicon Valley|Beijing |Berlin    |
+    +---------+------------+--------------+--------+----------+
+
+    Changing the orientation clears all existing mappings.
+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setRootIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the root item to ``index`` . This can be used to display a branch of a tree. Pass an invalid model index to display the top-most branch.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.rootIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.setSubmitPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtGui.QDataWidgetMapper.SubmitPolicy`
+
+
+
+
+    This property holds the current submit policy.
+
+    Changing the current submit policy will revert all widgets to the current data from the model.
+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.submit()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Submits all changes from the mapped widgets to the model.
+
+    For every mapped section, the item delegate reads the current value from the widget and sets it in the model. Finally, the model's :meth:`PySide.QtCore.QAbstractItemModel.submit` method is invoked.
+
+    Returns true if all the values were submitted, otherwise false.
+
+    Note: For database models, :meth:`QSqlQueryModel.lastError()<PySide.QtSql.QSqlQueryModel.lastError>` can be used to retrieve the last error.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.revert`  :meth:`PySide.QtGui.QDataWidgetMapper.setSubmitPolicy` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.submitPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QDataWidgetMapper.SubmitPolicy`
+
+
+
+
+    This property holds the current submit policy.
+
+    Changing the current submit policy will revert all widgets to the current data from the model.
+
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.toFirst()
+
+
+
+
+
+
+    Populates the widgets with data from the first row of the model if the orientation is horizontal (the default), otherwise with data from the first column.
+
+    This is equivalent to calling ``setCurrentIndex(0)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.toLast`  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.toLast()
+
+
+
+
+
+
+    Populates the widgets with data from the last row of the model if the orientation is horizontal (the default), otherwise with data from the last column.
+
+    Calls :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` internally.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.toFirst`  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.toNext()
+
+
+
+
+
+
+    Populates the widgets with data from the next row of the model if the orientation is horizontal (the default), otherwise with data from the next column.
+
+    Calls :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` internally. Does nothing if there is no next row in the model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.toPrevious`  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` 
+
+
+.. method:: PySide.QtGui.QDataWidgetMapper.toPrevious()
+
+
+
+
+
+
+    Populates the widgets with data from the previous row of the model if the orientation is horizontal (the default), otherwise with data from the previous column.
+
+    Calls :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` internally. Does nothing if there is no previous row in the model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDataWidgetMapper.toNext`  :meth:`PySide.QtGui.QDataWidgetMapper.setCurrentIndex` 
+
+
+

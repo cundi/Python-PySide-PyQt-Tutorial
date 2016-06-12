@@ -1,0 +1,186 @@
+.. module:: PySide.QtGui
+.. _QSlider:
+
+QSlider
+*******
+
+.. inheritance-diagram:: QSlider
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initStyleOption<PySide.QtGui.QSlider.initStyleOption>` (option)
+*    def :meth:`setTickInterval<PySide.QtGui.QSlider.setTickInterval>` (ti)
+*    def :meth:`setTickPosition<PySide.QtGui.QSlider.setTickPosition>` (position)
+*    def :meth:`tickInterval<PySide.QtGui.QSlider.tickInterval>` ()
+*    def :meth:`tickPosition<PySide.QtGui.QSlider.tickPosition>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSlider` widget provides a vertical or horizontal slider.
+
+    The slider is the classic widget for controlling a bounded value. It lets the user move a slider handle along a horizontal or vertical groove and translates the handle's position into an integer value within the legal range.
+
+    :class:`PySide.QtGui.QSlider` has very few of its own functions; most of the functionality is in :class:`PySide.QtGui.QAbstractSlider` . The most useful functions are :meth:`PySide.QtGui.QAbstractSlider.setValue` to set the slider directly to some value; :meth:`PySide.QtGui.QAbstractSlider.triggerAction` to simulate the effects of clicking (useful for shortcut keys); :meth:`PySide.QtGui.QAbstractSlider.setSingleStep` , :meth:`PySide.QtGui.QAbstractSlider.setPageStep` to set the steps; and :meth:`PySide.QtGui.QAbstractSlider.setMinimum` and :meth:`PySide.QtGui.QAbstractSlider.setMaximum` to define the range of the scroll bar.
+
+    :class:`PySide.QtGui.QSlider` provides methods for controlling tickmarks. You can use :meth:`PySide.QtGui.QSlider.setTickPosition` to indicate where you want the tickmarks to be, :meth:`PySide.QtGui.QSlider.setTickInterval` to indicate how many of them you want. the currently set tick position and interval can be queried using the :meth:`PySide.QtGui.QSlider.tickPosition` and :meth:`PySide.QtGui.QSlider.tickInterval` functions, respectively.
+
+    :class:`PySide.QtGui.QSlider` inherits a comprehensive set of signals:
+
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Signal                                             |Description                                                                                                                                               |
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.valueChanged`  |Emitted when the slider's value has changed. The :meth:`~PySide.QtGui.QSlider.tracking` determines whether this signal is emitted during user interaction.|
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderPressed` |Emitted when the user starts to drag the slider.                                                                                                          |
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderMoved`   |Emitted when the user drags the slider.                                                                                                                   |
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderReleased`|Emitted when the user releases the slider.                                                                                                                |
+    +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    :class:`PySide.QtGui.QSlider` only provides integer ranges. Note that although :class:`PySide.QtGui.QSlider` handles very large numbers, it becomes difficult for users to use a slider accurately for very large ranges.
+
+    A slider accepts focus on Tab and provides both a mouse wheel and a keyboard interface. The keyboard interface is the following:
+
+
+    * Left/Right move a horizontal slider by one single step.
+    * Up/Down move a vertical slider by one single step.
+    * PageUp moves up one page.
+    * PageDown moves down one page.
+    * Home moves to the start (mininum).
+    * End moves to the end (maximum).
+
+    +---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-slider.png|A slider shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` . |
+    +---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windows-slider.png  |A slider shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .|
+    +---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-slider.png|A slider shown in the :ref:`Plastique widget style<gallery-plastique.html>` . |
+    +---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QScrollBar`  :class:`PySide.QtGui.QSpinBox`  :class:`PySide.QtGui.QDial`  :ref:`GUI Design Handbook: Slider<guibooks.html>`  :ref:`Sliders Example<widgets/sliders>` 
+
+.. class:: QSlider([parent=None])
+           QSlider(orientation[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+    Constructs a vertical slider with the given ``parent`` .
+
+
+
+
+.. attribute:: PySide.QtGui.QSlider.TickPosition
+
+    This enum specifies where the tick marks are to be drawn relative to the slider's groove and the handle the user moves.
+
+    +----------------------+-----------------------------------------------------+
+    |Constant              |Description                                          |
+    +======================+=====================================================+
+    |QSlider.NoTicks       |Do not draw any tick marks.                          |
+    +----------------------+-----------------------------------------------------+
+    |QSlider.TicksBothSides|Draw tick marks on both sides of the groove.         |
+    +----------------------+-----------------------------------------------------+
+    |QSlider.TicksAbove    |Draw tick marks above the (horizontal) slider        |
+    +----------------------+-----------------------------------------------------+
+    |QSlider.TicksBelow    |Draw tick marks below the (horizontal) slider        |
+    +----------------------+-----------------------------------------------------+
+    |QSlider.TicksLeft     |Draw tick marks to the left of the (vertical) slider |
+    +----------------------+-----------------------------------------------------+
+    |QSlider.TicksRight    |Draw tick marks to the right of the (vertical) slider|
+    +----------------------+-----------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QSlider.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionSlider`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QSlider` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionSlider` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QSlider.setTickInterval(ti)
+
+
+    :param ti: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the interval between tickmarks.
+
+    This is a value interval, not a pixel interval. If it is 0, the slider will choose between :meth:`PySide.QtGui.QAbstractSlider.singleStep` and :meth:`PySide.QtGui.QAbstractSlider.pageStep` .
+
+    The default value is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QSlider.tickPosition`  :meth:`~PySide.QtGui.QSlider.lineStep`  :meth:`PySide.QtGui.QAbstractSlider.pageStep` 
+
+
+.. method:: PySide.QtGui.QSlider.setTickPosition(position)
+
+
+    :param position: :attr:`PySide.QtGui.QSlider.TickPosition`
+
+
+
+
+    This property holds the tickmark position for this slider.
+
+    The valid values are described by the :attr:`QSlider.TickPosition` enum.
+
+    The default value is :attr:`QSlider.NoTicks<QSlider.TickPosition>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSlider.tickInterval` 
+
+
+.. method:: PySide.QtGui.QSlider.tickInterval()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the interval between tickmarks.
+
+    This is a value interval, not a pixel interval. If it is 0, the slider will choose between :meth:`PySide.QtGui.QAbstractSlider.singleStep` and :meth:`PySide.QtGui.QAbstractSlider.pageStep` .
+
+    The default value is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QSlider.tickPosition`  :meth:`~PySide.QtGui.QSlider.lineStep`  :meth:`PySide.QtGui.QAbstractSlider.pageStep` 
+
+
+.. method:: PySide.QtGui.QSlider.tickPosition()
+
+
+    :rtype: :attr:`PySide.QtGui.QSlider.TickPosition`
+
+
+
+
+    This property holds the tickmark position for this slider.
+
+    The valid values are described by the :attr:`QSlider.TickPosition` enum.
+
+    The default value is :attr:`QSlider.NoTicks<QSlider.TickPosition>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSlider.tickInterval` 
+
+
+

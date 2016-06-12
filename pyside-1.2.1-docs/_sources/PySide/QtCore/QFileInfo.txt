@@ -1,0 +1,959 @@
+.. module:: PySide.QtCore
+.. _QFileInfo:
+
+QFileInfo
+*********
+
+.. inheritance-diagram:: QFileInfo
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QFileInfo.__eq__>` (fileinfo)
+*    def :meth:`__ne__<PySide.QtCore.QFileInfo.__ne__>` (fileinfo)
+*    def :meth:`__reduce__<PySide.QtCore.QFileInfo.__reduce__>` ()
+*    def :meth:`absoluteDir<PySide.QtCore.QFileInfo.absoluteDir>` ()
+*    def :meth:`absoluteFilePath<PySide.QtCore.QFileInfo.absoluteFilePath>` ()
+*    def :meth:`absolutePath<PySide.QtCore.QFileInfo.absolutePath>` ()
+*    def :meth:`baseName<PySide.QtCore.QFileInfo.baseName>` ()
+*    def :meth:`bundleName<PySide.QtCore.QFileInfo.bundleName>` ()
+*    def :meth:`caching<PySide.QtCore.QFileInfo.caching>` ()
+*    def :meth:`canonicalFilePath<PySide.QtCore.QFileInfo.canonicalFilePath>` ()
+*    def :meth:`canonicalPath<PySide.QtCore.QFileInfo.canonicalPath>` ()
+*    def :meth:`completeBaseName<PySide.QtCore.QFileInfo.completeBaseName>` ()
+*    def :meth:`completeSuffix<PySide.QtCore.QFileInfo.completeSuffix>` ()
+*    def :meth:`created<PySide.QtCore.QFileInfo.created>` ()
+*    def :meth:`dir<PySide.QtCore.QFileInfo.dir>` ()
+*    def :meth:`exists<PySide.QtCore.QFileInfo.exists>` ()
+*    def :meth:`fileName<PySide.QtCore.QFileInfo.fileName>` ()
+*    def :meth:`filePath<PySide.QtCore.QFileInfo.filePath>` ()
+*    def :meth:`group<PySide.QtCore.QFileInfo.group>` ()
+*    def :meth:`groupId<PySide.QtCore.QFileInfo.groupId>` ()
+*    def :meth:`isAbsolute<PySide.QtCore.QFileInfo.isAbsolute>` ()
+*    def :meth:`isBundle<PySide.QtCore.QFileInfo.isBundle>` ()
+*    def :meth:`isDir<PySide.QtCore.QFileInfo.isDir>` ()
+*    def :meth:`isExecutable<PySide.QtCore.QFileInfo.isExecutable>` ()
+*    def :meth:`isFile<PySide.QtCore.QFileInfo.isFile>` ()
+*    def :meth:`isHidden<PySide.QtCore.QFileInfo.isHidden>` ()
+*    def :meth:`isReadable<PySide.QtCore.QFileInfo.isReadable>` ()
+*    def :meth:`isRelative<PySide.QtCore.QFileInfo.isRelative>` ()
+*    def :meth:`isRoot<PySide.QtCore.QFileInfo.isRoot>` ()
+*    def :meth:`isSymLink<PySide.QtCore.QFileInfo.isSymLink>` ()
+*    def :meth:`isWritable<PySide.QtCore.QFileInfo.isWritable>` ()
+*    def :meth:`lastModified<PySide.QtCore.QFileInfo.lastModified>` ()
+*    def :meth:`lastRead<PySide.QtCore.QFileInfo.lastRead>` ()
+*    def :meth:`makeAbsolute<PySide.QtCore.QFileInfo.makeAbsolute>` ()
+*    def :meth:`owner<PySide.QtCore.QFileInfo.owner>` ()
+*    def :meth:`ownerId<PySide.QtCore.QFileInfo.ownerId>` ()
+*    def :meth:`path<PySide.QtCore.QFileInfo.path>` ()
+*    def :meth:`permission<PySide.QtCore.QFileInfo.permission>` (permissions)
+*    def :meth:`permissions<PySide.QtCore.QFileInfo.permissions>` ()
+*    def :meth:`readLink<PySide.QtCore.QFileInfo.readLink>` ()
+*    def :meth:`refresh<PySide.QtCore.QFileInfo.refresh>` ()
+*    def :meth:`setCaching<PySide.QtCore.QFileInfo.setCaching>` (on)
+*    def :meth:`setFile<PySide.QtCore.QFileInfo.setFile>` (dir, file)
+*    def :meth:`setFile<PySide.QtCore.QFileInfo.setFile>` (file)
+*    def :meth:`setFile<PySide.QtCore.QFileInfo.setFile>` (file)
+*    def :meth:`size<PySide.QtCore.QFileInfo.size>` ()
+*    def :meth:`suffix<PySide.QtCore.QFileInfo.suffix>` ()
+*    def :meth:`symLinkTarget<PySide.QtCore.QFileInfo.symLinkTarget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QFileInfo` class provides system-independent file information.
+
+    :class:`PySide.QtCore.QFileInfo` provides information about a file's name and position (path) in the file system, its access rights and whether it is a directory or symbolic link, etc. The file's size and last modified/read times are also available. :class:`PySide.QtCore.QFileInfo` can also be used to obtain information about a Qt :ref:`resource<resources.html>` .
+
+    A :class:`PySide.QtCore.QFileInfo` can point to a file with either a relative or an absolute file path. Absolute file paths begin with the directory separator "/" (or with a drive specification on Windows). Relative file names begin with a directory name or a file name and specify a path relative to the current working directory. An example of an absolute path is the string "/tmp/quartz". A relative path might look like "src/fatlib". You can use the function :meth:`PySide.QtCore.QFileInfo.isRelative` to check whether a :class:`PySide.QtCore.QFileInfo` is using a relative or an absolute file path. You can call the function :meth:`PySide.QtCore.QFileInfo.makeAbsolute` to convert a relative :class:`PySide.QtCore.QFileInfo` 's path to an absolute path.
+
+    The file that the :class:`PySide.QtCore.QFileInfo` works on is set in the constructor or later with :meth:`PySide.QtCore.QFileInfo.setFile` . Use :meth:`PySide.QtCore.QFileInfo.exists` to see if the file exists and :meth:`PySide.QtCore.QFileInfo.size` to get its size.
+
+    The file's type is obtained with :meth:`PySide.QtCore.QFileInfo.isFile` , :meth:`PySide.QtCore.QFileInfo.isDir` and :meth:`PySide.QtCore.QFileInfo.isSymLink` . The :meth:`PySide.QtCore.QFileInfo.symLinkTarget` function provides the name of the file the symlink points to.
+
+    On Unix (including Mac OS X), the symlink has the same :meth:`PySide.QtCore.QFileInfo.size` has the file it points to, because Unix handles symlinks transparently; similarly, opening a symlink using :class:`PySide.QtCore.QFile` effectively opens the link's target. For example:
+
+    ::
+
+        info1 = QFileInfo("/home/bob/bin/untabify")
+        info1.isSymLink()           # returns true
+        info1.absoluteFilePath()    # returns "/home/bob/bin/untabify"
+        info1.size()                # returns 56201
+        info1.symLinkTarget()       # returns "/opt/pretty++/bin/untabify"
+
+        info2 = QFileInfo(info1.symLinkTarget())
+        info1.isSymLink()           # returns False
+        info1.absoluteFilePath()    # returns "/opt/pretty++/bin/untabify"
+        info1.size()                # returns 56201
+
+
+
+    On Windows, symlinks (shortcuts) are ``.lnk`` files. The reported :meth:`PySide.QtCore.QFileInfo.size` is that of the symlink (not the link's target), and opening a symlink using :class:`PySide.QtCore.QFile` opens the ``.lnk`` file. For example:
+
+    ::
+
+        info1 = QFileInfo("C:\\Documents and Settings\\Bob\\untabify.lnk")
+        info1.isSymLink()           # returns True
+        info1.absoluteFilePath()    # returns "C:/Documents and Settings/Bob/untabify.lnk"
+        info1.size()                # returns 743
+        info1.symLinkTarget()       # returns "C:/Pretty++/untabify"
+
+        info2 = QFileInfo(info1.symLinkTarget())
+        info1.isSymLink()           # returns False
+        info1.absoluteFilePath()    # returns "C:/Pretty++/untabify"
+        info1.size()                # returns 63942
+
+
+    Elements of the file's name can be extracted with :meth:`PySide.QtCore.QFileInfo.path` and :meth:`PySide.QtCore.QFileInfo.fileName` . The :meth:`PySide.QtCore.QFileInfo.fileName` 's parts can be extracted with :meth:`PySide.QtCore.QFileInfo.baseName` , :meth:`PySide.QtCore.QFileInfo.suffix` or :meth:`PySide.QtCore.QFileInfo.completeSuffix` . :class:`PySide.QtCore.QFileInfo` objects to directories created by Qt classes will not have a trailing file separator. If you wish to use trailing separators in your own file info objects, just append one to the file name given to the constructors or :meth:`PySide.QtCore.QFileInfo.setFile` .
+
+    The file's dates are returned by :meth:`PySide.QtCore.QFileInfo.created` , :meth:`PySide.QtCore.QFileInfo.lastModified` and :meth:`PySide.QtCore.QFileInfo.lastRead` . Information about the file's access permissions is obtained with :meth:`PySide.QtCore.QFileInfo.isReadable` , :meth:`PySide.QtCore.QFileInfo.isWritable` and :meth:`PySide.QtCore.QFileInfo.isExecutable` . The file's ownership is available from :meth:`PySide.QtCore.QFileInfo.owner` , :meth:`PySide.QtCore.QFileInfo.ownerId` , :meth:`PySide.QtCore.QFileInfo.group` and :meth:`PySide.QtCore.QFileInfo.groupId` . You can examine a file's permissions and ownership in a single statement using the :meth:`PySide.QtCore.QFileInfo.permission` function.
+
+    .. _PySide.QtCore.QFileInfo_performance-issues:
+
+
+
+Performance Issues
+^^^^^^^^^^^^^^^^^^
+
+    Some of :class:`PySide.QtCore.QFileInfo` 's functions query the file system, but for performance reasons, some functions only operate on the file name itself. For example: To return the absolute path of a relative file name, :meth:`PySide.QtCore.QFileInfo.absolutePath` has to query the file system. The :meth:`PySide.QtCore.QFileInfo.path` function, however, can work on the file name directly, and so it is faster.
+
+    .. note::  To speed up performance, :class:`PySide.QtCore.QFileInfo` caches information about the file.
+
+    To speed up performance, :class:`PySide.QtCore.QFileInfo` caches information about the file. Because files can be changed by other users or programs, or even by other parts of the same program, there is a function that refreshes the file information: :meth:`PySide.QtCore.QFileInfo.refresh` . If you want to switch off a :class:`PySide.QtCore.QFileInfo` 's caching and force it to access the file system every time you request information from it call setCaching(false).
+
+    .. seealso::  :class:`PySide.QtCore.QDir`  :class:`PySide.QtCore.QFile` 
+
+.. class:: QFileInfo()
+           QFileInfo(dir, file)
+           QFileInfo(file)
+           QFileInfo(fileinfo)
+           QFileInfo(file)
+
+    :param dir: :class:`PySide.QtCore.QDir`
+    :param fileinfo: :class:`PySide.QtCore.QFileInfo`
+    :param file: unicode
+
+    Constructs an empty :class:`PySide.QtCore.QFileInfo` object.
+
+    Note that an empty :class:`PySide.QtCore.QFileInfo` object contain no file reference.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.setFile` 
+
+    Constructs a new :class:`PySide.QtCore.QFileInfo` that gives information about the given ``file`` in the directory ``dir`` .
+
+    If ``dir`` has a relative path, the :class:`PySide.QtCore.QFileInfo` will also have a relative path.
+
+    If ``file`` is an absolute path, then the directory specified by ``dir`` will be disregarded.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+    Constructs a new :class:`PySide.QtCore.QFileInfo` that gives information about file ``file`` .
+
+    If the ``file`` has a relative path, the :class:`PySide.QtCore.QFileInfo` will also have a relative path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+    Constructs a new :class:`PySide.QtCore.QFileInfo` that is a copy of the given ``fileinfo`` .
+
+
+    Constructs a new :class:`PySide.QtCore.QFileInfo` that gives information about the given file. The ``file`` can also include an absolute or relative path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.setFile`  :meth:`PySide.QtCore.QFileInfo.isRelative`  :meth:`QDir.setCurrent()<PySide.QtCore.QDir.setCurrent>`  :meth:`QDir.isRelativePath()<PySide.QtCore.QDir.isRelativePath>` 
+
+.. method:: PySide.QtCore.QFileInfo.__reduce__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFileInfo.absoluteDir()
+
+
+    :rtype: :class:`PySide.QtCore.QDir`
+
+
+
+
+    Returns the file's absolute path as a :class:`PySide.QtCore.QDir` object.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.dir`  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.absoluteFilePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns an absolute path including the file name.
+
+    The absolute path name consists of the full path and the file name. On Unix this will always begin with the root, '/', directory. On Windows this will always begin 'D:/' where D is a drive letter, except for network shares that are not mapped to a drive letter, in which case the path will begin '//sharename/'. :class:`PySide.QtCore.QFileInfo` will uppercase drive letters. Note that :class:`PySide.QtCore.QDir` does not do this. The code snippet below shows this.
+
+    ::
+
+            fi = QFileInfo("c:/temp/foo") => fi.absoluteFilePath() => "C:/temp/foo"
+
+
+    This function returns the same as :meth:`PySide.QtCore.QFileInfo.filePath` , unless :meth:`PySide.QtCore.QFileInfo.isRelative` is true. In contrast to :meth:`PySide.QtCore.QFileInfo.canonicalFilePath` , symbolic links or redundant "." or ".." elements are not necessarily removed.
+
+    If the :class:`PySide.QtCore.QFileInfo` is empty it returns :meth:`QDir.currentPath()<PySide.QtCore.QDir.currentPath>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.canonicalFilePath`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.absolutePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a file's path absolute path. This doesn't include the file name.
+
+    On Unix the absolute path will always begin with the root, '/', directory. On Windows this will always begin 'D:/' where D is a drive letter, except for network shares that are not mapped to a drive letter, in which case the path will begin '//sharename/'.
+
+    In contrast to :meth:`PySide.QtCore.QFileInfo.canonicalPath` symbolic links or redundant "." or ".." elements are not necessarily removed.
+
+    .. warning::  If the :class:`PySide.QtCore.QFileInfo` object was created with an empty :class:`PySide.QtCore.QString` , the behavior of this function is undefined.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.absoluteFilePath`  :meth:`PySide.QtCore.QFileInfo.path`  :meth:`PySide.QtCore.QFileInfo.canonicalPath`  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.baseName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the base name of the file without the path.
+
+    The base name consists of all characters in the file up to (but not including) the *first* '.' character.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/tmp/archive.tar.gz")
+        base = fi.baseName()                    # base = "archive"
+
+
+    The base name of a file is computed equally on all platforms, independent of file naming conventions (e.g., ".bashrc" on Unix has an empty base name, and the suffix is "bashrc").
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.suffix`  :meth:`PySide.QtCore.QFileInfo.completeSuffix`  :meth:`PySide.QtCore.QFileInfo.completeBaseName` 
+
+
+.. method:: PySide.QtCore.QFileInfo.bundleName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the bundle.
+
+    On Mac OS X this returns the proper localized name for a bundle if the path :meth:`PySide.QtCore.QFileInfo.isBundle` . On all other platforms an empty :class:`PySide.QtCore.QString` is returned.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/Applications/Safari.app")
+        bundle = fi.bundleName()                # name = "Safari"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isBundle`  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.baseName`  :meth:`~PySide.QtCore.QFileInfo.extension` 
+
+
+.. method:: PySide.QtCore.QFileInfo.caching()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if caching is enabled; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.setCaching`  :meth:`PySide.QtCore.QFileInfo.refresh` 
+
+
+.. method:: PySide.QtCore.QFileInfo.canonicalFilePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the canonical path including the file name, i.e. an absolute path without symbolic links or redundant "." or ".." elements.
+
+    If the file does not exist, :meth:`PySide.QtCore.QFileInfo.canonicalFilePath` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.absoluteFilePath`  :meth:`PySide.QtCore.QFileInfo.dir` 
+
+
+.. method:: PySide.QtCore.QFileInfo.canonicalPath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file's path canonical path (excluding the file name), i.e. an absolute path without symbolic links or redundant "." or ".." elements.
+
+    If the file does not exist, :meth:`PySide.QtCore.QFileInfo.canonicalPath` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.path`  :meth:`PySide.QtCore.QFileInfo.absolutePath` 
+
+
+.. method:: PySide.QtCore.QFileInfo.completeBaseName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the complete base name of the file without the path.
+
+    The complete base name consists of all characters in the file up to (but not including) the *last* '.' character.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/tmp/archive.tar.gz")
+        base = fi.completeBaseName()            # base = "archive.tar"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.suffix`  :meth:`PySide.QtCore.QFileInfo.completeSuffix`  :meth:`PySide.QtCore.QFileInfo.baseName` 
+
+
+.. method:: PySide.QtCore.QFileInfo.completeSuffix()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the complete suffix of the file.
+
+    The complete suffix consists of all characters in the file after (but not including) the first '.'.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/tmp/archive.tar.gz")
+        ext = fi.completeSuffix()               # ext = "tar.gz"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.suffix`  :meth:`PySide.QtCore.QFileInfo.baseName`  :meth:`PySide.QtCore.QFileInfo.completeBaseName` 
+
+
+.. method:: PySide.QtCore.QFileInfo.created()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date and time when the file was created.
+
+    On most Unix systems, this function returns the time of the last status change. A status change occurs when the file is created, but it also occurs whenever the user writes or sets inode information (for example, changing the file permissions).
+
+    If neither creation time nor "last status change" time are not available, returns the same as :meth:`PySide.QtCore.QFileInfo.lastModified` .
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.lastModified`  :meth:`PySide.QtCore.QFileInfo.lastRead` 
+
+
+.. method:: PySide.QtCore.QFileInfo.dir()
+
+
+    :rtype: :class:`PySide.QtCore.QDir`
+
+
+
+
+    Returns the path of the object's parent directory as a :class:`PySide.QtCore.QDir` object.
+
+    .. note::  The :class:`PySide.QtCore.QDir` returned always corresponds to the object's parent directory, even if the :class:`PySide.QtCore.QFileInfo` represents a directory.
+
+    For each of the following, :meth:`PySide.QtCore.QFileInfo.dir` returns a :class:`PySide.QtCore.QDir` for ``"~/examples/191697"`` .
+
+    ::
+
+            fileInfo1 = QFileInfo("~/examples/191697/.")
+            fileInfo2 = QFileInfo("~/examples/191697/..")
+            fileInfo3 = QFileInfo("~/examples/191697/main.cpp")
+
+
+    For each of the following, :meth:`PySide.QtCore.QFileInfo.dir` returns a :class:`PySide.QtCore.QDir` for ``"."`` .
+
+    ::
+
+            fileInfo4 = QFileInfo(".")
+            fileInfo5 = QFileInfo("..")
+            fileInfo6 = QFileInfo("main.cpp")
+
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.absolutePath`  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.isRelative`  :meth:`PySide.QtCore.QFileInfo.absoluteDir` 
+
+
+.. method:: PySide.QtCore.QFileInfo.exists()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file exists; otherwise returns false.
+
+    .. note::  If the file is a symlink that points to a non existing file, false is returned.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the file, excluding the path.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/tmp/archive.tar.gz")
+        name = fi.fileName()                    # name = "archive.tar.gz"
+
+
+    Note that, if this :class:`PySide.QtCore.QFileInfo` object is given a path ending in a slash, the name of the file is considered empty.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative`  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.baseName`  :meth:`~PySide.QtCore.QFileInfo.extension` 
+
+
+.. method:: PySide.QtCore.QFileInfo.filePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file name, including the path (which may be absolute or relative).
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.absoluteFilePath`  :meth:`PySide.QtCore.QFileInfo.canonicalFilePath`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.group()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the group of the file. On Windows, on systems where files do not have groups, or if an error occurs, an empty string is returned.
+
+    This function can be time consuming under Unix (in the order of milliseconds).
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.groupId`  :meth:`PySide.QtCore.QFileInfo.owner`  :meth:`PySide.QtCore.QFileInfo.ownerId` 
+
+
+.. method:: PySide.QtCore.QFileInfo.groupId()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the id of the group the file belongs to.
+
+    On Windows and on systems where files do not have groups this function always returns (uint) -2.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.group`  :meth:`PySide.QtCore.QFileInfo.owner`  :meth:`PySide.QtCore.QFileInfo.ownerId` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isAbsolute()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file path name is absolute, otherwise returns false if the path is relative.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isBundle()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object points to a bundle or to a symbolic link to a bundle on Mac OS X; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isDir`  :meth:`PySide.QtCore.QFileInfo.isSymLink`  :meth:`PySide.QtCore.QFileInfo.isFile` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isDir()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object points to a directory or to a symbolic link to a directory; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isFile`  :meth:`PySide.QtCore.QFileInfo.isSymLink`  :meth:`PySide.QtCore.QFileInfo.isBundle` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isExecutable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file is executable; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isReadable`  :meth:`PySide.QtCore.QFileInfo.isWritable`  :meth:`PySide.QtCore.QFileInfo.permission` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isFile()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object points to a file or to a symbolic link to a file. Returns false if the object points to something which isn't a file, such as a directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isDir`  :meth:`PySide.QtCore.QFileInfo.isSymLink`  :meth:`PySide.QtCore.QFileInfo.isBundle` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isHidden()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this is a `hidden' file; otherwise returns false.
+
+    .. note::  This function returns true for the special entries "." and ".." on Unix, even though QDir::entryList threats them as shown.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.isReadable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the user can read the file; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isWritable`  :meth:`PySide.QtCore.QFileInfo.isExecutable`  :meth:`PySide.QtCore.QFileInfo.permission` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isRelative()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file path name is relative, otherwise returns false if the path is absolute (e.g. under Unix a path is absolute if it begins with a "/").
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isAbsolute` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isRoot()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object points to a directory or to a symbolic link to a directory, and that directory is the root directory; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.isSymLink()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object points to a symbolic link (or to a shortcut on Windows); otherwise returns false.
+
+    On Unix (including Mac OS X), opening a symlink effectively opens the :meth:`link's target<PySide.QtCore.QFileInfo.symLinkTarget>` . On Windows, it opens the ``.lnk`` file itself.
+
+    Example:
+
+    ::
+
+        info = QFileInfo(fileName)
+        if info.isSymLink():
+            fileName = info.symLinkTarget()
+
+
+    .. note::  If the symlink points to a non existing file, :meth:`PySide.QtCore.QFileInfo.exists` returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isFile`  :meth:`PySide.QtCore.QFileInfo.isDir`  :meth:`PySide.QtCore.QFileInfo.symLinkTarget` 
+
+
+.. method:: PySide.QtCore.QFileInfo.isWritable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the user can write to the file; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isReadable`  :meth:`PySide.QtCore.QFileInfo.isExecutable`  :meth:`PySide.QtCore.QFileInfo.permission` 
+
+
+.. method:: PySide.QtCore.QFileInfo.lastModified()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date and time when the file was last modified.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.created`  :meth:`PySide.QtCore.QFileInfo.lastRead` 
+
+
+.. method:: PySide.QtCore.QFileInfo.lastRead()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date and time when the file was last read (accessed).
+
+    On platforms where this information is not available, returns the same as :meth:`PySide.QtCore.QFileInfo.lastModified` .
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.created`  :meth:`PySide.QtCore.QFileInfo.lastModified` 
+
+
+.. method:: PySide.QtCore.QFileInfo.makeAbsolute()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Converts the file's path to an absolute path if it is not already in that form. Returns true to indicate that the path was converted; otherwise returns false to indicate that the path was already absolute.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.__ne__(fileinfo)
+
+
+    :param fileinfo: :class:`PySide.QtCore.QFileInfo`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.__eq__(fileinfo)
+
+
+    :param fileinfo: :class:`PySide.QtCore.QFileInfo`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.owner()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the owner of the file. On systems where files do not have owners, or if an error occurs, an empty string is returned.
+
+    This function can be time consuming under Unix (in the order of milliseconds).
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.ownerId`  :meth:`PySide.QtCore.QFileInfo.group`  :meth:`PySide.QtCore.QFileInfo.groupId` 
+
+
+.. method:: PySide.QtCore.QFileInfo.ownerId()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the id of the owner of the file.
+
+    On Windows and on systems where files do not have owners this function returns ((uint) -2).
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.owner`  :meth:`PySide.QtCore.QFileInfo.group`  :meth:`PySide.QtCore.QFileInfo.groupId` 
+
+
+.. method:: PySide.QtCore.QFileInfo.path()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file's path. This doesn't include the file name.
+
+    Note that, if this :class:`PySide.QtCore.QFileInfo` object is given a path ending in a slash, the name of the file is considered empty and this function will return the entire path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.filePath`  :meth:`PySide.QtCore.QFileInfo.absolutePath`  :meth:`PySide.QtCore.QFileInfo.canonicalPath`  :meth:`PySide.QtCore.QFileInfo.dir`  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.permission(permissions)
+
+
+    :param permissions: :class:`PySide.QtCore.QFile.Permissions`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFileInfo.permissions()
+
+
+    :rtype: :class:`PySide.QtCore.QFile.Permissions`
+
+
+
+
+    Returns the complete OR-ed together combination of :class:`QFile.Permissions` for the file.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.readLink()
+
+
+    :rtype: unicode
+
+
+
+
+    Use :meth:`PySide.QtCore.QFileInfo.symLinkTarget` instead.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.refresh()
+
+
+
+
+
+
+    Refreshes the information about the file, i.e. reads in information from the file system the next time a cached property is fetched.
+
+    .. note::  On Windows CE, there might be a delay for the file system driver to detect changes on the file.
+
+
+
+.. method:: PySide.QtCore.QFileInfo.setCaching(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enable`` is true, enables caching of file information. If ``enable`` is false caching is disabled.
+
+    When caching is enabled, :class:`PySide.QtCore.QFileInfo` reads the file information from the file system the first time it's needed, but generally not later.
+
+    Caching is enabled by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.refresh`  :meth:`PySide.QtCore.QFileInfo.caching` 
+
+
+.. method:: PySide.QtCore.QFileInfo.setFile(dir, file)
+
+
+    :param dir: :class:`PySide.QtCore.QDir`
+    :param file: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Sets the file that the :class:`PySide.QtCore.QFileInfo` provides information about to ``file`` in directory ``dir`` .
+
+    If ``file`` includes a relative path, the :class:`PySide.QtCore.QFileInfo` will also have a relative path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.setFile(file)
+
+
+    :param file: :class:`PySide.QtCore.QFile`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the file that the :class:`PySide.QtCore.QFileInfo` provides information about to ``file`` .
+
+    If ``file`` includes a relative path, the :class:`PySide.QtCore.QFileInfo` will also have a relative path.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isRelative` 
+
+
+.. method:: PySide.QtCore.QFileInfo.setFile(file)
+
+
+    :param file: unicode
+
+
+
+
+    Sets the file that the :class:`PySide.QtCore.QFileInfo` provides information about to ``file`` .
+
+    The ``file`` can also include an absolute or relative file path. Absolute paths begin with the directory separator (e.g. "/" under Unix) or a drive specification (under Windows). Relative file names begin with a directory name or a file name and specify a path relative to the current directory.
+
+    Example:
+
+    ::
+
+        absolute = "/local/bin"
+        relative = "local/bin"
+        absFile = QFileInfo(absolute)
+        relFile = QFileInfo(relative)
+
+        QDir.setCurrent(QDir.rootPath())
+        # absFile and relFile now point to the same file
+
+        QDir.setCurrent("/tmp")
+        # absFile now points to "/local/bin",
+        # while relFile points to "/tmp/local/bin"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.isFile`  :meth:`PySide.QtCore.QFileInfo.isRelative`  :meth:`QDir.setCurrent()<PySide.QtCore.QDir.setCurrent>`  :meth:`QDir.isRelativePath()<PySide.QtCore.QDir.isRelativePath>` 
+
+
+.. method:: PySide.QtCore.QFileInfo.size()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the file size in bytes. If the file does not exist or cannot be fetched, 0 is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.exists` 
+
+
+.. method:: PySide.QtCore.QFileInfo.suffix()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the suffix of the file.
+
+    The suffix consists of all characters in the file after (but not including) the last '.'.
+
+    Example:
+
+    ::
+
+        fi = QFileInfo("/tmp/archive.tar.gz")
+        ext = fi.suffix();                      # ext = "gz"
+
+
+    The suffix of a file is computed equally on all platforms, independent of file naming conventions (e.g., ".bashrc" on Unix has an empty base name, and the suffix is "bashrc").
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.fileName`  :meth:`PySide.QtCore.QFileInfo.completeSuffix`  :meth:`PySide.QtCore.QFileInfo.baseName`  :meth:`PySide.QtCore.QFileInfo.completeBaseName` 
+
+
+.. method:: PySide.QtCore.QFileInfo.symLinkTarget()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the absolute path to the file or directory a symlink (or shortcut on Windows) points to, or a an empty string if the object isn't a symbolic link.
+
+    This name may not represent an existing file; it is only a string. :meth:`QFileInfo.exists()<PySide.QtCore.QFileInfo.exists>` returns true if the symlink points to an existing file.
+
+    .. seealso::  :meth:`PySide.QtCore.QFileInfo.exists`  :meth:`PySide.QtCore.QFileInfo.isSymLink`  :meth:`PySide.QtCore.QFileInfo.isDir`  :meth:`PySide.QtCore.QFileInfo.isFile` 
+
+
+

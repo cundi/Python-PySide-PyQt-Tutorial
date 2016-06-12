@@ -1,0 +1,176 @@
+.. module:: PySide.QtGui
+.. _QStyledItemDelegate:
+
+QStyledItemDelegate
+*******************
+
+.. inheritance-diagram:: QStyledItemDelegate
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`itemEditorFactory<PySide.QtGui.QStyledItemDelegate.itemEditorFactory>` ()
+*    def :meth:`setItemEditorFactory<PySide.QtGui.QStyledItemDelegate.setItemEditorFactory>` (factory)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`displayText<PySide.QtGui.QStyledItemDelegate.displayText>` (value, locale)
+*    def :meth:`initStyleOption<PySide.QtGui.QStyledItemDelegate.initStyleOption>` (option, index)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStyledItemDelegate` class provides display and editing facilities for data items from a model.
+
+    When displaying data from models in Qt item views, e.g., a :class:`PySide.QtGui.QTableView` , the individual items are drawn by a delegate. Also, when an item is edited, it provides an editor widget, which is placed on top of the item view while editing takes place. :class:`PySide.QtGui.QStyledItemDelegate` is the default delegate for all Qt item views, and is installed upon them when they are created.
+
+    The :class:`PySide.QtGui.QStyledItemDelegate` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` . The delegate allows the display and editing of items to be developed independently from the model and view.
+
+    The data of items in models are assigned an :attr:`Qt.ItemDataRole` ; each item can store a :class:`PySide.QtCore.QVariant` for each role. :class:`PySide.QtGui.QStyledItemDelegate` implements display and editing for the most common datatypes expected by users, including booleans, integers, and strings.
+
+    The data will be drawn differently depending on which role they have in the model. The following table describes the roles and the data types the delegate can handle for each of them. It is often sufficient to ensure that the model returns appropriate data for each of the roles to determine the appearance of items in views.
+
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |Role                                           |Accepted Types                                                                                                             |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.BackgroundRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QBrush`                                                                                               |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.BackgroundColorRole<Qt.ItemDataRole>`|:class:`PySide.QtGui.QColor` (obsolete; use :attr:`Qt.BackgroundRole<Qt.ItemDataRole>` instead)                            |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.CheckStateRole<Qt.ItemDataRole>`     |:attr:`Qt.CheckState`                                                                                                      |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.DecorationRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QIcon` , :class:`PySide.QtGui.QPixmap` , :class:`PySide.QtGui.QImage` and :class:`PySide.QtGui.QColor`|
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.DisplayRole<Qt.ItemDataRole>`        |:class:`PySide.QtCore.QString` and types with a string representation                                                      |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.EditRole<Qt.ItemDataRole>`           |See :class:`PySide.QtGui.QItemEditorFactory` for details                                                                   |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.FontRole<Qt.ItemDataRole>`           |:class:`PySide.QtGui.QFont`                                                                                                |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.SizeHintRole<Qt.ItemDataRole>`       |:class:`PySide.QtCore.QSize`                                                                                               |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.TextAlignmentRole<Qt.ItemDataRole>`  |:class:`Qt.Alignment`                                                                                                      |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.ForegroundRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QBrush`                                                                                               |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Qt.TextColorRole<Qt.ItemDataRole>`      |:class:`PySide.QtGui.QColor` (obsolete; use :attr:`Qt.ForegroundRole<Qt.ItemDataRole>` instead)                            |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+
+    Editors are created with a :class:`PySide.QtGui.QItemEditorFactory` ; a default static instance provided by :class:`PySide.QtGui.QItemEditorFactory` is installed on all item delegates. You can set a custom factory using :meth:`PySide.QtGui.QStyledItemDelegate.setItemEditorFactory` or set a new default factory with :meth:`QItemEditorFactory.setDefaultFactory()<PySide.QtGui.QItemEditorFactory.setDefaultFactory>` . It is the data stored in the item model with the :attr:`EditRole<Qt.ItemDataRole>` that is edited. See the :class:`PySide.QtGui.QItemEditorFactory` class for a more high-level introduction to item editor factories. The :ref:`Color Editor Factory<itemviews/coloreditorfactory>` example shows how to create custom editors with a factory.
+
+    .. _PySide.QtGui.QStyledItemDelegate_subclassing-qstyleditemdelegate:
+
+
+
+Subclassing QStyledItemDelegate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    If the delegate does not support painting of the data types you need or you want to customize the drawing of items, you need to subclass :class:`PySide.QtGui.QStyledItemDelegate` , and reimplement :meth:`PySide.QtGui.QStyledItemDelegate.paint` and possibly :meth:`PySide.QtGui.QStyledItemDelegate.sizeHint` . The :meth:`PySide.QtGui.QStyledItemDelegate.paint` function is called individually for each item, and with :meth:`PySide.QtGui.QStyledItemDelegate.sizeHint` , you can specify the hint for each of them.
+
+    When reimplementing :meth:`PySide.QtGui.QStyledItemDelegate.paint` , one would typically handle the datatypes one would like to draw and use the superclass implementation for other types.
+
+    The painting of check box indicators are performed by the current style. The style also specifies the size and the bounding rectangles in which to draw the data for the different data roles. The bounding rectangle of the item itself is also calculated by the style. When drawing already supported datatypes, it is therefore a good idea to ask the style for these bounding rectangles. The :class:`PySide.QtGui.QStyle` class description describes this in more detail.
+
+    If you wish to change any of the bounding rectangles calculated by the style or the painting of check box indicators, you can subclass :class:`PySide.QtGui.QStyle` . Note, however, that the size of the items can also be affected by reimplementing :meth:`PySide.QtGui.QStyledItemDelegate.sizeHint` .
+
+    It is possible for a custom delegate to provide editors without the use of an editor item factory. In this case, the following virtual functions must be reimplemented:
+
+
+    * :meth:`PySide.QtGui.QStyledItemDelegate.createEditor` returns the widget used to change data from the model and can be reimplemented to customize editing behavior.
+    * :meth:`PySide.QtGui.QStyledItemDelegate.setEditorData` provides the widget with data to manipulate.
+    * :meth:`PySide.QtGui.QStyledItemDelegate.updateEditorGeometry` ensures that the editor is displayed correctly with respect to the item view.
+    * :meth:`PySide.QtGui.QStyledItemDelegate.setModelData` returns updated data to the model.
+
+    The :ref:`Star Delegate<itemviews/stardelegate>` example creates editors by reimplementing these methods.
+
+    .. _PySide.QtGui.QStyledItemDelegate_qstyleditemdelegate-vs-qitemdelegate:
+
+
+
+QStyledItemDelegate vs. QItemDelegate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Since Qt 4.4, there are two delegate classes: :class:`PySide.QtGui.QItemDelegate` and :class:`PySide.QtGui.QStyledItemDelegate` . However, the default delegate is :class:`PySide.QtGui.QStyledItemDelegate` . These two classes are independent alternatives to painting and providing editors for items in views. The difference between them is that :class:`PySide.QtGui.QStyledItemDelegate` uses the current style to paint its items. We therefore recommend using :class:`PySide.QtGui.QStyledItemDelegate` as the base class when implementing custom delegates or when working with Qt style sheets. The code required for either class should be equal unless the custom delegate needs to use the style for drawing.
+
+    If you wish to customize the painting of item views, you should implement a custom style. Please see the :class:`PySide.QtGui.QStyle` class documentation for details.
+
+    .. seealso::  :ref:`Delegate Classes<model-view-programming.html>`  :class:`PySide.QtGui.QItemDelegate`  :class:`PySide.QtGui.QAbstractItemDelegate`  :class:`PySide.QtGui.QStyle`  :ref:`Spin Box Delegate Example<itemviews/spinboxdelegate>`  :ref:`Star Delegate Example<itemviews/stardelegate>`  :ref:`Color Editor Factory Example<itemviews/coloreditorfactory>` 
+
+.. class:: QStyledItemDelegate([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an item delegate with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QStyledItemDelegate.displayText(value, locale)
+
+
+    :param value: object
+    :param locale: :class:`PySide.QtCore.QLocale`
+    :rtype: unicode
+
+
+
+
+    This function returns the string that the delegate will use to display the :attr:`Qt.DisplayRole<Qt.ItemDataRole>` of the model in ``locale`` . ``value`` is the value of the :attr:`Qt.DisplayRole<Qt.ItemDataRole>` provided by the model.
+
+    The default implementation uses the QLocale::toString to convert ``value`` into a :class:`PySide.QtCore.QString` .
+
+    This function is not called for empty model indices, i.e., indices for which the model returns an invalid :class:`PySide.QtCore.QVariant` .
+
+    .. seealso::  :meth:`QAbstractItemModel.data()<PySide.QtCore.QAbstractItemModel.data>` 
+
+
+.. method:: PySide.QtGui.QStyledItemDelegate.initStyleOption(option, index)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Initialize ``option`` with the values using the index ``index`` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionViewItem` , but don't want to fill in all the information themselves. This function will check the version of the :class:`PySide.QtGui.QStyleOptionViewItem` and fill in the additional values for a :class:`PySide.QtGui.QStyleOptionViewItemV2` , :class:`PySide.QtGui.QStyleOptionViewItemV3` and :class:`PySide.QtGui.QStyleOptionViewItemV4` .
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QStyledItemDelegate.itemEditorFactory()
+
+
+    :rtype: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Returns the editor factory used by the item delegate. If no editor factory is set, the function will return null.
+
+    .. seealso::  :meth:`PySide.QtGui.QStyledItemDelegate.setItemEditorFactory` 
+
+
+.. method:: PySide.QtGui.QStyledItemDelegate.setItemEditorFactory(factory)
+
+
+    :param factory: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Sets the editor factory to be used by the item delegate to be the ``factory`` specified. If no editor factory is set, the item delegate will use the default editor factory.
+
+    .. seealso::  :meth:`PySide.QtGui.QStyledItemDelegate.itemEditorFactory` 
+
+
+

@@ -1,0 +1,112 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkCookieJar:
+
+QNetworkCookieJar
+*****************
+
+.. inheritance-diagram:: QNetworkCookieJar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allCookies<PySide.QtNetwork.QNetworkCookieJar.allCookies>` ()
+*    def :meth:`setAllCookies<PySide.QtNetwork.QNetworkCookieJar.setAllCookies>` (cookieList)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cookiesForUrl<PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl>` (url)
+*    def :meth:`setCookiesFromUrl<PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl>` (cookieList, url)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkCookieJar` class implements a simple jar of :class:`PySide.QtNetwork.QNetworkCookie` objects
+
+    Cookies are small bits of information that stateless protocols like HTTP use to maintain some persistent information across requests.
+
+    A cookie is set by a remote server when it replies to a request and it expects the same cookie to be sent back when further requests are sent.
+
+    The cookie jar is the object that holds all cookies set in previous requests. Web browsers save their cookie jars to disk in order to conserve permanent cookies across invocations of the application.
+
+    :class:`PySide.QtNetwork.QNetworkCookieJar` does not implement permanent storage: it only keeps the cookies in memory. Once the :class:`PySide.QtNetwork.QNetworkCookieJar` object is deleted, all cookies it held will be discarded as well. If you want to save the cookies, you should derive from this class and implement the saving to disk to your own storage format.
+
+    This class implements only the basic security recommended by the cookie specifications and does not implement any cookie acceptance policy (it accepts all cookies set by any requests). In order to override those rules, you should reimplement the :meth:`PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl` and :meth:`PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl` virtual functions. They are called by :class:`PySide.QtNetwork.QNetworkReply` and :class:`PySide.QtNetwork.QNetworkAccessManager` when they detect new cookies and when they require cookies.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkCookie`  :class:`PySide.QtNetwork.QNetworkAccessManager`  :class:`PySide.QtNetwork.QNetworkReply`  :class:`PySide.QtNetwork.QNetworkRequest`  :meth:`QNetworkAccessManager.setCookieJar()<PySide.QtNetwork.QNetworkAccessManager.setCookieJar>` 
+
+.. class:: QNetworkCookieJar([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a :class:`PySide.QtNetwork.QNetworkCookieJar` object and sets the parent object to be ``parent`` .
+
+    The cookie jar is initialized to empty.
+
+
+.. method:: PySide.QtNetwork.QNetworkCookieJar.allCookies()
+
+
+    :rtype: 
+
+
+
+
+    Returns all cookies stored in this cookie jar. This function is suitable for derived classes to save cookies to disk, as well as to implement cookie expiration and other policies.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookieJar.setAllCookies`  :meth:`PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: 
+
+
+
+
+    Returns the cookies to be added to when a request is sent to ``url`` . This function is called by the default :meth:`QNetworkAccessManager.createRequest()<PySide.QtNetwork.QNetworkAccessManager.createRequest>` , which adds the cookies returned by this function to the request being sent.
+
+    If more than one cookie with the same name is found, but with differing paths, the one with longer path is returned before the one with shorter path. In other words, this function returns cookies sorted decreasingly by path length.
+
+    The default :class:`PySide.QtNetwork.QNetworkCookieJar` class implements only a very basic security policy (it makes sure that the cookies' domain and path match the reply's). To enhance the security policy with your own algorithms, override :meth:`PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl`  :meth:`QNetworkAccessManager.setCookieJar()<PySide.QtNetwork.QNetworkAccessManager.setCookieJar>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookieJar.setAllCookies(cookieList)
+
+
+    :param cookieList: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl(cookieList, url)
+
+
+    :param cookieList: 
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+

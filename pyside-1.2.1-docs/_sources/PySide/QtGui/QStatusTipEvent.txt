@@ -1,0 +1,82 @@
+.. module:: PySide.QtGui
+.. _QStatusTipEvent:
+
+QStatusTipEvent
+***************
+
+.. inheritance-diagram:: QStatusTipEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`tip<PySide.QtGui.QStatusTipEvent.tip>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStatusTipEvent` class provides an event that is used to show messages in a status bar.
+
+    Status tips can be set on a widget using the :meth:`QWidget.setStatusTip()<PySide.QtGui.QWidget.setStatusTip>` function. They are shown in the status bar when the mouse cursor enters the widget. For example:
+
+    +-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+    |::                                                         |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qstatustipevent-widget.png|
+    |                                                           |                                                                                                         |
+    |        def __init__(self, parent):                        |                                                                                                         |
+    |            QMainWindow.__init__(self, parent)             |                                                                                                         |
+    |                                                           |                                                                                                         |
+    |            myWidget = QWidget()                           |                                                                                                         |
+    |            myWidget.setStatusTip(tr("This is my widget."))|                                                                                                         |
+    |                                                           |                                                                                                         |
+    |            setCentralWidget(myWidget)                     |                                                                                                         |
+    |            ...                                            |                                                                                                         |
+    +-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+    Status tips can also be set on actions using the :meth:`QAction.setStatusTip()<PySide.QtGui.QAction.setStatusTip>` function:
+
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+    |::                                                    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qstatustipevent-action.png|
+    |                                                      |                                                                                                         |
+    |        def __init__(self, parent):                   |                                                                                                         |
+    |            QMainWindow.__init__(self, parent)        |                                                                                                         |
+    |            fileMenu = menuBar().addMenu(tr("File"))  |                                                                                                         |
+    |                                                      |                                                                                                         |
+    |            Act = QAction(self.tr("&New"), self)      |                                                                                                         |
+    |            Act.setStatusTip(tr("Create a new file."))|                                                                                                         |
+    |            fileMenu.addAction(Act)                   |                                                                                                         |
+    |            ...                                       |                                                                                                         |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+    Finally, status tips are supported for the item view classes through the :attr:`Qt.StatusTipRole<Qt.ItemDataRole>` enum value.
+
+    .. seealso::  :class:`PySide.QtGui.QStatusBar`  :class:`PySide.QtGui.QHelpEvent`  :class:`PySide.QtGui.QWhatsThisClickedEvent` 
+
+.. class:: QStatusTipEvent(tip)
+
+    :param tip: unicode
+
+    Constructs a status tip event with the text specified by ``tip`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusTipEvent.tip` 
+
+.. method:: PySide.QtGui.QStatusTipEvent.tip()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the message to show in the status bar.
+
+    .. seealso::  :meth:`QStatusBar.showMessage()<PySide.QtGui.QStatusBar.showMessage>` 
+
+
+

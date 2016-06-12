@@ -1,0 +1,574 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeProperty:
+
+QDeclarativeProperty
+********************
+
+.. inheritance-diagram:: QDeclarativeProperty
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtDeclarative.QDeclarativeProperty.__eq__>` (arg__1)
+*    def :meth:`connectNotifySignal<PySide.QtDeclarative.QDeclarativeProperty.connectNotifySignal>` (dest, method)
+*    def :meth:`connectNotifySignal<PySide.QtDeclarative.QDeclarativeProperty.connectNotifySignal>` (dest, slot)
+*    def :meth:`hasNotifySignal<PySide.QtDeclarative.QDeclarativeProperty.hasNotifySignal>` ()
+*    def :meth:`index<PySide.QtDeclarative.QDeclarativeProperty.index>` ()
+*    def :meth:`isDesignable<PySide.QtDeclarative.QDeclarativeProperty.isDesignable>` ()
+*    def :meth:`isProperty<PySide.QtDeclarative.QDeclarativeProperty.isProperty>` ()
+*    def :meth:`isResettable<PySide.QtDeclarative.QDeclarativeProperty.isResettable>` ()
+*    def :meth:`isSignalProperty<PySide.QtDeclarative.QDeclarativeProperty.isSignalProperty>` ()
+*    def :meth:`isValid<PySide.QtDeclarative.QDeclarativeProperty.isValid>` ()
+*    def :meth:`isWritable<PySide.QtDeclarative.QDeclarativeProperty.isWritable>` ()
+*    def :meth:`method<PySide.QtDeclarative.QDeclarativeProperty.method>` ()
+*    def :meth:`name<PySide.QtDeclarative.QDeclarativeProperty.name>` ()
+*    def :meth:`needsNotifySignal<PySide.QtDeclarative.QDeclarativeProperty.needsNotifySignal>` ()
+*    def :meth:`object<PySide.QtDeclarative.QDeclarativeProperty.object>` ()
+*    def :meth:`property<PySide.QtDeclarative.QDeclarativeProperty.property>` ()
+*    def :meth:`propertyType<PySide.QtDeclarative.QDeclarativeProperty.propertyType>` ()
+*    def :meth:`propertyTypeCategory<PySide.QtDeclarative.QDeclarativeProperty.propertyTypeCategory>` ()
+*    def :meth:`propertyTypeName<PySide.QtDeclarative.QDeclarativeProperty.propertyTypeName>` ()
+*    def :meth:`read<PySide.QtDeclarative.QDeclarativeProperty.read>` ()
+*    def :meth:`reset<PySide.QtDeclarative.QDeclarativeProperty.reset>` ()
+*    def :meth:`type<PySide.QtDeclarative.QDeclarativeProperty.type>` ()
+*    def :meth:`write<PySide.QtDeclarative.QDeclarativeProperty.write>` (arg__1)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`read<PySide.QtDeclarative.QDeclarativeProperty.read>` (arg__1, arg__2)
+*    def :meth:`read<PySide.QtDeclarative.QDeclarativeProperty.read>` (arg__1, arg__2, arg__3)
+*    def :meth:`read<PySide.QtDeclarative.QDeclarativeProperty.read>` (arg__1, arg__2, arg__3)
+*    def :meth:`write<PySide.QtDeclarative.QDeclarativeProperty.write>` (arg__1, arg__2, arg__3)
+*    def :meth:`write<PySide.QtDeclarative.QDeclarativeProperty.write>` (arg__1, arg__2, arg__3, arg__4)
+*    def :meth:`write<PySide.QtDeclarative.QDeclarativeProperty.write>` (arg__1, arg__2, arg__3, arg__4)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeProperty` class abstracts accessing properties on objects created from QML.
+
+    As QML uses Qt's meta-type system all of the existing :class:`PySide.QtCore.QMetaObject` classes can be used to introspect and interact with objects created by QML. However, some of the new features provided by QML - such as type safety and attached properties - are most easily used through the :class:`PySide.QtDeclarative.QDeclarativeProperty` class that simplifies some of their natural complexity.
+
+    Unlike :class:`PySide.QtCore.QMetaProperty` which represents a property on a class type, :class:`PySide.QtDeclarative.QDeclarativeProperty` encapsulates a property on a specific object instance. To read a property's value, programmers create a :class:`PySide.QtDeclarative.QDeclarativeProperty` instance and call the :meth:`PySide.QtDeclarative.QDeclarativeProperty.read` method. Likewise to write a property value the :meth:`PySide.QtDeclarative.QDeclarativeProperty.write` method is used.
+
+    For example, for the following QML code:
+
+    ::
+
+                // MyItem.qml
+                import QtQuick 1.0
+                
+                Text { text: "A bit of text" }
+
+
+    The :ref:`Text` object's properties could be accessed using :class:`PySide.QtDeclarative.QDeclarativeProperty` , like this:
+
+    ::
+
+                #include <QDeclarativeProperty>
+                #include <QGraphicsObject>
+                
+                ...
+                
+                QDeclarativeView view(QUrl::fromLocalFile("MyItem.qml"));
+                QDeclarativeProperty property(view.rootObject(), "font.pixelSize");
+                qWarning() << "Current pixel size:" << property.read().toInt();
+                property.write(24);
+                qWarning() << "Pixel size should now be 24:" << property.read().toInt();
+
+
+
+.. class:: QDeclarativeProperty()
+           QDeclarativeProperty(arg__1)
+           QDeclarativeProperty(arg__1, arg__2)
+           QDeclarativeProperty(arg__1, arg__2)
+           QDeclarativeProperty(arg__1, arg__2)
+           QDeclarativeProperty(arg__1, arg__2, arg__3)
+           QDeclarativeProperty(arg__1, arg__2, arg__3)
+           QDeclarativeProperty(arg__1)
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :param arg__3: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+    Create an invalid :class:`PySide.QtDeclarative.QDeclarativeProperty` .
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the default property of ``obj`` . If there is no default property, an invalid :class:`PySide.QtDeclarative.QDeclarativeProperty` will be created.
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the default property of ``obj`` using the :class:`context<PySide.QtDeclarative.QDeclarativeContext>` ``ctxt`` . If there is no default property, an invalid :class:`PySide.QtDeclarative.QDeclarativeProperty` will be created.
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the default property of ``obj`` using the environment for instantiating QML components that is provided by ``engine`` . If there is no default property, an invalid :class:`PySide.QtDeclarative.QDeclarativeProperty` will be created.
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the property ``name`` of ``obj`` .
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the property ``name`` of ``obj`` using the :class:`context<PySide.QtDeclarative.QDeclarativeContext>` ``ctxt`` .
+
+    Creating a :class:`PySide.QtDeclarative.QDeclarativeProperty` without a context will render some properties - like attached properties - inaccessible.
+
+
+    Creates a :class:`PySide.QtDeclarative.QDeclarativeProperty` for the property ``name`` of ``obj`` using the environment for instantiating QML components that is provided by ``engine`` .
+
+
+    Create a copy of ``other`` .
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeProperty.Type
+
+    This enum specifies a type of QML property.
+
+    +-----------------------------------+--------------------------------------+
+    |Constant                           |Description                           |
+    +===================================+======================================+
+    |QDeclarativeProperty.Invalid       |The property is invalid.              |
+    +-----------------------------------+--------------------------------------+
+    |QDeclarativeProperty.Property      |The property is a regular Qt property.|
+    +-----------------------------------+--------------------------------------+
+    |QDeclarativeProperty.SignalProperty|The property is a signal property.    |
+    +-----------------------------------+--------------------------------------+
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeProperty.PropertyTypeCategory
+
+    This enum specifies a category of QML property.
+
+    +------------------------------------+---------------------------------------------------------------------------------------+
+    |Constant                            |Description                                                                            |
+    +====================================+=======================================================================================+
+    |QDeclarativeProperty.InvalidCategory|The property is invalid, or is a signal property.                                      |
+    +------------------------------------+---------------------------------------------------------------------------------------+
+    |QDeclarativeProperty.List           |The property is a :class:`~PySide.QtDeclarative.QDeclarativeListProperty` list property|
+    +------------------------------------+---------------------------------------------------------------------------------------+
+    |QDeclarativeProperty.Object         |The property is a :class:`PySide.QtCore.QObject` derived type pointer                  |
+    +------------------------------------+---------------------------------------------------------------------------------------+
+    |QDeclarativeProperty.Normal         |The property is a normal value property.                                               |
+    +------------------------------------+---------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.connectNotifySignal(dest, method)
+
+
+    :param dest: :class:`PySide.QtCore.QObject`
+    :param method: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Connects the property's change notifier signal to the specified ``method`` of the ``dest`` object and returns true. Returns false if this metaproperty does not represent a regular Qt property or if it has no change notifier signal, or if the ``dest`` object does not have the specified ``method`` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.connectNotifySignal(dest, slot)
+
+
+    :param dest: :class:`PySide.QtCore.QObject`
+    :param slot: str
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Connects the property's change notifier signal to the specified ``slot`` of the ``dest`` object and returns true. Returns false if this metaproperty does not represent a regular Qt property or if it has no change notifier signal, or if the ``dest`` object does not have the specified ``slot`` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.hasNotifySignal()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the property has a change notifier signal, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.index()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Return the Qt metaobject index of the property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isDesignable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the property is designable, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isProperty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtDeclarative.QDeclarativeProperty` represents a regular Qt property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isResettable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the property is resettable, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isSignalProperty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtDeclarative.QDeclarativeProperty` represents a QML signal property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :class:`PySide.QtDeclarative.QDeclarativeProperty` refers to a valid property, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.isWritable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the property is writable, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.method()
+
+
+    :rtype: :class:`PySide.QtCore.QMetaMethod`
+
+
+
+
+    Return the :class:`PySide.QtCore.QMetaMethod` for this property if it is a :attr:`SignalProperty<QDeclarativeProperty.Type>` , otherwise returns an invalid :class:`PySide.QtCore.QMetaMethod` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Return the name of this QML property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.needsNotifySignal()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the property needs a change notifier signal for bindings to remain upto date, false otherwise.
+
+    Some properties, such as attached properties or those whose value never changes, do not require a change notifier.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.object()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the :class:`PySide.QtDeclarative.QDeclarativeProperty` 's :class:`PySide.QtCore.QObject` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.__eq__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeProperty`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` and this :class:`PySide.QtDeclarative.QDeclarativeProperty` represent the same property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.property()
+
+
+    :rtype: :class:`PySide.QtCore.QMetaProperty`
+
+
+
+
+    Returns the :class:`Qt property<PySide.QtCore.QMetaProperty>` associated with this QML property.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.propertyType()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QVariant` type of the property, or :attr:`QVariant.Invalid<QVariant.Type>` if the property has no :class:`PySide.QtCore.QVariant` type.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.propertyTypeCategory()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeProperty.PropertyTypeCategory`
+
+
+
+
+    Returns the property category.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.propertyTypeName()
+
+
+    :rtype: str
+
+
+
+
+    Returns the type name of the property, or 0 if the property has no type name.
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.read(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :param arg__3: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+    :rtype: object
+
+
+
+
+    Return the ``name`` property value of ``object`` using the environment for instantiating QML components that is provided by ``engine`` . . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name, engine);
+                p.read();
+
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.read(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :param arg__3: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :rtype: object
+
+
+
+
+    Return the ``name`` property value of ``object`` using the :class:`context<PySide.QtDeclarative.QDeclarativeContext>` ``ctxt`` . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name, context);
+                p.read();
+
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.read(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :rtype: object
+
+
+
+
+    Return the ``name`` property value of ``object`` . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name);
+                p.read();
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.read()
+
+
+    :rtype: object
+
+
+
+
+    Returns the property value.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.reset()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Resets the property and returns true if the property is resettable. If the property is not resettable, nothing happens and false is returned.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.type()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeProperty.Type`
+
+
+
+
+    Returns the type of the property.
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.write(arg__1, arg__2, arg__3, arg__4)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :param arg__3: object
+    :param arg__4: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes ``value`` to the ``name`` property of ``object`` using the environment for instantiating QML components that is provided by ``engine`` . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name, engine);
+                p.write(value);
+
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.write(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :param arg__3: object
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes ``value`` to the ``name`` property of ``object`` . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name);
+                p.write(value);
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeProperty.write(arg__1)
+
+
+    :param arg__1: object
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the property value to ``value`` and returns true. Returns false if the property can't be set because the ``value`` is the wrong type, for example.
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeProperty.write(arg__1, arg__2, arg__3, arg__4)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: unicode
+    :param arg__3: object
+    :param arg__4: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes ``value`` to the ``name`` property of ``object`` using the :class:`context<PySide.QtDeclarative.QDeclarativeContext>` ``ctxt`` . This method is equivalent to:
+
+    ::
+
+                QDeclarativeProperty p(object, name, ctxt);
+                p.write(value);
+
+
+
+
+

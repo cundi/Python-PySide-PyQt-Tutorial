@@ -1,0 +1,100 @@
+.. module:: PySide.QtGui
+.. _QErrorMessage:
+
+QErrorMessage
+*************
+
+.. inheritance-diagram:: QErrorMessage
+    :parts: 2
+
+Synopsis
+--------
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`showMessage<PySide.QtGui.QErrorMessage.showMessage>` (message)
+*    def :meth:`showMessage<PySide.QtGui.QErrorMessage.showMessage>` (message, type)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`qtHandler<PySide.QtGui.QErrorMessage.qtHandler>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QErrorMessage` class provides an error message display dialog.
+
+    An error message widget consists of a text label and a checkbox. The checkbox lets the user control whether the same error message will be displayed again in the future, typically displaying the text, "Show this message again" translated into the appropriate local language.
+
+    For production applications, the class can be used to display messages which the user only needs to see once. To use :class:`PySide.QtGui.QErrorMessage` like this, you create the dialog in the usual way, and show it by calling the :meth:`PySide.QtGui.QErrorMessage.showMessage` slot or connecting signals to it.
+
+    The static :meth:`PySide.QtGui.QErrorMessage.qtHandler` function installs a message handler using :meth:`~PySide.QtGui.QErrorMessage.qInstallMsgHandler` and creates a :class:`PySide.QtGui.QErrorMessage` that displays :meth:`~PySide.QtGui.QErrorMessage.qDebug` , :meth:`~PySide.QtGui.QErrorMessage.qWarning` and :meth:`~PySide.QtGui.QErrorMessage.qFatal` messages. This is most useful in environments where no console is available to display warnings and error messages.
+
+    In both cases :class:`PySide.QtGui.QErrorMessage` will queue pending messages and display them in order, with each new message being shown as soon as the user has accepted the previous message. Once the user has specified that a message is not to be shown again it is automatically skipped, and the dialog will show the next appropriate message in the queue.
+
+    The :ref:`Standard Dialogs<dialogs/standarddialogs>` example shows how to use :class:`PySide.QtGui.QErrorMessage` as well as other built-in Qt dialogs.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qerrormessage.png
+
+    .. seealso::  :class:`PySide.QtGui.QMessageBox`  :meth:`QStatusBar.showMessage()<PySide.QtGui.QStatusBar.showMessage>`  :ref:`Standard Dialogs Example<dialogs/standarddialogs>` 
+
+.. class:: QErrorMessage([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs and installs an error handler window with the given ``parent`` .
+
+
+.. staticmethod:: PySide.QtGui.QErrorMessage.qtHandler()
+
+
+    :rtype: :class:`PySide.QtGui.QErrorMessage`
+
+
+
+
+    Returns a pointer to a :class:`PySide.QtGui.QErrorMessage` object that outputs the default Qt messages. This function creates such an object, if there isn't one already.
+
+
+
+.. method:: PySide.QtGui.QErrorMessage.showMessage(message)
+
+
+    :param message: unicode
+
+
+
+
+    Shows the given message, ``message`` , and returns immediately. If the user has requested for the message not to be shown again, this function does nothing.
+
+    Normally, the message is displayed immediately. However, if there are pending messages, it will be queued to be displayed later.
+
+
+
+.. method:: PySide.QtGui.QErrorMessage.showMessage(message, type)
+
+
+    :param message: unicode
+    :param type: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Shows the given message, ``message`` , and returns immediately. If the user has requested for messages of type, ``type`` , not to be shown again, this function does nothing.
+
+    Normally, the message is displayed immediately. However, if there are pending messages, it will be queued to be displayed later.
+
+    .. seealso::  :meth:`PySide.QtGui.QErrorMessage.showMessage` 
+
+
+

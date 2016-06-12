@@ -1,0 +1,47 @@
+.. module:: PySide.QtCore
+.. _QFinalState:
+
+QFinalState
+***********
+
+.. inheritance-diagram:: QFinalState
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QFinalState` class provides a final state.
+
+    A final state is used to communicate that (part of) a :class:`PySide.QtCore.QStateMachine` has finished its work. When a final top-level state is entered, the state machine's :meth:`PySide.QtCore.QStateMachine.finished` () signal is emitted. In general, when a final substate (a child of a :class:`PySide.QtCore.QState` ) is entered, the parent state's :meth:`PySide.QtCore.QState.finished` () signal is emitted. :class:`PySide.QtCore.QFinalState` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    To use a final state, you create a :class:`PySide.QtCore.QFinalState` object and add a transition to it from another state. Example:
+
+    ::
+
+                QPushButton button;
+                
+                QStateMachine machine;
+                QState *s1 = new QState();
+                QFinalState *s2 = new QFinalState();
+                s1->addTransition(&button, SIGNAL(clicked()), s2);
+                machine.addState(s1);
+                machine.addState(s2);
+                
+                QObject::connect(&machine, SIGNAL(finished()), QApplication::instance(), SLOT(quit()));
+                machine.setInitialState(s1);
+                machine.start();
+
+
+    .. seealso::  :meth:`QState.finished()<PySide.QtCore.QState.finished>` 
+
+.. class:: QFinalState([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QState`
+
+    Constructs a new :class:`PySide.QtCore.QFinalState` object with the given ``parent`` state.
+
+
+

@@ -1,0 +1,86 @@
+.. module:: PySide.QtGui
+.. _QGraphicsItemGroup:
+
+QGraphicsItemGroup
+******************
+
+.. inheritance-diagram:: QGraphicsItemGroup
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addToGroup<PySide.QtGui.QGraphicsItemGroup.addToGroup>` (item)
+*    def :meth:`removeFromGroup<PySide.QtGui.QGraphicsItemGroup.removeFromGroup>` (item)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsItemGroup` class provides a container that treats a group of items as a single item.
+
+    A :class:`PySide.QtGui.QGraphicsItemGroup` is a special type of compound item that treats itself and all its children as one item (i.e., all events and geometries for all children are merged together). It's common to use item groups in presentation tools, when the user wants to group several smaller items into one big item in order to simplify moving and copying of items.
+
+    If all you want is to store items inside other items, you can use any :class:`PySide.QtGui.QGraphicsItem` directly by passing a suitable parent to :meth:`PySide.QtGui.QGraphicsItem.setParentItem` .
+
+    The :meth:`PySide.QtGui.QGraphicsItemGroup.boundingRect` function of :class:`PySide.QtGui.QGraphicsItemGroup` returns the bounding rectangle of all items in the item group. :class:`PySide.QtGui.QGraphicsItemGroup` ignores the :attr:`ItemIgnoresTransformations<QGraphicsItem.GraphicsItemFlag>` flag on its children (i.e., with respect to the geometry of the group item, the children are treated as if they were transformable).
+
+    There are two ways to construct an item group. The easiest and most common approach is to pass a list of items (e.g., all selected items) to :meth:`QGraphicsScene.createItemGroup()<PySide.QtGui.QGraphicsScene.createItemGroup>` , which returns a new :class:`PySide.QtGui.QGraphicsItemGroup` item. The other approach is to manually construct a :class:`PySide.QtGui.QGraphicsItemGroup` item, add it to the scene calling :meth:`QGraphicsScene.addItem()<PySide.QtGui.QGraphicsScene.addItem>` , and then add items to the group manually, one at a time by calling :meth:`PySide.QtGui.QGraphicsItemGroup.addToGroup` . To dismantle ("ungroup") an item group, you can either call :meth:`QGraphicsScene.destroyItemGroup()<PySide.QtGui.QGraphicsScene.destroyItemGroup>` , or you can manually remove all items from the group by calling :meth:`PySide.QtGui.QGraphicsItemGroup.removeFromGroup` .
+
+    ::
+
+        # Group all selected items together
+        group = scene.createItemGroup(scene.selecteditems())
+
+        # Destroy the group, and delete the group item
+        scene.destroyItemGroup(group)
+
+
+    The operation of adding and removing items preserves the items' scene-relative position and transformation, as opposed to calling :meth:`PySide.QtGui.QGraphicsItem.setParentItem` , where only the child item's parent-relative position and transformation are kept.
+
+    The addtoGroup() function reparents the target item to this item group, keeping the item's position and transformation intact relative to the scene. Visually, this means that items added via :meth:`PySide.QtGui.QGraphicsItemGroup.addToGroup` will remain completely unchanged as a result of this operation, regardless of the item or the group's current position or transformation; although the item's position and matrix are likely to change.
+
+    The :meth:`PySide.QtGui.QGraphicsItemGroup.removeFromGroup` function has similar semantics to :meth:`PySide.QtGui.QGraphicsItem.setParentItem` ; it reparents the item to the parent item of the item group. As with :meth:`PySide.QtGui.QGraphicsItemGroup.addToGroup` , the item's scene-relative position and transformation remain intact.
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsItem`  :ref:`Graphics View Framework<graphicsview.html>` 
+
+.. class:: QGraphicsItemGroup([parent=None[, scene=None]])
+
+    :param scene: :class:`PySide.QtGui.QGraphicsScene`
+    :param parent: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemGroup.addToGroup(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+
+    Adds the given ``item`` and item's child items to this item group. The item and child items will be reparented to this group, but its position and transformation relative to the scene will stay intact.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemGroup.removeFromGroup`  :meth:`QGraphicsScene.createItemGroup()<PySide.QtGui.QGraphicsScene.createItemGroup>` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemGroup.removeFromGroup(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+
+    Removes the specified ``item`` from this group. The item will be reparented to this group's parent item, or to 0 if this group has no parent. Its position and transformation relative to the scene will stay intact.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemGroup.addToGroup`  :meth:`QGraphicsScene.destroyItemGroup()<PySide.QtGui.QGraphicsScene.destroyItemGroup>` 
+
+
+

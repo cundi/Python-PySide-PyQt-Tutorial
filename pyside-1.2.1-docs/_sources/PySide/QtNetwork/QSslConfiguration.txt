@@ -1,0 +1,428 @@
+.. module:: PySide.QtNetwork
+.. _QSslConfiguration:
+
+QSslConfiguration
+*****************
+
+.. inheritance-diagram:: QSslConfiguration
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QSslConfiguration.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QSslConfiguration.__ne__>` (other)
+*    def :meth:`caCertificates<PySide.QtNetwork.QSslConfiguration.caCertificates>` ()
+*    def :meth:`ciphers<PySide.QtNetwork.QSslConfiguration.ciphers>` ()
+*    def :meth:`isNull<PySide.QtNetwork.QSslConfiguration.isNull>` ()
+*    def :meth:`localCertificate<PySide.QtNetwork.QSslConfiguration.localCertificate>` ()
+*    def :meth:`peerCertificate<PySide.QtNetwork.QSslConfiguration.peerCertificate>` ()
+*    def :meth:`peerCertificateChain<PySide.QtNetwork.QSslConfiguration.peerCertificateChain>` ()
+*    def :meth:`peerVerifyDepth<PySide.QtNetwork.QSslConfiguration.peerVerifyDepth>` ()
+*    def :meth:`peerVerifyMode<PySide.QtNetwork.QSslConfiguration.peerVerifyMode>` ()
+*    def :meth:`privateKey<PySide.QtNetwork.QSslConfiguration.privateKey>` ()
+*    def :meth:`protocol<PySide.QtNetwork.QSslConfiguration.protocol>` ()
+*    def :meth:`sessionCipher<PySide.QtNetwork.QSslConfiguration.sessionCipher>` ()
+*    def :meth:`setCaCertificates<PySide.QtNetwork.QSslConfiguration.setCaCertificates>` (certificates)
+*    def :meth:`setCiphers<PySide.QtNetwork.QSslConfiguration.setCiphers>` (ciphers)
+*    def :meth:`setLocalCertificate<PySide.QtNetwork.QSslConfiguration.setLocalCertificate>` (certificate)
+*    def :meth:`setPeerVerifyDepth<PySide.QtNetwork.QSslConfiguration.setPeerVerifyDepth>` (depth)
+*    def :meth:`setPeerVerifyMode<PySide.QtNetwork.QSslConfiguration.setPeerVerifyMode>` (mode)
+*    def :meth:`setPrivateKey<PySide.QtNetwork.QSslConfiguration.setPrivateKey>` (key)
+*    def :meth:`setProtocol<PySide.QtNetwork.QSslConfiguration.setProtocol>` (protocol)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultConfiguration<PySide.QtNetwork.QSslConfiguration.defaultConfiguration>` ()
+*    def :meth:`setDefaultConfiguration<PySide.QtNetwork.QSslConfiguration.setDefaultConfiguration>` (configuration)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QSslConfiguration` class holds the configuration and state of an SSL connection
+
+    :class:`PySide.QtNetwork.QSslConfiguration` is used by Qt networking classes to relay information about an open SSL connection and to allow the application to control certain features of that connection.
+
+    The settings that :class:`PySide.QtNetwork.QSslConfiguration` currently supports are:
+
+
+    * The SSL/TLS protocol to be used
+    * The certificate to be presented to the peer during connection and its associated private key
+    * The ciphers allowed to be used for encrypting the connection
+    * The list of Certificate Authorities certificates that are used to validate the peer's certificate
+
+    These settings are applied only during the connection handshake. Setting them after the connection has been established has no effect.
+
+    The state that :class:`PySide.QtNetwork.QSslConfiguration` supports are:
+
+
+    * The certificate the peer presented during handshake, along with the chain leading to a CA certificate
+    * The cipher used to encrypt this session
+
+    The state can only be obtained once the SSL connection starts, but not necessarily before it's done. Some settings may change during the course of the SSL connection without need to restart it (for instance, the cipher can be changed over time).
+
+    State in :class:`PySide.QtNetwork.QSslConfiguration` objects cannot be changed.
+
+    :class:`PySide.QtNetwork.QSslConfiguration` can be used with :class:`PySide.QtNetwork.QSslSocket` and the Network Access API.
+
+    Note that changing settings in :class:`PySide.QtNetwork.QSslConfiguration` is not enough to change the settings in the related SSL connection. You must call setSslConfiguration on a modified :class:`PySide.QtNetwork.QSslConfiguration` object to achieve that. The following example illustrates how to change the protocol to TLSv1 in a :class:`PySide.QtNetwork.QSslSocket` object:
+
+    ::
+
+        config = sslSocket.sslConfiguration()
+        config.setProtocol(QSsl.TlsV1)
+        sslSocket.setSslConfiguration(config)
+
+
+    :class:`PySide.QtNetwork.QSslSocket` , :class:`PySide.QtNetwork.QNetworkAccessManager` , :meth:`QSslSocket.sslConfiguration()<PySide.QtNetwork.QSslSocket.sslConfiguration>` , :meth:`QSslSocket.setSslConfiguration()<PySide.QtNetwork.QSslSocket.setSslConfiguration>`
+
+    .. seealso::  :attr:`QSsl.SslProtocol`  :class:`PySide.QtNetwork.QSslCertificate`  :class:`PySide.QtNetwork.QSslCipher`  :class:`PySide.QtNetwork.QSslKey` 
+
+.. class:: QSslConfiguration()
+           QSslConfiguration(other)
+
+    :param other: :class:`PySide.QtNetwork.QSslConfiguration`
+
+    Constructs an empty SSL configuration. This configuration contains no valid settings and the state will be empty. :meth:`PySide.QtNetwork.QSslConfiguration.isNull` will return true after this constructor is called.
+
+    Once any setter methods are called, :meth:`PySide.QtNetwork.QSslConfiguration.isNull` will return false.
+
+
+    Copies the configuration and state of ``other`` . If ``other`` is null, this object will be null too.
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.caCertificates()
+
+
+    :rtype: 
+
+
+
+
+    Returns this connection's CA certificate database. The CA certificate database is used by the socket during the handshake phase to validate the peer's certificate. It can be modified prior to the handshake with :meth:`PySide.QtNetwork.QSslConfiguration.setCaCertificates` , or with :class:`PySide.QtNetwork.QSslSocket` 's :meth:`PySide.QtNetwork.QSslSocket.addCaCertificate` and :meth:`PySide.QtNetwork.QSslSocket.addCaCertificates` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setCaCertificates` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.ciphers()
+
+
+    :rtype: 
+
+
+
+
+    Returns this connection's current cryptographic cipher suite. This list is used during the handshake phase for choosing a session cipher. The returned list of ciphers is ordered by descending preference. (i.e., the first cipher in the list is the most preferred cipher). The session cipher will be the first one in the list that is also supported by the peer.
+
+    By default, the handshake phase can choose any of the ciphers supported by this system's SSL libraries, which may vary from system to system. The list of ciphers supported by this system's SSL libraries is returned by :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>` . You can restrict the list of ciphers used for choosing the session cipher for this socket by calling :meth:`PySide.QtNetwork.QSslConfiguration.setCiphers` with a subset of the supported ciphers. You can revert to using the entire set by calling :meth:`PySide.QtNetwork.QSslConfiguration.setCiphers` with the list returned by :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setCiphers`  :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>` 
+
+
+.. staticmethod:: PySide.QtNetwork.QSslConfiguration.defaultConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Returns the default SSL configuration to be used in new SSL connections.
+
+    The default SSL configuration consists of:
+
+
+    * no local certificate and no private key
+    * protocol SecureProtocols (meaning either TLS 1.0 or SSL 3 will be used)
+    * the system's default CA certificate list
+    * the cipher list equal to the list of the SSL libraries' supported SSL ciphers
+
+    .. seealso::  :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>`  :meth:`PySide.QtNetwork.QSslConfiguration.setDefaultConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this is a null :class:`PySide.QtNetwork.QSslConfiguration` object.
+
+    A :class:`PySide.QtNetwork.QSslConfiguration` object is null if it has been default-constructed and no setter methods have been called.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setProtocol`  :meth:`PySide.QtNetwork.QSslConfiguration.setLocalCertificate`  :meth:`PySide.QtNetwork.QSslConfiguration.setPrivateKey`  :meth:`PySide.QtNetwork.QSslConfiguration.setCiphers`  :meth:`PySide.QtNetwork.QSslConfiguration.setCaCertificates` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.localCertificate()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslCertificate`
+
+
+
+
+    Returns the certificate to be presented to the peer during the SSL handshake process.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setLocalCertificate` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QSslConfiguration`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QSslConfiguration` differs from ``other`` . Two :class:`PySide.QtNetwork.QSslConfiguration` objects are considered different if any state or setting is different.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.operator==` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QSslConfiguration`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QSslConfiguration` object is equal to ``other`` .
+
+    Two :class:`PySide.QtNetwork.QSslConfiguration` objects are considered equal if they have the exact same settings and state.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.operator!=` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.peerCertificate()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslCertificate`
+
+
+
+
+    Returns the peer's digital certificate (i.e., the immediate certificate of the host you are connected to), or a null certificate, if the peer has not assigned a certificate.
+
+    The peer certificate is checked automatically during the handshake phase, so this function is normally used to fetch the certificate for display or for connection diagnostic purposes. It contains information about the peer, including its host name, the certificate issuer, and the peer's public key.
+
+    Because the peer certificate is set during the handshake phase, it is safe to access the peer certificate from a slot connected to the :meth:`QSslSocket.sslErrors()<PySide.QtNetwork.QSslSocket.sslErrors>` signal, :meth:`QNetworkReply.sslErrors()<PySide.QtNetwork.QNetworkReply.sslErrors>` signal, or the :meth:`QSslSocket.encrypted()<PySide.QtNetwork.QSslSocket.encrypted>` signal.
+
+    If a null certificate is returned, it can mean the SSL handshake failed, or it can mean the host you are connected to doesn't have a certificate, or it can mean there is no connection.
+
+    If you want to check the peer's complete chain of certificates, use :meth:`PySide.QtNetwork.QSslConfiguration.peerCertificateChain` to get them all at once.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.peerCertificateChain`  :meth:`QSslSocket.sslErrors()<PySide.QtNetwork.QSslSocket.sslErrors>`  :meth:`QSslSocket.ignoreSslErrors()<PySide.QtNetwork.QSslSocket.ignoreSslErrors>`  :meth:`QNetworkReply.sslErrors()<PySide.QtNetwork.QNetworkReply.sslErrors>`  :meth:`QNetworkReply.ignoreSslErrors()<PySide.QtNetwork.QNetworkReply.ignoreSslErrors>` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.peerCertificateChain()
+
+
+    :rtype: 
+
+
+
+
+    Returns the peer's chain of digital certificates, starting with the peer's immediate certificate and ending with the CA's certificate.
+
+    Peer certificates are checked automatically during the handshake phase. This function is normally used to fetch certificates for display, or for performing connection diagnostics. Certificates contain information about the peer and the certificate issuers, including host name, issuer names, and issuer public keys.
+
+    Because the peer certificate is set during the handshake phase, it is safe to access the peer certificate from a slot connected to the :meth:`QSslSocket.sslErrors()<PySide.QtNetwork.QSslSocket.sslErrors>` signal, :meth:`QNetworkReply.sslErrors()<PySide.QtNetwork.QNetworkReply.sslErrors>` signal, or the :meth:`QSslSocket.encrypted()<PySide.QtNetwork.QSslSocket.encrypted>` signal.
+
+    If an empty list is returned, it can mean the SSL handshake failed, or it can mean the host you are connected to doesn't have a certificate, or it can mean there is no connection.
+
+    If you want to get only the peer's immediate certificate, use :meth:`PySide.QtNetwork.QSslConfiguration.peerCertificate` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.peerCertificate`  :meth:`QSslSocket.sslErrors()<PySide.QtNetwork.QSslSocket.sslErrors>`  :meth:`QSslSocket.ignoreSslErrors()<PySide.QtNetwork.QSslSocket.ignoreSslErrors>`  :meth:`QNetworkReply.sslErrors()<PySide.QtNetwork.QNetworkReply.sslErrors>`  :meth:`QNetworkReply.ignoreSslErrors()<PySide.QtNetwork.QNetworkReply.ignoreSslErrors>` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.peerVerifyDepth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the maximum number of certificates in the peer's certificate chain to be checked during the SSL handshake phase, or 0 (the default) if no maximum depth has been set, indicating that the whole certificate chain should be checked.
+
+    The certificates are checked in issuing order, starting with the peer's own certificate, then its issuer's certificate, and so on.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setPeerVerifyDepth`  :meth:`PySide.QtNetwork.QSslConfiguration.peerVerifyMode` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.peerVerifyMode()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QSslSocket.PeerVerifyMode`
+
+
+
+
+    Returns the verify mode. This mode decides whether :class:`PySide.QtNetwork.QSslSocket` should request a certificate from the peer (i.e., the client requests a certificate from the server, or a server requesting a certificate from the client), and whether it should require that this certificate is valid.
+
+    The default mode is AutoVerifyPeer, which tells :class:`PySide.QtNetwork.QSslSocket` to use VerifyPeer for clients, QueryPeer for servers.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setPeerVerifyMode` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.privateKey()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslKey`
+
+
+
+
+    Returns the :class:`SSL key<PySide.QtNetwork.QSslKey>` assigned to this connection or a null key if none has been assigned yet.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setPrivateKey`  :meth:`PySide.QtNetwork.QSslConfiguration.localCertificate` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.protocol()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QSsl.SslProtocol`
+
+
+
+
+    Returns the protocol setting for this SSL configuration.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.setProtocol` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.sessionCipher()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslCipher`
+
+
+
+
+    Returns the socket's cryptographic :class:`cipher<PySide.QtNetwork.QSslCipher>` , or a null cipher if the connection isn't encrypted. The socket's cipher for the session is set during the handshake phase. The cipher is used to encrypt and decrypt data transmitted through the socket.
+
+    The SSL infrastructure also provides functions for setting the ordered list of ciphers from which the handshake phase will eventually select the session cipher. This ordered list must be in place before the handshake phase begins.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.ciphers`  :meth:`PySide.QtNetwork.QSslConfiguration.setCiphers`  :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setCaCertificates(certificates)
+
+
+    :param certificates: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setCiphers(ciphers)
+
+
+    :param ciphers: 
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtNetwork.QSslConfiguration.setDefaultConfiguration(configuration)
+
+
+    :param configuration: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Sets the default SSL configuration to be used in new SSL connections to be ``configuration`` . Existing connections are not affected by this call.
+
+    .. seealso::  :meth:`QSslSocket.supportedCiphers()<PySide.QtNetwork.QSslSocket.supportedCiphers>`  :meth:`PySide.QtNetwork.QSslConfiguration.defaultConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setLocalCertificate(certificate)
+
+
+    :param certificate: :class:`PySide.QtNetwork.QSslCertificate`
+
+
+
+
+    Sets the certificate to be presented to the peer during SSL handshake to be ``certificate`` .
+
+    Setting the certificate once the connection has been established has no effect.
+
+    A certificate is the means of identification used in the SSL process. The local certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. In most cases, such as in HTTP web browsing, only servers identify to the clients, so the client does not send a certificate.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.localCertificate` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setPeerVerifyDepth(depth)
+
+
+    :param depth: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the maximum number of certificates in the peer's certificate chain to be checked during the SSL handshake phase, to ``depth`` . Setting a depth of 0 means that no maximum depth is set, indicating that the whole certificate chain should be checked.
+
+    The certificates are checked in issuing order, starting with the peer's own certificate, then its issuer's certificate, and so on.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.peerVerifyDepth`  :meth:`PySide.QtNetwork.QSslConfiguration.setPeerVerifyMode` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setPeerVerifyMode(mode)
+
+
+    :param mode: :attr:`PySide.QtNetwork.QSslSocket.PeerVerifyMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setPrivateKey(key)
+
+
+    :param key: :class:`PySide.QtNetwork.QSslKey`
+
+
+
+
+    Sets the connection's private :class:`key<PySide.QtNetwork.QSslKey>` to ``key`` . The private key and the local :class:`certificate<PySide.QtNetwork.QSslCertificate>` are used by clients and servers that must prove their identity to SSL peers.
+
+    Both the key and the local certificate are required if you are creating an SSL server socket. If you are creating an SSL client socket, the key and local certificate are required if your client must identify itself to an SSL server.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslConfiguration.privateKey`  :meth:`PySide.QtNetwork.QSslConfiguration.setLocalCertificate` 
+
+
+.. method:: PySide.QtNetwork.QSslConfiguration.setProtocol(protocol)
+
+
+    :param protocol: :attr:`PySide.QtNetwork.QSsl.SslProtocol`
+
+
+
+
+
+
+
+

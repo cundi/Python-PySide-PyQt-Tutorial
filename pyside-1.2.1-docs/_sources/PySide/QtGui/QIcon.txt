@@ -1,0 +1,500 @@
+.. module:: PySide.QtGui
+.. _QIcon:
+
+QIcon
+*****
+
+.. inheritance-diagram:: QIcon
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actualSize<PySide.QtGui.QIcon.actualSize>` (size[, mode=Normal[, state=Off]])
+*    def :meth:`addFile<PySide.QtGui.QIcon.addFile>` (fileName[, size=QSize()[, mode=Normal[, state=Off]]])
+*    def :meth:`addPixmap<PySide.QtGui.QIcon.addPixmap>` (pixmap[, mode=Normal[, state=Off]])
+*    def :meth:`availableSizes<PySide.QtGui.QIcon.availableSizes>` ([mode=Normal[, state=Off]])
+*    def :meth:`cacheKey<PySide.QtGui.QIcon.cacheKey>` ()
+*    def :meth:`isNull<PySide.QtGui.QIcon.isNull>` ()
+*    def :meth:`name<PySide.QtGui.QIcon.name>` ()
+*    def :meth:`paint<PySide.QtGui.QIcon.paint>` (painter, rect[, alignment=Qt.AlignCenter[, mode=Normal[, state=Off]]])
+*    def :meth:`paint<PySide.QtGui.QIcon.paint>` (painter, x, y, w, h[, alignment=Qt.AlignCenter[, mode=Normal[, state=Off]]])
+*    def :meth:`pixmap<PySide.QtGui.QIcon.pixmap>` (extent[, mode=Normal[, state=Off]])
+*    def :meth:`pixmap<PySide.QtGui.QIcon.pixmap>` (size[, mode=Normal[, state=Off]])
+*    def :meth:`pixmap<PySide.QtGui.QIcon.pixmap>` (w, h[, mode=Normal[, state=Off]])
+*    def :meth:`swap<PySide.QtGui.QIcon.swap>` (other)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fromTheme<PySide.QtGui.QIcon.fromTheme>` (name[, fallback=QIcon()])
+*    def :meth:`hasThemeIcon<PySide.QtGui.QIcon.hasThemeIcon>` (name)
+*    def :meth:`setThemeName<PySide.QtGui.QIcon.setThemeName>` (path)
+*    def :meth:`setThemeSearchPaths<PySide.QtGui.QIcon.setThemeSearchPaths>` (searchpath)
+*    def :meth:`themeName<PySide.QtGui.QIcon.themeName>` ()
+*    def :meth:`themeSearchPaths<PySide.QtGui.QIcon.themeSearchPaths>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QIcon` class provides scalable icons in different modes and states.
+
+    A :class:`PySide.QtGui.QIcon` can generate smaller, larger, active, and disabled pixmaps from the set of pixmaps it is given. Such pixmaps are used by Qt widgets to show an icon representing a particular action.
+
+    The simplest use of :class:`PySide.QtGui.QIcon` is to create one from a :class:`PySide.QtGui.QPixmap` file or resource, and then use it, allowing Qt to work out all the required icon styles and sizes. For example:
+
+    ::
+
+        button = QToolButton()
+        button.setIcon(QIcon("open.xpm"))
+
+
+    To undo a :class:`PySide.QtGui.QIcon` , simply set a null icon in its place:
+
+    ::
+
+        button.setIcon(QIcon())
+
+
+    Use the :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>` and :meth:`QImageWriter.supportedImageFormats()<PySide.QtGui.QImageWriter.supportedImageFormats>` functions to retrieve a complete list of the supported file formats.
+
+    When you retrieve a pixmap using pixmap( :class:`PySide.QtCore.QSize` , Mode, State), and no pixmap for this given size, mode and state has been added with :meth:`PySide.QtGui.QIcon.addFile` or :meth:`PySide.QtGui.QIcon.addPixmap` , then :class:`PySide.QtGui.QIcon` will generate one on the fly. This pixmap generation happens in a :class:`PySide.QtGui.QIconEngineV2` . The default engine scales pixmaps down if required, but never up, and it uses the current style to calculate a disabled appearance. By using custom icon engines, you can customize every aspect of generated icons. With :class:`~PySide.QtGui.QIconEnginePluginV2` it is possible to register different icon engines for different file suffixes, making it possible for third parties to provide additional icon engines to those included with Qt.
+
+    .. note::  Since Qt 4.2, an icon engine that supports SVG is included.
+
+    .. _PySide.QtGui.QIcon_making-classes-that-use-qicon:
+
+
+
+Making Classes that Use QIcon
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    If you write your own widgets that have an option to set a small pixmap, consider allowing a :class:`PySide.QtGui.QIcon` to be set for that pixmap. The Qt class :class:`PySide.QtGui.QToolButton` is an example of such a widget.
+
+    Provide a method to set a :class:`PySide.QtGui.QIcon` , and when you draw the icon, choose whichever pixmap is appropriate for the current state of your widget. For example:
+
+    ::
+
+        def drawIcon(self, painter, pos):
+            enabledStatus = QIcon.Normal
+            if not isEnabled():
+                enabledStatus = QIcon::Disabled
+
+            onOff = QIcon.On
+            if not isOn():
+                onOff = QIcon.Off
+
+            pixmap = self.icon.pixmap(QSize(22, 22), enabledStatus, onOff)
+            painter.drawPixmap(pos, pixmap)
+
+
+    You might also make use of the ``Active`` mode, perhaps making your widget ``Active`` when the mouse is over the widget (see :meth:`QWidget.enterEvent()<PySide.QtGui.QWidget.enterEvent>` ), while the mouse is pressed pending the release that will activate the function, or when it is the currently selected item. If the widget can be toggled, the "On" mode might be used to draw a different icon.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/icon.png
+
+    .. seealso::  :ref:`GUI Design Handbook: Iconic Label<guibooks.html>`  :ref:`Icons Example<widgets/icons>` 
+
+.. class:: QIcon()
+           QIcon(engine)
+           QIcon(engine)
+           QIcon(other)
+           QIcon(pixmap)
+           QIcon(fileName)
+
+    :param engine: :class:`PySide.QtGui.QIconEngine`
+    :param other: :class:`PySide.QtGui.QIcon`
+    :param fileName: unicode
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+    Constructs a null icon.
+
+
+    Creates an icon with a specific icon ``engine`` . The icon takes ownership of the engine.
+
+
+    Creates an icon with a specific icon ``engine`` . The icon takes ownership of the engine.
+
+
+    Constructs a copy of ``other`` . This is very fast.
+
+
+    Constructs an icon from a ``pixmap`` .
+
+
+    Constructs an icon from the file with the given ``fileName`` . The file will be loaded on demand.
+
+    If ``fileName`` contains a relative path (e.g. the filename only) the relevant file must be found relative to the runtime working directory.
+
+    The file name can be either refer to an actual file on disk or to one of the application's embedded resources. See the :ref:`Resource System<resources.html>` overview for details on how to embed images and other resource files in the application's executable.
+
+    Use the :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>` and :meth:`QImageWriter.supportedImageFormats()<PySide.QtGui.QImageWriter.supportedImageFormats>` functions to retrieve a complete list of the supported file formats.
+
+
+.. attribute:: PySide.QtGui.QIcon.Mode
+
+    This enum type describes the mode for which a pixmap is intended to be used. The currently defined modes are:
+
+    +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant      |Description                                                                                                                                                                    |
+    +==============+===============================================================================================================================================================================+
+    |QIcon.Normal  |Display the pixmap when the user is not interacting with the icon, but the functionality represented by the icon is available.                                                 |
+    +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIcon.Disabled|Display the pixmap when the functionality represented by the icon is not available.                                                                                            |
+    +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIcon.Active  |Display the pixmap when the functionality represented by the icon is available and the user is interacting with the icon, for example, moving the mouse over it or clicking it.|
+    +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIcon.Selected|Display the pixmap when the item represented by the icon is selected.                                                                                                          |
+    +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QIcon.State
+
+    This enum describes the state for which a pixmap is intended to be used. The *state* can be:
+
+    +---------+-------------------------------------------------------+
+    |Constant |Description                                            |
+    +=========+=======================================================+
+    |QIcon.Off|Display the pixmap when the widget is in an "off" state|
+    +---------+-------------------------------------------------------+
+    |QIcon.On |Display the pixmap when the widget is in an "on" state |
+    +---------+-------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QIcon.actualSize(size[, mode=Normal[, state=Off]])
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the actual size of the icon for the requested ``size`` , ``mode`` , and ``state`` . The result might be smaller than requested, but never larger.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.pixmap`  :meth:`PySide.QtGui.QIcon.paint` 
+
+
+.. method:: PySide.QtGui.QIcon.addFile(fileName[, size=QSize()[, mode=Normal[, state=Off]]])
+
+
+    :param fileName: unicode
+    :param size: :class:`PySide.QtCore.QSize`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+
+
+
+
+    Adds an image from the file with the given ``fileName`` to the icon, as a specialization for ``size`` , ``mode`` and ``state`` . The file will be loaded on demand. Note: custom icon engines are free to ignore additionally added pixmaps.
+
+    If ``fileName`` contains a relative path (e.g. the filename only) the relevant file must be found relative to the runtime working directory.
+
+    The file name can be either refer to an actual file on disk or to one of the application's embedded resources. See the :ref:`Resource System<resources.html>` overview for details on how to embed images and other resource files in the application's executable.
+
+    Use the :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>` and :meth:`QImageWriter.supportedImageFormats()<PySide.QtGui.QImageWriter.supportedImageFormats>` functions to retrieve a complete list of the supported file formats.
+
+    Note: When you add a non-empty filename to a :class:`PySide.QtGui.QIcon` , the icon becomes non-null, even if the file doesn't exist or points to a corrupt file.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.addPixmap` 
+
+
+.. method:: PySide.QtGui.QIcon.addPixmap(pixmap[, mode=Normal[, state=Off]])
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+
+
+
+
+    Adds ``pixmap`` to the icon, as a specialization for ``mode`` and ``state`` .
+
+    Custom icon engines are free to ignore additionally added pixmaps.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.addFile` 
+
+
+.. method:: PySide.QtGui.QIcon.availableSizes([mode=Normal[, state=Off]])
+
+
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: 
+
+
+
+
+    Returns a list of available icon sizes for the specified ``mode`` and ``state`` .
+
+
+
+.. method:: PySide.QtGui.QIcon.cacheKey()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns a number that identifies the contents of this :class:`PySide.QtGui.QIcon` object. Distinct :class:`PySide.QtGui.QIcon` objects can have the same key if they refer to the same contents.
+
+    The :meth:`PySide.QtGui.QIcon.cacheKey` will change when the icon is altered via :meth:`PySide.QtGui.QIcon.addPixmap` or :meth:`PySide.QtGui.QIcon.addFile` .
+
+    Cache keys are mostly useful in conjunction with caching.
+
+    .. seealso::  :meth:`QPixmap.cacheKey()<PySide.QtGui.QPixmap.cacheKey>` 
+
+
+.. staticmethod:: PySide.QtGui.QIcon.fromTheme(name[, fallback=QIcon()])
+
+
+    :param name: unicode
+    :param fallback: :class:`PySide.QtGui.QIcon`
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QIcon` corresponding to ``name`` in the current icon theme. If no such icon is found in the current theme ``fallback`` is returned instead.
+
+    The latest version of the freedesktop icon specification and naming specification can be obtained here:
+
+
+    * http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html
+    * http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+
+    To fetch an icon from the current icon theme:
+
+    ::
+
+            undoicon = QIcon.fromTheme("edit-undo")
+
+
+    Or if you want to provide a guaranteed fallback for platforms that do not support theme icons, you can use the second argument:
+
+    ::
+
+            undoicon = QIcon.fromTheme("edit-undo", QIcon(":/undo.png"))
+
+
+    .. note::  By default, only X11 will support themed icons. In order to use themed icons on Mac and Windows, you will have to bundle a compliant theme in one of your :meth:`PySide.QtGui.QIcon.themeSearchPaths` and set the appropriate :meth:`PySide.QtGui.QIcon.themeName` .
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.themeName`  :meth:`PySide.QtGui.QIcon.setThemeName`  :meth:`PySide.QtGui.QIcon.themeSearchPaths` 
+
+
+.. staticmethod:: PySide.QtGui.QIcon.hasThemeIcon(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is an icon available for ``name`` in the current icon theme, otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.themeSearchPaths`  :meth:`PySide.QtGui.QIcon.fromTheme`  :meth:`PySide.QtGui.QIcon.setThemeName` 
+
+
+.. method:: PySide.QtGui.QIcon.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the icon is empty; otherwise returns false.
+
+    An icon is empty if it has neither a pixmap nor a filename.
+
+    Note: Even a non-null icon might not be able to create valid pixmaps, eg. if the file does not exist or cannot be read.
+
+
+
+.. method:: PySide.QtGui.QIcon.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name used to create the icon, if available.
+
+    Depending on the way the icon was created, it may have an associated name. This is the case for icons created with :meth:`PySide.QtGui.QIcon.fromTheme` or icons using a :class:`PySide.QtGui.QIconEngine` which supports the :attr:`QIconEngineV2.IconNameHook<QIconEngineV2.IconEngineHook>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.fromTheme`  :class:`PySide.QtGui.QIconEngine` 
+
+
+.. method:: PySide.QtGui.QIcon.paint(painter, x, y, w, h[, alignment=Qt.AlignCenter[, mode=Normal[, state=Off]]])
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param x: :class:`PySide.QtCore.int`
+    :param y: :class:`PySide.QtCore.int`
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QIcon.paint(painter, rect[, alignment=Qt.AlignCenter[, mode=Normal[, state=Off]]])
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QIcon.pixmap(extent[, mode=Normal[, state=Off]])
+
+
+    :param extent: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This is an overloaded function.
+
+    Returns a pixmap of size :class:`PySide.QtCore.QSize` (``extent`` , ``extent`` ). The pixmap might be smaller than requested, but never larger.
+
+
+
+.. method:: PySide.QtGui.QIcon.pixmap(w, h[, mode=Normal[, state=Off]])
+
+
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This is an overloaded function.
+
+    Returns a pixmap of size :class:`PySide.QtCore.QSize` (``w`` , ``h`` ). The pixmap might be smaller than requested, but never larger.
+
+
+
+.. method:: PySide.QtGui.QIcon.pixmap(size[, mode=Normal[, state=Off]])
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+    :param mode: :attr:`PySide.QtGui.QIcon.Mode`
+    :param state: :attr:`PySide.QtGui.QIcon.State`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns a pixmap with the requested ``size`` , ``mode`` , and ``state`` , generating one if necessary. The pixmap might be smaller than requested, but never larger.
+
+    .. seealso::  :meth:`~PySide.QtGui.QIcon.setPixmap`  :meth:`PySide.QtGui.QIcon.actualSize`  :meth:`PySide.QtGui.QIcon.paint` 
+
+
+.. staticmethod:: PySide.QtGui.QIcon.setThemeName(path)
+
+
+    :param path: unicode
+
+
+
+
+    Sets the current icon theme to ``name`` .
+
+    The ``name`` should correspond to a directory name in the themeSearchPath() containing an index.theme file describing it's contents.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.themeSearchPaths`  :meth:`PySide.QtGui.QIcon.themeName` 
+
+
+.. staticmethod:: PySide.QtGui.QIcon.setThemeSearchPaths(searchpath)
+
+
+    :param searchpath: list of strings
+
+
+
+
+    Sets the search paths for icon themes to ``paths`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.themeSearchPaths`  :meth:`PySide.QtGui.QIcon.fromTheme`  :meth:`PySide.QtGui.QIcon.setThemeName` 
+
+
+.. method:: PySide.QtGui.QIcon.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Swaps icon ``other`` with this icon. This operation is very fast and never fails.
+
+
+
+.. staticmethod:: PySide.QtGui.QIcon.themeName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the current icon theme.
+
+    On X11, the current icon theme depends on your desktop settings. On other platforms it is not set by default.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.setThemeName`  :meth:`PySide.QtGui.QIcon.themeSearchPaths`  :meth:`PySide.QtGui.QIcon.fromTheme`  :meth:`PySide.QtGui.QIcon.hasThemeIcon` 
+
+
+.. staticmethod:: PySide.QtGui.QIcon.themeSearchPaths()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the search paths for icon themes.
+
+    The default value will depend on the platform:
+
+    On X11, the search path will use the XDG\_DATA\_DIRS environment variable if available.
+
+    By default all platforms will have the resource directory ``:\icons`` as a fallback. You can use "rcc -project" to generate a resource file from your icon theme.
+
+    .. seealso::  :meth:`PySide.QtGui.QIcon.setThemeSearchPaths`  :meth:`PySide.QtGui.QIcon.fromTheme`  :meth:`PySide.QtGui.QIcon.setThemeName` 
+
+
+

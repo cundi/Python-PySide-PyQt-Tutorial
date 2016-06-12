@@ -1,0 +1,327 @@
+.. module:: PySide.QtGui
+.. _QDesktopWidget:
+
+QDesktopWidget
+**************
+
+.. inheritance-diagram:: QDesktopWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`availableGeometry<PySide.QtGui.QDesktopWidget.availableGeometry>` ([screen=-1])
+*    def :meth:`availableGeometry<PySide.QtGui.QDesktopWidget.availableGeometry>` (point)
+*    def :meth:`availableGeometry<PySide.QtGui.QDesktopWidget.availableGeometry>` (widget)
+*    def :meth:`isVirtualDesktop<PySide.QtGui.QDesktopWidget.isVirtualDesktop>` ()
+*    def :meth:`numScreens<PySide.QtGui.QDesktopWidget.numScreens>` ()
+*    def :meth:`primaryScreen<PySide.QtGui.QDesktopWidget.primaryScreen>` ()
+*    def :meth:`screen<PySide.QtGui.QDesktopWidget.screen>` ([screen=-1])
+*    def :meth:`screenCount<PySide.QtGui.QDesktopWidget.screenCount>` ()
+*    def :meth:`screenGeometry<PySide.QtGui.QDesktopWidget.screenGeometry>` ([screen=-1])
+*    def :meth:`screenGeometry<PySide.QtGui.QDesktopWidget.screenGeometry>` (point)
+*    def :meth:`screenGeometry<PySide.QtGui.QDesktopWidget.screenGeometry>` (widget)
+*    def :meth:`screenNumber<PySide.QtGui.QDesktopWidget.screenNumber>` ([widget=None])
+*    def :meth:`screenNumber<PySide.QtGui.QDesktopWidget.screenNumber>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`resized<PySide.QtGui.QDesktopWidget.resized>` (arg__1)
+*    def :meth:`screenCountChanged<PySide.QtGui.QDesktopWidget.screenCountChanged>` (arg__1)
+*    def :meth:`workAreaResized<PySide.QtGui.QDesktopWidget.workAreaResized>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDesktopWidget` class provides access to screen information on multi-head systems.
+
+    Systems with more than one graphics card and monitor can manage the physical screen space available either as multiple desktops, or as a large virtual desktop.
+
+    This class provides information about the user's desktop, such as its total size, number of screens, the geometry of each screen, and whether they are configured as separate desktops or a single virtual desktop.
+
+    Widgets provided by Qt use this class to place tooltips, menus and dialog boxes on the correct screen for their parent or application widgets. Applications can use this class to obtain information that can be used to save window positions, or to place child widgets and dialogs on one particular screen.
+
+    .. _PySide.QtGui.QDesktopWidget_obtaining-a-desktop-widget:
+
+
+
+Obtaining a Desktop Widget
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The :meth:`QApplication.desktop()<PySide.QtGui.QApplication.desktop>` function is used to get an instance of :class:`PySide.QtGui.QDesktopWidget` .
+
+    The widget's :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` function provides information about the geometry of the available screens with. The number of screens available is returned by :meth:`PySide.QtGui.QDesktopWidget.screenCount` , and the :meth:`PySide.QtGui.QDesktopWidget.screenCountChanged` signal is emitted when screens are added or removed. The screen number that a particular point or widget is located in is returned by :meth:`PySide.QtGui.QDesktopWidget.screenNumber` .
+
+    .. _PySide.QtGui.QDesktopWidget_screen-geometry:
+
+
+
+Screen Geometry
+^^^^^^^^^^^^^^^
+
+    To obtain the dimensions of a particular screen, call the :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` function. On some desktop environments, not all of the screen is available for applications to use; for example, an application dock or menu bar may take up some space. Use the :meth:`PySide.QtGui.QDesktopWidget.availableGeometry` function to obtain the available area for applications.
+
+    :class:`PySide.QtGui.QDesktopWidget` also inherits the :class:`PySide.QtGui.QWidget` properties, :meth:`PySide.QtGui.QWidget.width` and :meth:`PySide.QtGui.QWidget.height` , which specify the size of the desktop. However, for desktops with multiple screens, the size of the desktop is the union of all the screen sizes, so :meth:`PySide.QtGui.QWidget.width` and :meth:`PySide.QtGui.QWidget.height` should *not* be used for computing the size of a widget to be placed on one of the screens.
+
+    On systems that are configured to use the available screens as a single, large virtual desktop, the :meth:`~PySide.QtGui.QDesktopWidget.virtualDesktop` property will be set to true. In this case, the widget's size is usually the size of the bounding rectangle of all the screens.
+
+    .. _PySide.QtGui.QDesktopWidget_use-of-the-primary-screen:
+
+
+
+Use of the Primary Screen
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    For an application, the screen where the main widget resides is the primary screen. This is stored in the :meth:`PySide.QtGui.QDesktopWidget.primaryScreen` property. All windows opened in the context of the application should be constrained to the boundaries of the primary screen; for example, it would be inconvenient if a dialog box popped up on a different screen, or split over two screens.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qdesktopwidget.png
+
+    In the illustration above, Application One's primary screen is screen 0, and App Two's primary screen is screen 1.
+
+    .. seealso::  :class:`PySide.QtGui.QApplication`  :meth:`QApplication.desktop()<PySide.QtGui.QApplication.desktop>`  :meth:`QX11Info.appRootWindow` 
+
+.. class:: QDesktopWidget()
+
+
+    Creates the desktop widget.
+
+    If the system supports a virtual desktop, this widget will have the size of the virtual desktop; otherwise this widget will have the size of the primary screen.
+
+    Instead of using :class:`PySide.QtGui.QDesktopWidget` directly, use :meth:`QApplication.desktop()<PySide.QtGui.QApplication.desktop>` .
+
+
+.. method:: PySide.QtGui.QDesktopWidget.availableGeometry(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the available geometry of the screen which contains ``widget`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.availableGeometry([screen=-1])
+
+
+    :param screen: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the available geometry of the screen with index ``screen`` . What is available will be subrect of :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` based on what the platform decides is available (for example excludes the dock and menu bar on Mac OS X, or the task bar on Windows). The default screen is used if ``screen`` is -1.
+
+    .. note::  In Symbian devices the available geometry reported by :class:`PySide.QtGui.QDesktopWidget` is not guaranteed to be correct at the time the geometry change resize event is passed to widgets. The correct way to listen for available geometry changes is to connect to the :meth:`PySide.QtGui.QDesktopWidget.workAreaResized` signal of :class:`PySide.QtGui.QDesktopWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.screenNumber`  :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.availableGeometry(point)
+
+
+    :param point: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the available geometry of the screen which contains ``p`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.screenGeometry` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.isVirtualDesktop()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds if the system manages the available screens in a virtual desktop..
+
+    For virtual desktops, :meth:`PySide.QtGui.QDesktopWidget.screen` will always return the same widget. The size of the virtual desktop is the size of this desktop widget.
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.numScreens()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of available screens.
+
+    This function is deprecated. Use :meth:`PySide.QtGui.QDesktopWidget.screenCount` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.primaryScreen` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.primaryScreen()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the index of the screen that is configured to be the primary screen on the system..
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.resized(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screen([screen=-1])
+
+
+    :param screen: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns a widget that represents the screen with index ``screen`` (a value of -1 means the default screen).
+
+    If the system uses a virtual desktop, the returned widget will have the geometry of the entire virtual desktop; i.e., bounding every ``screen`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.primaryScreen`  :meth:`PySide.QtGui.QDesktopWidget.screenCount`  :meth:`~PySide.QtGui.QDesktopWidget.virtualDesktop` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of screens currently available on the system..
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.screenCountChanged` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenCountChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenGeometry(point)
+
+
+    :param point: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the geometry of the screen which contains ``p`` .
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenGeometry(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the geometry of the screen which contains ``widget`` .
+
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenGeometry([screen=-1])
+
+
+    :param screen: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of the screen with index ``screen`` . The default screen is used if ``screen`` is -1.
+
+    .. note::  In Symbian devices the screen geometry reported by :class:`PySide.QtGui.QDesktopWidget` is not guaranteed to be correct at the time the geometry change resize event is passed to widgets. The correct way to listen for screen geometry changes is to connect to the :meth:`PySide.QtGui.QDesktopWidget.resized` signal of :class:`PySide.QtGui.QDesktopWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.screenNumber` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenNumber([widget=None])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the screen that contains the largest part of ``widget`` , or -1 if the widget not on a screen.
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.primaryScreen` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.screenNumber(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the index of the screen that contains the ``point`` , or the screen which is the shortest distance from the ``point`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDesktopWidget.primaryScreen` 
+
+
+.. method:: PySide.QtGui.QDesktopWidget.workAreaResized(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

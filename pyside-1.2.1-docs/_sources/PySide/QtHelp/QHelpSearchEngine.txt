@@ -1,0 +1,239 @@
+.. module:: PySide.QtHelp
+.. _QHelpSearchEngine:
+
+QHelpSearchEngine
+*****************
+
+.. inheritance-diagram:: QHelpSearchEngine
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hitCount<PySide.QtHelp.QHelpSearchEngine.hitCount>` ()
+*    def :meth:`hits<PySide.QtHelp.QHelpSearchEngine.hits>` (start, end)
+*    def :meth:`hitsCount<PySide.QtHelp.QHelpSearchEngine.hitsCount>` ()
+*    def :meth:`query<PySide.QtHelp.QHelpSearchEngine.query>` ()
+*    def :meth:`queryWidget<PySide.QtHelp.QHelpSearchEngine.queryWidget>` ()
+*    def :meth:`resultWidget<PySide.QtHelp.QHelpSearchEngine.resultWidget>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`cancelIndexing<PySide.QtHelp.QHelpSearchEngine.cancelIndexing>` ()
+*    def :meth:`cancelSearching<PySide.QtHelp.QHelpSearchEngine.cancelSearching>` ()
+*    def :meth:`indexDocumentation<PySide.QtHelp.QHelpSearchEngine.indexDocumentation>` ()
+*    def :meth:`reindexDocumentation<PySide.QtHelp.QHelpSearchEngine.reindexDocumentation>` ()
+*    def :meth:`search<PySide.QtHelp.QHelpSearchEngine.search>` (queryList)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indexingFinished<PySide.QtHelp.QHelpSearchEngine.indexingFinished>` ()
+*    def :meth:`indexingStarted<PySide.QtHelp.QHelpSearchEngine.indexingStarted>` ()
+*    def :meth:`searchingFinished<PySide.QtHelp.QHelpSearchEngine.searchingFinished>` (hits)
+*    def :meth:`searchingStarted<PySide.QtHelp.QHelpSearchEngine.searchingStarted>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtHelp.QHelpSearchEngine` class provides access to widgets reusable to integrate fulltext search as well as to index and search documentation.
+
+    Before the search engine can be used, one has to instantiate at least a :class:`PySide.QtHelp.QHelpEngineCore` object that needs to be passed to the search engines constructor. This is required as the search engine needs to be connected to the help engines setupFinished() signal to know when it can start to index documentation.
+
+    After starting the indexing process the signal :meth:`PySide.QtHelp.QHelpSearchEngine.indexingStarted` is emitted and on the end of the indexing process the :meth:`PySide.QtHelp.QHelpSearchEngine.indexingFinished` is emitted. To stop the indexing one can call :meth:`PySide.QtHelp.QHelpSearchEngine.cancelIndexing` .
+
+    While the indexing process has finished, the search engine can now be used to search thru its index for a given term. To do this one may use the possibility of creating the :class:`PySide.QtHelp.QHelpSearchQuery` list by self or reuse the :class:`PySide.QtHelp.QHelpSearchQueryWidget` which has the inbuild functionality to set up a proper search queries list that get's passed to the search engines :meth:`PySide.QtHelp.QHelpSearchEngine.search` function.
+
+    After the list of queries have been passed to the search engine, the signal :meth:`PySide.QtHelp.QHelpSearchEngine.searchingStarted` is emitted and after the search has finished the :meth:`PySide.QtHelp.QHelpSearchEngine.searchingFinished` signal is emitted. The search process can be stopped by calling :meth:`PySide.QtHelp.QHelpSearchEngine.cancelSearching` .
+
+    If the search succeeds, the :meth:`PySide.QtHelp.QHelpSearchEngine.searchingFinished` will be called with the search hits count, which can be reused to fetch the search hits from the search engine. Calling the :meth:`PySide.QtHelp.QHelpSearchEngine.hits` function with the range of hits you would like to get will return a list of the requested SearchHits. They basically constist at the moment of a pair of strings where the values of that pair are the documentation file path and the page title.
+
+    To display the given hits use the :class:`PySide.QtHelp.QHelpSearchResultWidget` or build up your own one if you need more advanced functionality. Note that the :class:`PySide.QtHelp.QHelpSearchResultWidget` can not be instantiated directly, you must retrieve the widget from the search engine in use as all connections will be established for you by the widget itself.
+
+
+.. class:: QHelpSearchEngine(helpEngine[, parent=None])
+
+    :param helpEngine: :class:`PySide.QtHelp.QHelpEngineCore`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new search engine with the given ``parent`` . The search engine uses the given ``helpEngine`` to access the documentation that needs to be indexed. The :class:`PySide.QtHelp.QHelpEngine` 's setupFinished() signal is automatically connected to the :class:`PySide.QtHelp.QHelpSearchEngine` 's indexing function, so that new documentation will be indexed after the signal is emitted.
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.cancelIndexing()
+
+
+
+
+
+
+    Stops the indexing process.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.cancelSearching()
+
+
+
+
+
+
+    Stops the search process.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.hitCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the amount of hits the search engine found.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.hits(start, end)
+
+
+    :param start: :class:`PySide.QtCore.int`
+    :param end: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Returns a list of search hits within the range of ``start``\ ``end`` .
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.hitsCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the amount of hits the search engine found.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpSearchEngine.hitCount` 
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.indexDocumentation()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.indexingFinished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.indexingStarted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.query()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of queries last searched for.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.queryWidget()
+
+
+    :rtype: :class:`PySide.QtHelp.QHelpSearchQueryWidget`
+
+
+
+
+    Returns a widget to use as input widget. Depending on your search engine configuration you will get a different widget with more or less subwidgets.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.reindexDocumentation()
+
+
+
+
+
+
+    Forces the search engine to reindex all documentation files.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.resultWidget()
+
+
+    :rtype: :class:`PySide.QtHelp.QHelpSearchResultWidget`
+
+
+
+
+    Returns a widget that can hold and display the search results.
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.search(queryList)
+
+
+    :param queryList: 
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.searchingFinished(hits)
+
+
+    :param hits: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpSearchEngine.searchingStarted()
+
+
+
+
+
+
+
+
+

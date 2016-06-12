@@ -1,0 +1,196 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeImageProvider:
+
+QDeclarativeImageProvider
+*************************
+
+.. inheritance-diagram:: QDeclarativeImageProvider
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`imageType<PySide.QtDeclarative.QDeclarativeImageProvider.imageType>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`requestImage<PySide.QtDeclarative.QDeclarativeImageProvider.requestImage>` (id, size, requestedSize)
+*    def :meth:`requestPixmap<PySide.QtDeclarative.QDeclarativeImageProvider.requestPixmap>` (id, size, requestedSize)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeImageProvider` class provides an interface for supporting pixmaps and threaded image requests in QML.
+
+    :class:`PySide.QtDeclarative.QDeclarativeImageProvider` is used to provide advanced image loading features in QML applications. It allows images in QML to be:
+
+
+    * Loaded using QPixmaps rather than actual image files
+    * Loaded asynchronously in a separate thread, if :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.imageType` is :attr:`ImageType.Image<QDeclarativeImageProvider.ImageType>`
+
+    To specify that an image should be loaded by an image provider, use the **"image:"** scheme for the URL source of the image, followed by the identifiers of the image provider and the requested image. For example:
+
+    ::
+
+                Image { source: "image://myimageprovider/image.png" }
+
+
+    This specifies that the image should be loaded by the image provider named "myimageprovider", and the image to be loaded is named "image.png". The QML engine invokes the appropriate image provider according to the providers that have been registered through :meth:`QDeclarativeEngine.addImageProvider()<PySide.QtDeclarative.QDeclarativeEngine.addImageProvider>` .
+
+    Note that the identifiers are case-insensitive, but the rest of the URL will be passed on with preserved case. For example, the below snippet would still specify that the image is loaded by the image provider named "myimageprovider", but it would request a different image than the above snippet ("Image.png" instead of "image.png").
+
+    ::
+
+                Image { source: "image://MyImageProvider/Image.png" }
+
+
+    If you want the rest of the URL to be case insensitive, you will have to take care of that yourself inside your image provider.
+
+    .. _PySide.QtDeclarative.QDeclarativeImageProvider_an-example:
+
+
+
+An example
+^^^^^^^^^^
+
+    Here are two images. Their ``source`` values indicate they should be loaded by an image provider named "colors", and the images to be loaded are "yellow" and "red", respectively:
+
+    ::
+
+        Column {
+            Image { source: "image://colors/yellow" }
+            Image { source: "image://colors/red" }
+        }
+
+
+    When these images are loaded by QML, it looks for a matching image provider and calls its :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.requestImage` or :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.requestPixmap` method (depending on its :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.imageType` ) to load the image. The method is called with the ``id`` parameter set to "yellow" for the first image, and "red" for the second.
+
+    Here is an image provider implementation that can load the images requested by the above QML. This implementation dynamically generates :class:`PySide.QtGui.QPixmap` images that are filled with the requested color:
+
+    ::
+
+        class ColorImageProvider (QDeclarativeImageProvider):
+            def __init__(self):
+                QDeclarativeImageProvider.__init__(self, QDeclarativeImageProvider.Pixmap)
+
+            def requestPixmap(id, size, requestedSize):
+                width = 100
+                height = 50
+
+                if size:
+                    size.setWidth(width)
+                    size.setHeight(height)
+
+                if requestedSize.width() > 0:
+                    width = requestedSize.width()
+                if requestedSize.height() > 0:
+                    height = requestedSize.height()
+
+                pixmap = QPixmap(width, height)
+                pixmap.fill(QColor(id).rgba())
+        
+                return pixmap
+
+
+    To make this provider accessible to QML, it is registered with the QML engine with a "colors" identifier:
+
+    ::
+
+                int main(int argc, char *argv[])
+                {
+                    ...
+                
+                    QDeclarativeEngine engine;
+                    engine->addImageProvider(QLatin1String("colors"), new ColorPixmapProvider);
+                
+                    ...
+                }
+
+
+    Now the images can be successfully loaded in QML:
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/imageprovider.png
+
+    A complete example is available in Qt's :ref:`examples/declarative/cppextensions/imageprovider<declarative/cppextensions/imageprovider>` directory. Note the example registers the provider via a :class:`plugin<PySide.QtDeclarative.QDeclarativeExtensionPlugin>` instead of registering it in the application ``main()`` function as shown above.
+
+    .. _PySide.QtDeclarative.QDeclarativeImageProvider_asynchronous-image-loading:
+
+
+
+Asynchronous image loading
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Image providers that support :class:`PySide.QtGui.QImage` loading automatically include support for asychronous loading of images. To enable asynchronous loading for an image source, set the ``asynchronous`` property to ``true`` for the relevant :attr:`Image<QDeclarativeImageProvider.ImageType>` , :ref:`BorderImage` or :ref:`AnimatedImage` object. When this is enabled, the image request to the provider is run in a low priority thread, allowing image loading to be executed in the background, and reducing the performance impact on the user interface.
+
+    Asynchronous loading is not supported for image providers that provide :class:`PySide.QtGui.QPixmap` rather than :class:`PySide.QtGui.QImage` values, as pixmaps can only be created in the main thread. In this case, if :ref:`asynchronous` is set to ``true`` , the value is ignored and the image is loaded synchronously.
+
+    .. _PySide.QtDeclarative.QDeclarativeImageProvider_image-caching:
+
+
+
+Image caching
+^^^^^^^^^^^^^
+
+    Images returned by a :class:`PySide.QtDeclarative.QDeclarativeImageProvider` are automatically cached, similar to any image loaded by the QML engine. When an image with a "image://" prefix is loaded from cache, :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.requestImage` and :meth:`PySide.QtDeclarative.QDeclarativeImageProvider.requestPixmap` will not be called for the relevant image provider. If an image should always be fetched from the image provider, and should not be cached at all, set the ``cache`` property to ``false`` for the relevant :attr:`Image<QDeclarativeImageProvider.ImageType>` , :ref:`BorderImage` or :ref:`AnimatedImage` object.
+
+
+.. class:: QDeclarativeImageProvider(type)
+
+    :param type: :attr:`PySide.QtDeclarative.QDeclarativeImageProvider.ImageType`
+
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeImageProvider.ImageType
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeImageProvider.imageType()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeImageProvider.ImageType`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeImageProvider.requestImage(id, size, requestedSize)
+
+
+    :param id: unicode
+    :param size: :class:`PySide.QtCore.QSize`
+    :param requestedSize: :class:`PySide.QtCore.QSize`
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeImageProvider.requestPixmap(id, size, requestedSize)
+
+
+    :param id: unicode
+    :param size: :class:`PySide.QtCore.QSize`
+    :param requestedSize: :class:`PySide.QtCore.QSize`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+
+
+

@@ -1,0 +1,284 @@
+.. module:: PySide.QtCore
+.. _QAbstractEventDispatcher:
+
+QAbstractEventDispatcher
+************************
+
+.. inheritance-diagram:: QAbstractEventDispatcher
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`registerTimer<PySide.QtCore.QAbstractEventDispatcher.registerTimer>` (interval, object)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`closingDown<PySide.QtCore.QAbstractEventDispatcher.closingDown>` ()
+*    def :meth:`flush<PySide.QtCore.QAbstractEventDispatcher.flush>` ()
+*    def :meth:`hasPendingEvents<PySide.QtCore.QAbstractEventDispatcher.hasPendingEvents>` ()
+*    def :meth:`interrupt<PySide.QtCore.QAbstractEventDispatcher.interrupt>` ()
+*    def :meth:`processEvents<PySide.QtCore.QAbstractEventDispatcher.processEvents>` (flags)
+*    def :meth:`registerSocketNotifier<PySide.QtCore.QAbstractEventDispatcher.registerSocketNotifier>` (notifier)
+*    def :meth:`registerTimer<PySide.QtCore.QAbstractEventDispatcher.registerTimer>` (timerId, interval, object)
+*    def :meth:`registeredTimers<PySide.QtCore.QAbstractEventDispatcher.registeredTimers>` (object)
+*    def :meth:`startingUp<PySide.QtCore.QAbstractEventDispatcher.startingUp>` ()
+*    def :meth:`unregisterSocketNotifier<PySide.QtCore.QAbstractEventDispatcher.unregisterSocketNotifier>` (notifier)
+*    def :meth:`unregisterTimer<PySide.QtCore.QAbstractEventDispatcher.unregisterTimer>` (timerId)
+*    def :meth:`unregisterTimers<PySide.QtCore.QAbstractEventDispatcher.unregisterTimers>` (object)
+*    def :meth:`wakeUp<PySide.QtCore.QAbstractEventDispatcher.wakeUp>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToBlock<PySide.QtCore.QAbstractEventDispatcher.aboutToBlock>` ()
+*    def :meth:`awake<PySide.QtCore.QAbstractEventDispatcher.awake>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`instance<PySide.QtCore.QAbstractEventDispatcher.instance>` ([thread=None])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractEventDispatcher` class provides an interface to manage Qt's event queue.
+
+    An event dispatcher receives events from the window system and other sources. It then sends them to the :class:`PySide.QtCore.QCoreApplication` or :class:`PySide.QtGui.QApplication` instance for processing and delivery. :class:`PySide.QtCore.QAbstractEventDispatcher` provides fine-grained control over event delivery.
+
+    For simple control of event processing use :meth:`QCoreApplication.processEvents()<PySide.QtCore.QCoreApplication.processEvents>` .
+
+    For finer control of the application's event loop, call :meth:`PySide.QtCore.QAbstractEventDispatcher.instance` and call functions on the :class:`PySide.QtCore.QAbstractEventDispatcher` object that is returned. If you want to use your own instance of :class:`PySide.QtCore.QAbstractEventDispatcher` or of a :class:`PySide.QtCore.QAbstractEventDispatcher` subclass, you must create your instance *before* you create the :class:`PySide.QtGui.QApplication` object.
+
+    The main event loop is started by calling :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` , and stopped by calling :meth:`QCoreApplication.exit()<PySide.QtCore.QCoreApplication.exit>` . Local event loops can be created using :class:`PySide.QtCore.QEventLoop` .
+
+    Programs that perform long operations can call :meth:`PySide.QtCore.QAbstractEventDispatcher.processEvents` with a bitwise OR combination of various :attr:`QEventLoop.ProcessEventsFlag` values to control which events should be delivered.
+
+    :class:`PySide.QtCore.QAbstractEventDispatcher` also allows the integration of an external event loop with the Qt event loop. For example, the :ref:`Motif Extension<ftp://ftp.qt.nokia.com/pub/qt/solutions/lgpl/qtmotifextension-2.7\_1-opensource.tar.gz>` includes a reimplementation of :class:`PySide.QtCore.QAbstractEventDispatcher` that merges Qt and Motif events together.
+
+    .. seealso::  :class:`PySide.QtCore.QEventLoop`  :class:`PySide.QtCore.QCoreApplication` 
+
+.. class:: QAbstractEventDispatcher([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new event dispatcher with the given ``parent`` .
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.aboutToBlock()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.awake()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.closingDown()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.flush()
+
+
+
+
+
+
+    Flushes the event queue. This normally returns almost immediately. Does nothing on platforms other than X11.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.hasPendingEvents()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is an event waiting; otherwise returns false.
+
+
+
+.. staticmethod:: PySide.QtCore.QAbstractEventDispatcher.instance([thread=None])
+
+
+    :param thread: :class:`PySide.QtCore.QThread`
+    :rtype: :class:`PySide.QtCore.QAbstractEventDispatcher`
+
+
+
+
+    Returns a pointer to the event dispatcher object for the specified ``thread`` . If ``thread`` is zero, the current thread is used. If no event dispatcher exists for the specified thread, this function returns 0.
+
+    .. note::  If Qt is built without thread support, the ``thread`` argument is ignored.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.interrupt()
+
+
+
+
+
+
+    Interrupts event dispatching; i.e. the event dispatcher will return from :meth:`PySide.QtCore.QAbstractEventDispatcher.processEvents` as soon as possible.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.processEvents(flags)
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.registerSocketNotifier(notifier)
+
+
+    :param notifier: :class:`PySide.QtCore.QSocketNotifier`
+
+
+
+
+    Registers ``notifier`` with the event loop. Subclasses must implement this method to tie a socket notifier into another event loop.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.registerTimer(timerId, interval, object)
+
+
+    :param timerId: :class:`PySide.QtCore.int`
+    :param interval: :class:`PySide.QtCore.int`
+    :param object: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Register a timer with the specified ``timerId`` and ``interval`` for the given ``object`` .
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.registerTimer(interval, object)
+
+
+    :param interval: :class:`PySide.QtCore.int`
+    :param object: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Registers a timer with the specified ``interval`` for the given ``object`` .
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.registeredTimers(object)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+    :rtype: 
+
+
+
+
+    Returns a list of registered timers for ``object`` . The timer ID is the first member in each pair; the interval is the second.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.startingUp()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.unregisterSocketNotifier(notifier)
+
+
+    :param notifier: :class:`PySide.QtCore.QSocketNotifier`
+
+
+
+
+    Unregisters ``notifier`` from the event dispatcher. Subclasses must reimplement this method to tie a socket notifier into another event loop. Reimplementations must call the base implementation.
+
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.unregisterTimer(timerId)
+
+
+    :param timerId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unregisters the timer with the given ``timerId`` . Returns true if successful; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractEventDispatcher.registerTimer`  :meth:`PySide.QtCore.QAbstractEventDispatcher.unregisterTimers` 
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.unregisterTimers(object)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unregisters all the timers associated with the given ``object`` . Returns true if all timers were successful removed; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractEventDispatcher.unregisterTimer`  :meth:`PySide.QtCore.QAbstractEventDispatcher.registeredTimers` 
+
+
+.. method:: PySide.QtCore.QAbstractEventDispatcher.wakeUp()
+
+
+
+
+
+
+    Wakes up the event loop.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractEventDispatcher.awake` 
+
+
+

@@ -1,0 +1,484 @@
+.. module:: PySide.QtGui
+.. _QGraphicsItemAnimation:
+
+QGraphicsItemAnimation
+**********************
+
+.. inheritance-diagram:: QGraphicsItemAnimation
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QGraphicsItemAnimation.clear>` ()
+*    def :meth:`horizontalScaleAt<PySide.QtGui.QGraphicsItemAnimation.horizontalScaleAt>` (step)
+*    def :meth:`horizontalShearAt<PySide.QtGui.QGraphicsItemAnimation.horizontalShearAt>` (step)
+*    def :meth:`item<PySide.QtGui.QGraphicsItemAnimation.item>` ()
+*    def :meth:`matrixAt<PySide.QtGui.QGraphicsItemAnimation.matrixAt>` (step)
+*    def :meth:`posAt<PySide.QtGui.QGraphicsItemAnimation.posAt>` (step)
+*    def :meth:`posList<PySide.QtGui.QGraphicsItemAnimation.posList>` ()
+*    def :meth:`rotationAt<PySide.QtGui.QGraphicsItemAnimation.rotationAt>` (step)
+*    def :meth:`rotationList<PySide.QtGui.QGraphicsItemAnimation.rotationList>` ()
+*    def :meth:`scaleList<PySide.QtGui.QGraphicsItemAnimation.scaleList>` ()
+*    def :meth:`setItem<PySide.QtGui.QGraphicsItemAnimation.setItem>` (item)
+*    def :meth:`setPosAt<PySide.QtGui.QGraphicsItemAnimation.setPosAt>` (step, pos)
+*    def :meth:`setRotationAt<PySide.QtGui.QGraphicsItemAnimation.setRotationAt>` (step, angle)
+*    def :meth:`setScaleAt<PySide.QtGui.QGraphicsItemAnimation.setScaleAt>` (step, sx, sy)
+*    def :meth:`setShearAt<PySide.QtGui.QGraphicsItemAnimation.setShearAt>` (step, sh, sv)
+*    def :meth:`setTimeLine<PySide.QtGui.QGraphicsItemAnimation.setTimeLine>` (timeLine)
+*    def :meth:`setTranslationAt<PySide.QtGui.QGraphicsItemAnimation.setTranslationAt>` (step, dx, dy)
+*    def :meth:`shearList<PySide.QtGui.QGraphicsItemAnimation.shearList>` ()
+*    def :meth:`timeLine<PySide.QtGui.QGraphicsItemAnimation.timeLine>` ()
+*    def :meth:`translationList<PySide.QtGui.QGraphicsItemAnimation.translationList>` ()
+*    def :meth:`verticalScaleAt<PySide.QtGui.QGraphicsItemAnimation.verticalScaleAt>` (step)
+*    def :meth:`verticalShearAt<PySide.QtGui.QGraphicsItemAnimation.verticalShearAt>` (step)
+*    def :meth:`xTranslationAt<PySide.QtGui.QGraphicsItemAnimation.xTranslationAt>` (step)
+*    def :meth:`yTranslationAt<PySide.QtGui.QGraphicsItemAnimation.yTranslationAt>` (step)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`afterAnimationStep<PySide.QtGui.QGraphicsItemAnimation.afterAnimationStep>` (step)
+*    def :meth:`beforeAnimationStep<PySide.QtGui.QGraphicsItemAnimation.beforeAnimationStep>` (step)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`reset<PySide.QtGui.QGraphicsItemAnimation.reset>` ()
+*    def :meth:`setStep<PySide.QtGui.QGraphicsItemAnimation.setStep>` (x)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsItemAnimation` class provides simple animation support for :class:`PySide.QtGui.QGraphicsItem` .
+
+    The :class:`PySide.QtGui.QGraphicsItemAnimation` class animates a :class:`PySide.QtGui.QGraphicsItem` . You can schedule changes to the item's transformation matrix at specified steps. The :class:`PySide.QtGui.QGraphicsItemAnimation` class has a current step value. When this value changes the transformations scheduled at that step are performed. The current step of the animation is set with the ``setStep()`` function.
+
+    :class:`PySide.QtGui.QGraphicsItemAnimation` will do a simple linear interpolation between the nearest adjacent scheduled changes to calculate the matrix. For instance, if you set the position of an item at values 0.0 and 1.0, the animation will show the item moving in a straight line between these positions. The same is true for scaling and rotation.
+
+    It is usual to use the class with a :class:`PySide.QtCore.QTimeLine` . The timeline's :meth:`PySide.QtCore.QTimeLine.valueChanged` signal is then connected to the ``setStep()`` slot. For example, you can set up an item for rotation by calling ``setRotationAt()`` for different step values. The animations timeline is set with the :meth:`PySide.QtGui.QGraphicsItemAnimation.setTimeLine` function.
+
+    An example animation with a timeline follows:
+
+    ::
+
+            ball = QGraphicsEllipseItem(0, 0, 20, 20)
+
+            timer = QTimeLine(5000)
+            timer.setFrameRange(0, 100)
+
+            animation = QGraphicsItemAnimation()
+            animation.setItem(ball)
+            animation.setTimeLine(timer)
+
+            for i in range(200):
+                animation.setPosAt(i / 200.0, QPointF(i, i))
+
+            scene = QGraphicsScene()
+            scene.setSceneRect(0, 0, 250, 250)
+            scene.addItem(ball)
+
+            view = QGraphicsView(scene)
+            view.show()
+
+            timer.start()
+
+
+    Note that steps lie between 0.0 and 1.0. It may be necessary to use :meth:`PySide.QtCore.QTimeLine.setUpdateInterval` . The default update interval is 40 ms. A scheduled transformation cannot be removed when set, so scheduling several transformations of the same kind (e.g., rotations) at the same step is not recommended.
+
+    .. seealso::  :class:`PySide.QtCore.QTimeLine`  :ref:`Graphics View Framework<graphicsview.html>` 
+
+.. class:: QGraphicsItemAnimation([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an animation object with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.afterAnimationStep(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This method is meant to be overridden in subclasses that need to execute additional code after a new step has taken place. The animation ``step`` is provided for use in cases where the action depends on its value.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.beforeAnimationStep(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This method is meant to be overridden by subclassed that needs to execute additional code before a new step takes place. The animation ``step`` is provided for use in cases where the action depends on its value.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.clear()
+
+
+
+
+
+
+    Clears the scheduled transformations used for the animation, but retains the item and timeline.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.horizontalScaleAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the horizontal scale for the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setScaleAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.horizontalShearAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the horizontal shear for the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setShearAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.item()
+
+
+    :rtype: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+
+    Returns the item on which the animation object operates.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setItem` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.matrixAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtGui.QMatrix`
+
+
+
+
+    Returns the matrix used to transform the item at the specified ``step`` value.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.posAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the position of the item at the given ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setPosAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.posList()
+
+
+    :rtype: 
+
+
+
+
+    Returns all explicitly inserted positions.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.posAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.setPosAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.reset()
+
+
+
+
+
+
+    Resets the item to its starting position and transformation.
+
+    You can call setStep(0) instead.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.rotationAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the angle at which the item is rotated at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setRotationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.rotationList()
+
+
+    :rtype: 
+
+
+
+
+    Returns all explicitly inserted rotations.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.rotationAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.setRotationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.scaleList()
+
+
+    :rtype: 
+
+
+
+
+    Returns all explicitly inserted scales.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.verticalScaleAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.horizontalScaleAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.setScaleAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setItem(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+
+    Sets the specified ``item`` to be used in the animation.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.item` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setPosAt(step, pos)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param pos: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the position of the item at the given ``step`` value to the ``point`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.posAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setRotationAt(step, angle)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param angle: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the rotation of the item at the given ``step`` value to the ``angle`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.rotationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setScaleAt(step, sx, sy)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param sx: :class:`PySide.QtCore.qreal`
+    :param sy: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the scale of the item at the given ``step`` value using the horizontal and vertical scale factors specified by ``sx`` and ``sy`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.verticalScaleAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.horizontalScaleAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setShearAt(step, sh, sv)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param sh: :class:`PySide.QtCore.qreal`
+    :param sv: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the shear of the item at the given ``step`` value using the horizontal and vertical shear factors specified by ``sh`` and ``sv`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.verticalShearAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.horizontalShearAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setStep(x)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the current ``step`` value for the animation, causing the transformations scheduled at this step to be performed.
+
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setTimeLine(timeLine)
+
+
+    :param timeLine: :class:`PySide.QtCore.QTimeLine`
+
+
+
+
+    Sets the timeline object used to control the rate of animation to the ``timeLine`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.timeLine` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.setTranslationAt(step, dx, dy)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param dx: :class:`PySide.QtCore.qreal`
+    :param dy: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the translation of the item at the given ``step`` value using the horizontal and vertical coordinates specified by ``dx`` and ``dy`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.xTranslationAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.yTranslationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.shearList()
+
+
+    :rtype: 
+
+
+
+
+    Returns all explicitly inserted shears.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.verticalShearAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.horizontalShearAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.setShearAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.timeLine()
+
+
+    :rtype: :class:`PySide.QtCore.QTimeLine`
+
+
+
+
+    Returns the timeline object used to control the rate at which the animation occurs.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setTimeLine` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.translationList()
+
+
+    :rtype: 
+
+
+
+
+    Returns all explicitly inserted translations.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.xTranslationAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.yTranslationAt`  :meth:`PySide.QtGui.QGraphicsItemAnimation.setTranslationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.verticalScaleAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the vertical scale for the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setScaleAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.verticalShearAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the vertical shear for the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setShearAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.xTranslationAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the horizontal translation of the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setTranslationAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsItemAnimation.yTranslationAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the vertical translation of the item at the specified ``step`` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsItemAnimation.setTranslationAt` 
+
+
+

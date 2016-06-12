@@ -1,0 +1,212 @@
+.. module:: PySide.phonon
+.. _Phonon.EffectParameter:
+
+Phonon.EffectParameter
+**********************
+
+.. inheritance-diagram:: Phonon.EffectParameter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultValue<PySide.phonon.Phonon.EffectParameter.defaultValue>` ()
+*    def :meth:`description<PySide.phonon.Phonon.EffectParameter.description>` ()
+*    def :meth:`isLogarithmicControl<PySide.phonon.Phonon.EffectParameter.isLogarithmicControl>` ()
+*    def :meth:`maximumValue<PySide.phonon.Phonon.EffectParameter.maximumValue>` ()
+*    def :meth:`minimumValue<PySide.phonon.Phonon.EffectParameter.minimumValue>` ()
+*    def :meth:`name<PySide.phonon.Phonon.EffectParameter.name>` ()
+*    def :meth:`possibleValues<PySide.phonon.Phonon.EffectParameter.possibleValues>` ()
+*    def :meth:`type<PySide.phonon.Phonon.EffectParameter.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.EffectParameter` class describes one parameter of an effect.
+
+    You fetch the parameters of an :class:`Phonon.Effect` with :meth:`Effect.parameters()<PySide.phonon.Phonon.Effect.parameters>` .
+
+    ::
+
+            QList<Phonon::EffectParameter> parameters = effect->parameters();
+
+            foreach(Phonon::EffectParameter parameter, parameters) {
+                // Do something with parameter
+            }
+
+
+    To describe itself, an effect parameter gives a :meth:`PySide.phonon.Phonon::EffectParameter.name` and possibly :meth:`PySide.phonon.Phonon::EffectParameter.description` (depending on the backend used). These are suited to present the effect parameter to the user of a Phonon application.
+
+    Note that effects are created by the backend, and that their name and descriptions may vary.
+
+    The value of an effect parameter is stored in a :class:`PySide.QtCore.QVariant` , of which :meth:`PySide.phonon.Phonon::EffectParameter.type` is usually ``int`` or ``double`` .
+
+    The value is retrieved with :meth:`Effect.parameterValue()<PySide.phonon.Phonon.Effect.parameterValue>` and set with :meth:`PySide.phonon.Phonon.Effect.setParameterValue` - both of which takes the :class:`~PySide.phonon.Phonon.EffectParameter` as argument. Note that not all effect parameters support setting of their value.
+
+    You get the values a parameter can take with :meth:`PySide.phonon.Phonon::EffectParameter.possibleValues` ; an empty list is returned if the values are continuous.
+
+    A parameter may also specify :class:`~PySide.phonon.Phonon.default` , minimum(), and maximum() values. Values are returned as :class:`PySide.QtCore.QVariant` s. If the parameter does not have the requested value, an :attr:`QVariant.Invalid<QVariant.Type>` invalid :class:`PySide.QtCore.QVariant` is returned from these functions.
+
+    The :class:`Phonon.EffectWidget` provides a widget with which one can control the parameters of an :class:`Phonon.Effect` .
+
+    ::
+
+            Phonon::EffectWidget *effectWidget = new Phonon::EffectWidget(effect);
+
+
+    .. seealso::  :class:`~PySide.phonon.Phonon.Effect`  :class:`~PySide.phonon.Phonon.EffectWidget`  :ref:`Capabilities Example<phonon/capabilities>`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.EffectParameter(rhs)
+           PySide.phonon.Phonon.EffectParameter(parameterId, name, hints, defaultValue[, min=None[, max=None[, values=QVariantList()[, description=""]]]])
+
+    :param defaultValue: object
+    :param values: 
+    :param rhs: :class:`PySide.phonon.Phonon::EffectParameter`
+    :param hints: :class:`PySide.phonon.Phonon::EffectParameter.Hints`
+    :param description: unicode
+    :param parameterId: :class:`PySide.QtCore.int`
+    :param min: object
+    :param name: unicode
+    :param max: object
+
+
+    Constructs a copy of the ``other`` effect parameter.
+
+
+
+
+.. attribute:: PySide.phonon.Phonon.EffectParameter.Hint
+
+    Only for backend developers:
+
+    Flags to set the return values of isToggleControl(), :meth:`PySide.phonon.Phonon::EffectParameter.isLogarithmicControl` , isIntegerControl(), isBoundedBelow() and isBoundedAbove(). The values of the flags correspond to the values used for LADSPA effects.
+
+    +--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                                                                                                                                  |
+    +======================================+=============================================================================================================================================================================================================================+
+    |Phonon.EffectParameter.ToggledHint    |If this hint is set it means that the control has only two states: zero and non-zero (see isToggleControl()).                                                                                                                |
+    +--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.EffectParameter.LogarithmicHint|LADSPA's SAMPLE\_RATE hint needs to be translated by the backend to normal bounds, as the backend knows the sample rate - and the frontend doesn't (see :meth:`PySide.phonon.Phonon::EffectParameter.isLogarithmicControl` ).|
+    +--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.EffectParameter.IntegerHint    |See isIntegerControl().                                                                                                                                                                                                      |
+    +--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.defaultValue()
+
+
+    :rtype: object
+
+
+
+
+    The default value.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.description()
+
+
+    :rtype: unicode
+
+
+
+
+    The parameter may come with a description (LADSPA doesn't have a field for this, so don't expect many effects to provide a description).
+
+    The description can be used for a tooltip or WhatsThis help.
+
+    Returns A text describing the parameter.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.isLogarithmicControl()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether the parameter should be displayed using a logarithmic scale. This is particularly useful for frequencies and gains.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.maximumValue()
+
+
+    :rtype: object
+
+
+
+
+    The maximum value to be used for the control to edit the parameter.
+
+    If the returned :class:`PySide.QtCore.QVariant` is invalid the value is not bounded from above.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.minimumValue()
+
+
+    :rtype: object
+
+
+
+
+    The minimum value to be used for the control to edit the parameter.
+
+    If the returned :class:`PySide.QtCore.QVariant` is invalid the value is not bounded from below.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.name()
+
+
+    :rtype: unicode
+
+
+
+
+    The name of the parameter. Can be used as the label.
+
+    Returns A label for the parameter.
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.possibleValues()
+
+
+    :rtype: 
+
+
+
+
+    The possible values to be used for the control to edit the parameter.
+
+    if the value of this parameter is to be picked from predefined values this returns the list (otherwise it returns an empty :class:`~PySide.phonon.Phonon.QVariantList` ).
+
+
+
+.. method:: PySide.phonon.Phonon.EffectParameter.type()
+
+
+    :rtype: :class:`PySide.QtCore.QVariant::Type`
+
+
+
+
+    Returns the parameter type.
+
+    Common types are :attr:`QVariant.Int<QVariant.Type>` , :attr:`QVariant.Double<QVariant.Type>` , :attr:`QVariant.Bool<QVariant.Type>` and :attr:`QVariant.String<QVariant.Type>` . When :attr:`QVariant.String<QVariant.Type>` is returned you get the possible values from possibleValues.
+
+
+
+

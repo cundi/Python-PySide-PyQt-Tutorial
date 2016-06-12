@@ -1,0 +1,145 @@
+.. module:: PySide.QtGui
+.. _QWhatsThis:
+
+QWhatsThis
+**********
+
+.. inheritance-diagram:: QWhatsThis
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createAction<PySide.QtGui.QWhatsThis.createAction>` ([parent=None])
+*    def :meth:`enterWhatsThisMode<PySide.QtGui.QWhatsThis.enterWhatsThisMode>` ()
+*    def :meth:`hideText<PySide.QtGui.QWhatsThis.hideText>` ()
+*    def :meth:`inWhatsThisMode<PySide.QtGui.QWhatsThis.inWhatsThisMode>` ()
+*    def :meth:`leaveWhatsThisMode<PySide.QtGui.QWhatsThis.leaveWhatsThisMode>` ()
+*    def :meth:`showText<PySide.QtGui.QWhatsThis.showText>` (pos, text[, w=None])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWhatsThis` class provides a simple description of any widget, i.e. answering the question "What's This?".
+
+    "What's This?" help is part of an application's online help system, and provides users with information about the functionality and usage of a particular widget. "What's This?" help texts are typically longer and more detailed than :class:`tooltips<PySide.QtGui.QToolTip>` , but generally provide less information than that supplied by separate help windows.
+
+    :class:`PySide.QtGui.QWhatsThis` provides a single window with an explanatory text that pops up when the user asks "What's This?". The default way for users to ask the question is to move the focus to the relevant widget and press Shift+F1. The help text appears immediately; it goes away as soon as the user does something else. (Note that if there is a shortcut for Shift+F1, this mechanism will not work.) Some dialogs provide a "?" button that users can click to enter "What's This?" mode; they then click the relevant widget to pop up the "What's This?" window. It is also possible to provide a a menu option or toolbar button to switch into "What's This?" mode.
+
+    To add "What's This?" text to a widget or an action, you simply call :meth:`QWidget.setWhatsThis()<PySide.QtGui.QWidget.setWhatsThis>` or :meth:`QAction.setWhatsThis()<PySide.QtGui.QAction.setWhatsThis>` .
+
+    The text can be either rich text or plain text. If you specify a rich text formatted string, it will be rendered using the default stylesheet, making it possible to embed images in the displayed text. To be as fast as possible, the default stylesheet uses a simple method to determine whether the text can be rendered as plain text. See :meth:`Qt.mightBeRichText()<PySide.QtCore.Qt.mightBeRichText>` for details.
+
+    ::
+
+            Act = QAction(tr("&New"), self)
+            Act.setShortcut(tr("Ctrl+N"))
+            Act.setStatusTip(QObject.tr("Create a new file"))
+            Act.setWhatsThis(QObject.tr("Click self option to create a new file."))
+
+
+    An alternative way to enter "What's This?" mode is to call :meth:`PySide.QtGui.QWhatsThis.createAction` , and add the returned :class:`PySide.QtGui.QAction` to either a menu or a tool bar. By invoking this context help action (in the picture below, the button with the arrow and question mark icon) the user switches into "What's This?" mode. If they now click on a widget the appropriate help text is shown. The mode is left when help is given or when the user presses Esc.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/whatsthis.png
+
+    You can enter "What's This?" mode programmatically with :meth:`PySide.QtGui.QWhatsThis.enterWhatsThisMode` , check the mode with :meth:`PySide.QtGui.QWhatsThis.inWhatsThisMode` , and return to normal mode with :meth:`PySide.QtGui.QWhatsThis.leaveWhatsThisMode` .
+
+    If you want to control the "What's This?" behavior of a widget manually see :attr:`Qt.WA_CustomWhatsThis<Qt.WidgetAttribute>` .
+
+    It is also possible to show different help texts for different regions of a widget, by using a :class:`PySide.QtGui.QHelpEvent` of type :attr:`QEvent.WhatsThis<QEvent.Type>` . Intercept the help event in your widget's :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` function and call :meth:`QWhatsThis.showText()<PySide.QtGui.QWhatsThis.showText>` with the text you want to display for the position specified in :meth:`QHelpEvent.pos()<PySide.QtGui.QHelpEvent.pos>` . If the text is rich text and the user clicks on a link, the widget also receives a :class:`PySide.QtGui.QWhatsThisClickedEvent` with the link's reference as :meth:`QWhatsThisClickedEvent.href()<PySide.QtGui.QWhatsThisClickedEvent.href>` . If a :class:`PySide.QtGui.QWhatsThisClickedEvent` is handled (i.e. :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` returns true), the help window remains visible. Call :meth:`QWhatsThis.hideText()<PySide.QtGui.QWhatsThis.hideText>` to hide it explicitly.
+
+    .. seealso::  :class:`PySide.QtGui.QToolTip` 
+
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.createAction([parent=None])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns a ready-made :class:`PySide.QtGui.QAction` , used to invoke "What's This?" context help, with the given ``parent`` .
+
+    The returned :class:`PySide.QtGui.QAction` provides a convenient way to let users enter "What's This?" mode.
+
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.enterWhatsThisMode()
+
+
+
+
+
+
+    This function switches the user interface into "What's This?" mode. The user interface can be switched back into normal mode by the user (e.g. by them clicking or pressing Esc), or programmatically by calling :meth:`PySide.QtGui.QWhatsThis.leaveWhatsThisMode` .
+
+    When entering "What's This?" mode, a :class:`PySide.QtCore.QEvent` of type Qt::EnterWhatsThisMode is sent to all toplevel widgets.
+
+    .. seealso::  :meth:`PySide.QtGui.QWhatsThis.inWhatsThisMode`  :meth:`PySide.QtGui.QWhatsThis.leaveWhatsThisMode` 
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.hideText()
+
+
+
+
+
+
+    If a "What's This?" window is showing, this destroys it.
+
+    .. seealso::  :meth:`PySide.QtGui.QWhatsThis.showText` 
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.inWhatsThisMode()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the user interface is in "What's This?" mode; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QWhatsThis.enterWhatsThisMode` 
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.leaveWhatsThisMode()
+
+
+
+
+
+
+    If the user interface is in "What's This?" mode, this function switches back to normal mode; otherwise it does nothing.
+
+    When leaving "What's This?" mode, a :class:`PySide.QtCore.QEvent` of type Qt::LeaveWhatsThisMode is sent to all toplevel widgets.
+
+    .. seealso::  :meth:`PySide.QtGui.QWhatsThis.enterWhatsThisMode`  :meth:`PySide.QtGui.QWhatsThis.inWhatsThisMode` 
+
+
+.. staticmethod:: PySide.QtGui.QWhatsThis.showText(pos, text[, w=None])
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param text: unicode
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Shows ``text`` as a "What's This?" window, at global position ``pos`` . The optional widget argument, ``w`` , is used to determine the appropriate screen on multi-head systems.
+
+    .. seealso::  :meth:`PySide.QtGui.QWhatsThis.hideText` 
+
+
+

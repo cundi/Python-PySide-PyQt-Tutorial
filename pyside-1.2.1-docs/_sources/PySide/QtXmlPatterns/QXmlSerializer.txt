@@ -1,0 +1,200 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlSerializer:
+
+QXmlSerializer
+**************
+
+.. inheritance-diagram:: QXmlSerializer
+    :parts: 2
+
+**Inherited by:** :ref:`QXmlFormatter`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`atDocumentRoot<PySide.QtXmlPatterns.QXmlSerializer.atDocumentRoot>` ()
+*    def :meth:`codec<PySide.QtXmlPatterns.QXmlSerializer.codec>` ()
+*    def :meth:`isBindingInScope<PySide.QtXmlPatterns.QXmlSerializer.isBindingInScope>` (nb)
+*    def :meth:`outputDevice<PySide.QtXmlPatterns.QXmlSerializer.outputDevice>` ()
+*    def :meth:`setCodec<PySide.QtXmlPatterns.QXmlSerializer.setCodec>` (codec)
+*    def :meth:`startContent<PySide.QtXmlPatterns.QXmlSerializer.startContent>` ()
+*    def :meth:`write<PySide.QtXmlPatterns.QXmlSerializer.write>` (chars)
+*    def :meth:`write<PySide.QtXmlPatterns.QXmlSerializer.write>` (content)
+*    def :meth:`write<PySide.QtXmlPatterns.QXmlSerializer.write>` (name)
+*    def :meth:`writeEscaped<PySide.QtXmlPatterns.QXmlSerializer.writeEscaped>` (toEscape)
+*    def :meth:`writeEscapedAttribute<PySide.QtXmlPatterns.QXmlSerializer.writeEscapedAttribute>` (toEscape)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlSerializer` class is an implementation of :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` for transforming :ref:`XQuery<xmlprocessing.html>` output into unformatted XML.
+
+    :class:`PySide.QtXmlPatterns.QXmlSerializer` translates an :class:`XQuery sequence<~PySide.QtXmlPatterns.XQuery Sequence>` , usually the output of an :class:`PySide.QtXmlPatterns.QXmlQuery` , into XML. Consider the example:
+
+    ::
+
+        QXmlQuery query;
+        query.setQuery("doc('index.html')/html/body/p[1]");
+
+        QXmlSerializer serializer(query, myOutputDevice);
+        query.evaluateTo(&serializer);
+
+
+    First it constructs a :class:`query<PySide.QtXmlPatterns.QXmlQuery>` that gets the first paragraph from document ``index.html`` . Then it constructs an instance of this class with the :class:`query<PySide.QtXmlPatterns.QXmlQuery>` and :class:`myOutputDevice<PySide.QtCore.QIODevice>` . Finally, it :meth:`evaluates<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` the :class:`query<PySide.QtXmlPatterns.QXmlQuery>` , producing an ordered sequence of calls to the serializer's callback functions. The sequence of callbacks transforms the query output to XML and writes it to :class:`myOutputDevice<PySide.QtCore.QIODevice>` .
+
+    :class:`PySide.QtXmlPatterns.QXmlSerializer` will:
+
+
+    * Declare namespaces when needed,
+    * Use appropriate escaping, when characters can't be represented in the XML,
+    * Handle line endings appropriately,
+    * Report errors, when it can't serialize the content, e.g., when asked to serialize an attribute that is a top-level node, or when more than one top-level element is encountered.
+
+    If an error occurs during serialization, result is undefined unless the serializer is driven through a call to :meth:`QXmlQuery.evaluateTo()<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` .
+
+    If the generated XML should be indented and formatted for reading, use :class:`PySide.QtXmlPatterns.QXmlFormatter` .
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QXmlFormatter` 
+
+.. class:: QXmlSerializer(query, outputDevice)
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlQuery`
+    :param outputDevice: :class:`PySide.QtCore.QIODevice`
+
+    Constructs a serializer that uses the name pool and message handler in ``query`` , and writes the output to ``outputDevice`` .
+
+    ``outputDevice`` must be a valid, non-null device that is open in write mode, otherwise behavior is undefined.
+
+    ``outputDevice`` must not be opened with :attr:`QIODevice.Text<QIODevice.OpenModeFlag>` because it will cause the output to be incorrect. This class will ensure line endings are serialized as according with the XML specification. :class:`PySide.QtXmlPatterns.QXmlSerializer` does not take ownership of ``outputDevice`` .
+
+
+.. attribute:: PySide.QtXmlPatterns.QXmlSerializer.State
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.atDocumentRoot()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.codec()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec being used by the serializer for encoding its XML output.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSerializer.setCodec` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.isBindingInScope(nb)
+
+
+    :param nb: :class:`PySide.QtXmlPatterns.QXmlName`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.outputDevice()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns a pointer to the output device. There is no corresponding function to *set* the output device, because the output device must be passed to the constructor. The serializer does not take ownership of its IO device.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.setCodec(codec)
+
+
+    :param codec: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec the serializer will use for encoding its XML output. The output codec is set to ``outputCodec`` . By default, the output codec is set to the one for ``UTF-8`` . The serializer does not take ownership of the codec.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSerializer.codec` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.startContent()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.write(name)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.write(chars)
+
+
+    :param chars: str
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.write(content)
+
+
+    :param content: unicode
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.writeEscaped(toEscape)
+
+
+    :param toEscape: unicode
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSerializer.writeEscapedAttribute(toEscape)
+
+
+    :param toEscape: unicode
+
+
+
+
+
+
+

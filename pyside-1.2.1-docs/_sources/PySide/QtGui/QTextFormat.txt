@@ -1,0 +1,983 @@
+.. module:: PySide.QtGui
+.. _QTextFormat:
+
+QTextFormat
+***********
+
+.. inheritance-diagram:: QTextFormat
+    :parts: 2
+
+**Inherited by:** :ref:`QTextFrameFormat`, :ref:`QTextTableFormat`, :ref:`QTextListFormat`, :ref:`QTextBlockFormat`, :ref:`QTextCharFormat`, :ref:`QTextTableCellFormat`, :ref:`QTextImageFormat`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QTextFormat.__eq__>` (rhs)
+*    def :meth:`__ne__<PySide.QtGui.QTextFormat.__ne__>` (rhs)
+*    def :meth:`background<PySide.QtGui.QTextFormat.background>` ()
+*    def :meth:`boolProperty<PySide.QtGui.QTextFormat.boolProperty>` (propertyId)
+*    def :meth:`brushProperty<PySide.QtGui.QTextFormat.brushProperty>` (propertyId)
+*    def :meth:`clearBackground<PySide.QtGui.QTextFormat.clearBackground>` ()
+*    def :meth:`clearForeground<PySide.QtGui.QTextFormat.clearForeground>` ()
+*    def :meth:`clearProperty<PySide.QtGui.QTextFormat.clearProperty>` (propertyId)
+*    def :meth:`colorProperty<PySide.QtGui.QTextFormat.colorProperty>` (propertyId)
+*    def :meth:`doubleProperty<PySide.QtGui.QTextFormat.doubleProperty>` (propertyId)
+*    def :meth:`foreground<PySide.QtGui.QTextFormat.foreground>` ()
+*    def :meth:`hasProperty<PySide.QtGui.QTextFormat.hasProperty>` (propertyId)
+*    def :meth:`intProperty<PySide.QtGui.QTextFormat.intProperty>` (propertyId)
+*    def :meth:`isBlockFormat<PySide.QtGui.QTextFormat.isBlockFormat>` ()
+*    def :meth:`isCharFormat<PySide.QtGui.QTextFormat.isCharFormat>` ()
+*    def :meth:`isFrameFormat<PySide.QtGui.QTextFormat.isFrameFormat>` ()
+*    def :meth:`isImageFormat<PySide.QtGui.QTextFormat.isImageFormat>` ()
+*    def :meth:`isListFormat<PySide.QtGui.QTextFormat.isListFormat>` ()
+*    def :meth:`isTableCellFormat<PySide.QtGui.QTextFormat.isTableCellFormat>` ()
+*    def :meth:`isTableFormat<PySide.QtGui.QTextFormat.isTableFormat>` ()
+*    def :meth:`isValid<PySide.QtGui.QTextFormat.isValid>` ()
+*    def :meth:`layoutDirection<PySide.QtGui.QTextFormat.layoutDirection>` ()
+*    def :meth:`lengthProperty<PySide.QtGui.QTextFormat.lengthProperty>` (propertyId)
+*    def :meth:`lengthVectorProperty<PySide.QtGui.QTextFormat.lengthVectorProperty>` (propertyId)
+*    def :meth:`merge<PySide.QtGui.QTextFormat.merge>` (other)
+*    def :meth:`objectIndex<PySide.QtGui.QTextFormat.objectIndex>` ()
+*    def :meth:`objectType<PySide.QtGui.QTextFormat.objectType>` ()
+*    def :meth:`penProperty<PySide.QtGui.QTextFormat.penProperty>` (propertyId)
+*    def :meth:`properties<PySide.QtGui.QTextFormat.properties>` ()
+*    def :meth:`property<PySide.QtGui.QTextFormat.property>` (propertyId)
+*    def :meth:`propertyCount<PySide.QtGui.QTextFormat.propertyCount>` ()
+*    def :meth:`setBackground<PySide.QtGui.QTextFormat.setBackground>` (brush)
+*    def :meth:`setForeground<PySide.QtGui.QTextFormat.setForeground>` (brush)
+*    def :meth:`setLayoutDirection<PySide.QtGui.QTextFormat.setLayoutDirection>` (direction)
+*    def :meth:`setObjectIndex<PySide.QtGui.QTextFormat.setObjectIndex>` (object)
+*    def :meth:`setObjectType<PySide.QtGui.QTextFormat.setObjectType>` (type)
+*    def :meth:`setProperty<PySide.QtGui.QTextFormat.setProperty>` (propertyId, lengths)
+*    def :meth:`setProperty<PySide.QtGui.QTextFormat.setProperty>` (propertyId, value)
+*    def :meth:`stringProperty<PySide.QtGui.QTextFormat.stringProperty>` (propertyId)
+*    def :meth:`toBlockFormat<PySide.QtGui.QTextFormat.toBlockFormat>` ()
+*    def :meth:`toCharFormat<PySide.QtGui.QTextFormat.toCharFormat>` ()
+*    def :meth:`toFrameFormat<PySide.QtGui.QTextFormat.toFrameFormat>` ()
+*    def :meth:`toImageFormat<PySide.QtGui.QTextFormat.toImageFormat>` ()
+*    def :meth:`toListFormat<PySide.QtGui.QTextFormat.toListFormat>` ()
+*    def :meth:`toTableCellFormat<PySide.QtGui.QTextFormat.toTableCellFormat>` ()
+*    def :meth:`toTableFormat<PySide.QtGui.QTextFormat.toTableFormat>` ()
+*    def :meth:`type<PySide.QtGui.QTextFormat.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextFormat` class provides formatting information for a :class:`PySide.QtGui.QTextDocument` .
+
+    A :class:`PySide.QtGui.QTextFormat` is a generic class used for describing the format of parts of a :class:`PySide.QtGui.QTextDocument` . The derived classes :class:`PySide.QtGui.QTextCharFormat` , :class:`PySide.QtGui.QTextBlockFormat` , :class:`PySide.QtGui.QTextListFormat` , and :class:`PySide.QtGui.QTextTableFormat` are usually more useful, and describe the formatting that is applied to specific parts of the document.
+
+    A format has a ``FormatType`` which specifies the kinds of text item it can format; e.g. a block of text, a list, a table, etc. A format also has various properties (some specific to particular format types), as described by the Property enum. Every property has a corresponding Property.
+
+    The format type is given by :meth:`PySide.QtGui.QTextFormat.type` , and the format can be tested with :meth:`PySide.QtGui.QTextFormat.isCharFormat` , :meth:`PySide.QtGui.QTextFormat.isBlockFormat` , :meth:`PySide.QtGui.QTextFormat.isListFormat` , :meth:`PySide.QtGui.QTextFormat.isTableFormat` , :meth:`PySide.QtGui.QTextFormat.isFrameFormat` , and :meth:`PySide.QtGui.QTextFormat.isImageFormat` . If the type is determined, it can be retrieved with :meth:`PySide.QtGui.QTextFormat.toCharFormat` , :meth:`PySide.QtGui.QTextFormat.toBlockFormat` , :meth:`PySide.QtGui.QTextFormat.toListFormat` , :meth:`PySide.QtGui.QTextFormat.toTableFormat` , :meth:`PySide.QtGui.QTextFormat.toFrameFormat` , and :meth:`PySide.QtGui.QTextFormat.toImageFormat` .
+
+    A format's properties can be set with the :meth:`PySide.QtGui.QTextFormat.setProperty` functions, and retrieved with :meth:`PySide.QtGui.QTextFormat.boolProperty` , :meth:`PySide.QtGui.QTextFormat.intProperty` , :meth:`PySide.QtGui.QTextFormat.doubleProperty` , and :meth:`PySide.QtGui.QTextFormat.stringProperty` as appropriate. All the property IDs used in the format can be retrieved with allPropertyIds(). One format can be merged into another using :meth:`PySide.QtGui.QTextFormat.merge` .
+
+    A format's object index can be set with :meth:`PySide.QtGui.QTextFormat.setObjectIndex` , and retrieved with :meth:`PySide.QtGui.QTextFormat.objectIndex` . These methods can be used to associate the format with a :class:`PySide.QtGui.QTextObject` . It is used to represent lists, frames, and tables inside the document.
+
+    .. seealso::  :ref:`Rich Text Processing<richtext.html>` 
+
+.. class:: QTextFormat()
+           QTextFormat(rhs)
+           QTextFormat(type)
+
+    :param rhs: :class:`PySide.QtGui.QTextFormat`
+    :param type: :class:`PySide.QtCore.int`
+
+    Creates a new text format with an ``InvalidFormat`` .
+
+    .. seealso::  :attr:`QTextFormat.FormatType` 
+
+    Creates a new text format with the same attributes as the ``other`` text format.
+
+
+    Creates a new text format of the given ``type`` .
+
+    .. seealso::  :attr:`QTextFormat.FormatType` 
+
+.. attribute:: PySide.QtGui.QTextFormat.Property
+
+    This enum describes the different properties a format can have.
+
+    +-----------------------+-------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                          |
+    +=======================+=====================================================================================+
+    |QTextFormat.ObjectIndex|The index of the formatted object. See :meth:`PySide.QtGui.QTextFormat.objectIndex` .|
+    +-----------------------+-------------------------------------------------------------------------------------+
+
+    Paragraph and character properties
+
+    +------------------------------+--------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                     |
+    +==============================+================================================================================+
+    |QTextFormat.CssFloat          |How a frame is located relative to the surrounding text                         |
+    +------------------------------+--------------------------------------------------------------------------------+
+    |QTextFormat.LayoutDirection   |The layout direction of the text in the document ( :attr:`Qt.LayoutDirection` ).|
+    +------------------------------+--------------------------------------------------------------------------------+
+    |QTextFormat.OutlinePen        |                                                                                |
+    +------------------------------+--------------------------------------------------------------------------------+
+    |QTextFormat.ForegroundBrush   |                                                                                |
+    +------------------------------+--------------------------------------------------------------------------------+
+    |QTextFormat.BackgroundBrush   |                                                                                |
+    +------------------------------+--------------------------------------------------------------------------------+
+    |QTextFormat.BackgroundImageUrl|                                                                                |
+    +------------------------------+--------------------------------------------------------------------------------+
+
+    Paragraph properties
+
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                     |Description                                                                                                                                                                                       |
+    +=============================================+==================================================================================================================================================================================================+
+    |QTextFormat.BlockAlignment                   |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockTopMargin                   |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockBottomMargin                |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockLeftMargin                  |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockRightMargin                 |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextIndent                       |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TabPositions                     |Specifies the tab positions. The tab positions are structs of :class:`QTextOption.Tab` which are stored in a :class:`QList` (internally, in a :class:`QList` < :class:`PySide.QtCore.QVariant` >).|
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockIndent                      |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.LineHeight                       |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.LineHeightType                   |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockNonBreakableLines           |                                                                                                                                                                                                  |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.BlockTrailingHorizontalRulerWidth|The width of a horizontal ruler element.                                                                                                                                                          |
+    +---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Character properties
+
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                                                                                           |
+    +=================================+======================================================================================================================================================================+
+    |QTextFormat.FontFamily           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontPointSize        |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontPixelSize        |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontSizeAdjustment   |Specifies the change in size given to the fontsize already set using :attr:`FontPointSize<QTextFormat.Property>` or :attr:`FontPixelSize<QTextFormat.Property>` .     |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontFixedPitch       |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontWeight           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontItalic           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontUnderline        |*This property has been deprecated.* Use :attr:`QTextFormat.TextUnderlineStyle<QTextFormat.Property>` instead.                                                        |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontOverline         |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontStrikeOut        |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontCapitalization   |Specifies the capitalization type that is to be applied to the text.                                                                                                  |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontLetterSpacing    |Changes the default spacing between individual letters in the font. The value is specified in percentage, with 100 as the default value.                              |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontWordSpacing      |Changes the default spacing between individual words. A positive value increases the word spacing by the corresponding pixels; a negative value decreases the spacing.|
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontStyleHint        |Corresponds to the :attr:`QFont.StyleHint` property                                                                                                                   |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontStyleStrategy    |Corresponds to the :attr:`QFont.StyleStrategy` property                                                                                                               |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontKerning          |Specifies whether the font has kerning turned on.                                                                                                                     |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.FontHintingPreference|Controls the use of hinting according to values of the :attr:`QFont.HintingPreference` enum.                                                                          |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextUnderlineColor   |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextVerticalAlignment|                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextOutline          |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextUnderlineStyle   |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.TextToolTip          |Specifies the (optional) tool tip to be displayed for a fragment of text.                                                                                             |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.IsAnchor             |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.AnchorHref           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.AnchorName           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.ObjectType           |                                                                                                                                                                      |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    List properties
+
+    +----------------------------+----------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                     |
+    +============================+================================================================================================================+
+    |QTextFormat.ListStyle       |Specifies the style used for the items in a list, described by values of the :attr:`QTextListFormat.Style` enum.|
+    +----------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.ListIndent      |Specifies the amount of indentation used for a list.                                                            |
+    +----------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.ListNumberPrefix|Defines the text which is prepended to item numbers in numeric lists.                                           |
+    +----------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QTextFormat.ListNumberSuffix|Defines the text which is appended to item numbers in numeric lists.                                            |
+    +----------------------------+----------------------------------------------------------------------------------------------------------------+
+
+    Table and frame properties
+
+    +---------------------------------------+--------------------------------------------------+
+    |Constant                               |Description                                       |
+    +=======================================+==================================================+
+    |QTextFormat.FrameBorder                |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameBorderBrush           |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameBorderStyle           |See the :attr:`QTextFrameFormat.BorderStyle` enum.|
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameBottomMargin          |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameHeight                |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameLeftMargin            |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameMargin                |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FramePadding               |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameRightMargin           |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameTopMargin             |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.FrameWidth                 |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.TableCellSpacing           |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.TableCellPadding           |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.TableColumns               |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.TableColumnWidthConstraints|                                                  |
+    +---------------------------------------+--------------------------------------------------+
+    |QTextFormat.TableHeaderRowCount        |                                                  |
+    +---------------------------------------+--------------------------------------------------+
+
+    Table cell properties
+
+    +----------------------------------+-----------+
+    |Constant                          |Description|
+    +==================================+===========+
+    |QTextFormat.TableCellRowSpan      |           |
+    +----------------------------------+-----------+
+    |QTextFormat.TableCellColumnSpan   |           |
+    +----------------------------------+-----------+
+    |QTextFormat.TableCellLeftPadding  |           |
+    +----------------------------------+-----------+
+    |QTextFormat.TableCellRightPadding |           |
+    +----------------------------------+-----------+
+    |QTextFormat.TableCellTopPadding   |           |
+    +----------------------------------+-----------+
+    |QTextFormat.TableCellBottomPadding|           |
+    +----------------------------------+-----------+
+
+    Image properties
+
+    +-----------------------+-----------+
+    |Constant               |Description|
+    +=======================+===========+
+    |QTextFormat.ImageName  |           |
+    +-----------------------+-----------+
+    |QTextFormat.ImageWidth |           |
+    +-----------------------+-----------+
+    |QTextFormat.ImageHeight|           |
+    +-----------------------+-----------+
+
+    Selection properties
+
+    +------------------------------+---------------------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                                        |
+    +==============================+===================================================================================================+
+    |QTextFormat.FullWidthSelection|When set on the characterFormat of a selection, the whole width of the text will be shown selected.|
+    +------------------------------+---------------------------------------------------------------------------------------------------+
+
+    Page break properties
+
+    +---------------------------+-------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                    |
+    +===========================+===============================================================================+
+    |QTextFormat.PageBreakPolicy|Specifies how pages are broken. See the :attr:`QTextFormat.PageBreakFlag` enum.|
+    +---------------------------+-------------------------------------------------------------------------------+
+    |QTextFormat.UserProperty   |                                                                               |
+    +---------------------------+-------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.property`  :meth:`PySide.QtGui.QTextFormat.setProperty` 
+
+.. attribute:: PySide.QtGui.QTextFormat.FormatType
+
+    This enum describes the text item a :class:`PySide.QtGui.QTextFormat` object is formatting.
+
+    +-------------------------+-------------------------------------------------------+
+    |Constant                 |Description                                            |
+    +=========================+=======================================================+
+    |QTextFormat.InvalidFormat|An invalid format as created by the default constructor|
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.BlockFormat  |The object formats a text block                        |
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.CharFormat   |The object formats a single character                  |
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.ListFormat   |The object formats a list                              |
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.TableFormat  |The object formats a table                             |
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.FrameFormat  |The object formats a frame                             |
+    +-------------------------+-------------------------------------------------------+
+    |QTextFormat.UserFormat   |                                                       |
+    +-------------------------+-------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QTextCharFormat`  :class:`PySide.QtGui.QTextBlockFormat`  :class:`PySide.QtGui.QTextListFormat`  :class:`PySide.QtGui.QTextTableFormat`  :meth:`PySide.QtGui.QTextFormat.type` 
+
+.. attribute:: PySide.QtGui.QTextFormat.ObjectTypes
+
+    This enum describes what kind of :class:`PySide.QtGui.QTextObject` this format is associated with.
+
+    +---------------------------+--------------------------------------------------------------------+
+    |Constant                   |Description                                                         |
+    +===========================+====================================================================+
+    |QTextFormat.NoObject       |                                                                    |
+    +---------------------------+--------------------------------------------------------------------+
+    |QTextFormat.ImageObject    |                                                                    |
+    +---------------------------+--------------------------------------------------------------------+
+    |QTextFormat.TableObject    |                                                                    |
+    +---------------------------+--------------------------------------------------------------------+
+    |QTextFormat.TableCellObject|                                                                    |
+    +---------------------------+--------------------------------------------------------------------+
+    |QTextFormat.UserObject     |The first object that can be used for application-specific purposes.|
+    +---------------------------+--------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QTextObject`  :class:`PySide.QtGui.QTextTable`  :meth:`QTextObject.format()<PySide.QtGui.QTextObject.format>` 
+
+.. attribute:: PySide.QtGui.QTextFormat.PageBreakFlag
+
+    This enum describes how page breaking is performed when printing. It maps to the corresponding css properties.
+
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |Constant                          |Description                                                                                    |
+    +==================================+===============================================================================================+
+    |QTextFormat.PageBreak_Auto        |The page break is determined automatically depending on the available space on the current page|
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QTextFormat.PageBreak_AlwaysBefore|The page is always broken before the paragraph/table                                           |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QTextFormat.PageBreak_AlwaysAfter |A new page is always started after the paragraph/table                                         |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QTextBlockFormat.pageBreakPolicy()<PySide.QtGui.QTextBlockFormat.pageBreakPolicy>`  :meth:`QTextFrameFormat.pageBreakPolicy()<PySide.QtGui.QTextFrameFormat.pageBreakPolicy>`  :attr:`PageBreakPolicy<QTextFormat.Property>` 
+
+.. method:: PySide.QtGui.QTextFormat.background()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to paint the document's background.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setBackground`  :meth:`PySide.QtGui.QTextFormat.clearBackground`  :meth:`PySide.QtGui.QTextFormat.foreground` 
+
+
+.. method:: PySide.QtGui.QTextFormat.boolProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the value of the property specified by ``propertyId`` . If the property isn't of QTextFormat::Bool type, false is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.brushProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the value of the property given by ``propertyId`` ; if the property isn't of :attr:`QVariant.Brush<QVariant.Type>` type, :attr:`Qt.NoBrush<Qt.BrushStyle>` is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.clearBackground()
+
+
+
+
+
+
+    Clears the brush used to paint the document's background. The default brush will be used.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.background`  :meth:`PySide.QtGui.QTextFormat.setBackground`  :meth:`PySide.QtGui.QTextFormat.clearForeground` 
+
+
+.. method:: PySide.QtGui.QTextFormat.clearForeground()
+
+
+
+
+
+
+    Clears the brush used to paint the document's foreground. The default brush will be used.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.foreground`  :meth:`PySide.QtGui.QTextFormat.setForeground`  :meth:`PySide.QtGui.QTextFormat.clearBackground` 
+
+
+.. method:: PySide.QtGui.QTextFormat.clearProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+
+
+
+
+    Clears the value of the property given by ``propertyId``\
+
+    .. seealso::  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.colorProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the value of the property given by ``propertyId`` ; if the property isn't of :attr:`QVariant.Color<QVariant.Type>` type, an invalid color is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.doubleProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the value of the property specified by ``propertyId`` . If the property isn't of :attr:`QVariant.Double<QVariant.Type>` or :attr:`QMetaType.Float<QMetaType.Type>` type, 0 is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.foreground()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to render foreground details, such as text, frame outlines, and table borders.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setForeground`  :meth:`PySide.QtGui.QTextFormat.clearForeground`  :meth:`PySide.QtGui.QTextFormat.background` 
+
+
+.. method:: PySide.QtGui.QTextFormat.hasProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the text format has a property with the given ``propertyId`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.properties`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.intProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the value of the property specified by ``propertyId`` . If the property is not of QTextFormat::Integer type, 0 is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.isBlockFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``BlockFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isCharFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``CharFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isFrameFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``FrameFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isImageFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is an image format; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isListFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``ListFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isTableCellFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``TableCellFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isTableFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is a ``TableFormat`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the format is valid (i.e. is not :attr:`InvalidFormat<QTextFormat.FormatType>` ); otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.layoutDirection()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.LayoutDirection`
+
+
+
+
+    Returns the document's layout direction.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setLayoutDirection` 
+
+
+.. method:: PySide.QtGui.QTextFormat.lengthProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextLength`
+
+
+
+
+    Returns the value of the property given by ``propertyId`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.lengthVectorProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Returns the value of the property given by ``propertyId`` . If the property isn't of QTextFormat::LengthVector type, an empty length vector is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.merge(other)
+
+
+    :param other: :class:`PySide.QtGui.QTextFormat`
+
+
+
+
+    Merges the ``other`` format with this format; where there are conflicts the ``other`` format takes precedence.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.objectIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the format object, or -1 if the format object is invalid.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setObjectIndex` 
+
+
+.. method:: PySide.QtGui.QTextFormat.objectType()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the text format's object type.
+
+    .. seealso::  :attr:`QTextFormat.ObjectTypes`  :meth:`PySide.QtGui.QTextFormat.setObjectType` 
+
+
+.. method:: PySide.QtGui.QTextFormat.__ne__(rhs)
+
+
+    :param rhs: :class:`PySide.QtGui.QTextFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is different from the ``other`` text format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.__eq__(rhs)
+
+
+    :param rhs: :class:`PySide.QtGui.QTextFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text format is the same as the ``other`` text format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.penProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QPen`
+
+
+
+
+    Returns the value of the property given by ``propertyId`` ; if the property isn't of :attr:`QVariant.Pen<QVariant.Type>` type, :attr:`Qt.NoPen<Qt.PenStyle>` is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.stringProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.properties()
+
+
+    :rtype: 
+
+
+
+
+    Returns a map with all properties of this text format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.property(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the property specified by the given ``propertyId`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.propertyCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of properties stored in the format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.setBackground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the brush use to paint the document's background to the ``brush`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.background`  :meth:`PySide.QtGui.QTextFormat.clearBackground`  :meth:`PySide.QtGui.QTextFormat.setForeground` 
+
+
+.. method:: PySide.QtGui.QTextFormat.setForeground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the foreground brush to the specified ``brush`` . The foreground brush is mostly used to render text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.foreground`  :meth:`PySide.QtGui.QTextFormat.clearForeground`  :meth:`PySide.QtGui.QTextFormat.setBackground` 
+
+
+.. method:: PySide.QtGui.QTextFormat.setLayoutDirection(direction)
+
+
+    :param direction: :attr:`PySide.QtCore.Qt.LayoutDirection`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextFormat.setObjectIndex(object)
+
+
+    :param object: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the format object's object ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.objectIndex` 
+
+
+.. method:: PySide.QtGui.QTextFormat.setObjectType(type)
+
+
+    :param type: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the text format's object type to ``type`` .
+
+    .. seealso::  :attr:`QTextFormat.ObjectTypes`  :meth:`PySide.QtGui.QTextFormat.objectType` 
+
+
+.. method:: PySide.QtGui.QTextFormat.setProperty(propertyId, value)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :param value: object
+
+
+
+
+    Sets the property specified by the ``propertyId`` to the given ``value`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.property`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.setProperty(propertyId, lengths)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :param lengths: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextFormat.stringProperty(propertyId)
+
+
+    :param propertyId: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the value of the property given by ``propertyId`` ; if the property isn't of :attr:`QVariant.String<QVariant.Type>` type, an empty string is returned instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFormat.setProperty`  :meth:`PySide.QtGui.QTextFormat.boolProperty`  :meth:`PySide.QtGui.QTextFormat.intProperty`  :meth:`PySide.QtGui.QTextFormat.doubleProperty`  :meth:`PySide.QtGui.QTextFormat.colorProperty`  :meth:`PySide.QtGui.QTextFormat.lengthProperty`  :meth:`PySide.QtGui.QTextFormat.lengthVectorProperty`  :attr:`QTextFormat.Property` 
+
+
+.. method:: PySide.QtGui.QTextFormat.toBlockFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlockFormat`
+
+
+
+
+    Returns this format as a block format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toCharFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextCharFormat`
+
+
+
+
+    Returns this format as a character format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toFrameFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFrameFormat`
+
+
+
+
+    Returns this format as a frame format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toImageFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextImageFormat`
+
+
+
+
+    Returns this format as an image format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toListFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextListFormat`
+
+
+
+
+    Returns this format as a list format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toTableCellFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextTableCellFormat`
+
+
+
+
+    Returns this format as a table cell format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.toTableFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextTableFormat`
+
+
+
+
+    Returns this format as a table format.
+
+
+
+.. method:: PySide.QtGui.QTextFormat.type()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the type of this format.
+
+    .. seealso::  :attr:`QTextFormat.FormatType` 
+
+
+

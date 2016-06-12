@@ -1,0 +1,89 @@
+.. module:: PySide.QtXml
+.. _QXmlErrorHandler:
+
+QXmlErrorHandler
+****************
+
+.. inheritance-diagram:: QXmlErrorHandler
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlErrorHandler` class provides an interface to report errors in XML data.
+
+    If you want your application to report errors to the user or to perform customized error handling, you should subclass this class.
+
+    You can set the error handler with :meth:`QXmlReader.setErrorHandler()<PySide.QtXml.QXmlReader.setErrorHandler>` .
+
+    Errors can be reported using :meth:`PySide.QtXml.QXmlErrorHandler.warning` , :meth:`PySide.QtXml.QXmlErrorHandler.error` and :meth:`PySide.QtXml.QXmlErrorHandler.fatalError` , with the error text being reported with :meth:`PySide.QtXml.QXmlErrorHandler.errorString` .
+
+    .. seealso::  :class:`PySide.QtXml.QXmlDTDHandler`  :class:`PySide.QtXml.QXmlDeclHandler`  :class:`PySide.QtXml.QXmlContentHandler`  :class:`PySide.QtXml.QXmlEntityResolver`  :class:`PySide.QtXml.QXmlLexicalHandler`  :ref:`Introduction to SAX2<xml-sax.html>` 
+
+.. class:: QXmlErrorHandler()
+
+
+
+
+.. method:: PySide.QtXml.QXmlErrorHandler.error(exception)
+
+
+    :param exception: :class:`PySide.QtXml.QXmlParseException`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    A reader might use this function to report a recoverable error. A recoverable error corresponds to the definiton of "error" in section 1.2 of the XML 1.0 specification. Details of the error are stored in ``exception`` .
+
+    The reader must continue to provide normal parsing events after invoking this function.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlErrorHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlErrorHandler.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    The reader calls this function to get an error string if any of the handler functions returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlErrorHandler.fatalError(exception)
+
+
+    :param exception: :class:`PySide.QtXml.QXmlParseException`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    A reader must use this function to report a non-recoverable error. Details of the error are stored in ``exception`` .
+
+    If this function returns true the reader might try to go on parsing and reporting further errors, but no regular parsing events are reported.
+
+
+
+.. method:: PySide.QtXml.QXmlErrorHandler.warning(exception)
+
+
+    :param exception: :class:`PySide.QtXml.QXmlParseException`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    A reader might use this function to report a warning. Warnings are conditions that are not errors or fatal errors as defined by the XML 1.0 specification. Details of the warning are stored in ``exception`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlErrorHandler.errorString` to get the error message.
+
+
+
+

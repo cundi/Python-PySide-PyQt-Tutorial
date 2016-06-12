@@ -1,0 +1,56 @@
+.. module:: PySide.QtGui
+.. _QGraphicsSceneEvent:
+
+QGraphicsSceneEvent
+*******************
+
+.. inheritance-diagram:: QGraphicsSceneEvent
+    :parts: 2
+
+**Inherited by:** :ref:`QGraphicsSceneWheelEvent`, :ref:`QGraphicsSceneMouseEvent`, :ref:`QGraphicsSceneMoveEvent`, :ref:`QGraphicsSceneResizeEvent`, :ref:`QGraphicsSceneDragDropEvent`, :ref:`QGraphicsSceneHelpEvent`, :ref:`QGraphicsSceneHoverEvent`, :ref:`QGraphicsSceneContextMenuEvent`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`widget<PySide.QtGui.QGraphicsSceneEvent.widget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsSceneEvent` class provides a base class for all graphics view related events.
+
+    When a :class:`PySide.QtGui.QGraphicsView` receives Qt mouse, keyboard, and drag and drop events ( :class:`PySide.QtGui.QMouseEvent` , :class:`PySide.QtGui.QKeyEvent` , QDragEvent, etc.), it translates them into instances of :class:`PySide.QtGui.QGraphicsSceneEvent` subclasses and forwards them to the :class:`PySide.QtGui.QGraphicsScene` it displays. The scene then forwards the events to the relevant items.
+
+    For example, when a :class:`PySide.QtGui.QGraphicsView` receives a :class:`PySide.QtGui.QMouseEvent` of type MousePress as a response to a user click, the view sends a :class:`PySide.QtGui.QGraphicsSceneMouseEvent` of type :attr:`GraphicsSceneMousePress<QEvent.Type>` to the underlying :class:`PySide.QtGui.QGraphicsScene` through its :meth:`PySide.QtGui.QGraphicsScene.mousePressEvent` function. The default :meth:`QGraphicsScene.mousePressEvent()<PySide.QtGui.QGraphicsScene.mousePressEvent>` implementation determines which item was clicked and forwards the event to :meth:`QGraphicsItem.mousePressEvent()<PySide.QtGui.QGraphicsItem.mousePressEvent>` .
+
+    Subclasses such as :class:`PySide.QtGui.QGraphicsSceneMouseEvent` and :class:`PySide.QtGui.QGraphicsSceneContextMenuEvent` provide the coordinates from the original :class:`PySide.QtCore.QEvent` in screen, scene, and item coordinates (see :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.screenPos` , :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.scenePos` , and :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.pos` ). The item coordinates are set by the :class:`PySide.QtGui.QGraphicsScene` before it forwards the event to the event to a :class:`PySide.QtGui.QGraphicsItem` . The mouse events also add the possibility to retrieve the coordinates from the last event received by the view (see :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.lastScreenPos` , :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.lastScenePos` , and :meth:`PySide.QtGui.QGraphicsSceneMouseEvent.lastPos` ).
+
+    .. seealso::  :class:`PySide.QtCore.QEvent` 
+
+.. class:: QGraphicsSceneEvent(type)
+
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+    Constructs a generic graphics scene event of the specified ``type`` .
+
+
+.. method:: PySide.QtGui.QGraphicsSceneEvent.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget where the event originated, or 0 if the event originates from another application.
+
+
+
+

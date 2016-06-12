@@ -1,0 +1,196 @@
+.. module:: PySide.QtGui
+.. _QTextListFormat:
+
+QTextListFormat
+***************
+
+.. inheritance-diagram:: QTextListFormat
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indent<PySide.QtGui.QTextListFormat.indent>` ()
+*    def :meth:`numberPrefix<PySide.QtGui.QTextListFormat.numberPrefix>` ()
+*    def :meth:`numberSuffix<PySide.QtGui.QTextListFormat.numberSuffix>` ()
+*    def :meth:`setIndent<PySide.QtGui.QTextListFormat.setIndent>` (indent)
+*    def :meth:`setNumberPrefix<PySide.QtGui.QTextListFormat.setNumberPrefix>` (numberPrefix)
+*    def :meth:`setNumberSuffix<PySide.QtGui.QTextListFormat.setNumberSuffix>` (numberSuffix)
+*    def :meth:`setStyle<PySide.QtGui.QTextListFormat.setStyle>` (style)
+*    def :meth:`style<PySide.QtGui.QTextListFormat.style>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextListFormat` class provides formatting information for lists in a :class:`PySide.QtGui.QTextDocument` .
+
+    A list is composed of one or more items, represented as text blocks. The list's format specifies the appearance of items in the list. In particular, it determines the indentation and the style of each item.
+
+    The indentation of the items is an integer value that causes each item to be offset from the left margin by a certain amount. This value is read with :meth:`PySide.QtGui.QTextListFormat.indent` and set with :meth:`PySide.QtGui.QTextListFormat.setIndent` .
+
+    The style used to decorate each item is set with :meth:`PySide.QtGui.QTextListFormat.setStyle` and can be read with the :meth:`PySide.QtGui.QTextListFormat.style` function. The style controls the type of bullet points and numbering scheme used for items in the list. Note that lists that use the decimal numbering scheme begin counting at 1 rather than 0.
+
+    Style properties can be set to further configure the appearance of list items; for example, the :attr:`ListNumberPrefix<QTextFormat.Property>` and :attr:`ListNumberSuffix<QTextFormat.Property>` properties can be used to customize the numbers used in an ordered list so that they appear as (1), (2), (3), etc.:
+
+    ::
+
+        <Code snippet "doc/src/snippets/textdocument-listitemstyles/mainwindow.cpp:add a styled, ordered list" not found>
+
+    .. seealso::  :class:`PySide.QtGui.QTextList` 
+
+.. class:: QTextListFormat()
+           QTextListFormat(fmt)
+           QTextListFormat(QTextListFormat)
+
+    :param QTextListFormat: :class:`PySide.QtGui.QTextListFormat`
+    :param fmt: :class:`PySide.QtGui.QTextFormat`
+
+    Constructs a new list format object.
+
+
+    Creates a new list format with the same attributes as the ``given`` text format.
+
+
+
+
+.. attribute:: PySide.QtGui.QTextListFormat.Style
+
+    This enum describes the symbols used to decorate list items:
+
+    +------------------------------+----------------------------------------------------------+
+    |Constant                      |Description                                               |
+    +==============================+==========================================================+
+    |QTextListFormat.ListDisc      |a filled circle                                           |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListCircle    |an empty circle                                           |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListSquare    |a filled square                                           |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListDecimal   |decimal values in ascending order                         |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListLowerAlpha|lower case Latin characters in alphabetical order         |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListUpperAlpha|upper case Latin characters in alphabetical order         |
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListLowerRoman|lower case roman numerals (supports up to 4999 items only)|
+    +------------------------------+----------------------------------------------------------+
+    |QTextListFormat.ListUpperRoman|upper case roman numerals (supports up to 4999 items only)|
+    +------------------------------+----------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QTextListFormat.indent()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the list format's indentation. The indentation is multiplied by the :meth:`QTextDocument.indentWidth<PySide.QtGui.QTextDocument.indentWidth>` property to get the effective indent in pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.setIndent` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.numberPrefix()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list format's number prefix.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.setNumberPrefix` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.numberSuffix()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list format's number suffix.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.setNumberSuffix` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.setIndent(indent)
+
+
+    :param indent: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the list format's ``indentation`` . The indentation is multiplied by the :meth:`QTextDocument.indentWidth<PySide.QtGui.QTextDocument.indentWidth>` property to get the effective indent in pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.indent` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.setNumberPrefix(numberPrefix)
+
+
+    :param numberPrefix: unicode
+
+
+
+
+    Sets the list format's number prefix to the string specified by ``numberPrefix`` . This can be used with all sorted list types. It does not have any effect on unsorted list types.
+
+    The default prefix is an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.numberPrefix` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.setNumberSuffix(numberSuffix)
+
+
+    :param numberSuffix: unicode
+
+
+
+
+    Sets the list format's number suffix to the string specified by ``numberSuffix`` . This can be used with all sorted list types. It does not have any effect on unsorted list types.
+
+    The default suffix is ".".
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.numberSuffix` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.setStyle(style)
+
+
+    :param style: :attr:`PySide.QtGui.QTextListFormat.Style`
+
+
+
+
+    Sets the list format's ``style`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.style`  :attr:`QTextListFormat.Style` 
+
+
+.. method:: PySide.QtGui.QTextListFormat.style()
+
+
+    :rtype: :attr:`PySide.QtGui.QTextListFormat.Style`
+
+
+
+
+    Returns the list format's style.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextListFormat.setStyle`  :attr:`QTextListFormat.Style` 
+
+
+

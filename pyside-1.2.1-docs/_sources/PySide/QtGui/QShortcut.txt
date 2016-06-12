@@ -1,0 +1,321 @@
+.. module:: PySide.QtGui
+.. _QShortcut:
+
+QShortcut
+*********
+
+.. inheritance-diagram:: QShortcut
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoRepeat<PySide.QtGui.QShortcut.autoRepeat>` ()
+*    def :meth:`context<PySide.QtGui.QShortcut.context>` ()
+*    def :meth:`id<PySide.QtGui.QShortcut.id>` ()
+*    def :meth:`isEnabled<PySide.QtGui.QShortcut.isEnabled>` ()
+*    def :meth:`key<PySide.QtGui.QShortcut.key>` ()
+*    def :meth:`parentWidget<PySide.QtGui.QShortcut.parentWidget>` ()
+*    def :meth:`setAutoRepeat<PySide.QtGui.QShortcut.setAutoRepeat>` (on)
+*    def :meth:`setContext<PySide.QtGui.QShortcut.setContext>` (context)
+*    def :meth:`setEnabled<PySide.QtGui.QShortcut.setEnabled>` (enable)
+*    def :meth:`setKey<PySide.QtGui.QShortcut.setKey>` (key)
+*    def :meth:`setWhatsThis<PySide.QtGui.QShortcut.setWhatsThis>` (text)
+*    def :meth:`whatsThis<PySide.QtGui.QShortcut.whatsThis>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activated<PySide.QtGui.QShortcut.activated>` ()
+*    def :meth:`activatedAmbiguously<PySide.QtGui.QShortcut.activatedAmbiguously>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QShortcut` class is used to create keyboard shortcuts.
+
+    The :class:`PySide.QtGui.QShortcut` class provides a way of connecting keyboard shortcuts to Qt's :ref:`signals and slots<signalsandslots.html>` mechanism, so that objects can be informed when a shortcut is executed. The shortcut can be set up to contain all the key presses necessary to describe a keyboard shortcut, including the states of modifier keys such as **Shift** , **Ctrl** , and **Alt** .
+
+    On certain widgets, using '&' in front of a character will automatically create a mnemonic (a shortcut) for that character, e.g. "E&xit" will create the shortcut **Alt+X** (use '&&' to display an actual ampersand). The widget might consume and perform an action on a given shortcut. On X11 the ampersand will not be shown and the character will be underlined. On Windows, shortcuts are normally not displayed until the user presses the **Alt** key, but this is a setting the user can change. On Mac, shortcuts are disabled by default. Call :meth:`~PySide.QtGui.QShortcut.qt\_set\_sequence\_auto\_mnemonic` to enable them. However, because mnemonic shortcuts do not fit in with Aqua's guidelines, Qt will not show the shortcut character underlined.
+
+    For applications that use menus, it may be more convenient to use the convenience functions provided in the :class:`PySide.QtGui.QMenu` class to assign keyboard shortcuts to menu items as they are created. Alternatively, shortcuts may be associated with other types of actions in the :class:`PySide.QtGui.QAction` class.
+
+    The simplest way to create a shortcut for a particular widget is to construct the shortcut with a key sequence. For example:
+
+    ::
+
+        shortcut = QShortcut(QKeySequence(self.tr("Ctrl+O", "File|Open")),
+                             parent)
+
+
+    When the user types the :class:`key sequence<PySide.QtGui.QKeySequence>` for a given shortcut, the shortcut's :meth:`PySide.QtGui.QShortcut.activated` signal is emitted. (In the case of ambiguity, the :meth:`PySide.QtGui.QShortcut.activatedAmbiguously` signal is emitted.) A shortcut is "listened for" by Qt's event loop when the shortcut's parent widget is receiving events.
+
+    A shortcut's key sequence can be set with :meth:`PySide.QtGui.QShortcut.setKey` and retrieved with :meth:`PySide.QtGui.QShortcut.key` . A shortcut can be enabled or disabled with :meth:`PySide.QtGui.QShortcut.setEnabled` , and can have "What's This?" help text set with :meth:`PySide.QtGui.QShortcut.setWhatsThis` .
+
+    .. seealso::  :class:`PySide.QtGui.QShortcutEvent`  :class:`PySide.QtGui.QKeySequence`  :class:`PySide.QtGui.QAction` 
+
+.. class:: QShortcut(arg__1, arg__2, arg__3[, arg__4=Qt.WindowShortcut])
+           QShortcut(parent)
+           QShortcut(key, parent[, member=0[, ambiguousMember=0[, context=Qt.WindowShortcut]]])
+
+    :param arg__4: :attr:`PySide.QtCore.Qt.ShortcutContext`
+    :param ambiguousMember: str
+    :param key: :class:`PySide.QtGui.QKeySequence`
+    :param member: str
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param context: :attr:`PySide.QtCore.Qt.ShortcutContext`
+    :param arg__1: :class:`PySide.QtGui.QKeySequence`
+    :param arg__2: :class:`PySide.QtGui.QWidget`
+    :param arg__3: :class:`PyCallable`
+
+
+
+    Constructs a :class:`PySide.QtGui.QShortcut` object for the ``parent`` widget. Since no shortcut key sequence is specified, the shortcut will not emit any signals.
+
+    .. seealso::  :meth:`PySide.QtGui.QShortcut.setKey` 
+
+
+
+.. method:: PySide.QtGui.QShortcut.activated()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QShortcut.activatedAmbiguously()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QShortcut.autoRepeat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the shortcut can auto repeat.
+
+    If true, the shortcut will auto repeat when the keyboard shortcut combination is held down, provided that keyboard auto repeat is enabled on the system. The default value is true.
+
+
+
+.. method:: PySide.QtGui.QShortcut.context()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ShortcutContext`
+
+
+
+
+    This property holds the context in which the shortcut is valid.
+
+    A shortcut's context decides in which circumstances a shortcut is allowed to be triggered. The normal context is :attr:`Qt.WindowShortcut<Qt.ShortcutContext>` , which allows the shortcut to trigger if the parent (the widget containing the shortcut) is a subwidget of the active top-level window.
+
+    By default, this property is set to :attr:`Qt.WindowShortcut<Qt.ShortcutContext>` .
+
+
+
+.. method:: PySide.QtGui.QShortcut.id()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the shortcut's ID.
+
+    .. seealso::  :meth:`QShortcutEvent.shortcutId()<PySide.QtGui.QShortcutEvent.shortcutId>` 
+
+
+.. method:: PySide.QtGui.QShortcut.isEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the shortcut is enabled.
+
+    An enabled shortcut emits the :meth:`PySide.QtGui.QShortcut.activated` or :meth:`PySide.QtGui.QShortcut.activatedAmbiguously` signal when a :class:`PySide.QtGui.QShortcutEvent` occurs that matches the shortcut's :meth:`PySide.QtGui.QShortcut.key` sequence.
+
+    If the application is in ``WhatsThis`` mode the shortcut will not emit the signals, but will show the "What's This?" text instead.
+
+    By default, this property is true.
+
+    .. seealso::  :meth:`PySide.QtGui.QShortcut.whatsThis` 
+
+
+.. method:: PySide.QtGui.QShortcut.key()
+
+
+    :rtype: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    This property holds the shortcut's key sequence.
+
+    This is a key sequence with an optional combination of Shift, Ctrl, and Alt. The key sequence may be supplied in a number of ways:
+
+    ::
+
+        setKey(0)                  # no signal emitted
+        setKey(QKeySequence())     # no signal emitted
+        setKey(0x3b1)              # Greek letter alpha
+        setKey(Qt.Key_D)           # 'd', e.g. to delete
+        setKey('q')                # 'q', e.g. to quit
+        setKey(Qt.CTRL + Qt.Key_P) # Ctrl+P, e.g. to print document
+        setKey("Ctrl+P")           # Ctrl+P, e.g. to print document
+
+
+    By default, this property contains an empty key sequence.
+
+
+
+.. method:: PySide.QtGui.QShortcut.parentWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the shortcut's parent widget.
+
+
+
+.. method:: PySide.QtGui.QShortcut.setAutoRepeat(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the shortcut can auto repeat.
+
+    If true, the shortcut will auto repeat when the keyboard shortcut combination is held down, provided that keyboard auto repeat is enabled on the system. The default value is true.
+
+
+
+.. method:: PySide.QtGui.QShortcut.setContext(context)
+
+
+    :param context: :attr:`PySide.QtCore.Qt.ShortcutContext`
+
+
+
+
+    This property holds the context in which the shortcut is valid.
+
+    A shortcut's context decides in which circumstances a shortcut is allowed to be triggered. The normal context is :attr:`Qt.WindowShortcut<Qt.ShortcutContext>` , which allows the shortcut to trigger if the parent (the widget containing the shortcut) is a subwidget of the active top-level window.
+
+    By default, this property is set to :attr:`Qt.WindowShortcut<Qt.ShortcutContext>` .
+
+
+
+.. method:: PySide.QtGui.QShortcut.setEnabled(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the shortcut is enabled.
+
+    An enabled shortcut emits the :meth:`PySide.QtGui.QShortcut.activated` or :meth:`PySide.QtGui.QShortcut.activatedAmbiguously` signal when a :class:`PySide.QtGui.QShortcutEvent` occurs that matches the shortcut's :meth:`PySide.QtGui.QShortcut.key` sequence.
+
+    If the application is in ``WhatsThis`` mode the shortcut will not emit the signals, but will show the "What's This?" text instead.
+
+    By default, this property is true.
+
+    .. seealso::  :meth:`PySide.QtGui.QShortcut.whatsThis` 
+
+
+.. method:: PySide.QtGui.QShortcut.setKey(key)
+
+
+    :param key: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    This property holds the shortcut's key sequence.
+
+    This is a key sequence with an optional combination of Shift, Ctrl, and Alt. The key sequence may be supplied in a number of ways:
+
+    ::
+
+        setKey(0)                  # no signal emitted
+        setKey(QKeySequence())     # no signal emitted
+        setKey(0x3b1)              # Greek letter alpha
+        setKey(Qt.Key_D)           # 'd', e.g. to delete
+        setKey('q')                # 'q', e.g. to quit
+        setKey(Qt.CTRL + Qt.Key_P) # Ctrl+P, e.g. to print document
+        setKey("Ctrl+P")           # Ctrl+P, e.g. to print document
+
+
+    By default, this property contains an empty key sequence.
+
+
+
+.. method:: PySide.QtGui.QShortcut.setWhatsThis(text)
+
+
+    :param text: unicode
+
+
+
+
+    This property holds the shortcut's "What's This?" help text.
+
+    The text will be shown when the application is in "What's This?" mode and the user types the shortcut :meth:`PySide.QtGui.QShortcut.key` sequence.
+
+    To set "What's This?" help on a menu item (with or without a shortcut key), set the help on the item's action.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QWhatsThis.inWhatsThisMode()<PySide.QtGui.QWhatsThis.inWhatsThisMode>`  :meth:`QAction.setWhatsThis()<PySide.QtGui.QAction.setWhatsThis>` 
+
+
+.. method:: PySide.QtGui.QShortcut.whatsThis()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the shortcut's "What's This?" help text.
+
+    The text will be shown when the application is in "What's This?" mode and the user types the shortcut :meth:`PySide.QtGui.QShortcut.key` sequence.
+
+    To set "What's This?" help on a menu item (with or without a shortcut key), set the help on the item's action.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QWhatsThis.inWhatsThisMode()<PySide.QtGui.QWhatsThis.inWhatsThisMode>`  :meth:`QAction.setWhatsThis()<PySide.QtGui.QAction.setWhatsThis>` 
+
+
+

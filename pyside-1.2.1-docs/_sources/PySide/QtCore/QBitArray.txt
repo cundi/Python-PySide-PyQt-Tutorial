@@ -1,0 +1,668 @@
+.. module:: PySide.QtCore
+.. _QBitArray:
+
+QBitArray
+*********
+
+.. inheritance-diagram:: QBitArray
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__and__<PySide.QtCore.QBitArray.__and__>` (, arg__2)
+*    def :meth:`__eq__<PySide.QtCore.QBitArray.__eq__>` (a)
+*    def :meth:`__getitem__<PySide.QtCore.QBitArray.__getitem__>` ()
+*    def :meth:`__iand__<PySide.QtCore.QBitArray.__iand__>` (arg__1)
+*    def :meth:`__ior__<PySide.QtCore.QBitArray.__ior__>` (arg__1)
+*    def :meth:`__ixor__<PySide.QtCore.QBitArray.__ixor__>` (arg__1)
+*    def :meth:`__len__<PySide.QtCore.QBitArray.__len__>` ()
+*    def :meth:`__ne__<PySide.QtCore.QBitArray.__ne__>` (a)
+*    def :meth:`__or__<PySide.QtCore.QBitArray.__or__>` (, arg__2)
+*    def :meth:`__setitem__<PySide.QtCore.QBitArray.__setitem__>` ()
+*    def :meth:`__xor__<PySide.QtCore.QBitArray.__xor__>` (, arg__2)
+*    def :meth:`at<PySide.QtCore.QBitArray.at>` (i)
+*    def :meth:`clear<PySide.QtCore.QBitArray.clear>` ()
+*    def :meth:`clearBit<PySide.QtCore.QBitArray.clearBit>` (i)
+*    def :meth:`count<PySide.QtCore.QBitArray.count>` ()
+*    def :meth:`count<PySide.QtCore.QBitArray.count>` (on)
+*    def :meth:`fill<PySide.QtCore.QBitArray.fill>` (val, first, last)
+*    def :meth:`fill<PySide.QtCore.QBitArray.fill>` (val[, size=-1])
+*    def :meth:`isEmpty<PySide.QtCore.QBitArray.isEmpty>` ()
+*    def :meth:`isNull<PySide.QtCore.QBitArray.isNull>` ()
+*    def :meth:`operator[]<PySide.QtCore.QBitArray.operator[]>` (i)
+*    def :meth:`operator[]<PySide.QtCore.QBitArray.operator[]>` (i)
+*    def :meth:`operator~<PySide.QtCore.QBitArray.operator~>` ()
+*    def :meth:`resize<PySide.QtCore.QBitArray.resize>` (size)
+*    def :meth:`setBit<PySide.QtCore.QBitArray.setBit>` (i)
+*    def :meth:`setBit<PySide.QtCore.QBitArray.setBit>` (i, val)
+*    def :meth:`size<PySide.QtCore.QBitArray.size>` ()
+*    def :meth:`swap<PySide.QtCore.QBitArray.swap>` (other)
+*    def :meth:`testBit<PySide.QtCore.QBitArray.testBit>` (i)
+*    def :meth:`toggleBit<PySide.QtCore.QBitArray.toggleBit>` (i)
+*    def :meth:`truncate<PySide.QtCore.QBitArray.truncate>` (pos)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QBitArray` class provides an array of bits.
+
+    A :class:`PySide.QtCore.QBitArray` is an array that gives access to individual bits and provides operators ( :meth:`AND<PySide.QtCore.QBitArray.operator&>` , :meth:`OR<PySide.QtCore.QBitArray.operator|>` , :meth:`XOR<PySide.QtCore.QBitArray.operator^>` , and :meth:`NOT<PySide.QtCore.QBitArray.operator~>` ) that work on entire arrays of bits. It uses :ref:`implicit sharing<implicit-sharing.html>` (copy-on-write) to reduce memory usage and to avoid the needless copying of data.
+
+    The following code constructs a :class:`PySide.QtCore.QBitArray` containing 200 bits initialized to false (0):
+
+    ::
+
+        ba = QBitArray(200)
+
+
+    To initialize the bits to true, either pass ``true`` as second argument to the constructor, or call :meth:`PySide.QtCore.QBitArray.fill` later on.
+
+    :class:`PySide.QtCore.QBitArray` uses 0-based indexes, just like C++ arrays. To access the bit at a particular index position, you can use operator[](). On non-const bit arrays, operator[]() returns a reference to a bit that can be used on the left side of an assignment. For example:
+
+    ::
+
+        ba = QBitArray()
+        ba.resize(3)
+        ba[0] = True
+        ba[1] = False
+        ba[2] = True
+
+
+    For technical reasons, it is more efficient to use :meth:`PySide.QtCore.QBitArray.testBit` and :meth:`PySide.QtCore.QBitArray.setBit` to access bits in the array than operator[](). For example:
+
+    ::
+
+        ba = QBitArray(3)
+        ba.setBit(0, True)
+        ba.setBit(1, False)
+        ba.setBit(2, True)
+
+
+    :class:`PySide.QtCore.QBitArray` supports ``&`` ( :meth:`AND<PySide.QtCore.QBitArray.operator&>` ), ``|`` ( :meth:`OR<PySide.QtCore.QBitArray.operator|>` ), ``^`` ( :meth:`XOR<PySide.QtCore.QBitArray.operator^>` ), ``~`` ( :meth:`NOT<PySide.QtCore.QBitArray.operator~>` ), as well as ``&=`` , ``|=`` , and ``^=`` . These operators work in the same way as the built-in C++ bitwise operators of the same name. For example:
+
+    ::
+
+        x = QBitArray(5)
+        x.setBit(3, True)
+        # x: [ 0, 0, 0, 1, 0 ]
+
+        y = QBitArray(5)
+        y.setBit(4, True)
+        # y: [ 0, 0, 0, 0, 1 ]
+
+        x |= y
+        # x: [ 0, 0, 0, 1, 1 ]
+
+
+    For historical reasons, :class:`PySide.QtCore.QBitArray` distinguishes between a null bit array and an empty bit array. A *null* bit array is a bit array that is initialized using :class:`PySide.QtCore.QBitArray` 's default constructor. An *empty* bit array is any bit array with size 0. A null bit array is always empty, but an empty bit array isn't necessarily null:
+
+    ::
+
+        QBitArray().isNull()           # returns True
+        QBitArray().isEmpty()          # returns True
+
+        QBitArray(0).isNull()          # returns False
+        QBitArray(0).isEmpty()         # returns True
+
+        QBitArray(3).isNull()          # returns False
+        QBitArray(3).isEmpty()         # returns False
+
+
+    All functions except :meth:`PySide.QtCore.QBitArray.isNull` treat null bit arrays the same as empty bit arrays; for example, :meth:`PySide.QtCore.QBitArray.QBitArray` compares equal to :class:`PySide.QtCore.QBitArray` (0). We recommend that you always use :meth:`PySide.QtCore.QBitArray.isEmpty` and avoid :meth:`PySide.QtCore.QBitArray.isNull` .
+
+    .. seealso::  :class:`PySide.QtCore.QByteArray`  :class:`QVector` 
+
+.. class:: QBitArray()
+           QBitArray(other)
+           QBitArray(size[, val=false])
+
+    :param size: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtCore.QBitArray`
+    :param val: :class:`PySide.QtCore.bool`
+
+    Constructs an empty bit array.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.isEmpty` 
+
+    Constructs a copy of ``other`` .
+
+    This operation takes :ref:`constant time<containers.html>` , because :class:`PySide.QtCore.QBitArray` is :ref:`implicitly shared<implicit-sharing.html>` . This makes returning a :class:`PySide.QtCore.QBitArray` from a function very fast. If a shared instance is modified, it will be copied (copy-on-write), and that takes :ref:`linear time<containers.html>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator=` 
+
+    Constructs a bit array containing ``size`` bits. The bits are initialized with ``value`` , which defaults to false (0).
+
+
+.. method:: PySide.QtCore.QBitArray.__getitem__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.__len__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.__setitem__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.at(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the value of the bit at index position ``i`` .
+
+    ``i`` must be a valid index position in the bit array (i.e., 0 <= ``i`` < :meth:`PySide.QtCore.QBitArray.size` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator[]` 
+
+
+.. method:: PySide.QtCore.QBitArray.clear()
+
+
+
+
+
+
+    Clears the contents of the bit array and makes it empty.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.resize`  :meth:`PySide.QtCore.QBitArray.isEmpty` 
+
+
+.. method:: PySide.QtCore.QBitArray.clearBit(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the bit at index position ``i`` to 0.
+
+    ``i`` must be a valid index position in the bit array (i.e., 0 <= ``i`` < :meth:`PySide.QtCore.QBitArray.size` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.setBit`  :meth:`PySide.QtCore.QBitArray.toggleBit` 
+
+
+.. method:: PySide.QtCore.QBitArray.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Same as :meth:`PySide.QtCore.QBitArray.size` .
+
+
+
+.. method:: PySide.QtCore.QBitArray.count(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    If ``on`` is true, this function returns the number of 1-bits stored in the bit array; otherwise the number of 0-bits is returned.
+
+
+
+.. method:: PySide.QtCore.QBitArray.fill(val, first, last)
+
+
+    :param val: :class:`PySide.QtCore.bool`
+    :param first: :class:`PySide.QtCore.int`
+    :param last: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Sets bits at index positions ``begin`` up to and excluding ``end`` to ``value`` .
+
+    ``begin`` and ``end`` must be a valid index position in the bit array (i.e., 0 <= ``begin`` <= :meth:`PySide.QtCore.QBitArray.size` and 0 <= ``end`` <= :meth:`PySide.QtCore.QBitArray.size` ).
+
+
+
+.. method:: PySide.QtCore.QBitArray.fill(val[, size=-1])
+
+
+    :param val: :class:`PySide.QtCore.bool`
+    :param size: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets every bit in the bit array to ``value`` , returning true if successful; otherwise returns false. If ``size`` is different from -1 (the default), the bit array is resized to ``size`` beforehand.
+
+    Example:
+
+    ::
+
+        ba = QBitArray(8)
+        ba.fill(True)
+        # ba: [ 1, 1, 1, 1, 1, 1, 1, 1 ]
+
+        ba.fill(False, 2)
+        # ba: [ 0, 0 ]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.resize` 
+
+
+.. method:: PySide.QtCore.QBitArray.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this bit array has size 0; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.size` 
+
+
+.. method:: PySide.QtCore.QBitArray.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this bit array is null; otherwise returns false.
+
+    Example:
+
+    ::
+
+        QBitArray().isNull()           # returns True
+        QBitArray(0).isNull()          # returns False
+        QBitArray(3).isNull()          # returns False
+
+
+    Qt makes a distinction between null bit arrays and empty bit arrays for historical reasons. For most applications, what matters is whether or not a bit array contains any data, and this can be determined using :meth:`PySide.QtCore.QBitArray.isEmpty` .
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.isEmpty` 
+
+
+.. method:: PySide.QtCore.QBitArray.__ne__(a)
+
+
+    :param a: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` is not equal to this bit array; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator==` 
+
+
+.. method:: PySide.QtCore.QBitArray.__and__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.__iand__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+    Performs the AND operation between all bits in this bit array and ``other`` . Assigns the result to this bit array, and returns a reference to it.
+
+    The result has the length of the longest of the two bit arrays, with any missing bits (if one array is shorter than the other) taken to be 0.
+
+    Example:
+
+    ::
+
+        a = QBitArray(3)
+        b = QBitArray(2)
+        a[0] = 1
+        a[1] = 0
+        a[2] = 1
+        # a: [ 1, 0, 1 ]
+
+        b[0] = 1
+        b[1] = 0
+        # b: [ 1, 1 ]
+
+        a &= b
+        # a: [ 1, 0, 0 ]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator&`  :meth:`PySide.QtCore.QBitArray.operator|=`  :meth:`PySide.QtCore.QBitArray.operator^=`  :meth:`PySide.QtCore.QBitArray.operator~` 
+
+
+.. method:: PySide.QtCore.QBitArray.__eq__(a)
+
+
+    :param a: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` is equal to this bit array; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator!=` 
+
+
+.. method:: PySide.QtCore.QBitArray.operator[](i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtCore.QBitArray.operator[](i)
+
+
+    :param i: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtCore.QBitArray.__xor__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.__ixor__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+    Performs the XOR operation between all bits in this bit array and ``other`` . Assigns the result to this bit array, and returns a reference to it.
+
+    The result has the length of the longest of the two bit arrays, with any missing bits (if one array is shorter than the other) taken to be 0.
+
+    Example:
+
+    ::
+
+        a = QBitArray(3)
+        b = QBitArray(2)
+        a[0] = 1
+        a[1] = 0
+        a[2] = 1
+        # a: [ 1, 0, 1 ]
+
+        b[0] = 1
+        b[1] = 0
+        # b: [ 1, 1 ]
+
+        a ^= b
+        # a: [ 0, 1, 1 ]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator^`  :meth:`PySide.QtCore.QBitArray.operator&=`  :meth:`PySide.QtCore.QBitArray.operator|=`  :meth:`PySide.QtCore.QBitArray.operator~` 
+
+
+.. method:: PySide.QtCore.QBitArray.__or__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QBitArray.__ior__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QBitArray`
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+    Performs the OR operation between all bits in this bit array and ``other`` . Assigns the result to this bit array, and returns a reference to it.
+
+    The result has the length of the longest of the two bit arrays, with any missing bits (if one array is shorter than the other) taken to be 0.
+
+    Example:
+
+    ::
+
+        a = QBitArray(3)
+        b = QBitArray(2)
+        a[0] = 1
+        a[1] = 0
+        a[2] = 1
+        # a: [ 1, 0, 1 ]
+
+        b[0] = 1
+        b[1] = 0
+        # b: [ 1, 1 ]
+
+        a |= b
+        # a: [ 1, 1, 1 ]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator|`  :meth:`PySide.QtCore.QBitArray.operator&=`  :meth:`PySide.QtCore.QBitArray.operator^=`  :meth:`PySide.QtCore.QBitArray.operator~` 
+
+
+.. method:: PySide.QtCore.QBitArray.operator~()
+
+
+    :rtype: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+    Returns a bit array that contains the inverted bits of this bit array.
+
+    Example:
+
+    ::
+
+        a = QBitArray(3)
+        b = QBitArray()
+        a[0] = 1
+        a[1] = 0
+        a[2] = 1
+        # a: [ 1, 0, 1 ]
+
+        b = ~a
+        # b: [ 0, 1, 0 ]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.operator&`  :meth:`PySide.QtCore.QBitArray.operator|`  :meth:`PySide.QtCore.QBitArray.operator^` 
+
+
+.. method:: PySide.QtCore.QBitArray.resize(size)
+
+
+    :param size: :class:`PySide.QtCore.int`
+
+
+
+
+    Resizes the bit array to ``size`` bits.
+
+    If ``size`` is greater than the current size, the bit array is extended to make it ``size`` bits with the extra bits added to the end. The new bits are initialized to false (0).
+
+    If ``size`` is less than the current size, bits are removed from the end.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.size` 
+
+
+.. method:: PySide.QtCore.QBitArray.setBit(i, val)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :param val: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the bit at index position ``i`` to ``value`` .
+
+
+
+.. method:: PySide.QtCore.QBitArray.setBit(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the bit at index position ``i`` to 1.
+
+    ``i`` must be a valid index position in the bit array (i.e., 0 <= ``i`` < :meth:`PySide.QtCore.QBitArray.size` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.clearBit`  :meth:`PySide.QtCore.QBitArray.toggleBit` 
+
+
+.. method:: PySide.QtCore.QBitArray.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of bits stored in the bit array.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.resize` 
+
+
+.. method:: PySide.QtCore.QBitArray.swap(other)
+
+
+    :param other: :class:`PySide.QtCore.QBitArray`
+
+
+
+
+    Swaps bit array ``other`` with this bit array. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtCore.QBitArray.testBit(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the bit at index position ``i`` is 1; otherwise returns false.
+
+    ``i`` must be a valid index position in the bit array (i.e., 0 <= ``i`` < :meth:`PySide.QtCore.QBitArray.size` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.setBit`  :meth:`PySide.QtCore.QBitArray.clearBit` 
+
+
+.. method:: PySide.QtCore.QBitArray.toggleBit(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Inverts the value of the bit at index position ``i`` , returning the previous value of that bit as either true (if it was set) or false (if it was unset).
+
+    If the previous value was 0, the new value will be 1. If the previous value was 1, the new value will be 0.
+
+    ``i`` must be a valid index position in the bit array (i.e., 0 <= ``i`` < :meth:`PySide.QtCore.QBitArray.size` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.setBit`  :meth:`PySide.QtCore.QBitArray.clearBit` 
+
+
+.. method:: PySide.QtCore.QBitArray.truncate(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+
+
+
+
+    Truncates the bit array at index position ``pos`` .
+
+    If ``pos`` is beyond the end of the array, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtCore.QBitArray.resize` 
+
+
+

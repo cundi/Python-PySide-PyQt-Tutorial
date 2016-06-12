@@ -1,0 +1,212 @@
+.. module:: PySide.phonon
+.. _Phonon.VolumeFaderEffect:
+
+Phonon.VolumeFaderEffect
+************************
+
+.. inheritance-diagram:: Phonon.VolumeFaderEffect
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fadeCurve<PySide.phonon.Phonon.VolumeFaderEffect.fadeCurve>` ()
+*    def :meth:`volume<PySide.phonon.Phonon.VolumeFaderEffect.volume>` ()
+*    def :meth:`volumeDecibel<PySide.phonon.Phonon.VolumeFaderEffect.volumeDecibel>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`fadeIn<PySide.phonon.Phonon.VolumeFaderEffect.fadeIn>` (fadeTime)
+*    def :meth:`fadeOut<PySide.phonon.Phonon.VolumeFaderEffect.fadeOut>` (fadeTime)
+*    def :meth:`fadeTo<PySide.phonon.Phonon.VolumeFaderEffect.fadeTo>` (volume, fadeTime)
+*    def :meth:`setFadeCurve<PySide.phonon.Phonon.VolumeFaderEffect.setFadeCurve>` (curve)
+*    def :meth:`setVolume<PySide.phonon.Phonon.VolumeFaderEffect.setVolume>` (volume)
+*    def :meth:`setVolumeDecibel<PySide.phonon.Phonon.VolumeFaderEffect.setVolumeDecibel>` (volumeDecibel)
+
+
+Detailed Description
+--------------------
+
+
+
+    This effect differs from gradually changing the output volume in that a dedicated effect can change the volume in the smallest possible steps while every other volume control will make more or less noticeable steps.
+
+    .. seealso::  :meth:`AudioOutput.volume()<PySide.phonon.Phonon::AudioOutput.volume>` 
+
+.. class:: PySide.phonon.Phonon.VolumeFaderEffect([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+
+
+.. attribute:: PySide.phonon.Phonon.VolumeFaderEffect.FadeCurve
+
+    Determines the curve of the volume change.
+
+    +--------------------------------------+--------------------------------------------------------------+
+    |Constant                              |Description                                                   |
+    +======================================+==============================================================+
+    |Phonon.VolumeFaderEffect.Fade3Decibel |Crossfade curve/fast fade out. This is the default fade curve.|
+    +--------------------------------------+--------------------------------------------------------------+
+    |Phonon.VolumeFaderEffect.Fade6Decibel |Linear fade out.                                              |
+    +--------------------------------------+--------------------------------------------------------------+
+    |Phonon.VolumeFaderEffect.Fade9Decibel |Slow fade out.                                                |
+    +--------------------------------------+--------------------------------------------------------------+
+    |Phonon.VolumeFaderEffect.Fade12Decibel|A more extreme version of the -9dB fade.                      |
+    +--------------------------------------+--------------------------------------------------------------+
+
+    **Notes:**\
+
+    ``Fade3Decibel`` is often the best fade for a crossfade, as after half of the time the volume reached -3dB. This means that half the possible power (which is proportional to the square of the voltage) is reached. Summed, the maximum power of two audio signals fading with a -3dB curve will always be equal.
+
+    For fading in or out the -3dB curve is too abrupt in the end.
+
+    With a -6dB fade curve, a volume of -6dB is reached after half of the fading time. -6dB is equal to half of the voltage meaning that the voltage multiplier changes linearly from the start of the fade to the end.
+
+    With the ``Fade9Decibel`` fade, a volume of -9dB is reached after half of the fade time, so the fade is fast in the beginning and slow at the end. This is a good fade for ending music.
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.fadeCurve()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon::VolumeFaderEffect.FadeCurve`
+
+
+
+
+    This property holds the fade curve to be used for the :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeIn` , :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeOut` and :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeTo` slots.
+
+    Defaults to :attr:`Fade3Decibel<Phonon.VolumeFaderEffect.FadeCurve>` .
+
+    .. seealso::  :attr:`Phonon.VolumeFaderEffect.FadeCurve` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.fadeIn(fadeTime)
+
+
+    :param fadeTime: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the Fader to change the volume from the current volume to 100% in ``fadeTime`` milliseconds.
+
+    Short for ``fadeTo(1.0, fadeTime)`` .
+
+    *fadeTime* the fade duration in milliseconds
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeTo`  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.volume` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.fadeOut(fadeTime)
+
+
+    :param fadeTime: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the Fader to change the volume from the current volume to 0% in ``fadeTime`` milliseconds. Short for ``fadeTo(0.0, fadeTime)`` .
+
+    *fadeTime* the fade duration in milliseconds
+
+    .. seealso:: 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.fadeTo(volume, fadeTime)
+
+
+    :param volume: :class:`PySide.QtCore.float`
+    :param fadeTime: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the Fader to change the volume from the current value to ``volume`` in ``fadeTime`` milliseconds.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeIn`  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeOut` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.setFadeCurve(curve)
+
+
+    :param curve: :attr:`PySide.phonon.Phonon::VolumeFaderEffect.FadeCurve`
+
+
+
+
+    This property holds the fade curve to be used for the :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeIn` , :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeOut` and :meth:`PySide.phonon.Phonon::VolumeFaderEffect.fadeTo` slots.
+
+    Defaults to :attr:`Fade3Decibel<Phonon.VolumeFaderEffect.FadeCurve>` .
+
+    .. seealso::  :attr:`Phonon.VolumeFaderEffect.FadeCurve` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.setVolume(volume)
+
+
+    :param volume: :class:`PySide.QtCore.float`
+
+
+
+
+    This is the current volume of the output as voltage factor. Setting this property changes the volume immediately.
+
+    1.0 means 100%, 0.5 means 50% voltage/25% power, 0.0 means 0%
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.volumeDecibel` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.setVolumeDecibel(volumeDecibel)
+
+
+    :param volumeDecibel: :class:`PySide.QtCore.double`
+
+
+
+
+    This is the current volume of the output in decibel. Setting this property changes the volume immediately.
+
+    0 dB means no change in volume, -6dB means an attenuation of the voltage to 50% and an attenuation of the power to 25%, -inf dB means silence.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.volume` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.volume()
+
+
+    :rtype: :class:`PySide.QtCore.float`
+
+
+
+
+    This is the current volume of the output as voltage factor. Setting this property changes the volume immediately.
+
+    1.0 means 100%, 0.5 means 50% voltage/25% power, 0.0 means 0%
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.volumeDecibel` 
+
+
+.. method:: PySide.phonon.Phonon.VolumeFaderEffect.volumeDecibel()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This is the current volume of the output in decibel. Setting this property changes the volume immediately.
+
+    0 dB means no change in volume, -6dB means an attenuation of the voltage to 50% and an attenuation of the power to 25%, -inf dB means silence.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VolumeFaderEffect.volume` 
+
+
+

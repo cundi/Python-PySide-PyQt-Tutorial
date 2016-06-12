@@ -1,0 +1,194 @@
+.. module:: PySide.QtGui
+.. _QWheelEvent:
+
+QWheelEvent
+***********
+
+.. inheritance-diagram:: QWheelEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`buttons<PySide.QtGui.QWheelEvent.buttons>` ()
+*    def :meth:`delta<PySide.QtGui.QWheelEvent.delta>` ()
+*    def :meth:`globalPos<PySide.QtGui.QWheelEvent.globalPos>` ()
+*    def :meth:`globalX<PySide.QtGui.QWheelEvent.globalX>` ()
+*    def :meth:`globalY<PySide.QtGui.QWheelEvent.globalY>` ()
+*    def :meth:`orientation<PySide.QtGui.QWheelEvent.orientation>` ()
+*    def :meth:`pos<PySide.QtGui.QWheelEvent.pos>` ()
+*    def :meth:`x<PySide.QtGui.QWheelEvent.x>` ()
+*    def :meth:`y<PySide.QtGui.QWheelEvent.y>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWheelEvent` class contains parameters that describe a wheel event.
+
+    Wheel events are sent to the widget under the mouse cursor, but if that widget does not handle the event they are sent to the focus widget. The rotation distance is provided by :meth:`PySide.QtGui.QWheelEvent.delta` . The functions :meth:`PySide.QtGui.QWheelEvent.pos` and :meth:`PySide.QtGui.QWheelEvent.globalPos` return the mouse cursor's location at the time of the event.
+
+    A wheel event contains a special accept flag that indicates whether the receiver wants the event. You should call :meth:`PySide.QtCore.QEvent.ignore` if you do not handle the wheel event; this ensures that it will be sent to the parent widget.
+
+    The :meth:`QWidget.setEnabled()<PySide.QtGui.QWidget.setEnabled>` function can be used to enable or disable mouse and keyboard events for a widget.
+
+    The event handler :meth:`QWidget.wheelEvent()<PySide.QtGui.QWidget.wheelEvent>` receives wheel events.
+
+    .. seealso::  :class:`PySide.QtGui.QMouseEvent`  :meth:`QWidget.grabMouse()<PySide.QtGui.QWidget.grabMouse>` 
+
+.. class:: QWheelEvent(pos, globalPos, delta, buttons, modifiers[, orient=Qt.Vertical])
+           QWheelEvent(pos, delta, buttons, modifiers[, orient=Qt.Vertical])
+
+    :param delta: :class:`PySide.QtCore.int`
+    :param orient: :attr:`PySide.QtCore.Qt.Orientation`
+    :param globalPos: :class:`PySide.QtCore.QPoint`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param buttons: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+
+
+.. method:: PySide.QtGui.QWheelEvent.buttons()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+
+    Returns the mouse state when the event occurred.
+
+
+
+.. method:: PySide.QtGui.QWheelEvent.delta()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the distance that the wheel is rotated, in eighths of a degree. A positive value indicates that the wheel was rotated forwards away from the user; a negative value indicates that the wheel was rotated backwards toward the user.
+
+    Most mouse types work in steps of 15 degrees, in which case the delta value is a multiple of 120; i.e., 120 units \* 1/8 = 15 degrees.
+
+    However, some mice have finer-resolution wheels and send delta values that are less than 120 units (less than 15 degrees). To support this possibility, you can either cumulatively add the delta values from events until the value of 120 is reached, then scroll the widget, or you can partially scroll the widget in response to each wheel event.
+
+    Example:
+
+    ::
+
+        def wheelEvent(self, event):
+            numDegrees = event.delta() / 8
+            numSteps = numDegrees / 15
+
+            if event->orientation() == Qt.Horizontal:
+                scrollHorizontally(numSteps)
+            else:
+                scrollVertically(numSteps)
+            event.accept()
+
+
+
+
+.. method:: PySide.QtGui.QWheelEvent.globalPos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the global position of the mouse pointer *at the time of the event* . This is important on asynchronous window systems such as X11; whenever you move your widgets around in response to mouse events, :meth:`PySide.QtGui.QWheelEvent.globalPos` can differ a lot from the current cursor position returned by :meth:`QCursor.pos()<PySide.QtGui.QCursor.pos>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.globalX`  :meth:`PySide.QtGui.QWheelEvent.globalY` 
+
+
+.. method:: PySide.QtGui.QWheelEvent.globalX()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global x position of the mouse cursor at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.globalY`  :meth:`PySide.QtGui.QWheelEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QWheelEvent.globalY()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global y position of the mouse cursor at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.globalX`  :meth:`PySide.QtGui.QWheelEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QWheelEvent.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    Returns the wheel's orientation.
+
+
+
+.. method:: PySide.QtGui.QWheelEvent.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the mouse cursor relative to the widget that received the event.
+
+    If you move your widgets around in response to mouse events, use :meth:`PySide.QtGui.QWheelEvent.globalPos` instead of this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.x`  :meth:`PySide.QtGui.QWheelEvent.y`  :meth:`PySide.QtGui.QWheelEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QWheelEvent.x()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the x position of the mouse cursor, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.y`  :meth:`PySide.QtGui.QWheelEvent.pos` 
+
+
+.. method:: PySide.QtGui.QWheelEvent.y()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the y position of the mouse cursor, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QWheelEvent.x`  :meth:`PySide.QtGui.QWheelEvent.pos` 
+
+
+

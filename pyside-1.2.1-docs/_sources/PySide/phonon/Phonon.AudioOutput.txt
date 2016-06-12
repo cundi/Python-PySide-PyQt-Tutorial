@@ -1,0 +1,266 @@
+.. module:: PySide.phonon
+.. _Phonon.AudioOutput:
+
+Phonon.AudioOutput
+******************
+
+.. inheritance-diagram:: Phonon.AudioOutput
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`category<PySide.phonon.Phonon.AudioOutput.category>` ()
+*    def :meth:`isMuted<PySide.phonon.Phonon.AudioOutput.isMuted>` ()
+*    def :meth:`name<PySide.phonon.Phonon.AudioOutput.name>` ()
+*    def :meth:`outputDevice<PySide.phonon.Phonon.AudioOutput.outputDevice>` ()
+*    def :meth:`volume<PySide.phonon.Phonon.AudioOutput.volume>` ()
+*    def :meth:`volumeDecibel<PySide.phonon.Phonon.AudioOutput.volumeDecibel>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setMuted<PySide.phonon.Phonon.AudioOutput.setMuted>` (mute)
+*    def :meth:`setName<PySide.phonon.Phonon.AudioOutput.setName>` (newName)
+*    def :meth:`setOutputDevice<PySide.phonon.Phonon.AudioOutput.setOutputDevice>` (newAudioOutputDevice)
+*    def :meth:`setVolume<PySide.phonon.Phonon.AudioOutput.setVolume>` (newVolume)
+*    def :meth:`setVolumeDecibel<PySide.phonon.Phonon.AudioOutput.setVolumeDecibel>` (newVolumeDecibel)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`mutedChanged<PySide.phonon.Phonon.AudioOutput.mutedChanged>` (arg__1)
+*    def :meth:`outputDeviceChanged<PySide.phonon.Phonon.AudioOutput.outputDeviceChanged>` (newAudioOutputDevice)
+*    def :meth:`volumeChanged<PySide.phonon.Phonon.AudioOutput.volumeChanged>` (newVolume)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.AudioOutput` class is used to send data to audio output devices.
+
+    The :class:`~PySide.phonon.Phonon.AudioOutput` class plays sound over a sound device. The audio output needs to be connected to a :class:`Phonon.MediaObject` using :meth:`PySide.phonon.Phonon.createPath` . To start playback, you call :meth:`PySide.phonon.Phonon.MediaObject.play` on the media object.
+
+    ::
+
+        mediaObject = Phonon.MediaObject(self)
+        mediaObject.setCurrentSource(Phonon.MediaSource("/mymusic/barbiegirl.wav"))
+        audioOutput = Phonon.AudioOutput(Phonon.MusicCategory, self)
+        path = Phonon.createPath(mediaObject, audioOutput)
+
+
+    The class supports changing the :meth:`PySide.phonon.Phonon::AudioOutput.volume` . It is also possible to mute the sound.
+
+    To find out what :class:`Phonon.AudioOutputDevice` s are available for :class:`~PySide.phonon.Phonon.AudioOutput` , you can call :meth:`BackendCapabilities.availableAudioOutputDevices()<PySide.phonon.Phonon::BackendCapabilities.availableAudioOutputDevices>` . A default device is selected by the backend, but it is possible to set the device to be used with :meth:`PySide.phonon.Phonon::AudioOutput.setOutputDevice` . The :meth:`PySide.phonon.Phonon::AudioOutput.outputDeviceChanged` signal will be emitted if the device changes.
+
+    If an error occurs with the playback, for instance, if no valid output device is found, the media object will receive a stateChanged() signal with the :attr:`ErrorState<Phonon.State>` .
+
+    Note that the default values of properties are dependent on the backend.
+
+    .. seealso::  :class:`Phonon.VolumeSlider`  :ref:`Music Player Example<phonon/qmusicplayer>`  :ref:`BackendCapabilities<phonon-backendcapabilities.html>`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.AudioOutput(category[, parent=None])
+           PySide.phonon.Phonon.AudioOutput([parent=None])
+
+    :param category: :attr:`PySide.phonon.Phonon.Category`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+
+
+    Creates a new :class:`~PySide.phonon.Phonon.AudioOutput` that defines output to the system default device with the {Phonon::Category::}{ :attr:`NoCategory<Phonon.Category>` } category
+
+    .. seealso::  :meth:`Phonon.categoryToString()<PySide.phonon.Phonon.categoryToString>`  :meth:`PySide.phonon.Phonon::AudioOutput.outputDevice` 
+
+.. method:: PySide.phonon.Phonon.AudioOutput.category()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon.Category`
+
+
+
+
+    Returns the category of this output.
+
+    .. seealso::  :meth:`Phonon.AudioOutput.AudioOutput()<PySide.phonon.Phonon.AudioOutput.AudioOutput>` 
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.isMuted()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property tells whether the output is muted.
+
+    Muting the output has the same effect as calling setVolume(0.0).
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.mutedChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.name()
+
+
+    :rtype: unicode
+
+
+
+
+    This is the name that appears in Mixer applications that control the volume of this output.
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.outputDevice()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::AudioOutputDevice`
+
+
+
+
+    This property holds the (hardware) destination for the output.
+
+    The default device is determined by the :attr:`Phonon.Category` and the global configuration for that category. Normally you don't need to override this setting - letting the user change the global configuration is the right choice. You can still override the device though, if you have good reasons to do so.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AudioOutput.outputDeviceChanged` 
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.outputDeviceChanged(newAudioOutputDevice)
+
+
+    :param newAudioOutputDevice: :class:`PySide.phonon.Phonon::AudioOutputDevice`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.setMuted(mute)
+
+
+    :param mute: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property tells whether the output is muted.
+
+    Muting the output has the same effect as calling setVolume(0.0).
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.setName(newName)
+
+
+    :param newName: unicode
+
+
+
+
+    This is the name that appears in Mixer applications that control the volume of this output.
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.setOutputDevice(newAudioOutputDevice)
+
+
+    :param newAudioOutputDevice: :class:`PySide.phonon.Phonon::AudioOutputDevice`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.setVolume(newVolume)
+
+
+    :param newVolume: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is the current loudness of the output.
+
+    (it is using Stevens' law to calculate the change in voltage internally).
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AudioOutput.volumeDecibel` 
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.setVolumeDecibel(newVolumeDecibel)
+
+
+    :param newVolumeDecibel: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is the current volume of the output in decibel.
+
+    0 dB means no change in volume, -6dB means an attenuation of the voltage to 50% and an attenuation of the power to 25%, -inf dB means silence.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AudioOutput.volume` 
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.volume()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is the current loudness of the output.
+
+    (it is using Stevens' law to calculate the change in voltage internally).
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AudioOutput.volumeDecibel` 
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.volumeChanged(newVolume)
+
+
+    :param newVolume: :class:`PySide.QtCore.qreal`
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.AudioOutput.volumeDecibel()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is the current volume of the output in decibel.
+
+    0 dB means no change in volume, -6dB means an attenuation of the voltage to 50% and an attenuation of the power to 25%, -inf dB means silence.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::AudioOutput.volume` 
+
+
+

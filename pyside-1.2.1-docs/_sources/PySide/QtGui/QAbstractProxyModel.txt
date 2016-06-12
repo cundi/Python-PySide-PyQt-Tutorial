@@ -1,0 +1,143 @@
+.. module:: PySide.QtGui
+.. _QAbstractProxyModel:
+
+QAbstractProxyModel
+*******************
+
+.. inheritance-diagram:: QAbstractProxyModel
+    :parts: 2
+
+**Inherited by:** :ref:`QSortFilterProxyModel`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`sourceModel<PySide.QtGui.QAbstractProxyModel.sourceModel>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`mapFromSource<PySide.QtGui.QAbstractProxyModel.mapFromSource>` (sourceIndex)
+*    def :meth:`mapSelectionFromSource<PySide.QtGui.QAbstractProxyModel.mapSelectionFromSource>` (selection)
+*    def :meth:`mapSelectionToSource<PySide.QtGui.QAbstractProxyModel.mapSelectionToSource>` (selection)
+*    def :meth:`mapToSource<PySide.QtGui.QAbstractProxyModel.mapToSource>` (proxyIndex)
+*    def :meth:`setSourceModel<PySide.QtGui.QAbstractProxyModel.setSourceModel>` (sourceModel)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractProxyModel` class provides a base class for proxy item models that can do sorting, filtering or other data processing tasks.
+
+    This class defines the standard interface that proxy models must use to be able to interoperate correctly with other model/view components. It is not supposed to be instantiated directly.
+
+    All standard proxy models are derived from the :class:`PySide.QtGui.QAbstractProxyModel` class. If you need to create a new proxy model class, it is usually better to subclass an existing class that provides the closest behavior to the one you want to provide.
+
+    Proxy models that filter or sort items of data from a source model should be created by using or subclassing :class:`PySide.QtGui.QSortFilterProxyModel` .
+
+    To subclass :class:`PySide.QtGui.QAbstractProxyModel` , you need to implement :meth:`PySide.QtGui.QAbstractProxyModel.mapFromSource` and :meth:`PySide.QtGui.QAbstractProxyModel.mapToSource` . The :meth:`PySide.QtGui.QAbstractProxyModel.mapSelectionFromSource` and :meth:`PySide.QtGui.QAbstractProxyModel.mapSelectionToSource` functions only need to be reimplemented if you need a behavior different from the default behavior.
+
+    .. note::  If the source model is deleted or no source model is specified, the proxy model operates on a empty placeholder model.
+
+    .. seealso::  :class:`PySide.QtGui.QSortFilterProxyModel`  :class:`PySide.QtCore.QAbstractItemModel`  :ref:`Model/View Programming<model-view-programming.html>` 
+
+.. class:: QAbstractProxyModel([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a proxy model with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.mapFromSource(sourceIndex)
+
+
+    :param sourceIndex: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Reimplement this function to return the model index in the proxy model that corresponds to the ``sourceIndex`` from the source model.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractProxyModel.mapToSource` 
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.mapSelectionFromSource(selection)
+
+
+    :param selection: :class:`PySide.QtGui.QItemSelection`
+    :rtype: :class:`PySide.QtGui.QItemSelection`
+
+
+
+
+    Returns a proxy selection mapped from the specified ``sourceSelection`` .
+
+    Reimplement this method to map source selections to proxy selections.
+
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.mapSelectionToSource(selection)
+
+
+    :param selection: :class:`PySide.QtGui.QItemSelection`
+    :rtype: :class:`PySide.QtGui.QItemSelection`
+
+
+
+
+    Returns a source selection mapped from the specified ``proxySelection`` .
+
+    Reimplement this method to map proxy selections to source selections.
+
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.mapToSource(proxyIndex)
+
+
+    :param proxyIndex: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Reimplement this function to return the model index in the source model that corresponds to the ``proxyIndex`` in the proxy model.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractProxyModel.mapFromSource` 
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.setSourceModel(sourceModel)
+
+
+    :param sourceModel: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Sets the given ``sourceModel`` to be processed by the proxy model.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractProxyModel.sourceModel` 
+
+
+.. method:: PySide.QtGui.QAbstractProxyModel.sourceModel()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the model that contains the data that is available through the proxy model.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractProxyModel.setSourceModel` 
+
+
+

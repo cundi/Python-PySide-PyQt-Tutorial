@@ -1,0 +1,172 @@
+.. module:: PySide.QtGui
+.. _QContextMenuEvent:
+
+QContextMenuEvent
+*****************
+
+.. inheritance-diagram:: QContextMenuEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`globalPos<PySide.QtGui.QContextMenuEvent.globalPos>` ()
+*    def :meth:`globalX<PySide.QtGui.QContextMenuEvent.globalX>` ()
+*    def :meth:`globalY<PySide.QtGui.QContextMenuEvent.globalY>` ()
+*    def :meth:`pos<PySide.QtGui.QContextMenuEvent.pos>` ()
+*    def :meth:`reason<PySide.QtGui.QContextMenuEvent.reason>` ()
+*    def :meth:`x<PySide.QtGui.QContextMenuEvent.x>` ()
+*    def :meth:`y<PySide.QtGui.QContextMenuEvent.y>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QContextMenuEvent` class contains parameters that describe a context menu event.
+
+    Context menu events are sent to widgets when a user performs an action associated with opening a context menu. The actions required to open context menus vary between platforms; for example, on Windows, pressing the menu button or clicking the right mouse button will cause this event to be sent.
+
+    When this event occurs it is customary to show a :class:`PySide.QtGui.QMenu` with a context menu, if this is relevant to the context.
+
+    Context menu events contain a special accept flag that indicates whether the receiver accepted the event. If the event handler does not accept the event then, if possible, whatever triggered the event will be handled as a regular input event.
+
+
+.. class:: QContextMenuEvent(reason, pos)
+           QContextMenuEvent(reason, pos, globalPos)
+           QContextMenuEvent(reason, pos, globalPos, modifiers)
+
+    :param reason: :attr:`PySide.QtGui.QContextMenuEvent.Reason`
+    :param globalPos: :class:`PySide.QtCore.QPoint`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+
+    Constructs a context menu event object with the accept parameter flag set to false.
+
+    The ``reason`` parameter must be :attr:`QContextMenuEvent.Mouse<QContextMenuEvent.Reason>` or :attr:`QContextMenuEvent.Keyboard<QContextMenuEvent.Reason>` .
+
+    The ``pos`` parameter specifies the mouse position relative to the receiving widget.
+
+    The :meth:`PySide.QtGui.QContextMenuEvent.globalPos` is initialized to :meth:`QCursor.pos()<PySide.QtGui.QCursor.pos>` , which may not be appropriate. Use the other constructor to specify the global position explicitly.
+
+
+    Constructs a context menu event object with the accept parameter flag set to false.
+
+    The ``reason`` parameter must be :attr:`QContextMenuEvent.Mouse<QContextMenuEvent.Reason>` or :attr:`QContextMenuEvent.Keyboard<QContextMenuEvent.Reason>` .
+
+    The ``pos`` parameter specifies the mouse position relative to the receiving widget. ``globalPos`` is the mouse position in absolute coordinates.
+
+
+
+
+.. attribute:: PySide.QtGui.QContextMenuEvent.Reason
+
+    This enum describes the reason why the event was sent.
+
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                  |Description                                                                                                                   |
+    +==========================+==============================================================================================================================+
+    |QContextMenuEvent.Mouse   |The mouse caused the event to be sent. Normally this means the right mouse button was clicked, but this is platform dependent.|
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |QContextMenuEvent.Keyboard|The keyboard caused this event to be sent. On Windows, this means the menu button was pressed.                                |
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |QContextMenuEvent.Other   |The event was sent by some other means (i.e. not by the mouse or keyboard).                                                   |
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.globalPos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the global position of the mouse pointer at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.x`  :meth:`PySide.QtGui.QContextMenuEvent.y`  :meth:`PySide.QtGui.QContextMenuEvent.pos` 
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.globalX()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global x position of the mouse pointer at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.globalY`  :meth:`PySide.QtGui.QContextMenuEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.globalY()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global y position of the mouse pointer at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.globalX`  :meth:`PySide.QtGui.QContextMenuEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the mouse pointer relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.x`  :meth:`PySide.QtGui.QContextMenuEvent.y`  :meth:`PySide.QtGui.QContextMenuEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.reason()
+
+
+    :rtype: :attr:`PySide.QtGui.QContextMenuEvent.Reason`
+
+
+
+
+    Returns the reason for this context event.
+
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.x()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the x position of the mouse pointer, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.y`  :meth:`PySide.QtGui.QContextMenuEvent.pos` 
+
+
+.. method:: PySide.QtGui.QContextMenuEvent.y()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the y position of the mouse pointer, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QContextMenuEvent.x`  :meth:`PySide.QtGui.QContextMenuEvent.pos` 
+
+
+

@@ -1,0 +1,285 @@
+.. module:: PySide.QtNetwork
+.. _QLocalServer:
+
+QLocalServer
+************
+
+.. inheritance-diagram:: QLocalServer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`close<PySide.QtNetwork.QLocalServer.close>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QLocalServer.errorString>` ()
+*    def :meth:`fullServerName<PySide.QtNetwork.QLocalServer.fullServerName>` ()
+*    def :meth:`isListening<PySide.QtNetwork.QLocalServer.isListening>` ()
+*    def :meth:`listen<PySide.QtNetwork.QLocalServer.listen>` (name)
+*    def :meth:`maxPendingConnections<PySide.QtNetwork.QLocalServer.maxPendingConnections>` ()
+*    def :meth:`serverError<PySide.QtNetwork.QLocalServer.serverError>` ()
+*    def :meth:`serverName<PySide.QtNetwork.QLocalServer.serverName>` ()
+*    def :meth:`setMaxPendingConnections<PySide.QtNetwork.QLocalServer.setMaxPendingConnections>` (numConnections)
+*    def :meth:`waitForNewConnection<PySide.QtNetwork.QLocalServer.waitForNewConnection>` (msec)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hasPendingConnections<PySide.QtNetwork.QLocalServer.hasPendingConnections>` ()
+*    def :meth:`nextPendingConnection<PySide.QtNetwork.QLocalServer.nextPendingConnection>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`newConnection<PySide.QtNetwork.QLocalServer.newConnection>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`removeServer<PySide.QtNetwork.QLocalServer.removeServer>` (name)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QLocalServer` class provides a local socket based server.
+
+    This class makes it possible to accept incoming local socket connections.
+
+    Call :meth:`PySide.QtNetwork.QLocalServer.listen` to have the server start listening for incoming connections on a specified key. The :meth:`PySide.QtNetwork.QLocalServer.newConnection` signal is then emitted each time a client connects to the server.
+
+    Call :meth:`PySide.QtNetwork.QLocalServer.nextPendingConnection` to accept the pending connection as a connected :class:`PySide.QtNetwork.QLocalSocket` . The function returns a pointer to a :class:`PySide.QtNetwork.QLocalSocket` that can be used for communicating with the client.
+
+    If an error occurs, :meth:`PySide.QtNetwork.QLocalServer.serverError` returns the type of error, and :meth:`PySide.QtNetwork.QLocalServer.errorString` can be called to get a human readable description of what happened.
+
+    When listening for connections, the name which the server is listening on is available through :meth:`PySide.QtNetwork.QLocalServer.serverName` .
+
+    Calling :meth:`PySide.QtNetwork.QLocalServer.close` makes :class:`PySide.QtNetwork.QLocalServer` stop listening for incoming connections.
+
+    Although :class:`PySide.QtNetwork.QLocalServer` is designed for use with an event loop, it's possible to use it without one. In that case, you must use :meth:`PySide.QtNetwork.QLocalServer.waitForNewConnection` , which blocks until either a connection is available or a timeout expires.
+
+    .. seealso::  :class:`PySide.QtNetwork.QLocalSocket`  :class:`PySide.QtNetwork.QTcpServer` 
+
+.. class:: QLocalServer([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Create a new local socket server with the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.listen` 
+
+.. method:: PySide.QtNetwork.QLocalServer.close()
+
+
+
+
+
+
+    Stop listening for incoming connections. Existing connections are not effected, but any new connections will be refused.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.isListening`  :meth:`PySide.QtNetwork.QLocalServer.listen` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the human-readable message appropriate to the current error reported by :meth:`PySide.QtNetwork.QLocalServer.serverError` . If no suitable string is available, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.serverError` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.fullServerName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the full path that the server is listening on.
+
+    Note: This is platform specific
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.listen`  :meth:`PySide.QtNetwork.QLocalServer.serverName` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.hasPendingConnections()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the server has a pending connection; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.nextPendingConnection`  :meth:`PySide.QtNetwork.QLocalServer.setMaxPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.isListening()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the server is listening for incoming connections otherwise false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.listen`  :meth:`PySide.QtNetwork.QLocalServer.close` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.listen(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Tells the server to listen for incoming connections on ``name`` . If the server is currently listening then it will return false. Return true on success otherwise false.
+
+    ``name`` can be a single name and :class:`PySide.QtNetwork.QLocalServer` will determine the correct platform specific path. :meth:`PySide.QtNetwork.QLocalServer.serverName` will return the name that is passed into listen.
+
+    Usually you would just pass in a name like "foo", but on Unix this could also be a path such as "/tmp/foo" and on Windows this could be a pipe path such as "\\.\pipe\foo"
+
+    Note: On Unix if the server crashes without closing listen will fail with AddressInUseError. To create a new server the file should be removed. On Windows two local servers can listen to the same pipe at the same time, but any connections will go to one of the server.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.serverName`  :meth:`PySide.QtNetwork.QLocalServer.isListening`  :meth:`PySide.QtNetwork.QLocalServer.close` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.maxPendingConnections()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the maximum number of pending accepted connections. The default is 30.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.setMaxPendingConnections`  :meth:`PySide.QtNetwork.QLocalServer.hasPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.newConnection()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QLocalServer.nextPendingConnection()
+
+
+    :rtype: :class:`PySide.QtNetwork.QLocalSocket`
+
+
+
+
+    Returns the next pending connection as a connected :class:`PySide.QtNetwork.QLocalSocket` object.
+
+    The socket is created as a child of the server, which means that it is automatically deleted when the :class:`PySide.QtNetwork.QLocalServer` object is destroyed. It is still a good idea to delete the object explicitly when you are done with it, to avoid wasting memory.
+
+    0 is returned if this function is called when there are no pending connections.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.hasPendingConnections`  :meth:`PySide.QtNetwork.QLocalServer.newConnection`  :meth:`~PySide.QtNetwork.QLocalServer.incomingConnection` 
+
+
+.. staticmethod:: PySide.QtNetwork.QLocalServer.removeServer(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes any server instance that might cause a call to :meth:`PySide.QtNetwork.QLocalServer.listen` to fail and returns true if successful; otherwise returns false. This function is meant to recover from a crash, when the previous server instance has not been cleaned up.
+
+    On Windows, this function does nothing; on Unix, it removes the socket file given by ``name`` .
+
+    .. warning::  Be careful to avoid removing sockets of running instances.
+
+
+
+.. method:: PySide.QtNetwork.QLocalServer.serverError()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QAbstractSocket.SocketError`
+
+
+
+
+    Returns the type of error that occurred last or NoError.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.errorString` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.serverName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the server name if the server is listening for connections; otherwise returns :meth:`~PySide.QtNetwork.QLocalServer.QString`
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.listen`  :meth:`PySide.QtNetwork.QLocalServer.fullServerName` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.setMaxPendingConnections(numConnections)
+
+
+    :param numConnections: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the maximum number of pending accepted connections to ``numConnections`` . :class:`PySide.QtNetwork.QLocalServer` will accept no more than ``numConnections`` incoming connections before :meth:`PySide.QtNetwork.QLocalServer.nextPendingConnection` is called.
+
+    Note: Even though :class:`PySide.QtNetwork.QLocalServer` will stop accepting new connections after it has reached its maximum number of pending connections, the operating system may still keep them in queue which will result in clients signaling that it is connected.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.maxPendingConnections`  :meth:`PySide.QtNetwork.QLocalServer.hasPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QLocalServer.waitForNewConnection(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+    :rtype: (retval, timeOut)
+
+
+
+
+    Waits for at most ``msec`` milliseconds or until an incoming connection is available. Returns true if a connection is available; otherwise returns false. If the operation timed out and ``timedOut`` is not 0, \*timedOut will be set to true.
+
+    This is a blocking function call. Its use is ill-advised in a single-threaded GUI application, since the whole application will stop responding until the function returns. :meth:`PySide.QtNetwork.QLocalServer.waitForNewConnection` is mostly useful when there is no event loop available.
+
+    The non-blocking alternative is to connect to the :meth:`PySide.QtNetwork.QLocalServer.newConnection` signal.
+
+    If msec is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QLocalServer.hasPendingConnections`  :meth:`PySide.QtNetwork.QLocalServer.nextPendingConnection` 
+
+
+

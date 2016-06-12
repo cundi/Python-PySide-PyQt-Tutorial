@@ -1,0 +1,343 @@
+.. module:: PySide.QtGui
+.. _QGraphicsEffect:
+
+QGraphicsEffect
+***************
+
+.. inheritance-diagram:: QGraphicsEffect
+    :parts: 2
+
+**Inherited by:** :ref:`QGraphicsOpacityEffect`, :ref:`QGraphicsDropShadowEffect`, :ref:`QGraphicsBlurEffect`, :ref:`QGraphicsColorizeEffect`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`boundingRect<PySide.QtGui.QGraphicsEffect.boundingRect>` ()
+*    def :meth:`drawSource<PySide.QtGui.QGraphicsEffect.drawSource>` (painter)
+*    def :meth:`isEnabled<PySide.QtGui.QGraphicsEffect.isEnabled>` ()
+*    def :meth:`sourceBoundingRect<PySide.QtGui.QGraphicsEffect.sourceBoundingRect>` ([system=Qt.LogicalCoordinates])
+*    def :meth:`sourceIsPixmap<PySide.QtGui.QGraphicsEffect.sourceIsPixmap>` ()
+*    def :meth:`sourcePixmap<PySide.QtGui.QGraphicsEffect.sourcePixmap>` ([system=Qt.LogicalCoordinates[, offset=0[, mode=PadToEffectiveBoundingRect]]])
+*    def :meth:`updateBoundingRect<PySide.QtGui.QGraphicsEffect.updateBoundingRect>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`boundingRectFor<PySide.QtGui.QGraphicsEffect.boundingRectFor>` (sourceRect)
+*    def :meth:`draw<PySide.QtGui.QGraphicsEffect.draw>` (painter)
+*    def :meth:`sourceChanged<PySide.QtGui.QGraphicsEffect.sourceChanged>` (flags)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setEnabled<PySide.QtGui.QGraphicsEffect.setEnabled>` (enable)
+*    def :meth:`update<PySide.QtGui.QGraphicsEffect.update>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`enabledChanged<PySide.QtGui.QGraphicsEffect.enabledChanged>` (enabled)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsEffect` class is the base class for all graphics effects.
+
+    Effects alter the appearance of elements by hooking into the rendering pipeline and operating between the source (e.g., a :class:`PySide.QtGui.QGraphicsPixmapItem` ) and the destination device (e.g., :class:`PySide.QtGui.QGraphicsView` 's viewport). Effects can be disabled by calling setEnabled(false). If effects are disabled, the source is rendered directly.
+
+    To add a visual effect to a :class:`PySide.QtGui.QGraphicsItem` , for example, you can use one of the standard effects, or alternately, create your own effect by creating a subclass of :class:`PySide.QtGui.QGraphicsEffect` . The effect can then be installed on the item using :meth:`QGraphicsItem.setGraphicsEffect()<PySide.QtGui.QGraphicsItem.setGraphicsEffect>` .
+
+    Qt provides the following standard effects:
+
+
+    * :class:`PySide.QtGui.QGraphicsBlurEffect` - blurs the item by a given radius
+    * :class:`PySide.QtGui.QGraphicsDropShadowEffect` - renders a dropshadow behind the item
+    * :class:`PySide.QtGui.QGraphicsColorizeEffect` - renders the item in shades of any given color
+    * :class:`PySide.QtGui.QGraphicsOpacityEffect` - renders the item with an opacity
+
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-plain.png                                                                                                                                                                                                                              |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-blur.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-colorize.png      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-colorize.png   |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-opacity.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-drop-shadow.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-drop-shadow.png|
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicseffect-widget.png
+
+    For more information on how to use each effect, refer to the specific effect's documentation.
+
+    To create your own custom effect, create a subclass of :class:`PySide.QtGui.QGraphicsEffect` (or any other existing effects) and reimplement the virtual function :meth:`PySide.QtGui.QGraphicsEffect.draw` . This function is called whenever the effect needs to redraw. The :meth:`PySide.QtGui.QGraphicsEffect.draw` function takes the painter with which to draw as an argument. For more information, refer to the documenation for :meth:`PySide.QtGui.QGraphicsEffect.draw` . In the :meth:`PySide.QtGui.QGraphicsEffect.draw` function you can call :meth:`PySide.QtGui.QGraphicsEffect.sourcePixmap` to get a pixmap of the graphics effect source which you can then process.
+
+    If your effect changes, use :meth:`PySide.QtGui.QGraphicsEffect.update` to request for a redraw. If your custom effect changes the bounding rectangle of the source, e.g., a radial glow effect may need to apply an extra margin, you can reimplement the virtual :meth:`PySide.QtGui.QGraphicsEffect.boundingRectFor` function, and call :meth:`PySide.QtGui.QGraphicsEffect.updateBoundingRect` to notify the framework whenever this rectangle changes. The virtual :meth:`PySide.QtGui.QGraphicsEffect.sourceChanged` function is called to notify the effects that the source has changed in some way - e.g., if the source is a :class:`PySide.QtGui.QGraphicsRectItem` and its rectangle parameters have changed.
+
+    .. seealso::  :meth:`QGraphicsItem.setGraphicsEffect()<PySide.QtGui.QGraphicsItem.setGraphicsEffect>`  :meth:`QWidget.setGraphicsEffect()<PySide.QtGui.QWidget.setGraphicsEffect>` 
+
+.. class:: QGraphicsEffect([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtGui.QGraphicsEffect` instance having the specified ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QGraphicsEffect.PixmapPadMode
+
+    This enum describes how the pixmap returned from sourcePixmap should be padded.
+
+    +------------------------------------------+------------------------------------------------------------------------------------+
+    |Constant                                  |Description                                                                         |
+    +==========================================+====================================================================================+
+    |QGraphicsEffect.NoPad                     |The pixmap should not receive any additional padding.                               |
+    +------------------------------------------+------------------------------------------------------------------------------------+
+    |QGraphicsEffect.PadToTransparentBorder    |The pixmap should be padded to ensure it has a completely transparent border.       |
+    +------------------------------------------+------------------------------------------------------------------------------------+
+    |QGraphicsEffect.PadToEffectiveBoundingRect|The pixmap should be padded to match the effective bounding rectangle of the effect.|
+    +------------------------------------------+------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QGraphicsEffect.ChangeFlag
+
+    This enum describes what has changed in :class:`~PySide.QtGui.QGraphicsEffectSource` .
+
+    +-----------------------------------------+------------------------------------------------+
+    |Constant                                 |Description                                     |
+    +=========================================+================================================+
+    |QGraphicsEffect.SourceAttached           |The effect is installed on a source.            |
+    +-----------------------------------------+------------------------------------------------+
+    |QGraphicsEffect.SourceDetached           |The effect is uninstalled on a source.          |
+    +-----------------------------------------+------------------------------------------------+
+    |QGraphicsEffect.SourceBoundingRectChanged|The bounding rect of the source has changed.    |
+    +-----------------------------------------+------------------------------------------------+
+    |QGraphicsEffect.SourceInvalidated        |The visual appearance of the source has changed.|
+    +-----------------------------------------+------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.boundingRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the effective bounding rectangle for this effect, i.e., the bounding rectangle of the source in device coordinates, adjusted by any margins applied by the effect itself.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEffect.boundingRectFor`  :meth:`PySide.QtGui.QGraphicsEffect.updateBoundingRect` 
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.boundingRectFor(sourceRect)
+
+
+    :param sourceRect: :class:`PySide.QtCore.QRectF`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the effective bounding rectangle for this effect, given the provided ``rect`` in the device coordinates. When writing you own custom effect, you must call :meth:`PySide.QtGui.QGraphicsEffect.updateBoundingRect` whenever any parameters are changed that may cause this this function to return a different value.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEffect.sourceBoundingRect` 
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.draw(painter)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    This pure virtual function draws the effect and is called whenever the source needs to be drawn.
+
+    Reimplement this function in a :class:`PySide.QtGui.QGraphicsEffect` subclass to provide the effect's drawing implementation, using ``painter`` .
+
+    For example:
+
+    ::
+
+        def draw(self, painter):
+            # ...
+            offset = QPoint()
+            if self.sourceIsPixmap():
+                # No point in drawing in device coordinates (pixmap will be scaled anyways).
+                pixmap = sourcePixmap(Qt.LogicalCoordinates, offset)
+                ...
+                painter.drawPixmap(offset, pixmap)
+            else:
+                # Draw pixmap in device coordinates to avoid pixmap scaling
+                pixmap = sourcePixmap(Qt.DeviceCoordinates, offset)
+                painter.setWorldTransform(QTransform())
+                # ...
+                painter.drawPixmap(offset, pixmap)
+            # ...
+
+
+    This function should not be called explicitly by the user, since it is meant for reimplementation purposes only.
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.drawSource(painter)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Draws the source directly using the given ``painter`` .
+
+    This function should only be called from :meth:`QGraphicsEffect.draw()<PySide.QtGui.QGraphicsEffect.draw>` .
+
+    For example:
+
+    ::
+
+        def draw(self, painter):
+            # Fully opaque draw directly without going through a pixmap.
+            if qFuzzyCompare(self.opacity, 1):
+                drawSource(painter)
+                return
+            # ...
+
+
+    .. seealso::  :meth:`QGraphicsEffect.draw()<PySide.QtGui.QGraphicsEffect.draw>` 
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.enabledChanged(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.isEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the effect is enabled or not..
+
+    If an effect is disabled, the source will be rendered with as normal, with no interference from the effect. If the effect is enabled, the source will be rendered with the effect applied.
+
+    This property is enabled by default.
+
+    Using this property, you can disable certain effects on slow platforms, in order to ensure that the user interface is responsive.
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.setEnabled(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the effect is enabled or not..
+
+    If an effect is disabled, the source will be rendered with as normal, with no interference from the effect. If the effect is enabled, the source will be rendered with the effect applied.
+
+    This property is enabled by default.
+
+    Using this property, you can disable certain effects on slow platforms, in order to ensure that the user interface is responsive.
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.sourceBoundingRect([system=Qt.LogicalCoordinates])
+
+
+    :param system: :attr:`PySide.QtCore.Qt.CoordinateSystem`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.sourceChanged(flags)
+
+
+    :param flags: :class:`PySide.QtGui.QGraphicsEffect.ChangeFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.sourceIsPixmap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the source effectively is a pixmap, e.g., a :class:`PySide.QtGui.QGraphicsPixmapItem` .
+
+    This function is useful for optimization purposes. For instance, there's no point in drawing the source in device coordinates to avoid pixmap scaling if this function returns true - the source pixmap will be scaled anyways.
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.sourcePixmap([system=Qt.LogicalCoordinates[, offset=0[, mode=PadToEffectiveBoundingRect]]])
+
+
+    :param system: :attr:`PySide.QtCore.Qt.CoordinateSystem`
+    :param offset: :class:`PySide.QtCore.QPoint`
+    :param mode: :attr:`PySide.QtGui.QGraphicsEffect.PixmapPadMode`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.update()
+
+
+
+
+
+
+    Schedules a redraw of the effect. Call this function whenever the effect needs to be redrawn. This function does not trigger a redraw of the source.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEffect.updateBoundingRect` 
+
+
+.. method:: PySide.QtGui.QGraphicsEffect.updateBoundingRect()
+
+
+
+
+
+
+    This function notifies the effect framework when the effect's bounding rectangle has changed. As a custom effect author, you must call this function whenever you change any parameters that will cause the virtual :meth:`PySide.QtGui.QGraphicsEffect.boundingRectFor` function to return a different value.
+
+    This function will call :meth:`PySide.QtGui.QGraphicsEffect.update` if this is necessary.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEffect.boundingRectFor`  :meth:`PySide.QtGui.QGraphicsEffect.boundingRect`  :meth:`PySide.QtGui.QGraphicsEffect.sourceBoundingRect` 
+
+
+

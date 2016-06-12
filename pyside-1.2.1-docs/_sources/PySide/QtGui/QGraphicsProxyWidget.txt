@@ -1,0 +1,252 @@
+.. module:: PySide.QtGui
+.. _QGraphicsProxyWidget:
+
+QGraphicsProxyWidget
+********************
+
+.. inheritance-diagram:: QGraphicsProxyWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createProxyForChildWidget<PySide.QtGui.QGraphicsProxyWidget.createProxyForChildWidget>` (child)
+*    def :meth:`setWidget<PySide.QtGui.QGraphicsProxyWidget.setWidget>` (widget)
+*    def :meth:`subWidgetRect<PySide.QtGui.QGraphicsProxyWidget.subWidgetRect>` (widget)
+*    def :meth:`widget<PySide.QtGui.QGraphicsProxyWidget.widget>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`newProxyWidget<PySide.QtGui.QGraphicsProxyWidget.newProxyWidget>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsProxyWidget` class provides a proxy layer for embedding a :class:`PySide.QtGui.QWidget` in a :class:`PySide.QtGui.QGraphicsScene` .
+
+    :class:`PySide.QtGui.QGraphicsProxyWidget` embeds :class:`PySide.QtGui.QWidget` -based widgets, for example, a :class:`PySide.QtGui.QPushButton` , :class:`PySide.QtGui.QFontComboBox` , or even :class:`PySide.QtGui.QFileDialog` , into :class:`PySide.QtGui.QGraphicsScene` . It forwards events between the two objects and translates between :class:`PySide.QtGui.QWidget` 's integer-based geometry and :class:`PySide.QtGui.QGraphicsWidget` 's qreal-based geometry. :class:`PySide.QtGui.QGraphicsProxyWidget` supports all core features of :class:`PySide.QtGui.QWidget` , including tab focus, keyboard input, Drag & Drop, and popups. You can also embed complex widgets, e.g., widgets with subwidgets.
+
+    Example:
+
+    ::
+
+        import sys
+
+        QApplication app(sys.argv)
+
+        tabWidget = QTabWidget()
+
+        scene = QGraphicsScene()
+        proxy = scene.addWidget(tabWidget)
+
+        view = QGraphicsView(scene)
+        view.show()
+
+        return app.exec_()
+
+
+    :class:`PySide.QtGui.QGraphicsProxyWidget` takes care of automatically embedding popup children of embedded widgets through creating a child proxy for each popup. This means that when an embedded :class:`PySide.QtGui.QComboBox` shows its popup list, a new :class:`PySide.QtGui.QGraphicsProxyWidget` is created automatically, embedding the popup, and positioning it correctly. This only works if the popup is child of the embedded widget (for example :meth:`QToolButton.setMenu()<PySide.QtGui.QToolButton.setMenu>` requires the :class:`PySide.QtGui.QMenu` instance to be child of the :class:`PySide.QtGui.QToolButton` ).
+
+    .. _PySide.QtGui.QGraphicsProxyWidget_embedding-a-widget-with-qgraphicsproxywidget:
+
+
+
+Embedding a Widget with QGraphicsProxyWidget
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    There are two ways to embed a widget using :class:`PySide.QtGui.QGraphicsProxyWidget` . The most common way is to pass a widget pointer to :meth:`QGraphicsScene.addWidget()<PySide.QtGui.QGraphicsScene.addWidget>` together with any relevant :class:`Qt.WindowFlags` . This function returns a pointer to a :class:`PySide.QtGui.QGraphicsProxyWidget` . You can then choose to reparent or position either the proxy, or the embedded widget itself.
+
+    For example, in the code snippet below, we embed a group box into the proxy:
+
+    ::
+
+        groupBox = QGroupBox("Contact Details")
+        numberLabel = QLabel("Telephone number")
+        numberEdit = QLineEdit()
+
+        layout = QFormLayout()
+        layout.addRow(numberLabel, numberEdit)
+        groupBox.setLayout(layout)
+
+        scene = QGraphicsScene()
+        proxy = scene.addWidget(groupBox)
+
+        view = QGraphicsView(scene)
+        view.show()
+
+
+    The image below is the output obtained with its contents margin and contents rect labeled.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qgraphicsproxywidget-embed.png
+
+    Alternatively, you can start by creating a new :class:`PySide.QtGui.QGraphicsProxyWidget` item, and then call :meth:`PySide.QtGui.QGraphicsProxyWidget.setWidget` to embed a :class:`PySide.QtGui.QWidget` later. The :meth:`PySide.QtGui.QGraphicsProxyWidget.widget` function returns a pointer to the embedded widget. :class:`PySide.QtGui.QGraphicsProxyWidget` shares ownership with :class:`PySide.QtGui.QWidget` , so if either of the two widgets are destroyed, the other widget will be automatically destroyed as well.
+
+    .. _PySide.QtGui.QGraphicsProxyWidget_synchronizing-widget-states:
+
+
+
+Synchronizing Widget States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QGraphicsProxyWidget` keeps its state in sync with the embedded widget. For example, if the proxy is hidden or disabled, the embedded widget will be hidden or disabled as well, and vice versa. When the widget is embedded by calling addWidget(), :class:`PySide.QtGui.QGraphicsProxyWidget` copies the state from the widget into the proxy, and after that, the two will stay synchronized where possible. By default, when you embed a widget into a proxy, both the widget and the proxy will be visible because a :class:`PySide.QtGui.QGraphicsWidget` is visible when created (you do not have to call :meth:`~PySide.QtGui.QGraphicsProxyWidget.show` ). If you explicitly hide the embedded widget, the proxy will also become invisible.
+
+    Example:
+
+    ::
+
+        scene = QGraphicsScene()
+
+        edit = QLineEdit()
+        proxy = scene.addWidget(edit)
+
+        edit.isVisible()  // returns true
+        proxy.isVisible() // also returns true
+
+        edit.hide()
+
+        edit.isVisible()  // returns false
+        proxy.isVisible() // also returns false
+
+
+    :class:`PySide.QtGui.QGraphicsProxyWidget` maintains symmetry for the following states:
+
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtGui.QWidget` state                                          |:class:`PySide.QtGui.QGraphicsProxyWidget` state                                                       |Notes                                                                                                                                              |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.enabled<PySide.QtGui.QWidget.enabled>`                        |:meth:`QGraphicsProxyWidget.enabled<PySide.QtGui.QGraphicsProxyWidget.enabled>`                        |                                                                                                                                                   |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.visible<PySide.QtGui.QWidget.visible>`                        |:meth:`QGraphicsProxyWidget.visible<PySide.QtGui.QGraphicsProxyWidget.visible>`                        |The explicit state is also symmetric.                                                                                                              |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.geometry<PySide.QtGui.QWidget.geometry>`                      |:meth:`QGraphicsProxyWidget.geometry<PySide.QtGui.QGraphicsProxyWidget.geometry>`                      |Geometry is only guaranteed to be symmetric while the embedded widget is visible.                                                                  |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.layoutDirection<PySide.QtGui.QWidget.layoutDirection>`        |:meth:`QGraphicsProxyWidget.layoutDirection<PySide.QtGui.QGraphicsProxyWidget.layoutDirection>`        |                                                                                                                                                   |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWidget::style                                                               |QGraphicsProxyWidget::style                                                                            |                                                                                                                                                   |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.palette<PySide.QtGui.QWidget.palette>`                        |:meth:`QGraphicsProxyWidget.palette<PySide.QtGui.QGraphicsProxyWidget.palette>`                        |                                                                                                                                                   |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.font<PySide.QtGui.QWidget.font>`                              |:meth:`QGraphicsProxyWidget.font<PySide.QtGui.QGraphicsProxyWidget.font>`                              |                                                                                                                                                   |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.cursor<PySide.QtGui.QWidget.cursor>`                          |QGraphicsProxyWidget::cursor                                                                           |The embedded widget overrides the proxy widget cursor. The proxy cursor changes depending on which embedded subwidget is currently under the mouse.|
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>`                    |:meth:`QGraphicsProxyWidget.sizeHint()<PySide.QtGui.QGraphicsProxyWidget.sizeHint>`                    |All size hint functionality from the embedded widget is forwarded by the proxy.                                                                    |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.getContentsMargins()<PySide.QtGui.QWidget.getContentsMargins>`|:meth:`QGraphicsProxyWidget.getContentsMargins()<PySide.QtGui.QGraphicsProxyWidget.getContentsMargins>`|Updated once by :meth:`PySide.QtGui.QGraphicsProxyWidget.setWidget` .                                                                              |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QWidget.windowTitle<PySide.QtGui.QWidget.windowTitle>`                |:meth:`QGraphicsProxyWidget.windowTitle<PySide.QtGui.QGraphicsProxyWidget.windowTitle>`                |Updated once by :meth:`PySide.QtGui.QGraphicsProxyWidget.setWidget` .                                                                              |
+    +-----------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. note:: \ :class:`PySide.QtGui.QGraphicsScene` keeps the embedded widget in a special state that prevents it from disturbing other widgets (both embedded and not embedded) while the widget is embedded. In this state, the widget may differ slightly in behavior from when it is not embedded.
+
+    .. warning::  This class is provided for convenience when bridging QWidgets and QGraphicsItems, it should not be used for high-performance scenarios.
+
+    .. seealso::  :meth:`QGraphicsScene.addWidget()<PySide.QtGui.QGraphicsScene.addWidget>`  :class:`PySide.QtGui.QGraphicsWidget` 
+
+.. class:: QGraphicsProxyWidget([parent=None[, wFlags=0]])
+
+    :param wFlags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+.. method:: PySide.QtGui.QGraphicsProxyWidget.createProxyForChildWidget(child)
+
+
+    :param child: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QGraphicsProxyWidget`
+
+
+
+
+    Creates a proxy widget for the given ``child`` of the widget contained in this proxy.
+
+    This function makes it possible to acquire proxies for non top-level widgets. For instance, you can embed a dialog, and then transform only one of its widgets.
+
+    If the widget is already embedded, return the existing proxy widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsProxyWidget.newProxyWidget`  :meth:`QGraphicsScene.addWidget()<PySide.QtGui.QGraphicsScene.addWidget>` 
+
+
+.. method:: PySide.QtGui.QGraphicsProxyWidget.newProxyWidget(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QGraphicsProxyWidget`
+
+
+
+
+    Creates a proxy widget for the given ``child`` of the widget contained in this proxy.
+
+    You should not call this function directly; use :meth:`QGraphicsProxyWidget.createProxyForChildWidget()<PySide.QtGui.QGraphicsProxyWidget.createProxyForChildWidget>` instead.
+
+    This function is a fake virtual slot that you can reimplement in your subclass in order to control how new proxy widgets are created. The default implementation returns a proxy created with the :meth:`PySide.QtGui.QGraphicsProxyWidget.QGraphicsProxyWidget` constructor with this proxy widget as the parent.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsProxyWidget.createProxyForChildWidget` 
+
+
+.. method:: PySide.QtGui.QGraphicsProxyWidget.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Embeds ``widget`` into this proxy widget. The embedded widget must reside exclusively either inside or outside of Graphics View. You cannot embed a widget as long as it is is visible elsewhere in the UI, at the same time.
+
+    ``widget`` must be a top-level widget whose parent is 0.
+
+    When the widget is embedded, its state (e.g., visible, enabled, geometry, size hints) is copied into the proxy widget. If the embedded widget is explicitly hidden or disabled, the proxy widget will become explicitly hidden or disabled after embedding is complete. The class documentation has a full overview over the shared state.
+
+    :class:`PySide.QtGui.QGraphicsProxyWidget` 's window flags determine whether the widget, after embedding, will be given window decorations or not.
+
+    After this function returns, :class:`PySide.QtGui.QGraphicsProxyWidget` will keep its state synchronized with that of ``widget`` whenever possible.
+
+    If a widget is already embedded by this proxy when this function is called, that widget will first be automatically unembedded. Passing 0 for the ``widget`` argument will only unembed the widget, and the ownership of the currently embedded widget will be passed on to the caller. Every child widget that are embedded will also be embedded and their proxy widget destroyed.
+
+    Note that widgets with the :attr:`Qt.WA_PaintOnScreen<Qt.WidgetAttribute>` widget attribute set and widgets that wrap an external application or controller cannot be embedded. Examples are :class:`PySide.QtOpenGL.QGLWidget` and :class:`~PySide.QtGui.QAxWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsProxyWidget.widget` 
+
+
+.. method:: PySide.QtGui.QGraphicsProxyWidget.subWidgetRect(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the rectangle for ``widget`` , which must be a descendant of :meth:`PySide.QtGui.QGraphicsProxyWidget.widget` , or :meth:`PySide.QtGui.QGraphicsProxyWidget.widget` itself, in this proxy item's local coordinates.
+
+    If no widget is embedded, ``widget`` is 0, or ``widget`` is not a descendant of the embedded widget, this function returns an empty :class:`PySide.QtCore.QRectF` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsProxyWidget.widget` 
+
+
+.. method:: PySide.QtGui.QGraphicsProxyWidget.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns a pointer to the embedded widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsProxyWidget.setWidget` 
+
+
+

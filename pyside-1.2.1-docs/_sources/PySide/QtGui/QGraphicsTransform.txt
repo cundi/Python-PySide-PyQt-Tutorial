@@ -1,0 +1,70 @@
+.. module:: PySide.QtGui
+.. _QGraphicsTransform:
+
+QGraphicsTransform
+******************
+
+.. inheritance-diagram:: QGraphicsTransform
+    :parts: 2
+
+**Inherited by:** :ref:`QGraphicsRotation`, :ref:`QGraphicsScale`
+
+.. note:: This class was introduced in Qt 4.6
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsTransform` class is an abstract base class for building advanced transformations on QGraphicsItems.
+
+    As an alternative to QGraphicsItem::transform, :class:`PySide.QtGui.QGraphicsTransform` lets you create and control advanced transformations that can be configured independently using specialized properties.
+
+    :class:`PySide.QtGui.QGraphicsItem` allows you to assign any number of :class:`PySide.QtGui.QGraphicsTransform` instances to one :class:`PySide.QtGui.QGraphicsItem` . Each :class:`PySide.QtGui.QGraphicsTransform` is applied in order, one at a time, to the :class:`PySide.QtGui.QGraphicsItem` it's assigned to.
+
+    :class:`PySide.QtGui.QGraphicsTransform` is particularly useful for animations. Whereas :meth:`QGraphicsItem.setTransform()<PySide.QtGui.QGraphicsItem.setTransform>` lets you assign any transform directly to an item, there is no direct way to interpolate between two different transformations (e.g., when transitioning between two states, each for which the item has a different arbitrary transform assigned). Using :class:`PySide.QtGui.QGraphicsTransform` you can interpolate the property values of each independent transformation. The resulting operation is then combined into a single transform which is applied to :class:`PySide.QtGui.QGraphicsItem` .
+
+    Transformations are computed in true 3D space using :class:`PySide.QtGui.QMatrix4x4` . When the transformation is applied to a :class:`PySide.QtGui.QGraphicsItem` , it will be projected back to a 2D :class:`PySide.QtGui.QTransform` . When multiple :class:`PySide.QtGui.QGraphicsTransform` objects are applied to a :class:`PySide.QtGui.QGraphicsItem` , all of the transformations are computed in true 3D space, with the projection back to 2D only occurring after the last :class:`PySide.QtGui.QGraphicsTransform` is applied. The exception to this is :class:`PySide.QtGui.QGraphicsRotation` , which projects back to 2D after each rotation to preserve the perspective effect around the X and Y axes.
+
+    If you want to create your own configurable transformation, you can create a subclass of :class:`PySide.QtGui.QGraphicsTransform` (or any or the existing subclasses), and reimplement the pure virtual :meth:`PySide.QtGui.QGraphicsTransform.applyTo` function, which takes a pointer to a :class:`PySide.QtGui.QMatrix4x4` . Each operation you would like to apply should be exposed as properties (e.g., customTransform->setVerticalShear(2.5)). Inside you reimplementation of :meth:`PySide.QtGui.QGraphicsTransform.applyTo` , you can modify the provided transform respectively.
+
+    :class:`PySide.QtGui.QGraphicsTransform` can be used together with :meth:`QGraphicsItem.setTransform()<PySide.QtGui.QGraphicsItem.setTransform>` , :meth:`QGraphicsItem.setRotation()<PySide.QtGui.QGraphicsItem.setRotation>` , and :meth:`QGraphicsItem.setScale()<PySide.QtGui.QGraphicsItem.setScale>` .
+
+    .. seealso::  :meth:`QGraphicsItem.transform()<PySide.QtGui.QGraphicsItem.transform>`  :class:`PySide.QtGui.QGraphicsScale`  :class:`PySide.QtGui.QGraphicsRotation` 
+
+.. class:: QGraphicsTransform([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtGui.QGraphicsTransform` with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QGraphicsTransform.applyTo(matrix)
+
+
+    :param matrix: :class:`PySide.QtGui.QMatrix4x4`
+
+
+
+
+    This pure virtual method has to be reimplemented in derived classes.
+
+    It applies this transformation to ``matrix`` .
+
+    .. seealso::  :meth:`QGraphicsItem.transform()<PySide.QtGui.QGraphicsItem.transform>`  :meth:`QMatrix4x4.toTransform()<PySide.QtGui.QMatrix4x4.toTransform>` 
+
+
+.. method:: PySide.QtGui.QGraphicsTransform.update()
+
+
+
+
+
+
+    Notifies that this transform operation has changed its parameters in such a way that :meth:`PySide.QtGui.QGraphicsTransform.applyTo` will return a different result than before.
+
+    When implementing you own custom graphics transform, you must call this function every time you change a parameter, to let :class:`PySide.QtGui.QGraphicsItem` know that its transformation needs to be updated.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsTransform.applyTo` 
+
+
+

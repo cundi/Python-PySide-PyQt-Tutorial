@@ -1,0 +1,286 @@
+.. module:: PySide.QtGui
+.. _QPushButton:
+
+QPushButton
+***********
+
+.. inheritance-diagram:: QPushButton
+    :parts: 2
+
+**Inherited by:** :ref:`QCommandLinkButton`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoDefault<PySide.QtGui.QPushButton.autoDefault>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QPushButton.initStyleOption>` (option)
+*    def :meth:`isDefault<PySide.QtGui.QPushButton.isDefault>` ()
+*    def :meth:`isFlat<PySide.QtGui.QPushButton.isFlat>` ()
+*    def :meth:`menu<PySide.QtGui.QPushButton.menu>` ()
+*    def :meth:`setAutoDefault<PySide.QtGui.QPushButton.setAutoDefault>` (arg__1)
+*    def :meth:`setDefault<PySide.QtGui.QPushButton.setDefault>` (arg__1)
+*    def :meth:`setFlat<PySide.QtGui.QPushButton.setFlat>` (arg__1)
+*    def :meth:`setMenu<PySide.QtGui.QPushButton.setMenu>` (menu)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`showMenu<PySide.QtGui.QPushButton.showMenu>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPushButton` widget provides a command button.
+
+    The push button, or command button, is perhaps the most commonly used widget in any graphical user interface. Push (click) a button to command the computer to perform some action, or to answer a question. Typical buttons are OK, Apply, Cancel, Close, Yes, No and Help.
+
+    A command button is rectangular and typically displays a text label describing its action. A shortcut key can be specified by preceding the preferred character with an ampersand in the text. For example:
+
+    ::
+
+        button = QPushButton("&Download", self)
+
+
+    In this example the shortcut is *Alt+D* . See the :class:`QShortcut<~PySide.QtGui.QShortcut#mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    Push buttons display a textual label, and optionally a small icon. These can be set using the constructors and changed later using :meth:`PySide.QtGui.QAbstractButton.setText` and :meth:`PySide.QtGui.QAbstractButton.setIcon` . If the button is disabled the appearance of the text and icon will be manipulated with respect to the GUI style to make the button look "disabled".
+
+    A push button emits the signal :meth:`PySide.QtGui.QAbstractButton.clicked` when it is activated by the mouse, the Spacebar or by a keyboard shortcut. Connect to this signal to perform the button's action. Push buttons also provide less commonly used signals, for example, :meth:`PySide.QtGui.QAbstractButton.pressed` and :meth:`PySide.QtGui.QAbstractButton.released` .
+
+    Command buttons in dialogs are by default auto-default buttons, i.e. they become the default push button automatically when they receive the keyboard input focus. A default button is a push button that is activated when the user presses the Enter or Return key in a dialog. You can change this with :meth:`PySide.QtGui.QPushButton.setAutoDefault` . Note that auto-default buttons reserve a little extra space which is necessary to draw a default-button indicator. If you do not want this space around your buttons, call setAutoDefault(false).
+
+    Being so central, the button widget has grown to accommodate a great many variations in the past decade. The Microsoft style guide now shows about ten different states of Windows push buttons and the text implies that there are dozens more when all the combinations of features are taken into consideration.
+
+    The most important modes or states are:
+
+
+    * Available or not (grayed out, disabled).
+    * Standard push button, toggling push button or menu button.
+    * On or off (only for toggling push buttons).
+    * Default or normal. The default button in a dialog can generally be "clicked" using the Enter or Return key.
+    * Auto-repeat or not.
+    * Pressed down or not.
+
+    As a general rule, use a push button when the application or dialog window performs an action when the user clicks on it (such as Apply, Cancel, Close and Help) *and* when the widget is supposed to have a wide, rectangular shape with a text label. Small, typically square buttons that change the state of the window rather than performing an action (such as the buttons in the top-right corner of the :class:`PySide.QtGui.QFileDialog` ) are not command buttons, but tool buttons. Qt provides a special class ( :class:`PySide.QtGui.QToolButton` ) for these buttons.
+
+    If you need toggle behavior (see :meth:`PySide.QtGui.QAbstractButton.setCheckable` ) or a button that auto-repeats the activation signal when being pushed down like the arrows in a scroll bar (see :meth:`PySide.QtGui.QAbstractButton.setAutoRepeat` ), a command button is probably not what you want. When in doubt, use a tool button.
+
+    A variation of a command button is a menu button. These provide not just one command, but several, since when they are clicked they pop up a menu of options. Use the method :meth:`PySide.QtGui.QPushButton.setMenu` to associate a popup menu with a push button.
+
+    Other classes of buttons are option buttons (see :class:`PySide.QtGui.QRadioButton` ) and check boxes (see :class:`PySide.QtGui.QCheckBox` ).
+
+    +-------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-pushbutton.png|A push button shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` .                                                                                                                                                              |
+    |                                                                                                       |                                                                                                                                                                                                                                                |
+    |                                                                                                       |    Note that when a button's width becomes smaller than 50 or its height becomes smaller than 30, the button's corners are changed from round to square. Use the :meth:`PySide.QtGui.QWidget.setMinimumSize` function to prevent this behavior.|
+    +-------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-pushbutton.png|A push button shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .                                                                                                                                                             |
+    +-------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-pushbutton.png|A push button shown in the :ref:`Plastique widget style<gallery-plastique.html>` .                                                                                                                                                              |
+    +-------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    In Qt, the :class:`PySide.QtGui.QAbstractButton` base class provides most of the modes and other API, and :class:`PySide.QtGui.QPushButton` provides GUI logic. See :class:`PySide.QtGui.QAbstractButton` for more information about the API.
+
+    .. seealso::  :class:`PySide.QtGui.QToolButton`  :class:`PySide.QtGui.QRadioButton`  :class:`PySide.QtGui.QCheckBox`  :ref:`GUI Design Handbook: Push Button<guibooks.html>` 
+
+.. class:: QPushButton([parent=None])
+           QPushButton(icon, text[, parent=None])
+           QPushButton(text[, parent=None])
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param text: unicode
+
+    Constructs a push button with no text and a ``parent`` .
+
+
+    Constructs a push button with an ``icon`` and a ``text`` , and a ``parent`` .
+
+    Note that you can also pass a :class:`PySide.QtGui.QPixmap` object as an icon (thanks to the implicit type conversion provided by C++).
+
+
+    Constructs a push button with the parent ``parent`` and the text ``text`` .
+
+
+.. method:: PySide.QtGui.QPushButton.autoDefault()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the push button is an auto default button.
+
+    If this property is set to true then the push button is an auto default button.
+
+    In some GUI styles a default button is drawn with an extra frame around it, up to 3 pixels or more. Qt automatically keeps this space free around auto-default buttons, i.e. auto-default buttons may have a slightly larger size hint.
+
+    This property's default is true for buttons that have a :class:`PySide.QtGui.QDialog` parent; otherwise it defaults to false.
+
+    See the :meth:`~PySide.QtGui.QPushButton.default` property for details of how :meth:`~PySide.QtGui.QPushButton.default` and auto-default interact.
+
+
+
+.. method:: PySide.QtGui.QPushButton.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionButton`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QPushButton` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionButton` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QPushButton.isDefault()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the push button is the default button.
+
+    Default and autodefault buttons decide what happens when the user presses enter in a dialog.
+
+    A button with this property set to true (i.e., the dialog's *default* button,) will automatically be pressed when the user presses enter, with one exception: if an ``autoDefault`` button currently has focus, the :meth:`PySide.QtGui.QPushButton.autoDefault` button is pressed. When the dialog has :meth:`PySide.QtGui.QPushButton.autoDefault` buttons but no default button, pressing enter will press either the :meth:`PySide.QtGui.QPushButton.autoDefault` button that currently has focus, or if no button has focus, the next :meth:`PySide.QtGui.QPushButton.autoDefault` button in the focus chain.
+
+    In a dialog, only one push button at a time can be the default button. This button is then displayed with an additional frame (depending on the GUI style).
+
+    The default button behavior is provided only in dialogs. Buttons can always be clicked from the keyboard by pressing Spacebar when the button has focus.
+
+    If the default property is set to false on the current default button while the dialog is visible, a new default will automatically be assigned the next time a pushbutton in the dialog receives focus.
+
+    This property's default is false.
+
+
+
+.. method:: PySide.QtGui.QPushButton.isFlat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button border is raised.
+
+    This property's default is false. If this property is set, most styles will not paint the button background unless the button is being pressed. :meth:`PySide.QtGui.QWidget.setAutoFillBackground` can be used to ensure that the background is filled using the :attr:`QPalette.Button<QPalette.ColorRole>` brush.
+
+
+
+.. method:: PySide.QtGui.QPushButton.menu()
+
+
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Returns the button's associated popup menu or 0 if no popup menu has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QPushButton.setMenu` 
+
+
+.. method:: PySide.QtGui.QPushButton.setAutoDefault(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the push button is an auto default button.
+
+    If this property is set to true then the push button is an auto default button.
+
+    In some GUI styles a default button is drawn with an extra frame around it, up to 3 pixels or more. Qt automatically keeps this space free around auto-default buttons, i.e. auto-default buttons may have a slightly larger size hint.
+
+    This property's default is true for buttons that have a :class:`PySide.QtGui.QDialog` parent; otherwise it defaults to false.
+
+    See the :meth:`~PySide.QtGui.QPushButton.default` property for details of how :meth:`~PySide.QtGui.QPushButton.default` and auto-default interact.
+
+
+
+.. method:: PySide.QtGui.QPushButton.setDefault(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the push button is the default button.
+
+    Default and autodefault buttons decide what happens when the user presses enter in a dialog.
+
+    A button with this property set to true (i.e., the dialog's *default* button,) will automatically be pressed when the user presses enter, with one exception: if an ``autoDefault`` button currently has focus, the :meth:`PySide.QtGui.QPushButton.autoDefault` button is pressed. When the dialog has :meth:`PySide.QtGui.QPushButton.autoDefault` buttons but no default button, pressing enter will press either the :meth:`PySide.QtGui.QPushButton.autoDefault` button that currently has focus, or if no button has focus, the next :meth:`PySide.QtGui.QPushButton.autoDefault` button in the focus chain.
+
+    In a dialog, only one push button at a time can be the default button. This button is then displayed with an additional frame (depending on the GUI style).
+
+    The default button behavior is provided only in dialogs. Buttons can always be clicked from the keyboard by pressing Spacebar when the button has focus.
+
+    If the default property is set to false on the current default button while the dialog is visible, a new default will automatically be assigned the next time a pushbutton in the dialog receives focus.
+
+    This property's default is false.
+
+
+
+.. method:: PySide.QtGui.QPushButton.setFlat(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button border is raised.
+
+    This property's default is false. If this property is set, most styles will not paint the button background unless the button is being pressed. :meth:`PySide.QtGui.QWidget.setAutoFillBackground` can be used to ensure that the background is filled using the :attr:`QPalette.Button<QPalette.ColorRole>` brush.
+
+
+
+.. method:: PySide.QtGui.QPushButton.setMenu(menu)
+
+
+    :param menu: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Associates the popup menu ``menu`` with this push button. This turns the button into a menu button, which in some styles will produce a small triangle to the right of the button's text.
+
+    Ownership of the menu is *not* transferred to the push button.
+
+    +------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-pushbutton-menu.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cleanlooks-pushbutton-menu.png|Push buttons with popup menus shown in the :ref:`Plastique widget style<gallery-plastique.html>` (left) and :ref:`Cleanlooks widget style<gallery-cleanlooks.html>` (right).|
+    +------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QPushButton.menu` 
+
+
+.. method:: PySide.QtGui.QPushButton.showMenu()
+
+
+
+
+
+
+    Shows (pops up) the associated popup menu. If there is no such menu, this function does nothing. This function does not return until the popup menu has been closed by the user.
+
+
+
+

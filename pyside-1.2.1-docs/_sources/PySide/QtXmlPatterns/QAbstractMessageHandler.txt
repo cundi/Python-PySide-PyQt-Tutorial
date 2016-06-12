@@ -1,0 +1,85 @@
+.. module:: PySide.QtXmlPatterns
+.. _QAbstractMessageHandler:
+
+QAbstractMessageHandler
+***********************
+
+.. inheritance-diagram:: QAbstractMessageHandler
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`message<PySide.QtXmlPatterns.QAbstractMessageHandler.message>` (type, description[, identifier=QUrl()[, sourceLocation=QSourceLocation()]])
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`handleMessage<PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage>` (type, description, identifier, sourceLocation)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` class provides a callback interface for handling messages.
+
+    :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` is an abstract base class that provides a callback interface for handling messages. For example, class :class:`PySide.QtXmlPatterns.QXmlQuery` parses and runs an :ref:`XQuery<xmlprocessing.html>` . When it detects a compile or runtime error, it generates an appropriate error message, but rather than output the message itself, it passes the message to the :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.message` function of its :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` . See :meth:`QXmlQuery.setMessageHandler()<PySide.QtXmlPatterns.QXmlQuery.setMessageHandler>` .
+
+    You create a message handler by subclassing :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` and implementing :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage` . You then pass a pointer to an instance of your subclass to any classes that must generate messages. The messages are sent to the message handler via the :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.message` function, which forwards them to your handleMessge(). The effect is to serialize the handling of all messages, which means your :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` subclass is thread safe.
+
+    A single instance of :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` can be called on to handle messages from multiple sources. Hence, the content of a message, which is the *description* parameter passed to :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.message` and :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage` , must be interpreted in light of the context that required the message to be sent. That context is specified by the *identifier* and *sourceLocation* parameters to :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.message` :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage` .
+
+
+.. class:: QAbstractMessageHandler([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` . The ``parent`` is passed to the :class:`PySide.QtCore.QObject` base class constructor.
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage(type, description, identifier, sourceLocation)
+
+
+    :param type: :attr:`PySide.QtCore.QtMsgType`
+    :param description: unicode
+    :param identifier: :class:`PySide.QtCore.QUrl`
+    :param sourceLocation: :class:`PySide.QtXmlPatterns.QSourceLocation`
+
+
+
+
+    This function must be implemented by the sub-class. :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.message` will call this function, passing in its parameters, ``type`` , ``description`` , ``identifier`` and ``sourceLocation`` unmodified.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractMessageHandler.message(type, description[, identifier=QUrl()[, sourceLocation=QSourceLocation()]])
+
+
+    :param type: :attr:`PySide.QtCore.QtMsgType`
+    :param description: unicode
+    :param identifier: :class:`PySide.QtCore.QUrl`
+    :param sourceLocation: :class:`PySide.QtXmlPatterns.QSourceLocation`
+
+
+
+
+    Sends a message to this message handler. ``type`` is the kind of message being sent. ``description`` is the message content. The ``identifier`` is a URI that identifies the message and is the key to interpreting the other arguments.
+
+    Typically, this class is used for reporting errors, as is the case for :class:`PySide.QtXmlPatterns.QXmlQuery` , which uses a :class:`PySide.QtXmlPatterns.QAbstractMessageHandler` to report compile and runtime :ref:`XQuery<xmlprocessing.html>` errors. Hence, using a :class:`PySide.QtCore.QUrl` as the message ``identifier`` is was inspired by the explanation of :ref:`error handling in the XQuery language<http://www.w3.org/TR/xquery/#errors>` . Because the ``identifier`` is composed of a namespace URI and a local part, identifiers with the same local part are unique. The caller is responsible for ensuring that ``identifier`` is either a valid :class:`PySide.QtCore.QUrl` or a default constructed :class:`PySide.QtCore.QUrl` .
+
+    ``sourceLocation`` identifies a location in a resource (i.e., file or document) where the need for reporting a message was detected.
+
+    This function unconditionally calls :meth:`PySide.QtXmlPatterns.QAbstractMessageHandler.handleMessage` , passing all its parameters unmodified.
+
+    .. seealso:: 
+
+
+

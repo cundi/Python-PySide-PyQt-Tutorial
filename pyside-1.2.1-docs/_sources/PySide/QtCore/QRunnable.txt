@@ -1,0 +1,93 @@
+.. module:: PySide.QtCore
+.. _QRunnable:
+
+QRunnable
+*********
+
+.. inheritance-diagram:: QRunnable
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoDelete<PySide.QtCore.QRunnable.autoDelete>` ()
+*    def :meth:`setAutoDelete<PySide.QtCore.QRunnable.setAutoDelete>` (_autoDelete)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`run<PySide.QtCore.QRunnable.run>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QRunnable` class is the base class for all runnable objects.
+
+    The :class:`PySide.QtCore.QRunnable` class is an interface for representing a task or piece of code that needs to be executed, represented by your reimplementation of the :meth:`PySide.QtCore.QRunnable.run` function.
+
+    You can use :class:`PySide.QtCore.QThreadPool` to execute your code in a separate thread. :class:`PySide.QtCore.QThreadPool` deletes the :class:`PySide.QtCore.QRunnable` automatically if :meth:`PySide.QtCore.QRunnable.autoDelete` returns true (the default). Use :meth:`PySide.QtCore.QRunnable.setAutoDelete` to change the auto-deletion flag.
+
+    :class:`PySide.QtCore.QThreadPool` supports executing the same :class:`PySide.QtCore.QRunnable` more than once by calling QThreadPool::tryStart(this) from within the :meth:`PySide.QtCore.QRunnable.run` function. If autoDelete is enabled the :class:`PySide.QtCore.QRunnable` will be deleted when the last thread exits the run function. Calling :meth:`QThreadPool.start()<PySide.QtCore.QThreadPool.start>` multiple times with the same :class:`PySide.QtCore.QRunnable` when autoDelete is enabled creates a race condition and is not recommended.
+
+    .. seealso::  :class:`PySide.QtCore.QThreadPool` 
+
+.. class:: QRunnable()
+
+
+    Constructs a :class:`PySide.QtCore.QRunnable` . Auto-deletion is enabled by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QRunnable.autoDelete`  :meth:`PySide.QtCore.QRunnable.setAutoDelete` 
+
+.. method:: PySide.QtCore.QRunnable.autoDelete()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true is auto-deletion is enabled; false otherwise.
+
+    If auto-deletion is enabled, :class:`PySide.QtCore.QThreadPool` will automatically delete this runnable after calling :meth:`PySide.QtCore.QRunnable.run` ; otherwise, ownership remains with the application programmer.
+
+    .. seealso::  :meth:`PySide.QtCore.QRunnable.setAutoDelete`  :class:`PySide.QtCore.QThreadPool` 
+
+
+.. method:: PySide.QtCore.QRunnable.run()
+
+
+
+
+
+
+    Implement this pure virtual function in your subclass.
+
+
+
+.. method:: PySide.QtCore.QRunnable.setAutoDelete(_autoDelete)
+
+
+    :param _autoDelete: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables auto-deletion if ``autoDelete`` is true; otherwise auto-deletion is disabled.
+
+    If auto-deletion is enabled, :class:`PySide.QtCore.QThreadPool` will automatically delete this runnable after calling :meth:`PySide.QtCore.QRunnable.run` ; otherwise, ownership remains with the application programmer.
+
+    Note that this flag must be set before calling :meth:`QThreadPool.start()<PySide.QtCore.QThreadPool.start>` . Calling this function after :meth:`QThreadPool.start()<PySide.QtCore.QThreadPool.start>` results in undefined behavior.
+
+    .. seealso::  :meth:`PySide.QtCore.QRunnable.autoDelete`  :class:`PySide.QtCore.QThreadPool` 
+
+
+

@@ -1,0 +1,102 @@
+.. module:: PySide.phonon
+.. _Phonon.MediaNode:
+
+Phonon.MediaNode
+****************
+
+.. inheritance-diagram:: Phonon.MediaNode
+    :parts: 2
+
+**Inherited by:** :ref:`Phonon.AbstractVideoOutput`, :ref:`Phonon.MediaObject`, :ref:`Phonon.Effect`, :ref:`Phonon.VolumeFaderEffect`, :ref:`Phonon.AbstractAudioOutput`, :ref:`Phonon.AudioOutput`, :ref:`Phonon.VideoWidget`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`inputPaths<PySide.phonon.Phonon.MediaNode.inputPaths>` ()
+*    def :meth:`isValid<PySide.phonon.Phonon.MediaNode.isValid>` ()
+*    def :meth:`outputPaths<PySide.phonon.Phonon.MediaNode.outputPaths>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.MediaNode` class is the base class for all nodes in a media graph.
+
+    In all phonon applications, one builds a media graph consisting of MediaNodes. The graph will take multimedia content, e.g., from a file, as input. After its nodes have processed the multimedia, the graph will output the media again, e.g., to a sound card.
+
+    The multimedia content is streamed over :class:`Phonon.Path` s between the nodes in the graph. You can query the paths that are connected to a media node with :meth:`PySide.phonon.Phonon::MediaNode.inputPaths` and :meth:`PySide.phonon.Phonon::MediaNode.outputPaths` .
+
+    You can check whether the node is implemented by the current backend by calling :meth:`PySide.phonon.Phonon::MediaNode.isValid` . This does not guarantee that an instance of the class works as expected, but that the backend has implemented functionality for the class.
+
+    Currently, Phonon has four media nodes: :class:`Phonon.MediaObject` , :class:`Phonon.AudioOutput` , :class:`Phonon.VideoWidget` , and :class:`Phonon.Effect` . Please refer to their class descriptions for details about their usage, and to find out which nodes can be connected to each other. See also :ref:`Building Graphs<phonon-overview.html>` in Phonon's :ref:`overview<phonon-overview.html>` document.
+
+    Two nodes are connected to each other using the :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>` or :meth:`Path.insertEffect()<PySide.phonon.Phonon.Path.insertEffect>` functions (only :class:`Phonon.Effect` s use :meth:`PySide.phonon.Phonon.Path.insertEffect` ). We show a code example below, in which we build a media graph for video playback and then query its media nodes for their :class:`Phonon.Path` s:
+
+    ::
+
+            Phonon::MediaObject *mediaObject = new Phonon::MediaObject;
+            Phonon::AudioOutput *audioOutput = new Phonon::AudioOutput;
+            Phonon::VideoWidget *videoWidget = new Phonon::VideoWidget;
+
+            Phonon::createPath(mediaObject, audioOutput);
+            Phonon::createPath(mediaObject, videoWidget);
+
+            QList<Phonon::Path> inputPaths =
+                audioOutput->inputPaths();   // inputPaths = [ mediaObject ]
+            QList<Phonon::Path> outputPaths =
+                mediaObject->outputPaths(); // outputPaths = [ audioOutput, videoWidget ]
+
+
+    When you create a Phonon application, you will likely build the graph yourself. This makes :meth:`PySide.phonon.Phonon::MediaNode.isValid` the most useful function of this class. The other two functions help navigate the graph, which you do not need to do as you created the nodes yourself.
+
+    .. seealso::  :ref:`Phonon Overview<phonon-overview.html>`  :class:`Phonon.MediaObject`  :class:`Phonon.AudioOutput`  :class:`Phonon.VideoWidget`  :ref:`Phonon Module<phonon-module.html>` 
+
+
+
+.. method:: PySide.phonon.Phonon.MediaNode.inputPaths()
+
+
+    :rtype: 
+
+
+
+
+    Returns the paths that inputs multimedia to this media node.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaNode.outputPaths` 
+
+
+.. method:: PySide.phonon.Phonon.MediaNode.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the backend provides an implementation of this class; otherwise returns false.
+
+    This does not guarantee that instances of the class works as expected, but that the backend has implemented the functionality for this class. For instance, Qt's GStreamer backend will return true for instances of the :class:`Phonon.AudioOutput` class, even if there is a problem with GStreamer and it could not play sound.
+
+
+
+.. method:: PySide.phonon.Phonon.MediaNode.outputPaths()
+
+
+    :rtype: 
+
+
+
+
+    Returns the paths to which this media node outputs media.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaNode.inputPaths` 
+
+
+

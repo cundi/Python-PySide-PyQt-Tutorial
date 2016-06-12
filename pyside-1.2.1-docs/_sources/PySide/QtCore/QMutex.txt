@@ -1,0 +1,248 @@
+.. module:: PySide.QtCore
+.. _QMutex:
+
+QMutex
+******
+
+.. inheritance-diagram:: QMutex
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`lock<PySide.QtCore.QMutex.lock>` ()
+*    def :meth:`lockInline<PySide.QtCore.QMutex.lockInline>` ()
+*    def :meth:`lockInternal<PySide.QtCore.QMutex.lockInternal>` ()
+*    def :meth:`tryLock<PySide.QtCore.QMutex.tryLock>` ()
+*    def :meth:`tryLock<PySide.QtCore.QMutex.tryLock>` (timeout)
+*    def :meth:`tryLockInline<PySide.QtCore.QMutex.tryLockInline>` ()
+*    def :meth:`unlock<PySide.QtCore.QMutex.unlock>` ()
+*    def :meth:`unlockInline<PySide.QtCore.QMutex.unlockInline>` ()
+*    def :meth:`unlockInternal<PySide.QtCore.QMutex.unlockInternal>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QMutex` class provides access serialization between threads.
+
+    The purpose of a :class:`PySide.QtCore.QMutex` is to protect an object, data structure or section of code so that only one thread can access it at a time (this is similar to the Java ``synchronized`` keyword). It is usually best to use a mutex with a :class:`PySide.QtCore.QMutexLocker` since this makes it easy to ensure that locking and unlocking are performed consistently.
+
+    For example, say there is a method that prints a message to the user on two lines:
+
+    ::
+
+        number = 6
+
+        def method1():
+            number *= 5
+            number /= 4
+
+        def method2():
+            number *= 3
+            number /= 2
+
+
+    If these two methods are called in succession, the following happens:
+
+    ::
+
+        # method1()
+        number *= 5        # number is now 30
+        number /= 4        # number is now 7
+
+        # method2()
+        number *= 3        # number is now 21
+        number /= 2        # number is now 10
+
+
+    If these two methods are called simultaneously from two threads then the following sequence could result:
+
+    ::
+
+        # Thread 1 calls method1()
+        number *= 5        # number is now 30
+
+        # Thread 2 calls method2().
+        #
+        # Most likely Thread 1 has been put to sleep by the operating
+        # system to allow Thread 2 to run.
+        number *= 3        # number is now 90
+        number /= 2        # number is now 45
+
+        # Thread 1 finishes executing.
+        number /= 4        # number is now 11, instead of 10
+
+
+    If we add a mutex, we should get the result we want:
+
+    ::
+
+        mutex = QMutex()
+        number = 6
+
+        def method1():
+            mutex.lock()
+            number *= 5
+            number /= 4
+            mutex.unlock()
+
+        def method2():
+            mutex.lock()
+            number *= 3
+            number /= 2
+            mutex.unlock()
+
+
+    Then only one thread can modify ``number`` at any given time and the result is correct. This is a trivial example, of course, but applies to any other case where things need to happen in a particular sequence.
+
+    When you call :meth:`PySide.QtCore.QMutex.lock` in a thread, other threads that try to call :meth:`PySide.QtCore.QMutex.lock` in the same place will block until the thread that got the lock calls :meth:`PySide.QtCore.QMutex.unlock` . A non-blocking alternative to :meth:`PySide.QtCore.QMutex.lock` is :meth:`PySide.QtCore.QMutex.tryLock` .
+
+    .. seealso::  :class:`PySide.QtCore.QMutexLocker`  :class:`PySide.QtCore.QReadWriteLock`  :class:`PySide.QtCore.QSemaphore`  :class:`PySide.QtCore.QWaitCondition` 
+
+.. class:: QMutex([mode=NonRecursive])
+
+    :param mode: :attr:`PySide.QtCore.QMutex.RecursionMode`
+
+    Constructs a new mutex. The mutex is created in an unlocked state.
+
+    If ``mode`` is :attr:`QMutex.Recursive<QMutex.RecursionMode>` , a thread can lock the same mutex multiple times and the mutex won't be unlocked until a corresponding number of :meth:`PySide.QtCore.QMutex.unlock` calls have been made. The default is :attr:`QMutex.NonRecursive<QMutex.RecursionMode>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.lock`  :meth:`PySide.QtCore.QMutex.unlock` 
+
+.. attribute:: PySide.QtCore.QMutex.RecursionMode
+
+    +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant           |Description                                                                                                                                                                            |
+    +===================+=======================================================================================================================================================================================+
+    |QMutex.Recursive   |In this mode, a thread can lock the same mutex multiple times and the mutex won't be unlocked until a corresponding number of :meth:`PySide.QtCore.QMutex.unlock` calls have been made.|
+    +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMutex.NonRecursive|In this mode, a thread may only lock a mutex once.                                                                                                                                     |
+    +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.QMutex` 
+
+.. method:: PySide.QtCore.QMutex.lock()
+
+
+
+
+
+
+    Locks the mutex. If another thread has locked the mutex then this call will block until that thread has unlocked it.
+
+    Calling this function multiple times on the same mutex from the same thread is allowed if this mutex is a :attr:`recursive mutex<QMutex.RecursionMode>` . If this mutex is a :attr:`non-recursive mutex<QMutex.RecursionMode>` , this function will *dead-lock* when the mutex is locked recursively.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.unlock` 
+
+
+.. method:: PySide.QtCore.QMutex.lockInline()
+
+
+
+
+
+
+    inline version of :meth:`QMutex.lock()<PySide.QtCore.QMutex.lock>`
+
+
+
+.. method:: PySide.QtCore.QMutex.lockInternal()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMutex.tryLock(timeout)
+
+
+    :param timeout: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Attempts to lock the mutex. This function returns true if the lock was obtained; otherwise it returns false. If another thread has locked the mutex, this function will wait for at most ``timeout`` milliseconds for the mutex to become available.
+
+    Note: Passing a negative number as the ``timeout`` is equivalent to calling :meth:`PySide.QtCore.QMutex.lock` , i.e. this function will wait forever until mutex can be locked if ``timeout`` is negative.
+
+    If the lock was obtained, the mutex must be unlocked with :meth:`PySide.QtCore.QMutex.unlock` before another thread can successfully lock it.
+
+    Calling this function multiple times on the same mutex from the same thread is allowed if this mutex is a :attr:`recursive mutex<QMutex.RecursionMode>` . If this mutex is a :attr:`non-recursive mutex<QMutex.RecursionMode>` , this function will *always* return false when attempting to lock the mutex recursively.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.lock`  :meth:`PySide.QtCore.QMutex.unlock` 
+
+
+.. method:: PySide.QtCore.QMutex.tryLock()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Attempts to lock the mutex. If the lock was obtained, this function returns true. If another thread has locked the mutex, this function returns false immediately.
+
+    If the lock was obtained, the mutex must be unlocked with :meth:`PySide.QtCore.QMutex.unlock` before another thread can successfully lock it.
+
+    Calling this function multiple times on the same mutex from the same thread is allowed if this mutex is a :attr:`recursive mutex<QMutex.RecursionMode>` . If this mutex is a :attr:`non-recursive mutex<QMutex.RecursionMode>` , this function will *always* return false when attempting to lock the mutex recursively.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.lock`  :meth:`PySide.QtCore.QMutex.unlock` 
+
+
+.. method:: PySide.QtCore.QMutex.tryLockInline()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    inline version of :meth:`QMutex.tryLock()<PySide.QtCore.QMutex.tryLock>`
+
+
+
+.. method:: PySide.QtCore.QMutex.unlock()
+
+
+
+
+
+
+    Unlocks the mutex. Attempting to unlock a mutex in a different thread to the one that locked it results in an error. Unlocking a mutex that is not locked results in undefined behavior.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutex.lock` 
+
+
+.. method:: PySide.QtCore.QMutex.unlockInline()
+
+
+
+
+
+
+    inline version of :meth:`QMutex.unlock()<PySide.QtCore.QMutex.unlock>`
+
+
+
+.. method:: PySide.QtCore.QMutex.unlockInternal()
+
+
+
+
+
+
+
+
+

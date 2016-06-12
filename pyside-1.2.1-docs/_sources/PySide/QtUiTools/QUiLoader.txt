@@ -1,0 +1,426 @@
+.. module:: PySide.QtUiTools
+.. _QUiLoader:
+
+QUiLoader
+*********
+
+.. inheritance-diagram:: QUiLoader
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addPluginPath<PySide.QtUiTools.QUiLoader.addPluginPath>` (path)
+*    def :meth:`availableLayouts<PySide.QtUiTools.QUiLoader.availableLayouts>` ()
+*    def :meth:`availableWidgets<PySide.QtUiTools.QUiLoader.availableWidgets>` ()
+*    def :meth:`clearPluginPaths<PySide.QtUiTools.QUiLoader.clearPluginPaths>` ()
+*    def :meth:`isLanguageChangeEnabled<PySide.QtUiTools.QUiLoader.isLanguageChangeEnabled>` ()
+*    def :meth:`isScriptingEnabled<PySide.QtUiTools.QUiLoader.isScriptingEnabled>` ()
+*    def :meth:`isTranslationEnabled<PySide.QtUiTools.QUiLoader.isTranslationEnabled>` ()
+*    def :meth:`load<PySide.QtUiTools.QUiLoader.load>` (arg__1[, parentWidget=None])
+*    def :meth:`load<PySide.QtUiTools.QUiLoader.load>` (device[, parentWidget=None])
+*    def :meth:`pluginPaths<PySide.QtUiTools.QUiLoader.pluginPaths>` ()
+*    def :meth:`registerCustomWidget<PySide.QtUiTools.QUiLoader.registerCustomWidget>` (customWidgetType)
+*    def :meth:`setLanguageChangeEnabled<PySide.QtUiTools.QUiLoader.setLanguageChangeEnabled>` (enabled)
+*    def :meth:`setScriptingEnabled<PySide.QtUiTools.QUiLoader.setScriptingEnabled>` (enabled)
+*    def :meth:`setTranslationEnabled<PySide.QtUiTools.QUiLoader.setTranslationEnabled>` (enabled)
+*    def :meth:`setWorkingDirectory<PySide.QtUiTools.QUiLoader.setWorkingDirectory>` (dir)
+*    def :meth:`workingDirectory<PySide.QtUiTools.QUiLoader.workingDirectory>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createAction<PySide.QtUiTools.QUiLoader.createAction>` ([parent=None[, name=""]])
+*    def :meth:`createActionGroup<PySide.QtUiTools.QUiLoader.createActionGroup>` ([parent=None[, name=""]])
+*    def :meth:`createLayout<PySide.QtUiTools.QUiLoader.createLayout>` (className[, parent=None[, name=""]])
+*    def :meth:`createWidget<PySide.QtUiTools.QUiLoader.createWidget>` (className[, parent=None[, name=""]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtUiTools.QUiLoader` class enables standalone applications to dynamically create user interfaces at run-time using the information stored in UI files or specified in plugin paths.
+
+    In addition, you can customize or create your own user interface by deriving your own loader class.
+
+    If you have a custom component or an application that embeds *Qt Designer* , you can also use the :class:`~PySide.QtUiTools.QFormBuilder` class provided by the :ref:`QtDesigner` module to create user interfaces from UI files.
+
+    The :class:`PySide.QtUiTools.QUiLoader` class provides a collection of functions allowing you to create widgets based on the information stored in UI files (created with *Qt Designer* ) or available in the specified plugin paths. The specified plugin paths can be retrieved using the :meth:`PySide.QtUiTools.QUiLoader.pluginPaths` function. Similarly, the contents of a UI file can be retrieved using the :meth:`PySide.QtUiTools.QUiLoader.load` function. For example:
+
+    ::
+
+        class MyWidget(QWidget):
+            def __init__(self, parent):
+                super(QWidget, self).__init__(parent)
+                loader = QUiLoader()
+                file = QFile(":/forms/myform.ui")
+                file.open(QFile.ReadOnly)
+                myWidget = loader.load(file, self)
+                file.close()
+
+                layout = QVBoxLayout()
+                layout.addWidget(myWidget)
+                self.setLayout(layout)
+
+
+    By including the user interface in the form's resources (``myform.qrc`` ), we ensure that it will be present at run-time:
+
+    ::
+
+        <!DOCTYPE RCC><RCC version="1.0">
+        <qresource prefix="/forms">
+        <file>myform.ui</file>
+        </qresource>
+        </RCC>
+
+
+    The :meth:`PySide.QtUiTools.QUiLoader.availableWidgets` function returns a :class:`PySide.QtCore.QStringList` with the class names of the widgets available in the specified plugin paths. To create these widgets, simply use the :meth:`PySide.QtUiTools.QUiLoader.createWidget` function. For example:
+
+    ::
+
+        def loadCustomWidget(parent):
+            loader = QUiLoader()
+
+            availableWidgets = loader.availableWidgets()
+
+            if availableWidgets.contains("AnalogClock"):
+                myWidget = loader.createWidget("AnalogClock", parent)
+
+            return myWidget
+
+
+    To make a custom widget available to the loader, you can use the :meth:`PySide.QtUiTools.QUiLoader.addPluginPath` function; to remove all available widgets, you can call the :meth:`PySide.QtUiTools.QUiLoader.clearPluginPaths` function.
+
+    The :meth:`PySide.QtUiTools.QUiLoader.createAction` , :meth:`PySide.QtUiTools.QUiLoader.createActionGroup` , :meth:`PySide.QtUiTools.QUiLoader.createLayout` , and :meth:`PySide.QtUiTools.QUiLoader.createWidget` functions are used internally by the :class:`PySide.QtUiTools.QUiLoader` class whenever it has to create an action, action group, layout, or widget respectively. For that reason, you can subclass the :class:`PySide.QtUiTools.QUiLoader` class and reimplement these functions to intervene the process of constructing a user interface. For example, you might want to have a list of the actions created when loading a form or creating a custom widget.
+
+    For a complete example using the :class:`PySide.QtUiTools.QUiLoader` class, see the :ref:`Calculator Builder Example<designer/calculatorbuilder>` .
+
+    .. seealso::  :ref:`QtUiTools`  :class:`~PySide.QtUiTools.QFormBuilder` 
+
+.. class:: QUiLoader([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a form loader with the given ``parent`` .
+
+
+.. method:: PySide.QtUiTools.QUiLoader.addPluginPath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Adds the given ``path`` to the list of paths in which the loader will search when locating plugins.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.pluginPaths`  :meth:`PySide.QtUiTools.QUiLoader.clearPluginPaths` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.availableLayouts()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list naming all available layouts that can be built using the :meth:`PySide.QtUiTools.QUiLoader.createLayout` function
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.createLayout` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.availableWidgets()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list naming all available widgets that can be built using the :meth:`PySide.QtUiTools.QUiLoader.createWidget` function, i.e all the widgets specified within the given plugin paths.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.pluginPaths`  :meth:`PySide.QtUiTools.QUiLoader.createWidget` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.clearPluginPaths()
+
+
+
+
+
+
+    Clears the list of paths in which the loader will search when locating plugins.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.addPluginPath`  :meth:`PySide.QtUiTools.QUiLoader.pluginPaths` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.createAction([parent=None[, name=""]])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param name: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates a new action with the given ``parent`` and ``name`` .
+
+    The function is also used internally by the :class:`PySide.QtUiTools.QUiLoader` class whenever it creates a widget. Hence, you can subclass :class:`PySide.QtUiTools.QUiLoader` and reimplement this function to intervene process of constructing a user interface or widget. However, in your implementation, ensure that you call :class:`PySide.QtUiTools.QUiLoader` 's version first.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.createActionGroup`  :meth:`PySide.QtUiTools.QUiLoader.createWidget`  :meth:`PySide.QtUiTools.QUiLoader.load` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.createActionGroup([parent=None[, name=""]])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param name: unicode
+    :rtype: :class:`PySide.QtGui.QActionGroup`
+
+
+
+
+    Creates a new action group with the given ``parent`` and ``name`` .
+
+    The function is also used internally by the :class:`PySide.QtUiTools.QUiLoader` class whenever it creates a widget. Hence, you can subclass :class:`PySide.QtUiTools.QUiLoader` and reimplement this function to intervene process of constructing a user interface or widget. However, in your implementation, ensure that you call :class:`PySide.QtUiTools.QUiLoader` 's version first.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.createAction`  :meth:`PySide.QtUiTools.QUiLoader.createWidget`  :meth:`PySide.QtUiTools.QUiLoader.load` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.createLayout(className[, parent=None[, name=""]])
+
+
+    :param className: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param name: unicode
+    :rtype: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    Creates a new layout with the given ``parent`` and ``name`` using the class specified by ``className`` .
+
+    The function is also used internally by the :class:`PySide.QtUiTools.QUiLoader` class whenever it creates a widget. Hence, you can subclass :class:`PySide.QtUiTools.QUiLoader` and reimplement this function to intervene process of constructing a user interface or widget. However, in your implementation, ensure that you call :class:`PySide.QtUiTools.QUiLoader` 's version first.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.createWidget`  :meth:`PySide.QtUiTools.QUiLoader.load` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.createWidget(className[, parent=None[, name=""]])
+
+
+    :param className: unicode
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param name: unicode
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Creates a new widget with the given ``parent`` and ``name`` using the class specified by ``className`` . You can use this function to create any of the widgets returned by the :meth:`PySide.QtUiTools.QUiLoader.availableWidgets` function.
+
+    The function is also used internally by the :class:`PySide.QtUiTools.QUiLoader` class whenever it creates a widget. Hence, you can subclass :class:`PySide.QtUiTools.QUiLoader` and reimplement this function to intervene process of constructing a user interface or widget. However, in your implementation, ensure that you call :class:`PySide.QtUiTools.QUiLoader` 's version first.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.availableWidgets`  :meth:`PySide.QtUiTools.QUiLoader.load` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.isLanguageChangeEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if dynamic retranslation on language change is enabled; returns false otherwise.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.setLanguageChangeEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.isScriptingEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if execution of scripts is enabled; returns false otherwise.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.setScriptingEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.isTranslationEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if translation is enabled; returns false otherwise.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.setTranslationEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.load(device[, parentWidget=None])
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param parentWidget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Loads a form from the given ``device`` and creates a new widget with the given ``parentWidget`` to hold its contents.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.createWidget` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.load(arg__1[, parentWidget=None])
+
+
+    :param arg__1: unicode
+    :param parentWidget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+
+.. method:: PySide.QtUiTools.QUiLoader.pluginPaths()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list naming the paths in which the loader will search when locating custom widget plugins.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.addPluginPath`  :meth:`PySide.QtUiTools.QUiLoader.clearPluginPaths` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.registerCustomWidget(customWidgetType)
+
+
+    :param customWidgetType: :class:`PyObject`
+
+
+
+
+
+
+    
+    Registers a Python created custom widget to QUiLoader, so it can be recognized when
+    loading a `.ui` file. The custom widget type is passed via the ``customWidgetType`` argument.
+    This is needed when you want to override a virtual method of some widget in the interface,
+    since duck punching will not work with widgets created by QUiLoader based on the contents
+    of the `.ui` file.
+    
+    (Remember that `duck punching virtual methods is an invitation for your own demise!
+    <http://www.pyside.org/docs/shiboken/wordsofadvice.html#duck-punching-and-virtual-methods>`_)
+    
+    Let's see an obvious example. If you want to create a new widget it's probable you'll end up
+    overriding :class:`~PySide.QtGui.QWidget`'s :meth:`~PySide.QtGui.QWidget.paintEvent` method.
+    
+    .. code-block:: python
+    
+       class Circle(QWidget):
+           def paintEvent(self, event):
+               painter = QPainter(self)
+               painter.setPen(self.pen)
+               painter.setBrush(QBrush(self.color))
+               painter.drawEllipse(event.rect().center(), 20, 20)
+    
+       # ...
+    
+       loader = QUiLoader()
+       loader.registerCustomWidget(Circle)
+       circle = loader.load('circle.ui')
+       circle.show()
+    
+       # ...
+    
+
+
+.. method:: PySide.QtUiTools.QUiLoader.setLanguageChangeEnabled(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, user interfaces loaded by this loader will automatically retranslate themselves upon receiving a language change event. Otherwise, the user interfaces will not be retranslated.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.isLanguageChangeEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.setScriptingEnabled(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, the loader will be able to execute scripts. Otherwise, execution of scripts will be disabled.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.isScriptingEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.setTranslationEnabled(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, user interfaces loaded by this loader will be translated. Otherwise, the user interfaces will not be translated.
+
+    .. note::  This is orthogonal to languageChangeEnabled.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.isLanguageChangeEnabled`  :meth:`PySide.QtUiTools.QUiLoader.setLanguageChangeEnabled` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.setWorkingDirectory(dir)
+
+
+    :param dir: :class:`PySide.QtCore.QDir`
+
+
+
+
+    Sets the working directory of the loader to ``dir`` . The loader will look for other resources, such as icons and resource files, in paths relative to this directory.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.workingDirectory` 
+
+
+.. method:: PySide.QtUiTools.QUiLoader.workingDirectory()
+
+
+    :rtype: :class:`PySide.QtCore.QDir`
+
+
+
+
+    Returns the working directory of the loader.
+
+    .. seealso::  :meth:`PySide.QtUiTools.QUiLoader.setWorkingDirectory` 
+
+
+

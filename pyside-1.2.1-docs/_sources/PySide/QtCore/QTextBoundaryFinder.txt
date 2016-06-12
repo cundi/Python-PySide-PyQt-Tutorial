@@ -1,0 +1,238 @@
+.. module:: PySide.QtCore
+.. _QTextBoundaryFinder:
+
+QTextBoundaryFinder
+*******************
+
+.. inheritance-diagram:: QTextBoundaryFinder
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`boundaryReasons<PySide.QtCore.QTextBoundaryFinder.boundaryReasons>` ()
+*    def :meth:`isAtBoundary<PySide.QtCore.QTextBoundaryFinder.isAtBoundary>` ()
+*    def :meth:`isValid<PySide.QtCore.QTextBoundaryFinder.isValid>` ()
+*    def :meth:`position<PySide.QtCore.QTextBoundaryFinder.position>` ()
+*    def :meth:`setPosition<PySide.QtCore.QTextBoundaryFinder.setPosition>` (position)
+*    def :meth:`string<PySide.QtCore.QTextBoundaryFinder.string>` ()
+*    def :meth:`toEnd<PySide.QtCore.QTextBoundaryFinder.toEnd>` ()
+*    def :meth:`toNextBoundary<PySide.QtCore.QTextBoundaryFinder.toNextBoundary>` ()
+*    def :meth:`toPreviousBoundary<PySide.QtCore.QTextBoundaryFinder.toPreviousBoundary>` ()
+*    def :meth:`toStart<PySide.QtCore.QTextBoundaryFinder.toStart>` ()
+*    def :meth:`type<PySide.QtCore.QTextBoundaryFinder.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTextBoundaryFinder` class provides a way of finding Unicode text boundaries in a string.
+
+    :class:`PySide.QtCore.QTextBoundaryFinder` allows to find Unicode text boundaries in a string, similar to the Unicode text boundary specification (see http://www.unicode.org/reports/tr29/tr29-11.html).
+
+    :class:`PySide.QtCore.QTextBoundaryFinder` can operate on a :class:`PySide.QtCore.QString` in four possible modes depending on the value of ``BoundaryType`` .
+
+    Units of Unicode characters that make up what the user thinks of as a character or basic unit of the language are here called Grapheme clusters. The two unicode characters 'A' + diaeresis do for example form one grapheme cluster as the user thinks of them as one character, yet it is in this case represented by two unicode code points.
+
+    Word boundaries are there to locate the start and end of what a language considers to be a word.
+
+    Line break boundaries give possible places where a line break might happen and sentence boundaries will show the beginning and end of whole sentences.
+
+    The first position in a string is always a valid boundary and refers to the position before the first character. The last position at the length of the string is also valid and refers to the position after the last character.
+
+
+.. class:: QTextBoundaryFinder()
+           QTextBoundaryFinder(type, string)
+           QTextBoundaryFinder(other)
+
+    :param string: unicode
+    :param other: :class:`PySide.QtCore.QTextBoundaryFinder`
+    :param type: :attr:`PySide.QtCore.QTextBoundaryFinder.BoundaryType`
+
+    Constructs an invalid :class:`PySide.QtCore.QTextBoundaryFinder` object.
+
+
+
+    Creates a :class:`PySide.QtCore.QTextBoundaryFinder` object of ``type`` operating on ``string`` .
+
+
+    Copies the :class:`PySide.QtCore.QTextBoundaryFinder` object, ``other`` .
+
+
+.. attribute:: PySide.QtCore.QTextBoundaryFinder.BoundaryReason
+
+    +---------------------------------+--------------------------------------------------+
+    |Constant                         |Description                                       |
+    +=================================+==================================================+
+    |QTextBoundaryFinder.NotAtBoundary|The boundary finder is not at a boundary position.|
+    +---------------------------------+--------------------------------------------------+
+    |QTextBoundaryFinder.StartWord    |The boundary finder is at the start of a word.    |
+    +---------------------------------+--------------------------------------------------+
+    |QTextBoundaryFinder.EndWord      |The boundary finder is at the end of a word.      |
+    +---------------------------------+--------------------------------------------------+
+
+
+.. attribute:: PySide.QtCore.QTextBoundaryFinder.BoundaryType
+
+    +----------------------------+-----------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                |
+    +============================+===========================================================================================================+
+    |QTextBoundaryFinder.Grapheme|Finds a grapheme which is the smallest boundary. It including letters, punctation marks, numerals and more.|
+    +----------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBoundaryFinder.Word    |Finds a word.                                                                                              |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBoundaryFinder.Line    |Finds possible positions for breaking the text into multiple lines.                                        |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBoundaryFinder.Sentence|Finds sentence boundaries. These include periods, question marks etc.                                      |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.boundaryReasons()
+
+
+    :rtype: :class:`PySide.QtCore.QTextBoundaryFinder.BoundaryReasons`
+
+
+
+
+    Returns the reasons for the boundary finder to have chosen the current position as a boundary.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.isAtBoundary()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object's :meth:`PySide.QtCore.QTextBoundaryFinder.position` is currently at a valid text boundary.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the text boundary finder is valid; otherwise returns false. A default :class:`PySide.QtCore.QTextBoundaryFinder` is invalid.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.position()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current position of the :class:`PySide.QtCore.QTextBoundaryFinder` .
+
+    The range is from 0 (the beginning of the string) to the length of the string inclusive.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextBoundaryFinder.setPosition` 
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.setPosition(position)
+
+
+    :param position: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current position of the :class:`PySide.QtCore.QTextBoundaryFinder` to ``position`` .
+
+    If ``position`` is out of bounds, it will be bound to only valid positions. In this case, valid positions are from 0 to the length of the string inclusive.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextBoundaryFinder.position` 
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.string()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the string the :class:`PySide.QtCore.QTextBoundaryFinder` object operates on.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.toEnd()
+
+
+
+
+
+
+    Moves the finder to the end of the string. This is equivalent to setPosition(string. :meth:`~PySide.QtCore.QTextBoundaryFinder.length` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QTextBoundaryFinder.setPosition`  :meth:`PySide.QtCore.QTextBoundaryFinder.position` 
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.toNextBoundary()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Moves the :class:`PySide.QtCore.QTextBoundaryFinder` to the next boundary position and returns that position.
+
+    Returns -1 if there is no next boundary.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.toPreviousBoundary()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Moves the :class:`PySide.QtCore.QTextBoundaryFinder` to the previous boundary position and returns that position.
+
+    Returns -1 if there is no previous boundary.
+
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.toStart()
+
+
+
+
+
+
+    Moves the finder to the start of the string. This is equivalent to setPosition(0).
+
+    .. seealso::  :meth:`PySide.QtCore.QTextBoundaryFinder.setPosition`  :meth:`PySide.QtCore.QTextBoundaryFinder.position` 
+
+
+.. method:: PySide.QtCore.QTextBoundaryFinder.type()
+
+
+    :rtype: :attr:`PySide.QtCore.QTextBoundaryFinder.BoundaryType`
+
+
+
+
+    Returns the type of the :class:`PySide.QtCore.QTextBoundaryFinder` .
+
+
+
+

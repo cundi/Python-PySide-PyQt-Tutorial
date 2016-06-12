@@ -1,0 +1,181 @@
+.. module:: PySide.QtXml
+.. _QXmlInputSource:
+
+QXmlInputSource
+***************
+
+.. inheritance-diagram:: QXmlInputSource
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`init<PySide.QtXml.QXmlInputSource.init>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`data<PySide.QtXml.QXmlInputSource.data>` ()
+*    def :meth:`fetchData<PySide.QtXml.QXmlInputSource.fetchData>` ()
+*    def :meth:`fromRawData<PySide.QtXml.QXmlInputSource.fromRawData>` (data[, beginning=false])
+*    def :meth:`next<PySide.QtXml.QXmlInputSource.next>` ()
+*    def :meth:`reset<PySide.QtXml.QXmlInputSource.reset>` ()
+*    def :meth:`setData<PySide.QtXml.QXmlInputSource.setData>` (dat)
+*    def :meth:`setData<PySide.QtXml.QXmlInputSource.setData>` (dat)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlInputSource` class provides the input data for the :class:`PySide.QtXml.QXmlReader` subclasses.
+
+    All subclasses of :class:`PySide.QtXml.QXmlReader` read the input XML document from this class.
+
+    This class recognizes the encoding of the data by reading the encoding declaration in the XML file if it finds one, and reading the data using the corresponding encoding. If it does not find an encoding declaration, then it assumes that the data is either in UTF-8 or UTF-16, depending on whether it can find a byte-order mark.
+
+    There are two ways to populate the input source with data: you can construct it with a :class:`PySide.QtCore.QIODevice` \* so that the input source reads the data from that device. Or you can set the data explicitly with one of the :meth:`PySide.QtXml.QXmlInputSource.setData` functions.
+
+    Usually you either construct a :class:`PySide.QtXml.QXmlInputSource` that works on a :class:`PySide.QtCore.QIODevice` \* or you construct an empty :class:`PySide.QtXml.QXmlInputSource` and set the data with :meth:`PySide.QtXml.QXmlInputSource.setData` . There are only rare occasions where you would want to mix both methods.
+
+    The :class:`PySide.QtXml.QXmlReader` subclasses use the :meth:`PySide.QtXml.QXmlInputSource.next` function to read the input character by character. If you want to start from the beginning again, use :meth:`PySide.QtXml.QXmlInputSource.reset` .
+
+    The functions :meth:`PySide.QtXml.QXmlInputSource.data` and :meth:`PySide.QtXml.QXmlInputSource.fetchData` are useful if you want to do something with the data other than parsing, e.g. displaying the raw XML file. The benefit of using the QXmlInputClass in such cases is that it tries to use the correct encoding.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlReader`  :class:`PySide.QtXml.QXmlSimpleReader` 
+
+.. class:: QXmlInputSource()
+           QXmlInputSource(dev)
+
+    :param dev: :class:`PySide.QtCore.QIODevice`
+
+    Constructs an input source which contains no data.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.setData` 
+
+    Constructs an input source and gets the data from device ``dev`` . If ``dev`` is not open, it is opened in read-only mode. If ``dev`` is 0 or it is not possible to read from the device, the input source will contain no data.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.setData`  :meth:`PySide.QtXml.QXmlInputSource.fetchData`  :class:`PySide.QtCore.QIODevice` 
+
+.. method:: PySide.QtXml.QXmlInputSource.data()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the data the input source contains or an empty string if the input source does not contain any data.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.setData`  :meth:`PySide.QtXml.QXmlInputSource.QXmlInputSource`  :meth:`PySide.QtXml.QXmlInputSource.fetchData` 
+
+
+.. method:: PySide.QtXml.QXmlInputSource.fetchData()
+
+
+
+
+
+
+    This function reads more data from the device that was set during construction. If the input source already contained data, this function deletes that data first.
+
+    This object contains no data after a call to this function if the object was constructed without a device to read data from or if this function was not able to get more data from the device.
+
+    There are two occasions where a fetch is done implicitly by another function call: during construction (so that the object starts out with some initial data where available), and during a call to :meth:`PySide.QtXml.QXmlInputSource.next` (if the data had run out).
+
+    You don't normally need to use this function if you use :meth:`PySide.QtXml.QXmlInputSource.next` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.data`  :meth:`PySide.QtXml.QXmlInputSource.next`  :meth:`PySide.QtXml.QXmlInputSource.QXmlInputSource` 
+
+
+.. method:: PySide.QtXml.QXmlInputSource.fromRawData(data[, beginning=false])
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param beginning: :class:`PySide.QtCore.bool`
+    :rtype: unicode
+
+
+
+
+    This function reads the XML file from ``data`` and tries to recognize the encoding. It converts the raw data ``data`` into a :class:`PySide.QtCore.QString` and returns it. It tries its best to get the correct encoding for the XML file.
+
+    If ``beginning`` is true, this function assumes that the data starts at the beginning of a new XML document and looks for an encoding declaration. If ``beginning`` is false, it converts the raw data using the encoding determined from prior calls.
+
+
+
+.. method:: PySide.QtXml.QXmlInputSource.init()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtXml.QXmlInputSource.next()
+
+
+    :rtype: :class:`PySide.QtCore.QChar`
+
+
+
+
+    Returns the next character of the input source. If this function reaches the end of available data, it returns :ref:`QXmlInputSource.EndOfData<qxmlinputsource.html#EndOfData-var>` . If you call :meth:`PySide.QtXml.QXmlInputSource.next` after that, it tries to fetch more data by calling :meth:`PySide.QtXml.QXmlInputSource.fetchData` . If the :meth:`PySide.QtXml.QXmlInputSource.fetchData` call results in new data, this function returns the first character of that data; otherwise it returns :ref:`QXmlInputSource.EndOfDocument<qxmlinputsource.html#EndOfDocument-var>` .
+
+    Readers, such as :class:`PySide.QtXml.QXmlSimpleReader` , will assume that the end of the XML document has been reached if the this function returns :ref:`QXmlInputSource.EndOfDocument<qxmlinputsource.html#EndOfDocument-var>` , and will check that the supplied input is well-formed. Therefore, when reimplementing this function, it is important to ensure that this behavior is duplicated.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.reset`  :meth:`PySide.QtXml.QXmlInputSource.fetchData`  :meth:`QXmlSimpleReader.parse()<PySide.QtXml.QXmlSimpleReader.parse>`  :meth:`QXmlSimpleReader.parseContinue()<PySide.QtXml.QXmlSimpleReader.parseContinue>` 
+
+
+.. method:: PySide.QtXml.QXmlInputSource.reset()
+
+
+
+
+
+
+    This function sets the position used by :meth:`PySide.QtXml.QXmlInputSource.next` to the beginning of the data returned by :meth:`PySide.QtXml.QXmlInputSource.data` . This is useful if you want to use the input source for more than one parse.
+
+    .. note::  In the case that the underlying data source is a :class:`PySide.QtCore.QIODevice` , the current position in the device is not automatically set to the start of input. Call QIODevice::seek(0) on the device to do this.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.next` 
+
+
+.. method:: PySide.QtXml.QXmlInputSource.setData(dat)
+
+
+    :param dat: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    The data ``dat`` is passed through the correct text-codec, before it is set.
+
+
+
+.. method:: PySide.QtXml.QXmlInputSource.setData(dat)
+
+
+    :param dat: unicode
+
+
+
+
+    Sets the data of the input source to ``dat`` .
+
+    If the input source already contains data, this function deletes that data first.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlInputSource.data` 
+
+
+

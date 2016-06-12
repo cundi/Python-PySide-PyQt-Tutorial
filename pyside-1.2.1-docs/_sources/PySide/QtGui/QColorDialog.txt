@@ -1,0 +1,313 @@
+.. module:: PySide.QtGui
+.. _QColorDialog:
+
+QColorDialog
+************
+
+.. inheritance-diagram:: QColorDialog
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentColor<PySide.QtGui.QColorDialog.currentColor>` ()
+*    def :meth:`open<PySide.QtGui.QColorDialog.open>` (receiver, member)
+*    def :meth:`options<PySide.QtGui.QColorDialog.options>` ()
+*    def :meth:`selectedColor<PySide.QtGui.QColorDialog.selectedColor>` ()
+*    def :meth:`setCurrentColor<PySide.QtGui.QColorDialog.setCurrentColor>` (color)
+*    def :meth:`setOption<PySide.QtGui.QColorDialog.setOption>` (option[, on=true])
+*    def :meth:`setOptions<PySide.QtGui.QColorDialog.setOptions>` (options)
+*    def :meth:`testOption<PySide.QtGui.QColorDialog.testOption>` (option)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`colorSelected<PySide.QtGui.QColorDialog.colorSelected>` (color)
+*    def :meth:`currentColorChanged<PySide.QtGui.QColorDialog.currentColorChanged>` (color)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`customColor<PySide.QtGui.QColorDialog.customColor>` (index)
+*    def :meth:`customCount<PySide.QtGui.QColorDialog.customCount>` ()
+*    def :meth:`getColor<PySide.QtGui.QColorDialog.getColor>` ([initial=Qt.white[, parent=None]])
+*    def :meth:`getColor<PySide.QtGui.QColorDialog.getColor>` (initial, parent, title[, options=0])
+*    def :meth:`setCustomColor<PySide.QtGui.QColorDialog.setCustomColor>` (index, color)
+*    def :meth:`setStandardColor<PySide.QtGui.QColorDialog.setStandardColor>` (index, color)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QColorDialog` class provides a dialog widget for specifying colors.
+
+    The color dialog's function is to allow users to choose colors. For example, you might use this in a drawing program to allow the user to set the brush color.
+
+    The static functions provide modal color dialogs.
+
+    The static :meth:`PySide.QtGui.QColorDialog.getColor` function shows the dialog, and allows the user to specify a color. This function can also be used to let users choose a color with a level of transparency: pass the :attr:`ShowAlphaChannel<QColorDialog.ColorDialogOption>` option as an additional argument.
+
+    The user can store :meth:`PySide.QtGui.QColorDialog.customCount` different custom colors. The custom colors are shared by all color dialogs, and remembered during the execution of the program. Use :meth:`PySide.QtGui.QColorDialog.setCustomColor` to set the custom colors, and use :meth:`PySide.QtGui.QColorDialog.customColor` to get them.
+
+    The :ref:`Standard Dialogs<dialogs/standarddialogs>` example shows how to use :class:`PySide.QtGui.QColorDialog` as well as other built-in Qt dialogs.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-colordialog.png
+
+    .. seealso::  :class:`PySide.QtGui.QColor`  :class:`PySide.QtGui.QFileDialog`  :class:`PySide.QtGui.QPrintDialog`  :class:`PySide.QtGui.QFontDialog`  :ref:`Standard Dialogs Example<dialogs/standarddialogs>` 
+
+.. class:: QColorDialog([parent=None])
+           QColorDialog(initial[, parent=None])
+
+    :param initial: :class:`PySide.QtGui.QColor`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a color dialog with the given ``parent`` .
+
+
+    Constructs a color dialog with the given ``parent`` and specified ``initial`` color.
+
+
+.. attribute:: PySide.QtGui.QColorDialog.ColorDialogOption
+
+    This enum specifies various options that affect the look and feel of a color dialog.
+
+    +--------------------------------+--------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                     |
+    +================================+================================================================================+
+    |QColorDialog.ShowAlphaChannel   |Allow the user to select the alpha component of a color.                        |
+    +--------------------------------+--------------------------------------------------------------------------------+
+    |QColorDialog.NoButtons          |Don't display **OK** and **Cancel** buttons. (Useful for "live dialogs".)       |
+    +--------------------------------+--------------------------------------------------------------------------------+
+    |QColorDialog.DontUseNativeDialog|Use Qt's standard color dialog on the Mac instead of Apple's native color panel.|
+    +--------------------------------+--------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.options`  :meth:`PySide.QtGui.QColorDialog.setOption`  :meth:`PySide.QtGui.QColorDialog.testOption`  :meth:`PySide.QtGui.QWidget.windowModality` 
+
+.. method:: PySide.QtGui.QColorDialog.colorSelected(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QColorDialog.currentColor()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    This property holds the currently selected color in the dialog.
+
+
+
+.. method:: PySide.QtGui.QColorDialog.currentColorChanged(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.customColor(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: long
+
+
+
+
+    Returns the custom color at the given ``index`` as a :class:`~PySide.QtGui.QRgb` value.
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.setCustomColor` 
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.customCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of custom colors supported by :class:`PySide.QtGui.QColorDialog` . All color dialogs share the same custom colors.
+
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.getColor(initial, parent, title[, options=0])
+
+
+    :param initial: :class:`PySide.QtGui.QColor`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param options: :class:`PySide.QtGui.QColorDialog.ColorDialogOptions`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.getColor([initial=Qt.white[, parent=None]])
+
+
+    :param initial: :class:`PySide.QtGui.QColor`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Pops up a modal color dialog, lets the user choose a color, and returns that color. The color is initially set to ``initial`` . The dialog is a child of ``parent`` . It returns an invalid (see :meth:`QColor.isValid()<PySide.QtGui.QColor.isValid>` ) color if the user cancels the dialog.
+
+    On Symbian, this static function will use the native color dialog and not a :class:`PySide.QtGui.QColorDialog` .
+
+
+
+.. method:: PySide.QtGui.QColorDialog.open(receiver, member)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+
+
+
+
+    This is an overloaded function.
+
+    Opens the dialog and connects its :meth:`PySide.QtGui.QColorDialog.colorSelected` signal to the slot specified by ``receiver`` and ``member`` .
+
+    The signal will be disconnected from the slot when the dialog is closed.
+
+
+
+.. method:: PySide.QtGui.QColorDialog.options()
+
+
+    :rtype: :class:`PySide.QtGui.QColorDialog.ColorDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.setOption`  :meth:`PySide.QtGui.QColorDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QColorDialog.selectedColor()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the color that the user selected by clicking the **OK** or equivalent button.
+
+    .. note::  This color is not always the same as the color held by the :meth:`PySide.QtGui.QColorDialog.currentColor` property since the user can choose different colors before finally selecting the one to use.
+
+
+
+.. method:: PySide.QtGui.QColorDialog.setCurrentColor(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.currentColor` 
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.setCustomColor(index, color)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param color: long
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QColorDialog.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QColorDialog.ColorDialogOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the given ``option`` to be enabled if ``on`` is true; otherwise, clears the given ``option`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.options`  :meth:`PySide.QtGui.QColorDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QColorDialog.setOptions(options)
+
+
+    :param options: :class:`PySide.QtGui.QColorDialog.ColorDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.setOption`  :meth:`PySide.QtGui.QColorDialog.testOption` 
+
+
+.. staticmethod:: PySide.QtGui.QColorDialog.setStandardColor(index, color)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param color: long
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QColorDialog.testOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QColorDialog.ColorDialogOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given ``option`` is enabled; otherwise, returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QColorDialog.options`  :meth:`PySide.QtGui.QColorDialog.setOption` 
+
+
+

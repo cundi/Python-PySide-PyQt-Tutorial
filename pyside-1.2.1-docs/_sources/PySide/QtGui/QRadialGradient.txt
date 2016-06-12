@@ -1,0 +1,273 @@
+.. module:: PySide.QtGui
+.. _QRadialGradient:
+
+QRadialGradient
+***************
+
+.. inheritance-diagram:: QRadialGradient
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`center<PySide.QtGui.QRadialGradient.center>` ()
+*    def :meth:`centerRadius<PySide.QtGui.QRadialGradient.centerRadius>` ()
+*    def :meth:`focalPoint<PySide.QtGui.QRadialGradient.focalPoint>` ()
+*    def :meth:`focalRadius<PySide.QtGui.QRadialGradient.focalRadius>` ()
+*    def :meth:`radius<PySide.QtGui.QRadialGradient.radius>` ()
+*    def :meth:`setCenter<PySide.QtGui.QRadialGradient.setCenter>` (center)
+*    def :meth:`setCenter<PySide.QtGui.QRadialGradient.setCenter>` (x, y)
+*    def :meth:`setCenterRadius<PySide.QtGui.QRadialGradient.setCenterRadius>` (radius)
+*    def :meth:`setFocalPoint<PySide.QtGui.QRadialGradient.setFocalPoint>` (focalPoint)
+*    def :meth:`setFocalPoint<PySide.QtGui.QRadialGradient.setFocalPoint>` (x, y)
+*    def :meth:`setFocalRadius<PySide.QtGui.QRadialGradient.setFocalRadius>` (radius)
+*    def :meth:`setRadius<PySide.QtGui.QRadialGradient.setRadius>` (radius)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QRadialGradient` class is used in combination with :class:`PySide.QtGui.QBrush` to specify a radial gradient brush.
+
+    Qt supports both simple and extended radial gradients.
+
+    Simple radial gradients interpolate colors between a focal point and end points on a circle surrounding it. Extended radial gradients interpolate colors between a focal circle and a center circle. Points outside the cone defined by the two circles will be transparent. For simple radial gradients the focal point is adjusted to lie inside the center circle, whereas the focal point can have any position in an extended radial gradient.
+
+    Outside the end points the gradient is either padded, reflected or repeated depending on the currently set :attr:`spread<QGradient.Spread>` method:
+
+    +------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-pad.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-reflect.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-repeat.png|
+    +------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+    |:attr:`PadSpread<QGradient.Spread>` (default)                                                         |:attr:`ReflectSpread<QGradient.Spread>`                                                                   |:attr:`RepeatSpread<QGradient.Spread>`                                                                   |
+    +------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+    The colors in a gradient is defined using stop points of the :class:`~PySide.QtGui.QGradientStop` type, i.e. a position and a color. Use the :meth:`QGradient.setColorAt()<PySide.QtGui.QGradient.setColorAt>` or the :meth:`QGradient.setStops()<PySide.QtGui.QGradient.setStops>` function to define the stop points. It is the gradient's complete set of stop points that describes how the gradient area should be filled. If no stop points have been specified, a gradient of black at 0 to white at 1 is used.
+
+    In addition to the functions inherited from :class:`PySide.QtGui.QGradient` , the :class:`PySide.QtGui.QRadialGradient` class provides the :meth:`PySide.QtGui.QRadialGradient.center` , :meth:`PySide.QtGui.QRadialGradient.focalPoint` and :meth:`PySide.QtGui.QRadialGradient.radius` functions returning the gradient's center, focal point and radius respectively.
+
+    .. seealso::  :class:`PySide.QtGui.QLinearGradient`  :class:`PySide.QtGui.QConicalGradient`  :ref:`The Gradients Demo<demos/gradients>` 
+
+.. class:: QRadialGradient()
+           QRadialGradient(center, centerRadius, focalPoint, focalRadius)
+           QRadialGradient(center, radius)
+           QRadialGradient(center, radius, focalPoint)
+           QRadialGradient(QRadialGradient)
+           QRadialGradient(cx, cy, centerRadius, fx, fy, focalRadius)
+           QRadialGradient(cx, cy, radius)
+           QRadialGradient(cx, cy, radius, fx, fy)
+
+    :param centerRadius: :class:`PySide.QtCore.qreal`
+    :param fx: :class:`PySide.QtCore.qreal`
+    :param fy: :class:`PySide.QtCore.qreal`
+    :param focalRadius: :class:`PySide.QtCore.qreal`
+    :param radius: :class:`PySide.QtCore.qreal`
+    :param center: :class:`PySide.QtCore.QPointF`
+    :param cx: :class:`PySide.QtCore.qreal`
+    :param cy: :class:`PySide.QtCore.qreal`
+    :param focalPoint: :class:`PySide.QtCore.QPointF`
+    :param QRadialGradient: :class:`PySide.QtGui.QRadialGradient`
+
+    Constructs a simple radial gradient with the center and focal point at (0, 0) with a radius of 1.
+
+
+    Constructs an extended radial gradient with the given ``center`` , ``centerRadius`` , ``focalPoint`` , and ``focalRadius`` .
+
+
+    Constructs a simple radial gradient with the given ``center`` , ``radius`` and the focal point in the circle center.
+
+    .. seealso::  :meth:`QGradient.setColorAt()<PySide.QtGui.QGradient.setColorAt>`  :meth:`QGradient.setStops()<PySide.QtGui.QGradient.setStops>` 
+
+    Constructs a simple radial gradient with the given ``center`` , ``radius`` and ``focalPoint`` .
+
+    .. note::  If the given focal point is outside the circle defined by the ``center`` point and ``radius`` , it will be re-adjusted to lie at a point on the circle where it intersects with the line from ``center`` to ``focalPoint`` .
+
+    .. seealso::  :meth:`QGradient.setColorAt()<PySide.QtGui.QGradient.setColorAt>`  :meth:`QGradient.setStops()<PySide.QtGui.QGradient.setStops>` 
+
+
+
+    Constructs an extended radial gradient with the given center (``cx`` , ``cy`` ), center radius, ``centerRadius`` , focal point, (``fx`` , ``fy`` ), and focal radius ``focalRadius`` .
+
+
+    Constructs a simple radial gradient with the center at (``cx`` , ``cy`` ) and the specified ``radius`` . The focal point lies at the center of the circle.
+
+    .. seealso::  :meth:`QGradient.setColorAt()<PySide.QtGui.QGradient.setColorAt>`  :meth:`QGradient.setStops()<PySide.QtGui.QGradient.setStops>` 
+
+    Constructs a simple radial gradient with the given center (``cx`` , ``cy`` ), ``radius`` and focal point (``fx`` , ``fy`` ).
+
+    .. note::  If the given focal point is outside the circle defined by the center (``cx`` , ``cy`` ) and the ``radius`` it will be re-adjusted to the intersection between the line from the center to the focal point and the circle.
+
+    .. seealso::  :meth:`QGradient.setColorAt()<PySide.QtGui.QGradient.setColorAt>`  :meth:`QGradient.setStops()<PySide.QtGui.QGradient.setStops>` 
+
+.. method:: PySide.QtGui.QRadialGradient.center()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the center of this radial gradient in logical coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.setCenter`  :meth:`QGradient.stops()<PySide.QtGui.QGradient.stops>` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.centerRadius()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the center radius of this radial gradient in logical coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.setCenterRadius`  :meth:`QGradient.stops()<PySide.QtGui.QGradient.stops>` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.focalPoint()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the focal point of this radial gradient in logical coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.setFocalPoint`  :meth:`QGradient.stops()<PySide.QtGui.QGradient.stops>` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.focalRadius()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the focal radius of this radial gradient in logical coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.setFocalRadius`  :meth:`QGradient.stops()<PySide.QtGui.QGradient.stops>` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.radius()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the radius of this radial gradient in logical coordinates.
+
+    Equivalent to :meth:`PySide.QtGui.QRadialGradient.centerRadius`
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.setRadius`  :meth:`QGradient.stops()<PySide.QtGui.QGradient.stops>` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setCenter(x, y)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+    :param y: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the center of this radial gradient in logical coordinates to (``x`` , ``y`` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.center` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setCenter(center)
+
+
+    :param center: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the center of this radial gradient in logical coordinates to ``center`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.center` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setCenterRadius(radius)
+
+
+    :param radius: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the center radius of this radial gradient in logical coordinates to ``radius``\
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.centerRadius` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setFocalPoint(x, y)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+    :param y: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the focal point of this radial gradient in logical coordinates to (``x`` , ``y`` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.focalPoint` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setFocalPoint(focalPoint)
+
+
+    :param focalPoint: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the focal point of this radial gradient in logical coordinates to ``focalPoint`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.focalPoint` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setFocalRadius(radius)
+
+
+    :param radius: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the focal radius of this radial gradient in logical coordinates to ``radius``\
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.focalRadius` 
+
+
+.. method:: PySide.QtGui.QRadialGradient.setRadius(radius)
+
+
+    :param radius: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the radius of this radial gradient in logical coordinates to ``radius``\
+
+    Equivalent to :meth:`PySide.QtGui.QRadialGradient.setCenterRadius`
+
+    .. seealso::  :meth:`PySide.QtGui.QRadialGradient.radius` 
+
+
+

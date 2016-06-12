@@ -1,0 +1,109 @@
+.. module:: PySide.QtGui
+.. _QTextBlockGroup:
+
+QTextBlockGroup
+***************
+
+.. inheritance-diagram:: QTextBlockGroup
+    :parts: 2
+
+**Inherited by:** :ref:`QTextList`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`blockList<PySide.QtGui.QTextBlockGroup.blockList>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`blockFormatChanged<PySide.QtGui.QTextBlockGroup.blockFormatChanged>` (block)
+*    def :meth:`blockInserted<PySide.QtGui.QTextBlockGroup.blockInserted>` (block)
+*    def :meth:`blockRemoved<PySide.QtGui.QTextBlockGroup.blockRemoved>` (block)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextBlockGroup` class provides a container for text blocks within a :class:`PySide.QtGui.QTextDocument` .
+
+    Block groups can be used to organize blocks of text within a document. They maintain an up-to-date list of the text blocks that belong to them, even when text blocks are being edited.
+
+    Each group has a parent document which is specified when the group is constructed.
+
+    Text blocks can be inserted into a group with :meth:`PySide.QtGui.QTextBlockGroup.blockInserted` , and removed with :meth:`PySide.QtGui.QTextBlockGroup.blockRemoved` . If a block's format is changed, :meth:`PySide.QtGui.QTextBlockGroup.blockFormatChanged` is called.
+
+    The list of blocks in the group is returned by :meth:`PySide.QtGui.QTextBlockGroup.blockList` . Note that the blocks in the list are not necessarily adjacent elements in the document; for example, the top-level items in a multi-level list will be separated by the items in lower levels of the list.
+
+    .. seealso::  :class:`PySide.QtGui.QTextBlock`  :class:`PySide.QtGui.QTextDocument` 
+
+.. class:: QTextBlockGroup(doc)
+
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+
+    Creates a new new block group for the given ``document`` .
+
+    .. warning::  This function should only be called from :meth:`QTextDocument.createObject()<PySide.QtGui.QTextDocument.createObject>` .
+
+
+.. method:: PySide.QtGui.QTextBlockGroup.blockFormatChanged(block)
+
+
+    :param block: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+    This function is called whenever the specified ``block`` of text is changed. The text block is a member of this group.
+
+    The base class implementation does nothing.
+
+
+
+.. method:: PySide.QtGui.QTextBlockGroup.blockInserted(block)
+
+
+    :param block: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+    Appends the given ``block`` to the end of the group.
+
+    .. warning::  If you reimplement this function you must call the base class implementation.
+
+
+
+.. method:: PySide.QtGui.QTextBlockGroup.blockList()
+
+
+    :rtype: 
+
+
+
+
+    Returns a (possibly empty) list of all the blocks that are part of the block group.
+
+
+
+.. method:: PySide.QtGui.QTextBlockGroup.blockRemoved(block)
+
+
+    :param block: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+    Removes the given ``block`` from the group; the block itself is not deleted, it simply isn't a member of this group anymore.
+
+
+
+

@@ -1,0 +1,114 @@
+.. module:: PySide.QtWebKit
+.. _QWebInspector:
+
+QWebInspector
+*************
+
+.. inheritance-diagram:: QWebInspector
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`page<PySide.QtWebKit.QWebInspector.page>` ()
+*    def :meth:`setPage<PySide.QtWebKit.QWebInspector.setPage>` (page)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebInspector` class allows the placement and control of a :class:`PySide.QtWebKit.QWebPage` 's inspector. The inspector can display a page's hierarchy, its loading statistics and the current state of its individual elements. It is mostly used by web developers.
+
+    The :class:`PySide.QtWebKit.QWebPage` to be inspected must be specified using the :meth:`PySide.QtWebKit.QWebInspector.setPage` method.
+
+    A typical use of :class:`PySide.QtWebKit.QWebInspector` follows:
+
+    ::
+
+            # ...
+            page = QWebPage()
+            # ...
+
+            inspector = QWebInspector()
+            inspector.setPage(page)
+
+
+    A :class:`PySide.QtWebKit.QWebInspector` can be made visible either programmatically using :meth:`PySide.QtGui.QWidget.setVisible` , or by the user through the attached :class:`PySide.QtWebKit.QWebPage` 's context menu.
+
+    .. note::  A :class:`PySide.QtWebKit.QWebInspector` will display a blank widget if either:
+
+
+    * :meth:`PySide.QtWebKit.QWebInspector.page` is null
+    * :attr:`QWebSettings.DeveloperExtrasEnabled<QWebSettings.WebAttribute>` is false
+
+    .. _PySide.QtWebKit.QWebInspector_resources:
+
+
+
+Resources
+^^^^^^^^^
+
+    This class acts mostly as a container and a controller for the inspector. Most of the resources needed by the inspector are owned by the associated :class:`PySide.QtWebKit.QWebPage` and are allocated the first time that:
+
+
+    * an element is inspected
+    * the :class:`PySide.QtWebKit.QWebInspector` is shown.
+
+    .. _PySide.QtWebKit.QWebInspector_inspector-configuration-persistence:
+
+
+
+Inspector configuration persistence
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The inspector allows the user to configure some options through its user interface (e.g. the resource tracking "Always enable" option). These settings will be persisted automatically by :ref:`QtWebKit` only if your application previously called :meth:`QCoreApplication.setOrganizationName()<PySide.QtCore.QCoreApplication.setOrganizationName>` and :meth:`QCoreApplication.setApplicationName()<PySide.QtCore.QCoreApplication.setApplicationName>` . See :class:`PySide.QtCore.QSettings` 's default constructor documentation for an explanation of why this is necessary.
+
+
+.. class:: QWebInspector([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an unbound :class:`PySide.QtWebKit.QWebInspector` with ``parent`` as its parent.
+
+
+.. method:: PySide.QtWebKit.QWebInspector.page()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebPage`
+
+
+
+
+    Returns the inspected :class:`PySide.QtWebKit.QWebPage` . If no web page is currently associated, a null pointer is returned.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebInspector.setPage` 
+
+
+.. method:: PySide.QtWebKit.QWebInspector.setPage(page)
+
+
+    :param page: :class:`PySide.QtWebKit.QWebPage`
+
+
+
+
+    Bind this inspector to the :class:`PySide.QtWebKit.QWebPage` to be inspected.
+
+    **Notes:**\
+
+
+    * There can only be one :class:`PySide.QtWebKit.QWebInspector` associated with a :class:`PySide.QtWebKit.QWebPage` and vice versa.
+    * Calling this method with a null ``page`` will break the current association, if any.
+    * If ``page`` is already associated to another :class:`PySide.QtWebKit.QWebInspector` , the association will be replaced and the previous :class:`PySide.QtWebKit.QWebInspector` will become unbound
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebInspector.page` 
+
+
+

@@ -1,0 +1,92 @@
+.. module:: PySide.QtGui
+.. _QTextObjectInterface:
+
+QTextObjectInterface
+********************
+
+.. inheritance-diagram:: QTextObjectInterface
+    :parts: 2
+
+**Inherited by:** :ref:`QPyTextObject`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextObjectInterface` class allows drawing of custom text objects in :class:`PySide.QtGui.QTextDocument` s.
+
+    A text object describes the structure of one or more elements in a text document; for instance, images imported from HTML are implemented using text objects. A text object knows how to lay out and draw its elements when a document is being rendered.
+
+    Qt allows custom text objects to be inserted into a document by registering a custom :meth:`object type<PySide.QtGui.QTextCharFormat.objectType>` with :class:`PySide.QtGui.QTextCharFormat` . A :class:`PySide.QtGui.QTextObjectInterface` must also be implemented for this type and be :meth:`registered<PySide.QtGui.QAbstractTextDocumentLayout.registerHandler>` with the :class:`PySide.QtGui.QAbstractTextDocumentLayout` of the document. When the object type is encountered while rendering a :class:`PySide.QtGui.QTextDocument` , the :meth:`PySide.QtGui.QTextObjectInterface.intrinsicSize` and :meth:`PySide.QtGui.QTextObjectInterface.drawObject` functions of the interface are called.
+
+    The following list explains the required steps of inserting a custom text object into a document:
+
+
+    * Choose an ``objectType``. The ``objectType`` is an integer with a value greater or equal to :attr:`QTextFormat.UserObject<QTextFormat.ObjectTypes>` .
+    * Create a :class:`PySide.QtGui.QTextCharFormat` object and set the object type to the chosen type using the :meth:`~PySide.QtGui.QTextObjectInterface.setObjectType` function.
+    * Implement the :class:`PySide.QtGui.QTextObjectInterface` class.
+    * Call :meth:`QAbstractTextDocumentLayout.registerHandler()<PySide.QtGui.QAbstractTextDocumentLayout.registerHandler>` with an instance of your :class:`PySide.QtGui.QTextObjectInterface` subclass to register your object type.
+    * Insert :attr:`QChar.ObjectReplacementCharacter<QChar.SpecialCharacter>` with the aforementioned :class:`PySide.QtGui.QTextCharFormat` of the chosen object type into the document. As mentioned, the functions of :class:`PySide.QtGui.QTextObjectInterface` :meth:`PySide.QtGui.QTextObjectInterface.intrinsicSize` and :meth:`PySide.QtGui.QTextObjectInterface.drawObject` will then be called with the :class:`PySide.QtGui.QTextFormat` as parameter whenever the replacement character is encountered.
+
+    A class implementing a text object needs to inherit both :class:`PySide.QtCore.QObject` and :class:`PySide.QtGui.QTextObjectInterface` . :class:`PySide.QtCore.QObject` must be the first class inherited. For instance:
+
+    ::
+
+        class SvgTextObject(QObject, QTextObjectInterface):
+            def __init__(self,...):
+                super(SvgTextObject, self).__init__(...)
+                ...
+
+
+    The data of a text object is usually stored in the :class:`PySide.QtGui.QTextCharFormat` using :meth:`QTextCharFormat.setProperty()<PySide.QtGui.QTextCharFormat.setProperty>` , and then retrieved with :meth:`QTextCharFormat.property()<PySide.QtGui.QTextCharFormat.property>` .
+
+    .. warning::  Copy and Paste operations ignore custom text objects.
+
+    .. seealso::  :ref:`Text Object Example<richtext/textobject>`  :class:`PySide.QtGui.QTextCharFormat`  :class:`PySide.QtGui.QTextLayout` 
+
+.. class:: QTextObjectInterface()
+
+
+
+
+.. method:: PySide.QtGui.QTextObjectInterface.drawObject(painter, rect, doc, posInDocument, format)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param rect: :class:`PySide.QtCore.QRectF`
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+    :param posInDocument: :class:`PySide.QtCore.int`
+    :param format: :class:`PySide.QtGui.QTextFormat`
+
+
+
+
+    Draws this text object using the specified ``painter`` .
+
+    The size of the rectangle, ``rect`` , to draw in is the size previously calculated by :meth:`PySide.QtGui.QTextObjectInterface.intrinsicSize` . The rectangles position is relative to the ``painter`` .
+
+    You also get the document (``doc`` ) and the position (``posInDocument`` ) of the ``format`` in that document.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextObjectInterface.intrinsicSize` 
+
+
+.. method:: PySide.QtGui.QTextObjectInterface.intrinsicSize(doc, posInDocument, format)
+
+
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+    :param posInDocument: :class:`PySide.QtCore.int`
+    :param format: :class:`PySide.QtGui.QTextFormat`
+    :rtype: :class:`PySide.QtCore.QSizeF`
+
+
+
+
+    The :meth:`PySide.QtGui.QTextObjectInterface.intrinsicSize` function returns the size of the text object represented by ``format`` in the given document (``doc`` ) at the given position (``posInDocument`` ).
+
+    The size calculated will be used for subsequent calls to :meth:`PySide.QtGui.QTextObjectInterface.drawObject` for this ``format`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextObjectInterface.drawObject` 
+
+
+

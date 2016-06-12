@@ -1,0 +1,302 @@
+.. module:: PySide.QtGui
+.. _QStatusBar:
+
+QStatusBar
+**********
+
+.. inheritance-diagram:: QStatusBar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addPermanentWidget<PySide.QtGui.QStatusBar.addPermanentWidget>` (widget[, stretch=0])
+*    def :meth:`addWidget<PySide.QtGui.QStatusBar.addWidget>` (widget[, stretch=0])
+*    def :meth:`currentMessage<PySide.QtGui.QStatusBar.currentMessage>` ()
+*    def :meth:`hideOrShow<PySide.QtGui.QStatusBar.hideOrShow>` ()
+*    def :meth:`insertPermanentWidget<PySide.QtGui.QStatusBar.insertPermanentWidget>` (index, widget[, stretch=0])
+*    def :meth:`insertWidget<PySide.QtGui.QStatusBar.insertWidget>` (index, widget[, stretch=0])
+*    def :meth:`isSizeGripEnabled<PySide.QtGui.QStatusBar.isSizeGripEnabled>` ()
+*    def :meth:`reformat<PySide.QtGui.QStatusBar.reformat>` ()
+*    def :meth:`removeWidget<PySide.QtGui.QStatusBar.removeWidget>` (widget)
+*    def :meth:`setSizeGripEnabled<PySide.QtGui.QStatusBar.setSizeGripEnabled>` (arg__1)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`clearMessage<PySide.QtGui.QStatusBar.clearMessage>` ()
+*    def :meth:`showMessage<PySide.QtGui.QStatusBar.showMessage>` (text[, timeout=0])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`messageChanged<PySide.QtGui.QStatusBar.messageChanged>` (text)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStatusBar` class provides a horizontal bar suitable for presenting status information.
+
+    Each status indicator falls into one of three categories:
+
+
+    * *Temporary* - briefly occupies most of the status bar. Used to explain tool tip texts or menu entries, for example.
+    * *Normal* - occupies part of the status bar and may be hidden by temporary messages. Used to display the page and line number in a word processor, for example.
+    * *Permanent* - is never hidden. Used for important mode indications, for example, some applications put a Caps Lock indicator in the status bar.
+
+    :class:`PySide.QtGui.QStatusBar` lets you display all three types of indicators.
+
+    Typically, a request for the status bar functionality occurs in relation to a :class:`PySide.QtGui.QMainWindow` object. :class:`PySide.QtGui.QMainWindow` provides a main application window, with a menu bar, tool bars, dock widgets *and* a status bar around a large central widget. The status bar can be retrieved using the :meth:`QMainWindow.statusBar()<PySide.QtGui.QMainWindow.statusBar>` function, and replaced using the :meth:`QMainWindow.setStatusBar()<PySide.QtGui.QMainWindow.setStatusBar>` function.
+
+    Use the :meth:`PySide.QtGui.QStatusBar.showMessage` slot to display a *temporary* message:
+
+    ::
+
+        def createStatusBar(self):
+            statusBar().showMessage(tr("Ready"))
+
+
+
+    To remove a temporary message, use the :meth:`PySide.QtGui.QStatusBar.clearMessage` slot, or set a time limit when calling :meth:`PySide.QtGui.QStatusBar.showMessage` . For example:
+
+    ::
+
+        def print(self)
+            document = textEdit.document()
+            printer = QPrinter()
+
+            dlg =  QPrintDialog(&printer, self)
+            if dlg.exec() != QDialog.Accepted:
+                return
+
+            document.print(printer)
+            statusBar().showMessage(tr("Ready"), 2000)
+
+
+    Use the :meth:`PySide.QtGui.QStatusBar.currentMessage` function to retrieve the temporary message currently shown. The :class:`PySide.QtGui.QStatusBar` class also provide the :meth:`PySide.QtGui.QStatusBar.messageChanged` signal which is emitted whenever the temporary status message changes.
+
+    *Normal* and *Permanent* messages are displayed by creating a small widget ( :class:`PySide.QtGui.QLabel` , :class:`PySide.QtGui.QProgressBar` or even :class:`PySide.QtGui.QToolButton` ) and then adding it to the status bar using the :meth:`PySide.QtGui.QStatusBar.addWidget` or the :meth:`PySide.QtGui.QStatusBar.addPermanentWidget` function. Use the :meth:`PySide.QtGui.QStatusBar.removeWidget` function to remove such messages from the status bar.
+
+    ::
+
+        statusBar().addWidget(MyReadWriteIndication())
+
+
+    By default :class:`PySide.QtGui.QStatusBar` provides a :class:`PySide.QtGui.QSizeGrip` in the lower-right corner. You can disable it using the :meth:`PySide.QtGui.QStatusBar.setSizeGripEnabled` function. Use the :meth:`PySide.QtGui.QStatusBar.isSizeGripEnabled` function to determine the current status of the size grip.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-statusbar.png
+
+    .. seealso::  :class:`PySide.QtGui.QMainWindow`  :class:`PySide.QtGui.QStatusTipEvent`  :ref:`GUI Design Handbook: Status Bar<guibooks.html>`  :ref:`Application Example<mainwindows/application>` 
+
+.. class:: QStatusBar([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a status bar with a size grip and the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.setSizeGripEnabled` 
+
+.. method:: PySide.QtGui.QStatusBar.addPermanentWidget(widget[, stretch=0])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds the given ``widget`` permanently to this status bar, reparenting the widget if it isn't already a child of this :class:`PySide.QtGui.QStatusBar` object. The ``stretch`` parameter is used to compute a suitable size for the given ``widget`` as the status bar grows and shrinks. The default stretch factor is 0, i.e giving the widget a minimum of space.
+
+    Permanently means that the widget may not be obscured by temporary messages. It is is located at the far right of the status bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.insertPermanentWidget`  :meth:`PySide.QtGui.QStatusBar.removeWidget`  :meth:`PySide.QtGui.QStatusBar.addWidget` 
+
+
+.. method:: PySide.QtGui.QStatusBar.addWidget(widget[, stretch=0])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds the given ``widget`` to this status bar, reparenting the widget if it isn't already a child of this :class:`PySide.QtGui.QStatusBar` object. The ``stretch`` parameter is used to compute a suitable size for the given ``widget`` as the status bar grows and shrinks. The default stretch factor is 0, i.e giving the widget a minimum of space.
+
+    The widget is located to the far left of the first permanent widget (see :meth:`PySide.QtGui.QStatusBar.addPermanentWidget` ) and may be obscured by temporary messages.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.insertWidget`  :meth:`PySide.QtGui.QStatusBar.removeWidget`  :meth:`PySide.QtGui.QStatusBar.addPermanentWidget` 
+
+
+.. method:: PySide.QtGui.QStatusBar.clearMessage()
+
+
+
+
+
+
+    Removes any temporary message being shown.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.currentMessage`  :meth:`PySide.QtGui.QStatusBar.showMessage`  :meth:`PySide.QtGui.QStatusBar.removeWidget` 
+
+
+.. method:: PySide.QtGui.QStatusBar.currentMessage()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the temporary message currently shown, or an empty string if there is no such message.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.showMessage` 
+
+
+.. method:: PySide.QtGui.QStatusBar.hideOrShow()
+
+
+
+
+
+
+    Ensures that the right widgets are visible.
+
+    Used by the :meth:`PySide.QtGui.QStatusBar.showMessage` and :meth:`PySide.QtGui.QStatusBar.clearMessage` functions.
+
+
+
+.. method:: PySide.QtGui.QStatusBar.insertPermanentWidget(index, widget[, stretch=0])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts the given ``widget`` at the given ``index`` permanently to this status bar, reparenting the widget if it isn't already a child of this :class:`PySide.QtGui.QStatusBar` object. If ``index`` is out of range, the widget is appended (in which case it is the actual index of the widget that is returned).
+
+    The ``stretch`` parameter is used to compute a suitable size for the given ``widget`` as the status bar grows and shrinks. The default stretch factor is 0, i.e giving the widget a minimum of space.
+
+    Permanently means that the widget may not be obscured by temporary messages. It is is located at the far right of the status bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.addPermanentWidget`  :meth:`PySide.QtGui.QStatusBar.removeWidget`  :meth:`PySide.QtGui.QStatusBar.addWidget` 
+
+
+.. method:: PySide.QtGui.QStatusBar.insertWidget(index, widget[, stretch=0])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts the given ``widget`` at the given ``index`` to this status bar, reparenting the widget if it isn't already a child of this :class:`PySide.QtGui.QStatusBar` object. If ``index`` is out of range, the widget is appended (in which case it is the actual index of the widget that is returned).
+
+    The ``stretch`` parameter is used to compute a suitable size for the given ``widget`` as the status bar grows and shrinks. The default stretch factor is 0, i.e giving the widget a minimum of space.
+
+    The widget is located to the far left of the first permanent widget (see :meth:`PySide.QtGui.QStatusBar.addPermanentWidget` ) and may be obscured by temporary messages.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.addWidget`  :meth:`PySide.QtGui.QStatusBar.removeWidget`  :meth:`PySide.QtGui.QStatusBar.addPermanentWidget` 
+
+
+.. method:: PySide.QtGui.QStatusBar.isSizeGripEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the :class:`PySide.QtGui.QSizeGrip` in the bottom-right corner of the status bar is enabled.
+
+    The size grip is enabled by default.
+
+
+
+.. method:: PySide.QtGui.QStatusBar.messageChanged(text)
+
+
+    :param text: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStatusBar.reformat()
+
+
+
+
+
+
+    Changes the status bar's appearance to account for item changes.
+
+    Special subclasses may need this function, but geometry management will usually take care of any necessary rearrangements.
+
+
+
+.. method:: PySide.QtGui.QStatusBar.removeWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes the specified ``widget`` from the status bar.
+
+    .. note::  This function does not delete the widget but *hides* it. To add the widget again, you must call both the :meth:`PySide.QtGui.QStatusBar.addWidget` and :meth:`PySide.QtGui.QWidget.show` functions.
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.addWidget`  :meth:`PySide.QtGui.QStatusBar.addPermanentWidget`  :meth:`PySide.QtGui.QStatusBar.clearMessage` 
+
+
+.. method:: PySide.QtGui.QStatusBar.setSizeGripEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the :class:`PySide.QtGui.QSizeGrip` in the bottom-right corner of the status bar is enabled.
+
+    The size grip is enabled by default.
+
+
+
+.. method:: PySide.QtGui.QStatusBar.showMessage(text[, timeout=0])
+
+
+    :param text: unicode
+    :param timeout: :class:`PySide.QtCore.int`
+
+
+
+
+    Hides the normal status indications and displays the given ``message`` for the specified number of milli-seconds (``timeout`` ). If ``timeout`` is 0 (default), the ``message`` remains displayed until the :meth:`PySide.QtGui.QStatusBar.clearMessage` slot is called or until the :meth:`PySide.QtGui.QStatusBar.showMessage` slot is called again to change the message.
+
+    Note that :meth:`PySide.QtGui.QStatusBar.showMessage` is called to show temporary explanations of tool tip texts, so passing a ``timeout`` of 0 is not sufficient to display a :class:`~PySide.QtGui.permanent message` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStatusBar.messageChanged`  :meth:`PySide.QtGui.QStatusBar.currentMessage`  :meth:`PySide.QtGui.QStatusBar.clearMessage` 
+
+
+

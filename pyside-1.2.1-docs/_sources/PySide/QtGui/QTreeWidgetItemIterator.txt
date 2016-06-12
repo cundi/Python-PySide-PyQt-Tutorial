@@ -1,0 +1,188 @@
+.. module:: PySide.QtGui
+.. _QTreeWidgetItemIterator:
+
+QTreeWidgetItemIterator
+***********************
+
+.. inheritance-diagram:: QTreeWidgetItemIterator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__iadd__<PySide.QtGui.QTreeWidgetItemIterator.__iadd__>` (n)
+*    def :meth:`__isub__<PySide.QtGui.QTreeWidgetItemIterator.__isub__>` (n)
+*    def :meth:`__iter__<PySide.QtGui.QTreeWidgetItemIterator.__iter__>` ()
+*    def :meth:`__next__<PySide.QtGui.QTreeWidgetItemIterator.__next__>` ()
+*    def :meth:`matchesFlags<PySide.QtGui.QTreeWidgetItemIterator.matchesFlags>` (item)
+*    def :meth:`value<PySide.QtGui.QTreeWidgetItemIterator.value>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTreeWidgetItemIterator` class provides a way to iterate over the items in a :class:`PySide.QtGui.QTreeWidget` instance.
+
+    The iterator will walk the items in a pre-order traversal order, thus visiting the parent node *before* it continues to the child nodes.
+
+    For example, the following code examples each item in a tree, checking the text in the first column against a user-specified search string:
+
+    ::
+
+            it = QTreeWidgetItemIterator(treeWidget)
+            while it:
+                if it.text(0) == itemText:
+                    *it.setSelected(True)
+                ++it
+
+
+    It is also possible to filter out certain types of node by passing certain :attr:`flags<QTreeWidgetItemIterator.IteratorFlag>` to the constructor of :class:`PySide.QtGui.QTreeWidgetItemIterator` .
+
+    .. seealso::  :class:`PySide.QtGui.QTreeWidget`  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtGui.QTreeWidgetItem` 
+
+.. class:: QTreeWidgetItemIterator(widget[, flags=QTreeWidgetItemIterator.All])
+           QTreeWidgetItemIterator(item[, flags=QTreeWidgetItemIterator.All])
+           QTreeWidgetItemIterator(it)
+
+    :param flags: :class:`PySide.QtGui.QTreeWidgetItemIterator.IteratorFlags`
+    :param item: :class:`PySide.QtGui.QTreeWidgetItem`
+    :param widget: :class:`PySide.QtGui.QTreeWidget`
+    :param it: :class:`PySide.QtGui.QTreeWidgetItemIterator`
+
+
+
+
+
+    Constructs an iterator for the same :class:`PySide.QtGui.QTreeWidget` as ``it`` . The current iterator item is set to point on the current item of ``it`` .
+
+
+.. attribute:: PySide.QtGui.QTreeWidgetItemIterator.IteratorFlag
+
+    These flags can be passed to a :class:`PySide.QtGui.QTreeWidgetItemIterator` constructor (OR-ed together if more than one is used), so that the iterator will only iterate over items that match the given flags.
+
+    +-------------------------------------+-----------+
+    |Constant                             |Description|
+    +=====================================+===========+
+    |QTreeWidgetItemIterator.All          |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Hidden       |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.NotHidden    |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Selected     |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Unselected   |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Selectable   |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.NotSelectable|           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.DragEnabled  |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.DragDisabled |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.DropEnabled  |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.DropDisabled |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.HasChildren  |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.NoChildren   |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Checked      |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.NotChecked   |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Enabled      |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Disabled     |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.Editable     |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.NotEditable  |           |
+    +-------------------------------------+-----------+
+    |QTreeWidgetItemIterator.UserFlag     |           |
+    +-------------------------------------+-----------+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.__iter__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.__next__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.matchesFlags(item)
+
+
+    :param item: :class:`PySide.QtGui.QTreeWidgetItem`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.__iadd__(n)
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTreeWidgetItemIterator`
+
+
+
+
+    Makes the iterator go forward by ``n`` matching items. (If n is negative, the iterator goes backward.)
+
+    If the current item is beyond the last item, the current item pointer is set to 0. Returns the resulting iterator.
+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.__isub__(n)
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTreeWidgetItemIterator`
+
+
+
+
+    Makes the iterator go backward by ``n`` matching items. (If n is negative, the iterator goes forward.)
+
+    If the current item is ahead of the last item, the current item pointer is set to 0. Returns the resulting iterator.
+
+
+
+.. method:: PySide.QtGui.QTreeWidgetItemIterator.value()
+
+
+    :rtype: :class:`PySide.QtGui.QTreeWidgetItem`
+
+
+
+
+
+
+
+

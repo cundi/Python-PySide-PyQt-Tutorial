@@ -1,0 +1,56 @@
+.. module:: PySide.QtXmlPatterns
+.. _QAbstractUriResolver:
+
+QAbstractUriResolver
+********************
+
+.. inheritance-diagram:: QAbstractUriResolver
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QAbstractUriResolver` class is a callback interface for resolving Uniform Resource Identifiers.
+
+    A Uniform Resource Identifier (URI) is a string that uniquely identifies a resource. URIs are versatile global identifiers. It is often useful to transform a URI that identifies something logical into a URI that locates something physical (a URL), or to simply map a URI to a different URI. :meth:`QAbstractUriResolver.resolve()<PySide.QtXmlPatterns.QAbstractUriResolver.resolve>` provides this functionality.
+
+    For example, one could write a :class:`PySide.QtXmlPatterns.QAbstractUriResolver` subclass that rewrites library ISBN number URIs as book title URLs, e.g., *urn:isbn:0-345-33973-8* would be rewritten as *file:///books/returnOfTheKing.doc* . Or a :class:`PySide.QtXmlPatterns.QAbstractUriResolver` subclass could be written for a web browser to let the web browser protect the user's private files by mapping incoming requests for them to null URIs.
+
+    .. seealso:: 
+
+.. class:: QAbstractUriResolver([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtXmlPatterns.QAbstractUriResolver` with the specified ``parent`` .
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractUriResolver.resolve(relative, baseURI)
+
+
+    :param relative: :class:`PySide.QtCore.QUrl`
+    :param baseURI: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the ``relative`` URI resolved using the ``baseURI`` .
+
+    The caller guarantees that both ``relative`` and ``baseURI`` are valid, and that ``baseURI`` is absolute. ``relative`` can be relative, absolute, or empty.
+
+    The returned :class:`PySide.QtCore.QUrl` can be a default constructed :class:`PySide.QtCore.QUrl` . If it is not a default constructed :class:`PySide.QtCore.QUrl` , it will be absolute and valid. If a default constructed :class:`PySide.QtCore.QUrl` is returned, it means the ``relative`` URI was not accepted to be resolved.
+
+    If the reimplemented :meth:`PySide.QtXmlPatterns.QAbstractUriResolver.resolve` function decides it has nothing to do about resolving the ``relative`` URI, it should simply return the ``relative`` URI resolved against the ``baseURI`` , i.e.:
+
+    ::
+
+        return baseURI.resolved(relative);
+
+
+    .. seealso::  :meth:`QUrl.isRelative()<PySide.QtCore.QUrl.isRelative>`  :meth:`QUrl.isValid()<PySide.QtCore.QUrl.isValid>` 
+
+
+

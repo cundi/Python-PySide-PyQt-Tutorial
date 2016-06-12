@@ -1,0 +1,742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QUndoStack &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtGui" href="index.html" />
+    <link rel="next" title="QUndoGroup" href="QUndoGroup.html" />
+    <link rel="prev" title="QSessionManager" href="QSessionManager.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtGui</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QUndoStack</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#slots">Slots</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a><ul>
+<li><a class="reference internal" href="#undo-and-redo-actions">Undo and Redo Actions</a></li>
+<li><a class="reference internal" href="#command-compression-and-macros">Command Compression and Macros</a></li>
+<li><a class="reference internal" href="#clean-state">Clean State</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QSessionManager.html"
+                        title="previous chapter">QSessionManager</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QUndoGroup.html"
+                        title="next chapter">QUndoGroup</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtGui"></span><div class="section" id="qundostack">
+<span id="id1"></span><h1>QUndoStack<a class="headerlink" href="#qundostack" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">beginMacro</span></tt></a> (text)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canRedo"><tt class="xref py py-meth docutils literal"><span class="pre">canRedo</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canUndo"><tt class="xref py py-meth docutils literal"><span class="pre">canUndo</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex"><tt class="xref py py-meth docutils literal"><span class="pre">cleanIndex</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.clear" title="PySide.QtGui.PySide.QtGui.QUndoStack.clear"><tt class="xref py py-meth docutils literal"><span class="pre">clear</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.command" title="PySide.QtGui.PySide.QtGui.QUndoStack.command"><tt class="xref py py-meth docutils literal"><span class="pre">command</span></tt></a> (index)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="PySide.QtGui.PySide.QtGui.QUndoStack.count"><tt class="xref py py-meth docutils literal"><span class="pre">count</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction"><tt class="xref py py-meth docutils literal"><span class="pre">createRedoAction</span></tt></a> (parent[, prefix=&#8221;&#8220;])</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction"><tt class="xref py py-meth docutils literal"><span class="pre">createUndoAction</span></tt></a> (parent[, prefix=&#8221;&#8220;])</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">endMacro</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">index</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isActive" title="PySide.QtGui.PySide.QtGui.QUndoStack.isActive"><tt class="xref py py-meth docutils literal"><span class="pre">isActive</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.isClean"><tt class="xref py py-meth docutils literal"><span class="pre">isClean</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="PySide.QtGui.PySide.QtGui.QUndoStack.push"><tt class="xref py py-meth docutils literal"><span class="pre">push</span></tt></a> (cmd)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redoText" title="PySide.QtGui.PySide.QtGui.QUndoStack.redoText"><tt class="xref py py-meth docutils literal"><span class="pre">redoText</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">setUndoLimit</span></tt></a> (limit)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.text" title="PySide.QtGui.PySide.QtGui.QUndoStack.text"><tt class="xref py py-meth docutils literal"><span class="pre">text</span></tt></a> (idx)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">undoLimit</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoText" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoText"><tt class="xref py py-meth docutils literal"><span class="pre">undoText</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="slots">
+<h3>Slots<a class="headerlink" href="#slots" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">redo</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setActive" title="PySide.QtGui.PySide.QtGui.QUndoStack.setActive"><tt class="xref py py-meth docutils literal"><span class="pre">setActive</span></tt></a> ([active=true])</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.setClean"><tt class="xref py py-meth docutils literal"><span class="pre">setClean</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.setIndex"><tt class="xref py py-meth docutils literal"><span class="pre">setIndex</span></tt></a> (idx)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">undo</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="signals">
+<h3>Signals<a class="headerlink" href="#signals" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedoChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.canRedoChanged"><tt class="xref py py-meth docutils literal"><span class="pre">canRedoChanged</span></tt></a> (canRedo)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndoChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.canUndoChanged"><tt class="xref py py-meth docutils literal"><span class="pre">canUndoChanged</span></tt></a> (canUndo)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged"><tt class="xref py py-meth docutils literal"><span class="pre">cleanChanged</span></tt></a> (clean)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged"><tt class="xref py py-meth docutils literal"><span class="pre">indexChanged</span></tt></a> (idx)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redoTextChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.redoTextChanged"><tt class="xref py py-meth docutils literal"><span class="pre">redoTextChanged</span></tt></a> (redoText)</li>
+<li>def <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoTextChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoTextChanged"><tt class="xref py py-meth docutils literal"><span class="pre">undoTextChanged</span></tt></a> (undoText)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> class is a stack of <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.QUndoCommand" title="PySide.QtGui.QUndoCommand"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoCommand</span></tt></a> objects.</p>
+<p>For an overview of Qt&#8217;s Undo Framework, see the <em class="xref std std-ref">overview document</em> .</p>
+<p>An undo stack maintains a stack of commands that have been applied to a document.</p>
+<p>New commands are pushed on the stack using <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="PySide.QtGui.PySide.QtGui.QUndoStack.push"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.push()</span></tt></a> . Commands can be undone and redone using <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> , or by triggering the actions returned by <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.createUndoAction()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.createRedoAction()</span></tt></a> .</p>
+<p><a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> keeps track of the <tt class="docutils literal"><span class="pre">current</span></tt> command. This is the command which will be executed by the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> . The index of this command is returned by <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a> . The state of the edited object can be rolled forward or back using <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.setIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setIndex()</span></tt></a> . If the top-most command on the stack has already been redone, <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a> is equal to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="PySide.QtGui.PySide.QtGui.QUndoStack.count"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.count()</span></tt></a> .</p>
+<p><a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> provides support for undo and redo actions, command compression, command macros, and supports the concept of a <em>clean state</em> .</p>
+</div></blockquote>
+<div class="section" id="undo-and-redo-actions">
+<span id="pyside-qtgui-qundostack-undo-and-redo-actions"></span><h3>Undo and Redo Actions<a class="headerlink" href="#undo-and-redo-actions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> provides convenient undo and redo <a class="reference internal" href="QAction.html#PySide.QtGui.QAction" title="PySide.QtGui.QAction"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></tt></a> objects, which can be inserted into a menu or a toolbar. When commands are undone or redone, <a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> updates the text properties of these actions to reflect what change they will trigger. The actions are also disabled when no command is available for undo or redo. These actions are returned by <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoStack.createUndoAction()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoStack.createRedoAction()</span></tt></a> .</div></blockquote>
+</div>
+<div class="section" id="command-compression-and-macros">
+<span id="pyside-qtgui-qundostack-command-compression-and-macros"></span><h3>Command Compression and Macros<a class="headerlink" href="#command-compression-and-macros" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Command compression is useful when several commands can be compressed into a single command that can be undone and redone in a single operation. For example, when a user types a character in a text editor, a new command is created. This command inserts the character into the document at the cursor position. However, it is more convenient for the user to be able to undo or redo typing of whole words, sentences, or paragraphs. Command compression allows these single-character commands to be merged into a single command which inserts or deletes sections of text. For more information, see <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith" title="PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.mergeWith()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="PySide.QtGui.PySide.QtGui.QUndoStack.push"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.push()</span></tt></a> .</p>
+<p>A command macro is a sequence of commands, all of which are undone and redone in one go. Command macros are created by giving a command a list of child commands. Undoing or redoing the parent command will cause the child commands to be undone or redone. Command macros may be created explicitly by specifying a parent in the <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.QUndoCommand" title="PySide.QtGui.QUndoCommand"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoCommand</span></tt></a> constructor, or by using the convenience functions <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.beginMacro()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a> .</p>
+<p>Although command compression and macros appear to have the same effect to the user, they often have different uses in an application. Commands that perform small changes to a document may be usefully compressed if there is no need to individually record them, and if only larger changes are relevant to the user. However, for commands that need to be recorded individually, or those that cannot be compressed, it is useful to use macros to provide a more convenient user experience while maintaining a record of each command.</p>
+</div></blockquote>
+</div>
+<div class="section" id="clean-state">
+<span id="pyside-qtgui-qundostack-clean-state"></span><h3>Clean State<a class="headerlink" href="#clean-state" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> supports the concept of a clean state. When the document is saved to disk, the stack can be marked as clean using <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.setClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setClean()</span></tt></a> . Whenever the stack returns to this state through undoing and redoing commands, it emits the signal <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanChanged()</span></tt></a> . This signal is also emitted when the stack leaves the clean state. This signal is usually used to enable and disable the save actions in the application, and to update the document&#8217;s title to reflect that it contains unsaved changes.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.QUndoCommand" title="PySide.QtGui.QUndoCommand"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoCommand</span></tt></a>  <a class="reference internal" href="QUndoView.html#PySide.QtGui.QUndoView" title="PySide.QtGui.QUndoView"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoView</span></tt></a></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtGui.QUndoStack">
+<em class="property">class </em><tt class="descclassname">PySide.QtGui.</tt><tt class="descname">QUndoStack</tt><big>(</big><span class="optional">[</span><em>parent=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtGui.QUndoStack" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Constructs an empty undo stack with the parent <tt class="docutils literal"><span class="pre">parent</span></tt> . The stack will initially be in the clean state. If <tt class="docutils literal"><span class="pre">parent</span></tt> is a <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> object, the stack is automatically added to the group.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="PySide.QtGui.PySide.QtGui.QUndoStack.push"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.push()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">beginMacro</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> &#8211; unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Begins composition of a macro command with the given <tt class="docutils literal"><span class="pre">text</span></tt> description.</p>
+<p>An empty command described by the specified <tt class="docutils literal"><span class="pre">text</span></tt> is pushed on the stack. Any subsequent commands pushed on the stack will be appended to the empty command&#8217;s children until <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a> is called.</p>
+<p>Calls to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.beginMacro()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a> may be nested, but every call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.beginMacro()</span></tt></a> must have a matching call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a> .</p>
+<p>While a macro is composed, the stack is disabled. This means that:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.indexChanged()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanChanged()</span></tt></a> are not emitted,</li>
+<li><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canUndo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canUndo()</span></tt></a> and <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canRedo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canRedo()</span></tt></a> return false,</li>
+<li>calling <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> or <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> has no effect,</li>
+<li>the undo/redo actions are disabled.</li>
+</ul>
+<p>The stack becomes enabled and appropriate signals are emitted when <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a> is called for the outermost macro.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stack</span><span class="o">.</span><span class="n">beginMacro</span><span class="p">(</span><span class="s">&quot;insert red text&quot;</span><span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">InsertText</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">SetColor</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">red</span><span class="p">))</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">endMacro</span><span class="p">()</span> <span class="c"># indexChanged() is emitted</span>
+</pre></div>
+</div>
+<p>This code is equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">insertRed</span> <span class="o">=</span> <span class="n">QUndoCommand</span><span class="p">()</span> <span class="c"># an empty command</span>
+<span class="n">insertRed</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s">&quot;insert red text&quot;</span><span class="p">)</span>
+
+<span class="n">InsertText</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">insertRed</span><span class="p">)</span> <span class="c"># becomes child of insertRed</span>
+<span class="n">SetColor</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="n">insertRed</span><span class="p">)</span>
+
+<span class="n">stack</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">insertRed</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.endMacro()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.canRedo">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">canRedo</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedo" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if there is a command available for redo; otherwise returns false.</p>
+<p>This function returns false if the stack is empty or if the top command on the stack has already been redone.</p>
+<p>Synonymous with <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a> == <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="PySide.QtGui.PySide.QtGui.QUndoStack.count"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.count()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canUndo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canUndo()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.canRedoChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">canRedoChanged</tt><big>(</big><em>canRedo</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedoChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>canRedo</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.canUndo">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">canUndo</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndo" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if there is a command available for undo; otherwise returns false.</p>
+<p>This function returns false if the stack is empty, or if the bottom command on the stack has already been undone.</p>
+<p>Synonymous with <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a> == 0.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canRedo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canRedo()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.canUndoChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">canUndoChanged</tt><big>(</big><em>canUndo</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndoChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>canUndo</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">cleanChanged</tt><big>(</big><em>clean</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clean</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">cleanIndex</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the clean index. This is the index at which <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.setClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setClean()</span></tt></a> was called.</p>
+<p>A stack may not have a clean index. This happens if a document is saved, some commands are undone, then a new command is pushed. Since <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="PySide.QtGui.PySide.QtGui.QUndoStack.push"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.push()</span></tt></a> deletes all the undone commands before pushing the new command, the stack can&#8217;t return to the clean state again. In this case, this function returns -1.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.isClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.isClean()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.setClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setClean()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.clear">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the command stack by deleting all commands on it, and returns the stack to the clean state.</p>
+<p>Commands are not undone or redone; the state of the edited object remains unchanged.</p>
+<p>This function is usually used when the contents of the document are abandoned.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.QUndoStack()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.command">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">command</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.command" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.QUndoCommand" title="PySide.QtGui.QUndoCommand"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoCommand</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a const pointer to the command at <tt class="docutils literal"><span class="pre">index</span></tt> .</p>
+<p>This function returns a const pointer, because modifying a command, once it has been pushed onto the stack and executed, almost always causes corruption of the state of the document, if the command is later undone or redone.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.child" title="PySide.QtGui.PySide.QtGui.QUndoCommand.child"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.child()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.count">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">count</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the number of commands on the stack. Macro commands are counted as one command.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.setIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setIndex()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.command" title="PySide.QtGui.PySide.QtGui.QUndoStack.command"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.command()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">createRedoAction</tt><big>(</big><em>parent</em><span class="optional">[</span>, <em>prefix=&quot;&quot;</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>prefix</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QAction.html#PySide.QtGui.QAction" title="PySide.QtGui.QAction"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Creates an redo <a class="reference internal" href="QAction.html#PySide.QtGui.QAction" title="PySide.QtGui.QAction"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></tt></a> object with the given <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>Triggering this action will cause a call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> . The text of this action is the text of the command which will be redone in the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> , prefixed by the specified <tt class="docutils literal"><span class="pre">prefix</span></tt> . If there is no command available for redo, this action will be disabled.</p>
+<p>If <tt class="docutils literal"><span class="pre">prefix</span></tt> is empty, the default template &#8220;Redo %1&#8221; is used instead of prefix. Before Qt 4.8, the prefix &#8220;Redo&#8221; was used by default.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.createUndoAction()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canRedo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canRedo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canRedo()</span></tt></a>  <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.text" title="PySide.QtGui.PySide.QtGui.QUndoCommand.text"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.text()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">createUndoAction</tt><big>(</big><em>parent</em><span class="optional">[</span>, <em>prefix=&quot;&quot;</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createUndoAction" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>prefix</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QAction.html#PySide.QtGui.QAction" title="PySide.QtGui.QAction"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Creates an undo <a class="reference internal" href="QAction.html#PySide.QtGui.QAction" title="PySide.QtGui.QAction"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></tt></a> object with the given <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>Triggering this action will cause a call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> . The text of this action is the text of the command which will be undone in the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> , prefixed by the specified <tt class="docutils literal"><span class="pre">prefix</span></tt> . If there is no command available for undo, this action will be disabled.</p>
+<p>If <tt class="docutils literal"><span class="pre">prefix</span></tt> is empty, the default template &#8220;Undo %1&#8221; is used instead of prefix. Before Qt 4.8, the prefix &#8220;Undo&#8221; was used by default.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction" title="PySide.QtGui.PySide.QtGui.QUndoStack.createRedoAction"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.createRedoAction()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.canUndo" title="PySide.QtGui.PySide.QtGui.QUndoStack.canUndo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.canUndo()</span></tt></a>  <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.text" title="PySide.QtGui.PySide.QtGui.QUndoCommand.text"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.text()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.endMacro">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">endMacro</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.endMacro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends composition of a macro command.</p>
+<p>If this is the outermost macro in a set nested macros, this function emits <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.indexChanged()</span></tt></a> once for the entire macro command.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.beginMacro()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.index">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the index of the current command. This is the command that will be executed on the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> . It is not always the top-most command on the stack, since a number of commands may have been undone.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.setIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setIndex()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="PySide.QtGui.PySide.QtGui.QUndoStack.count"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.count()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">indexChanged</tt><big>(</big><em>idx</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.isActive">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">isActive</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isActive" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>This property holds the active status of this stack..</p>
+<p>An application often has multiple undo stacks, one for each opened document. The active stack is the one associated with the currently active document. If the stack belongs to a <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> , calls to <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.PySide.QtGui.QUndoGroup.undo" title="PySide.QtGui.PySide.QtGui.QUndoGroup.undo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoGroup.undo()</span></tt></a> or <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.PySide.QtGui.QUndoGroup.redo" title="PySide.QtGui.PySide.QtGui.QUndoGroup.redo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoGroup.redo()</span></tt></a> will be forwarded to this stack when it is active. If the <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> is watched by a <a class="reference internal" href="QUndoView.html#PySide.QtGui.QUndoView" title="PySide.QtGui.QUndoView"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoView</span></tt></a> , the view will display the contents of this stack when it is active. If the stack does not belong to a <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> , making it active has no effect.</p>
+<p>It is the programmer&#8217;s responsibility to specify which stack is active by calling <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setActive" title="PySide.QtGui.PySide.QtGui.QUndoStack.setActive"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setActive()</span></tt></a> , usually when the associated document window receives focus.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.isClean">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">isClean</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isClean" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>If the stack is in the clean state, returns true; otherwise returns false.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.setClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setClean()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanIndex()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.push">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">push</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.push" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cmd</strong> &#8211; <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.QUndoCommand" title="PySide.QtGui.QUndoCommand"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoCommand</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Pushes <tt class="docutils literal"><span class="pre">cmd</span></tt> on the stack or merges it with the most recently executed command. In either case, executes <tt class="docutils literal"><span class="pre">cmd</span></tt> by calling its <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> function.</p>
+<p>If <tt class="docutils literal"><span class="pre">cmd</span></tt> &#8216;s id is not -1, and if the id is the same as that of the most recently executed command, <a class="reference internal" href="#PySide.QtGui.QUndoStack" title="PySide.QtGui.QUndoStack"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoStack</span></tt></a> will attempt to merge the two commands by calling <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith" title="PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.mergeWith()</span></tt></a> on the most recently executed command. If <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith" title="PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.mergeWith()</span></tt></a> returns true, <tt class="docutils literal"><span class="pre">cmd</span></tt> is deleted.</p>
+<p>In all other cases <tt class="docutils literal"><span class="pre">cmd</span></tt> is simply pushed on the stack.</p>
+<p>If commands were undone before <tt class="docutils literal"><span class="pre">cmd</span></tt> was pushed, the current command and all commands above it are deleted. Hence <tt class="docutils literal"><span class="pre">cmd</span></tt> always ends up being the top-most on the stack.</p>
+<p>Once a command is pushed, the stack takes ownership of it. There are no getters to return the command, since modifying it after it has been executed will almost always lead to corruption of the document&#8217;s state.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.id" title="PySide.QtGui.PySide.QtGui.QUndoCommand.id"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.id()</span></tt></a>  <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith" title="PySide.QtGui.PySide.QtGui.QUndoCommand.mergeWith"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.mergeWith()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.redo">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">redo</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redoes the current command by calling <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.redo" title="PySide.QtGui.PySide.QtGui.QUndoCommand.redo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.redo()</span></tt></a> . Increments the current command index.</p>
+<p>If the stack is empty, or if the top command on the stack has already been redone, this function does nothing.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.redoText">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">redoText</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redoText" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the text of the command which will be redone in the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.actionText" title="PySide.QtGui.PySide.QtGui.QUndoCommand.actionText"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.actionText()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoText" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoText"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undoText()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.redoTextChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">redoTextChanged</tt><big>(</big><em>redoText</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redoTextChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>redoText</strong> &#8211; unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.setActive">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">setActive</tt><big>(</big><span class="optional">[</span><em>active=true</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setActive" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>active</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>This property holds the active status of this stack..</p>
+<p>An application often has multiple undo stacks, one for each opened document. The active stack is the one associated with the currently active document. If the stack belongs to a <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> , calls to <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.PySide.QtGui.QUndoGroup.undo" title="PySide.QtGui.PySide.QtGui.QUndoGroup.undo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoGroup.undo()</span></tt></a> or <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.PySide.QtGui.QUndoGroup.redo" title="PySide.QtGui.PySide.QtGui.QUndoGroup.redo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoGroup.redo()</span></tt></a> will be forwarded to this stack when it is active. If the <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> is watched by a <a class="reference internal" href="QUndoView.html#PySide.QtGui.QUndoView" title="PySide.QtGui.QUndoView"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoView</span></tt></a> , the view will display the contents of this stack when it is active. If the stack does not belong to a <a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a> , making it active has no effect.</p>
+<p>It is the programmer&#8217;s responsibility to specify which stack is active by calling <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setActive" title="PySide.QtGui.PySide.QtGui.QUndoStack.setActive"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setActive()</span></tt></a> , usually when the associated document window receives focus.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoGroup.html#PySide.QtGui.QUndoGroup" title="PySide.QtGui.QUndoGroup"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QUndoGroup</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.setClean">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">setClean</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setClean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks the stack as clean and emits <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanChanged()</span></tt></a> if the stack was not already clean.</p>
+<p>Whenever the stack returns to this state through the use of undo/redo commands, it emits the signal <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanChanged()</span></tt></a> . This signal is also emitted when the stack leaves the clean state.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.isClean" title="PySide.QtGui.PySide.QtGui.QUndoStack.isClean"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.isClean()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex" title="PySide.QtGui.PySide.QtGui.QUndoStack.cleanIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.cleanIndex()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.setIndex">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">setIndex</tt><big>(</big><em>idx</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setIndex" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Repeatedly calls <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> or <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a> until the current command index reaches <tt class="docutils literal"><span class="pre">idx</span></tt> . This function can be used to roll the state of the document forwards of backwards. <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged" title="PySide.QtGui.PySide.QtGui.QUndoStack.indexChanged"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.indexChanged()</span></tt></a> is emitted only once.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.count" title="PySide.QtGui.PySide.QtGui.QUndoStack.count"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.count()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">setUndoLimit</tt><big>(</big><em>limit</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>limit</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>This property holds the maximum number of commands on this stack..</p>
+<p>When the number of commands on a stack exceedes the stack&#8217;s <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undoLimit()</span></tt></a> , commands are deleted from the bottom of the stack. Macro commands (commands with child commands) are treated as one command. The default value is 0, which means that there is no limit.</p>
+<p>This property may only be set when the undo stack is empty, since setting it on a non-empty stack might delete the command at the current index. Calling <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setUndoLimit()</span></tt></a> on a non-empty stack prints a warning and does nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.text">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">text</tt><big>(</big><em>idx</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.text" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the text of the command at index <tt class="docutils literal"><span class="pre">idx</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro" title="PySide.QtGui.PySide.QtGui.QUndoStack.beginMacro"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.beginMacro()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.undo">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">undo</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undoes the command below the current command by calling <a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.undo" title="PySide.QtGui.PySide.QtGui.QUndoCommand.undo"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.undo()</span></tt></a> . Decrements the current command index.</p>
+<p>If the stack is empty, or if the bottom command on the stack has already been undone, this function does nothing.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redo" title="PySide.QtGui.PySide.QtGui.QUndoStack.redo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redo()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.index" title="PySide.QtGui.PySide.QtGui.QUndoStack.index"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.index()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">undoLimit</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>This property holds the maximum number of commands on this stack..</p>
+<p>When the number of commands on a stack exceedes the stack&#8217;s <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.undoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undoLimit()</span></tt></a> , commands are deleted from the bottom of the stack. Macro commands (commands with child commands) are treated as one command. The default value is 0, which means that there is no limit.</p>
+<p>This property may only be set when the undo stack is empty, since setting it on a non-empty stack might delete the command at the current index. Calling <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit" title="PySide.QtGui.PySide.QtGui.QUndoStack.setUndoLimit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.setUndoLimit()</span></tt></a> on a non-empty stack prints a warning and does nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.undoText">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">undoText</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoText" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the text of the command which will be undone in the next call to <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undo" title="PySide.QtGui.PySide.QtGui.QUndoStack.undo"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.undo()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QUndoCommand.html#PySide.QtGui.PySide.QtGui.QUndoCommand.actionText" title="PySide.QtGui.PySide.QtGui.QUndoCommand.actionText"><tt class="xref py py-meth docutils literal"><span class="pre">QUndoCommand.actionText()</span></tt></a>  <a class="reference internal" href="#PySide.QtGui.PySide.QtGui.QUndoStack.redoText" title="PySide.QtGui.PySide.QtGui.QUndoStack.redoText"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtGui.QUndoStack.redoText()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtGui.PySide.QtGui.QUndoStack.undoTextChanged">
+<tt class="descclassname">PySide.QtGui.QUndoStack.</tt><tt class="descname">undoTextChanged</tt><big>(</big><em>undoText</em><big>)</big><a class="headerlink" href="#PySide.QtGui.PySide.QtGui.QUndoStack.undoTextChanged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>undoText</strong> &#8211; unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

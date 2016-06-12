@@ -1,0 +1,252 @@
+.. module:: PySide.QtNetwork
+.. _QAuthenticator:
+
+QAuthenticator
+**************
+
+.. inheritance-diagram:: QAuthenticator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QAuthenticator.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QAuthenticator.__ne__>` (other)
+*    def :meth:`isNull<PySide.QtNetwork.QAuthenticator.isNull>` ()
+*    def :meth:`option<PySide.QtNetwork.QAuthenticator.option>` (opt)
+*    def :meth:`options<PySide.QtNetwork.QAuthenticator.options>` ()
+*    def :meth:`password<PySide.QtNetwork.QAuthenticator.password>` ()
+*    def :meth:`realm<PySide.QtNetwork.QAuthenticator.realm>` ()
+*    def :meth:`setOption<PySide.QtNetwork.QAuthenticator.setOption>` (opt, value)
+*    def :meth:`setPassword<PySide.QtNetwork.QAuthenticator.setPassword>` (password)
+*    def :meth:`setUser<PySide.QtNetwork.QAuthenticator.setUser>` (user)
+*    def :meth:`user<PySide.QtNetwork.QAuthenticator.user>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QAuthenticator` class provides an authentication object.
+
+    The :class:`PySide.QtNetwork.QAuthenticator` class is usually used in the :meth:`PySide.QtNetwork.QNetworkAccessManager.authenticationRequired` and :meth:`PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired` signals of :class:`PySide.QtNetwork.QNetworkAccessManager` and :class:`PySide.QtNetwork.QAbstractSocket` . The class provides a way to pass back the required authentication information to the socket when accessing services that require authentication.
+
+    :class:`PySide.QtNetwork.QAuthenticator` supports the following authentication methods:
+
+
+    * Basic
+    * NTLM version 2
+    * Digest-MD5
+
+    .. _PySide.QtNetwork.QAuthenticator_options:
+
+
+
+Options
+^^^^^^^
+
+    In addition to the username and password required for authentication, a :class:`PySide.QtNetwork.QAuthenticator` object can also contain additional options. The :meth:`PySide.QtNetwork.QAuthenticator.options` function can be used to query incoming options sent by the server; the :meth:`PySide.QtNetwork.QAuthenticator.setOption` function can be used to set outgoing options, to be processed by the authenticator calculation. The options accepted and provided depend on the authentication type (see method()).
+
+    The following tables list known incoming options as well as accepted outgoing options. The list of incoming options is not exhaustive, since servers may include additional information at any time. The list of outgoing options is exhaustive, however, and no unknown options will be treated or sent back to the server.
+
+    .. _PySide.QtNetwork.QAuthenticator_basic:
+
+
+
+Basic
+^^^^^
+
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+    |Option    |Direction|Description                                                                                        |
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+    |``realm``\|Incoming |Contains the realm of the authentication, the same as :meth:`PySide.QtNetwork.QAuthenticator.realm`|
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+
+    The Basic authentication mechanism supports no outgoing options.
+
+    .. _PySide.QtNetwork.QAuthenticator_ntlm-version-2:
+
+
+
+NTLM version 2
+^^^^^^^^^^^^^^
+
+    The NTLM authentication mechanism currently supports no incoming or outgoing options.
+
+    .. _PySide.QtNetwork.QAuthenticator_digest-md5:
+
+
+
+Digest-MD5
+^^^^^^^^^^
+
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+    |Option    |Direction|Description                                                                                        |
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+    |``realm``\|Incoming |Contains the realm of the authentication, the same as :meth:`PySide.QtNetwork.QAuthenticator.realm`|
+    +----------+---------+---------------------------------------------------------------------------------------------------+
+
+    The Digest-MD5 authentication mechanism supports no outgoing options.
+
+    .. seealso::  :class:`PySide.QtNetwork.QSslSocket` 
+
+.. class:: QAuthenticator()
+           QAuthenticator(other)
+
+    :param other: :class:`PySide.QtNetwork.QAuthenticator`
+
+    Constructs an empty authentication object
+
+
+    Constructs a copy of ``other`` .
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the authenticator is null.
+
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QAuthenticator`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this authenticator is different from ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QAuthenticator`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this authenticator is identical to ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.option(opt)
+
+
+    :param opt: unicode
+    :rtype: object
+
+
+
+
+    Returns the value related to option ``opt`` if it was set by the server. See :class:`~PySide.QtNetwork.QAuthenticator#Options` for more information on incoming options. If option ``opt`` isn't found, an invalid :class:`PySide.QtCore.QVariant` will be returned.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.setOption`  :meth:`PySide.QtNetwork.QAuthenticator.options`  :class:`~PySide.QtNetwork.QAuthenticator#Options` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.options()
+
+
+    :rtype: 
+
+
+
+
+    Returns all incoming options set in this :class:`PySide.QtNetwork.QAuthenticator` object by parsing the server reply. See :class:`~PySide.QtNetwork.QAuthenticator#Options` for more information on incoming options.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.option`  :class:`~PySide.QtNetwork.QAuthenticator#Options` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.password()
+
+
+    :rtype: unicode
+
+
+
+
+    returns the password used for authentication.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.setPassword` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.realm()
+
+
+    :rtype: unicode
+
+
+
+
+    returns the realm requiring authentication.
+
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.setOption(opt, value)
+
+
+    :param opt: unicode
+    :param value: object
+
+
+
+
+    Sets the outgoing option ``opt`` to value ``value`` . See :class:`~PySide.QtNetwork.QAuthenticator#Options` for more information on outgoing options.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.options`  :meth:`PySide.QtNetwork.QAuthenticator.option`  :class:`~PySide.QtNetwork.QAuthenticator#Options` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.setPassword(password)
+
+
+    :param password: unicode
+
+
+
+
+    Sets the ``password`` used for authentication.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.password` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.setUser(user)
+
+
+    :param user: unicode
+
+
+
+
+    Sets the ``user`` used for authentication.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.user` 
+
+
+.. method:: PySide.QtNetwork.QAuthenticator.user()
+
+
+    :rtype: unicode
+
+
+
+
+    returns the user used for authentication.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAuthenticator.setUser` 
+
+
+

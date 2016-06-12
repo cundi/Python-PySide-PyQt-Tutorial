@@ -1,0 +1,319 @@
+.. module:: PySide.QtGui
+.. _QGradient:
+
+QGradient
+*********
+
+.. inheritance-diagram:: QGradient
+    :parts: 2
+
+**Inherited by:** :ref:`QConicalGradient`, :ref:`QRadialGradient`, :ref:`QLinearGradient`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QGradient.__eq__>` (gradient)
+*    def :meth:`__ne__<PySide.QtGui.QGradient.__ne__>` (other)
+*    def :meth:`coordinateMode<PySide.QtGui.QGradient.coordinateMode>` ()
+*    def :meth:`interpolationMode<PySide.QtGui.QGradient.interpolationMode>` ()
+*    def :meth:`setColorAt<PySide.QtGui.QGradient.setColorAt>` (pos, color)
+*    def :meth:`setCoordinateMode<PySide.QtGui.QGradient.setCoordinateMode>` (mode)
+*    def :meth:`setInterpolationMode<PySide.QtGui.QGradient.setInterpolationMode>` (mode)
+*    def :meth:`setSpread<PySide.QtGui.QGradient.setSpread>` (spread)
+*    def :meth:`setStops<PySide.QtGui.QGradient.setStops>` (stops)
+*    def :meth:`spread<PySide.QtGui.QGradient.spread>` ()
+*    def :meth:`stops<PySide.QtGui.QGradient.stops>` ()
+*    def :meth:`type<PySide.QtGui.QGradient.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGradient` class is used in combination with :class:`PySide.QtGui.QBrush` to specify gradient fills.
+
+    Qt currently supports three types of gradient fills:
+
+
+    * *Linear* gradients interpolate colors between start and end points.
+    * *Simple* radial gradients interpolate colors between a focal point and end points on a circle surrounding it.
+    * *Extended* radial gradients interpolate colors between a center and a focal circle.
+    * *Conical* gradients interpolate colors around a center point.
+
+    A gradient's type can be retrieved using the :meth:`PySide.QtGui.QGradient.type` function. Each of the types is represented by a subclass of :class:`PySide.QtGui.QGradient` :
+
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtGui.QLinearGradient`                                                              |:class:`PySide.QtGui.QRadialGradient`                                                              |:class:`PySide.QtGui.QConicalGradient`                                                              |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qgradient-linear.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qgradient-radial.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qgradient-conical.png|
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+
+
+    The colors in a gradient are defined using stop points of the :class:`~PySide.QtGui.QGradientStop` type; i.e., a position and a color. Use the :meth:`PySide.QtGui.QGradient.setColorAt` function to define a single stop point. Alternatively, use the :meth:`PySide.QtGui.QGradient.setStops` function to define several stop points in one go. Note that the latter function *replaces* the current set of stop points.
+
+    It is the gradient's complete set of stop points (accessible through the :meth:`PySide.QtGui.QGradient.stops` function) that describes how the gradient area should be filled. If no stop points have been specified, a gradient of black at 0 to white at 1 is used.
+
+    A diagonal linear gradient from black at (100, 100) to white at (200, 200) could be specified like this:
+
+    ::
+
+            linearGrad = QLinearGradient(QPointF(100, 100), QPointF(200, 200))
+            linearGrad.setColorAt(0, Qt.black)
+            linearGrad.setColorAt(1, Qt.white)
+
+
+    A gradient can have an arbitrary number of stop points. The following would create a radial gradient starting with red in the center, blue and then green on the edges:
+
+    ::
+
+            radialGrad = QRadialGradient(QPointF(100, 100), 100)
+            radialGrad.setColorAt(0, Qt.red)
+            radialGrad.setColorAt(0.5, Qt.blue)
+            radialGrad.setColorAt(1, Qt.green)
+
+
+    It is possible to repeat or reflect the gradient outside its area by specifiying the :attr:`spread method<QGradient.Spread>` using the :meth:`PySide.QtGui.QGradient.setSpread` function. The default is to pad the outside area with the color at the closest stop point. The currently set :attr:`spread method<QGradient.Spread>` can be retrieved using the :meth:`PySide.QtGui.QGradient.spread` function. The :attr:`QGradient.Spread` enum defines three different methods:
+
+    +------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-pad.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-repeat.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qradialgradient-reflect.png|
+    +------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
+    |:attr:`PadSpread<QGradient.Spread>`                                                                   |:attr:`RepeatSpread<QGradient.Spread>`                                                                   |:attr:`ReflectSpread<QGradient.Spread>`                                                                   |
+    +------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+
+
+    Note that the :meth:`PySide.QtGui.QGradient.setSpread` function only has effect for linear and radial gradients. The reason is that the conical gradient is closed by definition, i.e. the *conical* gradient fills the entire circle from 0 - 360 degrees, while the boundary of a radial or a linear gradient can be specified through its radius or final stop points, respectively.
+
+    The gradient coordinates can be specified in logical coordinates, relative to device coordinates, or relative to object bounding box coordinates. The :attr:`coordinate mode<QGradient.CoordinateMode>` can be set using the :meth:`PySide.QtGui.QGradient.setCoordinateMode` function. The default is :attr:`LogicalMode<QGradient.CoordinateMode>` , where the gradient coordinates are specified in the same way as the object coordinates. To retrieve the currently set :attr:`coordinate mode<QGradient.CoordinateMode>` use :meth:`PySide.QtGui.QGradient.coordinateMode` .
+
+    .. seealso::  :ref:`The Gradients Demo<demos/gradients>`  :class:`PySide.QtGui.QBrush` 
+
+.. class:: QGradient()
+           QGradient(QGradient)
+
+    :param QGradient: :class:`PySide.QtGui.QGradient`
+
+
+
+
+.. attribute:: PySide.QtGui.QGradient.CoordinateMode
+
+    This enum specifies how gradient coordinates map to the paint device on which the gradient is used.
+
+    +-----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                     |Description                                                                                                                                                                                                        |
+    +=============================+===================================================================================================================================================================================================================+
+    |QGradient.LogicalMode        |This is the default mode. The gradient coordinates are specified logical space just like the object coordinates.                                                                                                   |
+    +-----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGradient.StretchToDeviceMode|In this mode the gradient coordinates are relative to the bounding rectangle of the paint device, with (0,0) in the top left corner, and (1,1) in the bottom right corner of the paint device.                     |
+    +-----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGradient.ObjectBoundingMode |In this mode the gradient coordinates are relative to the bounding rectangle of the object being drawn, with (0,0) in the top left corner, and (1,1) in the bottom right corner of the object's bounding rectangle.|
+    +-----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QGradient.Spread
+
+    Specifies how the area outside the gradient area should be filled.
+
+    +-----------------------+--------------------------------------------------------------------+
+    |Constant               |Description                                                         |
+    +=======================+====================================================================+
+    |QGradient.PadSpread    |The area is filled with the closest stop color. This is the default.|
+    +-----------------------+--------------------------------------------------------------------+
+    |QGradient.RepeatSpread |The gradient is repeated outside the gradient area.                 |
+    +-----------------------+--------------------------------------------------------------------+
+    |QGradient.ReflectSpread|The gradient is reflected outside the gradient area.                |
+    +-----------------------+--------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.spread`  :meth:`PySide.QtGui.QGradient.setSpread` 
+
+.. attribute:: PySide.QtGui.QGradient.Type
+
+    Specifies the type of gradient.
+
+    +-------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+    |Constant                 |Description                                                                                                                  |
+    +=========================+=============================================================================================================================+
+    |QGradient.LinearGradient |Interpolates colors between start and end points ( :class:`PySide.QtGui.QLinearGradient` ).                                  |
+    +-------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+    |QGradient.RadialGradient |Interpolate colors between a focal point and end points on a circle surrounding it ( :class:`PySide.QtGui.QRadialGradient` ).|
+    +-------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+    |QGradient.ConicalGradient|Interpolate colors around a center point ( :class:`PySide.QtGui.QConicalGradient` ).                                         |
+    +-------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+    |QGradient.NoGradient     |No gradient is used.                                                                                                         |
+    +-------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.type` 
+
+.. attribute:: PySide.QtGui.QGradient.InterpolationMode
+
+    +--------------------------------+-------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                          |
+    +================================+=====================================================================================+
+    |QGradient.ComponentInterpolation|The color components and the alpha component are independently linearly interpolated.|
+    +--------------------------------+-------------------------------------------------------------------------------------+
+    |QGradient.ColorInterpolation    |The colors are linearly interpolated in premultiplied color space.                   |
+    +--------------------------------+-------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QGradient.coordinateMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QGradient.CoordinateMode`
+
+
+
+
+    Returns the coordinate mode of this gradient. The default mode is :attr:`LogicalMode<QGradient.CoordinateMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.setCoordinateMode` 
+
+
+.. method:: PySide.QtGui.QGradient.interpolationMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QGradient.InterpolationMode`
+
+
+
+
+    Returns the interpolation mode of this gradient. The default mode is :attr:`ColorInterpolation<QGradient.InterpolationMode>` .
+
+
+
+.. method:: PySide.QtGui.QGradient.__ne__(other)
+
+
+    :param other: :class:`PySide.QtGui.QGradient`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the gradient is the same as the other ``gradient`` specified; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.operator==` 
+
+
+.. method:: PySide.QtGui.QGradient.__eq__(gradient)
+
+
+    :param gradient: :class:`PySide.QtGui.QGradient`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the gradient is the same as the other ``gradient`` specified; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.operator!=` 
+
+
+.. method:: PySide.QtGui.QGradient.setColorAt(pos, color)
+
+
+    :param pos: :class:`PySide.QtCore.qreal`
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Creates a stop point at the given ``position`` with the given ``color`` . The given ``position`` must be in the range 0 to 1.
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.setStops`  :meth:`PySide.QtGui.QGradient.stops` 
+
+
+.. method:: PySide.QtGui.QGradient.setCoordinateMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QGradient.CoordinateMode`
+
+
+
+
+    Sets the coordinate mode of this gradient to ``mode`` . The default mode is :attr:`LogicalMode<QGradient.CoordinateMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.coordinateMode` 
+
+
+.. method:: PySide.QtGui.QGradient.setInterpolationMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QGradient.InterpolationMode`
+
+
+
+
+    Sets the interpolation mode of this gradient to ``mode`` . The default mode is :attr:`ColorInterpolation<QGradient.InterpolationMode>` .
+
+
+
+.. method:: PySide.QtGui.QGradient.setSpread(spread)
+
+
+    :param spread: :attr:`PySide.QtGui.QGradient.Spread`
+
+
+
+
+    Specifies the spread ``method`` that should be used for this gradient.
+
+    Note that this function only has effect for linear and radial gradients.
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.spread` 
+
+
+.. method:: PySide.QtGui.QGradient.setStops(stops)
+
+
+    :param stops: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGradient.spread()
+
+
+    :rtype: :attr:`PySide.QtGui.QGradient.Spread`
+
+
+
+
+    Returns the spread method use by this gradient. The default is :attr:`PadSpread<QGradient.Spread>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.setSpread` 
+
+
+.. method:: PySide.QtGui.QGradient.stops()
+
+
+    :rtype: 
+
+
+
+
+    Returns the stop points for this gradient.
+
+    If no stop points have been specified, a gradient of black at 0 to white at 1 is used.
+
+    .. seealso::  :meth:`PySide.QtGui.QGradient.setStops`  :meth:`PySide.QtGui.QGradient.setColorAt` 
+
+
+.. method:: PySide.QtGui.QGradient.type()
+
+
+    :rtype: :attr:`PySide.QtGui.QGradient.Type`
+
+
+
+
+    Returns the type of gradient.
+
+
+
+

@@ -1,0 +1,881 @@
+.. module:: PySide.QtNetwork
+.. _QHttp:
+
+QHttp
+*****
+
+.. inheritance-diagram:: QHttp
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bytesAvailable<PySide.QtNetwork.QHttp.bytesAvailable>` ()
+*    def :meth:`clearPendingRequests<PySide.QtNetwork.QHttp.clearPendingRequests>` ()
+*    def :meth:`close<PySide.QtNetwork.QHttp.close>` ()
+*    def :meth:`currentDestinationDevice<PySide.QtNetwork.QHttp.currentDestinationDevice>` ()
+*    def :meth:`currentId<PySide.QtNetwork.QHttp.currentId>` ()
+*    def :meth:`currentRequest<PySide.QtNetwork.QHttp.currentRequest>` ()
+*    def :meth:`currentSourceDevice<PySide.QtNetwork.QHttp.currentSourceDevice>` ()
+*    def :meth:`error<PySide.QtNetwork.QHttp.error>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QHttp.errorString>` ()
+*    def :meth:`get<PySide.QtNetwork.QHttp.get>` (path[, to=None])
+*    def :meth:`hasPendingRequests<PySide.QtNetwork.QHttp.hasPendingRequests>` ()
+*    def :meth:`head<PySide.QtNetwork.QHttp.head>` (path)
+*    def :meth:`lastResponse<PySide.QtNetwork.QHttp.lastResponse>` ()
+*    def :meth:`post<PySide.QtNetwork.QHttp.post>` (path, data[, to=None])
+*    def :meth:`post<PySide.QtNetwork.QHttp.post>` (path, data[, to=None])
+*    def :meth:`read<PySide.QtNetwork.QHttp.read>` (, maxlen)
+*    def :meth:`readAll<PySide.QtNetwork.QHttp.readAll>` ()
+*    def :meth:`request<PySide.QtNetwork.QHttp.request>` (header, data[, to=None])
+*    def :meth:`request<PySide.QtNetwork.QHttp.request>` (header[, device=None[, to=None]])
+*    def :meth:`setHost<PySide.QtNetwork.QHttp.setHost>` (hostname, mode[, port=0])
+*    def :meth:`setHost<PySide.QtNetwork.QHttp.setHost>` (hostname[, port=80])
+*    def :meth:`setProxy<PySide.QtNetwork.QHttp.setProxy>` (host, port[, username=""[, password=""]])
+*    def :meth:`setProxy<PySide.QtNetwork.QHttp.setProxy>` (proxy)
+*    def :meth:`setSocket<PySide.QtNetwork.QHttp.setSocket>` (socket)
+*    def :meth:`setUser<PySide.QtNetwork.QHttp.setUser>` (username[, password=""])
+*    def :meth:`state<PySide.QtNetwork.QHttp.state>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`abort<PySide.QtNetwork.QHttp.abort>` ()
+*    def :meth:`ignoreSslErrors<PySide.QtNetwork.QHttp.ignoreSslErrors>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`authenticationRequired<PySide.QtNetwork.QHttp.authenticationRequired>` (hostname, port, arg__3)
+*    def :meth:`dataReadProgress<PySide.QtNetwork.QHttp.dataReadProgress>` (arg__1, arg__2)
+*    def :meth:`dataSendProgress<PySide.QtNetwork.QHttp.dataSendProgress>` (arg__1, arg__2)
+*    def :meth:`done<PySide.QtNetwork.QHttp.done>` (arg__1)
+*    def :meth:`proxyAuthenticationRequired<PySide.QtNetwork.QHttp.proxyAuthenticationRequired>` (proxy, arg__2)
+*    def :meth:`readyRead<PySide.QtNetwork.QHttp.readyRead>` (resp)
+*    def :meth:`requestFinished<PySide.QtNetwork.QHttp.requestFinished>` (arg__1, arg__2)
+*    def :meth:`requestStarted<PySide.QtNetwork.QHttp.requestStarted>` (arg__1)
+*    def :meth:`responseHeaderReceived<PySide.QtNetwork.QHttp.responseHeaderReceived>` (resp)
+*    def :meth:`sslErrors<PySide.QtNetwork.QHttp.sslErrors>` (errors)
+*    def :meth:`stateChanged<PySide.QtNetwork.QHttp.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QHttp` class provides an implementation of the HTTP protocol.
+
+    This class provides a direct interface to HTTP that allows you to download and upload data with the HTTP protocol. However, for new applications, it is recommended to use :class:`PySide.QtNetwork.QNetworkAccessManager` and :class:`PySide.QtNetwork.QNetworkReply` , as those classes possess a simpler, yet more powerful API and a more modern protocol implementation.
+
+    The class works asynchronously, so there are no blocking functions. If an operation cannot be executed immediately, the function will still return straight away and the operation will be scheduled for later execution. The results of scheduled operations are reported via signals. This approach depends on the event loop being in operation.
+
+    The operations that can be scheduled (they are called "requests" in the rest of the documentation) are the following: :meth:`PySide.QtNetwork.QHttp.setHost` , :meth:`PySide.QtNetwork.QHttp.get` , :meth:`PySide.QtNetwork.QHttp.post` , :meth:`PySide.QtNetwork.QHttp.head` and :meth:`PySide.QtNetwork.QHttp.request` .
+
+    All of these requests return a unique identifier that allows you to keep track of the request that is currently executed. When the execution of a request starts, the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal with the identifier is emitted and when the request is finished, the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted with the identifier and a bool that indicates if the request finished with an error.
+
+    To make an HTTP request you must set up suitable HTTP headers. The following example demonstrates how to request the main HTML page from the Qt website (i.e., the URL ``http://qt.nokia.com/index.html`` ):
+
+    ::
+
+        header = QHttpRequestHeader("GET", QUrl.toPercentEncoding("/index.html"))
+        header.setValue("Host", "qtsoftware.com")
+        http.setHost("qtsoftware.com")
+        http.request(header)
+
+
+    For the common HTTP requests ``GET`` , ``POST`` and ``HEAD`` , :class:`PySide.QtNetwork.QHttp` provides the convenience functions :meth:`PySide.QtNetwork.QHttp.get` , :meth:`PySide.QtNetwork.QHttp.post` and :meth:`PySide.QtNetwork.QHttp.head` . They already use a reasonable header and if you don't have to set special header fields, they are easier to use. The above example can also be written as:
+
+    ::
+
+        http.setHost("qtsoftware.com")                  # id == 1
+        http.get(QUrl.toPercentEncoding("/index.html")) # id == 2
+
+
+    For this example the following sequence of signals is emitted (with small variations, depending on network traffic, etc.):
+
+    ::
+
+        requestStarted(1)
+        requestFinished(1, False)
+
+        requestStarted(2)
+        stateChanged(Connecting)
+        stateChanged(Sending)
+        dataSendProgress(77, 77)
+        stateChanged(Reading)
+        responseHeaderReceived(responseheader)
+        dataReadProgress(5388, 0)
+        readyRead(responseheader)
+        dataReadProgress(18300, 0)
+        readyRead(responseheader)
+        stateChanged(Connected)
+        requestFinished(2, False)
+
+        done(False)
+
+        stateChanged(Closing)
+        stateChanged(Unconnected)
+
+
+    The :meth:`PySide.QtNetwork.QHttp.dataSendProgress` and :meth:`PySide.QtNetwork.QHttp.dataReadProgress` signals in the above example are useful if you want to show a :class:`progress bar<PySide.QtGui.QProgressBar>` to inform the user about the progress of the download. The second argument is the total size of data. In certain cases it is not possible to know the total amount in advance, in which case the second argument is 0. (If you connect to a :class:`PySide.QtGui.QProgressBar` a total of 0 results in a busy indicator.)
+
+    When the response header is read, it is reported with the :meth:`PySide.QtNetwork.QHttp.responseHeaderReceived` signal.
+
+    The :meth:`PySide.QtNetwork.QHttp.readyRead` signal tells you that there is data ready to be read. The amount of data can then be queried with the :meth:`PySide.QtNetwork.QHttp.bytesAvailable` function and it can be read with the :meth:`PySide.QtNetwork.QHttp.read` or :meth:`PySide.QtNetwork.QHttp.readAll` functions.
+
+    If an error occurs during the execution of one of the commands in a sequence of commands, all the pending commands (i.e. scheduled, but not yet executed commands) are cleared and no signals are emitted for them.
+
+    For example, if you have the following sequence of requests
+
+    ::
+
+        http.setHost("www.foo.bar")       # id == 1
+        http.get("/index.html")           # id == 2
+        http.post("register.html", data)  # id == 3
+
+
+    and the :meth:`PySide.QtNetwork.QHttp.get` request fails because the host lookup fails, then the :meth:`PySide.QtNetwork.QHttp.post` request is never executed and the signals would look like this:
+
+    ::
+
+        requestStarted(1)
+        requestFinished(1, False)
+
+        requestStarted(2)
+        stateChanged(HostLookup)
+        requestFinished(2, True)
+
+        done(True)
+
+        stateChanged(Unconnected)
+
+
+    You can then get details about the error with the :meth:`PySide.QtNetwork.QHttp.error` and :meth:`PySide.QtNetwork.QHttp.errorString` functions. Note that only unexpected behavior, like network failure is considered as an error. If the server response contains an error status, like a 404 response, this is reported as a normal response case. So you should always check the :meth:`status code<PySide.QtNetwork.QHttpResponseHeader.statusCode>` of the response header.
+
+    The functions :meth:`PySide.QtNetwork.QHttp.currentId` and :meth:`PySide.QtNetwork.QHttp.currentRequest` provide more information about the currently executing request.
+
+    The functions :meth:`PySide.QtNetwork.QHttp.hasPendingRequests` and :meth:`PySide.QtNetwork.QHttp.clearPendingRequests` allow you to query and clear the list of pending requests.
+
+    .. seealso::  :class:`PySide.QtNetwork.QFtp`  :class:`PySide.QtNetwork.QNetworkAccessManager`  :class:`PySide.QtNetwork.QNetworkRequest`  :class:`PySide.QtNetwork.QNetworkReply`  :ref:`HTTP Example<network/http>`  :ref:`Torrent Example<network/torrent>` 
+
+.. class:: QHttp([parent=None])
+           QHttp(hostname, mode[, port=0[, parent=None]])
+           QHttp(hostname[, port=80[, parent=None]])
+
+    :param port: :class:`PySide.QtCore.quint16`
+    :param mode: :attr:`PySide.QtNetwork.QHttp.ConnectionMode`
+    :param hostname: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtNetwork.QHttp` object. The ``parent`` parameter is passed on to the :class:`PySide.QtCore.QObject` constructor.
+
+
+    Constructs a :class:`PySide.QtNetwork.QHttp` object. Subsequent requests are done by connecting to the server ``hostName`` on port ``port`` using the connection mode ``mode`` .
+
+    If port is 0, it will use the default port for the ``mode`` used (80 for Http and 443 for Https).
+
+    The ``parent`` parameter is passed on to the :class:`PySide.QtCore.QObject` constructor.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost` 
+
+    Constructs a :class:`PySide.QtNetwork.QHttp` object. Subsequent requests are done by connecting to the server ``hostName`` on port ``port`` .
+
+    The ``parent`` parameter is passed on to the :class:`PySide.QtCore.QObject` constructor.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost` 
+
+.. attribute:: PySide.QtNetwork.QHttp.Error
+
+    This enum identifies the error that occurred.
+
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                              |
+    +======================================+=========================================================================================================================+
+    |QHttp.NoError                         |No error occurred.                                                                                                       |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.HostNotFound                    |The host name lookup failed.                                                                                             |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.ConnectionRefused               |The server refused the connection.                                                                                       |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.UnexpectedClose                 |The server closed the connection unexpectedly.                                                                           |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.InvalidResponseHeader           |The server sent an invalid response header.                                                                              |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.WrongContentLength              |The client could not read the content correctly because an error with respect to the content length occurred.            |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Aborted                         |The request was aborted with :meth:`PySide.QtNetwork.QHttp.abort` .                                                      |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.ProxyAuthenticationRequiredError|:class:`PySide.QtNetwork.QHttp` is using a proxy, and the proxy server requires authentication to establish a connection.|
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.AuthenticationRequiredError     |The web server requires authentication to complete the request.                                                          |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.UnknownError                    |An error other than those specified above occurred.                                                                      |
+    +--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.error` 
+
+.. attribute:: PySide.QtNetwork.QHttp.ConnectionMode
+
+    This enum is used to specify the mode of connection to use:
+
+    +-------------------------+---------------------------------------------------------------------+
+    |Constant                 |Description                                                          |
+    +=========================+=====================================================================+
+    |QHttp.ConnectionModeHttp |The connection is a regular HTTP connection to the server            |
+    +-------------------------+---------------------------------------------------------------------+
+    |QHttp.ConnectionModeHttps|The HTTPS protocol is used and the connection is encrypted using SSL.|
+    +-------------------------+---------------------------------------------------------------------+
+
+    When using the HTTPS mode, care should be taken to connect to the sslErrors signal, and handle possible SSL errors.
+
+    .. seealso::  :class:`PySide.QtNetwork.QSslSocket` 
+
+.. attribute:: PySide.QtNetwork.QHttp.State
+
+    This enum is used to specify the state the client is in:
+
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |Constant         |Description                                                                                                              |
+    +=================+=========================================================================================================================+
+    |QHttp.Unconnected|There is no connection to the host.                                                                                      |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.HostLookup |A host name lookup is in progress.                                                                                       |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Connecting |An attempt to connect to the host is in progress.                                                                        |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Sending    |The client is sending its request to the server.                                                                         |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Reading    |The client's request has been sent and the client is reading the server's response.                                      |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Connected  |The connection to the host is open, but the client is neither sending a request, nor waiting for a response.             |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+    |QHttp.Closing    |The connection is closing down, but is not yet closed. (The state will be ``Unconnected`` when the connection is closed.)|
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.stateChanged`  :meth:`PySide.QtNetwork.QHttp.state` 
+
+.. method:: PySide.QtNetwork.QHttp.abort()
+
+
+
+
+
+
+    Aborts the current request and deletes all scheduled requests.
+
+    For the current request, the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal with the ``error`` argument ``true`` is emitted. For all other requests that are affected by the :meth:`PySide.QtNetwork.QHttp.abort` , no signals are emitted.
+
+    Since this slot also deletes the scheduled requests, there are no requests left and the :meth:`PySide.QtNetwork.QHttp.done` signal is emitted (with the ``error`` argument ``true`` ).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.clearPendingRequests` 
+
+
+.. method:: PySide.QtNetwork.QHttp.authenticationRequired(hostname, port, arg__3)
+
+
+    :param hostname: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :param arg__3: :class:`PySide.QtNetwork.QAuthenticator`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.bytesAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of bytes that can be read from the response content at the moment.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.readyRead`  :meth:`PySide.QtNetwork.QHttp.read`  :meth:`PySide.QtNetwork.QHttp.readAll` 
+
+
+.. method:: PySide.QtNetwork.QHttp.clearPendingRequests()
+
+
+
+
+
+
+    Deletes all pending requests from the list of scheduled requests. This does not affect the request that is being executed. If you want to stop this as well, use :meth:`PySide.QtNetwork.QHttp.abort` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.hasPendingRequests`  :meth:`PySide.QtNetwork.QHttp.abort` 
+
+
+.. method:: PySide.QtNetwork.QHttp.close()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Closes the connection; this is useful if you have a keep-alive connection and want to close it.
+
+    For the requests issued with :meth:`PySide.QtNetwork.QHttp.get` , :meth:`PySide.QtNetwork.QHttp.post` and :meth:`PySide.QtNetwork.QHttp.head` , :class:`PySide.QtNetwork.QHttp` sets the connection to be keep-alive. You can also do this using the header you pass to the :meth:`PySide.QtNetwork.QHttp.request` function. :class:`PySide.QtNetwork.QHttp` only closes the connection to the HTTP server if the response header requires it to do so.
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    If you want to close the connection immediately, you have to use :meth:`PySide.QtNetwork.QHttp.abort` instead.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.stateChanged`  :meth:`PySide.QtNetwork.QHttp.abort`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.currentDestinationDevice()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QIODevice` pointer that is used as to store the data of the HTTP request being executed. If there is no current request or if the request does not store the data to an IO device, this function returns 0.
+
+    This function can be used to delete the :class:`PySide.QtCore.QIODevice` in the slot connected to the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.currentSourceDevice`  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request` 
+
+
+.. method:: PySide.QtNetwork.QHttp.currentId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the identifier of the HTTP request being executed or 0 if there is no request being executed (i.e. they've all finished).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.currentRequest` 
+
+
+.. method:: PySide.QtNetwork.QHttp.currentRequest()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHttpRequestHeader`
+
+
+
+
+    Returns the request header of the HTTP request being executed. If the request is one issued by :meth:`PySide.QtNetwork.QHttp.setHost` or :meth:`PySide.QtNetwork.QHttp.close` , it returns an invalid request header, i.e. :meth:`QHttpRequestHeader.isValid()<PySide.QtNetwork.QHttpRequestHeader.isValid>` returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.currentId` 
+
+
+.. method:: PySide.QtNetwork.QHttp.currentSourceDevice()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QIODevice` pointer that is used as the data source of the HTTP request being executed. If there is no current request or if the request does not use an IO device as the data source, this function returns 0.
+
+    This function can be used to delete the :class:`PySide.QtCore.QIODevice` in the slot connected to the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.currentDestinationDevice`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request` 
+
+
+.. method:: PySide.QtNetwork.QHttp.dataReadProgress(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.dataSendProgress(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.done(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QHttp.Error`
+
+
+
+
+    Returns the last error that occurred. This is useful to find out what happened when receiving a :meth:`PySide.QtNetwork.QHttp.requestFinished` or a :meth:`PySide.QtNetwork.QHttp.done` signal with the ``error`` argument ``true`` .
+
+    If you start a new request, the error status is reset to ``NoError`` .
+
+
+
+.. method:: PySide.QtNetwork.QHttp.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human-readable description of the last error that occurred. This is useful to present a error message to the user when receiving a :meth:`PySide.QtNetwork.QHttp.requestFinished` or a :meth:`PySide.QtNetwork.QHttp.done` signal with the ``error`` argument ``true`` .
+
+
+
+.. method:: PySide.QtNetwork.QHttp.get(path[, to=None])
+
+
+    :param path: unicode
+    :param to: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sends a get request for ``path`` to the server set by :meth:`PySide.QtNetwork.QHttp.setHost` or as specified in the constructor.
+
+    ``path`` must be a absolute path like ``/index.html`` or an absolute URI like ``http://example.com/index.html`` and must be encoded with either :meth:`QUrl.toPercentEncoding()<PySide.QtCore.QUrl.toPercentEncoding>` or :meth:`QUrl.encodedPath()<PySide.QtCore.QUrl.encodedPath>` .
+
+    If the IO device ``to`` is 0 the :meth:`PySide.QtNetwork.QHttp.readyRead` signal is emitted every time new content data is available to read.
+
+    If the IO device ``to`` is not 0, the content data of the response is written directly to the device. Make sure that the ``to`` pointer is valid for the duration of the operation (it is safe to delete it when the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted).
+
+    .. _PySide.QtNetwork.QHttp_request-processing:
+
+
+
+Request Processing
+^^^^^^^^^^^^^^^^^^
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.head`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.hasPendingRequests()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are any requests scheduled that have not yet been executed; otherwise returns false.
+
+    The request that is being executed is *not* considered as a scheduled request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.clearPendingRequests`  :meth:`PySide.QtNetwork.QHttp.currentId`  :meth:`PySide.QtNetwork.QHttp.currentRequest` 
+
+
+.. method:: PySide.QtNetwork.QHttp.head(path)
+
+
+    :param path: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sends a header request for ``path`` to the server set by :meth:`PySide.QtNetwork.QHttp.setHost` or as specified in the constructor.
+
+    ``path`` must be an absolute path like ``/index.html`` or an absolute URI like ``http://example.com/index.html`` .
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost`  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.ignoreSslErrors()
+
+
+
+
+
+
+    Tells the :class:`PySide.QtNetwork.QSslSocket` used for the Http connection to ignore the errors reported in the :meth:`PySide.QtNetwork.QHttp.sslErrors` signal.
+
+    Note that this function must be called from within a slot connected to the :meth:`PySide.QtNetwork.QHttp.sslErrors` signal to have any effect.
+
+    .. seealso::  :class:`PySide.QtNetwork.QSslSocket`  :meth:`QSslSocket.sslErrors()<PySide.QtNetwork.QSslSocket.sslErrors>` 
+
+
+.. method:: PySide.QtNetwork.QHttp.lastResponse()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHttpResponseHeader`
+
+
+
+
+    Returns the received response header of the most recently finished HTTP request. If no response has yet been received :meth:`QHttpResponseHeader.isValid()<PySide.QtNetwork.QHttpResponseHeader.isValid>` will return false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.currentRequest` 
+
+
+.. method:: PySide.QtNetwork.QHttp.post(path, data[, to=None])
+
+
+    :param path: unicode
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param to: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    ``data`` is used as the content data of the HTTP request.
+
+
+
+.. method:: PySide.QtNetwork.QHttp.post(path, data[, to=None])
+
+
+    :param path: unicode
+    :param data: :class:`PySide.QtCore.QIODevice`
+    :param to: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sends a post request for ``path`` to the server set by :meth:`PySide.QtNetwork.QHttp.setHost` or as specified in the constructor.
+
+    ``path`` must be an absolute path like ``/index.html`` or an absolute URI like ``http://example.com/index.html`` and must be encoded with either :meth:`QUrl.toPercentEncoding()<PySide.QtCore.QUrl.toPercentEncoding>` or :meth:`QUrl.encodedPath()<PySide.QtCore.QUrl.encodedPath>` .
+
+    The incoming data comes via the ``data`` IO device.
+
+    If the IO device ``to`` is 0 the :meth:`PySide.QtNetwork.QHttp.readyRead` signal is emitted every time new content data is available to read.
+
+    If the IO device ``to`` is not 0, the content data of the response is written directly to the device. Make sure that the ``to`` pointer is valid for the duration of the operation (it is safe to delete it when the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted).
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost`  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.head`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.proxyAuthenticationRequired(proxy, arg__2)
+
+
+    :param proxy: :class:`PySide.QtNetwork.QNetworkProxy`
+    :param arg__2: :class:`PySide.QtNetwork.QAuthenticator`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.read(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: QByteArray
+
+
+
+
+    Reads ``maxlen`` bytes from the response content into ``data`` and returns the number of bytes read. Returns -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.readyRead`  :meth:`PySide.QtNetwork.QHttp.bytesAvailable`  :meth:`PySide.QtNetwork.QHttp.readAll` 
+
+
+.. method:: PySide.QtNetwork.QHttp.readAll()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Reads all the bytes from the response content and returns them.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.readyRead`  :meth:`PySide.QtNetwork.QHttp.bytesAvailable`  :meth:`PySide.QtNetwork.QHttp.read` 
+
+
+.. method:: PySide.QtNetwork.QHttp.readyRead(resp)
+
+
+    :param resp: :class:`PySide.QtNetwork.QHttpResponseHeader`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.request(header[, device=None[, to=None]])
+
+
+    :param header: :class:`PySide.QtNetwork.QHttpRequestHeader`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param to: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sends a request to the server set by :meth:`PySide.QtNetwork.QHttp.setHost` or as specified in the constructor. Uses the ``header`` as the HTTP request header. You are responsible for setting up a header that is appropriate for your request.
+
+    The incoming data comes via the ``data`` IO device.
+
+    If the IO device ``to`` is 0 the :meth:`PySide.QtNetwork.QHttp.readyRead` signal is emitted every time new content data is available to read.
+
+    If the IO device ``to`` is not 0, the content data of the response is written directly to the device. Make sure that the ``to`` pointer is valid for the duration of the operation (it is safe to delete it when the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted).
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.setHost`  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.head`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.request(header, data[, to=None])
+
+
+    :param header: :class:`PySide.QtNetwork.QHttpRequestHeader`
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param to: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    ``data`` is used as the content data of the HTTP request.
+
+
+
+.. method:: PySide.QtNetwork.QHttp.requestFinished(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.requestStarted(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.responseHeaderReceived(resp)
+
+
+    :param resp: :class:`PySide.QtNetwork.QHttpResponseHeader`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.setHost(hostname[, port=80])
+
+
+    :param hostname: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the HTTP server that is used for requests to ``hostName`` on port ``port`` .
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.head`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.setHost(hostname, mode[, port=0])
+
+
+    :param hostname: unicode
+    :param mode: :attr:`PySide.QtNetwork.QHttp.ConnectionMode`
+    :param port: :class:`PySide.QtCore.quint16`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the HTTP server that is used for requests to ``hostName`` on port ``port`` using the connection mode ``mode`` .
+
+    If port is 0, it will use the default port for the ``mode`` used (80 for HTTP and 443 for HTTPS).
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttp.get`  :meth:`PySide.QtNetwork.QHttp.post`  :meth:`PySide.QtNetwork.QHttp.head`  :meth:`PySide.QtNetwork.QHttp.request`  :meth:`PySide.QtNetwork.QHttp.requestStarted`  :meth:`PySide.QtNetwork.QHttp.requestFinished`  :meth:`PySide.QtNetwork.QHttp.done` 
+
+
+.. method:: PySide.QtNetwork.QHttp.setProxy(host, port[, username=""[, password=""]])
+
+
+    :param host: unicode
+    :param port: :class:`PySide.QtCore.int`
+    :param username: unicode
+    :param password: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Enables HTTP proxy support, using the proxy server ``host`` on port ``port`` . ``username`` and ``password`` can be provided if the proxy server requires authentication.
+
+    Example:
+
+    ::
+
+        def getTicks(self):
+          http = QHttp(self)
+          self.connect(http, SIGNAL('done(bool)'), self, SLOT('showPage()'))
+          http.setProxy("proxy.example.com", 3128)
+          http.setHost("ticker.example.com")
+          http.get("/ticks.asp")
+
+        def showPage(self):
+          self.display(http.readAll())
+
+
+
+    :class:`PySide.QtNetwork.QHttp` supports non-transparent web proxy servers only, such as the Squid Web proxy cache server (from http://www.squid.org/). For transparent proxying, such as SOCKS5, use :class:`PySide.QtNetwork.QNetworkProxy` instead.
+
+    .. note:: \ :meth:`PySide.QtNetwork.QHttp.setProxy` has to be called before :meth:`PySide.QtNetwork.QHttp.setHost` for it to take effect. If :meth:`PySide.QtNetwork.QHttp.setProxy` is called after :meth:`PySide.QtNetwork.QHttp.setHost` , then it will not apply until after :meth:`PySide.QtNetwork.QHttp.setHost` is called again.
+
+    .. seealso::  :meth:`QFtp.setProxy()<PySide.QtNetwork.QFtp.setProxy>` 
+
+
+.. method:: PySide.QtNetwork.QHttp.setProxy(proxy)
+
+
+    :param proxy: :class:`PySide.QtNetwork.QNetworkProxy`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Enables HTTP proxy support using the proxy settings from ``proxy`` . If ``proxy`` is a transparent proxy, :class:`PySide.QtNetwork.QHttp` will call :meth:`QAbstractSocket.setProxy()<PySide.QtNetwork.QAbstractSocket.setProxy>` on the underlying socket. If the type is :attr:`QNetworkProxy.HttpCachingProxy<QNetworkProxy.ProxyType>` , :class:`PySide.QtNetwork.QHttp` will behave like the previous function.
+
+    .. note::  for compatibility with Qt 4.3, if the proxy type is :attr:`QNetworkProxy.HttpProxy<QNetworkProxy.ProxyType>` and the request type is unencrypted (that is, :attr:`ConnectionModeHttp<QHttp.ConnectionMode>` ), :class:`PySide.QtNetwork.QHttp` will treat the proxy as a caching proxy.
+
+
+
+.. method:: PySide.QtNetwork.QHttp.setSocket(socket)
+
+
+    :param socket: :class:`PySide.QtNetwork.QTcpSocket`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Replaces the internal :class:`PySide.QtNetwork.QTcpSocket` that :class:`PySide.QtNetwork.QHttp` uses with ``socket`` . This is useful if you want to use your own custom :class:`PySide.QtNetwork.QTcpSocket` subclass instead of the plain :class:`PySide.QtNetwork.QTcpSocket` that :class:`PySide.QtNetwork.QHttp` uses by default. :class:`PySide.QtNetwork.QHttp` does not take ownership of the socket, and will not delete ``socket`` when destroyed.
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+    Note: If :class:`PySide.QtNetwork.QHttp` is used in a non-GUI thread that runs its own event loop, you must move ``socket`` to that thread before calling :meth:`PySide.QtNetwork.QHttp.setSocket` .
+
+    .. seealso::  :meth:`QObject.moveToThread()<PySide.QtCore.QObject.moveToThread>`  :ref:`Thread Support in Qt<threads.html>` 
+
+
+.. method:: PySide.QtNetwork.QHttp.setUser(username[, password=""])
+
+
+    :param username: unicode
+    :param password: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This function sets the user name ``userName`` and password ``password`` for web pages that require authentication.
+
+    The function does not block; instead, it returns immediately. The request is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QHttp.requestStarted` and :meth:`PySide.QtNetwork.QHttp.requestFinished` .
+
+    When the request is started the :meth:`PySide.QtNetwork.QHttp.requestStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QHttp.requestFinished` signal is emitted.
+
+
+
+.. method:: PySide.QtNetwork.QHttp.sslErrors(errors)
+
+
+    :param errors: 
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttp.state()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QHttp.State`
+
+
+
+
+    Returns the current state of the object. When the state changes, the :meth:`PySide.QtNetwork.QHttp.stateChanged` signal is emitted.
+
+    .. seealso::  :attr:`QHttp.State`  :meth:`PySide.QtNetwork.QHttp.stateChanged` 
+
+
+.. method:: PySide.QtNetwork.QHttp.stateChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

@@ -1,0 +1,902 @@
+.. module:: PySide.QtSql
+.. _QSqlDatabase:
+
+QSqlDatabase
+************
+
+.. inheritance-diagram:: QSqlDatabase
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`close<PySide.QtSql.QSqlDatabase.close>` ()
+*    def :meth:`commit<PySide.QtSql.QSqlDatabase.commit>` ()
+*    def :meth:`connectOptions<PySide.QtSql.QSqlDatabase.connectOptions>` ()
+*    def :meth:`connectionName<PySide.QtSql.QSqlDatabase.connectionName>` ()
+*    def :meth:`databaseName<PySide.QtSql.QSqlDatabase.databaseName>` ()
+*    def :meth:`driver<PySide.QtSql.QSqlDatabase.driver>` ()
+*    def :meth:`driverName<PySide.QtSql.QSqlDatabase.driverName>` ()
+*    def :meth:`exec_<PySide.QtSql.QSqlDatabase.exec_>` ([query=""])
+*    def :meth:`hostName<PySide.QtSql.QSqlDatabase.hostName>` ()
+*    def :meth:`isOpen<PySide.QtSql.QSqlDatabase.isOpen>` ()
+*    def :meth:`isOpenError<PySide.QtSql.QSqlDatabase.isOpenError>` ()
+*    def :meth:`isValid<PySide.QtSql.QSqlDatabase.isValid>` ()
+*    def :meth:`lastError<PySide.QtSql.QSqlDatabase.lastError>` ()
+*    def :meth:`numericalPrecisionPolicy<PySide.QtSql.QSqlDatabase.numericalPrecisionPolicy>` ()
+*    def :meth:`open<PySide.QtSql.QSqlDatabase.open>` ()
+*    def :meth:`open<PySide.QtSql.QSqlDatabase.open>` (user, password)
+*    def :meth:`password<PySide.QtSql.QSqlDatabase.password>` ()
+*    def :meth:`port<PySide.QtSql.QSqlDatabase.port>` ()
+*    def :meth:`primaryIndex<PySide.QtSql.QSqlDatabase.primaryIndex>` (tablename)
+*    def :meth:`record<PySide.QtSql.QSqlDatabase.record>` (tablename)
+*    def :meth:`rollback<PySide.QtSql.QSqlDatabase.rollback>` ()
+*    def :meth:`setConnectOptions<PySide.QtSql.QSqlDatabase.setConnectOptions>` ([options=""])
+*    def :meth:`setDatabaseName<PySide.QtSql.QSqlDatabase.setDatabaseName>` (name)
+*    def :meth:`setHostName<PySide.QtSql.QSqlDatabase.setHostName>` (host)
+*    def :meth:`setNumericalPrecisionPolicy<PySide.QtSql.QSqlDatabase.setNumericalPrecisionPolicy>` (precisionPolicy)
+*    def :meth:`setPassword<PySide.QtSql.QSqlDatabase.setPassword>` (password)
+*    def :meth:`setPort<PySide.QtSql.QSqlDatabase.setPort>` (p)
+*    def :meth:`setUserName<PySide.QtSql.QSqlDatabase.setUserName>` (name)
+*    def :meth:`tables<PySide.QtSql.QSqlDatabase.tables>` ([type=QSql.Tables])
+*    def :meth:`transaction<PySide.QtSql.QSqlDatabase.transaction>` ()
+*    def :meth:`userName<PySide.QtSql.QSqlDatabase.userName>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addDatabase<PySide.QtSql.QSqlDatabase.addDatabase>` (driver[, connectionName=QLatin1String(defaultConnection)])
+*    def :meth:`addDatabase<PySide.QtSql.QSqlDatabase.addDatabase>` (type[, connectionName=QLatin1String(defaultConnection)])
+*    def :meth:`cloneDatabase<PySide.QtSql.QSqlDatabase.cloneDatabase>` (other, connectionName)
+*    def :meth:`connectionNames<PySide.QtSql.QSqlDatabase.connectionNames>` ()
+*    def :meth:`contains<PySide.QtSql.QSqlDatabase.contains>` ([connectionName=QLatin1String(defaultConnection)])
+*    def :meth:`database<PySide.QtSql.QSqlDatabase.database>` ([connectionName=QLatin1String(defaultConnection)[, open=true]])
+*    def :meth:`drivers<PySide.QtSql.QSqlDatabase.drivers>` ()
+*    def :meth:`isDriverAvailable<PySide.QtSql.QSqlDatabase.isDriverAvailable>` (name)
+*    def :meth:`registerSqlDriver<PySide.QtSql.QSqlDatabase.registerSqlDriver>` (name, creator)
+*    def :meth:`removeDatabase<PySide.QtSql.QSqlDatabase.removeDatabase>` (connectionName)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlDatabase` class represents a connection to a database.
+
+    The :class:`PySide.QtSql.QSqlDatabase` class provides an interface for accessing a database through a connection. An instance of :class:`PySide.QtSql.QSqlDatabase` represents the connection. The connection provides access to the database via one of the :ref:`supported database drivers<sql-driver.html>` , which are derived from :class:`PySide.QtSql.QSqlDriver` . Alternatively, you can subclass your own database driver from :class:`PySide.QtSql.QSqlDriver` . See :ref:`How to Write Your Own Database Driver<sql-driver.html>` for more information.
+
+    Create a connection (i.e., an instance of :class:`PySide.QtSql.QSqlDatabase` ) by calling one of the static :meth:`PySide.QtSql.QSqlDatabase.addDatabase` functions, where you specify :ref:`the driver or type of driver<sql-driver.html>` to use (i.e., what kind of database will you access?) and a connection name. A connection is known by its own name, *not* by the name of the database it connects to. You can have multiple connections to one database. :class:`PySide.QtSql.QSqlDatabase` also supports the concept of a *default* connection, which is the unnamed connection. To create the default connection, don't pass the connection name argument when you call :meth:`PySide.QtSql.QSqlDatabase.addDatabase` . Subsequently, when you call any static member function that takes the connection name argument, if you don't pass the connection name argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database:
+
+    ::
+
+            db = QSqlDatabase.addDatabase("QPSQL")
+            db.setHostName("acidalia")
+            db.setDatabaseName("customdb")
+            db.setUserName("mojito")
+            db.setPassword("J0a1m8")
+            ok = db.open()
+
+
+    Once the :class:`PySide.QtSql.QSqlDatabase` object has been created, set the connection parameters with :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName` , :meth:`PySide.QtSql.QSqlDatabase.setUserName` , :meth:`PySide.QtSql.QSqlDatabase.setPassword` , :meth:`PySide.QtSql.QSqlDatabase.setHostName` , :meth:`PySide.QtSql.QSqlDatabase.setPort` , and :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions` . Then call :meth:`PySide.QtSql.QSqlDatabase.open` to activate the physical connection to the database. The connection is not usable until you open it.
+
+    The connection defined above will be the *default* connection, because we didn't give a connection name to :meth:`PySide.QtSql.QSqlDatabase.addDatabase` . Subsequently, you can get the default connection by calling :meth:`PySide.QtSql.QSqlDatabase.database` without the connection name argument:
+
+    ::
+
+            db = QSqlDatabase.database()
+
+
+    :class:`PySide.QtSql.QSqlDatabase` is a value class. Changes made to a database connection via one instance of :class:`PySide.QtSql.QSqlDatabase` will affect other instances of :class:`PySide.QtSql.QSqlDatabase` that represent the same connection. Use :meth:`PySide.QtSql.QSqlDatabase.cloneDatabase` to create an independent database connection based on an existing one.
+
+    If you create multiple database connections, specify a unique connection name for each one, when you call :meth:`PySide.QtSql.QSqlDatabase.addDatabase` . Use :meth:`PySide.QtSql.QSqlDatabase.database` with a connection name to get that connection. Use :meth:`PySide.QtSql.QSqlDatabase.removeDatabase` with a connection name to remove a connection. :class:`PySide.QtSql.QSqlDatabase` outputs a warning if you try to remove a connection referenced by other :class:`PySide.QtSql.QSqlDatabase` objects. Use :meth:`PySide.QtSql.QSqlDatabase.contains` to see if a given connection name is in the list of connections.
+
+    Once a connection is established, you can call :meth:`PySide.QtSql.QSqlDatabase.tables` to get the list of tables in the database, call :meth:`PySide.QtSql.QSqlDatabase.primaryIndex` to get a table's primary index, and call :meth:`PySide.QtSql.QSqlDatabase.record` to get meta-information about a table's fields (e.g., field names).
+
+    .. note:: \ :meth:`QSqlDatabase.exec()<PySide.QtSql.QSqlDatabase.exec>` is deprecated. Use :meth:`QSqlQuery.exec()<PySide.QtSql.QSqlQuery.exec>` instead.
+
+    If the driver supports transactions, use :meth:`PySide.QtSql.QSqlDatabase.transaction` to start a transaction, and :meth:`PySide.QtSql.QSqlDatabase.commit` or :meth:`PySide.QtSql.QSqlDatabase.rollback` to complete it. Use :meth:`PySide.QtSql.QSqlDriver.hasFeature` to ask if the driver supports transactions. **Note:** When using transactions, you must start the transaction before you create your query.
+
+    If an error occurrs, :meth:`PySide.QtSql.QSqlDatabase.lastError` will return information about it.
+
+    Get the names of the available SQL drivers with :meth:`PySide.QtSql.QSqlDatabase.drivers` . Check for the presence of a particular driver with :meth:`PySide.QtSql.QSqlDatabase.isDriverAvailable` . If you have created your own custom driver, you must register it with :meth:`PySide.QtSql.QSqlDatabase.registerSqlDriver` .
+
+    .. seealso::  :class:`PySide.QtSql.QSqlDriver`  :class:`PySide.QtSql.QSqlQuery`  :ref:`QtSql Module<QtSql>`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+.. class:: QSqlDatabase()
+           QSqlDatabase(driver)
+           QSqlDatabase(other)
+           QSqlDatabase(type)
+
+    :param driver: :class:`PySide.QtSql.QSqlDriver`
+    :param other: :class:`PySide.QtSql.QSqlDatabase`
+    :param type: unicode
+
+    Creates an empty, invalid :class:`PySide.QtSql.QSqlDatabase` object. Use :meth:`PySide.QtSql.QSqlDatabase.addDatabase` , :meth:`PySide.QtSql.QSqlDatabase.removeDatabase` , and :meth:`PySide.QtSql.QSqlDatabase.database` to get valid :class:`PySide.QtSql.QSqlDatabase` objects.
+
+
+    This is an overloaded function.
+
+    Creates a database connection using the given ``driver`` .
+
+
+    Creates a copy of ``other`` .
+
+
+    This is an overloaded function.
+
+    Creates a :class:`PySide.QtSql.QSqlDatabase` connection that uses the driver referred to by ``type`` . If the ``type`` is not recognized, the database connection will have no functionality.
+
+    The currently available driver types are:
+
+    +-----------+-------------------------------------------+
+    |Driver Type|Description                                |
+    +-----------+-------------------------------------------+
+    |QDB2       |IBM DB2                                    |
+    +-----------+-------------------------------------------+
+    |QIBASE     |Borland InterBase Driver                   |
+    +-----------+-------------------------------------------+
+    |QMYSQL     |MySQL Driver                               |
+    +-----------+-------------------------------------------+
+    |QOCI       |Oracle Call Interface Driver               |
+    +-----------+-------------------------------------------+
+    |QODBC      |ODBC Driver (includes Microsoft SQL Server)|
+    +-----------+-------------------------------------------+
+    |QPSQL      |PostgreSQL Driver                          |
+    +-----------+-------------------------------------------+
+    |QSQLITE    |SQLite version 3 or above                  |
+    +-----------+-------------------------------------------+
+    |QSQLITE2   |SQLite version 2                           |
+    +-----------+-------------------------------------------+
+    |QTDS       |Sybase Adaptive Server                     |
+    +-----------+-------------------------------------------+
+
+    Additional third party drivers, including your own custom drivers, can be loaded dynamically.
+
+    .. seealso::  :ref:`SQL Database Drivers<sql-driver.html>`  :meth:`PySide.QtSql.QSqlDatabase.registerSqlDriver`  :meth:`PySide.QtSql.QSqlDatabase.drivers` 
+
+.. attribute:: PySide.QtSql.QSqlDatabase.defaultConnection
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.addDatabase(type[, connectionName=QLatin1String(defaultConnection)])
+
+
+    :param type: unicode
+    :param connectionName: unicode
+    :rtype: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    Adds a database to the list of database connections using the driver ``type`` and the connection name ``connectionName`` . If there already exists a database connection called ``connectionName`` , that connection is removed.
+
+    The database connection is referred to by ``connectionName`` . The newly added database connection is returned.
+
+    If ``type`` is not available or could not be loaded, :meth:`PySide.QtSql.QSqlDatabase.isValid` returns false.
+
+    If ``connectionName`` is not specified, the new connection becomes the default connection for the application, and subsequent calls to :meth:`PySide.QtSql.QSqlDatabase.database` without the connection name argument will return the default connection. If a ``connectionName`` is provided here, use database(``connectionName`` ) to retrieve the connection.
+
+    .. warning::  If you add a connection with the same name as an existing connection, the new connection replaces the old one. If you call this function more than once without specifying ``connectionName`` , the default connection will be the one replaced.
+
+    Before using the connection, it must be initialized. e.g., call some or all of :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName` , :meth:`PySide.QtSql.QSqlDatabase.setUserName` , :meth:`PySide.QtSql.QSqlDatabase.setPassword` , :meth:`PySide.QtSql.QSqlDatabase.setHostName` , :meth:`PySide.QtSql.QSqlDatabase.setPort` , and :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions` , and, finally, :meth:`PySide.QtSql.QSqlDatabase.open` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.database`  :meth:`PySide.QtSql.QSqlDatabase.removeDatabase`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.addDatabase(driver[, connectionName=QLatin1String(defaultConnection)])
+
+
+    :param driver: :class:`PySide.QtSql.QSqlDriver`
+    :param connectionName: unicode
+    :rtype: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    This overload is useful when you want to create a database connection with a :class:`driver<PySide.QtSql.QSqlDriver>` you instantiated yourself. It might be your own database driver, or you might just need to instantiate one of the Qt drivers yourself. If you do this, it is recommended that you include the driver code in your application. For example, you can create a PostgreSQL connection with your own QPSQL driver like this:
+
+    ::
+
+        #include "qtdir/src/sql/drivers/psql/qsql_psql.cpp"
+        
+        con = PQconnectdb("host=server user=bart password=simpson dbname=springfield")
+        drv = QPSQLDriver(con)
+        db = QSqlDatabase.addDatabase(drv) # becomes the new default connection
+        query = QSqlQuery()
+        query.exec_("SELECT NAME, ID FROM STAFF")
+        ...
+
+
+    The above code sets up a PostgreSQL connection and instantiates a :class:`~PySide.QtSql.QPSQLDriver` object. Next, :meth:`PySide.QtSql.QSqlDatabase.addDatabase` is called to add the connection to the known connections so that it can be used by the Qt SQL classes. When a driver is instantiated with a connection handle (or set of handles), Qt assumes that you have already opened the database connection.
+
+    .. note::  We assume that ``qtdir`` is the directory where Qt is installed. This will pull in the code that is needed to use the PostgreSQL client library and to instantiate a :class:`~PySide.QtSql.QPSQLDriver` object, assuming that you have the PostgreSQL headers somewhere in your include search path.
+
+    Remember that you must link your application against the database client library. Make sure the client library is in your linker's search path, and add lines like these to your ``.pro`` file:
+
+    ::
+
+        unix:LIBS += -lpq
+        win32:LIBS += libpqdll.lib
+
+
+    The method described works for all the supplied drivers. The only difference will be in the driver constructor arguments. Here is a table of the drivers included with Qt, their source code files, and their constructor arguments:
+
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |Driver |Class name                          |Constructor arguments                                                                        |File to include     |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QPSQL  |:class:`~PySide.QtSql.QPSQLDriver`  |PGconn \*connection                                                                          |``qsql_psql.cpp``\  |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QMYSQL |:class:`~PySide.QtSql.QMYSQLDriver` |MYSQL \*connection                                                                           |``qsql_mysql.cpp``\ |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QOCI   |:class:`~PySide.QtSql.QOCIDriver`   |OCIEnv \*environment, OCISvcCtx \*serviceContext                                             |``qsql_oci.cpp``\   |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QODBC  |:class:`~PySide.QtSql.QODBCDriver`  |SQLHANDLE environment, SQLHANDLE connection                                                  |``qsql_odbc.cpp``\  |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QDB2   |QDB2                                |SQLHANDLE environment, SQLHANDLE connection                                                  |``qsql_db2.cpp``\   |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QTDS   |:class:`~PySide.QtSql.QTDSDriver`   |LOGINREC \*loginRecord, DBPROCESS \*dbProcess, const :class:`PySide.QtCore.QString` &hostName|``qsql_tds.cpp``\   |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QSQLITE|:class:`~PySide.QtSql.QSQLiteDriver`|sqlite \*connection                                                                          |``qsql_sqlite.cpp``\|
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+    |QIBASE |:class:`~PySide.QtSql.QIBaseDriver` |isc\_db\_handle connection                                                                   |``qsql_ibase.cpp``\ |
+    +-------+------------------------------------+---------------------------------------------------------------------------------------------+--------------------+
+
+    The host name (or service name) is needed when constructing the :class:`~PySide.QtSql.QTDSDriver` for creating new connections for internal queries. This is to prevent blocking when several :class:`PySide.QtSql.QSqlQuery` objects are used simultaneously.
+
+    .. warning::  Adding a database connection with the same connection name as an existing connection, causes the existing connection to be replaced by the new one.
+
+    .. warning::  The SQL framework takes ownership of the ``driver`` . It must not be deleted. To remove the connection, use :meth:`PySide.QtSql.QSqlDatabase.removeDatabase` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.drivers` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.cloneDatabase(other, connectionName)
+
+
+    :param other: :class:`PySide.QtSql.QSqlDatabase`
+    :param connectionName: unicode
+    :rtype: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    Clones the database connection ``other`` and and stores it as ``connectionName`` . All the settings from the original database, e.g. :meth:`PySide.QtSql.QSqlDatabase.databaseName` , :meth:`PySide.QtSql.QSqlDatabase.hostName` , etc., are copied across. Does nothing if ``other`` is an invalid database. Returns the newly created database connection.
+
+    .. note::  The new connection has not been opened. Before using the new connection, you must call :meth:`PySide.QtSql.QSqlDatabase.open` .
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.close()
+
+
+
+
+
+
+    Closes the database connection, freeing any resources acquired, and invalidating any existing :class:`PySide.QtSql.QSqlQuery` objects that are used with the database.
+
+    This will also affect copies of this :class:`PySide.QtSql.QSqlDatabase` object.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.removeDatabase` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.commit()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Commits a transaction to the database if the driver supports transactions and a :meth:`PySide.QtSql.QSqlDatabase.transaction` has been started. Returns ``true`` if the operation succeeded. Otherwise it returns ``false`` .
+
+    .. note::  For some databases, the commit will fail and return ``false`` if there is an :meth:`active query<PySide.QtSql.QSqlQuery.isActive>` using the database for a ``SELECT`` . Make the query :meth:`inactive<PySide.QtSql.QSqlQuery.isActive>` before doing the commit.
+
+    Call :meth:`PySide.QtSql.QSqlDatabase.lastError` to get information about errors.
+
+    .. seealso::  :meth:`QSqlQuery.isActive()<PySide.QtSql.QSqlQuery.isActive>`  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>`  :meth:`PySide.QtSql.QSqlDatabase.rollback` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.connectOptions()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection options string used for this connection. The string may be empty.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.connectionName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection name, which may be empty. **Note:** The connection name is not the :meth:`database name<PySide.QtSql.QSqlDatabase.databaseName>` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.addDatabase` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.connectionNames()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list containing the names of all connections.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.contains`  :meth:`PySide.QtSql.QSqlDatabase.database`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.contains([connectionName=QLatin1String(defaultConnection)])
+
+
+    :param connectionName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the list of database connections contains ``connectionName`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.connectionNames`  :meth:`PySide.QtSql.QSqlDatabase.database`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.database([connectionName=QLatin1String(defaultConnection)[, open=true]])
+
+
+    :param connectionName: unicode
+    :param open: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    Returns the database connection called ``connectionName`` . The database connection must have been previously added with :meth:`PySide.QtSql.QSqlDatabase.addDatabase` . If ``open`` is true (the default) and the database connection is not already open it is opened now. If no ``connectionName`` is specified the default connection is used. If ``connectionName`` does not exist in the list of databases, an invalid connection is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.isOpen`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.databaseName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection's database name, which may be empty. **Note:** The database name is not the connection name.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.driver()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlDriver`
+
+
+
+
+    Returns the database driver used to access the database connection.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.addDatabase`  :meth:`PySide.QtSql.QSqlDatabase.drivers` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.driverName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection's driver name.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.addDatabase`  :meth:`PySide.QtSql.QSqlDatabase.driver` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.drivers()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all the available database drivers.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.registerSqlDriver` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.exec_([query=""])
+
+
+    :param query: unicode
+    :rtype: :class:`PySide.QtSql.QSqlQuery`
+
+
+
+
+    Executes a SQL statement on the database and returns a :class:`PySide.QtSql.QSqlQuery` object. Use :meth:`PySide.QtSql.QSqlDatabase.lastError` to retrieve error information. If ``query`` is empty, an empty, invalid query is returned and :meth:`PySide.QtSql.QSqlDatabase.lastError` is not affected.
+
+    .. seealso::  :class:`PySide.QtSql.QSqlQuery`  :meth:`PySide.QtSql.QSqlDatabase.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.hostName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection's host name; it may be empty.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setHostName` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.isDriverAvailable(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if a driver called ``name`` is available; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.drivers` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.isOpen()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the database connection is currently open; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.isOpenError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there was an error opening the database connection; otherwise returns false. Error information can be retrieved using the :meth:`PySide.QtSql.QSqlDatabase.lastError` function.
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :class:`PySide.QtSql.QSqlDatabase` has a valid driver.
+
+    Example:
+
+    ::
+
+        db = QSqlDatabase()
+        print(db.isValid())         # Returns False
+
+        db = QSqlDatabase.database("sales")
+        print(db.isValid())         # Returns True if "sales" connection exists
+
+        QSqlDatabase.removeDatabase("sales")
+        print(db.isValid())         # Returns False
+
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.lastError()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    Returns information about the last error that occurred on the database.
+
+    Failures that occur in conjunction with an individual query are reported by :meth:`QSqlQuery.lastError()<PySide.QtSql.QSqlQuery.lastError>` .
+
+    .. seealso::  :class:`PySide.QtSql.QSqlError`  :meth:`QSqlQuery.lastError()<PySide.QtSql.QSqlQuery.lastError>` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.numericalPrecisionPolicy()
+
+
+    :rtype: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+    Returns the current default precision policy for the database connection.
+
+    .. seealso::  :attr:`QSql.NumericalPrecisionPolicy`  :meth:`PySide.QtSql.QSqlDatabase.setNumericalPrecisionPolicy`  :meth:`QSqlQuery.numericalPrecisionPolicy()<PySide.QtSql.QSqlQuery.numericalPrecisionPolicy>`  :meth:`QSqlQuery.setNumericalPrecisionPolicy()<PySide.QtSql.QSqlQuery.setNumericalPrecisionPolicy>` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.open(user, password)
+
+
+    :param user: unicode
+    :param password: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Opens the database connection using the given ``user`` name and ``password`` . Returns true on success; otherwise returns false. Error information can be retrieved using the :meth:`PySide.QtSql.QSqlDatabase.lastError` function.
+
+    This function does not store the password it is given. Instead, the password is passed directly to the driver for opening the connection and it is then discarded.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.open()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Opens the database connection using the current connection values. Returns true on success; otherwise returns false. Error information can be retrieved using :meth:`PySide.QtSql.QSqlDatabase.lastError` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.lastError`  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName`  :meth:`PySide.QtSql.QSqlDatabase.setUserName`  :meth:`PySide.QtSql.QSqlDatabase.setPassword`  :meth:`PySide.QtSql.QSqlDatabase.setHostName`  :meth:`PySide.QtSql.QSqlDatabase.setPort`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.password()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection's password. If the password was not set with :meth:`PySide.QtSql.QSqlDatabase.setPassword` , and if the password was given in the :meth:`PySide.QtSql.QSqlDatabase.open` call, or if no password was used, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setPassword` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.port()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the connection's port number. The value is undefined if the port number has not been set.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setPort` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.primaryIndex(tablename)
+
+
+    :param tablename: unicode
+    :rtype: :class:`PySide.QtSql.QSqlIndex`
+
+
+
+
+    Returns the primary index for table ``tablename`` . If no primary index exists an empty :class:`PySide.QtSql.QSqlIndex` is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.tables`  :meth:`PySide.QtSql.QSqlDatabase.record` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.record(tablename)
+
+
+    :param tablename: unicode
+    :rtype: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+    Returns a :class:`PySide.QtSql.QSqlRecord` populated with the names of all the fields in the table (or view) called ``tablename`` . The order in which the fields appear in the record is undefined. If no such table (or view) exists, an empty record is returned.
+
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.registerSqlDriver(name, creator)
+
+
+    :param name: unicode
+    :param creator: :class:`PySide.QtSql.QSqlDriverCreatorBase`
+
+
+
+
+    This function registers a new SQL driver called ``name`` , within the SQL framework. This is useful if you have a custom SQL driver and don't want to compile it as a plugin.
+
+    Example:
+
+    ::
+
+        class MyDatabaseDriverCreatorBase(QtSql.QSqlDriverCreatorBase):
+            ...
+            def createObject(self):
+                return MyDatabaseDriver()
+
+        mydriver = MyDatabaseDriverCreatorBase()
+        QtSql.QSqlDatabase.registerSqlDriver("MYDRIVER", mydriver)
+        db = QtSql.QSqlDatabase.addDatabase("MYDRIVER")
+
+
+    :class:`PySide.QtSql.QSqlDatabase` takes ownership of the ``creator`` pointer, so you mustn't delete it yourself.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.drivers` 
+
+
+.. staticmethod:: PySide.QtSql.QSqlDatabase.removeDatabase(connectionName)
+
+
+    :param connectionName: unicode
+
+
+
+
+    Removes the database connection ``connectionName`` from the list of database connections.
+
+    .. warning::  There should be no open queries on the database connection when this function is called, otherwise a resource leak will occur.
+
+    Example:
+
+    ::
+
+        # WRONG
+        db = QSqlDatabase.database("sales")
+        query = QSqlQuery("SELECT NAME, DOB FROM EMPLOYEES", db)
+        QSqlDatabase.removeDatabase("sales") # will output a warning
+
+        # "db" is now a dangling invalid database connection,
+        # "query" contains an invalid result set
+
+
+    The correct way to do it:
+
+    ::
+
+        db = QSqlDatabase.database("sales")
+        query = QSqlQuery("SELECT NAME, DOB FROM EMPLOYEES", db)
+        # Both "db" and "query" are destroyed because they are out of scope
+        QSqlDatabase.removeDatabase("sales") # correct
+
+
+    To remove the default connection, which may have been created with a call to :meth:`PySide.QtSql.QSqlDatabase.addDatabase` not specifying a connection name, you can retrieve the default connection name by calling :meth:`PySide.QtSql.QSqlDatabase.connectionName` on the database returned by :meth:`PySide.QtSql.QSqlDatabase.database` . Note that if a default database hasn't been created an invalid database will be returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.database`  :meth:`PySide.QtSql.QSqlDatabase.connectionName`  :ref:`Threads and the SQL Module<threads-modules.html>` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.rollback()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Rolls back a transaction on the database, if the driver supports transactions and a :meth:`PySide.QtSql.QSqlDatabase.transaction` has been started. Returns ``true`` if the operation succeeded. Otherwise it returns ``false`` .
+
+    .. note::  For some databases, the rollback will fail and return ``false`` if there is an :meth:`active query<PySide.QtSql.QSqlQuery.isActive>` using the database for a ``SELECT`` . Make the query :meth:`inactive<PySide.QtSql.QSqlQuery.isActive>` before doing the rollback.
+
+    Call :meth:`PySide.QtSql.QSqlDatabase.lastError` to get information about errors.
+
+    .. seealso::  :meth:`QSqlQuery.isActive()<PySide.QtSql.QSqlQuery.isActive>`  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>`  :meth:`PySide.QtSql.QSqlDatabase.commit` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setConnectOptions([options=""])
+
+
+    :param options: unicode
+
+
+
+
+    Sets database-specific ``options`` . This must be done before the connection is opened or it has no effect (or you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, call this function and :meth:`PySide.QtSql.QSqlDatabase.open` the connection again).
+
+    The format of the ``options`` string is a semicolon separated list of option names or option=value pairs. The options depend on the database client used:
+
+    Examples:
+
+    ::
+
+        ...
+        # MySQL connection
+        db.setConnectOptions("CLIENT_SSL=1;CLIENT_IGNORE_SPACE=1") # use an SSL connection to the server
+        if not db.open():
+            db.setConnectOptions() # clears the connect option string
+            ...
+        ...
+        # PostgreSQL connection
+        db.setConnectOptions("requiressl=1")    # enable PostgreSQL SSL connections
+        if not db.open():
+            db.setConnectOptions() # clear options
+            ...
+        ...
+        # ODBC connection
+        # set ODBC options
+        db.setConnectOptions("SQL_ATTR_ACCESS_MODE=SQL_MODE_READ_ONLY;SQL_ATTR_TRACE=SQL_OPT_TRACE_ON")
+        if not db.open():
+            db.setConnectOptions()              # don't try to set this option
+            ...
+
+
+    Refer to the client library documentation for more information about the different options.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.connectOptions` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setDatabaseName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the connection's database name to ``name`` . To have effect, the database name must be set *before* the connection is :meth:`opened<PySide.QtSql.QSqlDatabase.open>` . Alternatively, you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, set the database name, and call :meth:`PySide.QtSql.QSqlDatabase.open` again. **Note:** The *database name* is not the *connection name* . The connection name must be passed to :meth:`PySide.QtSql.QSqlDatabase.addDatabase` at connection object create time.
+
+    For the QOCI (Oracle) driver, the database name is the TNS Service Name.
+
+    For the QODBC driver, the ``name`` can either be a DSN, a DSN filename (in which case the file must have a ``.dsn`` extension), or a connection string.
+
+    For example, Microsoft Access users can use the following connection string to open an ``.mdb`` file directly, instead of having to create a DSN entry in the ODBC manager:
+
+    ::
+
+        ...
+        db = QSqlDatabase.addDatabase("QODBC")
+        db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb)};FIL={MS Access};DBQ=myaccessfile.mdb")
+        if db.open():
+            # success!
+            pass
+        ...
+
+
+    There is no default value.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.databaseName`  :meth:`PySide.QtSql.QSqlDatabase.setUserName`  :meth:`PySide.QtSql.QSqlDatabase.setPassword`  :meth:`PySide.QtSql.QSqlDatabase.setHostName`  :meth:`PySide.QtSql.QSqlDatabase.setPort`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions`  :meth:`PySide.QtSql.QSqlDatabase.open` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setHostName(host)
+
+
+    :param host: unicode
+
+
+
+
+    Sets the connection's host name to ``host`` . To have effect, the host name must be set *before* the connection is :meth:`opened<PySide.QtSql.QSqlDatabase.open>` . Alternatively, you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, set the host name, and call :meth:`PySide.QtSql.QSqlDatabase.open` again.
+
+    There is no default value.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.hostName`  :meth:`PySide.QtSql.QSqlDatabase.setUserName`  :meth:`PySide.QtSql.QSqlDatabase.setPassword`  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName`  :meth:`PySide.QtSql.QSqlDatabase.setPort`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions`  :meth:`PySide.QtSql.QSqlDatabase.open` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setNumericalPrecisionPolicy(precisionPolicy)
+
+
+    :param precisionPolicy: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setPassword(password)
+
+
+    :param password: unicode
+
+
+
+
+    Sets the connection's password to ``password`` . To have effect, the password must be set *before* the connection is :meth:`opened<PySide.QtSql.QSqlDatabase.open>` . Alternatively, you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, set the password, and call :meth:`PySide.QtSql.QSqlDatabase.open` again.
+
+    There is no default value.
+
+    .. warning::  This function stores the password in plain text within Qt. Use the :meth:`PySide.QtSql.QSqlDatabase.open` call that takes a password as parameter to avoid this behavior.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.password`  :meth:`PySide.QtSql.QSqlDatabase.setUserName`  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName`  :meth:`PySide.QtSql.QSqlDatabase.setHostName`  :meth:`PySide.QtSql.QSqlDatabase.setPort`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions`  :meth:`PySide.QtSql.QSqlDatabase.open` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setPort(p)
+
+
+    :param p: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the connection's port number to ``port`` . To have effect, the port number must be set *before* the connection is :meth:`opened<PySide.QtSql.QSqlDatabase.open>` . Alternatively, you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, set the port number, and call :meth:`PySide.QtSql.QSqlDatabase.open` again..
+
+    There is no default value.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.port`  :meth:`PySide.QtSql.QSqlDatabase.setUserName`  :meth:`PySide.QtSql.QSqlDatabase.setPassword`  :meth:`PySide.QtSql.QSqlDatabase.setHostName`  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions`  :meth:`PySide.QtSql.QSqlDatabase.open` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.setUserName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the connection's user name to ``name`` . To have effect, the user name must be set *before* the connection is :meth:`opened<PySide.QtSql.QSqlDatabase.open>` . Alternatively, you can :meth:`PySide.QtSql.QSqlDatabase.close` the connection, set the user name, and call :meth:`PySide.QtSql.QSqlDatabase.open` again.
+
+    There is no default value.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.userName`  :meth:`PySide.QtSql.QSqlDatabase.setDatabaseName`  :meth:`PySide.QtSql.QSqlDatabase.setPassword`  :meth:`PySide.QtSql.QSqlDatabase.setHostName`  :meth:`PySide.QtSql.QSqlDatabase.setPort`  :meth:`PySide.QtSql.QSqlDatabase.setConnectOptions`  :meth:`PySide.QtSql.QSqlDatabase.open` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.tables([type=QSql.Tables])
+
+
+    :param type: :attr:`PySide.QtSql.QSql.TableType`
+    :rtype: list of strings
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlDatabase.transaction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Begins a transaction on the database if the driver supports transactions. Returns ``true`` if the operation succeeded. Otherwise it returns ``false`` .
+
+    .. seealso::  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>`  :meth:`PySide.QtSql.QSqlDatabase.commit`  :meth:`PySide.QtSql.QSqlDatabase.rollback` 
+
+
+.. method:: PySide.QtSql.QSqlDatabase.userName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the connection's user name; it may be empty.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDatabase.setUserName` 
+
+
+

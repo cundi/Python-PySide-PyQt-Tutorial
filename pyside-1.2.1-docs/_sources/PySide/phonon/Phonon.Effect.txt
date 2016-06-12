@@ -1,0 +1,131 @@
+.. module:: PySide.phonon
+.. _Phonon.Effect:
+
+Phonon.Effect
+*************
+
+.. inheritance-diagram:: Phonon.Effect
+    :parts: 2
+
+**Inherited by:** :ref:`Phonon.VolumeFaderEffect`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`description<PySide.phonon.Phonon.Effect.description>` ()
+*    def :meth:`parameterValue<PySide.phonon.Phonon.Effect.parameterValue>` (arg__1)
+*    def :meth:`parameters<PySide.phonon.Phonon.Effect.parameters>` ()
+*    def :meth:`setParameterValue<PySide.phonon.Phonon.Effect.setParameterValue>` (arg__1, value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The Effect class is used to transform audio streams.
+
+    An effect is a media node which is inserted into a path between a :class:`Phonon.MediaObject` and an audio output node, for instance, an :class:`Phonon.AudioOutput` . The Effect transforms the media stream on that path.
+
+    Examples may include simple modifiers, such as fading or pitch shifting, and more complex mathematical transformations. You can query the backend for available effects with :meth:`BackendCapabilities.availableAudioEffects()<PySide.phonon.Phonon::BackendCapabilities.availableAudioEffects>` . Note that the effects available is dependent on the underlying system (DirectDraw, GStreamer, or QuickTime).
+
+    In order to use an effect, insert it into the path as follows:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:19" not found>
+
+    The effect will immediately begin applying it's transformations on the path. To stop it, remove the Effect from the path.
+
+    To create an effect, you use the :class:`Phonon.EffectDescription` class, which you get from :meth:`PySide.phonon.Phonon::BackendCapabilities.availableAudioEffects` . We give a code example below.
+
+    ::
+
+            QList<Phonon::EffectDescription> effectDescriptions =
+                    Phonon::BackendCapabilities::availableAudioEffects();
+            Phonon::EffectDescription effectDescription = effectDescriptions.at(4);
+
+            Phonon::Path path = Phonon::createPath(mediaObject, audioOutput);
+
+
+            Phonon::Effect *effect = new Phonon::Effect(effectDescription);
+            path.insertEffect(effect);
+
+
+    An effect can have one or more parameters, which let you alter how the effect works, for instance, by specifying the depth of a reverb effect. See the :class:`~PySide.phonon.Phonon.EffectParameter` class description for details.
+
+    Phonon also provides :class:`~PySide.phonon.Phonon.EffectWidget` , which lets the user modify the parameters of an effect an the fly; e.g., with combo boxes.
+
+    .. seealso::  :ref:`Phonon Module<phonon-module.html>`  :class:`~PySide.phonon.Phonon.EffectWidget` 
+
+.. class:: PySide.phonon.Phonon.Effect(description[, parent=None])
+
+    :param description: :class:`PySide.phonon.Phonon::EffectDescription`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new effect object with the given ``description`` and ``parent`` object.
+
+    The :class:`~PySide.phonon.Phonon.EffectDescription` object determines the type of the effect.
+
+    .. seealso::  :meth:`Phonon.BackendCapabilities.availableAudioEffects()<PySide.phonon.Phonon.BackendCapabilities.availableAudioEffects>` 
+
+.. method:: PySide.phonon.Phonon.Effect.description()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::EffectDescription`
+
+
+
+
+    Returns the description of this effect. This is the same description that was passed to the constructor.
+
+
+
+.. method:: PySide.phonon.Phonon.Effect.parameterValue(arg__1)
+
+
+    :param arg__1: :class:`PySide.phonon.Phonon::EffectParameter`
+    :rtype: object
+
+
+
+
+    Returns the value of the given effect ``parameter`` . You can fetch the available parameters for an effect with :meth:`PySide.phonon.Phonon::Effect.parameters` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Effect.setParameterValue`  :class:`~PySide.phonon.Phonon.EffectParameter` 
+
+
+.. method:: PySide.phonon.Phonon.Effect.parameters()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of parameters that this effect provides to control its behavior.
+
+    .. seealso::  :class:`~PySide.phonon.Phonon.EffectParameter`  :class:`~PySide.phonon.Phonon.EffectWidget` 
+
+
+.. method:: PySide.phonon.Phonon.Effect.setParameterValue(arg__1, value)
+
+
+    :param arg__1: :class:`PySide.phonon.Phonon::EffectParameter`
+    :param value: object
+
+
+
+
+    Sets the given effect ``parameter`` to the specified ``value`` .
+
+    Parameters for an effect are returned by :meth:`PySide.phonon.Phonon::Effect.parameters` . You can check which :attr:`QVariant.Type` an :class:`~PySide.phonon.Phonon.EffectParameter` takes with the :meth:`EffectParameter.type()<PySide.phonon.Phonon::EffectParameter.type>` function.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Effect.parameterValue`  :class:`~PySide.phonon.Phonon.EffectParameter` 
+
+
+

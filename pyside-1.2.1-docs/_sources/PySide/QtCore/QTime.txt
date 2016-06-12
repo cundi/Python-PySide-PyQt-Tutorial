@@ -1,0 +1,653 @@
+.. module:: PySide.QtCore
+.. _QTime:
+
+QTime
+*****
+
+.. inheritance-diagram:: QTime
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QTime.__eq__>` (other)
+*    def :meth:`__ge__<PySide.QtCore.QTime.__ge__>` (other)
+*    def :meth:`__gt__<PySide.QtCore.QTime.__gt__>` (other)
+*    def :meth:`__le__<PySide.QtCore.QTime.__le__>` (other)
+*    def :meth:`__lt__<PySide.QtCore.QTime.__lt__>` (other)
+*    def :meth:`__ne__<PySide.QtCore.QTime.__ne__>` (other)
+*    def :meth:`__reduce__<PySide.QtCore.QTime.__reduce__>` ()
+*    def :meth:`__repr__<PySide.QtCore.QTime.__repr__>` ()
+*    def :meth:`addMSecs<PySide.QtCore.QTime.addMSecs>` (ms)
+*    def :meth:`addSecs<PySide.QtCore.QTime.addSecs>` (secs)
+*    def :meth:`ds<PySide.QtCore.QTime.ds>` ()
+*    def :meth:`elapsed<PySide.QtCore.QTime.elapsed>` ()
+*    def :meth:`hour<PySide.QtCore.QTime.hour>` ()
+*    def :meth:`isNull<PySide.QtCore.QTime.isNull>` ()
+*    def :meth:`isValid<PySide.QtCore.QTime.isValid>` ()
+*    def :meth:`minute<PySide.QtCore.QTime.minute>` ()
+*    def :meth:`msec<PySide.QtCore.QTime.msec>` ()
+*    def :meth:`msecsTo<PySide.QtCore.QTime.msecsTo>` (arg__1)
+*    def :meth:`restart<PySide.QtCore.QTime.restart>` ()
+*    def :meth:`second<PySide.QtCore.QTime.second>` ()
+*    def :meth:`secsTo<PySide.QtCore.QTime.secsTo>` (arg__1)
+*    def :meth:`setHMS<PySide.QtCore.QTime.setHMS>` (h, m, s[, ms=0])
+*    def :meth:`start<PySide.QtCore.QTime.start>` ()
+*    def :meth:`toPython<PySide.QtCore.QTime.toPython>` ()
+*    def :meth:`toString<PySide.QtCore.QTime.toString>` ([f=Qt.TextDate])
+*    def :meth:`toString<PySide.QtCore.QTime.toString>` (format)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentTime<PySide.QtCore.QTime.currentTime>` ()
+*    def :meth:`fromString<PySide.QtCore.QTime.fromString>` (s, format)
+*    def :meth:`fromString<PySide.QtCore.QTime.fromString>` (s[, f=Qt.TextDate])
+*    def :meth:`isValid<PySide.QtCore.QTime.isValid>` (h, m, s[, ms=0])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTime` class provides clock time functions.
+
+    A :class:`PySide.QtCore.QTime` object contains a clock time, i.e. the number of hours, minutes, seconds, and milliseconds since midnight. It can read the current time from the system clock and measure a span of elapsed time. It provides functions for comparing times and for manipulating a time by adding a number of milliseconds.
+
+    :class:`PySide.QtCore.QTime` uses the 24-hour clock format; it has no concept of AM/PM. Unlike :class:`PySide.QtCore.QDateTime` , :class:`PySide.QtCore.QTime` knows nothing about time zones or daylight savings time (DST).
+
+    A :class:`PySide.QtCore.QTime` object is typically created either by giving the number of hours, minutes, seconds, and milliseconds explicitly, or by using the static function :meth:`PySide.QtCore.QTime.currentTime` , which creates a :class:`PySide.QtCore.QTime` object that contains the system's local time. Note that the accuracy depends on the accuracy of the underlying operating system; not all systems provide 1-millisecond accuracy.
+
+    The :meth:`PySide.QtCore.QTime.hour` , :meth:`PySide.QtCore.QTime.minute` , :meth:`PySide.QtCore.QTime.second` , and :meth:`PySide.QtCore.QTime.msec` functions provide access to the number of hours, minutes, seconds, and milliseconds of the time. The same information is provided in textual format by the :meth:`PySide.QtCore.QTime.toString` function.
+
+    :class:`PySide.QtCore.QTime` provides a full set of operators to compare two :class:`PySide.QtCore.QTime` objects. One time is considered smaller than another if it is earlier than the other.
+
+    The time a given number of seconds or milliseconds later than a given time can be found using the :meth:`PySide.QtCore.QTime.addSecs` or :meth:`PySide.QtCore.QTime.addMSecs` functions. Correspondingly, the number of seconds or milliseconds between two times can be found using :meth:`PySide.QtCore.QTime.secsTo` or :meth:`PySide.QtCore.QTime.msecsTo` .
+
+    :class:`PySide.QtCore.QTime` can be used to measure a span of elapsed time using the :meth:`PySide.QtCore.QTime.start` , :meth:`PySide.QtCore.QTime.restart` , and :meth:`PySide.QtCore.QTime.elapsed` functions.
+
+    .. seealso::  :class:`PySide.QtCore.QDate`  :class:`PySide.QtCore.QDateTime` 
+
+.. class:: QTime()
+           QTime(QTime)
+           QTime(h, m[, s=0[, ms=0]])
+
+    :param h: :class:`PySide.QtCore.int`
+    :param ms: :class:`PySide.QtCore.int`
+    :param m: :class:`PySide.QtCore.int`
+    :param QTime: :class:`PySide.QtCore.QTime`
+    :param s: :class:`PySide.QtCore.int`
+
+    Constructs a null time object. A null time can be a :class:`PySide.QtCore.QTime` (0, 0, 0, 0) (i.e., midnight) object, except that :meth:`PySide.QtCore.QTime.isNull` returns true and :meth:`PySide.QtCore.QTime.isValid` returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.isNull`  :meth:`PySide.QtCore.QTime.isValid` 
+
+
+
+    Constructs a time with hour ``h`` , minute ``m`` , seconds ``s`` and milliseconds ``ms`` .
+
+    ``h`` must be in the range 0 to 23, ``m`` and ``s`` must be in the range 0 to 59, and ``ms`` must be in the range 0 to 999.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.isValid` 
+
+.. attribute:: PySide.QtCore.QTime.TimeFlag
+
+
+
+.. method:: PySide.QtCore.QTime.__reduce__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTime.__repr__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTime.addMSecs(ms)
+
+
+    :param ms: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QTime` object containing a time ``ms`` milliseconds later than the time of this object (or earlier if ``ms`` is negative).
+
+    Note that the time will wrap if it passes midnight. See :meth:`PySide.QtCore.QTime.addSecs` for an example.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.addSecs`  :meth:`PySide.QtCore.QTime.msecsTo`  :meth:`QDateTime.addMSecs()<PySide.QtCore.QDateTime.addMSecs>` 
+
+
+.. method:: PySide.QtCore.QTime.addSecs(secs)
+
+
+    :param secs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QTime` object containing a time ``s`` seconds later than the time of this object (or earlier if ``s`` is negative).
+
+    Note that the time will wrap if it passes midnight.
+
+    Example:
+
+    ::
+
+        n = QTime(14, 0, 0)              # n == 14:00:00
+        t = QTime()
+        t = n.addSecs(70)                # t == 14:01:10
+        t = n.addSecs(-70)               # t == 13:58:50
+        t = n.addSecs(10 * 60 * 60 + 5)  # t == 00:00:05
+        t = n.addSecs(-15 * 60 * 60)     # t == 23:00:00
+
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.addMSecs`  :meth:`PySide.QtCore.QTime.secsTo`  :meth:`QDateTime.addSecs()<PySide.QtCore.QDateTime.addSecs>` 
+
+
+.. staticmethod:: PySide.QtCore.QTime.currentTime()
+
+
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Returns the current time as reported by the system clock.
+
+    Note that the accuracy depends on the accuracy of the underlying operating system; not all systems provide 1-millisecond accuracy.
+
+
+
+.. method:: PySide.QtCore.QTime.ds()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTime.elapsed()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of milliseconds that have elapsed since the last time :meth:`PySide.QtCore.QTime.start` or :meth:`PySide.QtCore.QTime.restart` was called.
+
+    Note that the counter wraps to zero 24 hours after the last call to :meth:`PySide.QtCore.QTime.start` or restart.
+
+    Note that the accuracy depends on the accuracy of the underlying operating system; not all systems provide 1-millisecond accuracy.
+
+    .. warning::  If the system's clock setting has been changed since the last time :meth:`PySide.QtCore.QTime.start` or :meth:`PySide.QtCore.QTime.restart` was called, the result is undefined. This can happen when daylight savings time is turned on or off.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.start`  :meth:`PySide.QtCore.QTime.restart` 
+
+
+.. staticmethod:: PySide.QtCore.QTime.fromString(s[, f=Qt.TextDate])
+
+
+    :param s: unicode
+    :param f: :attr:`PySide.QtCore.Qt.DateFormat`
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QTime.fromString(s, format)
+
+
+    :param s: unicode
+    :param format: unicode
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QTime` represented by the ``string`` , using the ``format`` given, or an invalid time if the string cannot be parsed.
+
+    These expressions may be used for the format:
+
+    +----------+---------------------------------------------------------------------+
+    |Expression|Output                                                               |
+    +----------+---------------------------------------------------------------------+
+    |h         |the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)|
+    +----------+---------------------------------------------------------------------+
+    |hh        |the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display) |
+    +----------+---------------------------------------------------------------------+
+    |m         |the minute without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |mm        |the minute with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |s         |the second without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |ss        |the second with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |z         |the milliseconds without leading zeroes (0 to 999)                   |
+    +----------+---------------------------------------------------------------------+
+    |zzz       |the milliseconds with leading zeroes (000 to 999)                    |
+    +----------+---------------------------------------------------------------------+
+    |AP        |interpret as an AM/PM time. *AP* must be either "AM" or "PM".        |
+    +----------+---------------------------------------------------------------------+
+    |ap        |Interpret as an AM/PM time. *ap* must be either "am" or "pm".        |
+    +----------+---------------------------------------------------------------------+
+
+    All other input characters will be treated as text. Any sequence of characters that are enclosed in single quotes will also be treated as text and not be used as an expression.
+
+    ::
+
+        time = QTime.fromString("1mm12car00", "m'mm'hcarss")
+        # time is 12:01.00
+
+
+    If the format is not satisfied an invalid :class:`PySide.QtCore.QTime` is returned. Expressions that do not expect leading zeroes to be given (h, m, s and z) are greedy. This means that they will use two digits even if this puts them outside the range of accepted values and leaves too few digits for other sections. For example, the following string could have meant 00:07:10, but the m will grab two digits, resulting in an invalid time:
+
+    ::
+
+        time = QTime.fromString("00:710", "hh:ms") # invalid
+
+
+    Any field that is not represented in the format will be set to zero. For example:
+
+    ::
+
+        time = QTime.fromString("1.30", "m.s")
+        # time is 00:01:30.000
+
+
+    :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>` :meth:`QTime.toString()<PySide.QtCore.QTime.toString>`
+
+    .. seealso::  :meth:`QDateTime.fromString()<PySide.QtCore.QDateTime.fromString>`  :meth:`QDate.fromString()<PySide.QtCore.QDate.fromString>`  :meth:`QDate.toString()<PySide.QtCore.QDate.toString>` 
+
+
+.. method:: PySide.QtCore.QTime.hour()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the hour part (0 to 23) of the time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.minute`  :meth:`PySide.QtCore.QTime.second`  :meth:`PySide.QtCore.QTime.msec` 
+
+
+.. method:: PySide.QtCore.QTime.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the time is null (i.e., the :class:`PySide.QtCore.QTime` object was constructed using the default constructor); otherwise returns false. A null time is also an invalid time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.isValid` 
+
+
+.. method:: PySide.QtCore.QTime.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the time is valid; otherwise returns false. For example, the time 23:30:55.746 is valid, but 24:12:30 is invalid.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.isNull` 
+
+
+.. staticmethod:: PySide.QtCore.QTime.isValid(h, m, s[, ms=0])
+
+
+    :param h: :class:`PySide.QtCore.int`
+    :param m: :class:`PySide.QtCore.int`
+    :param s: :class:`PySide.QtCore.int`
+    :param ms: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the specified time is valid; otherwise returns false.
+
+    The time is valid if ``h`` is in the range 0 to 23, ``m`` and ``s`` are in the range 0 to 59, and ``ms`` is in the range 0 to 999.
+
+    Example:
+
+    ::
+
+        QTime.isValid(21, 10, 30) # returns True
+        QTime.isValid(22, 5,  62) # returns False
+
+
+
+
+.. method:: PySide.QtCore.QTime.minute()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the minute part (0 to 59) of the time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.hour`  :meth:`PySide.QtCore.QTime.second`  :meth:`PySide.QtCore.QTime.msec` 
+
+
+.. method:: PySide.QtCore.QTime.msec()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the millisecond part (0 to 999) of the time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.hour`  :meth:`PySide.QtCore.QTime.minute`  :meth:`PySide.QtCore.QTime.second` 
+
+
+.. method:: PySide.QtCore.QTime.msecsTo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of milliseconds from this time to ``t`` . If ``t`` is earlier than this time, the number of milliseconds returned is negative.
+
+    Because :class:`PySide.QtCore.QTime` measures time within a day and there are 86400 seconds in a day, the result is always between -86400000 and 86400000 ms.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.secsTo`  :meth:`PySide.QtCore.QTime.addMSecs`  :meth:`QDateTime.msecsTo()<PySide.QtCore.QDateTime.msecsTo>` 
+
+
+.. method:: PySide.QtCore.QTime.__ne__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is different from ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.__lt__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is earlier than ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.__le__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is earlier than or equal to ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.__eq__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is equal to ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.__gt__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is later than ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.__ge__(other)
+
+
+    :param other: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this time is later than or equal to ``t`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTime.restart()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets this time to the current time and returns the number of milliseconds that have elapsed since the last time :meth:`PySide.QtCore.QTime.start` or :meth:`PySide.QtCore.QTime.restart` was called.
+
+    This function is guaranteed to be atomic and is thus very handy for repeated measurements. Call :meth:`PySide.QtCore.QTime.start` to start the first measurement, and :meth:`PySide.QtCore.QTime.restart` for each later measurement.
+
+    Note that the counter wraps to zero 24 hours after the last call to :meth:`PySide.QtCore.QTime.start` or :meth:`PySide.QtCore.QTime.restart` .
+
+    .. warning::  If the system's clock setting has been changed since the last time :meth:`PySide.QtCore.QTime.start` or :meth:`PySide.QtCore.QTime.restart` was called, the result is undefined. This can happen when daylight savings time is turned on or off.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.start`  :meth:`PySide.QtCore.QTime.elapsed`  :meth:`PySide.QtCore.QTime.currentTime` 
+
+
+.. method:: PySide.QtCore.QTime.second()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the second part (0 to 59) of the time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.hour`  :meth:`PySide.QtCore.QTime.minute`  :meth:`PySide.QtCore.QTime.msec` 
+
+
+.. method:: PySide.QtCore.QTime.secsTo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QTime`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of seconds from this time to ``t`` . If ``t`` is earlier than this time, the number of seconds returned is negative.
+
+    Because :class:`PySide.QtCore.QTime` measures time within a day and there are 86400 seconds in a day, the result is always between -86400 and 86400.
+
+    :meth:`PySide.QtCore.QTime.secsTo` does not take into account any milliseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.addSecs`  :meth:`QDateTime.secsTo()<PySide.QtCore.QDateTime.secsTo>` 
+
+
+.. method:: PySide.QtCore.QTime.setHMS(h, m, s[, ms=0])
+
+
+    :param h: :class:`PySide.QtCore.int`
+    :param m: :class:`PySide.QtCore.int`
+    :param s: :class:`PySide.QtCore.int`
+    :param ms: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the time to hour ``h`` , minute ``m`` , seconds ``s`` and milliseconds ``ms`` .
+
+    ``h`` must be in the range 0 to 23, ``m`` and ``s`` must be in the range 0 to 59, and ``ms`` must be in the range 0 to 999. Returns true if the set time is valid; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.isValid` 
+
+
+.. method:: PySide.QtCore.QTime.start()
+
+
+
+
+
+
+    Sets this time to the current time. This is practical for timing:
+
+    ::
+
+        t = QTime()
+        t.start()
+        some_lengthy_task()
+        print ("Time elapsed: %d ms" % t.elapsed())
+
+
+    .. seealso::  :meth:`PySide.QtCore.QTime.restart`  :meth:`PySide.QtCore.QTime.elapsed`  :meth:`PySide.QtCore.QTime.currentTime` 
+
+
+.. method:: PySide.QtCore.QTime.toPython()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTime.toString([f=Qt.TextDate])
+
+
+    :param f: :attr:`PySide.QtCore.Qt.DateFormat`
+    :rtype: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTime.toString(format)
+
+
+    :param format: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the time as a string. The ``format`` parameter determines the format of the result string.
+
+    These expressions may be used:
+
+    +----------+---------------------------------------------------------------------+
+    |Expression|Output                                                               |
+    +----------+---------------------------------------------------------------------+
+    |h         |the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)|
+    +----------+---------------------------------------------------------------------+
+    |hh        |the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display) |
+    +----------+---------------------------------------------------------------------+
+    |H         |the hour without a leading zero (0 to 23, even with AM/PM display)   |
+    +----------+---------------------------------------------------------------------+
+    |HH        |the hour with a leading zero (00 to 23, even with AM/PM display)     |
+    +----------+---------------------------------------------------------------------+
+    |m         |the minute without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |mm        |the minute with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |s         |the second without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |ss        |the second with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |z         |the milliseconds without leading zeroes (0 to 999)                   |
+    +----------+---------------------------------------------------------------------+
+    |zzz       |the milliseconds with leading zeroes (000 to 999)                    |
+    +----------+---------------------------------------------------------------------+
+    |AP or A   |use AM/PM display. *AP* will be replaced by either "AM" or "PM".     |
+    +----------+---------------------------------------------------------------------+
+    |ap or a   |use am/pm display. *ap* will be replaced by either "am" or "pm".     |
+    +----------+---------------------------------------------------------------------+
+    |t         |the timezone (for example "CEST")                                    |
+    +----------+---------------------------------------------------------------------+
+
+    All other input characters will be ignored. Any sequence of characters that are enclosed in singlequotes will be treated as text and not be used as an expression. Two consecutive singlequotes ("''") are replaced by a singlequote in the output.
+
+    Example format strings (assuming that the :class:`PySide.QtCore.QTime` is 14:13:09.042)
+
+    +------------+------------+
+    |Format      |Result      |
+    +------------+------------+
+    |hh:mm:ss.zzz|14:13:09.042|
+    +------------+------------+
+    |h:m:s ap    |2:13:9 pm   |
+    +------------+------------+
+    |H:m:s a     |14:13:9 pm  |
+    +------------+------------+
+
+    If the datetime is invalid, an empty string will be returned. If ``format`` is empty, the default format "hh:mm:ss" is used.
+
+    .. seealso::  :meth:`QDate.toString()<PySide.QtCore.QDate.toString>`  :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>` 
+
+
+

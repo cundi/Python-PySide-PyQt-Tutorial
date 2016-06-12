@@ -1,0 +1,654 @@
+.. module:: PySide.QtSql
+.. _QSqlDriver:
+
+QSqlDriver
+**********
+
+.. inheritance-diagram:: QSqlDriver
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isIdentifierEscaped<PySide.QtSql.QSqlDriver.isIdentifierEscaped>` (identifier, type)
+*    def :meth:`isOpenError<PySide.QtSql.QSqlDriver.isOpenError>` ()
+*    def :meth:`lastError<PySide.QtSql.QSqlDriver.lastError>` ()
+*    def :meth:`numericalPrecisionPolicy<PySide.QtSql.QSqlDriver.numericalPrecisionPolicy>` ()
+*    def :meth:`setNumericalPrecisionPolicy<PySide.QtSql.QSqlDriver.setNumericalPrecisionPolicy>` (precisionPolicy)
+*    def :meth:`stripDelimiters<PySide.QtSql.QSqlDriver.stripDelimiters>` (identifier, type)
+*    def :meth:`subscribeToNotification<PySide.QtSql.QSqlDriver.subscribeToNotification>` (name)
+*    def :meth:`subscribedToNotifications<PySide.QtSql.QSqlDriver.subscribedToNotifications>` ()
+*    def :meth:`unsubscribeFromNotification<PySide.QtSql.QSqlDriver.unsubscribeFromNotification>` (name)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beginTransaction<PySide.QtSql.QSqlDriver.beginTransaction>` ()
+*    def :meth:`close<PySide.QtSql.QSqlDriver.close>` ()
+*    def :meth:`commitTransaction<PySide.QtSql.QSqlDriver.commitTransaction>` ()
+*    def :meth:`createResult<PySide.QtSql.QSqlDriver.createResult>` ()
+*    def :meth:`escapeIdentifier<PySide.QtSql.QSqlDriver.escapeIdentifier>` (identifier, type)
+*    def :meth:`formatValue<PySide.QtSql.QSqlDriver.formatValue>` (field[, trimStrings=false])
+*    def :meth:`hasFeature<PySide.QtSql.QSqlDriver.hasFeature>` (f)
+*    def :meth:`isOpen<PySide.QtSql.QSqlDriver.isOpen>` ()
+*    def :meth:`open<PySide.QtSql.QSqlDriver.open>` (db[, user=""[, password=""[, host=""[, port=-1[, connOpts=""]]]]])
+*    def :meth:`primaryIndex<PySide.QtSql.QSqlDriver.primaryIndex>` (tableName)
+*    def :meth:`record<PySide.QtSql.QSqlDriver.record>` (tableName)
+*    def :meth:`rollbackTransaction<PySide.QtSql.QSqlDriver.rollbackTransaction>` ()
+*    def :meth:`setLastError<PySide.QtSql.QSqlDriver.setLastError>` (e)
+*    def :meth:`setOpen<PySide.QtSql.QSqlDriver.setOpen>` (o)
+*    def :meth:`setOpenError<PySide.QtSql.QSqlDriver.setOpenError>` (e)
+*    def :meth:`sqlStatement<PySide.QtSql.QSqlDriver.sqlStatement>` (type, tableName, rec, preparedStatement)
+*    def :meth:`tables<PySide.QtSql.QSqlDriver.tables>` (tableType)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`isIdentifierEscapedImplementation<PySide.QtSql.QSqlDriver.isIdentifierEscapedImplementation>` (identifier, type)
+*    def :meth:`stripDelimitersImplementation<PySide.QtSql.QSqlDriver.stripDelimitersImplementation>` (identifier, type)
+*    def :meth:`subscribeToNotificationImplementation<PySide.QtSql.QSqlDriver.subscribeToNotificationImplementation>` (name)
+*    def :meth:`subscribedToNotificationsImplementation<PySide.QtSql.QSqlDriver.subscribedToNotificationsImplementation>` ()
+*    def :meth:`unsubscribeFromNotificationImplementation<PySide.QtSql.QSqlDriver.unsubscribeFromNotificationImplementation>` (name)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`notification<PySide.QtSql.QSqlDriver.notification>` (name)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlDriver` class is an abstract base class for accessing specific SQL databases.
+
+    This class should not be used directly. Use :class:`PySide.QtSql.QSqlDatabase` instead.
+
+    If you want to create your own SQL drivers, you can subclass this class and reimplement its pure virtual functions and those virtual functions that you need. See :ref:`How to Write Your Own Database Driver<sql-driver.html>` for more information.
+
+    .. seealso::  :class:`PySide.QtSql.QSqlDatabase`  :class:`PySide.QtSql.QSqlResult` 
+
+.. class:: QSqlDriver([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new driver with the given ``parent`` .
+
+
+.. attribute:: PySide.QtSql.QSqlDriver.StatementType
+
+    This enum contains a list of SQL statement (or clause) types the driver can create.
+
+    +--------------------------+---------------------------------------------------------------------+
+    |Constant                  |Description                                                          |
+    +==========================+=====================================================================+
+    |QSqlDriver.WhereStatement |An SQL ``WHERE`` statement (e.g., ``WHERE f = 5``).                  |
+    +--------------------------+---------------------------------------------------------------------+
+    |QSqlDriver.SelectStatement|An SQL ``SELECT`` statement (e.g., ``SELECT f FROM t``).             |
+    +--------------------------+---------------------------------------------------------------------+
+    |QSqlDriver.UpdateStatement|An SQL ``UPDATE`` statement (e.g., ``UPDATE TABLE t set f = 1``).    |
+    +--------------------------+---------------------------------------------------------------------+
+    |QSqlDriver.InsertStatement|An SQL ``INSERT`` statement (e.g., ``INSERT INTO t (f) values (1)``).|
+    +--------------------------+---------------------------------------------------------------------+
+    |QSqlDriver.DeleteStatement|An SQL ``DELETE`` statement (e.g., ``DELETE FROM t``).               |
+    +--------------------------+---------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.sqlStatement` 
+
+.. attribute:: PySide.QtSql.QSqlDriver.IdentifierType
+
+    This enum contains a list of SQL identifier types.
+
+    +--------------------+----------------+
+    |Constant            |Description     |
+    +====================+================+
+    |QSqlDriver.FieldName|A SQL field name|
+    +--------------------+----------------+
+    |QSqlDriver.TableName|A SQL table name|
+    +--------------------+----------------+
+
+
+.. attribute:: PySide.QtSql.QSqlDriver.DriverFeature
+
+    This enum contains a list of features a driver might support. Use :meth:`PySide.QtSql.QSqlDriver.hasFeature` to query whether a feature is supported or not.
+
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                                                                                                                                                                                |
+    +=================================+===========================================================================================================================================================================================================================================================+
+    |QSqlDriver.Transactions          |Whether the driver supports SQL transactions.                                                                                                                                                                                                              |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.QuerySize             |Whether the database is capable of reporting the size of a query. Note that some databases do not support returning the size (i.e. number of rows returned) of a query, in which case :meth:`QSqlQuery.size()<PySide.QtSql.QSqlQuery.size>` will return -1.|
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.BLOB                  |Whether the driver supports Binary Large Object fields.                                                                                                                                                                                                    |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.Unicode               |Whether the driver supports Unicode strings if the database server does.                                                                                                                                                                                   |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.PreparedQueries       |Whether the driver supports prepared query execution.                                                                                                                                                                                                      |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.NamedPlaceholders     |Whether the driver supports the use of named placeholders.                                                                                                                                                                                                 |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.PositionalPlaceholders|Whether the driver supports the use of positional placeholders.                                                                                                                                                                                            |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.LastInsertId          |Whether the driver supports returning the Id of the last touched row.                                                                                                                                                                                      |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.BatchOperations       |Whether the driver supports batched operations, see :meth:`QSqlQuery.execBatch()<PySide.QtSql.QSqlQuery.execBatch>`                                                                                                                                        |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.SimpleLocking         |Whether the driver disallows a write lock on a table while other queries have a read lock on it.                                                                                                                                                           |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.LowPrecisionNumbers   |Whether the driver allows fetching numerical values with low precision.                                                                                                                                                                                    |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.EventNotifications    |Whether the driver supports database event notifications.                                                                                                                                                                                                  |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.FinishQuery           |Whether the driver can do any low-level resource cleanup when :meth:`QSqlQuery.finish()<PySide.QtSql.QSqlQuery.finish>` is called.                                                                                                                         |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlDriver.MultipleResultSets    |Whether the driver can access multiple result sets returned from batched statements or stored procedures.                                                                                                                                                  |
+    +---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    More information about supported features can be found in the :ref:`Qt SQL driver<sql-driver.html>` documentation.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.hasFeature` 
+
+.. method:: PySide.QtSql.QSqlDriver.beginTransaction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to begin a transaction. If successful, return true, otherwise return false. The default implementation does nothing and returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.commitTransaction`  :meth:`PySide.QtSql.QSqlDriver.rollbackTransaction` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.close()
+
+
+
+
+
+
+    Derived classes must reimplement this pure virtual function in order to close the database connection. Return true on success, false on failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.open`  :meth:`PySide.QtSql.QSqlDriver.setOpen` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.commitTransaction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to commit a transaction. If successful, return true, otherwise return false. The default implementation does nothing and returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.beginTransaction`  :meth:`PySide.QtSql.QSqlDriver.rollbackTransaction` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.createResult()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlResult`
+
+
+
+
+    Creates an empty SQL result on the database. Derived classes must reimplement this function and return a :class:`PySide.QtSql.QSqlResult` object appropriate for their database to the caller.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.escapeIdentifier(identifier, type)
+
+
+    :param identifier: unicode
+    :param type: :attr:`PySide.QtSql.QSqlDriver.IdentifierType`
+    :rtype: unicode
+
+
+
+
+    Returns the ``identifier`` escaped according to the database rules. ``identifier`` can either be a table name or field name, dependent on ``type`` .
+
+    The default implementation does nothing.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscaped` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.formatValue(field[, trimStrings=false])
+
+
+    :param field: :class:`PySide.QtSql.QSqlField`
+    :param trimStrings: :class:`PySide.QtCore.bool`
+    :rtype: unicode
+
+
+
+
+    Returns a string representation of the ``field`` value for the database. This is used, for example, when constructing INSERT and UPDATE statements.
+
+    The default implementation returns the value formatted as a string according to the following rules:
+
+
+    * If ``field`` is character data, the value is returned enclosed in single quotation marks, which is appropriate for many SQL databases. Any embedded single-quote characters are escaped (replaced with two single-quote characters). If ``trimStrings`` is true (the default is false), all trailing whitespace is trimmed from the field.
+    * If ``field`` is date/time data, the value is formatted in ISO format and enclosed in single quotation marks. If the date/time data is invalid, "NULL" is returned.
+    * If ``field`` is :class:`bytearray<PySide.QtCore.QByteArray>` data, and the driver can edit binary fields, the value is formatted as a hexadecimal string.
+    * For any other field type, :meth:`~PySide.QtSql.QSqlDriver.toString` is called on its value and the result of this is returned.
+
+    .. seealso::  :meth:`QVariant.toString` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.hasFeature(f)
+
+
+    :param f: :attr:`PySide.QtSql.QSqlDriver.DriverFeature`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the driver supports feature ``feature`` ; otherwise returns false.
+
+    Note that some databases need to be :meth:`PySide.QtSql.QSqlDriver.open` before this can be determined.
+
+    .. seealso::  :attr:`QSqlDriver.DriverFeature` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.isIdentifierEscaped(identifier, type)
+
+
+    :param identifier: unicode
+    :param type: :attr:`PySide.QtSql.QSqlDriver.IdentifierType`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether ``identifier`` is escaped according to the database rules. ``identifier`` can either be a table name or field name, dependent on ``type`` .
+
+    .. warning::  Because of binary compatibility constraints, this function is not virtual. If you want to provide your own implementation in your :class:`PySide.QtSql.QSqlDriver` subclass, reimplement the :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscapedImplementation` slot in your subclass instead. The isIdentifierEscapedFunction() will dynamically detect the slot and call it.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.stripDelimiters`  :meth:`PySide.QtSql.QSqlDriver.escapeIdentifier` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.isIdentifierEscapedImplementation(identifier, type)
+
+
+    :param identifier: unicode
+    :param type: :attr:`PySide.QtSql.QSqlDriver.IdentifierType`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This slot returns whether ``identifier`` is escaped according to the database rules. ``identifier`` can either be a table name or field name, dependent on ``type`` .
+
+    Because of binary compatibility constraints, :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscaped` function (introduced in Qt 4.5) is not virtual. Instead, :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscaped` will dynamically detect and call *this* slot. The default implementation assumes the escape/delimiter character is a double quote. Reimplement this slot in your own :class:`PySide.QtSql.QSqlDriver` if your database engine uses a different delimiter character.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscaped` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.isOpen()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the database connection is open; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.isOpenError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the there was an error opening the database connection; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.lastError()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    Returns a :class:`PySide.QtSql.QSqlError` object which contains information about the last error that occurred on the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.setLastError` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.notification(name)
+
+
+    :param name: unicode
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.numericalPrecisionPolicy()
+
+
+    :rtype: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+    Returns the current default precision policy for the database connection.
+
+    .. seealso::  :attr:`QSql.NumericalPrecisionPolicy`  :meth:`PySide.QtSql.QSqlDriver.setNumericalPrecisionPolicy`  :meth:`QSqlQuery.numericalPrecisionPolicy()<PySide.QtSql.QSqlQuery.numericalPrecisionPolicy>`  :meth:`QSqlQuery.setNumericalPrecisionPolicy()<PySide.QtSql.QSqlQuery.setNumericalPrecisionPolicy>` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.open(db[, user=""[, password=""[, host=""[, port=-1[, connOpts=""]]]]])
+
+
+    :param db: unicode
+    :param user: unicode
+    :param password: unicode
+    :param host: unicode
+    :param port: :class:`PySide.QtCore.int`
+    :param connOpts: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Derived classes must reimplement this pure virtual function to open a database connection on database ``db`` , using user name ``user`` , password ``password`` , host ``host`` , port ``port`` and connection options ``options`` .
+
+    The function must return true on success and false on failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.setOpen` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.primaryIndex(tableName)
+
+
+    :param tableName: unicode
+    :rtype: :class:`PySide.QtSql.QSqlIndex`
+
+
+
+
+    Returns the primary index for table ``tableName`` . Returns an empty :class:`PySide.QtSql.QSqlIndex` if the table doesn't have a primary index. The default implementation returns an empty index.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.record(tableName)
+
+
+    :param tableName: unicode
+    :rtype: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+    Returns a :class:`PySide.QtSql.QSqlRecord` populated with the names of the fields in table ``tableName`` . If no such table exists, an empty record is returned. The default implementation returns an empty record.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.rollbackTransaction()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to rollback a transaction. If successful, return true, otherwise return false. The default implementation does nothing and returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.beginTransaction`  :meth:`PySide.QtSql.QSqlDriver.commitTransaction` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.setLastError(e)
+
+
+    :param e: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    This function is used to set the value of the last error, ``error`` , that occurred on the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.setNumericalPrecisionPolicy(precisionPolicy)
+
+
+    :param precisionPolicy: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.setOpen(o)
+
+
+    :param o: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function sets the open state of the database to ``open`` . Derived classes can use this function to report the status of :meth:`PySide.QtSql.QSqlDriver.open` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.open`  :meth:`PySide.QtSql.QSqlDriver.setOpenError` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.setOpenError(e)
+
+
+    :param e: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function sets the open error state of the database to ``error`` . Derived classes can use this function to report the status of :meth:`PySide.QtSql.QSqlDriver.open` . Note that if ``error`` is true the open state of the database is set to closed (i.e., :meth:`PySide.QtSql.QSqlDriver.isOpen` returns false).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.isOpenError`  :meth:`PySide.QtSql.QSqlDriver.open`  :meth:`PySide.QtSql.QSqlDriver.setOpen` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.sqlStatement(type, tableName, rec, preparedStatement)
+
+
+    :param type: :attr:`PySide.QtSql.QSqlDriver.StatementType`
+    :param tableName: unicode
+    :param rec: :class:`PySide.QtSql.QSqlRecord`
+    :param preparedStatement: :class:`PySide.QtCore.bool`
+    :rtype: unicode
+
+
+
+
+    Returns a SQL statement of type ``type`` for the table ``tableName`` with the values from ``rec`` . If ``preparedStatement`` is true, the string will contain placeholders instead of values.
+
+    This method can be used to manipulate tables without having to worry about database-dependent SQL dialects. For non-prepared statements, the values will be properly escaped.
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.stripDelimiters(identifier, type)
+
+
+    :param identifier: unicode
+    :param type: :attr:`PySide.QtSql.QSqlDriver.IdentifierType`
+    :rtype: unicode
+
+
+
+
+    Returns the ``identifier`` with the leading and trailing delimiters removed, ``identifier`` can either be a table name or field name, dependent on ``type`` . If ``identifier`` does not have leading and trailing delimiter characters, ``identifier`` is returned without modification.
+
+    .. warning::  Because of binary compatibility constraints, this function is not virtual, If you want to provide your own implementation in your :class:`PySide.QtSql.QSqlDriver` subclass, reimplement the :meth:`PySide.QtSql.QSqlDriver.stripDelimitersImplementation` slot in your subclass instead. The :meth:`PySide.QtSql.QSqlDriver.stripDelimiters` function will dynamically detect the slot and call it.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.isIdentifierEscaped` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.stripDelimitersImplementation(identifier, type)
+
+
+    :param identifier: unicode
+    :param type: :attr:`PySide.QtSql.QSqlDriver.IdentifierType`
+    :rtype: unicode
+
+
+
+
+    This slot returns ``identifier`` with the leading and trailing delimiters removed, ``identifier`` can either be a tablename or field name, dependent on ``type`` . If ``identifier`` does not have leading and trailing delimiter characters, ``identifier`` is returned without modification.
+
+    Because of binary compatibility constraints, the :meth:`PySide.QtSql.QSqlDriver.stripDelimiters` function (introduced in Qt 4.5) is not virtual. Instead, :meth:`PySide.QtSql.QSqlDriver.stripDelimiters` will dynamically detect and call *this* slot. It generally unnecessary to reimplement this slot.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.stripDelimiters` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.subscribeToNotification(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to subscribe to event notifications from the database. ``name`` identifies the event notification.
+
+    If successful, return true, otherwise return false.
+
+    The database must be open when this function is called. When the database is closed by calling :meth:`PySide.QtSql.QSqlDriver.close` all subscribed event notifications are automatically unsubscribed. Note that calling :meth:`PySide.QtSql.QSqlDriver.open` on an already open database may implicitly cause :meth:`PySide.QtSql.QSqlDriver.close` to be called, which will cause the driver to unsubscribe from all event notifications.
+
+    When an event notification identified by ``name`` is posted by the database the :meth:`PySide.QtSql.QSqlDriver.notification` signal is emitted.
+
+    .. warning::  Because of binary compatibility constraints, this function is not virtual. If you want to provide event notification support in your own :class:`PySide.QtSql.QSqlDriver` subclass, reimplement the :meth:`PySide.QtSql.QSqlDriver.subscribeToNotificationImplementation` slot in your subclass instead. The :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification` function will dynamically detect the slot and call it.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification`  :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications`  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.subscribeToNotificationImplementation(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This slot is called to subscribe to event notifications from the database. ``name`` identifies the event notification.
+
+    If successful, return true, otherwise return false.
+
+    The database must be open when this *slot* is called. When the database is closed by calling :meth:`PySide.QtSql.QSqlDriver.close` all subscribed event notifications are automatically unsubscribed. Note that calling :meth:`PySide.QtSql.QSqlDriver.open` on an already open database may implicitly cause :meth:`PySide.QtSql.QSqlDriver.close` to be called, which will cause the driver to unsubscribe from all event notifications.
+
+    When an event notification identified by ``name`` is posted by the database the :meth:`PySide.QtSql.QSqlDriver.notification` signal is emitted.
+
+    Reimplement this slot to provide your own :class:`PySide.QtSql.QSqlDriver` subclass with event notification support; because of binary compatibility constraints, the :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification` function (introduced in Qt 4.4) is not virtual. Instead, :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification` will dynamically detect and call *this* slot. The default implementation does nothing and returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.subscribedToNotifications()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of the names of the event notifications that are currently subscribed to.
+
+    .. warning::  Because of binary compatibility constraints, this function is not virtual. If you want to provide event notification support in your own :class:`PySide.QtSql.QSqlDriver` subclass, reimplement the :meth:`PySide.QtSql.QSqlDriver.subscribedToNotificationsImplementation` slot in your subclass instead. The :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications` function will dynamically detect the slot and call it.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification`  :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.subscribedToNotificationsImplementation()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of the names of the event notifications that are currently subscribed to.
+
+    Reimplement this slot to provide your own :class:`PySide.QtSql.QSqlDriver` subclass with event notification support; because of binary compatibility constraints, the :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications` function (introduced in Qt 4.4) is not virtual. Instead, :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications` will dynamically detect and call *this* slot. The default implementation simply returns an empty :class:`PySide.QtCore.QStringList` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.tables(tableType)
+
+
+    :param tableType: :attr:`PySide.QtSql.QSql.TableType`
+    :rtype: list of strings
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlDriver.unsubscribeFromNotification(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to unsubscribe from event notifications from the database. ``name`` identifies the event notification.
+
+    If successful, return true, otherwise return false.
+
+    The database must be open when this function is called. All subscribed event notifications are automatically unsubscribed from when the :meth:`PySide.QtSql.QSqlDriver.close` function is called.
+
+    After calling *this* function the :meth:`PySide.QtSql.QSqlDriver.notification` signal will no longer be emitted when an event notification identified by ``name`` is posted by the database.
+
+    .. warning::  Because of binary compatibility constraints, this function is not virtual. If you want to provide event notification support in your own :class:`PySide.QtSql.QSqlDriver` subclass, reimplement the :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotificationImplementation` slot in your subclass instead. The :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification` function will dynamically detect the slot and call it.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.subscribeToNotification`  :meth:`PySide.QtSql.QSqlDriver.subscribedToNotifications` 
+
+
+.. method:: PySide.QtSql.QSqlDriver.unsubscribeFromNotificationImplementation(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This slot is called to unsubscribe from event notifications from the database. ``name`` identifies the event notification.
+
+    If successful, return true, otherwise return false.
+
+    The database must be open when *this* slot is called. All subscribed event notifications are automatically unsubscribed from when the :meth:`PySide.QtSql.QSqlDriver.close` function is called.
+
+    After calling *this* slot the :meth:`PySide.QtSql.QSqlDriver.notification` signal will no longer be emitted when an event notification identified by ``name`` is posted by the database.
+
+    Reimplement this slot to provide your own :class:`PySide.QtSql.QSqlDriver` subclass with event notification support; because of binary compatibility constraints, the :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification` function (introduced in Qt 4.4) is not virtual. Instead, :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification` will dynamically detect and call *this* slot. The default implementation does nothing and returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlDriver.unsubscribeFromNotification` 
+
+
+

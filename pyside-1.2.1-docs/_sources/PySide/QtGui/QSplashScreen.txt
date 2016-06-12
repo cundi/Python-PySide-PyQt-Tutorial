@@ -1,0 +1,198 @@
+.. module:: PySide.QtGui
+.. _QSplashScreen:
+
+QSplashScreen
+*************
+
+.. inheritance-diagram:: QSplashScreen
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`finish<PySide.QtGui.QSplashScreen.finish>` (w)
+*    def :meth:`pixmap<PySide.QtGui.QSplashScreen.pixmap>` ()
+*    def :meth:`setPixmap<PySide.QtGui.QSplashScreen.setPixmap>` (pixmap)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`drawContents<PySide.QtGui.QSplashScreen.drawContents>` (painter)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`clearMessage<PySide.QtGui.QSplashScreen.clearMessage>` ()
+*    def :meth:`showMessage<PySide.QtGui.QSplashScreen.showMessage>` (message[, alignment=Qt.AlignLeft[, color=Qt.black]])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`messageChanged<PySide.QtGui.QSplashScreen.messageChanged>` (message)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSplashScreen` widget provides a splash screen that can be shown during application startup.
+
+    A splash screen is a widget that is usually displayed when an application is being started. Splash screens are often used for applications that have long start up times (e.g. database or networking applications that take time to establish connections) to provide the user with feedback that the application is loading.
+
+    The splash screen appears in the center of the screen. It may be useful to add the :attr:`Qt.WindowStaysOnTopHint<Qt.WindowType>` to the splash widget's window flags if you want to keep it above all the other windows on the desktop.
+
+    Some X11 window managers do not support the "stays on top" flag. A solution is to set up a timer that periodically calls :meth:`~PySide.QtGui.QSplashScreen.raise` on the splash screen to simulate the "stays on top" effect.
+
+    The most common usage is to show a splash screen before the main widget is displayed on the screen. This is illustrated in the following code snippet in which a splash screen is displayed and some initialization tasks are performed before the application's main window is shown:
+
+    ::
+
+        def main():
+            app = QApplication(sys.argv)
+            pixmap = QPixmap(":/splash.png")
+            splash = QSplashScreen(pixmap)
+            splash.show()
+            app.processEvents()
+            ...
+            window = QMainWindow()
+            window.show()
+            splash.finish(&window)
+            return app.exec_()
+
+
+    The user can hide the splash screen by clicking on it with the mouse. Since the splash screen is typically displayed before the event loop has started running, it is necessary to periodically call :meth:`QApplication.processEvents()<PySide.QtGui.QApplication.processEvents>` to receive the mouse clicks.
+
+    It is sometimes useful to update the splash screen with messages, for example, announcing connections established or modules loaded as the application starts up:
+
+    ::
+
+        pixmap = QPixmap(":/splash.png")
+        splash = QSplashScreen(pixmap)
+        splash.show()
+
+        ... # Loading some items
+        splash.showMessage("Loaded modules")
+
+        qApp.processEvents()
+
+        ... # Establishing connections
+        splash.showMessage("Established connections")
+
+        qApp.processEvents()
+
+
+    :class:`PySide.QtGui.QSplashScreen` supports this with the :meth:`PySide.QtGui.QSplashScreen.showMessage` function. If you wish to do your own drawing you can get a pointer to the pixmap used in the splash screen with :meth:`PySide.QtGui.QSplashScreen.pixmap` . Alternatively, you can subclass :class:`PySide.QtGui.QSplashScreen` and reimplement :meth:`PySide.QtGui.QSplashScreen.drawContents` .
+
+
+.. class:: QSplashScreen(parent[, pixmap=QPixmap()[, f=0]])
+           QSplashScreen([pixmap=QPixmap()[, f=0]])
+
+    :param f: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+.. method:: PySide.QtGui.QSplashScreen.clearMessage()
+
+
+
+
+
+
+    Removes the message being displayed on the splash screen
+
+    .. seealso::  :meth:`PySide.QtGui.QSplashScreen.showMessage` 
+
+
+.. method:: PySide.QtGui.QSplashScreen.drawContents(painter)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Draw the contents of the splash screen using painter ``painter`` . The default implementation draws the message passed by :meth:`PySide.QtGui.QSplashScreen.showMessage` . Reimplement this function if you want to do your own drawing on the splash screen.
+
+
+
+.. method:: PySide.QtGui.QSplashScreen.finish(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Makes the splash screen wait until the widget ``mainWin`` is displayed before calling :meth:`PySide.QtGui.QWidget.close` on itself.
+
+
+
+.. method:: PySide.QtGui.QSplashScreen.messageChanged(message)
+
+
+    :param message: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QSplashScreen.pixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the pixmap that is used in the splash screen. The image does not have any of the text drawn by :meth:`PySide.QtGui.QSplashScreen.showMessage` calls.
+
+    .. seealso::  :meth:`PySide.QtGui.QSplashScreen.setPixmap` 
+
+
+.. method:: PySide.QtGui.QSplashScreen.setPixmap(pixmap)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets the pixmap that will be used as the splash screen's image to ``pixmap`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSplashScreen.pixmap` 
+
+
+.. method:: PySide.QtGui.QSplashScreen.showMessage(message[, alignment=Qt.AlignLeft[, color=Qt.black]])
+
+
+    :param message: unicode
+    :param alignment: :class:`PySide.QtCore.int`
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Draws the ``message`` text onto the splash screen with color ``color`` and aligns the text according to the flags in ``alignment`` .
+
+    To make sure the splash screen is repainted immediately, you can call :class:`PySide.QtCore.QCoreApplication` 's :meth:`PySide.QtCore.QCoreApplication.processEvents` after the call to :meth:`PySide.QtGui.QSplashScreen.showMessage` . You usually want this to make sure that the message is kept up to date with what your application is doing (e.g., loading files).
+
+    .. seealso::  :class:`Qt.Alignment`  :meth:`PySide.QtGui.QSplashScreen.clearMessage` 
+
+
+

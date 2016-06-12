@@ -1,0 +1,449 @@
+.. module:: PySide.QtCore
+.. _QAbstractAnimation:
+
+QAbstractAnimation
+******************
+
+.. inheritance-diagram:: QAbstractAnimation
+    :parts: 2
+
+**Inherited by:** :ref:`QVariantAnimation`, :ref:`QPropertyAnimation`, :ref:`QPauseAnimation`, :ref:`QAnimationGroup`, :ref:`QSequentialAnimationGroup`, :ref:`QParallelAnimationGroup`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentLoop<PySide.QtCore.QAbstractAnimation.currentLoop>` ()
+*    def :meth:`currentLoopTime<PySide.QtCore.QAbstractAnimation.currentLoopTime>` ()
+*    def :meth:`currentTime<PySide.QtCore.QAbstractAnimation.currentTime>` ()
+*    def :meth:`direction<PySide.QtCore.QAbstractAnimation.direction>` ()
+*    def :meth:`group<PySide.QtCore.QAbstractAnimation.group>` ()
+*    def :meth:`loopCount<PySide.QtCore.QAbstractAnimation.loopCount>` ()
+*    def :meth:`setDirection<PySide.QtCore.QAbstractAnimation.setDirection>` (direction)
+*    def :meth:`setLoopCount<PySide.QtCore.QAbstractAnimation.setLoopCount>` (loopCount)
+*    def :meth:`state<PySide.QtCore.QAbstractAnimation.state>` ()
+*    def :meth:`totalDuration<PySide.QtCore.QAbstractAnimation.totalDuration>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`duration<PySide.QtCore.QAbstractAnimation.duration>` ()
+*    def :meth:`updateCurrentTime<PySide.QtCore.QAbstractAnimation.updateCurrentTime>` (currentTime)
+*    def :meth:`updateDirection<PySide.QtCore.QAbstractAnimation.updateDirection>` (direction)
+*    def :meth:`updateState<PySide.QtCore.QAbstractAnimation.updateState>` (newState, oldState)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`pause<PySide.QtCore.QAbstractAnimation.pause>` ()
+*    def :meth:`resume<PySide.QtCore.QAbstractAnimation.resume>` ()
+*    def :meth:`setCurrentTime<PySide.QtCore.QAbstractAnimation.setCurrentTime>` (msecs)
+*    def :meth:`setPaused<PySide.QtCore.QAbstractAnimation.setPaused>` (arg__1)
+*    def :meth:`start<PySide.QtCore.QAbstractAnimation.start>` ([policy=KeepWhenStopped])
+*    def :meth:`stop<PySide.QtCore.QAbstractAnimation.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentLoopChanged<PySide.QtCore.QAbstractAnimation.currentLoopChanged>` (currentLoop)
+*    def :meth:`directionChanged<PySide.QtCore.QAbstractAnimation.directionChanged>` (arg__1)
+*    def :meth:`finished<PySide.QtCore.QAbstractAnimation.finished>` ()
+*    def :meth:`stateChanged<PySide.QtCore.QAbstractAnimation.stateChanged>` (newState, oldState)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractAnimation` class is the base of all animations.
+
+    The class defines the functions for the functionality shared by all animations. By inheriting this class, you can create custom animations that plug into the rest of the animation framework.
+
+    The progress of an animation is given by its current time ( :meth:`PySide.QtCore.QAbstractAnimation.currentLoopTime` ), which is measured in milliseconds from the start of the animation (0) to its end ( :meth:`PySide.QtCore.QAbstractAnimation.duration` ). The value is updated automatically while the animation is running. It can also be set directly with :meth:`PySide.QtCore.QAbstractAnimation.setCurrentTime` .
+
+    At any point an animation is in one of three states: :attr:`Running<QAbstractAnimation.State>` , :attr:`Stopped<QAbstractAnimation.State>` , or :attr:`Paused<QAbstractAnimation.State>` --as defined by the :attr:`QAbstractAnimation.State` enum. The current state can be changed by calling :meth:`PySide.QtCore.QAbstractAnimation.start` , :meth:`PySide.QtCore.QAbstractAnimation.stop` , :meth:`PySide.QtCore.QAbstractAnimation.pause` , or :meth:`PySide.QtCore.QAbstractAnimation.resume` . An animation will always reset its :meth:`current time<PySide.QtCore.QAbstractAnimation.currentTime>` when it is started. If paused, it will continue with the same current time when resumed. When an animation is stopped, it cannot be resumed, but will keep its current time (until started again). :class:`PySide.QtCore.QAbstractAnimation` will emit :meth:`PySide.QtCore.QAbstractAnimation.stateChanged` whenever its state changes.
+
+    An animation can loop any number of times by setting the :meth:`PySide.QtCore.QAbstractAnimation.loopCount` property. When an animation's current time reaches its :meth:`PySide.QtCore.QAbstractAnimation.duration` , it will reset the current time and keep running. A loop count of 1 (the default value) means that the animation will run one time. Note that a duration of -1 means that the animation will run until stopped; the current time will increase indefinitely. When the current time equals :meth:`PySide.QtCore.QAbstractAnimation.duration` and the animation is in its final loop, the :attr:`Stopped<QAbstractAnimation.State>` state is entered, and the :meth:`PySide.QtCore.QAbstractAnimation.finished` signal is emitted.
+
+    :class:`PySide.QtCore.QAbstractAnimation` provides pure virtual functions used by subclasses to track the progress of the animation: :meth:`PySide.QtCore.QAbstractAnimation.duration` and :meth:`PySide.QtCore.QAbstractAnimation.updateCurrentTime` . The :meth:`PySide.QtCore.QAbstractAnimation.duration` function lets you report a duration for the animation (as discussed above). The animation framework calls :meth:`PySide.QtCore.QAbstractAnimation.updateCurrentTime` when current time has changed. By reimplementing this function, you can track the animation progress. Note that neither the interval between calls nor the number of calls to this function are defined; though, it will normally be 60 updates per second.
+
+    By reimplementing :meth:`PySide.QtCore.QAbstractAnimation.updateState` , you can track the animation's state changes, which is particularly useful for animations that are not driven by time.
+
+    .. seealso::  :class:`PySide.QtCore.QVariantAnimation`  :class:`PySide.QtCore.QPropertyAnimation`  :class:`PySide.QtCore.QAnimationGroup`  :ref:`The Animation Framework<animation-overview.html>` 
+
+.. class:: QAbstractAnimation([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs the :class:`PySide.QtCore.QAbstractAnimation` base class, and passes ``parent`` to :class:`PySide.QtCore.QObject` 's constructor.
+
+    .. seealso::  :class:`PySide.QtCore.QVariantAnimation`  :class:`PySide.QtCore.QAnimationGroup` 
+
+.. attribute:: PySide.QtCore.QAbstractAnimation.Direction
+
+    This enum describes the direction of the animation when in :attr:`Running<QAbstractAnimation.State>` state.
+
+    +---------------------------+----------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                               |
+    +===========================+==========================================================================================================+
+    |QAbstractAnimation.Forward |The current time of the animation increases with time (i.e., moves from 0 and towards the end / duration).|
+    +---------------------------+----------------------------------------------------------------------------------------------------------+
+    |QAbstractAnimation.Backward|The current time of the animation decreases with time (i.e., moves from the end / duration and towards 0).|
+    +---------------------------+----------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.direction` 
+
+.. attribute:: PySide.QtCore.QAbstractAnimation.DeletionPolicy
+
+    +------------------------------------+---------------------------------------------------------+
+    |Constant                            |Description                                              |
+    +====================================+=========================================================+
+    |QAbstractAnimation.KeepWhenStopped  |The animation will not be deleted when stopped.          |
+    +------------------------------------+---------------------------------------------------------+
+    |QAbstractAnimation.DeleteWhenStopped|The animation will be automatically deleted when stopped.|
+    +------------------------------------+---------------------------------------------------------+
+
+
+.. attribute:: PySide.QtCore.QAbstractAnimation.State
+
+    This enum describes the state of the animation.
+
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                  |Description                                                                                                                                                                                                                                                                                                                                                                                     |
+    +==========================+================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QAbstractAnimation.Stopped|The animation is not running. This is the initial state of :class:`PySide.QtCore.QAbstractAnimation` , and the state :class:`PySide.QtCore.QAbstractAnimation` reenters when finished. The current time remain unchanged until either :meth:`PySide.QtCore.QAbstractAnimation.setCurrentTime` is called, or the animation is started by calling :meth:`PySide.QtCore.QAbstractAnimation.start` .|
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractAnimation.Paused |The animation is paused (i.e., temporarily suspended). Calling :meth:`PySide.QtCore.QAbstractAnimation.resume` will resume animation activity.                                                                                                                                                                                                                                                  |
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractAnimation.Running|The animation is running. While control is in the event loop, :class:`PySide.QtCore.QAbstractAnimation` will update its current time at regular intervals, calling :meth:`PySide.QtCore.QAbstractAnimation.updateCurrentTime` when appropriate.                                                                                                                                                 |
+    +--------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.state`  :meth:`PySide.QtCore.QAbstractAnimation.stateChanged` 
+
+.. method:: PySide.QtCore.QAbstractAnimation.currentLoop()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current loop of the animation.
+
+    This property describes the current loop of the animation. By default, the animation's loop count is 1, and so the current loop will always be 0. If the loop count is 2 and the animation runs past its duration, it will automatically rewind and restart at current time 0, and current loop 1, and so on.
+
+    When the current loop changes, :class:`PySide.QtCore.QAbstractAnimation` emits the :meth:`PySide.QtCore.QAbstractAnimation.currentLoopChanged` signal.
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.currentLoopChanged(currentLoop)
+
+
+    :param currentLoop: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.currentLoopTime()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current time inside the current loop. It can go from 0 to :meth:`PySide.QtCore.QAbstractAnimation.duration` .
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.duration`  :meth:`PySide.QtCore.QAbstractAnimation.currentTime` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.currentTime()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current time and progress of the animation.
+
+    This property describes the animation's current time. You can change the current time by calling setCurrentTime, or you can call :meth:`PySide.QtCore.QAbstractAnimation.start` and let the animation run, setting the current time automatically as the animation progresses.
+
+    The animation's current time starts at 0, and ends at :meth:`PySide.QtCore.QAbstractAnimation.totalDuration` .
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.loopCount`  :meth:`PySide.QtCore.QAbstractAnimation.currentLoopTime` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.direction()
+
+
+    :rtype: :attr:`PySide.QtCore.QAbstractAnimation.Direction`
+
+
+
+
+    This property holds the direction of the animation when it is in :attr:`Running<QAbstractAnimation.State>` state..
+
+    This direction indicates whether the time moves from 0 towards the animation duration, or from the value of the duration and towards 0 after :meth:`PySide.QtCore.QAbstractAnimation.start` has been called.
+
+    By default, this property is set to :attr:`Forward<QAbstractAnimation.Direction>` .
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.directionChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.QAbstractAnimation.Direction`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.duration()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the duration of the animation..
+
+    If the duration is -1, it means that the duration is undefined. In this case, :meth:`PySide.QtCore.QAbstractAnimation.loopCount` is ignored.
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.group()
+
+
+    :rtype: :class:`PySide.QtCore.QAnimationGroup`
+
+
+
+
+    If this animation is part of a :class:`PySide.QtCore.QAnimationGroup` , this function returns a pointer to the group; otherwise, it returns 0.
+
+    .. seealso::  :meth:`QAnimationGroup.addAnimation()<PySide.QtCore.QAnimationGroup.addAnimation>` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.loopCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the loop count of the animation.
+
+    This property describes the loop count of the animation as an integer. By default this value is 1, indicating that the animation should run once only, and then stop. By changing it you can let the animation loop several times. With a value of 0, the animation will not run at all, and with a value of -1, the animation will loop forever until stopped. It is not supported to have loop on an animation that has an undefined duration. It will only run once.
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.pause()
+
+
+
+
+
+
+    Pauses the animation. When the animation is paused, :meth:`PySide.QtCore.QAbstractAnimation.state` returns Paused. The value of :meth:`PySide.QtCore.QAbstractAnimation.currentTime` will remain unchanged until :meth:`PySide.QtCore.QAbstractAnimation.resume` or :meth:`PySide.QtCore.QAbstractAnimation.start` is called. If you want to continue from the current time, call :meth:`PySide.QtCore.QAbstractAnimation.resume` .
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.start`  :meth:`PySide.QtCore.QAbstractAnimation.state`  :meth:`PySide.QtCore.QAbstractAnimation.resume` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.resume()
+
+
+
+
+
+
+    Resumes the animation after it was paused. When the animation is resumed, it emits the resumed() and :meth:`PySide.QtCore.QAbstractAnimation.stateChanged` signals. The currenttime is not changed.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.start`  :meth:`PySide.QtCore.QAbstractAnimation.pause`  :meth:`PySide.QtCore.QAbstractAnimation.state` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.setCurrentTime(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current time and progress of the animation.
+
+    This property describes the animation's current time. You can change the current time by calling setCurrentTime, or you can call :meth:`PySide.QtCore.QAbstractAnimation.start` and let the animation run, setting the current time automatically as the animation progresses.
+
+    The animation's current time starts at 0, and ends at :meth:`PySide.QtCore.QAbstractAnimation.totalDuration` .
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.loopCount`  :meth:`PySide.QtCore.QAbstractAnimation.currentLoopTime` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.setDirection(direction)
+
+
+    :param direction: :attr:`PySide.QtCore.QAbstractAnimation.Direction`
+
+
+
+
+    This property holds the direction of the animation when it is in :attr:`Running<QAbstractAnimation.State>` state..
+
+    This direction indicates whether the time moves from 0 towards the animation duration, or from the value of the duration and towards 0 after :meth:`PySide.QtCore.QAbstractAnimation.start` has been called.
+
+    By default, this property is set to :attr:`Forward<QAbstractAnimation.Direction>` .
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.setLoopCount(loopCount)
+
+
+    :param loopCount: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the loop count of the animation.
+
+    This property describes the loop count of the animation as an integer. By default this value is 1, indicating that the animation should run once only, and then stop. By changing it you can let the animation loop several times. With a value of 0, the animation will not run at all, and with a value of -1, the animation will loop forever until stopped. It is not supported to have loop on an animation that has an undefined duration. It will only run once.
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.setPaused(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``paused`` is true, the animation is paused. If ``paused`` is false, the animation is resumed.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.state`  :meth:`PySide.QtCore.QAbstractAnimation.pause`  :meth:`PySide.QtCore.QAbstractAnimation.resume` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.start([policy=KeepWhenStopped])
+
+
+    :param policy: :attr:`PySide.QtCore.QAbstractAnimation.DeletionPolicy`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.state()
+
+
+    :rtype: :attr:`PySide.QtCore.QAbstractAnimation.State`
+
+
+
+
+    This property holds state of the animation..
+
+    This property describes the current state of the animation. When the animation state changes, :class:`PySide.QtCore.QAbstractAnimation` emits the :meth:`PySide.QtCore.QAbstractAnimation.stateChanged` signal.
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.stateChanged(newState, oldState)
+
+
+    :param newState: :attr:`PySide.QtCore.QAbstractAnimation.State`
+    :param oldState: :attr:`PySide.QtCore.QAbstractAnimation.State`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.stop()
+
+
+
+
+
+
+    Stops the animation. When the animation is stopped, it emits the :meth:`PySide.QtCore.QAbstractAnimation.stateChanged` signal, and :meth:`PySide.QtCore.QAbstractAnimation.state` returns Stopped. The current time is not changed.
+
+    If the animation stops by itself after reaching the end (i.e., :meth:`PySide.QtCore.QAbstractAnimation.currentLoopTime` == :meth:`PySide.QtCore.QAbstractAnimation.duration` and :meth:`PySide.QtCore.QAbstractAnimation.currentLoop` > :meth:`PySide.QtCore.QAbstractAnimation.loopCount` - 1), the :meth:`PySide.QtCore.QAbstractAnimation.finished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.start`  :meth:`PySide.QtCore.QAbstractAnimation.state` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.totalDuration()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the total and effective duration of the animation, including the loop count.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.duration`  :meth:`PySide.QtCore.QAbstractAnimation.currentTime` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.updateCurrentTime(currentTime)
+
+
+    :param currentTime: :class:`PySide.QtCore.int`
+
+
+
+
+    This pure virtual function is called every time the animation's ``currentTime`` changes.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractAnimation.updateState` 
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.updateDirection(direction)
+
+
+    :param direction: :attr:`PySide.QtCore.QAbstractAnimation.Direction`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractAnimation.updateState(newState, oldState)
+
+
+    :param newState: :attr:`PySide.QtCore.QAbstractAnimation.State`
+    :param oldState: :attr:`PySide.QtCore.QAbstractAnimation.State`
+
+
+
+
+
+
+
+

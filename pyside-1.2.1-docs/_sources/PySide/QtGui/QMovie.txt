@@ -1,0 +1,633 @@
+.. module:: PySide.QtGui
+.. _QMovie:
+
+QMovie
+******
+
+.. inheritance-diagram:: QMovie
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`backgroundColor<PySide.QtGui.QMovie.backgroundColor>` ()
+*    def :meth:`cacheMode<PySide.QtGui.QMovie.cacheMode>` ()
+*    def :meth:`currentFrameNumber<PySide.QtGui.QMovie.currentFrameNumber>` ()
+*    def :meth:`currentImage<PySide.QtGui.QMovie.currentImage>` ()
+*    def :meth:`currentPixmap<PySide.QtGui.QMovie.currentPixmap>` ()
+*    def :meth:`device<PySide.QtGui.QMovie.device>` ()
+*    def :meth:`fileName<PySide.QtGui.QMovie.fileName>` ()
+*    def :meth:`format<PySide.QtGui.QMovie.format>` ()
+*    def :meth:`frameCount<PySide.QtGui.QMovie.frameCount>` ()
+*    def :meth:`frameRect<PySide.QtGui.QMovie.frameRect>` ()
+*    def :meth:`isValid<PySide.QtGui.QMovie.isValid>` ()
+*    def :meth:`jumpToFrame<PySide.QtGui.QMovie.jumpToFrame>` (frameNumber)
+*    def :meth:`loopCount<PySide.QtGui.QMovie.loopCount>` ()
+*    def :meth:`nextFrameDelay<PySide.QtGui.QMovie.nextFrameDelay>` ()
+*    def :meth:`scaledSize<PySide.QtGui.QMovie.scaledSize>` ()
+*    def :meth:`setBackgroundColor<PySide.QtGui.QMovie.setBackgroundColor>` (color)
+*    def :meth:`setCacheMode<PySide.QtGui.QMovie.setCacheMode>` (mode)
+*    def :meth:`setDevice<PySide.QtGui.QMovie.setDevice>` (device)
+*    def :meth:`setFileName<PySide.QtGui.QMovie.setFileName>` (fileName)
+*    def :meth:`setFormat<PySide.QtGui.QMovie.setFormat>` (format)
+*    def :meth:`setScaledSize<PySide.QtGui.QMovie.setScaledSize>` (size)
+*    def :meth:`speed<PySide.QtGui.QMovie.speed>` ()
+*    def :meth:`state<PySide.QtGui.QMovie.state>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`jumpToNextFrame<PySide.QtGui.QMovie.jumpToNextFrame>` ()
+*    def :meth:`setPaused<PySide.QtGui.QMovie.setPaused>` (paused)
+*    def :meth:`setSpeed<PySide.QtGui.QMovie.setSpeed>` (percentSpeed)
+*    def :meth:`start<PySide.QtGui.QMovie.start>` ()
+*    def :meth:`stop<PySide.QtGui.QMovie.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`error<PySide.QtGui.QMovie.error>` (error)
+*    def :meth:`finished<PySide.QtGui.QMovie.finished>` ()
+*    def :meth:`frameChanged<PySide.QtGui.QMovie.frameChanged>` (frameNumber)
+*    def :meth:`resized<PySide.QtGui.QMovie.resized>` (size)
+*    def :meth:`started<PySide.QtGui.QMovie.started>` ()
+*    def :meth:`stateChanged<PySide.QtGui.QMovie.stateChanged>` (state)
+*    def :meth:`updated<PySide.QtGui.QMovie.updated>` (rect)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`supportedFormats<PySide.QtGui.QMovie.supportedFormats>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMovie` class is a convenience class for playing movies with :class:`PySide.QtGui.QImageReader` .
+
+    This class is used to show simple animations without sound. If you want to display video and media content, use the :ref:`Phonon<phonon-module.html>` multimedia framework instead.
+
+    First, create a :class:`PySide.QtGui.QMovie` object by passing either the name of a file or a pointer to a :class:`PySide.QtCore.QIODevice` containing an animated image format to :class:`PySide.QtGui.QMovie` 's constructor. You can call :meth:`PySide.QtGui.QMovie.isValid` to check if the image data is valid, before starting the movie. To start the movie, call :meth:`PySide.QtGui.QMovie.start` . :class:`PySide.QtGui.QMovie` will enter :attr:`Running<QMovie.MovieState>` state, and emit :meth:`PySide.QtGui.QMovie.started` and :meth:`PySide.QtGui.QMovie.stateChanged` . To get the current state of the movie, call :meth:`PySide.QtGui.QMovie.state` .
+
+    To display the movie in your application, you can pass your :class:`PySide.QtGui.QMovie` object to :meth:`QLabel.setMovie()<PySide.QtGui.QLabel.setMovie>` . Example:
+
+    ::
+
+        label = QLabel()
+        movie = QMovie("animations/fire.gif")
+
+        label.setMovie(movie)
+        movie.start()
+
+
+    Whenever a new frame is available in the movie, :class:`PySide.QtGui.QMovie` will emit :meth:`PySide.QtGui.QMovie.updated` . If the size of the frame changes, :meth:`PySide.QtGui.QMovie.resized` is emitted. You can call :meth:`PySide.QtGui.QMovie.currentImage` or :meth:`PySide.QtGui.QMovie.currentPixmap` to get a copy of the current frame. When the movie is done, :class:`PySide.QtGui.QMovie` emits :meth:`PySide.QtGui.QMovie.finished` . If any error occurs during playback (i.e, the image file is corrupt), :class:`PySide.QtGui.QMovie` will emit :meth:`PySide.QtGui.QMovie.error` .
+
+    You can control the speed of the movie playback by calling :meth:`PySide.QtGui.QMovie.setSpeed` , which takes the percentage of the original speed as an argument. Pause the movie by calling setPaused(true). :class:`PySide.QtGui.QMovie` will then enter :attr:`Paused<QMovie.MovieState>` state and emit :meth:`PySide.QtGui.QMovie.stateChanged` . If you call setPaused(false), :class:`PySide.QtGui.QMovie` will reenter :attr:`Running<QMovie.MovieState>` state and start the movie again. To stop the movie, call :meth:`PySide.QtGui.QMovie.stop` .
+
+    Certain animation formats allow you to set the background color. You can call :meth:`PySide.QtGui.QMovie.setBackgroundColor` to set the color, or :meth:`PySide.QtGui.QMovie.backgroundColor` to retrieve the current background color.
+
+    :meth:`PySide.QtGui.QMovie.currentFrameNumber` returns the sequence number of the current frame. The first frame in the animation has the sequence number 0. :meth:`PySide.QtGui.QMovie.frameCount` returns the total number of frames in the animation, if the image format supports this. You can call :meth:`PySide.QtGui.QMovie.loopCount` to get the number of times the movie should loop before finishing. :meth:`PySide.QtGui.QMovie.nextFrameDelay` returns the number of milliseconds the current frame should be displayed.
+
+    :class:`PySide.QtGui.QMovie` can be instructed to cache frames of an animation by calling :meth:`PySide.QtGui.QMovie.setCacheMode` .
+
+    Call :meth:`PySide.QtGui.QMovie.supportedFormats` for a list of formats that :class:`PySide.QtGui.QMovie` supports.
+
+    .. seealso::  :class:`PySide.QtGui.QLabel`  :class:`PySide.QtGui.QImageReader`  :ref:`Movie Example<widgets/movie>` 
+
+.. class:: QMovie(device[, format=QByteArray()[, parent=None]])
+           QMovie([parent=None])
+           QMovie(fileName[, format=QByteArray()[, parent=None]])
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param fileName: unicode
+
+    Constructs a :class:`PySide.QtGui.QMovie` object. :class:`PySide.QtGui.QMovie` will use read image data from ``device`` , which it assumes is open and readable. If ``format`` is not empty, :class:`PySide.QtGui.QMovie` will use the image format ``format`` for decoding the image data. Otherwise, :class:`PySide.QtGui.QMovie` will attempt to guess the format.
+
+    The ``parent`` object is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+
+    Constructs a :class:`PySide.QtGui.QMovie` object, passing the ``parent`` object to :class:`PySide.QtCore.QObject` 's constructor.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setFileName`  :meth:`PySide.QtGui.QMovie.setDevice`  :meth:`PySide.QtGui.QMovie.setFormat` 
+
+    Constructs a :class:`PySide.QtGui.QMovie` object. :class:`PySide.QtGui.QMovie` will use read image data from ``fileName`` . If ``format`` is not empty, :class:`PySide.QtGui.QMovie` will use the image format ``format`` for decoding the image data. Otherwise, :class:`PySide.QtGui.QMovie` will attempt to guess the format.
+
+    The ``parent`` object is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+
+.. attribute:: PySide.QtGui.QMovie.CacheMode
+
+    This enum describes the different cache modes of :class:`PySide.QtGui.QMovie` .
+
+    +----------------+-----------------------------------+
+    |Constant        |Description                        |
+    +================+===================================+
+    |QMovie.CacheNone|No frames are cached (the default).|
+    +----------------+-----------------------------------+
+    |QMovie.CacheAll |All frames are cached.             |
+    +----------------+-----------------------------------+
+
+
+.. attribute:: PySide.QtGui.QMovie.MovieState
+
+    This enum describes the different states of :class:`PySide.QtGui.QMovie` .
+
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant         |Description                                                                                                                                                                                                                                                                                                                                                                                            |
+    +=================+=======================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QMovie.NotRunning|The movie is not running. This is :class:`PySide.QtGui.QMovie` 's initial state, and the state it enters after :meth:`PySide.QtGui.QMovie.stop` has been called or the movie is finished.                                                                                                                                                                                                              |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMovie.Paused    |The movie is paused, and :class:`PySide.QtGui.QMovie` stops emitting :meth:`PySide.QtGui.QMovie.updated` or :meth:`PySide.QtGui.QMovie.resized` . This state is entered after calling :meth:`~PySide.QtGui.QMovie.pause` or setPaused(true). The current frame number it kept, and the movie will continue with the next frame when :meth:`~PySide.QtGui.QMovie.unpause` or setPaused(false) is called.|
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMovie.Running   |The movie is running.                                                                                                                                                                                                                                                                                                                                                                                  |
+    +-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QMovie.backgroundColor()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the background color of the movie. If no background color has been assigned, an invalid :class:`PySide.QtGui.QColor` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setBackgroundColor` 
+
+
+.. method:: PySide.QtGui.QMovie.cacheMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QMovie.CacheMode`
+
+
+
+
+    This property holds the movie's cache mode.
+
+    Caching frames can be useful when the underlying animation format handler that :class:`PySide.QtGui.QMovie` relies on to decode the animation data does not support jumping to particular frames in the animation, or even "rewinding" the animation to the beginning (for looping). Furthermore, if the image data comes from a sequential device, it is not possible for the underlying animation handler to seek back to frames whose data has already been read (making looping altogether impossible).
+
+    To aid in such situations, a :class:`PySide.QtGui.QMovie` object can be instructed to cache the frames, at the added memory cost of keeping the frames in memory for the lifetime of the object.
+
+    By default, this property is set to :attr:`CacheNone<QMovie.CacheMode>` .
+
+    .. seealso::  :attr:`QMovie.CacheMode` 
+
+
+.. method:: PySide.QtGui.QMovie.currentFrameNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the sequence number of the current frame. The number of the first frame in the movie is 0.
+
+
+
+.. method:: PySide.QtGui.QMovie.currentImage()
+
+
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns the current frame as a :class:`PySide.QtGui.QImage` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.currentPixmap`  :meth:`PySide.QtGui.QMovie.updated` 
+
+
+.. method:: PySide.QtGui.QMovie.currentPixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the current frame as a :class:`PySide.QtGui.QPixmap` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.currentImage`  :meth:`PySide.QtGui.QMovie.updated` 
+
+
+.. method:: PySide.QtGui.QMovie.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the device :class:`PySide.QtGui.QMovie` reads image data from. If no device has currently been assigned, 0 is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setDevice`  :meth:`PySide.QtGui.QMovie.fileName` 
+
+
+.. method:: PySide.QtGui.QMovie.error(error)
+
+
+    :param error: :attr:`PySide.QtGui.QImageReader.ImageReaderError`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the file that :class:`PySide.QtGui.QMovie` reads image data from. If no file name has been assigned, or if the assigned device is not a file, an empty :class:`PySide.QtCore.QString` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setFileName`  :meth:`PySide.QtGui.QMovie.device` 
+
+
+.. method:: PySide.QtGui.QMovie.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.format()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the format that :class:`PySide.QtGui.QMovie` uses when decoding image data. If no format has been assigned, an empty :meth:`~PySide.QtGui.QMovie.QByteArray` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setFormat` 
+
+
+.. method:: PySide.QtGui.QMovie.frameChanged(frameNumber)
+
+
+    :param frameNumber: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.frameCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of frames in the movie.
+
+    Certain animation formats do not support this feature, in which case 0 is returned.
+
+
+
+.. method:: PySide.QtGui.QMovie.frameRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rect of the last frame. If no frame has yet been updated, an invalid :class:`PySide.QtCore.QRect` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.currentImage`  :meth:`PySide.QtGui.QMovie.currentPixmap` 
+
+
+.. method:: PySide.QtGui.QMovie.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the movie is valid (e.g., the image data is readable and the image format is supported); otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QMovie.jumpToFrame(frameNumber)
+
+
+    :param frameNumber: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Jumps to frame number ``frameNumber`` . Returns true on success; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QMovie.jumpToNextFrame()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Jumps to the next frame. Returns true on success; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QMovie.loopCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of times the movie will loop before it finishes. If the movie will only play once (no looping), loopCount returns 0. If the movie loops forever, loopCount returns -1.
+
+    Note that, if the image data comes from a sequential device (e.g. a socket), :class:`PySide.QtGui.QMovie` can only loop the movie if the :meth:`PySide.QtGui.QMovie.cacheMode` is set to :attr:`QMovie.CacheAll<QMovie.CacheMode>` .
+
+
+
+.. method:: PySide.QtGui.QMovie.nextFrameDelay()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of milliseconds :class:`PySide.QtGui.QMovie` will wait before updating the next frame in the animation.
+
+
+
+.. method:: PySide.QtGui.QMovie.resized(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.scaledSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the scaled size of frames.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.setScaledSize`  :meth:`QImageReader.scaledSize()<PySide.QtGui.QImageReader.scaledSize>` 
+
+
+.. method:: PySide.QtGui.QMovie.setBackgroundColor(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    For image formats that support it, this function sets the background color to ``color`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.backgroundColor` 
+
+
+.. method:: PySide.QtGui.QMovie.setCacheMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QMovie.CacheMode`
+
+
+
+
+    This property holds the movie's cache mode.
+
+    Caching frames can be useful when the underlying animation format handler that :class:`PySide.QtGui.QMovie` relies on to decode the animation data does not support jumping to particular frames in the animation, or even "rewinding" the animation to the beginning (for looping). Furthermore, if the image data comes from a sequential device, it is not possible for the underlying animation handler to seek back to frames whose data has already been read (making looping altogether impossible).
+
+    To aid in such situations, a :class:`PySide.QtGui.QMovie` object can be instructed to cache the frames, at the added memory cost of keeping the frames in memory for the lifetime of the object.
+
+    By default, this property is set to :attr:`CacheNone<QMovie.CacheMode>` .
+
+    .. seealso::  :attr:`QMovie.CacheMode` 
+
+
+.. method:: PySide.QtGui.QMovie.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets the current device to ``device`` . :class:`PySide.QtGui.QMovie` will read image data from this device when the movie is running.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.device`  :meth:`PySide.QtGui.QMovie.setFormat` 
+
+
+.. method:: PySide.QtGui.QMovie.setFileName(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    Sets the name of the file that :class:`PySide.QtGui.QMovie` reads image data from, to ``fileName`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.fileName`  :meth:`PySide.QtGui.QMovie.setDevice`  :meth:`PySide.QtGui.QMovie.setFormat` 
+
+
+.. method:: PySide.QtGui.QMovie.setFormat(format)
+
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the format that :class:`PySide.QtGui.QMovie` will use when decoding image data, to ``format`` . By default, :class:`PySide.QtGui.QMovie` will attempt to guess the format of the image data.
+
+    You can call :meth:`PySide.QtGui.QMovie.supportedFormats` for the full list of formats :class:`PySide.QtGui.QMovie` supports.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.format`  :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>` 
+
+
+.. method:: PySide.QtGui.QMovie.setPaused(paused)
+
+
+    :param paused: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``paused`` is true, :class:`PySide.QtGui.QMovie` will enter :attr:`Paused<QMovie.MovieState>` state and emit stateChanged(Paused); otherwise it will enter :attr:`Running<QMovie.MovieState>` state and emit stateChanged(Running).
+
+    .. seealso::  :meth:`~PySide.QtGui.QMovie.paused`  :meth:`PySide.QtGui.QMovie.state` 
+
+
+.. method:: PySide.QtGui.QMovie.setScaledSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets the scaled frame size to ``size`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.scaledSize`  :meth:`QImageReader.setScaledSize()<PySide.QtGui.QImageReader.setScaledSize>` 
+
+
+.. method:: PySide.QtGui.QMovie.setSpeed(percentSpeed)
+
+
+    :param percentSpeed: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the movie's speed.
+
+    The speed is measured in percentage of the original movie speed. The default speed is 100%. Example:
+
+    ::
+
+        movie = QMovie("racecar.gif")
+        movie.setSpeed(200) // 2x speed
+
+
+
+
+.. method:: PySide.QtGui.QMovie.speed()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the movie's speed.
+
+    The speed is measured in percentage of the original movie speed. The default speed is 100%. Example:
+
+    ::
+
+        movie = QMovie("racecar.gif")
+        movie.setSpeed(200) // 2x speed
+
+
+
+
+.. method:: PySide.QtGui.QMovie.start()
+
+
+
+
+
+
+    Starts the movie. :class:`PySide.QtGui.QMovie` will enter :attr:`Running<QMovie.MovieState>` state, and start emitting :meth:`PySide.QtGui.QMovie.updated` and :meth:`PySide.QtGui.QMovie.resized` as the movie progresses.
+
+    If :class:`PySide.QtGui.QMovie` is in the :attr:`Paused<QMovie.MovieState>` state, this function is equivalent to calling setPaused(false). If :class:`PySide.QtGui.QMovie` is already in the :attr:`Running<QMovie.MovieState>` state, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.stop`  :meth:`PySide.QtGui.QMovie.setPaused` 
+
+
+.. method:: PySide.QtGui.QMovie.started()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.state()
+
+
+    :rtype: :attr:`PySide.QtGui.QMovie.MovieState`
+
+
+
+
+    Returns the current state of :class:`PySide.QtGui.QMovie` .
+
+    .. seealso::  :attr:`QMovie.MovieState`  :meth:`PySide.QtGui.QMovie.stateChanged` 
+
+
+.. method:: PySide.QtGui.QMovie.stateChanged(state)
+
+
+    :param state: :attr:`PySide.QtGui.QMovie.MovieState`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMovie.stop()
+
+
+
+
+
+
+    Stops the movie. :class:`PySide.QtGui.QMovie` enters :attr:`NotRunning<QMovie.MovieState>` state, and stops emitting :meth:`PySide.QtGui.QMovie.updated` and :meth:`PySide.QtGui.QMovie.resized` . If :meth:`PySide.QtGui.QMovie.start` is called again, the movie will restart from the beginning.
+
+    If :class:`PySide.QtGui.QMovie` is already in the :attr:`NotRunning<QMovie.MovieState>` state, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QMovie.start`  :meth:`PySide.QtGui.QMovie.setPaused` 
+
+
+.. staticmethod:: PySide.QtGui.QMovie.supportedFormats()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of image formats supported by :class:`PySide.QtGui.QMovie` .
+
+    .. seealso::  :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>` 
+
+
+.. method:: PySide.QtGui.QMovie.updated(rect)
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+
+
+

@@ -1,0 +1,235 @@
+.. module:: PySide.QtXml
+.. _QXmlContentHandler:
+
+QXmlContentHandler
+******************
+
+.. inheritance-diagram:: QXmlContentHandler
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlContentHandler` class provides an interface to report the logical content of XML data.
+
+    If the application needs to be informed of basic parsing events, it can implement this interface and activate it using :meth:`QXmlReader.setContentHandler()<PySide.QtXml.QXmlReader.setContentHandler>` . The reader can then report basic document-related events like the start and end of elements and character data through this interface.
+
+    The order of events in this interface is very important, and mirrors the order of information in the document itself. For example, all of an element's content (character data, processing instructions, and sub-elements) appears, in order, between the :meth:`PySide.QtXml.QXmlContentHandler.startElement` event and the corresponding :meth:`PySide.QtXml.QXmlContentHandler.endElement` event.
+
+    The class :class:`PySide.QtXml.QXmlDefaultHandler` provides a default implementation for this interface; subclassing from the :class:`PySide.QtXml.QXmlDefaultHandler` class is very convenient if you only want to be informed of some parsing events.
+
+    The :meth:`PySide.QtXml.QXmlContentHandler.startDocument` function is called at the start of the document, and :meth:`PySide.QtXml.QXmlContentHandler.endDocument` is called at the end. Before parsing begins :meth:`PySide.QtXml.QXmlContentHandler.setDocumentLocator` is called. For each element :meth:`PySide.QtXml.QXmlContentHandler.startElement` is called, with :meth:`PySide.QtXml.QXmlContentHandler.endElement` being called at the end of each element. The :meth:`PySide.QtXml.QXmlContentHandler.characters` function is called with chunks of character data; :meth:`PySide.QtXml.QXmlContentHandler.ignorableWhitespace` is called with chunks of whitespace and :meth:`PySide.QtXml.QXmlContentHandler.processingInstruction` is called with processing instructions. If an entity is skipped :meth:`PySide.QtXml.QXmlContentHandler.skippedEntity` is called. At the beginning of prefix-URI scopes :meth:`PySide.QtXml.QXmlContentHandler.startPrefixMapping` is called.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlDTDHandler`  :class:`PySide.QtXml.QXmlDeclHandler`  :class:`PySide.QtXml.QXmlEntityResolver`  :class:`PySide.QtXml.QXmlErrorHandler`  :class:`PySide.QtXml.QXmlLexicalHandler`  :ref:`Introduction to SAX2<xml-sax.html>` 
+
+.. class:: QXmlContentHandler()
+
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.characters(ch)
+
+
+    :param ch: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it has parsed a chunk of character data (either normal character data or character data inside a CDATA section; if you need to distinguish between those two types you must use :meth:`QXmlLexicalHandler.startCDATA()<PySide.QtXml.QXmlLexicalHandler.startCDATA>` and :meth:`QXmlLexicalHandler.endCDATA()<PySide.QtXml.QXmlLexicalHandler.endCDATA>` ). The character data is reported in ``ch`` .
+
+    Some readers report whitespace in element content using the :meth:`PySide.QtXml.QXmlContentHandler.ignorableWhitespace` function rather than using this one.
+
+    A reader may report the character data of an element in more than one chunk; e.g. a reader might want to report "a<b" in three :meth:`PySide.QtXml.QXmlContentHandler.characters` events ("a ", "<" and " b").
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.endDocument()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function after it has finished parsing. It is called just once, and is the last handler function called. It is called after the reader has read all input or has abandoned parsing because of a fatal error.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.startDocument` 
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.endElement(namespaceURI, localName, qName)
+
+
+    :param namespaceURI: unicode
+    :param localName: unicode
+    :param qName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it has parsed an end element tag with the qualified name ``qName`` , the local name ``localName`` and the namespace URI ``namespaceURI`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.startElement`  :ref:`Namespace Support via Features<xml-sax.html>` 
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.endPrefixMapping(prefix)
+
+
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to signal the end of a prefix mapping for the prefix ``prefix`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.startPrefixMapping`  :ref:`Namespace Support via Features<xml-sax.html>` 
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    The reader calls this function to get an error string, e.g. if any of the handler functions returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.ignorableWhitespace(ch)
+
+
+    :param ch: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Some readers may use this function to report each chunk of whitespace in element content. The whitespace is reported in ``ch`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.processingInstruction(target, data)
+
+
+    :param target: unicode
+    :param data: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it has parsed a processing instruction.
+
+    ``target`` is the target name of the processing instruction and ``data`` is the data in the processing instruction.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.setDocumentLocator(locator)
+
+
+    :param locator: :class:`PySide.QtXml.QXmlLocator`
+
+
+
+
+    The reader calls this function before it starts parsing the document. The argument ``locator`` is a pointer to a :class:`PySide.QtXml.QXmlLocator` which allows the application to get the parsing position within the document.
+
+    Do not destroy the ``locator`` ; it is destroyed when the reader is destroyed. (Do not use the ``locator`` after the reader is destroyed).
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.skippedEntity(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Some readers may skip entities if they have not seen the declarations (e.g. because they are in an external DTD). If they do so they report that they skipped the entity called ``name`` by calling this function.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.startDocument()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it starts parsing the document. The reader calls this function just once, after the call to :meth:`PySide.QtXml.QXmlContentHandler.setDocumentLocator` , and before any other functions in this class or in the :class:`PySide.QtXml.QXmlDTDHandler` class are called.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.endDocument` 
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.startElement(namespaceURI, localName, qName, atts)
+
+
+    :param namespaceURI: unicode
+    :param localName: unicode
+    :param qName: unicode
+    :param atts: :class:`PySide.QtXml.QXmlAttributes`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it has parsed a start element tag.
+
+    There is a corresponding :meth:`PySide.QtXml.QXmlContentHandler.endElement` call when the corresponding end element tag is read. The :meth:`PySide.QtXml.QXmlContentHandler.startElement` and :meth:`PySide.QtXml.QXmlContentHandler.endElement` calls are always nested correctly. Empty element tags (e.g. ``<x/>`` ) cause a :meth:`PySide.QtXml.QXmlContentHandler.startElement` call to be immediately followed by an :meth:`PySide.QtXml.QXmlContentHandler.endElement` call.
+
+    The attribute list provided only contains attributes with explicit values. The attribute list contains attributes used for namespace declaration (i.e. attributes starting with xmlns) only if the namespace-prefix property of the reader is true.
+
+    The argument ``namespaceURI`` is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done. ``localName`` is the local name (without prefix), or an empty string if no namespace processing is done, ``qName`` is the qualified name (with prefix) and ``atts`` are the attributes attached to the element. If there are no attributes, ``atts`` is an empty attributes object.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.endElement`  :ref:`Namespace Support via Features<xml-sax.html>` 
+
+
+.. method:: PySide.QtXml.QXmlContentHandler.startPrefixMapping(prefix, uri)
+
+
+    :param prefix: unicode
+    :param uri: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to signal the begin of a prefix-URI namespace mapping scope. This information is not necessary for normal namespace processing since the reader automatically replaces prefixes for element and attribute names.
+
+    Note that :meth:`PySide.QtXml.QXmlContentHandler.startPrefixMapping` and :meth:`PySide.QtXml.QXmlContentHandler.endPrefixMapping` calls are not guaranteed to be properly nested relative to each other: all :meth:`PySide.QtXml.QXmlContentHandler.startPrefixMapping` events occur before the corresponding :meth:`PySide.QtXml.QXmlContentHandler.startElement` event, and all :meth:`PySide.QtXml.QXmlContentHandler.endPrefixMapping` events occur after the corresponding :meth:`PySide.QtXml.QXmlContentHandler.endElement` event, but their order is not otherwise guaranteed.
+
+    The argument ``prefix`` is the namespace prefix being declared and the argument ``uri`` is the namespace URI the prefix is mapped to.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlContentHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlContentHandler.endPrefixMapping`  :ref:`Namespace Support via Features<xml-sax.html>` 
+
+
+

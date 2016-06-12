@@ -1,0 +1,739 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlQuery:
+
+QXmlQuery
+*********
+
+.. inheritance-diagram:: QXmlQuery
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (localName, arg__2)
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (localName, query)
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (localName, value)
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (name, arg__2)
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (name, query)
+*    def :meth:`bindVariable<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` (name, value)
+*    def :meth:`evaluateTo<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` (callback)
+*    def :meth:`evaluateTo<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` (result)
+*    def :meth:`evaluateTo<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` (target)
+*    def :meth:`initialTemplateName<PySide.QtXmlPatterns.QXmlQuery.initialTemplateName>` ()
+*    def :meth:`isValid<PySide.QtXmlPatterns.QXmlQuery.isValid>` ()
+*    def :meth:`messageHandler<PySide.QtXmlPatterns.QXmlQuery.messageHandler>` ()
+*    def :meth:`namePool<PySide.QtXmlPatterns.QXmlQuery.namePool>` ()
+*    def :meth:`networkAccessManager<PySide.QtXmlPatterns.QXmlQuery.networkAccessManager>` ()
+*    def :meth:`queryLanguage<PySide.QtXmlPatterns.QXmlQuery.queryLanguage>` ()
+*    def :meth:`setFocus<PySide.QtXmlPatterns.QXmlQuery.setFocus>` (document)
+*    def :meth:`setFocus<PySide.QtXmlPatterns.QXmlQuery.setFocus>` (documentURI)
+*    def :meth:`setFocus<PySide.QtXmlPatterns.QXmlQuery.setFocus>` (focus)
+*    def :meth:`setFocus<PySide.QtXmlPatterns.QXmlQuery.setFocus>` (item)
+*    def :meth:`setInitialTemplateName<PySide.QtXmlPatterns.QXmlQuery.setInitialTemplateName>` (name)
+*    def :meth:`setInitialTemplateName<PySide.QtXmlPatterns.QXmlQuery.setInitialTemplateName>` (name)
+*    def :meth:`setMessageHandler<PySide.QtXmlPatterns.QXmlQuery.setMessageHandler>` (messageHandler)
+*    def :meth:`setNetworkAccessManager<PySide.QtXmlPatterns.QXmlQuery.setNetworkAccessManager>` (newManager)
+*    def :meth:`setQuery<PySide.QtXmlPatterns.QXmlQuery.setQuery>` (queryURI[, baseURI=QUrl()])
+*    def :meth:`setQuery<PySide.QtXmlPatterns.QXmlQuery.setQuery>` (sourceCode[, documentURI=QUrl()])
+*    def :meth:`setQuery<PySide.QtXmlPatterns.QXmlQuery.setQuery>` (sourceCode[, documentURI=QUrl()])
+*    def :meth:`setUriResolver<PySide.QtXmlPatterns.QXmlQuery.setUriResolver>` (resolver)
+*    def :meth:`uriResolver<PySide.QtXmlPatterns.QXmlQuery.uriResolver>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlQuery` class performs XQueries on XML data, or on non-XML data modeled to look like XML.
+
+    The :class:`PySide.QtXmlPatterns.QXmlQuery` class compiles and executes queries written in the :ref:`XQuery<xmlprocessing.html>` language. :class:`PySide.QtXmlPatterns.QXmlQuery` is typically used to query XML data, but it can also query non-XML data that has been modeled to look like XML.
+
+    Using :class:`PySide.QtXmlPatterns.QXmlQuery` to query XML data, as in the snippet below, is simple because it can use the built-in :class:`XML data model<PySide.QtXmlPatterns.QAbstractXmlNodeModel>` as its delegate to the underlying query engine for traversing the data. The built-in data model is specified in :ref:`XQuery<xmlprocessing.html>` 1.0 and XPath 2.0 Data Model.
+
+    ::
+
+        QXmlQuery query;
+        query.setQuery("doc('index.html')/html/body/p[1]");
+
+        QXmlSerializer serializer(query, myOutputDevice);
+        query.evaluateTo(&serializer);
+
+
+    The example uses :class:`PySide.QtXmlPatterns.QXmlQuery` to match the first paragraph of an XML document and then :class:`output the result<PySide.QtXmlPatterns.QXmlSerializer>` to a device as XML.
+
+    Using :class:`PySide.QtXmlPatterns.QXmlQuery` to query *non-XML* data requires writing a subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` to use as a replacement for the built-in XML data model. The custom data model will be able to traverse the non-XML data as required by the :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` interface. An instance of this custom data model then becomes the delegate used by the query engine to traverse the non-XML data. For an example of how to use :class:`PySide.QtXmlPatterns.QXmlQuery` to query non-XML data, see the documentation for :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_running-xqueries:
+
+
+
+Running XQueries
+^^^^^^^^^^^^^^^^
+
+    To run a query set up with :class:`PySide.QtXmlPatterns.QXmlQuery` , call one of the evaluation functions.
+
+
+    * evaluateTo( :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` \*) is called with a pointer to an XML :class:`receiver<PySide.QtXmlPatterns.QAbstractXmlReceiver>` , which receives the query results as a sequence of callbacks. The receiver callback class is like the callback class used for translating the output of a SAX parser. :class:`PySide.QtXmlPatterns.QXmlSerializer` , for example, is a receiver callback class for translating the sequence of callbacks for output as unformatted XML text.
+
+
+    * evaluateTo( :class:`PySide.QtXmlPatterns.QXmlResultItems` \*) is called with a pointer to an iterator for an empty sequence of query :class:`result items<PySide.QtXmlPatterns.QXmlResultItems>` . The Java-like iterator allows the query results to be accessed sequentially.
+
+
+    * evaluateTo( :class:`PySide.QtCore.QStringList` \*) is like evaluateTo( :class:`PySide.QtXmlPatterns.QXmlResultItems` \*), but the query must evaluate to a sequence of strings.
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_running-xpath-expressions:
+
+
+
+Running XPath Expressions
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The XPath language is a subset of the :ref:`XQuery<xmlprocessing.html>` language, so running an XPath expression is the same as running an :ref:`XQuery<xmlprocessing.html>` query. Pass the XPath expression to :class:`PySide.QtXmlPatterns.QXmlQuery` using :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` .
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_running-xslt-stylesheets:
+
+
+
+Running XSLT stylesheets
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Running an XSLT stylesheet is like running an :ref:`XQuery<xmlprocessing.html>` , except that when you construct your :class:`PySide.QtXmlPatterns.QXmlQuery` , you must pass :attr:`QXmlQuery.XSLT20<QXmlQuery.QueryLanguage>` to tell :class:`PySide.QtXmlPatterns.QXmlQuery` to interpret whatever it gets from :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` as an XSLT stylesheet instead of as an :ref:`XQuery<xmlprocessing.html>` . You must also set the input document by calling :meth:`PySide.QtXmlPatterns.QXmlQuery.setFocus` .
+
+    ::
+
+            QXmlQuery query(QXmlQuery::XSLT20);
+            query.setFocus(QUrl("myInput.xml"));
+            query.setQuery(QUrl("myStylesheet.xsl"));
+            query.evaluateTo(out);
+
+
+    .. note::  Currently, :meth:`PySide.QtXmlPatterns.QXmlQuery.setFocus` must be called *before*\ :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` when using XSLT.
+
+    Another way to run an XSLT stylesheet is to use the ``xmlpatterns`` command line utility.
+
+    ::
+
+                xmlpatterns myStylesheet.xsl myInput.xml
+
+
+    .. note::  For the current release, XSLT support should be considered experimental. See section :ref:`XSLT conformance<xmlprocessing.html>` for details.
+
+    Stylesheet parameters are bound using :meth:`PySide.QtXmlPatterns.QXmlQuery.bindVariable` .
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_binding-a-query-to-a-starting-node:
+
+
+
+Binding A Query To A Starting Node
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    When a query is run on XML data, as in the snippet above, the ``doc()`` function returns the node in the built-in data model where the query evaluation will begin. But when a query is run on a custom node model containing non-XML data, one of the :meth:`PySide.QtXmlPatterns.QXmlQuery.bindVariable` functions must be called to bind a variable name to a starting node in the custom model. A $variable reference is used in the :ref:`XQuery<xmlprocessing.html>` text to access the starting node in the custom model. It is not necessary to declare the variable name external in the query. See the example in the documentation for :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_reentrancy-and-thread-safety:
+
+
+
+Reentrancy and Thread-Safety
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtXmlPatterns.QXmlQuery` is reentrant but not thread-safe. It is safe to use the QxmlQuery copy constructor to create a copy of a query and run the same query multiple times. Behind the scenes, :class:`PySide.QtXmlPatterns.QXmlQuery` will reuse resources such as opened files and compiled queries to the extent possible. But it is not safe to use the same instance of :class:`PySide.QtXmlPatterns.QXmlQuery` in multiple threads.
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_error-handling:
+
+
+
+Error Handling
+^^^^^^^^^^^^^^
+
+    Errors can occur during query evaluation. Examples include type errors and file loading errors. When an error occurs:
+
+
+    * The error message is sent to the :meth:`PySide.QtXmlPatterns.QXmlQuery.messageHandler` .
+    * :meth:`QXmlResultItems.hasError()<PySide.QtXmlPatterns.QXmlResultItems.hasError>` will return ``true``, or :meth:`PySide.QtXmlPatterns.QXmlQuery.evaluateTo` will return ``false``;
+    * The results of the evaluation are undefined.
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_resource-management:
+
+
+
+Resource Management
+^^^^^^^^^^^^^^^^^^^
+
+    When a query runs, it parses documents, allocating internal data structures to hold them, and it may load other resources over the network. It reuses these allocated resources when possible, to avoid having to reload and reparse them.
+
+    When :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` is called, the query text is compiled into an internal data structure and optimized. The optimized form can then be reused for multiple evaluations of the query. Since the compile-and-optimize process can be expensive, repeating it for the same query should be avoided by using a separate instance of :class:`PySide.QtXmlPatterns.QXmlQuery` for each query text.
+
+    Once a document has been parsed, its internal representation is maintained in the :class:`PySide.QtXmlPatterns.QXmlQuery` instance and shared among multiple :class:`PySide.QtXmlPatterns.QXmlQuery` instances.
+
+    An instance of :class:`PySide.QtCore.QCoreApplication` must exist before :class:`PySide.QtXmlPatterns.QXmlQuery` can be used.
+
+    .. _PySide.QtXmlPatterns.QXmlQuery_event-handling:
+
+
+
+Event Handling
+^^^^^^^^^^^^^^
+
+    When :class:`PySide.QtXmlPatterns.QXmlQuery` accesses resources (e.g., calling ``fn:doc()`` to load a file, or accessing a device via a bound variable), the event loop is used, which means events will be processed. To avoid processing events when :class:`PySide.QtXmlPatterns.QXmlQuery` accesses resources, create your :class:`PySide.QtXmlPatterns.QXmlQuery` instance in a separate thread.
+
+
+.. class:: QXmlQuery()
+           QXmlQuery(queryLanguage[, np=QXmlNamePool()])
+           QXmlQuery(np)
+           QXmlQuery(other)
+
+    :param np: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :param other: :class:`PySide.QtXmlPatterns.QXmlQuery`
+    :param queryLanguage: :attr:`PySide.QtXmlPatterns.QXmlQuery.QueryLanguage`
+
+    Constructs an invalid, empty query that cannot be used until :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` is called.
+
+    .. note::  This constructor must not be used if you intend to use this :class:`PySide.QtXmlPatterns.QXmlQuery` to process XSL-T stylesheets. The other constructor must be used in that case.
+
+
+    Constructs a query that will be used to run Xqueries or XSL-T stylesheets, depending on the value of ``queryLanguage`` . It will use ``np`` as its name pool.
+
+    .. note::  If your :class:`PySide.QtXmlPatterns.QXmlQuery` will process XSL-T stylesheets, this constructor must be used. The default constructor can only create instances of :class:`PySide.QtXmlPatterns.QXmlQuery` for running XQueries.
+
+    .. note::  The XSL-T support in this release is considered experimental. See the :ref:`XSLT conformance<xmlprocessing.html>` for details.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.queryLanguage` 
+
+    Constructs a query that will use ``np`` as its name pool. The query cannot be evaluated until :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` has been called.
+
+
+    Constructs a :class:`PySide.QtXmlPatterns.QXmlQuery` that is a copy of ``other`` . The new instance will share resources with the existing query to the extent possible.
+
+
+.. attribute:: PySide.QtXmlPatterns.QXmlQuery.QueryLanguage
+
+    Specifies whether you want :class:`PySide.QtXmlPatterns.QXmlQuery` to interpret the input to :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` as an :ref:`XQuery<xmlprocessing.html>` or as an XSLT stylesheet.
+
+    +------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant          |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+    +==================+===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QXmlQuery.XQuery10|:ref:`XQuery<xmlprocessing.html>` 1.0.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    +------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QXmlQuery.XSLT20  |XSLT 2.0 The selector, the restricted XPath pattern found in W3C XML Schema 1.1 for uniqueness contraints. Apart from restricting the syntax, the type check stage for the expression assumes a sequence of nodes to be the focus. The field, the restricted XPath pattern found in W3C XML Schema 1.1 for uniqueness contraints. Apart from restricting the syntax, the type check stage for the expression assumes a sequence of nodes to be the focus. Signifies XPath 2.0. Has no effect in the public API, it's used internally. As With :attr:`XmlSchema11IdentityConstraintSelector<QXmlQuery.QueryLanguage>` and :attr:`XmlSchema11IdentityConstraintField<QXmlQuery.QueryLanguage>` , the type check stage for the expression assumes a sequence of nodes to be the focus.|
+    +------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` 
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(name, query)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+    :param query: :class:`PySide.QtXmlPatterns.QXmlQuery`
+
+
+
+
+    Binds the result of the query ``query`` , to a variable by name ``name`` .
+
+    Evaluation of ``query`` will be commenced when this function is called.
+
+    If ``query`` is invalid, behavior is undefined. ``query`` will be copied.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(name, arg__2)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+    :param arg__2: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Binds the variable ``name`` to the ``device`` so that $``name`` can be used from within the query to refer to the ``device`` . The :class:`PySide.QtCore.QIODevice` ``device`` is exposed to the query as a URI of type ``xs:anyURI`` , which can be passed to the ``fn:doc()`` function to be read. E.g., this function can be used to pass an XML document in memory to ``fn:doc`` .
+
+    ::
+
+            QByteArray myDocument;
+            QBuffer buffer(&myDocument); // This is a QIODevice.
+            buffer.open(QIODevice::ReadOnly);
+            QXmlQuery query;
+            query.bindVariable("myDocument", &buffer);
+            query.setQuery("doc($myDocument)");
+
+
+    The caller must ensure that ``device`` has been opened with at least :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` prior to this binding. Otherwise, behavior is undefined.
+
+    If the query will access an XML document contained in a :class:`PySide.QtCore.QString` , use a :class:`PySide.QtCore.QBuffer` as shown in the following snippet. Suppose *myQString* contains ``<document>content</document>``\
+
+    ::
+
+            QBuffer device;
+            device.setData(myQString.toUtf8());
+            device.open(QIODevice::ReadOnly);
+
+            QXmlQuery query;
+            query.setQuery("doc($inputDocument)/query[theDocument]");
+            query.bindVariable("inputDocument", &device);
+
+
+    ``name`` must not be *null* . ``name`` . :meth:`~PySide.QtXmlPatterns.QXmlQuery.isNull` must return false. If ``name`` has already been bound, its previous binding will be overridden. The URI that ``name`` evaluates to is arbitrary and may change.
+
+    If the type of the variable binding changes (e.g., if a previous binding by the same name was a :class:`PySide.QtCore.QVariant` , or if there was no previous binding), :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` will return ``false`` , and recompilation of the query text is required. To recompile the query, call :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` . For this reason, :meth:`PySide.QtXmlPatterns.QXmlQuery.bindVariable` should be called before :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` , if possible.
+
+    .. note:: \ ``device`` must not be deleted while this :class:`PySide.QtXmlPatterns.QXmlQuery` exists.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(name, value)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+    :param value: :class:`PySide.QtXmlPatterns.QXmlItem`
+
+
+
+
+    Binds the variable ``name`` to the ``value`` so that $``name`` can be used from within the query to refer to the ``value`` .
+
+    ``name`` must not be *null* . ``name`` . :meth:`~PySide.QtXmlPatterns.QXmlQuery.isNull` must return false. If ``name`` has already been bound by a previous :meth:`PySide.QtXmlPatterns.QXmlQuery.bindVariable` call, its previous binding will be overridden.
+
+    If ``value`` is null so that ``value`` . :meth:`~PySide.QtXmlPatterns.QXmlQuery.isNull` returns true, and ``name`` already has a binding, the effect is to remove the existing binding for ``name`` .
+
+    To bind a value of type :class:`PySide.QtCore.QString` or :class:`PySide.QtCore.QUrl` , wrap the value in a :class:`PySide.QtCore.QVariant` such that :class:`PySide.QtXmlPatterns.QXmlItem` 's :class:`PySide.QtCore.QVariant` constructor is called.
+
+    All strings processed by the query must be valid :ref:`XQuery<xmlprocessing.html>` strings, which means they must contain only XML 1.0 characters. However, this requirement is not checked. If the query processes an invalid string, the behavior is undefined.
+
+    .. seealso::  :meth:`QVariant.isValid`  :ref:`How QVariant maps to XQuery's Data Model<xmlprocessing.html>`  :meth:`QXmlItem.isNull()<PySide.QtXmlPatterns.QXmlItem.isNull>` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(localName, arg__2)
+
+
+    :param localName: unicode
+    :param arg__2: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    This is an overloaded function.
+
+    If ``localName`` is a valid :meth:`NCName<PySide.QtXmlPatterns.QXmlName.isNCName>` , this function is equivalent to the following snippet.
+
+    ::
+
+            QXmlNamePool namePool(query.namePool());
+            query.bindVariable(QXmlName(namePool, localName), device);
+
+
+    A :class:`PySide.QtXmlPatterns.QXmlName` is constructed from ``localName`` , and is passed to the appropriate overload along with ``device`` .
+
+    .. seealso::  :meth:`QXmlName.isNCName()<PySide.QtXmlPatterns.QXmlName.isNCName>` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(localName, query)
+
+
+    :param localName: unicode
+    :param query: :class:`PySide.QtXmlPatterns.QXmlQuery`
+
+
+
+
+    This is an overloaded function.
+
+    Has the same behavior and effects as the function being overloaded, but takes the variable name ``localName`` as a :class:`PySide.QtCore.QString` . ``query`` is used as in the overloaded function.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.bindVariable(localName, value)
+
+
+    :param localName: unicode
+    :param value: :class:`PySide.QtXmlPatterns.QXmlItem`
+
+
+
+
+    This is an overloaded function.
+
+    This function constructs a :class:`PySide.QtXmlPatterns.QXmlName` from ``localName`` using the query's :class:`namespace<PySide.QtXmlPatterns.QXmlNamePool>` . The function then behaves as the overloaded function. It is equivalent to the following snippet.
+
+    ::
+
+            QXmlNamePool namePool(query.namePool());
+            query.bindVariable(QXmlName(namePool, localName), value);
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.evaluateTo(result)
+
+
+    :param result: :class:`PySide.QtXmlPatterns.QXmlResultItems`
+
+
+
+
+    Starts the evaluation and makes it available in ``result`` . If ``result`` is null, the behavior is undefined. The evaluation takes place incrementally (lazy evaluation), as the caller uses :meth:`QXmlResultItems.next()<PySide.QtXmlPatterns.QXmlResultItems.next>` to get the next result.
+
+    .. seealso::  :meth:`QXmlResultItems.next()<PySide.QtXmlPatterns.QXmlResultItems.next>` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.evaluateTo(target)
+
+
+    :param target: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Evaluates the query or stylesheet, and writes the output to ``target`` .
+
+    :class:`PySide.QtXmlPatterns.QXmlSerializer` is used to write the output to ``target`` . In a future release, it is expected that this function will be changed to respect serialization options set in the stylesheet.
+
+    If an error occurs during the evaluation, error messages are sent to :meth:`PySide.QtXmlPatterns.QXmlQuery.messageHandler` and ``false`` is returned.
+
+    If ``target`` is ``null`` , or is not opened in at least :attr:`QIODevice.WriteOnly<QIODevice.OpenModeFlag>` mode, the behavior is undefined. :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``target`` .
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.evaluateTo(callback)
+
+
+    :param callback: :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Evaluates this query and sends the result as a sequence of callbacks to the :class:`receiver<PySide.QtXmlPatterns.QAbstractXmlReceiver>` ``callback`` . :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``callback`` .
+
+    If an error occurs during the evaluation, error messages are sent to :meth:`PySide.QtXmlPatterns.QXmlQuery.messageHandler` and ``false`` is returned.
+
+    If this query :meth:`is invalid<PySide.QtXmlPatterns.QXmlQuery.isValid>` , ``false`` is returned and the behavior is undefined. If ``callback`` is null, behavior is undefined.
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver`  :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.initialTemplateName()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    Returns the name of the XSL-T stylesheet template that the processor will call first when running an XSL-T stylesheet. This function only applies when using :class:`PySide.QtXmlPatterns.QXmlQuery` to process XSL-T stylesheets. By default, no initial template is set. In that case, a default constructed :class:`PySide.QtXmlPatterns.QXmlName` is returned.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.setInitialTemplateName` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this query is valid. Examples of invalid queries are ones that contain syntax errors or that have not had :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` called for them yet.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.messageHandler()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QAbstractMessageHandler`
+
+
+
+
+    Returns the message handler that handles compile and runtime messages for this :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.setMessageHandler` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.namePool()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+
+
+
+
+    Returns the name pool used by this :class:`PySide.QtXmlPatterns.QXmlQuery` for constructing :class:`names<PySide.QtXmlPatterns.QXmlName>` . There is no setter for the name pool, because mixing name pools causes errors due to name confusion.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.networkAccessManager()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Returns the network manager, or 0 if it has not been set.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.setNetworkAccessManager` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.queryLanguage()
+
+
+    :rtype: :attr:`PySide.QtXmlPatterns.QXmlQuery.QueryLanguage`
+
+
+
+
+    Returns a value indicating what this :class:`PySide.QtXmlPatterns.QXmlQuery` is being used for. The default is :attr:`QXmlQuery.XQuery10<QXmlQuery.QueryLanguage>` , which means the :class:`PySide.QtXmlPatterns.QXmlQuery` is being used for running :ref:`XQuery<xmlprocessing.html>` and XPath queries. :attr:`QXmlQuery.XSLT20<QXmlQuery.QueryLanguage>` can also be returned, which indicates the :class:`PySide.QtXmlPatterns.QXmlQuery` is for running XSL-T spreadsheets.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setFocus(item)
+
+
+    :param item: :class:`PySide.QtXmlPatterns.QXmlItem`
+
+
+
+
+    Sets the focus to ``item`` . The focus is the set of items that the context item expression and path expressions navigate from. For example, in the expression *p/span* , the element that *p* evaluates to is the focus for the following expression, *span* .
+
+    The focus can be accessed using the context item expression, i.e., dot (".").
+
+    By default, the focus is not set and is undefined. It will therefore result in a dynamic error, ``XPDY0002`` , if the focus is attempted to be accessed. The focus must be set before the query is set with :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` .
+
+    There is no behavior defined for setting an item which is null.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setFocus(documentURI)
+
+
+    :param documentURI: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the focus to be the document located at ``documentURI`` and returns true. If ``documentURI`` cannot be loaded, false is returned. It is undefined at what time the document may be loaded. When loading the document, the message handler and URI resolver set on this :class:`PySide.QtXmlPatterns.QXmlQuery` are used.
+
+    If ``documentURI`` is empty or is not a valid URI, the behavior of this function is undefined.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setFocus(document)
+
+
+    :param document: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the focus to be the ``document`` read from the :class:`PySide.QtCore.QIODevice` and returns true. If ``document`` cannot be loaded, false is returned.
+
+    :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``document`` . The user guarantees that a document is available from the ``document`` device and that the document is not empty. The device must be opened in at least read-only mode. ``document`` must stay in scope as long as the current query is active.
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setFocus(focus)
+
+
+    :param focus: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function behaves identically to calling the :meth:`PySide.QtXmlPatterns.QXmlQuery.setFocus` overload with a :class:`PySide.QtCore.QIODevice` whose content is ``focus`` encoded as UTF-8. That is, ``focus`` is treated as if it contained an XML document.
+
+    Returns the same result as the overload.
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setInitialTemplateName(name)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    Sets the ``name`` of the initial template. The initial template is the one the processor calls first, instead of attempting to match a template to the context node (if any). If an initial template is not set, the standard order of template invocation will be used.
+
+    This function only applies when using :class:`PySide.QtXmlPatterns.QXmlQuery` to process XSL-T stylesheets. The name becomes part of the compiled stylesheet. Therefore, this function must be called before calling :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` .
+
+    If the stylesheet has no template named ``name`` , the processor will use the standard order of template invocation.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.initialTemplateName` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setInitialTemplateName(name)
+
+
+    :param name: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Sets the name of the initial template to ``localName`` , which must be a valid :meth:`local name<PySide.QtXmlPatterns.QXmlName.localName>` . The initial template is the one the processor calls first, instead of attempting to match a template to the context node (if any). If an initial template is not set, the standard order of template invocation will be used.
+
+    This function only applies when using :class:`PySide.QtXmlPatterns.QXmlQuery` to process XSL-T stylesheets. The name becomes part of the compiled stylesheet. Therefore, this function must be called before calling :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` .
+
+    If ``localName`` is not a valid :meth:`local name<PySide.QtXmlPatterns.QXmlName.localName>` , the effect is undefined. If the stylesheet has no template named ``localName`` , the processor will use the standard order of template invocation.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.initialTemplateName` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setMessageHandler(messageHandler)
+
+
+    :param messageHandler: :class:`PySide.QtXmlPatterns.QAbstractMessageHandler`
+
+
+
+
+    Changes the :class:`message handler<PySide.QtXmlPatterns.QAbstractMessageHandler>` for this :class:`PySide.QtXmlPatterns.QXmlQuery` to ``aMessageHandler`` . The query sends all compile and runtime messages to this message handler. :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``aMessageHandler`` .
+
+    Normally, the default message handler is sufficient. It writes compile and runtime messages to *stderr* . The default message handler includes color codes if *stderr* can render colors.
+
+    Note that changing the message handler after the query has been compiled has no effect, i.e. the query uses the same message handler at runtime that it uses at compile time.
+
+    When :class:`PySide.QtXmlPatterns.QXmlQuery` calls :meth:`QAbstractMessageHandler.message()<PySide.QtXmlPatterns.QAbstractMessageHandler.message>` , the arguments are as follows:
+
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |message() argument                                                  |Semantics                                                                                                                                                                                  |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`QtMsgType` type                                              |Only :attr:`QtWarningMsg<QtMsgType>` and :attr:`QtFatalMsg<QtMsgType>` are used. The former identifies a compile or runtime warning, while the latter identifies a dynamic or static error.|
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtCore.QString` & description                  |An XHTML document which is the actual message. It is translated into the current language.                                                                                                 |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtCore.QUrl` &identifier                       |Identifies the error with a URI, where the fragment is the error code, and the rest of the URI is the error namespace.                                                                     |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtXmlPatterns.QSourceLocation` & sourceLocation|Identifies where the error occurred.                                                                                                                                                       |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.messageHandler` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setNetworkAccessManager(newManager)
+
+
+    :param newManager: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Sets the network manager to ``newManager`` . :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``newManager`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.networkAccessManager` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setQuery(queryURI[, baseURI=QUrl()])
+
+
+    :param queryURI: :class:`PySide.QtCore.QUrl`
+    :param baseURI: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets this :class:`PySide.QtXmlPatterns.QXmlQuery` to the :ref:`XQuery<xmlprocessing.html>` read from the ``queryURI`` . Use :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` after calling this function. If an error occurred reading ``queryURI`` , e.g., the query does not exist, cannot be read, or is invalid, :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` will return *false* .
+
+    The supported URI schemes are the same as those in the :ref:`XQuery<xmlprocessing.html>` function ``fn:doc`` , except that queryURI can be the object of a variable binding.
+
+    ``baseURI`` is the Base URI of the static context, as defined in the :ref:`XQuery<xmlprocessing.html>` language. It is used internally to resolve relative URIs that appear in the query, and for message reporting. If ``baseURI`` is empty, ``queryURI`` is used. Otherwise, ``baseURI`` is used, and it is resolved against the :meth:`application file path<PySide.QtCore.QCoreApplication.applicationFilePath>` if it is relative.
+
+    If ``queryURI`` is empty or invalid, or if ``baseURI`` is invalid, the behavior of this function is undefined.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setQuery(sourceCode[, documentURI=QUrl()])
+
+
+    :param sourceCode: unicode
+    :param documentURI: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This is an overloaded function.
+
+    The behavior and requirements of this function are the same as for setQuery( :class:`PySide.QtCore.QIODevice` \*, const :class:`PySide.QtCore.QUrl` &), after the :ref:`XQuery<xmlprocessing.html>` has been read from the IO device into a string. Because ``sourceCode`` is already a Unicode string, detection of its encoding is unnecessary.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setQuery(sourceCode[, documentURI=QUrl()])
+
+
+    :param sourceCode: :class:`PySide.QtCore.QIODevice`
+    :param documentURI: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets this :class:`PySide.QtXmlPatterns.QXmlQuery` to an :ref:`XQuery<xmlprocessing.html>` read from the ``sourceCode`` device. The device must have been opened with at least :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` .
+
+    ``documentURI`` represents the query obtained from the ``sourceCode`` device. It is the base URI of the static context, as defined in the :ref:`XQuery<xmlprocessing.html>` language. It is used internally to resolve relative URIs that appear in the query, and for message reporting. ``documentURI`` can be empty. If it is empty, the :meth:`application file path<PySide.QtCore.QCoreApplication.applicationFilePath>` is used. If it is not empty, it may be either relative or absolute. If it is relative, it is resolved itself against the :meth:`application file path<PySide.QtCore.QCoreApplication.applicationFilePath>` before it is used. If ``documentURI`` is neither a valid URI nor empty, the result is undefined.
+
+    If the query contains a static error (e.g. syntax error), an error message is sent to the :meth:`PySide.QtXmlPatterns.QXmlQuery.messageHandler` , and :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` will return *false* .
+
+    Variables must be bound before :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` is called.
+
+    The encoding of the :ref:`XQuery<xmlprocessing.html>` in ``sourceCode`` is detected internally using the rules for setting and detecting encoding of :ref:`XQuery<xmlprocessing.html>` files, which are explained in the :ref:`XQuery<xmlprocessing.html>` language.
+
+    If ``sourceCode`` is ``null`` or not readable, or if ``documentURI`` is not a valid URI, behavior is undefined.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.setUriResolver(resolver)
+
+
+    :param resolver: :class:`PySide.QtXmlPatterns.QAbstractUriResolver`
+
+
+
+
+    Sets the URI resolver to ``resolver`` . :class:`PySide.QtXmlPatterns.QXmlQuery` does not take ownership of ``resolver`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.uriResolver` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlQuery.uriResolver()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QAbstractUriResolver`
+
+
+
+
+    Returns the query's URI resolver. If no URI resolver has been set, :ref:`QtXmlPatterns` will use the URIs in queries as they are.
+
+    The URI resolver provides a level of abstraction, or *polymorphic URIs* . A resolver can rewrite *logical* URIs to physical ones, or it can translate obsolete or invalid URIs to valid ones.
+
+    :ref:`QtXmlPatterns` calls the URI resolver for all URIs it encounters, except for namespaces. Specifically, all builtin functions that deal with URIs (``fn:doc()`` , and ``fn:doc-available()`` ).
+
+    In the case of ``fn:doc()`` , the absolute URI is the base URI in the static context (which most likely is the location of the query). Rather than use the URI the user specified, the return value of :meth:`QAbstractUriResolver.resolve()<PySide.QtXmlPatterns.QAbstractUriResolver.resolve>` will be used.
+
+    When :ref:`QtXmlPatterns` calls :meth:`QAbstractUriResolver.resolve()<PySide.QtXmlPatterns.QAbstractUriResolver.resolve>` the absolute URI is the URI mandated by the :ref:`XQuery<xmlprocessing.html>` language, and the relative URI is the URI specified by the user.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlQuery.setUriResolver` 
+
+
+

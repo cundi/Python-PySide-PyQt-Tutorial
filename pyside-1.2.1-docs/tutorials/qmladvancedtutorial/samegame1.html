@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QML Advanced Tutorial 1 - Creating the Game Canvas and Blocks &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="QML Advanced Tutorial" href="index.html" />
+    <link rel="next" title="QML Advanced Tutorial 2 - Populating the Game Canvas" href="samegame2.html" />
+    <link rel="prev" title="QML Advanced Tutorial" href="index.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../index.html" >PySide tutorials</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">QML Advanced Tutorial</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QML Advanced Tutorial 1 - Creating the Game Canvas and Blocks</a><ul>
+<li><a class="reference internal" href="#creating-the-application-screen">Creating the application screen</a></li>
+<li><a class="reference internal" href="#adding-button-and-block-components">Adding Button and Block components</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">QML Advanced Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="samegame2.html"
+                        title="next chapter">QML Advanced Tutorial 2 - Populating the Game Canvas</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qml-advanced-tutorial-1-creating-the-game-canvas-and-blocks">
+<span id="samegame1"></span><h1>QML Advanced Tutorial 1 - Creating the Game Canvas and Blocks<a class="headerlink" href="#qml-advanced-tutorial-1-creating-the-game-canvas-and-blocks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-the-application-screen">
+<h2>Creating the application screen<a class="headerlink" href="#creating-the-application-screen" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to create the basic QML items in your application.</p>
+<p>To begin with, we create our Same Game application with a main screen like this:</p>
+<div class="figure align-center">
+<img alt="../../_images/declarative-adv-tutorial1.png" src="../../_images/declarative-adv-tutorial1.png" />
+</div>
+<p>This is defined by the main application file, <tt class="docutils literal"><span class="pre">samegame.qml</span></tt>, which looks like this:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Rectangle {
+    id: screen
+
+    width: 490; height: 720
+
+    SystemPalette { id: activePalette }
+
+    Item {
+        width: parent.width
+        anchors { top: parent.top; bottom: toolBar.top }
+
+        Image {
+            id: background
+            anchors.fill: parent
+            source: "../shared/pics/background.jpg"
+            fillMode: Image.PreserveAspectCrop
+        }
+    }
+
+    Rectangle {
+        id: toolBar
+        width: parent.width; height: 30
+        color: activePalette.window
+        anchors.bottom: screen.bottom
+
+        Button {
+            anchors { left: parent.left; verticalCenter: parent.verticalCenter }
+            text: "New Game" 
+            onClicked: console.log("This doesn't do anything yet...")
+        }
+
+        Text {
+            id: score
+            anchors { right: parent.right; verticalCenter: parent.verticalCenter }
+            text: "Score: Who knows?"
+        }
+    }
+}
+</pre>
+</div>
+<p>This gives you a basic game window that includes the main canvas for the
+blocks, a &#8220;New Game&#8221; button and a score display.</p>
+<p>One item you may not recognize here
+is the SystemPalette item. This provides access to the Qt system palette
+and is used to give the button a more native look-and-feel.</p>
+<p>Notice the anchors for the <tt class="docutils literal"><span class="pre">Item</span></tt>, <tt class="docutils literal"><span class="pre">Button</span></tt> and <tt class="docutils literal"><span class="pre">Text</span></tt> elements are set using
+group notation for readability.</p>
+</div>
+<div class="section" id="adding-button-and-block-components">
+<h2>Adding Button and Block components<a class="headerlink" href="#adding-button-and-block-components" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">Button</span></tt> item in the code above is defined in a separate component file named <tt class="docutils literal"><span class="pre">Button.qml</span></tt>.
+To create a functional button, we use the QML elements Text and MouseArea inside a Rectangle.
+Here is the <tt class="docutils literal"><span class="pre">Button.qml</span></tt> code:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Rectangle {
+    id: container
+
+    property string text: "Button"
+
+    signal clicked
+
+    width: buttonLabel.width + 20; height: buttonLabel.height + 5
+    border { width: 1; color: Qt.darker(activePalette.button) }
+    smooth: true
+    radius: 8
+
+    // color the button with a gradient
+    gradient: Gradient {
+        GradientStop {
+            position: 0.0
+            color: {
+                if (mouseArea.pressed)
+                    return activePalette.dark
+                else
+                    return activePalette.light
+            }
+        }
+        GradientStop { position: 1.0; color: activePalette.button }
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: container.clicked();
+    }
+
+    Text {
+        id: buttonLabel
+        anchors.centerIn: container
+        color: activePalette.buttonText
+        text: container.text
+    }
+}
+</pre>
+</div>
+<p>This essentially defines a rectangle that contains text and can be clicked. The MouseArea
+has an <tt class="docutils literal"><span class="pre">onClicked()</span></tt> handler that is implemented to emit the <tt class="docutils literal"><span class="pre">clicked()</span></tt> signal of the
+<tt class="docutils literal"><span class="pre">container</span></tt> when the area is clicked.</p>
+<p>In Same Game, the screen is filled with small blocks when the game begins.
+Each block is just an item that contains an image. The block
+code is defined in a separate <tt class="docutils literal"><span class="pre">Block.qml</span></tt> file:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Item {
+    id: block
+
+    Image {
+        id: img
+        anchors.fill: parent
+        source: "../shared/pics/redStone.png"
+    }
+}
+</pre>
+</div>
+<p>At the moment, the block doesn&#8217;t do anything; it is just an image. As the
+tutorial progresses we will animate and give behaviors to the blocks.
+We have not added any code yet to create the blocks; we will do this
+in the next chapter.</p>
+<p>We have set the image to be the size of its parent Item using <tt class="docutils literal"><span class="pre">anchors.fill:</span> <span class="pre">parent</span></tt>.
+This means that when we dynamically create and resize the block items
+later on in the tutorial, the image will be scaled automatically to the
+correct size.</p>
+<p>Notice the relative path for the Image element&#8217;s <tt class="docutils literal"><span class="pre">source</span></tt> property.
+This path is relative to the location of the file that contains the Image element.
+Alternatively, you could set the Image source to an absolute file path or a URL
+that contains an image.</p>
+<p>You should be familiar with the code so far. We have just created some basic
+elements to get started. Next, we will populate the game canvas with some blocks.</p>
+<p>[Previous <a class="reference internal" href="index.html#qmladvancedtutorial"><em>QML Advanced Tutorial</em></a>] [Next <a class="reference internal" href="samegame2.html#samegame2"><em>QML Advanced Tutorial 2 - Populating the Game Canvas</em></a>]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

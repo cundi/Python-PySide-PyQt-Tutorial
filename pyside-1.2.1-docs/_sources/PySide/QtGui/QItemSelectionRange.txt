@@ -1,0 +1,329 @@
+.. module:: PySide.QtGui
+.. _QItemSelectionRange:
+
+QItemSelectionRange
+*******************
+
+.. inheritance-diagram:: QItemSelectionRange
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QItemSelectionRange.__eq__>` (other)
+*    def :meth:`__lt__<PySide.QtGui.QItemSelectionRange.__lt__>` (other)
+*    def :meth:`__ne__<PySide.QtGui.QItemSelectionRange.__ne__>` (other)
+*    def :meth:`bottom<PySide.QtGui.QItemSelectionRange.bottom>` ()
+*    def :meth:`bottomRight<PySide.QtGui.QItemSelectionRange.bottomRight>` ()
+*    def :meth:`contains<PySide.QtGui.QItemSelectionRange.contains>` (index)
+*    def :meth:`contains<PySide.QtGui.QItemSelectionRange.contains>` (row, column, parentIndex)
+*    def :meth:`height<PySide.QtGui.QItemSelectionRange.height>` ()
+*    def :meth:`indexes<PySide.QtGui.QItemSelectionRange.indexes>` ()
+*    def :meth:`intersected<PySide.QtGui.QItemSelectionRange.intersected>` (other)
+*    def :meth:`intersects<PySide.QtGui.QItemSelectionRange.intersects>` (other)
+*    def :meth:`isEmpty<PySide.QtGui.QItemSelectionRange.isEmpty>` ()
+*    def :meth:`isValid<PySide.QtGui.QItemSelectionRange.isValid>` ()
+*    def :meth:`left<PySide.QtGui.QItemSelectionRange.left>` ()
+*    def :meth:`model<PySide.QtGui.QItemSelectionRange.model>` ()
+*    def :meth:`parent<PySide.QtGui.QItemSelectionRange.parent>` ()
+*    def :meth:`right<PySide.QtGui.QItemSelectionRange.right>` ()
+*    def :meth:`top<PySide.QtGui.QItemSelectionRange.top>` ()
+*    def :meth:`topLeft<PySide.QtGui.QItemSelectionRange.topLeft>` ()
+*    def :meth:`width<PySide.QtGui.QItemSelectionRange.width>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QItemSelectionRange` class manages information about a range of selected items in a model.
+
+    A :class:`PySide.QtGui.QItemSelectionRange` contains information about a range of selected items in a model. A range of items is a contiguous array of model items, extending to cover a number of adjacent rows and columns with a common parent item; this can be visualized as a two-dimensional block of cells in a table. A selection range has a :meth:`PySide.QtGui.QItemSelectionRange.top` , :meth:`PySide.QtGui.QItemSelectionRange.left` a :meth:`PySide.QtGui.QItemSelectionRange.bottom` , :meth:`PySide.QtGui.QItemSelectionRange.right` and a :meth:`PySide.QtGui.QItemSelectionRange.parent` .
+
+    The :class:`PySide.QtGui.QItemSelectionRange` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` .
+
+    The model items contained in the selection range can be obtained using the :meth:`PySide.QtGui.QItemSelectionRange.indexes` function. Use :meth:`QItemSelectionModel.selectedIndexes()<PySide.QtGui.QItemSelectionModel.selectedIndexes>` to get a list of all selected items for a view.
+
+    You can determine whether a given model item lies within a particular range by using the :meth:`PySide.QtGui.QItemSelectionRange.contains` function. Ranges can also be compared using the overloaded operators for equality and inequality, and the :meth:`PySide.QtGui.QItemSelectionRange.intersects` function allows you to determine whether two ranges overlap.
+
+    .. seealso::  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtCore.QAbstractItemModel`  :class:`PySide.QtGui.QItemSelection`  :class:`PySide.QtGui.QItemSelectionModel` 
+
+.. class:: QItemSelectionRange()
+           QItemSelectionRange(other)
+           QItemSelectionRange(index)
+           QItemSelectionRange(topLeft, bottomRight)
+
+    :param topLeft: :class:`PySide.QtCore.QModelIndex`
+    :param bottomRight: :class:`PySide.QtCore.QModelIndex`
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+    Constructs an empty selection range.
+
+
+    Copy constructor. Constructs a new selection range with the same contents as the ``other`` range given.
+
+
+    Constructs a new selection range containing only the model item specified by the model index ``index`` .
+
+
+    Constructs a new selection range containing only the index specified by the ``topLeft`` and the index ``bottomRight`` .
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.bottom()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the row index corresponding to the lowermost selected row in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.bottomRight()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the index for the item located at the bottom-right corner of the selection range.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemSelectionRange.bottom`  :meth:`PySide.QtGui.QItemSelectionRange.right`  :meth:`PySide.QtGui.QItemSelectionRange.topLeft` 
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.contains(row, column, parentIndex)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param parentIndex: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the model item specified by (``row`` , ``column`` ) and with ``parentIndex`` as the parent item lies within the range of selected items; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.contains(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the model item specified by the ``index`` lies within the range of selected items; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.height()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of selected rows in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.indexes()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndexList`
+
+
+
+
+    Returns the list of model index items stored in the selection.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.intersected(other)
+
+
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :rtype: :class:`PySide.QtGui.QItemSelectionRange`
+
+
+
+
+    Returns a new selection range containing only the items that are found in both the selection range and the ``other`` selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.intersects(other)
+
+
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this selection range intersects (overlaps with) the ``other`` range given; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the selection range contains no selectable item
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the selection range is valid; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.left()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the column index corresponding to the leftmost selected column in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.model()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the model that the items in the selection range belong to.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.__ne__(other)
+
+
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the selection range differs from the ``other`` range given; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.__lt__(other)
+
+
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.__eq__(other)
+
+
+    :param other: :class:`PySide.QtGui.QItemSelectionRange`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the selection range is exactly the same as the ``other`` range given; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.parent()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the parent model item index of the items in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.right()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the column index corresponding to the rightmost selected column in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.top()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the row index corresponding to the uppermost selected row in the selection range.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.topLeft()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the index for the item located at the top-left corner of the selection range.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemSelectionRange.top`  :meth:`PySide.QtGui.QItemSelectionRange.left`  :meth:`PySide.QtGui.QItemSelectionRange.bottomRight` 
+
+
+.. method:: PySide.QtGui.QItemSelectionRange.width()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of selected columns in the selection range.
+
+
+
+

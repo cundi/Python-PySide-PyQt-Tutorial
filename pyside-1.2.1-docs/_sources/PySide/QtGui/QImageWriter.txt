@@ -1,0 +1,397 @@
+.. module:: PySide.QtGui
+.. _QImageWriter:
+
+QImageWriter
+************
+
+.. inheritance-diagram:: QImageWriter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`canWrite<PySide.QtGui.QImageWriter.canWrite>` ()
+*    def :meth:`compression<PySide.QtGui.QImageWriter.compression>` ()
+*    def :meth:`device<PySide.QtGui.QImageWriter.device>` ()
+*    def :meth:`error<PySide.QtGui.QImageWriter.error>` ()
+*    def :meth:`errorString<PySide.QtGui.QImageWriter.errorString>` ()
+*    def :meth:`fileName<PySide.QtGui.QImageWriter.fileName>` ()
+*    def :meth:`format<PySide.QtGui.QImageWriter.format>` ()
+*    def :meth:`gamma<PySide.QtGui.QImageWriter.gamma>` ()
+*    def :meth:`quality<PySide.QtGui.QImageWriter.quality>` ()
+*    def :meth:`setCompression<PySide.QtGui.QImageWriter.setCompression>` (compression)
+*    def :meth:`setDevice<PySide.QtGui.QImageWriter.setDevice>` (device)
+*    def :meth:`setFileName<PySide.QtGui.QImageWriter.setFileName>` (fileName)
+*    def :meth:`setFormat<PySide.QtGui.QImageWriter.setFormat>` (format)
+*    def :meth:`setGamma<PySide.QtGui.QImageWriter.setGamma>` (gamma)
+*    def :meth:`setQuality<PySide.QtGui.QImageWriter.setQuality>` (quality)
+*    def :meth:`setText<PySide.QtGui.QImageWriter.setText>` (key, text)
+*    def :meth:`supportsOption<PySide.QtGui.QImageWriter.supportsOption>` (option)
+*    def :meth:`write<PySide.QtGui.QImageWriter.write>` (image)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`supportedImageFormats<PySide.QtGui.QImageWriter.supportedImageFormats>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QImageWriter` class provides a format independent interface for writing images to files or other devices.
+
+    :class:`PySide.QtGui.QImageWriter` supports setting format specific options, such as the gamma level, compression level and quality, prior to storing the image. If you do not need such options, you can use :meth:`QImage.save()<PySide.QtGui.QImage.save>` or :meth:`QPixmap.save()<PySide.QtGui.QPixmap.save>` instead.
+
+    To store an image, you start by constructing a :class:`PySide.QtGui.QImageWriter` object. Pass either a file name or a device pointer, and the image format to :class:`PySide.QtGui.QImageWriter` 's constructor. You can then set several options, such as the gamma level (by calling :meth:`PySide.QtGui.QImageWriter.setGamma` ) and quality (by calling :meth:`PySide.QtGui.QImageWriter.setQuality` ). :meth:`PySide.QtGui.QImageWriter.canWrite` returns true if :class:`PySide.QtGui.QImageWriter` can write the image (i.e., the image format is supported and the device is open for writing). Call :meth:`PySide.QtGui.QImageWriter.write` to write the image to the device.
+
+    If any error occurs when writing the image, :meth:`PySide.QtGui.QImageWriter.write` will return false. You can then call :meth:`PySide.QtGui.QImageWriter.error` to find the type of error that occurred, or :meth:`PySide.QtGui.QImageWriter.errorString` to get a human readable description of what went wrong.
+
+    Call :meth:`PySide.QtGui.QImageWriter.supportedImageFormats` for a list of formats that :class:`PySide.QtGui.QImageWriter` can write. :class:`PySide.QtGui.QImageWriter` supports all built-in image formats, in addition to any image format plugins that support writing.
+
+    .. seealso::  :class:`PySide.QtGui.QImageReader`  :class:`PySide.QtGui.QImageIOHandler`  :class:`~PySide.QtGui.QImageIOPlugin` 
+
+.. class:: QImageWriter()
+           QImageWriter(device, format)
+           QImageWriter(fileName[, format=QByteArray()])
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param fileName: unicode
+
+    Constructs an empty :class:`PySide.QtGui.QImageWriter` object. Before writing, you must call :meth:`PySide.QtGui.QImageWriter.setFormat` to set an image format, then :meth:`PySide.QtGui.QImageWriter.setDevice` or :meth:`PySide.QtGui.QImageWriter.setFileName` .
+
+
+    Constructs a :class:`PySide.QtGui.QImageWriter` object using the device ``device`` and image format ``format`` .
+
+
+    Constructs a :class:`PySide.QtGui.QImageWriter` objects that will write to a file with the name ``fileName`` , using the image format ``format`` . If ``format`` is not provided, :class:`PySide.QtGui.QImageWriter` will detect the image format by inspecting the extension of ``fileName`` .
+
+
+.. attribute:: PySide.QtGui.QImageWriter.ImageWriterError
+
+    This enum describes errors that can occur when writing images with :class:`PySide.QtGui.QImageWriter` .
+
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                                       |
+    +===================================+==================================================================================================================================================================================+
+    |QImageWriter.DeviceError           |:class:`PySide.QtGui.QImageWriter` encountered a device error when writing the image data. Consult your device for more details on what went wrong.                               |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageWriter.UnsupportedFormatError|Qt does not support the requested image format.                                                                                                                                   |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageWriter.UnknownError          |An unknown error occurred. If you get this value after calling :meth:`PySide.QtGui.QImageWriter.write` , it is most likely caused by a bug in :class:`PySide.QtGui.QImageWriter` .|
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QImageWriter.canWrite()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :class:`PySide.QtGui.QImageWriter` can write the image; i.e., the image format is supported and the assigned device is open for reading.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.write`  :meth:`PySide.QtGui.QImageWriter.setDevice`  :meth:`PySide.QtGui.QImageWriter.setFormat` 
+
+
+.. method:: PySide.QtGui.QImageWriter.compression()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the compression of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setCompression` 
+
+
+.. method:: PySide.QtGui.QImageWriter.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the device currently assigned to :class:`PySide.QtGui.QImageWriter` , or 0 if no device has been assigned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageWriter.error()
+
+
+    :rtype: :attr:`PySide.QtGui.QImageWriter.ImageWriterError`
+
+
+
+
+    Returns the type of error that last occurred.
+
+    .. seealso::  :attr:`QImageWriter.ImageWriterError`  :meth:`PySide.QtGui.QImageWriter.errorString` 
+
+
+.. method:: PySide.QtGui.QImageWriter.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human readable description of the last error that occurred.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.error` 
+
+
+.. method:: PySide.QtGui.QImageWriter.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    If the currently assigned device is a :class:`PySide.QtCore.QFile` , or if :meth:`PySide.QtGui.QImageWriter.setFileName` has been called, this function returns the name of the file :class:`PySide.QtGui.QImageWriter` writes to. Otherwise (i.e., if no device has been assigned or the device is not a :class:`PySide.QtCore.QFile` ), an empty :class:`PySide.QtCore.QString` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setFileName`  :meth:`PySide.QtGui.QImageWriter.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageWriter.format()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the format :class:`PySide.QtGui.QImageWriter` uses for writing images.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setFormat` 
+
+
+.. method:: PySide.QtGui.QImageWriter.gamma()
+
+
+    :rtype: :class:`PySide.QtCore.float`
+
+
+
+
+    Returns the gamma level of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setGamma` 
+
+
+.. method:: PySide.QtGui.QImageWriter.quality()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the quality level of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setQuality` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setCompression(compression)
+
+
+    :param compression: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an image format specific function that set the compression of an image. For image formats that do not support setting the compression, this value is ignored.
+
+    The value range of ``compression`` depends on the image format. For example, the "tiff" format supports two values, 0(no compression) and 1(LZW-compression).
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.compression` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets :class:`PySide.QtGui.QImageWriter` 's device to ``device`` . If a device has already been set, the old device is removed from :class:`PySide.QtGui.QImageWriter` and is otherwise left unchanged.
+
+    If the device is not already open, :class:`PySide.QtGui.QImageWriter` will attempt to open the device in :attr:`QIODevice.WriteOnly<QIODevice.OpenModeFlag>` mode by calling open(). Note that this does not work for certain devices, such as :class:`PySide.QtCore.QProcess` , :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtNetwork.QUdpSocket` , where more logic is required to open the device.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.device`  :meth:`PySide.QtGui.QImageWriter.setFileName` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setFileName(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    Sets the file name of :class:`PySide.QtGui.QImageWriter` to ``fileName`` . Internally, :class:`PySide.QtGui.QImageWriter` will create a :class:`PySide.QtCore.QFile` and open it in :attr:`QIODevice.WriteOnly<QIODevice.OpenModeFlag>` mode, and use this file when writing images.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.fileName`  :meth:`PySide.QtGui.QImageWriter.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setFormat(format)
+
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the format :class:`PySide.QtGui.QImageWriter` will use when writing images, to ``format`` . ``format`` is a case insensitive text string. Example:
+
+    ::
+
+        writer = QImageWriter()
+        writer.setFormat("png") # same as writer.setFormat("PNG")
+
+
+    You can call :meth:`PySide.QtGui.QImageWriter.supportedImageFormats` for the full list of formats :class:`PySide.QtGui.QImageWriter` supports.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.format` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setGamma(gamma)
+
+
+    :param gamma: :class:`PySide.QtCore.float`
+
+
+
+
+    This is an image format specific function that sets the gamma level of the image to ``gamma`` . For image formats that do not support setting the gamma level, this value is ignored.
+
+    The value range of ``gamma`` depends on the image format. For example, the "png" format supports a gamma range from 0.0 to 1.0.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.gamma`  :meth:`PySide.QtGui.QImageWriter.quality` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setQuality(quality)
+
+
+    :param quality: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an image format specific function that sets the quality level of the image to ``quality`` . For image formats that do not support setting the quality, this value is ignored.
+
+    The value range of ``quality`` depends on the image format. For example, the "jpeg" format supports a quality range from 0 (low quality, high compression) to 100 (high quality, low compression).
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.quality` 
+
+
+.. method:: PySide.QtGui.QImageWriter.setText(key, text)
+
+
+    :param key: unicode
+    :param text: unicode
+
+
+
+
+    Sets the image text associated with the key ``key`` to ``text`` . This is useful for storing copyright information or other information about the image. Example:
+
+    ::
+
+        image = QImage("some/image.jpeg")
+        writer = QImageWriter("images/outimage.png", "png")
+        writer.setText("Author", "John Smith")
+        writer.write(image)
+
+
+    If you want to store a single block of data (e.g., a comment), you can pass an empty key, or use a generic key like "Description".
+
+    The key and text will be embedded into the image data after calling :meth:`PySide.QtGui.QImageWriter.write` .
+
+    Support for this option is implemented through :attr:`QImageIOHandler.Description<QImageIOHandler.ImageOption>` .
+
+    .. seealso::  :meth:`QImage.setText()<PySide.QtGui.QImage.setText>`  :meth:`QImageReader.text()<PySide.QtGui.QImageReader.text>` 
+
+
+.. staticmethod:: PySide.QtGui.QImageWriter.supportedImageFormats()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of image formats supported by :class:`PySide.QtGui.QImageWriter` .
+
+    By default, Qt can write the following formats:
+
+    +------+--------------------------------+
+    |Format|Description                     |
+    +------+--------------------------------+
+    |BMP   |Windows Bitmap                  |
+    +------+--------------------------------+
+    |JPG   |Joint Photographic Experts Group|
+    +------+--------------------------------+
+    |JPEG  |Joint Photographic Experts Group|
+    +------+--------------------------------+
+    |PNG   |Portable Network Graphics       |
+    +------+--------------------------------+
+    |PPM   |Portable Pixmap                 |
+    +------+--------------------------------+
+    |TIFF  |Tagged Image File Format        |
+    +------+--------------------------------+
+    |XBM   |X11 Bitmap                      |
+    +------+--------------------------------+
+    |XPM   |X11 Pixmap                      |
+    +------+--------------------------------+
+
+    Reading and writing SVG files is supported through Qt's :ref:`SVG Module<QtSvg>` .
+
+    Note that the :class:`PySide.QtGui.QApplication` instance must be created before this function is called.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.setFormat`  :meth:`QImageReader.supportedImageFormats()<PySide.QtGui.QImageReader.supportedImageFormats>`  :class:`~PySide.QtGui.QImageIOPlugin` 
+
+
+.. method:: PySide.QtGui.QImageWriter.supportsOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QImageIOHandler.ImageOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QImageWriter.write(image)
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes the image ``image`` to the assigned device or file name. Returns true on success; otherwise returns false. If the operation fails, you can call :meth:`PySide.QtGui.QImageWriter.error` to find the type of error that occurred, or :meth:`PySide.QtGui.QImageWriter.errorString` to get a human readable description of the error.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageWriter.canWrite`  :meth:`PySide.QtGui.QImageWriter.error`  :meth:`PySide.QtGui.QImageWriter.errorString` 
+
+
+

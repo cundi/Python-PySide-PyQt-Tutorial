@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QAbstractFileEngineHandler &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtCore" href="index.html" />
+    <link rel="next" title="QAbstractFileEngine" href="QAbstractFileEngine.html" />
+    <link rel="prev" title="QAbstractFileEngineIterator" href="QAbstractFileEngineIterator.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtCore</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QAbstractFileEngineHandler</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QAbstractFileEngineIterator.html"
+                        title="previous chapter">QAbstractFileEngineIterator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QAbstractFileEngine.html"
+                        title="next chapter">QAbstractFileEngine</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtCore"></span><div class="section" id="qabstractfileenginehandler">
+<span id="id1"></span><h1>QAbstractFileEngineHandler<a class="headerlink" href="#qabstractfileenginehandler" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtCore.QAbstractFileEngineHandler" title="PySide.QtCore.QAbstractFileEngineHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler</span></tt></a> class provides a way to register custom file engines with your application.</p>
+<p><a class="reference internal" href="#PySide.QtCore.QAbstractFileEngineHandler" title="PySide.QtCore.QAbstractFileEngineHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler</span></tt></a> is a factory for creating <a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.QAbstractFileEngine" title="PySide.QtCore.QAbstractFileEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngine</span></tt></a> objects (file engines), which are used internally by <a class="reference internal" href="QFile.html#PySide.QtCore.QFile" title="PySide.QtCore.QFile"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QFile</span></tt></a> , <a class="reference internal" href="QFileInfo.html#PySide.QtCore.QFileInfo" title="PySide.QtCore.QFileInfo"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QFileInfo</span></tt></a> , and <a class="reference internal" href="QDir.html#PySide.QtCore.QDir" title="PySide.QtCore.QDir"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QDir</span></tt></a> when working with files and directories.</p>
+<p>When you open a file, Qt chooses a suitable file engine by passing the file name from <a class="reference internal" href="QFile.html#PySide.QtCore.QFile" title="PySide.QtCore.QFile"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QFile</span></tt></a> or <a class="reference internal" href="QDir.html#PySide.QtCore.QDir" title="PySide.QtCore.QDir"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QDir</span></tt></a> through an internal list of registered file engine handlers. The first handler to recognize the file name is used to create the engine. Qt provides internal file engines for working with regular files and resources, but you can also register your own <a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.QAbstractFileEngine" title="PySide.QtCore.QAbstractFileEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngine</span></tt></a> subclasses.</p>
+<p>To install an application-specific file engine, you subclass <a class="reference internal" href="#PySide.QtCore.QAbstractFileEngineHandler" title="PySide.QtCore.QAbstractFileEngineHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler</span></tt></a> and reimplement <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create" title="PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler.create()</span></tt></a> . When you instantiate the handler (e.g. by creating an instance on the stack or on the heap), it will automatically register with Qt. (The latest registered handler takes precedence over existing handlers.)</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>class ZipEngineHandler(QAbstractFileEngineHandler):
+    def create(self, fileName):
+        # ZipEngineHandler returns a ZipEngine for all .zip files
+        if fileName.toLower().endsWith(".zip"):
+            return ZipEngine(fileName)
+        else
+            return None
+
+def main():
+    app = QApplication(sys.argv)
+
+    engine = ZipEngineHandler()
+
+    window = MainWindow()
+    window.show()
+
+    return app.exec()</pre>
+</div>
+<p>When the handler is destroyed, it is automatically removed from Qt.</p>
+<p>The most common approach to registering a handler is to create an instance as part of the start-up phase of your application. It is also possible to limit the scope of the file engine handler to a particular area of interest (e.g. a special file dialog that needs a custom file engine). By creating the handler inside a local scope, you can precisely control the area in which your engine will be applied without disturbing file operations in other parts of your application.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.QAbstractFileEngine" title="PySide.QtCore.QAbstractFileEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngine</span></tt></a>  <a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.PySide.QtCore.QAbstractFileEngine.create" title="PySide.QtCore.PySide.QtCore.QAbstractFileEngine.create"><tt class="xref py py-meth docutils literal"><span class="pre">QAbstractFileEngine.create()</span></tt></a></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtCore.QAbstractFileEngineHandler">
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QAbstractFileEngineHandler</tt><a class="headerlink" href="#PySide.QtCore.QAbstractFileEngineHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a file handler and registers it with Qt. Once created this handler&#8217;s <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create" title="PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler.create()</span></tt></a> function will be called (along with all the other handlers) for any paths used. The most recently created handler that recognizes the given path (i.e. that returns a <a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.QAbstractFileEngine" title="PySide.QtCore.QAbstractFileEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngine</span></tt></a> ) is used for the new path.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create" title="PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngineHandler.create()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create">
+<tt class="descclassname">PySide.QtCore.QAbstractFileEngineHandler.</tt><tt class="descname">create</tt><big>(</big><em>fileName</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QAbstractFileEngineHandler.create" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileName</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.QAbstractFileEngine" title="PySide.QtCore.QAbstractFileEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QAbstractFileEngine</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a file engine for file <tt class="docutils literal"><span class="pre">fileName</span></tt> . Returns 0 if this file handler cannot handle <tt class="docutils literal"><span class="pre">fileName</span></tt> .</p>
+<p>Example:</p>
+<div class="highlight-python"><pre>def create(fileName):
+    # ZipEngineHandler returns a ZipEngine for all .zip files
+    if fileName.lower().endswith(".zip"):
+        return ZipEngine(fileName)
+    else
+        return None</pre>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QAbstractFileEngine.html#PySide.QtCore.PySide.QtCore.QAbstractFileEngine.create" title="PySide.QtCore.PySide.QtCore.QAbstractFileEngine.create"><tt class="xref py py-meth docutils literal"><span class="pre">QAbstractFileEngine.create()</span></tt></a></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

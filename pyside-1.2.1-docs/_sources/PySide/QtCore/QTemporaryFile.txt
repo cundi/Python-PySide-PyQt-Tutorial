@@ -1,0 +1,196 @@
+.. module:: PySide.QtCore
+.. _QTemporaryFile:
+
+QTemporaryFile
+**************
+
+.. inheritance-diagram:: QTemporaryFile
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoRemove<PySide.QtCore.QTemporaryFile.autoRemove>` ()
+*    def :meth:`fileTemplate<PySide.QtCore.QTemporaryFile.fileTemplate>` ()
+*    def :meth:`open<PySide.QtCore.QTemporaryFile.open>` ()
+*    def :meth:`setAutoRemove<PySide.QtCore.QTemporaryFile.setAutoRemove>` (b)
+*    def :meth:`setFileTemplate<PySide.QtCore.QTemporaryFile.setFileTemplate>` (name)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createLocalFile<PySide.QtCore.QTemporaryFile.createLocalFile>` (file)
+*    def :meth:`createLocalFile<PySide.QtCore.QTemporaryFile.createLocalFile>` (fileName)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTemporaryFile` class is an I/O device that operates on temporary files.
+
+    :class:`PySide.QtCore.QTemporaryFile` is used to create unique temporary files safely. The file itself is created by calling :meth:`PySide.QtCore.QTemporaryFile.open` . The name of the temporary file is guaranteed to be unique (i.e., you are guaranteed to not overwrite an existing file), and the file will subsequently be removed upon destruction of the :class:`PySide.QtCore.QTemporaryFile` object. This is an important technique that avoids data corruption for applications that store data in temporary files. The file name is either auto-generated, or created based on a template, which is passed to :class:`PySide.QtCore.QTemporaryFile` 's constructor.
+
+    Example:
+
+    ::
+
+            # Within a function/method...
+
+            file_ = QTemporaryFile()
+            if file_.open():
+                # file_.fileName() returns the unique file name
+
+            # The QTemporaryFile destructor removes the temporary file
+            # as it goes out of scope.
+
+
+    Reopening a :class:`PySide.QtCore.QTemporaryFile` after calling :meth:`PySide.QtCore.QFile.close` is safe. For as long as the :class:`PySide.QtCore.QTemporaryFile` object itself is not destroyed, the unique temporary file will exist and be kept open internally by :class:`PySide.QtCore.QTemporaryFile` .
+
+    The file name of the temporary file can be found by calling :meth:`PySide.QtCore.QTemporaryFile.fileName` . Note that this is only defined after the file is first opened; the function returns an empty string before this.
+
+    A temporary file will have some static part of the name and some part that is calculated to be unique. The default filename ``qt_temp`` will be placed into the temporary path as returned by :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` . If you specify your own filename, a relative file path will not be placed in the temporary directory by default, but be relative to the current working directory.
+
+    Specified filenames can contain the following template ``XXXXXX`` (six upper case "X" characters), which will be replaced by the auto-generated portion of the filename. Note that the template is case sensitive. If the template is not present in the filename, :class:`PySide.QtCore.QTemporaryFile` appends the generated part to the filename given.
+
+    .. seealso::  :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>`  :class:`PySide.QtCore.QFile` 
+
+.. class:: QTemporaryFile()
+           QTemporaryFile(parent)
+           QTemporaryFile(templateName)
+           QTemporaryFile(templateName, parent)
+
+    :param templateName: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QTemporaryFile` in :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` , using the file template "qt\_temp.XXXXXX". The file is stored in the system's temporary directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.setFileTemplate`  :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` 
+
+    Constructs a :class:`PySide.QtCore.QTemporaryFile` (with the given ``parent`` ) in :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` , using the file template "qt\_temp.XXXXXX".
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.setFileTemplate` 
+
+    Constructs a :class:`PySide.QtCore.QTemporaryFile` with a template filename of ``templateName`` . Upon opening the temporary file this will be used to create a unique filename.
+
+    If the ``templateName`` does not contain XXXXXX it will automatically be appended and used as the dynamic portion of the filename.
+
+    If ``templateName`` is a relative path, the path will be relative to the current working directory. You can use :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` to construct ``templateName`` if you want use the system's temporary directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.open`  :meth:`PySide.QtCore.QTemporaryFile.fileTemplate` 
+
+    Constructs a :class:`PySide.QtCore.QTemporaryFile` with a template filename of ``templateName`` and the specified ``parent`` . Upon opening the temporary file this will be used to create a unique filename.
+
+    If the ``templateName`` does not contain XXXXXX it will automatically be appended and used as the dynamic portion of the filename.
+
+    If ``templateName`` is a relative path, the path will be relative to the current working directory. You can use :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` to construct ``templateName`` if you want use the system's temporary directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.open`  :meth:`PySide.QtCore.QTemporaryFile.fileTemplate` 
+
+.. method:: PySide.QtCore.QTemporaryFile.autoRemove()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :class:`PySide.QtCore.QTemporaryFile` is in auto remove mode. Auto-remove mode will automatically delete the filename from disk upon destruction. This makes it very easy to create your :class:`PySide.QtCore.QTemporaryFile` object on the stack, fill it with data, read from it, and finally on function return it will automatically clean up after itself.
+
+    Auto-remove is on by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.setAutoRemove`  :meth:`PySide.QtCore.QFile.remove` 
+
+
+.. staticmethod:: PySide.QtCore.QTemporaryFile.createLocalFile(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.QTemporaryFile`
+
+
+
+
+    This is an overloaded function.
+
+    Works on the given ``fileName`` rather than an existing :class:`PySide.QtCore.QFile` object.
+
+
+
+.. staticmethod:: PySide.QtCore.QTemporaryFile.createLocalFile(file)
+
+
+    :param file: :class:`PySide.QtCore.QFile`
+    :rtype: :class:`PySide.QtCore.QTemporaryFile`
+
+
+
+
+    If ``file`` is not on a local disk, a temporary file is created on a local disk, ``file`` is copied into the temporary local file, and a pointer to the temporary local file is returned. If ``file`` is already on a local disk, a copy is not created and 0 is returned.
+
+
+
+.. method:: PySide.QtCore.QTemporaryFile.fileTemplate()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the set file template. The default file template will be called qt\_temp and be placed in :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.setFileTemplate` 
+
+
+.. method:: PySide.QtCore.QTemporaryFile.open()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    A :class:`PySide.QtCore.QTemporaryFile` will always be opened in :attr:`QIODevice.ReadWrite<QIODevice.OpenModeFlag>` mode, this allows easy access to the data in the file. This function will return true upon success and will set the :meth:`PySide.QtCore.QTemporaryFile.fileName` to the unique filename used.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.fileName` 
+
+
+.. method:: PySide.QtCore.QTemporaryFile.setAutoRemove(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the :class:`PySide.QtCore.QTemporaryFile` into auto-remove mode if ``b`` is true.
+
+    Auto-remove is on by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.autoRemove`  :meth:`PySide.QtCore.QFile.remove` 
+
+
+.. method:: PySide.QtCore.QTemporaryFile.setFileTemplate(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the static portion of the file name to ``name`` . If the file template ends in XXXXXX that will automatically be replaced with the unique part of the filename, otherwise a filename will be determined automatically based on the static portion specified.
+
+    If ``name`` contains a relative file path, the path will be relative to the current working directory. You can use :meth:`QDir.tempPath()<PySide.QtCore.QDir.tempPath>` to construct ``name`` if you want use the system's temporary directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QTemporaryFile.fileTemplate` 
+
+
+

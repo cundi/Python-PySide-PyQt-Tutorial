@@ -1,0 +1,146 @@
+.. module:: PySide.QtMultimedia
+.. _QAbstractVideoBuffer:
+
+QAbstractVideoBuffer
+********************
+
+.. inheritance-diagram:: QAbstractVideoBuffer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`handleType<PySide.QtMultimedia.QAbstractVideoBuffer.handleType>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`handle<PySide.QtMultimedia.QAbstractVideoBuffer.handle>` ()
+*    def :meth:`mapMode<PySide.QtMultimedia.QAbstractVideoBuffer.mapMode>` ()
+*    def :meth:`unmap<PySide.QtMultimedia.QAbstractVideoBuffer.unmap>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QAbstractVideoBuffer` class is an abstraction for video data.
+
+    The :class:`PySide.QtMultimedia.QVideoFrame` class makes use of a :class:`PySide.QtMultimedia.QAbstractVideoBuffer` internally to reference a buffer of video data. Creating a subclass of :class:`PySide.QtMultimedia.QAbstractVideoBuffer` will allow you to construct video frames from preallocated or static buffers.
+
+    The contents of a buffer can be accessed by mapping the buffer to memory using the :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` function which returns a pointer to memory containing the contents of the the video buffer. The memory returned by :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` is released by calling the :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.unmap` function.
+
+    The :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handle` of a buffer may also be used to manipulate it's contents using type specific APIs. The type of a buffer's handle is given by the :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handleType` function.
+
+    .. seealso::  :class:`PySide.QtMultimedia.QVideoFrame` 
+
+.. class:: QAbstractVideoBuffer(type)
+
+    :param type: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.HandleType`
+
+    Constructs an abstract video buffer of the given ``type`` .
+
+
+.. attribute:: PySide.QtMultimedia.QAbstractVideoBuffer.MapMode
+
+    Enumerates how a video buffer's data is mapped to memory.
+
+    +------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                                                                                     |
+    +==============================+================================================================================================================================================+
+    |QAbstractVideoBuffer.NotMapped|The video buffer has is not mapped to memory.                                                                                                   |
+    +------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.ReadOnly |The mapped memory is populated with data from the video buffer when mapped, but the content of the mapped memory may be discarded when unmapped.|
+    +------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.WriteOnly|The mapped memory is uninitialized when mapped, and the content will be used to populate the video buffer when unmapped.                        |
+    +------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.ReadWrite|The mapped memory is populated with data from the video buffer, and the video buffer is repopulated with the content of the mapped memory.      |
+    +------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.mapMode`  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` 
+
+.. attribute:: PySide.QtMultimedia.QAbstractVideoBuffer.HandleType
+
+    Identifies the type of a video buffers handle.
+
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                   |
+    +=====================================+==============================================================================+
+    |QAbstractVideoBuffer.NoHandle        |The buffer has no handle, its data can only be accessed by mapping the buffer.|
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.GLTextureHandle |The handle of the buffer is an OpenGL texture ID.                             |
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.XvShmImageHandle|The handle contains pointer to shared memory XVideo image.                    |
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.CoreImageHandle |The handle contains pointer to Mac OS X CIImage.                              |
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.QPixmapHandle   |The handle of the buffer is a :class:`PySide.QtGui.QPixmap` .                 |
+    +-------------------------------------+------------------------------------------------------------------------------+
+    |QAbstractVideoBuffer.UserHandle      |Start value for user defined handle types.                                    |
+    +-------------------------------------+------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handleType` 
+
+.. method:: PySide.QtMultimedia.QAbstractVideoBuffer.handle()
+
+
+    :rtype: object
+
+
+
+
+    Returns a type specific handle to the data buffer.
+
+    The type of the handle is given by :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handleType` function.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handleType` 
+
+
+.. method:: PySide.QtMultimedia.QAbstractVideoBuffer.handleType()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.HandleType`
+
+
+
+
+    Returns the type of a video buffer's handle.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.handle` 
+
+
+.. method:: PySide.QtMultimedia.QAbstractVideoBuffer.mapMode()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.MapMode`
+
+
+
+
+    Returns the mode a video buffer is mapped in.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` 
+
+
+.. method:: PySide.QtMultimedia.QAbstractVideoBuffer.unmap()
+
+
+
+
+
+
+    Releases the memory mapped by the :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` function
+
+    If the :attr:`QAbstractVideoBuffer.MapMode` included the :attr:`QAbstractVideoBuffer.WriteOnly<QAbstractVideoBuffer.MapMode>` flag this will persist the current content of the mapped memory to the video frame.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAbstractVideoBuffer.map` 
+
+
+

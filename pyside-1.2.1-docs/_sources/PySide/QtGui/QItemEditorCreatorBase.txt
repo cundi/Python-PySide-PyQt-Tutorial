@@ -1,0 +1,69 @@
+.. module:: PySide.QtGui
+.. _QItemEditorCreatorBase:
+
+QItemEditorCreatorBase
+**********************
+
+.. inheritance-diagram:: QItemEditorCreatorBase
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QItemEditorCreatorBase` class provides an abstract base class that must be subclassed when implementing new item editor creators.
+
+    :class:`PySide.QtGui.QItemEditorCreatorBase` objects are specialized widget factories that provide editor widgets for one particular :class:`PySide.QtCore.QVariant` data type. They are used by :class:`PySide.QtGui.QItemEditorFactory` to create editors for :class:`PySide.QtGui.QItemDelegate` s. Creator bases must be registered with :meth:`QItemEditorFactory.registerEditor()<PySide.QtGui.QItemEditorFactory.registerEditor>` .
+
+    An editor should provide a user property for the data it edits. QItemDelagates can then access the property using Qt's :ref:`meta-object system<metaobjects.html>` to set and retrieve the editing data. A property is set as the user property with the USER keyword:
+
+    ::
+
+        Q_PROPERTY(QColor color READ color WRITE setColor USER true)
+
+
+    If the editor does not provide a user property, it must return the name of the property from :meth:`PySide.QtGui.QItemEditorCreatorBase.valuePropertyName` ; delegates will then use the name to access the property. If a user property exists, item delegates will not call :meth:`PySide.QtGui.QItemEditorCreatorBase.valuePropertyName` .
+
+    :class:`~PySide.QtGui.QStandardItemEditorCreator` is a convenience template class that can be used to register widgets without the need to subclass :class:`PySide.QtGui.QItemEditorCreatorBase` .
+
+    .. seealso::  :class:`~PySide.QtGui.QStandardItemEditorCreator`  :class:`PySide.QtGui.QItemEditorFactory`  :ref:`Model/View Programming<model-view-programming.html>`  :ref:`Color Editor Factory Example<itemviews/coloreditorfactory>` 
+
+.. class:: QItemEditorCreatorBase()
+
+
+
+
+.. method:: PySide.QtGui.QItemEditorCreatorBase.createWidget(parent)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns an editor widget with the given ``parent`` .
+
+    When implementing this function in subclasses of this class, you must construct and return new editor widgets with the parent widget specified.
+
+
+
+.. method:: PySide.QtGui.QItemEditorCreatorBase.valuePropertyName()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the name of the property used to get and set values in the creator's editor widgets.
+
+    When implementing this function in subclasses, you must ensure that the editor widget's property specified by this function can accept the type the creator is registered for. For example, a creator which constructs :class:`PySide.QtGui.QCheckBox` widgets to edit boolean values would return the :meth:`PySide.QtGui.QCheckBox.checkable` property name from this function, and must be registered in the item editor factory for the :attr:`QVariant.Bool<QVariant.Type>` type.
+
+    Note: Since Qt 4.2 the item delegates query the user property of widgets, and only call this function if the widget has no user property. You can override this behavior by reimplementing :meth:`QAbstractItemDelegate.setModelData()<PySide.QtGui.QAbstractItemDelegate.setModelData>` and :meth:`QAbstractItemDelegate.setEditorData()<PySide.QtGui.QAbstractItemDelegate.setEditorData>` .
+
+    .. seealso::  :meth:`QMetaObject.userProperty()<PySide.QtCore.QMetaObject.userProperty>`  :meth:`QItemEditorFactory.registerEditor()<PySide.QtGui.QItemEditorFactory.registerEditor>` 
+
+
+

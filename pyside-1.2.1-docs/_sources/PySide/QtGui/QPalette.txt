@@ -1,0 +1,853 @@
+.. module:: PySide.QtGui
+.. _QPalette:
+
+QPalette
+********
+
+.. inheritance-diagram:: QPalette
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QPalette.__eq__>` (p)
+*    def :meth:`__ne__<PySide.QtGui.QPalette.__ne__>` (p)
+*    def :meth:`alternateBase<PySide.QtGui.QPalette.alternateBase>` ()
+*    def :meth:`base<PySide.QtGui.QPalette.base>` ()
+*    def :meth:`brightText<PySide.QtGui.QPalette.brightText>` ()
+*    def :meth:`brush<PySide.QtGui.QPalette.brush>` (cg, cr)
+*    def :meth:`brush<PySide.QtGui.QPalette.brush>` (cr)
+*    def :meth:`button<PySide.QtGui.QPalette.button>` ()
+*    def :meth:`buttonText<PySide.QtGui.QPalette.buttonText>` ()
+*    def :meth:`cacheKey<PySide.QtGui.QPalette.cacheKey>` ()
+*    def :meth:`color<PySide.QtGui.QPalette.color>` (cg, cr)
+*    def :meth:`color<PySide.QtGui.QPalette.color>` (cr)
+*    def :meth:`currentColorGroup<PySide.QtGui.QPalette.currentColorGroup>` ()
+*    def :meth:`dark<PySide.QtGui.QPalette.dark>` ()
+*    def :meth:`highlight<PySide.QtGui.QPalette.highlight>` ()
+*    def :meth:`highlightedText<PySide.QtGui.QPalette.highlightedText>` ()
+*    def :meth:`init<PySide.QtGui.QPalette.init>` ()
+*    def :meth:`isBrushSet<PySide.QtGui.QPalette.isBrushSet>` (cg, cr)
+*    def :meth:`isCopyOf<PySide.QtGui.QPalette.isCopyOf>` (p)
+*    def :meth:`isEqual<PySide.QtGui.QPalette.isEqual>` (cr1, cr2)
+*    def :meth:`light<PySide.QtGui.QPalette.light>` ()
+*    def :meth:`link<PySide.QtGui.QPalette.link>` ()
+*    def :meth:`linkVisited<PySide.QtGui.QPalette.linkVisited>` ()
+*    def :meth:`mid<PySide.QtGui.QPalette.mid>` ()
+*    def :meth:`midlight<PySide.QtGui.QPalette.midlight>` ()
+*    def :meth:`resolve<PySide.QtGui.QPalette.resolve>` ()
+*    def :meth:`resolve<PySide.QtGui.QPalette.resolve>` (arg__1)
+*    def :meth:`resolve<PySide.QtGui.QPalette.resolve>` (mask)
+*    def :meth:`setBrush<PySide.QtGui.QPalette.setBrush>` (cg, cr, brush)
+*    def :meth:`setBrush<PySide.QtGui.QPalette.setBrush>` (cr, brush)
+*    def :meth:`setColor<PySide.QtGui.QPalette.setColor>` (cg, cr, color)
+*    def :meth:`setColor<PySide.QtGui.QPalette.setColor>` (cr, color)
+*    def :meth:`setColorGroup<PySide.QtGui.QPalette.setColorGroup>` (cr, windowText, button, light, dark, mid, text, bright_text, base, alternate_base, window, midlight, button_text, shadow, highlight, highlighted_text, link, link_visited)
+*    def :meth:`setColorGroup<PySide.QtGui.QPalette.setColorGroup>` (cr, windowText, button, light, dark, mid, text, bright_text, base, alternate_base, window, midlight, button_text, shadow, highlight, highlighted_text, link, link_visited, toolTipBase, toolTipText)
+*    def :meth:`setColorGroup<PySide.QtGui.QPalette.setColorGroup>` (cr, windowText, button, light, dark, mid, text, bright_text, base, window)
+*    def :meth:`setCurrentColorGroup<PySide.QtGui.QPalette.setCurrentColorGroup>` (cg)
+*    def :meth:`shadow<PySide.QtGui.QPalette.shadow>` ()
+*    def :meth:`text<PySide.QtGui.QPalette.text>` ()
+*    def :meth:`toolTipBase<PySide.QtGui.QPalette.toolTipBase>` ()
+*    def :meth:`toolTipText<PySide.QtGui.QPalette.toolTipText>` ()
+*    def :meth:`window<PySide.QtGui.QPalette.window>` ()
+*    def :meth:`windowText<PySide.QtGui.QPalette.windowText>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPalette` class contains color groups for each widget state.
+
+    A palette consists of three color groups: *Active* , *Disabled* , and *Inactive* . All widgets in Qt contain a palette and use their palette to draw themselves. This makes the user interface easily configurable and easier to keep consistent.
+
+    If you create a new widget we strongly recommend that you use the colors in the palette rather than hard-coding specific colors.
+
+    The color groups:
+
+
+    * The Active group is used for the window that has keyboard focus.
+    * The Inactive group is used for other windows.
+    * The Disabled group is used for widgets (not windows) that are disabled for some reason.
+
+    Both active and inactive windows can contain disabled widgets. (Disabled widgets are often called *inaccessible* or *grayed out* .)
+
+    In most styles, Active and Inactive look the same.
+
+    Colors and brushes can be set for particular roles in any of a palette's color groups with :meth:`PySide.QtGui.QPalette.setColor` and :meth:`PySide.QtGui.QPalette.setBrush` . A color group contains a group of colors used by widgets for drawing themselves. We recommend that widgets use color group roles from the palette such as "foreground" and "base" rather than literal colors like "red" or "turquoise". The color roles are enumerated and defined in the :attr:`QPalette.ColorRole` documentation.
+
+    We strongly recommend that you use the default palette of the current style (returned by :meth:`QApplication.palette()<PySide.QtGui.QApplication.palette>` ) and modify that as necessary. This is done by Qt's widgets when they are drawn.
+
+    To modify a color group you call the functions :meth:`PySide.QtGui.QPalette.setColor` and :meth:`PySide.QtGui.QPalette.setBrush` , depending on whether you want a pure color or a pixmap pattern.
+
+    There are also corresponding :meth:`PySide.QtGui.QPalette.color` and :meth:`PySide.QtGui.QPalette.brush` getters, and a commonly used convenience function to get the :attr:`QPalette.ColorRole` for the current :attr:`QPalette.ColorGroup` : :meth:`PySide.QtGui.QPalette.window` , :meth:`PySide.QtGui.QPalette.windowText` , :meth:`PySide.QtGui.QPalette.base` , etc.
+
+    You can copy a palette using the copy constructor and test to see if two palettes are *identical* using :meth:`PySide.QtGui.QPalette.isCopyOf` .
+
+    :class:`PySide.QtGui.QPalette` is optimized by the use of :ref:`implicit sharing<implicit-sharing.html>` , so it is very efficient to pass :class:`PySide.QtGui.QPalette` objects as arguments.
+
+    .. warning::  Some styles do not use the palette for all drawing, for instance, if they make use of native theme engines. This is the case for both the Windows XP, Windows Vista, and the Mac OS X styles.
+
+    .. seealso::  :meth:`QApplication.setPalette()<PySide.QtGui.QApplication.setPalette>`  :meth:`QWidget.setPalette()<PySide.QtGui.QWidget.setPalette>`  :class:`PySide.QtGui.QColor` 
+
+.. class:: QPalette()
+           QPalette(button)
+           QPalette(windowText, button, light, dark, mid, text, bright_text, base, window)
+           QPalette(button)
+           QPalette(button, window)
+           QPalette(palette)
+
+    :param palette: :class:`PySide.QtGui.QPalette`
+    :param button: :attr:`PySide.QtCore.Qt.GlobalColor`
+    :param window: :class:`PySide.QtGui.QBrush`
+    :param mid: :class:`PySide.QtGui.QBrush`
+    :param base: :class:`PySide.QtGui.QBrush`
+    :param bright_text: :class:`PySide.QtGui.QBrush`
+    :param dark: :class:`PySide.QtGui.QBrush`
+    :param windowText: :class:`PySide.QtGui.QBrush`
+    :param text: :class:`PySide.QtGui.QBrush`
+    :param light: :class:`PySide.QtGui.QBrush`
+
+    Constructs a palette object that uses the application's default palette.
+
+    .. seealso::  :meth:`QApplication.setPalette()<PySide.QtGui.QApplication.setPalette>`  :meth:`QApplication.palette()<PySide.QtGui.QApplication.palette>` 
+
+
+
+    Constructs a palette. You can pass either brushes, pixmaps or plain colors for ``windowText`` , ``button`` , ``light`` , ``dark`` , ``mid`` , ``text`` , ``bright_text`` , ``base`` and ``window`` .
+
+    .. seealso::  :class:`PySide.QtGui.QBrush` 
+
+    Constructs a palette from the ``button`` color. The other colors are automatically calculated, based on this color. ``Window`` will be the button color as well.
+
+
+    Constructs a palette from a ``button`` color and a ``window`` . The other colors are automatically calculated, based on these colors.
+
+
+
+    Constructs a copy of ``p`` .
+
+    This constructor is fast thanks to :ref:`implicit sharing<implicit-sharing.html>` .
+
+
+.. attribute:: PySide.QtGui.QPalette.ColorGroup
+
+    +-----------------+------------------+
+    |Constant         |Description       |
+    +=================+==================+
+    |QPalette.Disabled|                  |
+    +-----------------+------------------+
+    |QPalette.Active  |                  |
+    +-----------------+------------------+
+    |QPalette.Inactive|                  |
+    +-----------------+------------------+
+    |QPalette.Normal  |synonym for Active|
+    +-----------------+------------------+
+
+
+.. attribute:: PySide.QtGui.QPalette.ColorRole
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/palette.png
+
+    The :attr:`QPalette.ColorRole` enum defines the different symbolic color roles used in current GUIs.
+
+    The central roles are:
+
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant              |Description                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +======================+================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QPalette.Window       |A general background color.                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.Background   |This value is obsolete. Use Window instead.                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.WindowText   |A general foreground color.                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.Foreground   |This value is obsolete. Use :attr:`WindowText<QPalette.ColorRole>` instead.                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.Base         |Used mostly as the background color for text entry widgets, but can also be used for other painting - such as the background of combobox drop down lists and toolbar handles. It is usually white or another light color.                                                                                                                                                                                                       |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.AlternateBase|Used as the alternate background color in views with alternating row colors (see :meth:`QAbstractItemView.setAlternatingRowColors()<PySide.QtGui.QAbstractItemView.setAlternatingRowColors>` ).                                                                                                                                                                                                                                 |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.ToolTipBase  |Used as the background color for :class:`PySide.QtGui.QToolTip` and :class:`PySide.QtGui.QWhatsThis` . Tool tips use the Inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.ToolTipText  |Used as the foreground color for :class:`PySide.QtGui.QToolTip` and :class:`PySide.QtGui.QWhatsThis` . Tool tips use the Inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.                                                                                                                                                                                                     |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.Text         |The foreground color used with ``Base``. This is usually the same as the ``WindowText``, in which case it must provide good contrast with ``Window`` and ``Base``.                                                                                                                                                                                                                                                              |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.Button       |The general button background color. This background can be different from ``Window`` as some styles require a different background color for buttons.                                                                                                                                                                                                                                                                          |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.ButtonText   |A foreground color used with the ``Button`` color.                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.BrightText   |A text color that is very different from ``WindowText``, and contrasts well with e.g. ``Dark``. Typically used for text that needs to be drawn where ``Text`` or ``WindowText`` would give poor contrast, such as on pressed push buttons. Note that text colors can be used for things other than just words; text colors are *usually* used for text, but it's quite common to use the text color roles for lines, icons, etc.|
+    +----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    There are some color roles used mostly for 3D bevel and shadow effects. All of these are normally derived from ``Window`` , and used in ways that depend on that relationship. For example, buttons depend on it to make the bevels look attractive, and Motif scroll bars depend on ``Mid`` to be slightly different from ``Window`` .
+
+    +-----------------+-------------------------------------------------------------------------------------+
+    |Constant         |Description                                                                          |
+    +=================+=====================================================================================+
+    |QPalette.Light   |Lighter than ``Button`` color.                                                       |
+    +-----------------+-------------------------------------------------------------------------------------+
+    |QPalette.Midlight|Between ``Button`` and ``Light``.                                                    |
+    +-----------------+-------------------------------------------------------------------------------------+
+    |QPalette.Dark    |Darker than ``Button``.                                                              |
+    +-----------------+-------------------------------------------------------------------------------------+
+    |QPalette.Mid     |Between ``Button`` and ``Dark``.                                                     |
+    +-----------------+-------------------------------------------------------------------------------------+
+    |QPalette.Shadow  |A very dark color. By default, the shadow color is :attr:`Qt.black<Qt.GlobalColor>` .|
+    +-----------------+-------------------------------------------------------------------------------------+
+
+    Selected (marked) items have two roles:
+
+    +------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                                                      |
+    +========================+=================================================================================================================================+
+    |QPalette.Highlight      |A color to indicate a selected item or the current item. By default, the highlight color is :attr:`Qt.darkBlue<Qt.GlobalColor>` .|
+    +------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.HighlightedText|A text color that contrasts with ``Highlight``. By default, the highlighted text color is :attr:`Qt.white<Qt.GlobalColor>` .     |
+    +------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+
+    There are two color roles related to hyperlinks:
+
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |Constant            |Description                                                                                                                |
+    +====================+===========================================================================================================================+
+    |QPalette.Link       |A text color used for unvisited hyperlinks. By default, the link color is :attr:`Qt.blue<Qt.GlobalColor>` .                |
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |QPalette.LinkVisited|A text color used for already visited hyperlinks. By default, the linkvisited color is :attr:`Qt.magenta<Qt.GlobalColor>` .|
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------+
+
+    Note that we do not use the ``Link`` and ``LinkVisited`` roles when rendering rich text in Qt, and that we recommend that you use CSS and the :meth:`QTextDocument.setDefaultStyleSheet()<PySide.QtGui.QTextDocument.setDefaultStyleSheet>` function to alter the appearance of links. For example:
+
+    ::
+
+            browser = QTextBrowser()
+            linkColor = QColor(Qt.red)
+            sheet = QString.fromLatin1("a { text-decoration: underline color: %1 }").arg(linkColor.name())
+            browser.document().setDefaultStyleSheet(sheet)
+
+
+    +---------------+---------------------------------------------------------------------------------------+
+    |Constant       |Description                                                                            |
+    +===============+=======================================================================================+
+    |QPalette.NoRole|No role; this special role is often used to indicate that a role has not been assigned.|
+    +---------------+---------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QPalette.alternateBase()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the alternate base brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.base()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the base brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.brightText()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the bright text foreground brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.brush(cg, cr)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush in the specified color ``group`` , used for the given color ``role`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.color`  :meth:`PySide.QtGui.QPalette.setBrush`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.brush(cr)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the brush that has been set for the given color ``role`` in the current :attr:`QPalette.ColorGroup` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.color`  :meth:`PySide.QtGui.QPalette.setBrush`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.button()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the button brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.buttonText()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the button text foreground brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.cacheKey()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns a number that identifies the contents of this :class:`PySide.QtGui.QPalette` object. Distinct :class:`PySide.QtGui.QPalette` objects can have the same key if they refer to the same contents.
+
+    The :meth:`PySide.QtGui.QPalette.cacheKey` will change when the palette is altered.
+
+
+
+.. method:: PySide.QtGui.QPalette.color(cr)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the color that has been set for the given color ``role`` in the current :attr:`QPalette.ColorGroup` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.brush`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.color(cg, cr)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the color in the specified color ``group`` , used for the given color ``role`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.brush`  :meth:`PySide.QtGui.QPalette.setColor`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.currentColorGroup()
+
+
+    :rtype: :attr:`PySide.QtGui.QPalette.ColorGroup`
+
+
+
+
+    Returns the palette's current color group.
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.setCurrentColorGroup` 
+
+
+.. method:: PySide.QtGui.QPalette.dark()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the dark brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.highlight()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the highlight brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.highlightedText()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the highlighted text brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.init()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPalette.isBrushSet(cg, cr)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :attr:`QPalette.ColorGroup` ``cg`` and :attr:`QPalette.ColorRole` ``cr`` has been set previously on this palette; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.setBrush` 
+
+
+.. method:: PySide.QtGui.QPalette.isCopyOf(p)
+
+
+    :param p: :class:`PySide.QtGui.QPalette`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this palette and ``p`` are copies of each other, i.e. one of them was created as a copy of the other and neither was subsequently modified; otherwise returns false. This is much stricter than equality.
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.operator=`  :meth:`PySide.QtGui.QPalette.operator==` 
+
+
+.. method:: PySide.QtGui.QPalette.isEqual(cr1, cr2)
+
+
+    :param cr1: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr2: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true (usually quickly) if color group ``cg1`` is equal to ``cg2`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QPalette.light()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the light brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.link()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the unvisited link text brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.linkVisited()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the visited link text brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.mid()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the mid brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.midlight()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the midlight brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.__ne__(p)
+
+
+    :param p: :class:`PySide.QtGui.QPalette`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true (slowly) if this palette is different from ``p`` ; otherwise returns false (usually quickly).
+
+    .. note::  The current :attr:`QPalette.ColorGroup` is not taken into account when comparing palettes
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.operator==` 
+
+
+.. method:: PySide.QtGui.QPalette.__eq__(p)
+
+
+    :param p: :class:`PySide.QtGui.QPalette`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true (usually quickly) if this palette is equal to ``p`` ; otherwise returns false (slowly).
+
+    .. note::  The current :attr:`QPalette.ColorGroup` is not taken into account when comparing palettes
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.operator!=` 
+
+
+.. method:: PySide.QtGui.QPalette.resolve(mask)
+
+
+    :param mask: :class:`PySide.QtCore.uint`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPalette.resolve(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPalette`
+    :rtype: :class:`PySide.QtGui.QPalette`
+
+
+
+
+    Returns a new :class:`PySide.QtGui.QPalette` that has attributes copied from ``other`` .
+
+
+
+.. method:: PySide.QtGui.QPalette.resolve()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPalette.setBrush(cr, brush)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the brush for the given color ``role`` to the specified ``brush`` for all groups in the palette.
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.brush`  :meth:`PySide.QtGui.QPalette.setColor`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.setBrush(cg, cr, brush)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the brush in the specified color ``group`` , used for the given color ``role`` , to ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.brush`  :meth:`PySide.QtGui.QPalette.setColor`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.setColor(cr, color)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the color used for the given color ``role`` , in all color groups, to the specified solid ``color`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.brush`  :meth:`PySide.QtGui.QPalette.setColor`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.setColor(cg, cr, color)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorRole`
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Sets the color in the specified color ``group`` , used for the given color ``role`` , to the specified solid ``color`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.setBrush`  :meth:`PySide.QtGui.QPalette.color`  :attr:`QPalette.ColorRole` 
+
+
+.. method:: PySide.QtGui.QPalette.setColorGroup(cr, windowText, button, light, dark, mid, text, bright_text, base, alternate_base, window, midlight, button_text, shadow, highlight, highlighted_text, link, link_visited, toolTipBase, toolTipText)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param windowText: :class:`PySide.QtGui.QBrush`
+    :param button: :class:`PySide.QtGui.QBrush`
+    :param light: :class:`PySide.QtGui.QBrush`
+    :param dark: :class:`PySide.QtGui.QBrush`
+    :param mid: :class:`PySide.QtGui.QBrush`
+    :param text: :class:`PySide.QtGui.QBrush`
+    :param bright_text: :class:`PySide.QtGui.QBrush`
+    :param base: :class:`PySide.QtGui.QBrush`
+    :param alternate_base: :class:`PySide.QtGui.QBrush`
+    :param window: :class:`PySide.QtGui.QBrush`
+    :param midlight: :class:`PySide.QtGui.QBrush`
+    :param button_text: :class:`PySide.QtGui.QBrush`
+    :param shadow: :class:`PySide.QtGui.QBrush`
+    :param highlight: :class:`PySide.QtGui.QBrush`
+    :param highlighted_text: :class:`PySide.QtGui.QBrush`
+    :param link: :class:`PySide.QtGui.QBrush`
+    :param link_visited: :class:`PySide.QtGui.QBrush`
+    :param toolTipBase: :class:`PySide.QtGui.QBrush`
+    :param toolTipText: :class:`PySide.QtGui.QBrush`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPalette.setColorGroup(cr, windowText, button, light, dark, mid, text, bright_text, base, alternate_base, window, midlight, button_text, shadow, highlight, highlighted_text, link, link_visited)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param windowText: :class:`PySide.QtGui.QBrush`
+    :param button: :class:`PySide.QtGui.QBrush`
+    :param light: :class:`PySide.QtGui.QBrush`
+    :param dark: :class:`PySide.QtGui.QBrush`
+    :param mid: :class:`PySide.QtGui.QBrush`
+    :param text: :class:`PySide.QtGui.QBrush`
+    :param bright_text: :class:`PySide.QtGui.QBrush`
+    :param base: :class:`PySide.QtGui.QBrush`
+    :param alternate_base: :class:`PySide.QtGui.QBrush`
+    :param window: :class:`PySide.QtGui.QBrush`
+    :param midlight: :class:`PySide.QtGui.QBrush`
+    :param button_text: :class:`PySide.QtGui.QBrush`
+    :param shadow: :class:`PySide.QtGui.QBrush`
+    :param highlight: :class:`PySide.QtGui.QBrush`
+    :param highlighted_text: :class:`PySide.QtGui.QBrush`
+    :param link: :class:`PySide.QtGui.QBrush`
+    :param link_visited: :class:`PySide.QtGui.QBrush`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPalette.setColorGroup(cr, windowText, button, light, dark, mid, text, bright_text, base, window)
+
+
+    :param cr: :attr:`PySide.QtGui.QPalette.ColorGroup`
+    :param windowText: :class:`PySide.QtGui.QBrush`
+    :param button: :class:`PySide.QtGui.QBrush`
+    :param light: :class:`PySide.QtGui.QBrush`
+    :param dark: :class:`PySide.QtGui.QBrush`
+    :param mid: :class:`PySide.QtGui.QBrush`
+    :param text: :class:`PySide.QtGui.QBrush`
+    :param bright_text: :class:`PySide.QtGui.QBrush`
+    :param base: :class:`PySide.QtGui.QBrush`
+    :param window: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets a the group at ``cg`` . You can pass either brushes, pixmaps or plain colors for ``windowText`` , ``button`` , ``light`` , ``dark`` , ``mid`` , ``text`` , ``bright_text`` , ``base`` and ``window`` .
+
+    .. seealso::  :class:`PySide.QtGui.QBrush` 
+
+
+.. method:: PySide.QtGui.QPalette.setCurrentColorGroup(cg)
+
+
+    :param cg: :attr:`PySide.QtGui.QPalette.ColorGroup`
+
+
+
+
+    Set the palette's current color group to ``cg`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPalette.currentColorGroup` 
+
+
+.. method:: PySide.QtGui.QPalette.shadow()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the shadow brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.text()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the text foreground brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.toolTipBase()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the tool tip base brush of the current color group. This brush is used by :class:`PySide.QtGui.QToolTip` and :class:`PySide.QtGui.QWhatsThis` .
+
+    .. note::  Tool tips use the Inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.toolTipText()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the tool tip text brush of the current color group. This brush is used by :class:`PySide.QtGui.QToolTip` and :class:`PySide.QtGui.QWhatsThis` .
+
+    .. note::  Tool tips use the Inactive color group of :class:`PySide.QtGui.QPalette` , because tool tips are not active windows.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.window()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the window (general background) brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+.. method:: PySide.QtGui.QPalette.windowText()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the window text (general foreground) brush of the current color group.
+
+    .. seealso::  :attr:`QPalette.ColorRole`  :meth:`PySide.QtGui.QPalette.brush` 
+
+
+

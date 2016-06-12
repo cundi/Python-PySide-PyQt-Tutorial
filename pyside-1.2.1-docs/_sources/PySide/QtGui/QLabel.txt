@@ -1,0 +1,724 @@
+.. module:: PySide.QtGui
+.. _QLabel:
+
+QLabel
+******
+
+.. inheritance-diagram:: QLabel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QLabel.alignment>` ()
+*    def :meth:`buddy<PySide.QtGui.QLabel.buddy>` ()
+*    def :meth:`hasScaledContents<PySide.QtGui.QLabel.hasScaledContents>` ()
+*    def :meth:`hasSelectedText<PySide.QtGui.QLabel.hasSelectedText>` ()
+*    def :meth:`indent<PySide.QtGui.QLabel.indent>` ()
+*    def :meth:`margin<PySide.QtGui.QLabel.margin>` ()
+*    def :meth:`movie<PySide.QtGui.QLabel.movie>` ()
+*    def :meth:`openExternalLinks<PySide.QtGui.QLabel.openExternalLinks>` ()
+*    def :meth:`picture<PySide.QtGui.QLabel.picture>` ()
+*    def :meth:`pixmap<PySide.QtGui.QLabel.pixmap>` ()
+*    def :meth:`selectedText<PySide.QtGui.QLabel.selectedText>` ()
+*    def :meth:`selectionStart<PySide.QtGui.QLabel.selectionStart>` ()
+*    def :meth:`setAlignment<PySide.QtGui.QLabel.setAlignment>` (arg__1)
+*    def :meth:`setBuddy<PySide.QtGui.QLabel.setBuddy>` (arg__1)
+*    def :meth:`setIndent<PySide.QtGui.QLabel.setIndent>` (arg__1)
+*    def :meth:`setMargin<PySide.QtGui.QLabel.setMargin>` (arg__1)
+*    def :meth:`setOpenExternalLinks<PySide.QtGui.QLabel.setOpenExternalLinks>` (open)
+*    def :meth:`setScaledContents<PySide.QtGui.QLabel.setScaledContents>` (arg__1)
+*    def :meth:`setSelection<PySide.QtGui.QLabel.setSelection>` (arg__1, arg__2)
+*    def :meth:`setTextFormat<PySide.QtGui.QLabel.setTextFormat>` (arg__1)
+*    def :meth:`setTextInteractionFlags<PySide.QtGui.QLabel.setTextInteractionFlags>` (flags)
+*    def :meth:`setWordWrap<PySide.QtGui.QLabel.setWordWrap>` (on)
+*    def :meth:`text<PySide.QtGui.QLabel.text>` ()
+*    def :meth:`textFormat<PySide.QtGui.QLabel.textFormat>` ()
+*    def :meth:`textInteractionFlags<PySide.QtGui.QLabel.textInteractionFlags>` ()
+*    def :meth:`wordWrap<PySide.QtGui.QLabel.wordWrap>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QLabel.clear>` ()
+*    def :meth:`setMovie<PySide.QtGui.QLabel.setMovie>` (movie)
+*    def :meth:`setNum<PySide.QtGui.QLabel.setNum>` (arg__1)
+*    def :meth:`setNum<PySide.QtGui.QLabel.setNum>` (arg__1)
+*    def :meth:`setPicture<PySide.QtGui.QLabel.setPicture>` (arg__1)
+*    def :meth:`setPixmap<PySide.QtGui.QLabel.setPixmap>` (arg__1)
+*    def :meth:`setText<PySide.QtGui.QLabel.setText>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`linkActivated<PySide.QtGui.QLabel.linkActivated>` (link)
+*    def :meth:`linkHovered<PySide.QtGui.QLabel.linkHovered>` (link)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QLabel` widget provides a text or image display.
+
+    :class:`PySide.QtGui.QLabel` is used for displaying text or an image. No user interaction functionality is provided. The visual appearance of the label can be configured in various ways, and it can be used for specifying a focus mnemonic key for another widget.
+
+    A :class:`PySide.QtGui.QLabel` can contain any of the following content types:
+
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |Content   |Setting                                                                                                     |
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |Plain text|Pass a :class:`PySide.QtCore.QString` to :meth:`PySide.QtGui.QLabel.setText` .                              |
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |Rich text |Pass a :class:`PySide.QtCore.QString` that contains rich text to :meth:`PySide.QtGui.QLabel.setText` .      |
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |A pixmap  |Pass a :class:`PySide.QtGui.QPixmap` to :meth:`PySide.QtGui.QLabel.setPixmap` .                             |
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |A movie   |Pass a :class:`PySide.QtGui.QMovie` to :meth:`PySide.QtGui.QLabel.setMovie` .                               |
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |A number  |Pass an *int* or a *double* to :meth:`PySide.QtGui.QLabel.setNum` , which converts the number to plain text.|
+    +----------+------------------------------------------------------------------------------------------------------------+
+    |Nothing   |The same as an empty plain text. This is the default. Set by :meth:`PySide.QtGui.QLabel.clear` .            |
+    +----------+------------------------------------------------------------------------------------------------------------+
+
+    .. warning::  When passing a :class:`PySide.QtCore.QString` to the constructor or calling :meth:`PySide.QtGui.QLabel.setText` , make sure to sanitize your input, as :class:`PySide.QtGui.QLabel` tries to guess whether it displays the text as plain text or as rich text. You may want to call :meth:`PySide.QtGui.QLabel.setTextFormat` explicitly, e.g. in case you expect the text to be in plain format but cannot control the text source (for instance when displaying data loaded from the Web).
+
+    When the content is changed using any of these functions, any previous content is cleared.
+
+    By default, labels display :meth:`left-aligned, vertically-centered<PySide.QtGui.QLabel.alignment>` text and images, where any tabs in the text to be displayed are :attr:`automatically expanded<Qt.TextFlag>` . However, the look of a :class:`PySide.QtGui.QLabel` can be adjusted and fine-tuned in several ways.
+
+    The positioning of the content within the :class:`PySide.QtGui.QLabel` widget area can be tuned with :meth:`PySide.QtGui.QLabel.setAlignment` and :meth:`PySide.QtGui.QLabel.setIndent` . Text content can also wrap lines along word boundaries with :meth:`PySide.QtGui.QLabel.setWordWrap` . For example, this code sets up a sunken panel with a two-line text in the bottom right corner (both lines being flush with the right side of the label):
+
+    ::
+
+        label = QLabel(self)
+        label.setFrameStyle(QFrame.Panel | QFrame.Sunken)
+        label.setText("first line\nsecond line")
+        label.setAlignment(Qt.AlignBottom | Qt.AlignRight)
+
+
+    The properties and functions :class:`PySide.QtGui.QLabel` inherits from :class:`PySide.QtGui.QFrame` can also be used to specify the widget frame to be used for any given label.
+
+    A :class:`PySide.QtGui.QLabel` is often used as a label for an interactive widget. For this use :class:`PySide.QtGui.QLabel` provides a useful mechanism for adding an mnemonic (see :class:`PySide.QtGui.QKeySequence` ) that will set the keyboard focus to the other widget (called the :class:`PySide.QtGui.QLabel` 's "buddy"). For example:
+
+    ::
+
+        phoneEdit = QLineEdit(self)
+        phoneLabel = QLabel("&Phone:", self)
+        phoneLabel.setBuddy(phoneEdit)
+
+
+    In this example, keyboard focus is transferred to the label's buddy (the :class:`PySide.QtGui.QLineEdit` ) when the user presses Alt+P. If the buddy was a button (inheriting from :class:`PySide.QtGui.QAbstractButton` ), triggering the mnemonic would emulate a button click.
+
+    +--------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-label.png|A label shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` . |
+    +--------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-label.png|A label shown in the :ref:`Plastique widget style<gallery-plastique.html>` . |
+    +--------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-label.png|A label shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .|
+    +--------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QLineEdit`  :class:`PySide.QtGui.QTextEdit`  :class:`PySide.QtGui.QPixmap`  :class:`PySide.QtGui.QMovie`  :ref:`GUI Design Handbook: Label<guibooks.html>` 
+
+.. class:: QLabel([parent=None[, f=0]])
+           QLabel(text[, parent=None[, f=0]])
+
+    :param f: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param text: unicode
+
+
+
+
+
+.. method:: PySide.QtGui.QLabel.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the label's contents.
+
+    By default, the contents of the label are left-aligned and vertically-centered.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+.. method:: PySide.QtGui.QLabel.buddy()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns this label's buddy, or 0 if no buddy is currently set.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setBuddy` 
+
+
+.. method:: PySide.QtGui.QLabel.clear()
+
+
+
+
+
+
+    Clears any label contents.
+
+
+
+.. method:: PySide.QtGui.QLabel.hasScaledContents()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the label will scale its contents to fill all available space..
+
+    When enabled and the label shows a pixmap, it will scale the pixmap to fill the available space.
+
+    This property's default is false.
+
+
+
+.. method:: PySide.QtGui.QLabel.hasSelectedText()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether there is any text selected.
+
+    :meth:`PySide.QtGui.QLabel.hasSelectedText` returns true if some or all of the text has been selected by the user; otherwise returns false.
+
+    By default, this property is false.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either TextSelectableByMouse or TextSelectableByKeyboard.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.selectedText` 
+
+
+.. method:: PySide.QtGui.QLabel.indent()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the label's text indent in pixels.
+
+    If a label displays text, the indent applies to the left edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` , to the right edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignRight<Qt.AlignmentFlag>` , to the top edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignTop<Qt.AlignmentFlag>` , and to to the bottom edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignBottom<Qt.AlignmentFlag>` .
+
+    If indent is negative, or if no indent has been set, the label computes the effective indent as follows: If :meth:`PySide.QtGui.QFrame.frameWidth` is 0, the effective indent becomes 0. If :meth:`PySide.QtGui.QFrame.frameWidth` is greater than 0, the effective indent becomes half the width of the "x" character of the widget's current :meth:`PySide.QtGui.QWidget.font` .
+
+    By default, the indent is -1, meaning that an effective indent is calculating in the manner described above.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.alignment`  :meth:`PySide.QtGui.QLabel.margin`  :meth:`PySide.QtGui.QFrame.frameWidth`  :meth:`PySide.QtGui.QWidget.font` 
+
+
+.. method:: PySide.QtGui.QLabel.linkActivated(link)
+
+
+    :param link: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLabel.linkHovered(link)
+
+
+    :param link: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLabel.margin()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the width of the margin.
+
+    The margin is the distance between the innermost pixel of the frame and the outermost pixel of contents.
+
+    The default margin is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.indent` 
+
+
+.. method:: PySide.QtGui.QLabel.movie()
+
+
+    :rtype: :class:`PySide.QtGui.QMovie`
+
+
+
+
+    Returns a pointer to the label's movie, or 0 if no movie has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setMovie` 
+
+
+.. method:: PySide.QtGui.QLabel.openExternalLinks()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Specifies whether :class:`PySide.QtGui.QLabel` should automatically open links using :meth:`QDesktopServices.openUrl()<PySide.QtGui.QDesktopServices.openUrl>` instead of emitting the :meth:`PySide.QtGui.QLabel.linkActivated` signal.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either LinksAccessibleByMouse or LinksAccessibleByKeyboard.
+
+    The default value is false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.textInteractionFlags` 
+
+
+.. method:: PySide.QtGui.QLabel.picture()
+
+
+    :rtype: :class:`PySide.QtGui.QPicture`
+
+
+
+
+    Returns the label's picture or 0 if the label doesn't have a picture.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setPicture` 
+
+
+.. method:: PySide.QtGui.QLabel.pixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This property holds the label's pixmap.
+
+    If no pixmap has been set this will return 0.
+
+    Setting the pixmap clears any previous content. The buddy shortcut, if any, is disabled.
+
+
+
+.. method:: PySide.QtGui.QLabel.selectedText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the selected text.
+
+    If there is no selected text this property's value is an empty string.
+
+    By default, this property contains an empty string.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either TextSelectableByMouse or TextSelectableByKeyboard.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.hasSelectedText` 
+
+
+.. method:: PySide.QtGui.QLabel.selectionStart()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    :meth:`PySide.QtGui.QLabel.selectionStart` returns the index of the first selected character in the label or -1 if no text is selected.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either TextSelectableByMouse or TextSelectableByKeyboard.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.selectedText` 
+
+
+.. method:: PySide.QtGui.QLabel.setAlignment(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the label's contents.
+
+    By default, the contents of the label are left-aligned and vertically-centered.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+.. method:: PySide.QtGui.QLabel.setBuddy(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets this label's buddy to ``buddy`` .
+
+    When the user presses the shortcut key indicated by this label, the keyboard focus is transferred to the label's buddy widget.
+
+    The buddy mechanism is only available for QLabels that contain text in which one character is prefixed with an ampersand, '&'. This character is set as the shortcut key. See the :meth:`QKeySequence.mnemonic()<PySide.QtGui.QKeySequence.mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    In a dialog, you might create two data entry widgets and a label for each, and set up the geometry layout so each label is just to the left of its data entry widget (its "buddy"), for example:
+
+    ::
+
+        nameEd  = QLineEdit(self)
+        nameLb  = QLabel("&Name:", self)
+        nameLb.setBuddy(nameEd)
+        phoneEd = QLineEdit(self)
+        phoneLb = QLabel("&Phone:", self)
+        phoneLb.setBuddy(phoneEd)
+        # (layout setup not shown)
+
+
+    With the code above, the focus jumps to the Name field when the user presses Alt+N, and to the Phone field when the user presses Alt+P.
+
+    To unset a previously set buddy, call this function with ``buddy`` set to 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.buddy`  :meth:`PySide.QtGui.QLabel.setText`  :class:`PySide.QtGui.QShortcut`  :meth:`PySide.QtGui.QLabel.setAlignment` 
+
+
+.. method:: PySide.QtGui.QLabel.setIndent(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the label's text indent in pixels.
+
+    If a label displays text, the indent applies to the left edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` , to the right edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignRight<Qt.AlignmentFlag>` , to the top edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignTop<Qt.AlignmentFlag>` , and to to the bottom edge if :meth:`PySide.QtGui.QLabel.alignment` is :attr:`Qt.AlignBottom<Qt.AlignmentFlag>` .
+
+    If indent is negative, or if no indent has been set, the label computes the effective indent as follows: If :meth:`PySide.QtGui.QFrame.frameWidth` is 0, the effective indent becomes 0. If :meth:`PySide.QtGui.QFrame.frameWidth` is greater than 0, the effective indent becomes half the width of the "x" character of the widget's current :meth:`PySide.QtGui.QWidget.font` .
+
+    By default, the indent is -1, meaning that an effective indent is calculating in the manner described above.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.alignment`  :meth:`PySide.QtGui.QLabel.margin`  :meth:`PySide.QtGui.QFrame.frameWidth`  :meth:`PySide.QtGui.QWidget.font` 
+
+
+.. method:: PySide.QtGui.QLabel.setMargin(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the width of the margin.
+
+    The margin is the distance between the innermost pixel of the frame and the outermost pixel of contents.
+
+    The default margin is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.indent` 
+
+
+.. method:: PySide.QtGui.QLabel.setMovie(movie)
+
+
+    :param movie: :class:`PySide.QtGui.QMovie`
+
+
+
+
+    Sets the label contents to ``movie`` . Any previous content is cleared. The label does NOT take ownership of the movie.
+
+    The buddy shortcut, if any, is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.movie`  :meth:`PySide.QtGui.QLabel.setBuddy` 
+
+
+.. method:: PySide.QtGui.QLabel.setNum(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.double`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the label contents to plain text containing the textual representation of double ``num`` . Any previous content is cleared. Does nothing if the double's string representation is the same as the current contents of the label.
+
+    The buddy shortcut, if any, is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setText`  :meth:`QString.setNum`  :meth:`PySide.QtGui.QLabel.setBuddy` 
+
+
+.. method:: PySide.QtGui.QLabel.setNum(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the label contents to plain text containing the textual representation of integer ``num`` . Any previous content is cleared. Does nothing if the integer's string representation is the same as the current contents of the label.
+
+    The buddy shortcut, if any, is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setText`  :meth:`QString.setNum`  :meth:`PySide.QtGui.QLabel.setBuddy` 
+
+
+.. method:: PySide.QtGui.QLabel.setOpenExternalLinks(open)
+
+
+    :param open: :class:`PySide.QtCore.bool`
+
+
+
+
+    Specifies whether :class:`PySide.QtGui.QLabel` should automatically open links using :meth:`QDesktopServices.openUrl()<PySide.QtGui.QDesktopServices.openUrl>` instead of emitting the :meth:`PySide.QtGui.QLabel.linkActivated` signal.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either LinksAccessibleByMouse or LinksAccessibleByKeyboard.
+
+    The default value is false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.textInteractionFlags` 
+
+
+.. method:: PySide.QtGui.QLabel.setPicture(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPicture`
+
+
+
+
+    Sets the label contents to ``picture`` . Any previous content is cleared.
+
+    The buddy shortcut, if any, is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.picture`  :meth:`PySide.QtGui.QLabel.setBuddy` 
+
+
+.. method:: PySide.QtGui.QLabel.setPixmap(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This property holds the label's pixmap.
+
+    If no pixmap has been set this will return 0.
+
+    Setting the pixmap clears any previous content. The buddy shortcut, if any, is disabled.
+
+
+
+.. method:: PySide.QtGui.QLabel.setScaledContents(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the label will scale its contents to fill all available space..
+
+    When enabled and the label shows a pixmap, it will scale the pixmap to fill the available space.
+
+    This property's default is false.
+
+
+
+.. method:: PySide.QtGui.QLabel.setSelection(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtCore.int`
+
+
+
+
+    Selects text from position ``start`` and for ``length`` characters.
+
+    .. note::  The :meth:`PySide.QtGui.QLabel.textInteractionFlags` set on the label need to include either TextSelectableByMouse or TextSelectableByKeyboard.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.selectedText` 
+
+
+.. method:: PySide.QtGui.QLabel.setText(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    This property holds the label's text.
+
+    If no text has been set this will return an empty string. Setting the text clears any previous content.
+
+    The text will be interpreted either as plain text or as rich text, depending on the text format setting; see :meth:`PySide.QtGui.QLabel.setTextFormat` . The default setting is :attr:`Qt.AutoText<Qt.TextFormat>` ; i.e. :class:`PySide.QtGui.QLabel` will try to auto-detect the format of the text set.
+
+    If a buddy has been set, the buddy mnemonic key is updated from the new text.
+
+    Note that :class:`PySide.QtGui.QLabel` is well-suited to display small rich text documents, such as small documents that get their document specific settings (font, text color, link color) from the label's palette and font properties. For large documents, use :class:`PySide.QtGui.QTextEdit` in read-only mode instead. :class:`PySide.QtGui.QTextEdit` can also provide a scroll bar when necessary.
+
+    .. note::  This function enables mouse tracking if ``text`` contains rich text.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setTextFormat`  :meth:`PySide.QtGui.QLabel.setBuddy`  :meth:`PySide.QtGui.QLabel.alignment` 
+
+
+.. method:: PySide.QtGui.QLabel.setTextFormat(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the label's text format.
+
+    See the :attr:`Qt.TextFormat` enum for an explanation of the possible options.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+.. method:: PySide.QtGui.QLabel.setTextInteractionFlags(flags)
+
+
+    :param flags: :class:`PySide.QtCore.Qt.TextInteractionFlags`
+
+
+
+
+    Specifies how the label should interact with user input if it displays text.
+
+    If the flags contain :attr:`Qt.LinksAccessibleByKeyboard<Qt.TextInteractionFlag>` the focus policy is also automatically set to :attr:`Qt.StrongFocus<Qt.FocusPolicy>` . If :attr:`Qt.TextSelectableByKeyboard<Qt.TextInteractionFlag>` is set then the focus policy is set to :attr:`Qt.ClickFocus<Qt.FocusPolicy>` .
+
+    The default value is :attr:`Qt.LinksAccessibleByMouse<Qt.TextInteractionFlag>` .
+
+
+
+.. method:: PySide.QtGui.QLabel.setWordWrap(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the label's word-wrapping policy.
+
+    If this property is true then label text is wrapped where necessary at word-breaks; otherwise it is not wrapped at all.
+
+    By default, word wrap is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+.. method:: PySide.QtGui.QLabel.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the label's text.
+
+    If no text has been set this will return an empty string. Setting the text clears any previous content.
+
+    The text will be interpreted either as plain text or as rich text, depending on the text format setting; see :meth:`PySide.QtGui.QLabel.setTextFormat` . The default setting is :attr:`Qt.AutoText<Qt.TextFormat>` ; i.e. :class:`PySide.QtGui.QLabel` will try to auto-detect the format of the text set.
+
+    If a buddy has been set, the buddy mnemonic key is updated from the new text.
+
+    Note that :class:`PySide.QtGui.QLabel` is well-suited to display small rich text documents, such as small documents that get their document specific settings (font, text color, link color) from the label's palette and font properties. For large documents, use :class:`PySide.QtGui.QTextEdit` in read-only mode instead. :class:`PySide.QtGui.QTextEdit` can also provide a scroll bar when necessary.
+
+    .. note::  This function enables mouse tracking if ``text`` contains rich text.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.setTextFormat`  :meth:`PySide.QtGui.QLabel.setBuddy`  :meth:`PySide.QtGui.QLabel.alignment` 
+
+
+.. method:: PySide.QtGui.QLabel.textFormat()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the label's text format.
+
+    See the :attr:`Qt.TextFormat` enum for an explanation of the possible options.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+.. method:: PySide.QtGui.QLabel.textInteractionFlags()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.TextInteractionFlags`
+
+
+
+
+    Specifies how the label should interact with user input if it displays text.
+
+    If the flags contain :attr:`Qt.LinksAccessibleByKeyboard<Qt.TextInteractionFlag>` the focus policy is also automatically set to :attr:`Qt.StrongFocus<Qt.FocusPolicy>` . If :attr:`Qt.TextSelectableByKeyboard<Qt.TextInteractionFlag>` is set then the focus policy is set to :attr:`Qt.ClickFocus<Qt.FocusPolicy>` .
+
+    The default value is :attr:`Qt.LinksAccessibleByMouse<Qt.TextInteractionFlag>` .
+
+
+
+.. method:: PySide.QtGui.QLabel.wordWrap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the label's word-wrapping policy.
+
+    If this property is true then label text is wrapped where necessary at word-breaks; otherwise it is not wrapped at all.
+
+    By default, word wrap is disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLabel.text` 
+
+
+

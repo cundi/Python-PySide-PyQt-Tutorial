@@ -1,0 +1,518 @@
+.. module:: PySide.QtSql
+.. _QSqlTableModel:
+
+QSqlTableModel
+**************
+
+.. inheritance-diagram:: QSqlTableModel
+    :parts: 2
+
+**Inherited by:** :ref:`QSqlRelationalTableModel`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`database<PySide.QtSql.QSqlTableModel.database>` ()
+*    def :meth:`editStrategy<PySide.QtSql.QSqlTableModel.editStrategy>` ()
+*    def :meth:`fieldIndex<PySide.QtSql.QSqlTableModel.fieldIndex>` (fieldName)
+*    def :meth:`filter<PySide.QtSql.QSqlTableModel.filter>` ()
+*    def :meth:`insertRecord<PySide.QtSql.QSqlTableModel.insertRecord>` (row, record)
+*    def :meth:`isDirty<PySide.QtSql.QSqlTableModel.isDirty>` (index)
+*    def :meth:`primaryKey<PySide.QtSql.QSqlTableModel.primaryKey>` ()
+*    def :meth:`setPrimaryKey<PySide.QtSql.QSqlTableModel.setPrimaryKey>` (key)
+*    def :meth:`setRecord<PySide.QtSql.QSqlTableModel.setRecord>` (row, record)
+*    def :meth:`tableName<PySide.QtSql.QSqlTableModel.tableName>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`deleteRowFromTable<PySide.QtSql.QSqlTableModel.deleteRowFromTable>` (row)
+*    def :meth:`insertRowIntoTable<PySide.QtSql.QSqlTableModel.insertRowIntoTable>` (values)
+*    def :meth:`orderByClause<PySide.QtSql.QSqlTableModel.orderByClause>` ()
+*    def :meth:`revertRow<PySide.QtSql.QSqlTableModel.revertRow>` (row)
+*    def :meth:`select<PySide.QtSql.QSqlTableModel.select>` ()
+*    def :meth:`selectStatement<PySide.QtSql.QSqlTableModel.selectStatement>` ()
+*    def :meth:`setEditStrategy<PySide.QtSql.QSqlTableModel.setEditStrategy>` (strategy)
+*    def :meth:`setFilter<PySide.QtSql.QSqlTableModel.setFilter>` (filter)
+*    def :meth:`setSort<PySide.QtSql.QSqlTableModel.setSort>` (column, order)
+*    def :meth:`setTable<PySide.QtSql.QSqlTableModel.setTable>` (tableName)
+*    def :meth:`updateRowInTable<PySide.QtSql.QSqlTableModel.updateRowInTable>` (row, values)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`revertAll<PySide.QtSql.QSqlTableModel.revertAll>` ()
+*    def :meth:`submitAll<PySide.QtSql.QSqlTableModel.submitAll>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beforeDelete<PySide.QtSql.QSqlTableModel.beforeDelete>` (row)
+*    def :meth:`beforeInsert<PySide.QtSql.QSqlTableModel.beforeInsert>` (record)
+*    def :meth:`beforeUpdate<PySide.QtSql.QSqlTableModel.beforeUpdate>` (row, record)
+*    def :meth:`primeInsert<PySide.QtSql.QSqlTableModel.primeInsert>` (row, record)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlTableModel` class provides an editable data model for a single database table.
+
+    :class:`PySide.QtSql.QSqlTableModel` is a high-level interface for reading and writing database records from a single table. It is build on top of the lower-level :class:`PySide.QtSql.QSqlQuery` and can be used to provide data to view classes such as :class:`PySide.QtGui.QTableView` . For example:
+
+    ::
+
+            model =  QSqlTableModel()
+            model.setTable("employee")
+            model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+            model.select()
+            model.removeColumn(0) # don't show the ID
+            model.setHeaderData(0, Qt.Horizontal, tr("Name"))
+            model.setHeaderData(1, Qt.Horizontal, tr("Salary"))
+
+            view =  QTableView()
+            view.setModel(model)
+            view.show()
+
+
+    We set the SQL table's name and the edit strategy, then we set up the labels displayed in the view header. The edit strategy dictates when the changes done by the user in the view are actually applied to the database. The possible values are :attr:`OnFieldChange<QSqlTableModel.EditStrategy>` , :attr:`OnRowChange<QSqlTableModel.EditStrategy>` , and :attr:`OnManualSubmit<QSqlTableModel.EditStrategy>` .
+
+    :class:`PySide.QtSql.QSqlTableModel` can also be used to access a database programmatically, without binding it to a view:
+
+    ::
+
+            model = QSqlQueryModel()
+            model.setQuery("SELECT * FROM employee")
+            salary = model.record(4).value("salary")
+
+
+    The code snippet above extracts the ``salary`` field from record 4 in the result set of the query ``SELECT * from employee`` .
+
+    It is possible to set filters using :meth:`PySide.QtSql.QSqlTableModel.setFilter` , or modify the sort order using :meth:`PySide.QtSql.QSqlTableModel.setSort` . At the end, you must call :meth:`PySide.QtSql.QSqlTableModel.select` to populate the model with data.
+
+    The :ref:`sql/tablemodel` example illustrates how to use :class:`PySide.QtSql.QSqlTableModel` as the data source for a :class:`PySide.QtGui.QTableView` .
+
+    :class:`PySide.QtSql.QSqlTableModel` provides no direct support for foreign keys. Use the :class:`PySide.QtSql.QSqlRelationalTableModel` and :class:`PySide.QtSql.QSqlRelationalDelegate` if you want to resolve foreign keys.
+
+    .. seealso::  :class:`PySide.QtSql.QSqlRelationalTableModel`  :class:`PySide.QtSql.QSqlQuery`  :ref:`Model/View Programming<model-view-programming.html>`  :ref:`Table Model Example<sql/tablemodel>`  :ref:`Cached Table Example<sql/cachedtable>` 
+
+.. class:: QSqlTableModel([parent=None[, db=QSqlDatabase()]])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param db: :class:`PySide.QtSql.QSqlDatabase`
+
+    Creates an empty :class:`PySide.QtSql.QSqlTableModel` and sets the parent to ``parent`` and the database connection to ``db`` . If ``db`` is not valid, the default database connection will be used.
+
+    The default edit strategy is :attr:`OnRowChange<QSqlTableModel.EditStrategy>` .
+
+
+.. attribute:: PySide.QtSql.QSqlTableModel.EditStrategy
+
+    This enum type describes which strategy to choose when editing values in the database.
+
+    +-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                     |Description                                                                                                                                                   |
+    +=============================+==============================================================================================================================================================+
+    |QSqlTableModel.OnFieldChange |All changes to the model will be applied immediately to the database.                                                                                         |
+    +-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlTableModel.OnRowChange   |Changes to a row will be applied when the user selects a different row.                                                                                       |
+    +-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSqlTableModel.OnManualSubmit|All changes will be cached in the model until either :meth:`PySide.QtSql.QSqlTableModel.submitAll` or :meth:`PySide.QtSql.QSqlTableModel.revertAll` is called.|
+    +-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Note: To prevent inserting only partly initialized rows into the database, ``OnFieldChange`` will behave like ``OnRowChange`` for newly inserted rows.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setEditStrategy` 
+
+.. method:: PySide.QtSql.QSqlTableModel.beforeDelete(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.beforeInsert(record)
+
+
+    :param record: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.beforeUpdate(row, record)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param record: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.database()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlDatabase`
+
+
+
+
+    Returns a pointer to the used :class:`PySide.QtSql.QSqlDatabase` or 0 if no database was set.
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.deleteRowFromTable(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Deletes the given ``row`` from the currently active database table.
+
+    This is a low-level method that operates directly on the database and should not be called directly. Use :meth:`PySide.QtCore.QAbstractItemModel.removeRow` or :meth:`PySide.QtSql.QSqlTableModel.removeRows` to delete values. The model will decide depending on its edit strategy when to modify the database.
+
+    Returns true if the row was deleted; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractItemModel.removeRow`  :meth:`PySide.QtSql.QSqlTableModel.removeRows` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.editStrategy()
+
+
+    :rtype: :attr:`PySide.QtSql.QSqlTableModel.EditStrategy`
+
+
+
+
+    Returns the current edit strategy.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setEditStrategy` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.fieldIndex(fieldName)
+
+
+    :param fieldName: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the field ``fieldName`` , or -1 if no corresponding field exists in the model.
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.filter()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the currently set filter.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setFilter`  :meth:`PySide.QtSql.QSqlTableModel.select` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.insertRecord(row, record)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param record: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Inserts the ``record`` after ``row`` . If ``row`` is negative, the record will be appended to the end. Calls :meth:`PySide.QtSql.QSqlTableModel.insertRows` and :meth:`PySide.QtSql.QSqlTableModel.setRecord` internally.
+
+    Returns true if the row could be inserted, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.insertRows`  :meth:`PySide.QtSql.QSqlTableModel.removeRows` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.insertRowIntoTable(values)
+
+
+    :param values: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Inserts the values ``values`` into the currently active database table.
+
+    This is a low-level method that operates directly on the database and should not be called directly. Use :meth:`PySide.QtCore.QAbstractItemModel.insertRow` and :meth:`PySide.QtSql.QSqlTableModel.setData` to insert values. The model will decide depending on its edit strategy when to modify the database.
+
+    Returns true if the values could be inserted, otherwise false. Error information can be retrieved with :meth:`PySide.QtSql.QSqlQueryModel.lastError` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.lastError`  :meth:`PySide.QtCore.QAbstractItemModel.insertRow`  :meth:`PySide.QtSql.QSqlTableModel.insertRows` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.isDirty(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the value at the index ``index`` is dirty, otherwise false. Dirty values are values that were modified in the model but not yet written into the database.
+
+    If ``index`` is invalid or points to a non-existing row, false is returned.
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.orderByClause()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns an SQL ``ORDER BY`` clause based on the currently set sort order.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setSort`  :meth:`PySide.QtSql.QSqlTableModel.selectStatement` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.primaryKey()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlIndex`
+
+
+
+
+    Returns the primary key for the current table, or an empty :class:`PySide.QtSql.QSqlIndex` if the table is not set or has no primary key.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setTable`  :meth:`PySide.QtSql.QSqlTableModel.setPrimaryKey`  :meth:`QSqlDatabase.primaryIndex()<PySide.QtSql.QSqlDatabase.primaryIndex>` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.primeInsert(row, record)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param record: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.revertAll()
+
+
+
+
+
+
+    Reverts all pending changes.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.revert`  :meth:`PySide.QtSql.QSqlTableModel.revertRow`  :meth:`PySide.QtSql.QSqlTableModel.submitAll` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.revertRow(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+
+
+
+
+    Reverts all changes for the specified ``row`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.revert`  :meth:`PySide.QtSql.QSqlTableModel.revertAll`  :meth:`PySide.QtSql.QSqlTableModel.submit`  :meth:`PySide.QtSql.QSqlTableModel.submitAll` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.select()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Populates the model with data from the table that was set via :meth:`PySide.QtSql.QSqlTableModel.setTable` , using the specified filter and sort condition, and returns true if successful; otherwise returns false.
+
+    .. note::  Calling :meth:`PySide.QtSql.QSqlTableModel.select` will revert any unsubmitted changes and remove any inserted columns.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.setTable`  :meth:`PySide.QtSql.QSqlTableModel.setFilter`  :meth:`PySide.QtSql.QSqlTableModel.selectStatement` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.selectStatement()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the SQL ``SELECT`` statement used internally to populate the model. The statement includes the filter and the ``ORDER BY`` clause.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.filter`  :meth:`PySide.QtSql.QSqlTableModel.orderByClause` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setEditStrategy(strategy)
+
+
+    :param strategy: :attr:`PySide.QtSql.QSqlTableModel.EditStrategy`
+
+
+
+
+    Sets the strategy for editing values in the database to ``strategy`` .
+
+    This will revert any pending changes.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.editStrategy`  :meth:`PySide.QtSql.QSqlTableModel.revertAll` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setFilter(filter)
+
+
+    :param filter: unicode
+
+
+
+
+    Sets the current filter to ``filter`` .
+
+    The filter is a SQL ``WHERE`` clause without the keyword ``WHERE`` (for example, ``name='Josephine')`` .
+
+    If the model is already populated with data from a database, the model re-selects it with the new filter. Otherwise, the filter will be applied the next time :meth:`PySide.QtSql.QSqlTableModel.select` is called.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.filter`  :meth:`PySide.QtSql.QSqlTableModel.select`  :meth:`PySide.QtSql.QSqlTableModel.selectStatement`  :meth:`PySide.QtSql.QSqlTableModel.orderByClause` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setPrimaryKey(key)
+
+
+    :param key: :class:`PySide.QtSql.QSqlIndex`
+
+
+
+
+    Protected method that allows subclasses to set the primary key to ``key`` .
+
+    Normally, the primary index is set automatically whenever you call :meth:`PySide.QtSql.QSqlTableModel.setTable` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.primaryKey`  :meth:`QSqlDatabase.primaryIndex()<PySide.QtSql.QSqlDatabase.primaryIndex>` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setRecord(row, record)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param record: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the values at the specified ``row`` to the values of ``record`` . Returns true if all the values could be set; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlQueryModel.record` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setSort(column, order)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param order: :attr:`PySide.QtCore.Qt.SortOrder`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.setTable(tableName)
+
+
+    :param tableName: unicode
+
+
+
+
+    Sets the database table on which the model operates to ``tableName`` . Does not select data from the table, but fetches its field information.
+
+    To populate the model with the table's data, call :meth:`PySide.QtSql.QSqlTableModel.select` .
+
+    Error information can be retrieved with :meth:`PySide.QtSql.QSqlQueryModel.lastError` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.select`  :meth:`PySide.QtSql.QSqlTableModel.setFilter`  :meth:`PySide.QtSql.QSqlQueryModel.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.submitAll()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Submits all pending changes and returns true on success. Returns false on error, detailed error information can be obtained with :meth:`PySide.QtSql.QSqlQueryModel.lastError` .
+
+    On success the model will be repopulated. Any views presenting it will lose their selections.
+
+    Note: In :attr:`OnManualSubmit<QSqlTableModel.EditStrategy>` mode, already submitted changes won't be cleared from the cache when :meth:`PySide.QtSql.QSqlTableModel.submitAll` fails. This allows transactions to be rolled back and resubmitted again without losing data.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlTableModel.revertAll`  :meth:`PySide.QtSql.QSqlQueryModel.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlTableModel.tableName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the currently selected table.
+
+
+
+.. method:: PySide.QtSql.QSqlTableModel.updateRowInTable(row, values)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param values: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Updates the given ``row`` in the currently active database table with the specified ``values`` . Returns true if successful; otherwise returns false.
+
+    This is a low-level method that operates directly on the database and should not be called directly. Use :meth:`PySide.QtSql.QSqlTableModel.setData` to update values. The model will decide depending on its edit strategy when to modify the database.
+
+    Note that only values that have the generated-flag set are updated. The generated-flag can be set with :meth:`QSqlRecord.setGenerated()<PySide.QtSql.QSqlRecord.setGenerated>` and tested with :meth:`QSqlRecord.isGenerated()<PySide.QtSql.QSqlRecord.isGenerated>` .
+
+    .. seealso::  :meth:`QSqlRecord.isGenerated()<PySide.QtSql.QSqlRecord.isGenerated>`  :meth:`PySide.QtSql.QSqlTableModel.setData` 
+
+
+

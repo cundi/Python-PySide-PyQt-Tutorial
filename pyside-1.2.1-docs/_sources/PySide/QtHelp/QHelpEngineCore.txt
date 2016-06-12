@@ -1,0 +1,525 @@
+.. module:: PySide.QtHelp
+.. _QHelpEngineCore:
+
+QHelpEngineCore
+***************
+
+.. inheritance-diagram:: QHelpEngineCore
+    :parts: 2
+
+**Inherited by:** :ref:`QHelpEngine`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addCustomFilter<PySide.QtHelp.QHelpEngineCore.addCustomFilter>` (filterName, attributes)
+*    def :meth:`autoSaveFilter<PySide.QtHelp.QHelpEngineCore.autoSaveFilter>` ()
+*    def :meth:`collectionFile<PySide.QtHelp.QHelpEngineCore.collectionFile>` ()
+*    def :meth:`copyCollectionFile<PySide.QtHelp.QHelpEngineCore.copyCollectionFile>` (fileName)
+*    def :meth:`currentFilter<PySide.QtHelp.QHelpEngineCore.currentFilter>` ()
+*    def :meth:`customFilters<PySide.QtHelp.QHelpEngineCore.customFilters>` ()
+*    def :meth:`customValue<PySide.QtHelp.QHelpEngineCore.customValue>` (key[, defaultValue=None])
+*    def :meth:`documentationFileName<PySide.QtHelp.QHelpEngineCore.documentationFileName>` (namespaceName)
+*    def :meth:`error<PySide.QtHelp.QHelpEngineCore.error>` ()
+*    def :meth:`fileData<PySide.QtHelp.QHelpEngineCore.fileData>` (url)
+*    def :meth:`files<PySide.QtHelp.QHelpEngineCore.files>` (namespaceName, filterAttributes[, extensionFilter=""])
+*    def :meth:`filterAttributeSets<PySide.QtHelp.QHelpEngineCore.filterAttributeSets>` (namespaceName)
+*    def :meth:`filterAttributes<PySide.QtHelp.QHelpEngineCore.filterAttributes>` ()
+*    def :meth:`filterAttributes<PySide.QtHelp.QHelpEngineCore.filterAttributes>` (filterName)
+*    def :meth:`findFile<PySide.QtHelp.QHelpEngineCore.findFile>` (url)
+*    def :meth:`linksForIdentifier<PySide.QtHelp.QHelpEngineCore.linksForIdentifier>` (id)
+*    def :meth:`registerDocumentation<PySide.QtHelp.QHelpEngineCore.registerDocumentation>` (documentationFileName)
+*    def :meth:`registeredDocumentations<PySide.QtHelp.QHelpEngineCore.registeredDocumentations>` ()
+*    def :meth:`removeCustomFilter<PySide.QtHelp.QHelpEngineCore.removeCustomFilter>` (filterName)
+*    def :meth:`removeCustomValue<PySide.QtHelp.QHelpEngineCore.removeCustomValue>` (key)
+*    def :meth:`setAutoSaveFilter<PySide.QtHelp.QHelpEngineCore.setAutoSaveFilter>` (save)
+*    def :meth:`setCollectionFile<PySide.QtHelp.QHelpEngineCore.setCollectionFile>` (fileName)
+*    def :meth:`setCurrentFilter<PySide.QtHelp.QHelpEngineCore.setCurrentFilter>` (filterName)
+*    def :meth:`setCustomValue<PySide.QtHelp.QHelpEngineCore.setCustomValue>` (key, value)
+*    def :meth:`setupData<PySide.QtHelp.QHelpEngineCore.setupData>` ()
+*    def :meth:`unregisterDocumentation<PySide.QtHelp.QHelpEngineCore.unregisterDocumentation>` (namespaceName)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFilterChanged<PySide.QtHelp.QHelpEngineCore.currentFilterChanged>` (newFilter)
+*    def :meth:`setupFinished<PySide.QtHelp.QHelpEngineCore.setupFinished>` ()
+*    def :meth:`setupStarted<PySide.QtHelp.QHelpEngineCore.setupStarted>` ()
+*    def :meth:`warning<PySide.QtHelp.QHelpEngineCore.warning>` (msg)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`metaData<PySide.QtHelp.QHelpEngineCore.metaData>` (documentationFileName, name)
+*    def :meth:`namespaceName<PySide.QtHelp.QHelpEngineCore.namespaceName>` (documentationFileName)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtHelp.QHelpEngineCore` class provides the core functionality of the help system.
+
+    Before the help engine can be used, it must be initialized by calling :meth:`PySide.QtHelp.QHelpEngineCore.setupData` . At the beginning of the setup process the signal :meth:`PySide.QtHelp.QHelpEngineCore.setupStarted` is emitted. From this point on until the signal :meth:`PySide.QtHelp.QHelpEngineCore.setupFinished` is emitted, is the help data in an undefined meaning unusable state.
+
+    The core help engine can be used to perform different tasks. By calling :meth:`PySide.QtHelp.QHelpEngineCore.linksForIdentifier` the engine returns urls specifying the file locations inside the help system. The actual file data can then be retrived by calling :meth:`PySide.QtHelp.QHelpEngineCore.fileData` . In contrast to all other functions in this class, :meth:`PySide.QtHelp.QHelpEngineCore.linksForIdentifier` depends on the currently set custom filter. Depending on the filter, the function may return different hits.
+
+    Every help engine can contain any number of custom filters. A custom filter is defined by a name and set of filter attributes and can be added to the help engine by calling :meth:`PySide.QtHelp.QHelpEngineCore.addCustomFilter` . Analogous, it is removed by calling :meth:`PySide.QtHelp.QHelpEngineCore.removeCustomFilter` . :meth:`PySide.QtHelp.QHelpEngineCore.customFilters` returns all defined filters.
+
+    The help engine also offers the possibility to set and read values in a persistant way comparable to ini files or Windows registry entries. For more information see :meth:`~PySide.QtHelp.QHelpEngineCore.setValue` or :meth:`~PySide.QtHelp.QHelpEngineCore.value` .
+
+    This class does not offer any GUI components or functionality for indices or contents. If you need one of those use :class:`PySide.QtHelp.QHelpEngine` instead.
+
+    When creating a custom help viewer the viewer can be configured by writing a custom collection file which could contain various keywords to be used to configure the help engine. These keywords and values and their meaning can be found in the help information for :ref:`creating a custom help collection file<assistant-custom-help-viewer.html>` for Assistant.
+
+
+.. class:: QHelpEngineCore(collectionFile[, parent=None])
+
+    :param collectionFile: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new core help engine with a ``parent`` . The help engine uses the information stored in the ``collectionFile`` to provide help. If the collection file does not exist yet, it'll be created.
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.addCustomFilter(filterName, attributes)
+
+
+    :param filterName: unicode
+    :param attributes: list of strings
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Adds the new custom filter ``filterName`` . The filter attributes are specified by ``attributes`` . If the filter already exists, its attribute set is replaced. The function returns true if the operation succeeded, otherwise it returns false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.customFilters`  :meth:`PySide.QtHelp.QHelpEngineCore.removeCustomFilter` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.autoSaveFilter()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether :class:`PySide.QtHelp.QHelpEngineCore` is in auto save filter mode or not..
+
+    If :class:`PySide.QtHelp.QHelpEngineCore` is in auto save filter mode, the current filter is automatically saved when it is changed by the :meth:`PySide.QtHelp.QHelpEngineCore.setCurrentFilter` function. The filter is saved persistently in the help collection file.
+
+    By default, this mode is on.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.collectionFile()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the absolute file name of the collection file currently used..
+
+    Setting this property leaves the help engine in an invalid state. It is important to invoke :meth:`PySide.QtHelp.QHelpEngineCore.setupData` or any getter function in order to setup the help engine again.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.copyCollectionFile(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Creates the file ``fileName`` and copies all contents from the current collection file into the newly created file, and returns true if successful; otherwise returns false.
+
+    The copying process makes sure that file references to Qt Collection files (``.qch`` ) files are updated accordingly.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.currentFilter()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the name of the custom filter currently applied..
+
+    Setting this property will save the new custom filter permanently in the help collection file. To set a custom filter without saving it permanently, disable the auto save filter mode.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.autoSaveFilter` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.currentFilterChanged(newFilter)
+
+
+    :param newFilter: unicode
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.customFilters()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of custom filters.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.addCustomFilter`  :meth:`PySide.QtHelp.QHelpEngineCore.removeCustomFilter` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.customValue(key[, defaultValue=None])
+
+
+    :param key: unicode
+    :param defaultValue: object
+    :rtype: object
+
+
+
+
+    Returns the value assigned to the ``key`` . If the requested key does not exist, the specified ``defaultValue`` is returned.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.setCustomValue`  :meth:`PySide.QtHelp.QHelpEngineCore.removeCustomValue` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.documentationFileName(namespaceName)
+
+
+    :param namespaceName: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the absolute file name of the Qt compressed help file (.qch) identified by the ``namespaceName`` . If there is no Qt compressed help file with the specified namespace registered, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.namespaceName` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.error()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a description of the last error that occurred.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.fileData(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the data of the file specified by ``url`` . If the file does not exist, an empty :class:`PySide.QtCore.QByteArray` is returned.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.findFile` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.files(namespaceName, filterAttributes[, extensionFilter=""])
+
+
+    :param namespaceName: unicode
+    :param filterAttributes: list of strings
+    :param extensionFilter: unicode
+    :rtype: 
+
+
+
+
+    Returns a list of files contained in the Qt compressed help file ``namespaceName`` . The files can be filtered by ``filterAttributes`` as well as by their extension ``extensionFilter`` (e.g. 'html').
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.filterAttributeSets(namespaceName)
+
+
+    :param namespaceName: unicode
+    :rtype: 
+
+
+
+
+    Returns a list of filter attributes for the different filter sections defined in the Qt compressed help file with the given namespace ``namespaceName`` .
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.filterAttributes()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all defined filter attributes.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.filterAttributes(filterName)
+
+
+    :param filterName: unicode
+    :rtype: list of strings
+
+
+
+
+    Returns a list of filter attributes used by the custom filter ``filterName`` .
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.findFile(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns an invalid URL if the file ``url`` cannot be found. If the file exists, either the same url is returned or a different url if the file is located in a different namespace which is merged via a common virtual folder.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.linksForIdentifier(id)
+
+
+    :param id: unicode
+    :rtype: 
+
+
+
+
+    Returns a map of hits found for the ``id`` . A hit contains the title of the document and the url where the keyword is located. The result depends on the current filter, meaning only the keywords registered for the current filter will be returned.
+
+
+
+.. staticmethod:: PySide.QtHelp.QHelpEngineCore.metaData(documentationFileName, name)
+
+
+    :param documentationFileName: unicode
+    :param name: unicode
+    :rtype: object
+
+
+
+
+    Returns the meta data for the Qt compressed help file ``documentationFileName`` . If there is no data available for ``name`` , an invalid :meth:`~PySide.QtHelp.QHelpEngineCore.QVariant` is returned. The meta data is defined when creating the Qt compressed help file and cannot be modified later. Common meta data includes e.g. the author of the documentation.
+
+
+
+.. staticmethod:: PySide.QtHelp.QHelpEngineCore.namespaceName(documentationFileName)
+
+
+    :param documentationFileName: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the namespace name defined for the Qt compressed help file (.qch) specified by its ``documentationFileName`` . If the file is not valid, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.documentationFileName` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.registerDocumentation(documentationFileName)
+
+
+    :param documentationFileName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Registers the Qt compressed help file (.qch) contained in the file ``documentationFileName`` . One compressed help file, uniquely identified by its namespace can only be registered once. True is returned if the registration was successful, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.unregisterDocumentation`  :meth:`PySide.QtHelp.QHelpEngineCore.error` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.registeredDocumentations()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all registered Qt compressed help files of the current collection file. The returned names are the namespaces of the registered Qt compressed help files (.qch).
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.removeCustomFilter(filterName)
+
+
+    :param filterName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the filter ``filterName`` was removed successfully, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.addCustomFilter`  :meth:`PySide.QtHelp.QHelpEngineCore.customFilters` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.removeCustomValue(key)
+
+
+    :param key: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the ``key`` from the settings section in the collection file. Returns true if the value was removed successfully, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.customValue`  :meth:`PySide.QtHelp.QHelpEngineCore.setCustomValue` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setAutoSaveFilter(save)
+
+
+    :param save: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether :class:`PySide.QtHelp.QHelpEngineCore` is in auto save filter mode or not..
+
+    If :class:`PySide.QtHelp.QHelpEngineCore` is in auto save filter mode, the current filter is automatically saved when it is changed by the :meth:`PySide.QtHelp.QHelpEngineCore.setCurrentFilter` function. The filter is saved persistently in the help collection file.
+
+    By default, this mode is on.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setCollectionFile(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    This property holds the absolute file name of the collection file currently used..
+
+    Setting this property leaves the help engine in an invalid state. It is important to invoke :meth:`PySide.QtHelp.QHelpEngineCore.setupData` or any getter function in order to setup the help engine again.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setCurrentFilter(filterName)
+
+
+    :param filterName: unicode
+
+
+
+
+    This property holds the name of the custom filter currently applied..
+
+    Setting this property will save the new custom filter permanently in the help collection file. To set a custom filter without saving it permanently, disable the auto save filter mode.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.autoSaveFilter` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setCustomValue(key, value)
+
+
+    :param key: unicode
+    :param value: object
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Save the ``value`` under the ``key`` . If the key already exist, the value will be overwritten. Returns true if the value was saved successfully, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.customValue`  :meth:`PySide.QtHelp.QHelpEngineCore.removeCustomValue` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setupData()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets up the help engine by processing the information found in the collection file and returns true if successful; otherwise returns false.
+
+    By calling the function, the help engine is forced to initialize itself immediately. Most of the times, this function does not have to be called explicitly because getter functions which depend on a correctly set up help engine do that themselves.
+
+    .. note:: \ ``qsqlite4.dll`` needs to be deployed with the application as the help system uses the sqlite driver when loading help collections.
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setupFinished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.setupStarted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.unregisterDocumentation(namespaceName)
+
+
+    :param namespaceName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unregisters the Qt compressed help file (.qch) identified by its ``namespaceName`` from the help collection. Returns true on success, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtHelp.QHelpEngineCore.registerDocumentation`  :meth:`PySide.QtHelp.QHelpEngineCore.error` 
+
+
+.. method:: PySide.QtHelp.QHelpEngineCore.warning(msg)
+
+
+    :param msg: unicode
+
+
+
+
+
+
+

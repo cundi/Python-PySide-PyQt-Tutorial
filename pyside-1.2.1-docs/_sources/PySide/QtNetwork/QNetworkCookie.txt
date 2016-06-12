@@ -1,0 +1,363 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkCookie:
+
+QNetworkCookie
+**************
+
+.. inheritance-diagram:: QNetworkCookie
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QNetworkCookie.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QNetworkCookie.__ne__>` (other)
+*    def :meth:`domain<PySide.QtNetwork.QNetworkCookie.domain>` ()
+*    def :meth:`expirationDate<PySide.QtNetwork.QNetworkCookie.expirationDate>` ()
+*    def :meth:`isHttpOnly<PySide.QtNetwork.QNetworkCookie.isHttpOnly>` ()
+*    def :meth:`isSecure<PySide.QtNetwork.QNetworkCookie.isSecure>` ()
+*    def :meth:`isSessionCookie<PySide.QtNetwork.QNetworkCookie.isSessionCookie>` ()
+*    def :meth:`name<PySide.QtNetwork.QNetworkCookie.name>` ()
+*    def :meth:`path<PySide.QtNetwork.QNetworkCookie.path>` ()
+*    def :meth:`setDomain<PySide.QtNetwork.QNetworkCookie.setDomain>` (domain)
+*    def :meth:`setExpirationDate<PySide.QtNetwork.QNetworkCookie.setExpirationDate>` (date)
+*    def :meth:`setHttpOnly<PySide.QtNetwork.QNetworkCookie.setHttpOnly>` (enable)
+*    def :meth:`setName<PySide.QtNetwork.QNetworkCookie.setName>` (cookieName)
+*    def :meth:`setPath<PySide.QtNetwork.QNetworkCookie.setPath>` (path)
+*    def :meth:`setSecure<PySide.QtNetwork.QNetworkCookie.setSecure>` (enable)
+*    def :meth:`setValue<PySide.QtNetwork.QNetworkCookie.setValue>` (value)
+*    def :meth:`toRawForm<PySide.QtNetwork.QNetworkCookie.toRawForm>` ([form=Full])
+*    def :meth:`value<PySide.QtNetwork.QNetworkCookie.value>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`parseCookies<PySide.QtNetwork.QNetworkCookie.parseCookies>` (cookieString)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkCookie` class holds one network cookie.
+
+    Cookies are small bits of information that stateless protocols like HTTP use to maintain some persistent information across requests.
+
+    A cookie is set by a remote server when it replies to a request and it expects the same cookie to be sent back when further requests are sent.
+
+    :class:`PySide.QtNetwork.QNetworkCookie` holds one such cookie as received from the network. A cookie has a name and a value, but those are opaque to the application (that is, the information stored in them has no meaning to the application). A cookie has an associated path name and domain, which indicate when the cookie should be sent again to the server.
+
+    A cookie can also have an expiration date, indicating its validity. If the expiration date is not present, the cookie is considered a "session cookie" and should be discarded when the application exits (or when its concept of session is over).
+
+    :class:`PySide.QtNetwork.QNetworkCookie` provides a way of parsing a cookie from the HTTP header format using the :meth:`QNetworkCookie.parseCookies()<PySide.QtNetwork.QNetworkCookie.parseCookies>` function. However, when received in a :class:`PySide.QtNetwork.QNetworkReply` , the cookie is already parsed.
+
+    This class implements cookies as described by the :ref:`initial cookie specification by Netscape<http://cgi.netscape.com/newsref/std/cookie\_spec.html>` , which is somewhat similar to the :ref:`RFC 2109<http://www.rfc-editor.org/rfc/rfc2109.txt>` specification, plus the :ref:`"HttpOnly" extension<http://msdn.microsoft.com/en-us/library/ms533046(VS.85).aspx>` . The more recent :ref:`RFC 2965<http://www.rfc-editor.org/rfc/rfc2965.txt>` specification (which uses the Set-Cookie2 header) is not supported.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkCookieJar`  :class:`PySide.QtNetwork.QNetworkRequest`  :class:`PySide.QtNetwork.QNetworkReply` 
+
+.. class:: QNetworkCookie([name=QByteArray()[, value=QByteArray()]])
+           QNetworkCookie(other)
+
+    :param other: :class:`PySide.QtNetwork.QNetworkCookie`
+    :param value: :class:`PySide.QtCore.QByteArray`
+    :param name: :class:`PySide.QtCore.QByteArray`
+
+    Create a new :class:`PySide.QtNetwork.QNetworkCookie` object, initializing the cookie name to ``name`` and its value to ``value`` .
+
+    A cookie is only valid if it has a name. However, the value is opaque to the application and being empty may have significance to the remote server.
+
+
+    Creates a new :class:`PySide.QtNetwork.QNetworkCookie` object by copying the contents of ``other`` .
+
+
+.. attribute:: PySide.QtNetwork.QNetworkCookie.RawForm
+
+    This enum is used with the :meth:`PySide.QtNetwork.QNetworkCookie.toRawForm` function to declare which form of a cookie shall be returned.
+
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                                                                                                                                                                                                            |
+    +===============================+=======================================================================================================================================================================================================================================================================+
+    |QNetworkCookie.NameAndValueOnly|makes :meth:`PySide.QtNetwork.QNetworkCookie.toRawForm` return only the "NAME=VALUE" part of the cookie, as suitable for sending back to a server in a client request's "Cookie:" header. Multiple cookies are separated by a semi-colon in the "Cookie:" header field.|
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkCookie.Full            |makes :meth:`PySide.QtNetwork.QNetworkCookie.toRawForm` return the full cookie contents, as suitable for sending to a client in a server's "Set-Cookie:" header.                                                                                                       |
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Note that only the Full form of the cookie can be parsed back into its original contents.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.toRawForm`  :meth:`PySide.QtNetwork.QNetworkCookie.parseCookies` 
+
+.. method:: PySide.QtNetwork.QNetworkCookie.domain()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the domain this cookie is associated with. This corresponds to the "domain" field of the cookie string.
+
+    Note that the domain here may start with a dot, which is not a valid hostname. However, it means this cookie matches all hostnames ending with that domain name.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.setDomain` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.expirationDate()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the expiration date for this cookie. If this cookie is a session cookie, the :class:`PySide.QtCore.QDateTime` returned will not be valid. If the date is in the past, this cookie has already expired and should not be sent again back to a remote server.
+
+    The expiration date corresponds to the parameters of the "expires" entry in the cookie string.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.isSessionCookie`  :meth:`PySide.QtNetwork.QNetworkCookie.setExpirationDate` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.isHttpOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the "HttpOnly" flag is enabled for this cookie.
+
+    A cookie that is "HttpOnly" is only set and retrieved by the network requests and replies; i.e., the HTTP protocol. It is not accessible from scripts running on browsers.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.isSecure` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.isSecure()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the "secure" option was specified in the cookie string, false otherwise.
+
+    Secure cookies may contain private information and should not be resent over unencrypted connections.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.setSecure` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.isSessionCookie()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this cookie is a session cookie. A session cookie is a cookie which has no expiration date, which means it should be discarded when the application's concept of session is over (usually, when the application exits).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.expirationDate`  :meth:`PySide.QtNetwork.QNetworkCookie.setExpirationDate` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.name()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the name of this cookie. The only mandatory field of a cookie is its name, without which it is not considered valid.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.setName`  :meth:`PySide.QtNetwork.QNetworkCookie.value` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkCookie`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this cookie is not equal to ``other`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.operator==` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkCookie`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this cookie is equal to ``other`` . This function only returns true if all fields of the cookie are the same.
+
+    However, in some contexts, two cookies of the same name could be considered equal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.operator!=` 
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkCookie.parseCookies(cookieString)
+
+
+    :param cookieString: :class:`PySide.QtCore.QByteArray`
+    :rtype: 
+
+
+
+
+    Parses the cookie string ``cookieString`` as received from a server response in the "Set-Cookie:" header. If there's a parsing error, this function returns an empty list.
+
+    Since the HTTP header can set more than one cookie at the same time, this function returns a :class:`QList` < :class:`PySide.QtNetwork.QNetworkCookie` >, one for each cookie that is parsed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.toRawForm` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.path()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path associated with this cookie. This corresponds to the "path" field of the cookie string.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.setPath` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setDomain(domain)
+
+
+    :param domain: unicode
+
+
+
+
+    Sets the domain associated with this cookie to be ``domain`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.domain` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setExpirationDate(date)
+
+
+    :param date: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Sets the expiration date of this cookie to ``date`` . Setting an invalid expiration date to this cookie will mean it's a session cookie.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.isSessionCookie`  :meth:`PySide.QtNetwork.QNetworkCookie.expirationDate` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setHttpOnly(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this cookie's "HttpOnly" flag to ``enable`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.isHttpOnly` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setName(cookieName)
+
+
+    :param cookieName: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the name of this cookie to be ``cookieName`` . Note that setting a cookie name to an empty :class:`PySide.QtCore.QByteArray` will make this cookie invalid.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.name`  :meth:`PySide.QtNetwork.QNetworkCookie.value` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setPath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Sets the path associated with this cookie to be ``path`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.path` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setSecure(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the secure flag of this cookie to ``enable`` .
+
+    Secure cookies may contain private information and should not be resent over unencrypted connections.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.isSecure` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.setValue(value)
+
+
+    :param value: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the value of this cookie to be ``value`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.value`  :meth:`PySide.QtNetwork.QNetworkCookie.name` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.toRawForm([form=Full])
+
+
+    :param form: :attr:`PySide.QtNetwork.QNetworkCookie.RawForm`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the raw form of this :class:`PySide.QtNetwork.QNetworkCookie` . The :class:`PySide.QtCore.QByteArray` returned by this function is suitable for an HTTP header, either in a server response (the Set-Cookie header) or the client request (the Cookie header). You can choose from one of two formats, using ``form`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.parseCookies` 
+
+
+.. method:: PySide.QtNetwork.QNetworkCookie.value()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns this cookies value, as specified in the cookie string. Note that a cookie is still valid if its value is empty.
+
+    Cookie name-value pairs are considered opaque to the application: that is, their values don't mean anything.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkCookie.setValue`  :meth:`PySide.QtNetwork.QNetworkCookie.name` 
+
+
+

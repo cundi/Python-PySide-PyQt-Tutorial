@@ -1,0 +1,229 @@
+.. module:: PySide.QtXml
+.. _QDomImplementation:
+
+QDomImplementation
+******************
+
+.. inheritance-diagram:: QDomImplementation
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtXml.QDomImplementation.__eq__>` (arg__1)
+*    def :meth:`__ne__<PySide.QtXml.QDomImplementation.__ne__>` (arg__1)
+*    def :meth:`createDocument<PySide.QtXml.QDomImplementation.createDocument>` (nsURI, qName, doctype)
+*    def :meth:`createDocumentType<PySide.QtXml.QDomImplementation.createDocumentType>` (qName, publicId, systemId)
+*    def :meth:`hasFeature<PySide.QtXml.QDomImplementation.hasFeature>` (feature, version)
+*    def :meth:`isNull<PySide.QtXml.QDomImplementation.isNull>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`invalidDataPolicy<PySide.QtXml.QDomImplementation.invalidDataPolicy>` ()
+*    def :meth:`setInvalidDataPolicy<PySide.QtXml.QDomImplementation.setInvalidDataPolicy>` (policy)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QDomImplementation` class provides information about the features of the DOM implementation.
+
+    This class describes the features that are supported by the DOM implementation. Currently the XML subset of DOM Level 1 and DOM Level 2 Core are supported.
+
+    Normally you will use the function :meth:`QDomDocument.implementation()<PySide.QtXml.QDomDocument.implementation>` to get the implementation object.
+
+    You can create a new document type with :meth:`PySide.QtXml.QDomImplementation.createDocumentType` and a new document with :meth:`PySide.QtXml.QDomImplementation.createDocument` .
+
+    For further information about the Document Object Model see Level 1 and Level 2 Core. For a more general introduction of the DOM implementation see the :class:`PySide.QtXml.QDomDocument` documentation.
+
+    The QDom classes have a few issues of nonconformance with the XML specifications that cannot be fixed in Qt 4 without breaking backward compatibility. The :ref:`QtXmlPatterns` module and the :class:`PySide.QtCore.QXmlStreamReader` and :class:`PySide.QtCore.QXmlStreamWriter` classes have a higher degree of a conformance.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomImplementation.hasFeature` 
+
+.. class:: QDomImplementation()
+           QDomImplementation(arg__1)
+
+    :param arg__1: :class:`PySide.QtXml.QDomImplementation`
+
+    Constructs a :class:`PySide.QtXml.QDomImplementation` object.
+
+
+    Constructs a copy of ``x`` .
+
+
+.. attribute:: PySide.QtXml.QDomImplementation.InvalidDataPolicy
+
+    This enum specifies what should be done when a factory function in :class:`PySide.QtXml.QDomDocument` is called with invalid data.
+
+    +-------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                                                                                                                     |
+    +=====================================+================================================================================================================================================================================+
+    |QDomImplementation.AcceptInvalidChars|The data should be stored in the DOM object anyway. In this case the resulting XML document might not be well-formed. This is the default value and QDom's behavior in Qt < 4.1.|
+    +-------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDomImplementation.DropInvalidChars  |The invalid characters should be removed from the data.                                                                                                                         |
+    +-------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDomImplementation.ReturnNullNode    |The factory function should return a null node.                                                                                                                                 |
+    +-------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtXml.QDomImplementation.setInvalidDataPolicy`  :meth:`PySide.QtXml.QDomImplementation.invalidDataPolicy` 
+
+.. method:: PySide.QtXml.QDomImplementation.createDocument(nsURI, qName, doctype)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param doctype: :class:`PySide.QtXml.QDomDocumentType`
+    :rtype: :class:`PySide.QtXml.QDomDocument`
+
+
+
+
+    Creates a DOM document with the document type ``doctype`` . This function also adds a root element node with the qualified name ``qName`` and the namespace URI ``nsURI`` .
+
+
+
+.. method:: PySide.QtXml.QDomImplementation.createDocumentType(qName, publicId, systemId)
+
+
+    :param qName: unicode
+    :param publicId: unicode
+    :param systemId: unicode
+    :rtype: :class:`PySide.QtXml.QDomDocumentType`
+
+
+
+
+    Creates a document type node for the name ``qName`` .
+
+    ``publicId`` specifies the public identifier of the external subset. If you specify an empty string ( :meth:`~PySide.QtXml.QDomImplementation.QString` ) as the ``publicId`` , this means that the document type has no public identifier.
+
+    ``systemId`` specifies the system identifier of the external subset. If you specify an empty string as the ``systemId`` , this means that the document type has no system identifier.
+
+    Since you cannot have a public identifier without a system identifier, the public identifier is set to an empty string if there is no system identifier.
+
+    DOM level 2 does not support any other document type declaration features.
+
+    The only way you can use a document type that was created this way, is in combination with the :meth:`PySide.QtXml.QDomImplementation.createDocument` function to create a :class:`PySide.QtXml.QDomDocument` with this document type.
+
+    In the DOM specification, this is the only way to create a non-null document. For historical reasons, Qt also allows to create the document using the default empty constructor. The resulting document is null, but becomes non-null when a factory function, for example :meth:`QDomDocument.createElement()<PySide.QtXml.QDomDocument.createElement>` , is called. The document also becomes non-null when setContent() is called.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomImplementation.createDocument` 
+
+
+.. method:: PySide.QtXml.QDomImplementation.hasFeature(feature, version)
+
+
+    :param feature: unicode
+    :param version: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The function returns true if QDom implements the requested ``version`` of a ``feature`` ; otherwise returns false.
+
+    The currently supported features and their versions:
+
+    +-------+-------+
+    |Feature|Version|
+    +-------+-------+
+    |XML    |1.0    |
+    +-------+-------+
+
+
+
+.. staticmethod:: PySide.QtXml.QDomImplementation.invalidDataPolicy()
+
+
+    :rtype: :attr:`PySide.QtXml.QDomImplementation.InvalidDataPolicy`
+
+
+
+
+    Returns the invalid data policy, which specifies what should be done when a factory function in :class:`PySide.QtXml.QDomDocument` is passed invalid data.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomImplementation.setInvalidDataPolicy`  :attr:`QDomImplementation.InvalidDataPolicy` 
+
+
+.. method:: PySide.QtXml.QDomImplementation.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns false if the object was created by :meth:`QDomDocument.implementation()<PySide.QtXml.QDomDocument.implementation>` ; otherwise returns true.
+
+
+
+.. method:: PySide.QtXml.QDomImplementation.__ne__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtXml.QDomImplementation`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``x`` and this DOM implementation object were created from different QDomDocuments; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomImplementation.__eq__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtXml.QDomImplementation`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``x`` and this DOM implementation object were created from the same :class:`PySide.QtXml.QDomDocument` ; otherwise returns false.
+
+
+
+.. staticmethod:: PySide.QtXml.QDomImplementation.setInvalidDataPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtXml.QDomImplementation.InvalidDataPolicy`
+
+
+
+
+    Sets the invalid data policy, which specifies what should be done when a factory function in :class:`PySide.QtXml.QDomDocument` is passed invalid data.
+
+    The ``policy`` is set for all instances of :class:`PySide.QtXml.QDomDocument` which already exist and which will be created in the future.
+
+    ::
+
+        doc = QDomDocument()
+        impl = QDomImplementation()
+
+        # This will create the element, but the resulting XML document will
+        # be invalid, because '~' is not a valid character in a tag name.
+        impl.setInvalidDataPolicy(QDomImplementation.AcceptInvalidData)
+        elt1 = doc.createElement("foo~bar")
+
+        # This will create an element with the tag name "foobar".
+        impl.setInvalidDataPolicy(QDomImplementation.DropInvalidData)
+        elt2 = doc.createElement("foo~bar")
+
+        # This will create a null element.
+        impl.setInvalidDataPolicy(QDomImplementation::ReturnNullNode)
+        elt3 = doc.createElement("foo~bar")
+
+
+    .. seealso::  :meth:`PySide.QtXml.QDomImplementation.invalidDataPolicy`  :attr:`QDomImplementation.InvalidDataPolicy` 
+
+
+

@@ -1,0 +1,138 @@
+.. module:: PySide.QtCore
+.. _QHistoryState:
+
+QHistoryState
+*************
+
+.. inheritance-diagram:: QHistoryState
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultState<PySide.QtCore.QHistoryState.defaultState>` ()
+*    def :meth:`historyType<PySide.QtCore.QHistoryState.historyType>` ()
+*    def :meth:`setDefaultState<PySide.QtCore.QHistoryState.setDefaultState>` (state)
+*    def :meth:`setHistoryType<PySide.QtCore.QHistoryState.setHistoryType>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QHistoryState` class provides a means of returning to a previously active substate.
+
+    A history state is a pseudo-state that represents the child state that the parent state was in the last time the parent state was exited. A transition with a history state as its target is in fact a transition to one of the other child states of the parent state. :class:`PySide.QtCore.QHistoryState` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    Use the :meth:`PySide.QtCore.QHistoryState.setDefaultState` function to set the state that should be entered if the parent state has never been entered. Example:
+
+    ::
+
+                machine = QStateMachine()
+                
+                s1 = new QState()
+                s11 = new QState(s1)
+                s12 = new QState(s1)
+                
+                s1h = QHistoryState(s1)
+                s1h.setDefaultState(s11)
+                
+                machine.addState(s1)
+                
+                s2 = QState()
+                machine.addState(s2)
+                
+                button = QPushButton()
+                # Clicking the button will cause the state machine to enter the child state
+                # that s1 was in the last time s1 was exited, or the history state's default
+                # state if s1 has never been entered.
+                s1.addTransition(button.clicked, s1h)
+
+
+    By default a history state is shallow, meaning that it won't remember nested states. This can be configured through the :meth:`PySide.QtCore.QHistoryState.historyType` property.
+
+
+.. class:: QHistoryState(type[, parent=None])
+           QHistoryState([parent=None])
+
+    :param type: :attr:`PySide.QtCore.QHistoryState.HistoryType`
+    :param parent: :class:`PySide.QtCore.QState`
+
+    Constructs a new history state of the given ``type`` , with the given ``parent`` state.
+
+
+    Constructs a new shallow history state with the given ``parent`` state.
+
+
+.. attribute:: PySide.QtCore.QHistoryState.HistoryType
+
+    This enum specifies the type of history that a :class:`PySide.QtCore.QHistoryState` records.
+
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                                       |
+    +============================+==================================================================================================================================================================================================================================================+
+    |QHistoryState.ShallowHistory|Only the immediate child states of the parent state are recorded. In this case a transition with the history state as its target will end up in the immediate child state that the parent was in the last time it was exited. This is the default.|
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QHistoryState.DeepHistory   |Nested states are recorded. In this case a transition with the history state as its target will end up in the most deeply nested descendant state the parent was in the last time it was exited.                                                  |
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QHistoryState.defaultState()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the default state of this history state.
+
+
+
+.. method:: PySide.QtCore.QHistoryState.historyType()
+
+
+    :rtype: :attr:`PySide.QtCore.QHistoryState.HistoryType`
+
+
+
+
+    This property holds the type of history that this history state records.
+
+    The default value of this property is :attr:`QHistoryState.ShallowHistory<QHistoryState.HistoryType>` .
+
+
+
+.. method:: PySide.QtCore.QHistoryState.setDefaultState(state)
+
+
+    :param state: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the default state of this history state.
+
+
+
+.. method:: PySide.QtCore.QHistoryState.setHistoryType(type)
+
+
+    :param type: :attr:`PySide.QtCore.QHistoryState.HistoryType`
+
+
+
+
+    This property holds the type of history that this history state records.
+
+    The default value of this property is :attr:`QHistoryState.ShallowHistory<QHistoryState.HistoryType>` .
+
+
+
+

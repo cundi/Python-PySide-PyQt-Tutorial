@@ -1,0 +1,357 @@
+.. module:: PySide.QtMultimedia
+.. _QAudioOutput:
+
+QAudioOutput
+************
+
+.. inheritance-diagram:: QAudioOutput
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bufferSize<PySide.QtMultimedia.QAudioOutput.bufferSize>` ()
+*    def :meth:`bytesFree<PySide.QtMultimedia.QAudioOutput.bytesFree>` ()
+*    def :meth:`elapsedUSecs<PySide.QtMultimedia.QAudioOutput.elapsedUSecs>` ()
+*    def :meth:`error<PySide.QtMultimedia.QAudioOutput.error>` ()
+*    def :meth:`format<PySide.QtMultimedia.QAudioOutput.format>` ()
+*    def :meth:`notifyInterval<PySide.QtMultimedia.QAudioOutput.notifyInterval>` ()
+*    def :meth:`periodSize<PySide.QtMultimedia.QAudioOutput.periodSize>` ()
+*    def :meth:`processedUSecs<PySide.QtMultimedia.QAudioOutput.processedUSecs>` ()
+*    def :meth:`reset<PySide.QtMultimedia.QAudioOutput.reset>` ()
+*    def :meth:`resume<PySide.QtMultimedia.QAudioOutput.resume>` ()
+*    def :meth:`setBufferSize<PySide.QtMultimedia.QAudioOutput.setBufferSize>` (bytes)
+*    def :meth:`setNotifyInterval<PySide.QtMultimedia.QAudioOutput.setNotifyInterval>` (milliSeconds)
+*    def :meth:`start<PySide.QtMultimedia.QAudioOutput.start>` ()
+*    def :meth:`start<PySide.QtMultimedia.QAudioOutput.start>` (device)
+*    def :meth:`state<PySide.QtMultimedia.QAudioOutput.state>` ()
+*    def :meth:`stop<PySide.QtMultimedia.QAudioOutput.stop>` ()
+*    def :meth:`suspend<PySide.QtMultimedia.QAudioOutput.suspend>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`notify<PySide.QtMultimedia.QAudioOutput.notify>` ()
+*    def :meth:`stateChanged<PySide.QtMultimedia.QAudioOutput.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QAudioOutput` class provides an interface for sending audio data to an audio output device.
+
+    You can construct an audio output with the system's :meth:`default audio output device<PySide.QtMultimedia.QAudioDeviceInfo.defaultOutputDevice>` . It is also possible to create :class:`PySide.QtMultimedia.QAudioOutput` with a specific :class:`PySide.QtMultimedia.QAudioDeviceInfo` . When you create the audio output, you should also send in the :class:`PySide.QtMultimedia.QAudioFormat` to be used for the playback (see the :class:`PySide.QtMultimedia.QAudioFormat` class description for details).
+
+    To play a file:
+
+    Starting to play an audio stream is simply a matter of calling :meth:`PySide.QtMultimedia.QAudioOutput.start` with a :class:`PySide.QtCore.QIODevice` . :class:`PySide.QtMultimedia.QAudioOutput` will then fetch the data it needs from the io device. So playing back an audio file is as simple as:
+
+    ::
+
+        <Code snippet "doc/src/snippets/audio/main.cpp:9" not found>            ...
+        <Code snippet "doc/src/snippets/audio/main.cpp:4" not found>
+
+    The file will start playing assuming that the audio system and output device support it. If you run out of luck, check what's up with the :meth:`PySide.QtMultimedia.QAudioOutput.error` function.
+
+    After the file has finished playing, we need to stop the device:
+
+    ::
+
+        <Code snippet "doc/src/snippets/audio/main.cpp:5" not found>
+
+    At any given time, the :class:`PySide.QtMultimedia.QAudioOutput` will be in one of four states: active, suspended, stopped, or idle. These states are described by the :attr:`QAudio.State` enum. State changes are reported through the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal. You can use this signal to, for instance, update the GUI of the application; the mundane example here being changing the state of a ``play/pause`` button. You request a state change directly with :meth:`PySide.QtMultimedia.QAudioOutput.suspend` , :meth:`PySide.QtMultimedia.QAudioOutput.stop` , :meth:`PySide.QtMultimedia.QAudioOutput.reset` , :meth:`PySide.QtMultimedia.QAudioOutput.resume` , and :meth:`PySide.QtMultimedia.QAudioOutput.start` .
+
+    While the stream is playing, you can set a notify interval in milliseconds with :meth:`PySide.QtMultimedia.QAudioOutput.setNotifyInterval` . This interval specifies the time between two emissions of the :meth:`PySide.QtMultimedia.QAudioOutput.notify` signal. This is relative to the position in the stream, i.e., if the :class:`PySide.QtMultimedia.QAudioOutput` is in the SuspendedState or the IdleState, the :meth:`PySide.QtMultimedia.QAudioOutput.notify` signal is not emitted. A typical use-case would be to update a :class:`slider<PySide.QtGui.QSlider>` that allows seeking in the stream. If you want the time since playback started regardless of which states the audio output has been in, :meth:`PySide.QtMultimedia.QAudioOutput.elapsedUSecs` is the function for you.
+
+    If an error occurs, you can fetch the :attr:`error type<QAudio.Error>` with the :meth:`PySide.QtMultimedia.QAudioOutput.error` function. Please see the :attr:`QAudio.Error` enum for a description of the possible errors that are reported. When an error is encountered, the state changes to :attr:`QAudio.StoppedState<QAudio.State>` . You can check for errors by connecting to the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal:
+
+    ::
+
+        <Code snippet "doc/src/snippets/audio/main.cpp:8" not found>
+
+    .. seealso::  :class:`PySide.QtMultimedia.QAudioInput`  :class:`PySide.QtMultimedia.QAudioDeviceInfo` 
+
+.. class:: QAudioOutput(audioDeviceInfo[, format=QAudioFormat()[, parent=None]])
+           QAudioOutput([format=QAudioFormat()[, parent=None]])
+
+    :param format: :class:`PySide.QtMultimedia.QAudioFormat`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param audioDeviceInfo: :class:`PySide.QtMultimedia.QAudioDeviceInfo`
+
+    Construct a new audio output and attach it to ``parent`` . The device referenced by ``audioDevice`` is used with the output ``format`` parameters.
+
+
+    Construct a new audio output and attach it to ``parent`` . The default audio output device is used with the output ``format`` parameters.
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.bufferSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the audio buffer size in bytes.
+
+    If called before :meth:`PySide.QtMultimedia.QAudioOutput.start` , returns platform default value. If called before :meth:`PySide.QtMultimedia.QAudioOutput.start` but :meth:`PySide.QtMultimedia.QAudioOutput.setBufferSize` was called prior, returns value set by :meth:`PySide.QtMultimedia.QAudioOutput.setBufferSize` . If called after :meth:`PySide.QtMultimedia.QAudioOutput.start` , returns the actual buffer size being used. This may not be what was set previously by :meth:`PySide.QtMultimedia.QAudioOutput.setBufferSize` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioOutput.setBufferSize` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.bytesFree()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the free space available in bytes in the audio buffer.
+
+    NOTE: returned value is only valid while in :attr:`QAudio.ActiveState<QAudio.State>` or :attr:`QAudio.IdleState<QAudio.State>` state, otherwise returns zero.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.elapsedUSecs()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the microseconds since :meth:`PySide.QtMultimedia.QAudioOutput.start` was called, including time in Idle and Suspend states.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.error()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAudio.Error`
+
+
+
+
+    Returns the error state.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.format()
+
+
+    :rtype: :class:`PySide.QtMultimedia.QAudioFormat`
+
+
+
+
+    Returns the :class:`PySide.QtMultimedia.QAudioFormat` being used.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.notify()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.notifyInterval()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the notify interval in milliseconds.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioOutput.setNotifyInterval` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.periodSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the period size in bytes.
+
+    Note: This is the recommended write size in bytes.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.processedUSecs()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the amount of audio data processed by the class since :meth:`PySide.QtMultimedia.QAudioOutput.start` was called in microseconds.
+
+    Note: The amount of audio data played can be determined by subtracting the microseconds of audio data still in the systems audio buffer.
+
+    ::
+
+                qint64 bytesInBuffer = bufferSize() - bytesFree();
+                qint64 usInBuffer = (qint64)(1000000) * bytesInBuffer / ( channels() * sampleSize() / 8 ) / frequency();
+                qint64 usPlayed = processedUSecs() - usInBuffer;
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.reset()
+
+
+
+
+
+
+    Drops all audio data in the buffers, resets buffers to zero.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.resume()
+
+
+
+
+
+
+    Resumes processing audio data after a :meth:`PySide.QtMultimedia.QAudioOutput.suspend` .
+
+    Sets :meth:`PySide.QtMultimedia.QAudioOutput.error` to :attr:`QAudio.NoError<QAudio.Error>` . Sets :meth:`PySide.QtMultimedia.QAudioOutput.state` to :attr:`QAudio.ActiveState<QAudio.State>` if you previously called start( :class:`PySide.QtCore.QIODevice` \*). Sets :meth:`PySide.QtMultimedia.QAudioOutput.state` to :attr:`QAudio.IdleState<QAudio.State>` if you previously called :meth:`PySide.QtMultimedia.QAudioOutput.start` . emits :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal.
+
+    Note: signal will always be emitted during execution of the :meth:`PySide.QtMultimedia.QAudioOutput.resume` function.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.setBufferSize(bytes)
+
+
+    :param bytes: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the audio buffer size to ``value`` in bytes.
+
+    Note: This function can be called anytime before :meth:`PySide.QtMultimedia.QAudioOutput.start` , calls to this are ignored after :meth:`PySide.QtMultimedia.QAudioOutput.start` . It should not be assumed that the buffer size set is the actual buffer size used, calling :meth:`PySide.QtMultimedia.QAudioOutput.bufferSize` anytime after :meth:`PySide.QtMultimedia.QAudioOutput.start` will return the actual buffer size being used.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioOutput.bufferSize` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.setNotifyInterval(milliSeconds)
+
+
+    :param milliSeconds: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the interval for :meth:`PySide.QtMultimedia.QAudioOutput.notify` signal to be emitted. This is based on the ``ms`` of audio data processed not on actual real-time. The minimum resolution of the timer is platform specific and values should be checked with :meth:`PySide.QtMultimedia.QAudioOutput.notifyInterval` to confirm actual value being used.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioOutput.notifyInterval` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.start(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Uses the ``device`` as the :class:`PySide.QtCore.QIODevice` to transfer data. Passing a :class:`PySide.QtCore.QIODevice` allows the data to be transferred without any extra code. All that is required is to open the :class:`PySide.QtCore.QIODevice` .
+
+    If able to successfully output audio data to the systems audio device the :meth:`PySide.QtMultimedia.QAudioOutput.state` is set to :attr:`QAudio.ActiveState<QAudio.State>` , :meth:`PySide.QtMultimedia.QAudioOutput.error` is set to :attr:`QAudio.NoError<QAudio.Error>` and the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal is emitted.
+
+    If a problem occurs during this process the :meth:`PySide.QtMultimedia.QAudioOutput.error` is set to :attr:`QAudio.OpenError<QAudio.Error>` , :meth:`PySide.QtMultimedia.QAudioOutput.state` is set to :attr:`QAudio.StoppedState<QAudio.State>` and :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal is emitted.
+
+    In either case, the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal may be emitted either synchronously during execution of the :meth:`PySide.QtMultimedia.QAudioOutput.start` function or asynchronously after :meth:`PySide.QtMultimedia.QAudioOutput.start` has returned to the caller.
+
+    .. seealso::  :class:`PySide.QtCore.QIODevice` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.start()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns a pointer to the :class:`PySide.QtCore.QIODevice` being used to handle the data transfer. This :class:`PySide.QtCore.QIODevice` can be used to :meth:`~PySide.QtMultimedia.QAudioOutput.write` audio data directly.
+
+    If able to access the systems audio device the :meth:`PySide.QtMultimedia.QAudioOutput.state` is set to :attr:`QAudio.IdleState<QAudio.State>` , :meth:`PySide.QtMultimedia.QAudioOutput.error` is set to :attr:`QAudio.NoError<QAudio.Error>` and the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal is emitted.
+
+    If a problem occurs during this process the :meth:`PySide.QtMultimedia.QAudioOutput.error` is set to :attr:`QAudio.OpenError<QAudio.Error>` , :meth:`PySide.QtMultimedia.QAudioOutput.state` is set to :attr:`QAudio.StoppedState<QAudio.State>` and :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal is emitted.
+
+    In either case, the :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal may be emitted either synchronously during execution of the :meth:`PySide.QtMultimedia.QAudioOutput.start` function or asynchronously after :meth:`PySide.QtMultimedia.QAudioOutput.start` has returned to the caller.
+
+    .. seealso::  :class:`PySide.QtCore.QIODevice` 
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.state()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAudio.State`
+
+
+
+
+    Returns the state of audio processing.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.stateChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtMultimedia.QAudio.State`
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.stop()
+
+
+
+
+
+
+    Stops the audio output, detaching from the system resource.
+
+    Sets :meth:`PySide.QtMultimedia.QAudioOutput.error` to :attr:`QAudio.NoError<QAudio.Error>` , :meth:`PySide.QtMultimedia.QAudioOutput.state` to :attr:`QAudio.StoppedState<QAudio.State>` and emit :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioOutput.suspend()
+
+
+
+
+
+
+    Stops processing audio data, preserving buffered audio data.
+
+    Sets :meth:`PySide.QtMultimedia.QAudioOutput.error` to :attr:`QAudio.NoError<QAudio.Error>` , :meth:`PySide.QtMultimedia.QAudioOutput.state` to :attr:`QAudio.SuspendedState<QAudio.State>` and emit :meth:`PySide.QtMultimedia.QAudioOutput.stateChanged` signal.
+
+
+
+

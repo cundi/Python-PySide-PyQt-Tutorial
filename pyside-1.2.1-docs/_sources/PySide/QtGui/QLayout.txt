@@ -1,0 +1,675 @@
+.. module:: PySide.QtGui
+.. _QLayout:
+
+QLayout
+*******
+
+.. inheritance-diagram:: QLayout
+    :parts: 2
+
+**Inherited by:** :ref:`QStackedLayout`, :ref:`QGridLayout`, :ref:`QFormLayout`, :ref:`QBoxLayout`, :ref:`QVBoxLayout`, :ref:`QHBoxLayout`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activate<PySide.QtGui.QLayout.activate>` ()
+*    def :meth:`addChildLayout<PySide.QtGui.QLayout.addChildLayout>` (l)
+*    def :meth:`addChildWidget<PySide.QtGui.QLayout.addChildWidget>` (w)
+*    def :meth:`addWidget<PySide.QtGui.QLayout.addWidget>` (w)
+*    def :meth:`adoptLayout<PySide.QtGui.QLayout.adoptLayout>` (layout)
+*    def :meth:`alignmentRect<PySide.QtGui.QLayout.alignmentRect>` (arg__1)
+*    def :meth:`contentsMargins<PySide.QtGui.QLayout.contentsMargins>` ()
+*    def :meth:`contentsRect<PySide.QtGui.QLayout.contentsRect>` ()
+*    def :meth:`getContentsMargins<PySide.QtGui.QLayout.getContentsMargins>` ()
+*    def :meth:`isEnabled<PySide.QtGui.QLayout.isEnabled>` ()
+*    def :meth:`menuBar<PySide.QtGui.QLayout.menuBar>` ()
+*    def :meth:`parentWidget<PySide.QtGui.QLayout.parentWidget>` ()
+*    def :meth:`removeItem<PySide.QtGui.QLayout.removeItem>` (arg__1)
+*    def :meth:`removeWidget<PySide.QtGui.QLayout.removeWidget>` (w)
+*    def :meth:`setAlignment<PySide.QtGui.QLayout.setAlignment>` (l, alignment)
+*    def :meth:`setAlignment<PySide.QtGui.QLayout.setAlignment>` (w, alignment)
+*    def :meth:`setContentsMargins<PySide.QtGui.QLayout.setContentsMargins>` (left, top, right, bottom)
+*    def :meth:`setContentsMargins<PySide.QtGui.QLayout.setContentsMargins>` (margins)
+*    def :meth:`setEnabled<PySide.QtGui.QLayout.setEnabled>` (arg__1)
+*    def :meth:`setMenuBar<PySide.QtGui.QLayout.setMenuBar>` (w)
+*    def :meth:`setSizeConstraint<PySide.QtGui.QLayout.setSizeConstraint>` (arg__1)
+*    def :meth:`setSpacing<PySide.QtGui.QLayout.setSpacing>` (arg__1)
+*    def :meth:`sizeConstraint<PySide.QtGui.QLayout.sizeConstraint>` ()
+*    def :meth:`spacing<PySide.QtGui.QLayout.spacing>` ()
+*    def :meth:`totalHeightForWidth<PySide.QtGui.QLayout.totalHeightForWidth>` (w)
+*    def :meth:`totalMaximumSize<PySide.QtGui.QLayout.totalMaximumSize>` ()
+*    def :meth:`totalMinimumSize<PySide.QtGui.QLayout.totalMinimumSize>` ()
+*    def :meth:`totalSizeHint<PySide.QtGui.QLayout.totalSizeHint>` ()
+*    def :meth:`update<PySide.QtGui.QLayout.update>` ()
+*    def :meth:`widgetEvent<PySide.QtGui.QLayout.widgetEvent>` (arg__1)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addItem<PySide.QtGui.QLayout.addItem>` (arg__1)
+*    def :meth:`count<PySide.QtGui.QLayout.count>` ()
+*    def :meth:`indexOf<PySide.QtGui.QLayout.indexOf>` (arg__1)
+*    def :meth:`itemAt<PySide.QtGui.QLayout.itemAt>` (index)
+*    def :meth:`takeAt<PySide.QtGui.QLayout.takeAt>` (index)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activateRecursiveHelper<PySide.QtGui.QLayout.activateRecursiveHelper>` (item)
+*    def :meth:`closestAcceptableSize<PySide.QtGui.QLayout.closestAcceptableSize>` (w, s)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QLayout` class is the base class of geometry managers.
+
+    This is an abstract base class inherited by the concrete classes :class:`PySide.QtGui.QBoxLayout` , :class:`PySide.QtGui.QGridLayout` , :class:`PySide.QtGui.QFormLayout` , and :class:`PySide.QtGui.QStackedLayout` .
+
+    For users of :class:`PySide.QtGui.QLayout` subclasses or of :class:`PySide.QtGui.QMainWindow` there is seldom any need to use the basic functions provided by :class:`PySide.QtGui.QLayout` , such as :meth:`PySide.QtGui.QLayout.setSizeConstraint` or :meth:`PySide.QtGui.QLayout.setMenuBar` . See :ref:`Layout Management<layout.html>` for more information.
+
+    To make your own layout manager, implement the functions :meth:`PySide.QtGui.QLayout.addItem` , :meth:`PySide.QtGui.QLayoutItem.sizeHint` , :meth:`PySide.QtGui.QLayout.setGeometry` , :meth:`PySide.QtGui.QLayout.itemAt` and :meth:`PySide.QtGui.QLayout.takeAt` . You should also implement :meth:`PySide.QtGui.QLayout.minimumSize` to ensure your layout isn't resized to zero size if there is too little space. To support children whose heights depend on their widths, implement :meth:`PySide.QtGui.QLayoutItem.hasHeightForWidth` and :meth:`PySide.QtGui.QLayoutItem.heightForWidth` . See the :ref:`Border Layout<layouts/borderlayout>` and :ref:`Flow Layout<layouts/flowlayout>` examples for more information about implementing custom layout managers.
+
+    Geometry management stops when the layout manager is deleted.
+
+    .. seealso::  :class:`PySide.QtGui.QLayoutItem`  :ref:`Layout Management<layout.html>`  :ref:`Basic Layouts Example<layouts/basiclayouts>`  :ref:`Border Layout Example<layouts/borderlayout>`  :ref:`Flow Layout Example<layouts/flowlayout>` 
+
+.. class:: QLayout()
+           QLayout(parent)
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new child :class:`PySide.QtGui.QLayout` .
+
+    This layout has to be inserted into another layout before geometry management will work.
+
+
+    Constructs a new top-level :class:`PySide.QtGui.QLayout` , with parent ``parent`` . ``parent`` may not be 0.
+
+    There can be only one top-level layout for a widget. It is returned by :meth:`QWidget.layout()<PySide.QtGui.QWidget.layout>` .
+
+
+.. attribute:: PySide.QtGui.QLayout.SizeConstraint
+
+    The possible values are:
+
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                |
+    +============================+===========================================================================================================================================================+
+    |QLayout.SetDefaultConstraint|The main widget's minimum size is set to :meth:`PySide.QtGui.QLayout.minimumSize` , unless the widget already has a minimum size.                          |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QLayout.SetFixedSize        |The main widget's size is set to :meth:`PySide.QtGui.QLayoutItem.sizeHint` ; it cannot be resized at all.                                                  |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QLayout.SetMinimumSize      |The main widget's minimum size is set to :meth:`PySide.QtGui.QLayout.minimumSize` ; it cannot be smaller.                                                  |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QLayout.SetMaximumSize      |The main widget's maximum size is set to :meth:`PySide.QtGui.QLayout.maximumSize` ; it cannot be larger.                                                   |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QLayout.SetMinAndMaxSize    |The main widget's minimum size is set to :meth:`PySide.QtGui.QLayout.minimumSize` and its maximum size is set to :meth:`PySide.QtGui.QLayout.maximumSize` .|
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QLayout.SetNoConstraint     |The widget is not constrained.                                                                                                                             |
+    +----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setSizeConstraint` 
+
+.. method:: PySide.QtGui.QLayout.activate()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Redoes the layout for :meth:`PySide.QtGui.QLayout.parentWidget` if necessary.
+
+    You should generally not need to call this because it is automatically called at the most appropriate times. It returns true if the layout was redone.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.update`  :meth:`QWidget.updateGeometry()<PySide.QtGui.QWidget.updateGeometry>` 
+
+
+.. staticmethod:: PySide.QtGui.QLayout.activateRecursiveHelper(item)
+
+
+    :param item: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLayout.addChildLayout(l)
+
+
+    :param l: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This function is called from ``addLayout()`` or ``insertLayout()`` functions in subclasses to add layout ``l`` as a sub-layout.
+
+    The only scenario in which you need to call it directly is if you implement a custom layout that supports nested layouts.
+
+    .. seealso::  :meth:`QBoxLayout.addLayout()<PySide.QtGui.QBoxLayout.addLayout>`  :meth:`QBoxLayout.insertLayout()<PySide.QtGui.QBoxLayout.insertLayout>`  :meth:`QGridLayout.addLayout()<PySide.QtGui.QGridLayout.addLayout>` 
+
+
+.. method:: PySide.QtGui.QLayout.addChildWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This function is called from ``addWidget()`` functions in subclasses to add ``w`` as a managed widget of a layout.
+
+    If ``w`` is already managed by a layout, this function will give a warning and remove ``w`` from that layout. This function must therefore be called before adding ``w`` to the layout's data structure.
+
+
+
+.. method:: PySide.QtGui.QLayout.addItem(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Implemented in subclasses to add an ``item`` . How it is added is specific to each subclass.
+
+    This function is not usually called in application code. To add a widget to a layout, use the :meth:`PySide.QtGui.QLayout.addWidget` function; to add a child layout, use the addLayout() function provided by the relevant :class:`PySide.QtGui.QLayout` subclass.
+
+    .. note::  The ownership of ``item`` is transferred to the layout, and it's the layout's responsibility to delete it.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.addWidget`  :meth:`QBoxLayout.addLayout()<PySide.QtGui.QBoxLayout.addLayout>`  :meth:`QGridLayout.addLayout()<PySide.QtGui.QGridLayout.addLayout>` 
+
+
+.. method:: PySide.QtGui.QLayout.addWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Adds widget ``w`` to this layout in a manner specific to the layout. This function uses :meth:`PySide.QtGui.QLayout.addItem` .
+
+
+
+.. method:: PySide.QtGui.QLayout.adoptLayout(layout)
+
+
+    :param layout: :class:`PySide.QtGui.QLayout`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLayout.alignmentRect(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rectangle that should be covered when the geometry of this layout is set to ``r`` , provided that this layout supports :meth:`PySide.QtGui.QLayout.setAlignment` .
+
+    The result is derived from :meth:`PySide.QtGui.QLayoutItem.sizeHint` and expanding(). It is never larger than ``r`` .
+
+
+
+.. staticmethod:: PySide.QtGui.QLayout.closestAcceptableSize(w, s)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param s: :class:`PySide.QtCore.QSize`
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns a size that satisfies all size constraints on ``widget`` , including :meth:`PySide.QtGui.QLayoutItem.heightForWidth` and that is as close as possible to ``size`` .
+
+
+
+.. method:: PySide.QtGui.QLayout.contentsMargins()
+
+
+    :rtype: :class:`PySide.QtCore.QMargins`
+
+
+
+
+    Returns the margins used around the layout.
+
+    By default, :class:`PySide.QtGui.QLayout` uses the values provided by the style. On most platforms, the margin is 11 pixels in all directions.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setContentsMargins` 
+
+
+.. method:: PySide.QtGui.QLayout.contentsRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the layout's :meth:`PySide.QtGui.QLayout.geometry` rectangle, but taking into account the contents margins.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setContentsMargins`  :meth:`PySide.QtGui.QLayout.getContentsMargins` 
+
+
+.. method:: PySide.QtGui.QLayout.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Must be implemented in subclasses to return the number of items in the layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.itemAt` 
+
+
+.. method:: PySide.QtGui.QLayout.getContentsMargins()
+
+
+
+
+
+
+    Extracts the left, top, right, and bottom margins used around the layout, and assigns them to \*``left`` , \*``top`` , \*``right`` , and \*``bottom`` (unless they are null pointers).
+
+    By default, :class:`PySide.QtGui.QLayout` uses the values provided by the style. On most platforms, the margin is 11 pixels in all directions.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setContentsMargins`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutLeftMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutTopMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutRightMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutBottomMargin<QStyle.PixelMetric>` 
+
+
+.. method:: PySide.QtGui.QLayout.indexOf(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Searches for widget ``widget`` in this layout (not including child layouts).
+
+    Returns the index of ``widget`` , or -1 if ``widget`` is not found.
+
+    The default implementation iterates over all items using :meth:`PySide.QtGui.QLayout.itemAt`
+
+
+
+.. method:: PySide.QtGui.QLayout.isEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the layout is enabled; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setEnabled` 
+
+
+.. method:: PySide.QtGui.QLayout.itemAt(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Must be implemented in subclasses to return the layout item at ``index`` . If there is no such item, the function must return 0. Items are numbered consecutively from 0. If an item is deleted, other items will be renumbered.
+
+    This function can be used to iterate over a layout. The following code will draw a rectangle for each layout item in the layout structure of the widget.
+
+    ::
+
+
+        def paintLayout(self, painter, item):
+            layout = item.layout()
+
+            if layout:
+                for layout_item in layout:
+                    self.paintLayout(painter, layout_item)
+
+            painter.drawRect(item.geometry())
+
+        def paintEvent(self, event):
+            painter = QPainter(self)
+            if self.layout():
+                self.paintLayout(painter, self.layout())
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.count`  :meth:`PySide.QtGui.QLayout.takeAt` 
+
+
+.. method:: PySide.QtGui.QLayout.menuBar()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the menu bar set for this layout, or 0 if no menu bar is set.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setMenuBar` 
+
+
+.. method:: PySide.QtGui.QLayout.parentWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the parent widget of this layout, or 0 if this layout is not installed on any widget.
+
+    If the layout is a sub-layout, this function returns the parent widget of the parent layout.
+
+    .. seealso::  :meth:`PySide.QtCore.QObject.parent` 
+
+
+.. method:: PySide.QtGui.QLayout.removeItem(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Removes the layout item ``item`` from the layout. It is the caller's responsibility to delete the item.
+
+    Notice that ``item`` can be a layout (since :class:`PySide.QtGui.QLayout` inherits :class:`PySide.QtGui.QLayoutItem` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.removeWidget`  :meth:`PySide.QtGui.QLayout.addItem` 
+
+
+.. method:: PySide.QtGui.QLayout.removeWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes the widget ``widget`` from the layout. After this call, it is the caller's responsibility to give the widget a reasonable geometry or to put the widget back into a layout.
+
+    .. note::  The ownership of ``widget`` remains the same as when it was added.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.removeItem`  :meth:`QWidget.setGeometry()<PySide.QtGui.QWidget.setGeometry>`  :meth:`PySide.QtGui.QLayout.addWidget` 
+
+
+.. method:: PySide.QtGui.QLayout.setAlignment(l, alignment)
+
+
+    :param l: :class:`PySide.QtGui.QLayout`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLayout.setAlignment(w, alignment)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLayout.setContentsMargins(margins)
+
+
+    :param margins: :class:`PySide.QtCore.QMargins`
+
+
+
+
+    Sets the ``margins`` to use around the layout.
+
+    By default, :class:`PySide.QtGui.QLayout` uses the values provided by the style. On most platforms, the margin is 11 pixels in all directions.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.contentsMargins` 
+
+
+.. method:: PySide.QtGui.QLayout.setContentsMargins(left, top, right, bottom)
+
+
+    :param left: :class:`PySide.QtCore.int`
+    :param top: :class:`PySide.QtCore.int`
+    :param right: :class:`PySide.QtCore.int`
+    :param bottom: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the ``left`` , ``top`` , ``right`` , and ``bottom`` margins to use around the layout.
+
+    By default, :class:`PySide.QtGui.QLayout` uses the values provided by the style. On most platforms, the margin is 11 pixels in all directions.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.contentsMargins`  :meth:`PySide.QtGui.QLayout.getContentsMargins`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutLeftMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutTopMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutRightMargin<QStyle.PixelMetric>`  :attr:`PM_LayoutBottomMargin<QStyle.PixelMetric>` 
+
+
+.. method:: PySide.QtGui.QLayout.setEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables this layout if ``enable`` is true, otherwise disables it.
+
+    An enabled layout adjusts dynamically to changes; a disabled layout acts as if it did not exist.
+
+    By default all layouts are enabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.isEnabled` 
+
+
+.. method:: PySide.QtGui.QLayout.setMenuBar(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Tells the geometry manager to place the menu bar ``widget`` at the top of :meth:`PySide.QtGui.QLayout.parentWidget` , outside :meth:`QWidget.contentsMargins()<PySide.QtGui.QWidget.contentsMargins>` . All child widgets are placed below the bottom edge of the menu bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.menuBar` 
+
+
+.. method:: PySide.QtGui.QLayout.setSizeConstraint(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QLayout.SizeConstraint`
+
+
+
+
+    This property holds the resize mode of the layout.
+
+    The default mode is :attr:`SetDefaultConstraint<QLayout.SizeConstraint>` .
+
+
+
+.. method:: PySide.QtGui.QLayout.setSpacing(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets inside the layout.
+
+    If no value is explicitly set, the layout's spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    For :class:`PySide.QtGui.QGridLayout` and :class:`PySide.QtGui.QFormLayout` , it is possible to set different horizontal and vertical spacings using :meth:`PySide.QtGui.QGridLayout.setHorizontalSpacing` and :meth:`PySide.QtGui.QGridLayout.setVerticalSpacing` . In that case, :meth:`PySide.QtGui.QLayout.spacing` returns -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.contentsRect`  :meth:`PySide.QtGui.QLayout.getContentsMargins`  :meth:`QStyle.layoutSpacing()<PySide.QtGui.QStyle.layoutSpacing>`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>` 
+
+
+.. method:: PySide.QtGui.QLayout.sizeConstraint()
+
+
+    :rtype: :attr:`PySide.QtGui.QLayout.SizeConstraint`
+
+
+
+
+    This property holds the resize mode of the layout.
+
+    The default mode is :attr:`SetDefaultConstraint<QLayout.SizeConstraint>` .
+
+
+
+.. method:: PySide.QtGui.QLayout.spacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets inside the layout.
+
+    If no value is explicitly set, the layout's spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    For :class:`PySide.QtGui.QGridLayout` and :class:`PySide.QtGui.QFormLayout` , it is possible to set different horizontal and vertical spacings using :meth:`PySide.QtGui.QGridLayout.setHorizontalSpacing` and :meth:`PySide.QtGui.QGridLayout.setVerticalSpacing` . In that case, :meth:`PySide.QtGui.QLayout.spacing` returns -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.contentsRect`  :meth:`PySide.QtGui.QLayout.getContentsMargins`  :meth:`QStyle.layoutSpacing()<PySide.QtGui.QStyle.layoutSpacing>`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>` 
+
+
+.. method:: PySide.QtGui.QLayout.takeAt(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Must be implemented in subclasses to remove the layout item at ``index`` from the layout, and return the item. If there is no such item, the function must do nothing and return 0. Items are numbered consecutively from 0. If an item is removed, other items will be renumbered.
+
+    The following code fragment shows a safe way to remove all items from a layout:
+
+    ::
+
+        child = layout.takeAt(0)
+        while child:
+            ...
+            del child
+
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.itemAt`  :meth:`PySide.QtGui.QLayout.count` 
+
+
+.. method:: PySide.QtGui.QLayout.totalHeightForWidth(w)
+
+
+    :param w: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Also takes contentsMargins and menu bar into account.
+
+
+
+.. method:: PySide.QtGui.QLayout.totalMaximumSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Also takes contentsMargins and menu bar into account.
+
+
+
+.. method:: PySide.QtGui.QLayout.totalMinimumSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Also takes contentsMargins and menu bar into account.
+
+
+
+.. method:: PySide.QtGui.QLayout.totalSizeHint()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Also takes contentsMargins and menu bar into account.
+
+
+
+.. method:: PySide.QtGui.QLayout.update()
+
+
+
+
+
+
+    Updates the layout for :meth:`PySide.QtGui.QLayout.parentWidget` .
+
+    You should generally not need to call this because it is automatically called at the most appropriate times.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.activate`  :meth:`PySide.QtGui.QLayout.invalidate` 
+
+
+.. method:: PySide.QtGui.QLayout.widgetEvent(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    Performs child widget layout when the parent widget is resized. Also handles removal of widgets. ``e`` is the event
+
+
+
+

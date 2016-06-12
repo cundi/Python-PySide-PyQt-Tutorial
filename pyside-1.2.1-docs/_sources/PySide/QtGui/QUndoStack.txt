@@ -1,0 +1,581 @@
+.. module:: PySide.QtGui
+.. _QUndoStack:
+
+QUndoStack
+**********
+
+.. inheritance-diagram:: QUndoStack
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beginMacro<PySide.QtGui.QUndoStack.beginMacro>` (text)
+*    def :meth:`canRedo<PySide.QtGui.QUndoStack.canRedo>` ()
+*    def :meth:`canUndo<PySide.QtGui.QUndoStack.canUndo>` ()
+*    def :meth:`cleanIndex<PySide.QtGui.QUndoStack.cleanIndex>` ()
+*    def :meth:`clear<PySide.QtGui.QUndoStack.clear>` ()
+*    def :meth:`command<PySide.QtGui.QUndoStack.command>` (index)
+*    def :meth:`count<PySide.QtGui.QUndoStack.count>` ()
+*    def :meth:`createRedoAction<PySide.QtGui.QUndoStack.createRedoAction>` (parent[, prefix=""])
+*    def :meth:`createUndoAction<PySide.QtGui.QUndoStack.createUndoAction>` (parent[, prefix=""])
+*    def :meth:`endMacro<PySide.QtGui.QUndoStack.endMacro>` ()
+*    def :meth:`index<PySide.QtGui.QUndoStack.index>` ()
+*    def :meth:`isActive<PySide.QtGui.QUndoStack.isActive>` ()
+*    def :meth:`isClean<PySide.QtGui.QUndoStack.isClean>` ()
+*    def :meth:`push<PySide.QtGui.QUndoStack.push>` (cmd)
+*    def :meth:`redoText<PySide.QtGui.QUndoStack.redoText>` ()
+*    def :meth:`setUndoLimit<PySide.QtGui.QUndoStack.setUndoLimit>` (limit)
+*    def :meth:`text<PySide.QtGui.QUndoStack.text>` (idx)
+*    def :meth:`undoLimit<PySide.QtGui.QUndoStack.undoLimit>` ()
+*    def :meth:`undoText<PySide.QtGui.QUndoStack.undoText>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`redo<PySide.QtGui.QUndoStack.redo>` ()
+*    def :meth:`setActive<PySide.QtGui.QUndoStack.setActive>` ([active=true])
+*    def :meth:`setClean<PySide.QtGui.QUndoStack.setClean>` ()
+*    def :meth:`setIndex<PySide.QtGui.QUndoStack.setIndex>` (idx)
+*    def :meth:`undo<PySide.QtGui.QUndoStack.undo>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`canRedoChanged<PySide.QtGui.QUndoStack.canRedoChanged>` (canRedo)
+*    def :meth:`canUndoChanged<PySide.QtGui.QUndoStack.canUndoChanged>` (canUndo)
+*    def :meth:`cleanChanged<PySide.QtGui.QUndoStack.cleanChanged>` (clean)
+*    def :meth:`indexChanged<PySide.QtGui.QUndoStack.indexChanged>` (idx)
+*    def :meth:`redoTextChanged<PySide.QtGui.QUndoStack.redoTextChanged>` (redoText)
+*    def :meth:`undoTextChanged<PySide.QtGui.QUndoStack.undoTextChanged>` (undoText)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QUndoStack` class is a stack of :class:`PySide.QtGui.QUndoCommand` objects.
+
+    For an overview of Qt's Undo Framework, see the :ref:`overview document<qundo.html>` .
+
+    An undo stack maintains a stack of commands that have been applied to a document.
+
+    New commands are pushed on the stack using :meth:`PySide.QtGui.QUndoStack.push` . Commands can be undone and redone using :meth:`PySide.QtGui.QUndoStack.undo` and :meth:`PySide.QtGui.QUndoStack.redo` , or by triggering the actions returned by :meth:`PySide.QtGui.QUndoStack.createUndoAction` and :meth:`PySide.QtGui.QUndoStack.createRedoAction` .
+
+    :class:`PySide.QtGui.QUndoStack` keeps track of the ``current`` command. This is the command which will be executed by the next call to :meth:`PySide.QtGui.QUndoStack.redo` . The index of this command is returned by :meth:`PySide.QtGui.QUndoStack.index` . The state of the edited object can be rolled forward or back using :meth:`PySide.QtGui.QUndoStack.setIndex` . If the top-most command on the stack has already been redone, :meth:`PySide.QtGui.QUndoStack.index` is equal to :meth:`PySide.QtGui.QUndoStack.count` .
+
+    :class:`PySide.QtGui.QUndoStack` provides support for undo and redo actions, command compression, command macros, and supports the concept of a *clean state* .
+
+    .. _PySide.QtGui.QUndoStack_undo-and-redo-actions:
+
+
+
+Undo and Redo Actions
+^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QUndoStack` provides convenient undo and redo :class:`PySide.QtGui.QAction` objects, which can be inserted into a menu or a toolbar. When commands are undone or redone, :class:`PySide.QtGui.QUndoStack` updates the text properties of these actions to reflect what change they will trigger. The actions are also disabled when no command is available for undo or redo. These actions are returned by :meth:`QUndoStack.createUndoAction()<PySide.QtGui.QUndoStack.createUndoAction>` and :meth:`QUndoStack.createRedoAction()<PySide.QtGui.QUndoStack.createRedoAction>` .
+
+    .. _PySide.QtGui.QUndoStack_command-compression-and-macros:
+
+
+
+Command Compression and Macros
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Command compression is useful when several commands can be compressed into a single command that can be undone and redone in a single operation. For example, when a user types a character in a text editor, a new command is created. This command inserts the character into the document at the cursor position. However, it is more convenient for the user to be able to undo or redo typing of whole words, sentences, or paragraphs. Command compression allows these single-character commands to be merged into a single command which inserts or deletes sections of text. For more information, see :meth:`QUndoCommand.mergeWith()<PySide.QtGui.QUndoCommand.mergeWith>` and :meth:`PySide.QtGui.QUndoStack.push` .
+
+    A command macro is a sequence of commands, all of which are undone and redone in one go. Command macros are created by giving a command a list of child commands. Undoing or redoing the parent command will cause the child commands to be undone or redone. Command macros may be created explicitly by specifying a parent in the :class:`PySide.QtGui.QUndoCommand` constructor, or by using the convenience functions :meth:`PySide.QtGui.QUndoStack.beginMacro` and :meth:`PySide.QtGui.QUndoStack.endMacro` .
+
+    Although command compression and macros appear to have the same effect to the user, they often have different uses in an application. Commands that perform small changes to a document may be usefully compressed if there is no need to individually record them, and if only larger changes are relevant to the user. However, for commands that need to be recorded individually, or those that cannot be compressed, it is useful to use macros to provide a more convenient user experience while maintaining a record of each command.
+
+    .. _PySide.QtGui.QUndoStack_clean-state:
+
+
+
+Clean State
+^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QUndoStack` supports the concept of a clean state. When the document is saved to disk, the stack can be marked as clean using :meth:`PySide.QtGui.QUndoStack.setClean` . Whenever the stack returns to this state through undoing and redoing commands, it emits the signal :meth:`PySide.QtGui.QUndoStack.cleanChanged` . This signal is also emitted when the stack leaves the clean state. This signal is usually used to enable and disable the save actions in the application, and to update the document's title to reflect that it contains unsaved changes.
+
+    .. seealso::  :class:`PySide.QtGui.QUndoCommand`  :class:`PySide.QtGui.QUndoView` 
+
+.. class:: QUndoStack([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an empty undo stack with the parent ``parent`` . The stack will initially be in the clean state. If ``parent`` is a :class:`PySide.QtGui.QUndoGroup` object, the stack is automatically added to the group.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.push` 
+
+.. method:: PySide.QtGui.QUndoStack.beginMacro(text)
+
+
+    :param text: unicode
+
+
+
+
+    Begins composition of a macro command with the given ``text`` description.
+
+    An empty command described by the specified ``text`` is pushed on the stack. Any subsequent commands pushed on the stack will be appended to the empty command's children until :meth:`PySide.QtGui.QUndoStack.endMacro` is called.
+
+    Calls to :meth:`PySide.QtGui.QUndoStack.beginMacro` and :meth:`PySide.QtGui.QUndoStack.endMacro` may be nested, but every call to :meth:`PySide.QtGui.QUndoStack.beginMacro` must have a matching call to :meth:`PySide.QtGui.QUndoStack.endMacro` .
+
+    While a macro is composed, the stack is disabled. This means that:
+
+
+    * :meth:`PySide.QtGui.QUndoStack.indexChanged` and :meth:`PySide.QtGui.QUndoStack.cleanChanged` are not emitted,
+    * :meth:`PySide.QtGui.QUndoStack.canUndo` and :meth:`PySide.QtGui.QUndoStack.canRedo` return false,
+    * calling :meth:`PySide.QtGui.QUndoStack.undo` or :meth:`PySide.QtGui.QUndoStack.redo` has no effect,
+    * the undo/redo actions are disabled.
+
+    The stack becomes enabled and appropriate signals are emitted when :meth:`PySide.QtGui.QUndoStack.endMacro` is called for the outermost macro.
+
+    ::
+
+        stack.beginMacro("insert red text")
+        stack.push(InsertText(document, idx, text))
+        stack.push(SetColor(document, idx, text.length(), Qt.red))
+        stack.endMacro() # indexChanged() is emitted
+
+
+    This code is equivalent to:
+
+    ::
+
+        insertRed = QUndoCommand() # an empty command
+        insertRed.setText("insert red text")
+
+        InsertText(document, idx, text, insertRed) # becomes child of insertRed
+        SetColor(document, idx, text.length(), Qt.red, insertRed)
+
+        stack.push(insertRed)
+
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.endMacro` 
+
+
+.. method:: PySide.QtGui.QUndoStack.canRedo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is a command available for redo; otherwise returns false.
+
+    This function returns false if the stack is empty or if the top command on the stack has already been redone.
+
+    Synonymous with :meth:`PySide.QtGui.QUndoStack.index` == :meth:`PySide.QtGui.QUndoStack.count` .
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.index`  :meth:`PySide.QtGui.QUndoStack.canUndo` 
+
+
+.. method:: PySide.QtGui.QUndoStack.canRedoChanged(canRedo)
+
+
+    :param canRedo: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoStack.canUndo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is a command available for undo; otherwise returns false.
+
+    This function returns false if the stack is empty, or if the bottom command on the stack has already been undone.
+
+    Synonymous with :meth:`PySide.QtGui.QUndoStack.index` == 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.index`  :meth:`PySide.QtGui.QUndoStack.canRedo` 
+
+
+.. method:: PySide.QtGui.QUndoStack.canUndoChanged(canUndo)
+
+
+    :param canUndo: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoStack.cleanChanged(clean)
+
+
+    :param clean: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoStack.cleanIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the clean index. This is the index at which :meth:`PySide.QtGui.QUndoStack.setClean` was called.
+
+    A stack may not have a clean index. This happens if a document is saved, some commands are undone, then a new command is pushed. Since :meth:`PySide.QtGui.QUndoStack.push` deletes all the undone commands before pushing the new command, the stack can't return to the clean state again. In this case, this function returns -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.isClean`  :meth:`PySide.QtGui.QUndoStack.setClean` 
+
+
+.. method:: PySide.QtGui.QUndoStack.clear()
+
+
+
+
+
+
+    Clears the command stack by deleting all commands on it, and returns the stack to the clean state.
+
+    Commands are not undone or redone; the state of the edited object remains unchanged.
+
+    This function is usually used when the contents of the document are abandoned.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.QUndoStack` 
+
+
+.. method:: PySide.QtGui.QUndoStack.command(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QUndoCommand`
+
+
+
+
+    Returns a const pointer to the command at ``index`` .
+
+    This function returns a const pointer, because modifying a command, once it has been pushed onto the stack and executed, almost always causes corruption of the state of the document, if the command is later undone or redone.
+
+    .. seealso::  :meth:`QUndoCommand.child()<PySide.QtGui.QUndoCommand.child>` 
+
+
+.. method:: PySide.QtGui.QUndoStack.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of commands on the stack. Macro commands are counted as one command.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.index`  :meth:`PySide.QtGui.QUndoStack.setIndex`  :meth:`PySide.QtGui.QUndoStack.command` 
+
+
+.. method:: PySide.QtGui.QUndoStack.createRedoAction(parent[, prefix=""])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates an redo :class:`PySide.QtGui.QAction` object with the given ``parent`` .
+
+    Triggering this action will cause a call to :meth:`PySide.QtGui.QUndoStack.redo` . The text of this action is the text of the command which will be redone in the next call to :meth:`PySide.QtGui.QUndoStack.redo` , prefixed by the specified ``prefix`` . If there is no command available for redo, this action will be disabled.
+
+    If ``prefix`` is empty, the default template "Redo %1" is used instead of prefix. Before Qt 4.8, the prefix "Redo" was used by default.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.createUndoAction`  :meth:`PySide.QtGui.QUndoStack.canRedo`  :meth:`QUndoCommand.text()<PySide.QtGui.QUndoCommand.text>` 
+
+
+.. method:: PySide.QtGui.QUndoStack.createUndoAction(parent[, prefix=""])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates an undo :class:`PySide.QtGui.QAction` object with the given ``parent`` .
+
+    Triggering this action will cause a call to :meth:`PySide.QtGui.QUndoStack.undo` . The text of this action is the text of the command which will be undone in the next call to :meth:`PySide.QtGui.QUndoStack.undo` , prefixed by the specified ``prefix`` . If there is no command available for undo, this action will be disabled.
+
+    If ``prefix`` is empty, the default template "Undo %1" is used instead of prefix. Before Qt 4.8, the prefix "Undo" was used by default.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.createRedoAction`  :meth:`PySide.QtGui.QUndoStack.canUndo`  :meth:`QUndoCommand.text()<PySide.QtGui.QUndoCommand.text>` 
+
+
+.. method:: PySide.QtGui.QUndoStack.endMacro()
+
+
+
+
+
+
+    Ends composition of a macro command.
+
+    If this is the outermost macro in a set nested macros, this function emits :meth:`PySide.QtGui.QUndoStack.indexChanged` once for the entire macro command.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.beginMacro` 
+
+
+.. method:: PySide.QtGui.QUndoStack.index()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the current command. This is the command that will be executed on the next call to :meth:`PySide.QtGui.QUndoStack.redo` . It is not always the top-most command on the stack, since a number of commands may have been undone.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.setIndex`  :meth:`PySide.QtGui.QUndoStack.undo`  :meth:`PySide.QtGui.QUndoStack.redo`  :meth:`PySide.QtGui.QUndoStack.count` 
+
+
+.. method:: PySide.QtGui.QUndoStack.indexChanged(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoStack.isActive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the active status of this stack..
+
+    An application often has multiple undo stacks, one for each opened document. The active stack is the one associated with the currently active document. If the stack belongs to a :class:`PySide.QtGui.QUndoGroup` , calls to :meth:`QUndoGroup.undo()<PySide.QtGui.QUndoGroup.undo>` or :meth:`QUndoGroup.redo()<PySide.QtGui.QUndoGroup.redo>` will be forwarded to this stack when it is active. If the :class:`PySide.QtGui.QUndoGroup` is watched by a :class:`PySide.QtGui.QUndoView` , the view will display the contents of this stack when it is active. If the stack does not belong to a :class:`PySide.QtGui.QUndoGroup` , making it active has no effect.
+
+    It is the programmer's responsibility to specify which stack is active by calling :meth:`PySide.QtGui.QUndoStack.setActive` , usually when the associated document window receives focus.
+
+    .. seealso::  :class:`PySide.QtGui.QUndoGroup` 
+
+
+.. method:: PySide.QtGui.QUndoStack.isClean()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    If the stack is in the clean state, returns true; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.setClean`  :meth:`PySide.QtGui.QUndoStack.cleanIndex` 
+
+
+.. method:: PySide.QtGui.QUndoStack.push(cmd)
+
+
+    :param cmd: :class:`PySide.QtGui.QUndoCommand`
+
+
+
+
+    Pushes ``cmd`` on the stack or merges it with the most recently executed command. In either case, executes ``cmd`` by calling its :meth:`PySide.QtGui.QUndoStack.redo` function.
+
+    If ``cmd`` 's id is not -1, and if the id is the same as that of the most recently executed command, :class:`PySide.QtGui.QUndoStack` will attempt to merge the two commands by calling :meth:`QUndoCommand.mergeWith()<PySide.QtGui.QUndoCommand.mergeWith>` on the most recently executed command. If :meth:`QUndoCommand.mergeWith()<PySide.QtGui.QUndoCommand.mergeWith>` returns true, ``cmd`` is deleted.
+
+    In all other cases ``cmd`` is simply pushed on the stack.
+
+    If commands were undone before ``cmd`` was pushed, the current command and all commands above it are deleted. Hence ``cmd`` always ends up being the top-most on the stack.
+
+    Once a command is pushed, the stack takes ownership of it. There are no getters to return the command, since modifying it after it has been executed will almost always lead to corruption of the document's state.
+
+    .. seealso::  :meth:`QUndoCommand.id()<PySide.QtGui.QUndoCommand.id>`  :meth:`QUndoCommand.mergeWith()<PySide.QtGui.QUndoCommand.mergeWith>` 
+
+
+.. method:: PySide.QtGui.QUndoStack.redo()
+
+
+
+
+
+
+    Redoes the current command by calling :meth:`QUndoCommand.redo()<PySide.QtGui.QUndoCommand.redo>` . Increments the current command index.
+
+    If the stack is empty, or if the top command on the stack has already been redone, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.undo`  :meth:`PySide.QtGui.QUndoStack.index` 
+
+
+.. method:: PySide.QtGui.QUndoStack.redoText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text of the command which will be redone in the next call to :meth:`PySide.QtGui.QUndoStack.redo` .
+
+    .. seealso::  :meth:`QUndoCommand.actionText()<PySide.QtGui.QUndoCommand.actionText>`  :meth:`PySide.QtGui.QUndoStack.undoText` 
+
+
+.. method:: PySide.QtGui.QUndoStack.redoTextChanged(redoText)
+
+
+    :param redoText: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoStack.setActive([active=true])
+
+
+    :param active: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the active status of this stack..
+
+    An application often has multiple undo stacks, one for each opened document. The active stack is the one associated with the currently active document. If the stack belongs to a :class:`PySide.QtGui.QUndoGroup` , calls to :meth:`QUndoGroup.undo()<PySide.QtGui.QUndoGroup.undo>` or :meth:`QUndoGroup.redo()<PySide.QtGui.QUndoGroup.redo>` will be forwarded to this stack when it is active. If the :class:`PySide.QtGui.QUndoGroup` is watched by a :class:`PySide.QtGui.QUndoView` , the view will display the contents of this stack when it is active. If the stack does not belong to a :class:`PySide.QtGui.QUndoGroup` , making it active has no effect.
+
+    It is the programmer's responsibility to specify which stack is active by calling :meth:`PySide.QtGui.QUndoStack.setActive` , usually when the associated document window receives focus.
+
+    .. seealso::  :class:`PySide.QtGui.QUndoGroup` 
+
+
+.. method:: PySide.QtGui.QUndoStack.setClean()
+
+
+
+
+
+
+    Marks the stack as clean and emits :meth:`PySide.QtGui.QUndoStack.cleanChanged` if the stack was not already clean.
+
+    Whenever the stack returns to this state through the use of undo/redo commands, it emits the signal :meth:`PySide.QtGui.QUndoStack.cleanChanged` . This signal is also emitted when the stack leaves the clean state.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.isClean`  :meth:`PySide.QtGui.QUndoStack.cleanIndex` 
+
+
+.. method:: PySide.QtGui.QUndoStack.setIndex(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+
+
+
+
+    Repeatedly calls :meth:`PySide.QtGui.QUndoStack.undo` or :meth:`PySide.QtGui.QUndoStack.redo` until the current command index reaches ``idx`` . This function can be used to roll the state of the document forwards of backwards. :meth:`PySide.QtGui.QUndoStack.indexChanged` is emitted only once.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.index`  :meth:`PySide.QtGui.QUndoStack.count`  :meth:`PySide.QtGui.QUndoStack.undo`  :meth:`PySide.QtGui.QUndoStack.redo` 
+
+
+.. method:: PySide.QtGui.QUndoStack.setUndoLimit(limit)
+
+
+    :param limit: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the maximum number of commands on this stack..
+
+    When the number of commands on a stack exceedes the stack's :meth:`PySide.QtGui.QUndoStack.undoLimit` , commands are deleted from the bottom of the stack. Macro commands (commands with child commands) are treated as one command. The default value is 0, which means that there is no limit.
+
+    This property may only be set when the undo stack is empty, since setting it on a non-empty stack might delete the command at the current index. Calling :meth:`PySide.QtGui.QUndoStack.setUndoLimit` on a non-empty stack prints a warning and does nothing.
+
+
+
+.. method:: PySide.QtGui.QUndoStack.text(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the text of the command at index ``idx`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.beginMacro` 
+
+
+.. method:: PySide.QtGui.QUndoStack.undo()
+
+
+
+
+
+
+    Undoes the command below the current command by calling :meth:`QUndoCommand.undo()<PySide.QtGui.QUndoCommand.undo>` . Decrements the current command index.
+
+    If the stack is empty, or if the bottom command on the stack has already been undone, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoStack.redo`  :meth:`PySide.QtGui.QUndoStack.index` 
+
+
+.. method:: PySide.QtGui.QUndoStack.undoLimit()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the maximum number of commands on this stack..
+
+    When the number of commands on a stack exceedes the stack's :meth:`PySide.QtGui.QUndoStack.undoLimit` , commands are deleted from the bottom of the stack. Macro commands (commands with child commands) are treated as one command. The default value is 0, which means that there is no limit.
+
+    This property may only be set when the undo stack is empty, since setting it on a non-empty stack might delete the command at the current index. Calling :meth:`PySide.QtGui.QUndoStack.setUndoLimit` on a non-empty stack prints a warning and does nothing.
+
+
+
+.. method:: PySide.QtGui.QUndoStack.undoText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text of the command which will be undone in the next call to :meth:`PySide.QtGui.QUndoStack.undo` .
+
+    .. seealso::  :meth:`QUndoCommand.actionText()<PySide.QtGui.QUndoCommand.actionText>`  :meth:`PySide.QtGui.QUndoStack.redoText` 
+
+
+.. method:: PySide.QtGui.QUndoStack.undoTextChanged(undoText)
+
+
+    :param undoText: unicode
+
+
+
+
+
+
+

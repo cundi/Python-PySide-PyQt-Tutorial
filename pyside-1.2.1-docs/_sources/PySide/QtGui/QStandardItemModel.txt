@@ -1,0 +1,588 @@
+.. module:: PySide.QtGui
+.. _QStandardItemModel:
+
+QStandardItemModel
+******************
+
+.. inheritance-diagram:: QStandardItemModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`appendColumn<PySide.QtGui.QStandardItemModel.appendColumn>` (items)
+*    def :meth:`appendRow<PySide.QtGui.QStandardItemModel.appendRow>` (item)
+*    def :meth:`appendRow<PySide.QtGui.QStandardItemModel.appendRow>` (items)
+*    def :meth:`clear<PySide.QtGui.QStandardItemModel.clear>` ()
+*    def :meth:`findItems<PySide.QtGui.QStandardItemModel.findItems>` (text[, flags=Qt.MatchExactly[, column=0]])
+*    def :meth:`horizontalHeaderItem<PySide.QtGui.QStandardItemModel.horizontalHeaderItem>` (column)
+*    def :meth:`indexFromItem<PySide.QtGui.QStandardItemModel.indexFromItem>` (item)
+*    def :meth:`insertColumn<PySide.QtGui.QStandardItemModel.insertColumn>` (column, items)
+*    def :meth:`insertRow<PySide.QtGui.QStandardItemModel.insertRow>` (row, item)
+*    def :meth:`insertRow<PySide.QtGui.QStandardItemModel.insertRow>` (row, items)
+*    def :meth:`invisibleRootItem<PySide.QtGui.QStandardItemModel.invisibleRootItem>` ()
+*    def :meth:`item<PySide.QtGui.QStandardItemModel.item>` (row[, column=0])
+*    def :meth:`itemFromIndex<PySide.QtGui.QStandardItemModel.itemFromIndex>` (index)
+*    def :meth:`itemPrototype<PySide.QtGui.QStandardItemModel.itemPrototype>` ()
+*    def :meth:`setColumnCount<PySide.QtGui.QStandardItemModel.setColumnCount>` (columns)
+*    def :meth:`setHorizontalHeaderItem<PySide.QtGui.QStandardItemModel.setHorizontalHeaderItem>` (column, item)
+*    def :meth:`setHorizontalHeaderLabels<PySide.QtGui.QStandardItemModel.setHorizontalHeaderLabels>` (labels)
+*    def :meth:`setItem<PySide.QtGui.QStandardItemModel.setItem>` (row, column, item)
+*    def :meth:`setItem<PySide.QtGui.QStandardItemModel.setItem>` (row, item)
+*    def :meth:`setItemPrototype<PySide.QtGui.QStandardItemModel.setItemPrototype>` (item)
+*    def :meth:`setRowCount<PySide.QtGui.QStandardItemModel.setRowCount>` (rows)
+*    def :meth:`setSortRole<PySide.QtGui.QStandardItemModel.setSortRole>` (role)
+*    def :meth:`setVerticalHeaderItem<PySide.QtGui.QStandardItemModel.setVerticalHeaderItem>` (row, item)
+*    def :meth:`setVerticalHeaderLabels<PySide.QtGui.QStandardItemModel.setVerticalHeaderLabels>` (labels)
+*    def :meth:`sortRole<PySide.QtGui.QStandardItemModel.sortRole>` ()
+*    def :meth:`takeColumn<PySide.QtGui.QStandardItemModel.takeColumn>` (column)
+*    def :meth:`takeHorizontalHeaderItem<PySide.QtGui.QStandardItemModel.takeHorizontalHeaderItem>` (column)
+*    def :meth:`takeItem<PySide.QtGui.QStandardItemModel.takeItem>` (row[, column=0])
+*    def :meth:`takeRow<PySide.QtGui.QStandardItemModel.takeRow>` (row)
+*    def :meth:`takeVerticalHeaderItem<PySide.QtGui.QStandardItemModel.takeVerticalHeaderItem>` (row)
+*    def :meth:`verticalHeaderItem<PySide.QtGui.QStandardItemModel.verticalHeaderItem>` (row)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`itemChanged<PySide.QtGui.QStandardItemModel.itemChanged>` (item)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStandardItemModel` class provides a generic model for storing custom data.
+
+    :class:`PySide.QtGui.QStandardItemModel` can be used as a repository for standard Qt data types. It is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view<model-view-programming.html>` framework.
+
+    :class:`PySide.QtGui.QStandardItemModel` provides a classic item-based approach to working with the model. The items in a :class:`PySide.QtGui.QStandardItemModel` are provided by :class:`PySide.QtGui.QStandardItem` .
+
+    :class:`PySide.QtGui.QStandardItemModel` implements the :class:`PySide.QtCore.QAbstractItemModel` interface, which means that the model can be used to provide data in any view that supports that interface (such as :class:`PySide.QtGui.QListView` , :class:`PySide.QtGui.QTableView` and :class:`PySide.QtGui.QTreeView` , and your own custom views). For performance and flexibility, you may want to subclass :class:`PySide.QtCore.QAbstractItemModel` to provide support for different kinds of data repositories. For example, the :class:`PySide.QtGui.QDirModel` provides a model interface to the underlying file system.
+
+    When you want a list or tree, you typically create an empty :class:`PySide.QtGui.QStandardItemModel` and use :meth:`PySide.QtGui.QStandardItemModel.appendRow` to add items to the model, and :meth:`PySide.QtGui.QStandardItemModel.item` to access an item. If your model represents a table, you typically pass the dimensions of the table to the :class:`PySide.QtGui.QStandardItemModel` constructor and use :meth:`PySide.QtGui.QStandardItemModel.setItem` to position items into the table. You can also use :meth:`PySide.QtGui.QStandardItemModel.setRowCount` and :meth:`PySide.QtGui.QStandardItemModel.setColumnCount` to alter the dimensions of the model. To insert items, use :meth:`PySide.QtGui.QStandardItemModel.insertRow` or :meth:`PySide.QtGui.QStandardItemModel.insertColumn` , and to remove items, use :meth:`PySide.QtCore.QAbstractItemModel.removeRow` or :meth:`PySide.QtCore.QAbstractItemModel.removeColumn` .
+
+    You can set the header labels of your model with :meth:`PySide.QtGui.QStandardItemModel.setHorizontalHeaderLabels` and :meth:`PySide.QtGui.QStandardItemModel.setVerticalHeaderLabels` .
+
+    You can search for items in the model with :meth:`PySide.QtGui.QStandardItemModel.findItems` , and sort the model by calling :meth:`PySide.QtGui.QStandardItemModel.sort` .
+
+    Call :meth:`PySide.QtGui.QStandardItemModel.clear` to remove all items from the model.
+
+    An example usage of :class:`PySide.QtGui.QStandardItemModel` to create a table:
+
+    ::
+
+        model = QStandardItemModel (4, 4)
+        for row in range(4):
+            for column in range(4):
+                item = QStandardItem("row %d, column %d" % (row, column))
+                model.setItem(row, column, item)
+
+
+    An example usage of :class:`PySide.QtGui.QStandardItemModel` to create a tree:
+
+    ::
+
+        model = QStandardItemModel()
+        parentItem = model.invisibleRootItem()
+        for i in range(4):
+            item = QStandardItem("item %d" % i)
+            parentItem.appendRow(item)
+            parentItem = item
+
+
+    After setting the model on a view, you typically want to react to user actions, such as an item being clicked. Since a :class:`PySide.QtGui.QAbstractItemView` provides :class:`PySide.QtCore.QModelIndex` -based signals and functions, you need a way to obtain the :class:`PySide.QtGui.QStandardItem` that corresponds to a given :class:`PySide.QtCore.QModelIndex` , and vice versa. :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex` and :meth:`PySide.QtGui.QStandardItemModel.indexFromItem` provide this mapping. Typical usage of :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex` includes obtaining the item at the current index in a view, and obtaining the item that corresponds to an index carried by a :class:`PySide.QtGui.QAbstractItemView` signal, such as :meth:`QAbstractItemView.clicked()<PySide.QtGui.QAbstractItemView.clicked>` . First you connect the view's signal to a slot in your class:
+
+    ::
+
+        treeView = QTreeView(self)
+        treeView.setModel(myStandardItemModel)
+        treeView.clicked[QModelIndex].connect(self.clicked)
+
+
+    When you receive the signal, you call :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex` on the given model index to get a pointer to the item:
+
+    ::
+
+        def clicked(self, index):
+            item = myStandardItemModel.itemFromIndex(index)
+            # Do stuff with the item ...
+
+
+    Conversely, you must obtain the :class:`PySide.QtCore.QModelIndex` of an item when you want to invoke a model/view function that takes an index as argument. You can obtain the index either by using the model's :meth:`PySide.QtGui.QStandardItemModel.indexFromItem` function, or, equivalently, by calling :meth:`QStandardItem.index()<PySide.QtGui.QStandardItem.index>` :
+
+    ::
+
+        treeView.scrollTo(item.index())
+
+
+    You are, of course, not required to use the item-based approach; you could instead rely entirely on the :class:`PySide.QtCore.QAbstractItemModel` interface when working with the model, or use a combination of the two as appropriate.
+
+    .. seealso::  :class:`PySide.QtGui.QStandardItem`  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtCore.QAbstractItemModel`  :ref:`Simple Tree Model example<itemviews/simpletreemodel>`  :ref:`Item View Convenience Classes<model-view-programming.html>` 
+
+.. class:: QStandardItemModel([parent=None])
+           QStandardItemModel(rows, columns[, parent=None])
+
+    :param rows: :class:`PySide.QtCore.int`
+    :param columns: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new item model with the given ``parent`` .
+
+
+    Constructs a new item model that initially has ``rows`` rows and ``columns`` columns, and that has the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QStandardItemModel.appendColumn(items)
+
+
+    :param items: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.appendRow(items)
+
+
+    :param items: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.appendRow(item)
+
+
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    This is an overloaded function.
+
+    When building a list or a tree that has only one column, this function provides a convenient way to append a single new ``item`` .
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.clear()
+
+
+
+
+
+
+    Removes all items (including header items) from the model and sets the number of rows and columns to zero.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.removeColumns`  :meth:`PySide.QtGui.QStandardItemModel.removeRows` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.findItems(text[, flags=Qt.MatchExactly[, column=0]])
+
+
+    :param text: unicode
+    :param flags: :class:`PySide.QtCore.Qt.MatchFlags`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.horizontalHeaderItem(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns the horizontal header item for ``column`` if one has been set; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setHorizontalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.verticalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.indexFromItem(item)
+
+
+    :param item: :class:`PySide.QtGui.QStandardItem`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QModelIndex` associated with the given ``item`` .
+
+    Use this function when you want to perform an operation that requires the :class:`PySide.QtCore.QModelIndex` of the item, such as :meth:`QAbstractItemView.scrollTo()<PySide.QtGui.QAbstractItemView.scrollTo>` . :meth:`QStandardItem.index()<PySide.QtGui.QStandardItem.index>` is provided as convenience; it is equivalent to calling this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex`  :meth:`QStandardItem.index()<PySide.QtGui.QStandardItem.index>` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.insertColumn(column, items)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param items: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.insertRow(row, items)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param items: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.insertRow(row, item)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    This is an overloaded function.
+
+    Inserts a row at ``row`` containing ``item`` .
+
+    When building a list or a tree that has only one column, this function provides a convenient way to append a single new item.
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.invisibleRootItem()
+
+
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns the model's invisible root item.
+
+    The invisible root item provides access to the model's top-level items through the :class:`PySide.QtGui.QStandardItem` API, making it possible to write functions that can treat top-level items and their children in a uniform way; for example, recursive functions involving a tree model.
+
+    .. note::  Calling :meth:`PySide.QtCore.QAbstractItemModel.index` on the :class:`PySide.QtGui.QStandardItem` object retrieved from this function is not valid.
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.item(row[, column=0])
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns the item for the given ``row`` and ``column`` if one has been set; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setItem`  :meth:`PySide.QtGui.QStandardItemModel.takeItem`  :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.itemChanged(item)
+
+
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.itemFromIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns a pointer to the :class:`PySide.QtGui.QStandardItem` associated with the given ``index`` .
+
+    Calling this function is typically the initial step when processing :class:`PySide.QtCore.QModelIndex` -based signals from a view, such as :meth:`QAbstractItemView.activated()<PySide.QtGui.QAbstractItemView.activated>` . In your slot, you call :meth:`PySide.QtGui.QStandardItemModel.itemFromIndex` , with the :class:`PySide.QtCore.QModelIndex` carried by the signal as argument, to obtain a pointer to the corresponding :class:`PySide.QtGui.QStandardItem` .
+
+    Note that this function will lazily create an item for the index (using :meth:`PySide.QtGui.QStandardItemModel.itemPrototype` ), and set it in the parent item's child table, if no item already exists at that index.
+
+    If ``index`` is an invalid index, this function returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.indexFromItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.itemPrototype()
+
+
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns the item prototype used by the model. The model uses the item prototype as an item factory when it needs to construct new items on demand (for instance, when a view or item delegate calls :meth:`PySide.QtGui.QStandardItemModel.setData` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setItemPrototype` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setColumnCount(columns)
+
+
+    :param columns: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the number of columns in this model to ``columns`` . If this is less than :meth:`PySide.QtGui.QStandardItemModel.columnCount` , the data in the unwanted columns is discarded.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.columnCount`  :meth:`PySide.QtGui.QStandardItemModel.setRowCount` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setHorizontalHeaderItem(column, item)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Sets the horizontal header item for ``column`` to ``item`` . The model takes ownership of the item. If necessary, the column count is increased to fit the item. The previous header item (if there was one) is deleted.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.horizontalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.setHorizontalHeaderLabels`  :meth:`PySide.QtGui.QStandardItemModel.setVerticalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setHorizontalHeaderLabels(labels)
+
+
+    :param labels: list of strings
+
+
+
+
+    Sets the horizontal header labels using ``labels`` . If necessary, the column count is increased to the size of ``labels`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setHorizontalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setItem(row, column, item)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Sets the item for the given ``row`` and ``column`` to ``item`` . The model takes ownership of the item. If necessary, the row count and column count are increased to fit the item. The previous item at the given location (if there was one) is deleted.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.item` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setItem(row, item)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setItemPrototype(item)
+
+
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Sets the item prototype for the model to the specified ``item`` . The model takes ownership of the prototype.
+
+    The item prototype acts as a :class:`PySide.QtGui.QStandardItem` factory, by relying on the :meth:`QStandardItem.clone()<PySide.QtGui.QStandardItem.clone>` function. To provide your own prototype, subclass :class:`PySide.QtGui.QStandardItem` , reimplement :meth:`QStandardItem.clone()<PySide.QtGui.QStandardItem.clone>` and set the prototype to be an instance of your custom class. Whenever :class:`PySide.QtGui.QStandardItemModel` needs to create an item on demand (for instance, when a view or item delegate calls :meth:`PySide.QtGui.QStandardItemModel.setData` )), the new items will be instances of your custom class.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.itemPrototype`  :meth:`QStandardItem.clone()<PySide.QtGui.QStandardItem.clone>` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setRowCount(rows)
+
+
+    :param rows: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the number of rows in this model to ``rows`` . If this is less than :meth:`PySide.QtGui.QStandardItemModel.rowCount` , the data in the unwanted rows is discarded.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.rowCount`  :meth:`PySide.QtGui.QStandardItemModel.setColumnCount` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setSortRole(role)
+
+
+    :param role: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the item role that is used to query the model's data when sorting items.
+
+    The default value is :attr:`Qt.DisplayRole<Qt.ItemDataRole>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.sort`  :meth:`QStandardItem.sortChildren()<PySide.QtGui.QStandardItem.sortChildren>` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setVerticalHeaderItem(row, item)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param item: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Sets the vertical header item for ``row`` to ``item`` . The model takes ownership of the item. If necessary, the row count is increased to fit the item. The previous header item (if there was one) is deleted.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.verticalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.setVerticalHeaderLabels`  :meth:`PySide.QtGui.QStandardItemModel.setHorizontalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.setVerticalHeaderLabels(labels)
+
+
+    :param labels: list of strings
+
+
+
+
+    Sets the vertical header labels using ``labels`` . If necessary, the row count is increased to the size of ``labels`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setVerticalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.sortRole()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the item role that is used to query the model's data when sorting items.
+
+    The default value is :attr:`Qt.DisplayRole<Qt.ItemDataRole>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.sort`  :meth:`QStandardItem.sortChildren()<PySide.QtGui.QStandardItem.sortChildren>` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.takeColumn(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Removes the given ``column`` without deleting the column items, and returns a list of pointers to the removed items. The model releases ownership of the items. For items in the column that have not been set, the corresponding pointers in the list will be 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.takeRow` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.takeHorizontalHeaderItem(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Removes the horizontal header item at ``column`` from the header without deleting it, and returns a pointer to the item. The model releases ownership of the item.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.horizontalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.takeVerticalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.takeItem(row[, column=0])
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Removes the item at (``row`` , ``column`` ) without deleting it. The model releases ownership of the item.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.item`  :meth:`PySide.QtGui.QStandardItemModel.takeRow`  :meth:`PySide.QtGui.QStandardItemModel.takeColumn` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.takeRow(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Removes the given ``row`` without deleting the row items, and returns a list of pointers to the removed items. The model releases ownership of the items. For items in the row that have not been set, the corresponding pointers in the list will be 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.takeColumn` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.takeVerticalHeaderItem(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Removes the vertical header item at ``row`` from the header without deleting it, and returns a pointer to the item. The model releases ownership of the item.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.verticalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.takeHorizontalHeaderItem` 
+
+
+.. method:: PySide.QtGui.QStandardItemModel.verticalHeaderItem(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QStandardItem`
+
+
+
+
+    Returns the vertical header item for row ``row`` if one has been set; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QStandardItemModel.setVerticalHeaderItem`  :meth:`PySide.QtGui.QStandardItemModel.horizontalHeaderItem` 
+
+
+

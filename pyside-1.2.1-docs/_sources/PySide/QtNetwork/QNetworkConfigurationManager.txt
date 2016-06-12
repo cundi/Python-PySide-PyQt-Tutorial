@@ -1,0 +1,236 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkConfigurationManager:
+
+QNetworkConfigurationManager
+****************************
+
+.. inheritance-diagram:: QNetworkConfigurationManager
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.7
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allConfigurations<PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations>` ([flags=0])
+*    def :meth:`capabilities<PySide.QtNetwork.QNetworkConfigurationManager.capabilities>` ()
+*    def :meth:`configurationFromIdentifier<PySide.QtNetwork.QNetworkConfigurationManager.configurationFromIdentifier>` (identifier)
+*    def :meth:`defaultConfiguration<PySide.QtNetwork.QNetworkConfigurationManager.defaultConfiguration>` ()
+*    def :meth:`isOnline<PySide.QtNetwork.QNetworkConfigurationManager.isOnline>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`updateConfigurations<PySide.QtNetwork.QNetworkConfigurationManager.updateConfigurations>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`configurationAdded<PySide.QtNetwork.QNetworkConfigurationManager.configurationAdded>` (config)
+*    def :meth:`configurationChanged<PySide.QtNetwork.QNetworkConfigurationManager.configurationChanged>` (config)
+*    def :meth:`configurationRemoved<PySide.QtNetwork.QNetworkConfigurationManager.configurationRemoved>` (config)
+*    def :meth:`onlineStateChanged<PySide.QtNetwork.QNetworkConfigurationManager.onlineStateChanged>` (isOnline)
+*    def :meth:`updateCompleted<PySide.QtNetwork.QNetworkConfigurationManager.updateCompleted>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkConfigurationManager` class manages the network configurations provided by the system.
+
+    :class:`PySide.QtNetwork.QNetworkConfigurationManager` provides access to the network configurations known to the system and enables applications to detect the system capabilities (with regards to network sessions) at runtime.
+
+    A :class:`PySide.QtNetwork.QNetworkConfiguration` abstracts a set of configuration options describing how a network interface has to be configured to connect to a particular target network. :class:`PySide.QtNetwork.QNetworkConfigurationManager` maintains and updates the global list of QNetworkConfigurations. Applications can access and filter this list via :meth:`PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations` . If a new configuration is added or an existing one is removed or changed the :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationAdded` , :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationRemoved` and :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationChanged` signals are emitted respectively.
+
+    The :meth:`PySide.QtNetwork.QNetworkConfigurationManager.defaultConfiguration` can be used when intending to immediately create a new network session without caring about the particular configuration. It returns a :attr:`QNetworkConfiguration.Discovered<QNetworkConfiguration.StateFlag>` configuration. If there are not any discovered ones an invalid configuration is returned.
+
+    Some configuration updates may require some time to perform updates. A WLAN scan is such an example. Unless the platform performs internal updates it may be required to manually trigger configuration updates via :meth:`QNetworkConfigurationManager.updateConfigurations()<PySide.QtNetwork.QNetworkConfigurationManager.updateConfigurations>` . The completion of the update process is indicted by emitting the :meth:`PySide.QtNetwork.QNetworkConfigurationManager.updateCompleted` signal. The update process ensures that every existing :class:`PySide.QtNetwork.QNetworkConfiguration` instance is updated. There is no need to ask for a renewed configuration list via :meth:`PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations` .
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkConfiguration` 
+
+.. class:: QNetworkConfigurationManager([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkConfigurationManager` with the given ``parent`` .
+
+    Note that to ensure a valid list of current configurations immediately available, updating is done during construction which causes some delay.
+
+
+.. attribute:: PySide.QtNetwork.QNetworkConfigurationManager.Capability
+
+    Specifies the system capabilities of the bearer API. The possible values are:
+
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                              |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+    +======================================================+===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QNetworkConfigurationManager.CanStartAndStopInterfaces|Network sessions and their underlying access points can be started and stopped. If this flag is not set :class:`PySide.QtNetwork.QNetworkSession` can only monitor but not influence the state of access points. On some platforms this feature may require elevated user permissions. This option is platform specific and may not always be available.                                                                                                                                           |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.DirectConnectionRouting  |Network sessions and their sockets can be bound to a particular network interface. Any packet that passes through the socket goes to the specified network interface and thus disregards standard routing table entries. This may be useful when two interfaces can reach overlapping IP ranges or an application has specific needs in regards to target networks. This option is platform specific and may not always be available.                                                              |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.SystemSessionSupport     |If this flag is set the underlying platform ensures that a network interface is not shut down until the last network session has been :meth:`closed()<PySide.QtNetwork.QNetworkSession.close>` . This works across multiple processes. If the platform session support is missing this API can only ensure the above behavior for network sessions within the same process. In general mobile platforms (such as Symbian/S60) have such support whereas most desktop platform lack this capability.|
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.ApplicationLevelRoaming  |The system gives applications control over the systems roaming behavior. Applications can initiate roaming (in case the current link is not suitable) and are consulted if the system has identified a more suitable access point.                                                                                                                                                                                                                                                                 |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.ForcedRoaming            |The system disconnects an existing access point and reconnects via a more suitable one. The application does not have any control over this process and has to reconnect its active sockets.                                                                                                                                                                                                                                                                                                       |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.DataStatistics           |If this flag is set :class:`PySide.QtNetwork.QNetworkSession` can provide statistics about transmitted and received data.                                                                                                                                                                                                                                                                                                                                                                          |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfigurationManager.NetworkSessionRequired   |If this flag is set the platform requires that a network session is created before network operations can be performed.                                                                                                                                                                                                                                                                                                                                                                            |
+    +------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations([flags=0])
+
+
+    :param flags: :class:`PySide.QtNetwork.QNetworkConfiguration.StateFlags`
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.capabilities()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfigurationManager.Capabilities`
+
+
+
+
+    Returns the capabilities supported by the current platform.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.configurationAdded(config)
+
+
+    :param config: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.configurationChanged(config)
+
+
+    :param config: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.configurationFromIdentifier(identifier)
+
+
+    :param identifier: unicode
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkConfiguration` for ``identifier`` ; otherwise returns an invalid :class:`PySide.QtNetwork.QNetworkConfiguration` .
+
+    .. seealso::  :meth:`QNetworkConfiguration.identifier()<PySide.QtNetwork.QNetworkConfiguration.identifier>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.configurationRemoved(config)
+
+
+    :param config: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.defaultConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the default configuration to be used. This function always returns a discovered configuration; otherwise an invalid configuration.
+
+    In some cases it may be required to call :meth:`PySide.QtNetwork.QNetworkConfigurationManager.updateConfigurations` and wait for the :meth:`PySide.QtNetwork.QNetworkConfigurationManager.updateCompleted` signal before calling this function.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations` 
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.isOnline()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the system is considered to be connected to another device via an active network interface; otherwise returns false.
+
+    This is equivalent to the following code snippet:
+
+    ::
+
+        mgr = QNetworkConfigurationManager()
+        activeConfigs = mgr.allConfigurations(QNetworkConfiguration.Active)
+        if activeConfigs:
+            assert(mgr.isOnline())
+        else:
+            assert(not mgr.isOnline())
+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkConfigurationManager.onlineStateChanged` 
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.onlineStateChanged(isOnline)
+
+
+    :param isOnline: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.updateCompleted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfigurationManager.updateConfigurations()
+
+
+
+
+
+
+    Initiates an update of all configurations. This may be used to initiate WLAN scans or other time consuming updates which may be required to obtain the correct state for configurations.
+
+    This call is asynchronous. On completion of this update the :meth:`PySide.QtNetwork.QNetworkConfigurationManager.updateCompleted` signal is emitted. If new configurations are discovered or old ones were removed or changed the update process may trigger the emission of one or multiple :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationAdded` , :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationRemoved` and :meth:`PySide.QtNetwork.QNetworkConfigurationManager.configurationChanged` signals.
+
+    If a configuration state changes as a result of this update all existing :class:`PySide.QtNetwork.QNetworkConfiguration` instances are updated automatically.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations` 
+
+
+

@@ -1,0 +1,96 @@
+.. module:: PySide.QtCore
+.. _QChildEvent:
+
+QChildEvent
+***********
+
+.. inheritance-diagram:: QChildEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`added<PySide.QtCore.QChildEvent.added>` ()
+*    def :meth:`child<PySide.QtCore.QChildEvent.child>` ()
+*    def :meth:`polished<PySide.QtCore.QChildEvent.polished>` ()
+*    def :meth:`removed<PySide.QtCore.QChildEvent.removed>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QChildEvent` class contains event parameters for child object events.
+
+    Child events are sent immediately to objects when children are added or removed.
+
+    In both cases you can only rely on the child being a :class:`PySide.QtCore.QObject` (or, if :meth:`QObject.isWidgetType()<PySide.QtCore.QObject.isWidgetType>` returns true, a :class:`PySide.QtGui.QWidget` ). This is because in the :attr:`QEvent.ChildAdded<QEvent.Type>` case the child is not yet fully constructed; in the :attr:`QEvent.ChildRemoved<QEvent.Type>` case it might have already been destructed.
+
+    The handler for these events is :meth:`QObject.childEvent()<PySide.QtCore.QObject.childEvent>` .
+
+
+.. class:: QChildEvent(type, child)
+
+    :param child: :class:`PySide.QtCore.QObject`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+    Constructs a child event object of a particular ``type`` for the ``child`` .
+
+    ``type`` can be :attr:`QEvent.ChildAdded<QEvent.Type>` , :attr:`QEvent.ChildRemoved<QEvent.Type>` , :attr:`QEvent.ChildPolished<QEvent.Type>` , or :attr:`QEvent.ChildRemoved<QEvent.Type>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QChildEvent.child` 
+
+.. method:: PySide.QtCore.QChildEvent.added()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :meth:`PySide.QtCore.QEvent.type` is :attr:`QEvent.ChildAdded<QEvent.Type>` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QChildEvent.child()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the child object that was added or removed.
+
+
+
+.. method:: PySide.QtCore.QChildEvent.polished()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :meth:`PySide.QtCore.QEvent.type` is :attr:`QEvent.ChildPolished<QEvent.Type>` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QChildEvent.removed()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :meth:`PySide.QtCore.QEvent.type` is :attr:`QEvent.ChildRemoved<QEvent.Type>` ; otherwise returns false.
+
+
+
+

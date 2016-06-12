@@ -1,0 +1,628 @@
+.. module:: PySide.QtXml
+.. _QDomDocument:
+
+QDomDocument
+************
+
+.. inheritance-diagram:: QDomDocument
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createAttribute<PySide.QtXml.QDomDocument.createAttribute>` (name)
+*    def :meth:`createAttributeNS<PySide.QtXml.QDomDocument.createAttributeNS>` (nsURI, qName)
+*    def :meth:`createCDATASection<PySide.QtXml.QDomDocument.createCDATASection>` (data)
+*    def :meth:`createComment<PySide.QtXml.QDomDocument.createComment>` (data)
+*    def :meth:`createDocumentFragment<PySide.QtXml.QDomDocument.createDocumentFragment>` ()
+*    def :meth:`createElement<PySide.QtXml.QDomDocument.createElement>` (tagName)
+*    def :meth:`createElementNS<PySide.QtXml.QDomDocument.createElementNS>` (nsURI, qName)
+*    def :meth:`createEntityReference<PySide.QtXml.QDomDocument.createEntityReference>` (name)
+*    def :meth:`createProcessingInstruction<PySide.QtXml.QDomDocument.createProcessingInstruction>` (target, data)
+*    def :meth:`createTextNode<PySide.QtXml.QDomDocument.createTextNode>` (data)
+*    def :meth:`doctype<PySide.QtXml.QDomDocument.doctype>` ()
+*    def :meth:`documentElement<PySide.QtXml.QDomDocument.documentElement>` ()
+*    def :meth:`elementById<PySide.QtXml.QDomDocument.elementById>` (elementId)
+*    def :meth:`elementsByTagName<PySide.QtXml.QDomDocument.elementsByTagName>` (tagname)
+*    def :meth:`elementsByTagNameNS<PySide.QtXml.QDomDocument.elementsByTagNameNS>` (nsURI, localName)
+*    def :meth:`implementation<PySide.QtXml.QDomDocument.implementation>` ()
+*    def :meth:`importNode<PySide.QtXml.QDomDocument.importNode>` (importedNode, deep)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (dev)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (dev, namespaceProcessing)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (source, namespaceProcessing)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (source, reader)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (text)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (text)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (text, namespaceProcessing)
+*    def :meth:`setContent<PySide.QtXml.QDomDocument.setContent>` (text, namespaceProcessing)
+*    def :meth:`toByteArray<PySide.QtXml.QDomDocument.toByteArray>` ([arg__1=1])
+*    def :meth:`toString<PySide.QtXml.QDomDocument.toString>` ([arg__1=1])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QDomDocument` class represents an XML document.
+
+    The :class:`PySide.QtXml.QDomDocument` class represents the entire XML document. Conceptually, it is the root of the document tree, and provides the primary access to the document's data.
+
+    Since elements, text nodes, comments, processing instructions, etc., cannot exist outside the context of a document, the document class also contains the factory functions needed to create these objects. The node objects created have an :meth:`PySide.QtXml.QDomNode.ownerDocument` function which associates them with the document within whose context they were created. The DOM classes that will be used most often are :class:`PySide.QtXml.QDomNode` , :class:`PySide.QtXml.QDomDocument` , :class:`PySide.QtXml.QDomElement` and :class:`PySide.QtXml.QDomText` .
+
+    The parsed XML is represented internally by a tree of objects that can be accessed using the various QDom classes. All QDom classes only *reference* objects in the internal tree. The internal objects in the DOM tree will get deleted once the last QDom object referencing them and the :class:`PySide.QtXml.QDomDocument` itself are deleted.
+
+    Creation of elements, text nodes, etc. is done using the various factory functions provided in this class. Using the default constructors of the QDom classes will only result in empty objects that cannot be manipulated or inserted into the Document.
+
+    The :class:`PySide.QtXml.QDomDocument` class has several functions for creating document data, for example, :meth:`PySide.QtXml.QDomDocument.createElement` , :meth:`PySide.QtXml.QDomDocument.createTextNode` , :meth:`PySide.QtXml.QDomDocument.createComment` , :meth:`PySide.QtXml.QDomDocument.createCDATASection` , :meth:`PySide.QtXml.QDomDocument.createProcessingInstruction` , :meth:`PySide.QtXml.QDomDocument.createAttribute` and :meth:`PySide.QtXml.QDomDocument.createEntityReference` . Some of these functions have versions that support namespaces, i.e. :meth:`PySide.QtXml.QDomDocument.createElementNS` and :meth:`PySide.QtXml.QDomDocument.createAttributeNS` . The :meth:`PySide.QtXml.QDomDocument.createDocumentFragment` function is used to hold parts of the document; this is useful for manipulating for complex documents.
+
+    The entire content of the document is set with :meth:`PySide.QtXml.QDomDocument.setContent` . This function parses the string it is passed as an XML document and creates the DOM tree that represents the document. The root element is available using :meth:`PySide.QtXml.QDomDocument.documentElement` . The textual representation of the document can be obtained using :meth:`PySide.QtXml.QDomDocument.toString` .
+
+    .. note::  The DOM tree might end up reserving a lot of memory if the XML document is big. For big XML documents, the :class:`PySide.QtCore.QXmlStreamReader` or the :class:`PySide.QtXmlPatterns.QXmlQuery` classes might be better solutions.
+
+    It is possible to insert a node from another document into the document using :meth:`PySide.QtXml.QDomDocument.importNode` .
+
+    You can obtain a list of all the elements that have a particular tag with :meth:`PySide.QtXml.QDomDocument.elementsByTagName` or with :meth:`PySide.QtXml.QDomDocument.elementsByTagNameNS` .
+
+    The QDom classes are typically used as follows:
+
+    ::
+
+        doc = QDomDocument("mydocument")
+        file = QFile("mydocument.xml")
+        if not file.open(QIODevice::ReadOnly):
+            return
+        if not doc.setContent(&file):
+            file.close()
+            return
+        file.close()
+
+        # print out the element names of all elements that are direct children
+        # of the outermost element.
+        docElem = doc.documentElement()
+
+        n = docElem.firstChild()
+        while not n.isNull():
+            e = n.toElement() # try to convert the node to an element.
+            if not e.isNull():
+                print e.tagName() # the node really is an element.
+            n = n.nextSibling()
+        }
+
+        # Here we append a new element to the end of the document
+        elem = doc.createElement("img")
+        elem.setAttribute("src", "myimage.png")
+        docElem.appendChild(elem)
+
+
+    Once ``doc`` and ``elem`` go out of scope, the whole internal tree representing the XML document is deleted.
+
+    To create a document using DOM use code like this:
+
+    ::
+
+        doc = QDomDocument("MyML")
+        root = doc.createElement("MyML")
+        doc.appendChild(root)
+
+        tag = doc.createElement("Greeting")
+        root.appendChild(tag)
+
+        t = doc.createTextNode("Hello World")
+        tag.appendChild(t)
+
+        xml = doc.toString()
+
+
+    For further information about the Document Object Model see the Document Object Model (DOM) Level 1 and Level 2 Core Specifications.
+
+    .. seealso::  :ref:`DOM Bookmarks Example<xml/dombookmarks>`  :ref:`Simple DOM Model Example<itemviews/simpledommodel>` 
+
+.. class:: QDomDocument()
+           QDomDocument(x)
+           QDomDocument(doctype)
+           QDomDocument(name)
+
+    :param x: :class:`PySide.QtXml.QDomDocument`
+    :param name: unicode
+    :param doctype: :class:`PySide.QtXml.QDomDocumentType`
+
+    Constructs an empty document.
+
+
+    Constructs a copy of ``x`` .
+
+    The data of the copy is shared (shallow copy): modifying one node will also change the other. If you want to make a deep copy, use :meth:`PySide.QtXml.QDomNode.cloneNode` .
+
+
+    Creates a document with the document type ``doctype`` .
+
+    .. seealso::  :meth:`QDomImplementation.createDocumentType()<PySide.QtXml.QDomImplementation.createDocumentType>` 
+
+    Creates a document and sets the name of the document type to ``name`` .
+
+
+.. method:: PySide.QtXml.QDomDocument.createAttribute(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Creates a new attribute called ``name`` that can be inserted into an element, e.g. using :meth:`QDomElement.setAttributeNode()<PySide.QtXml.QDomElement.setAttributeNode>` .
+
+    If ``name`` is not a valid XML name, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.createAttributeNS` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createAttributeNS(nsURI, qName)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Creates a new attribute with namespace support that can be inserted into an element. The name of the attribute is ``qName`` and the namespace URI is ``nsURI`` . This function also sets :meth:`QDomNode.prefix()<PySide.QtXml.QDomNode.prefix>` and :meth:`QDomNode.localName()<PySide.QtXml.QDomNode.localName>` to appropriate values (depending on ``qName`` ).
+
+    If ``qName`` is not a valid XML name, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.createAttribute` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createCDATASection(data)
+
+
+    :param data: unicode
+    :rtype: :class:`PySide.QtXml.QDomCDATASection`
+
+
+
+
+    Creates a new CDATA section for the string ``value`` that can be inserted into the document, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` .
+
+    If ``value`` contains characters which cannot be stored in a CDATA section, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>`  :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createComment(data)
+
+
+    :param data: unicode
+    :rtype: :class:`PySide.QtXml.QDomComment`
+
+
+
+
+    Creates a new comment for the string ``value`` that can be inserted into the document, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` .
+
+    If ``value`` contains characters which cannot be stored in an XML comment, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>`  :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createDocumentFragment()
+
+
+    :rtype: :class:`PySide.QtXml.QDomDocumentFragment`
+
+
+
+
+    Creates a new document fragment, that can be used to hold parts of the document, e.g. when doing complex manipulations of the document tree.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.createElement(tagName)
+
+
+    :param tagName: unicode
+    :rtype: :class:`PySide.QtXml.QDomElement`
+
+
+
+
+    Creates a new element called ``tagName`` that can be inserted into the DOM tree, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` .
+
+    If ``tagName`` is not a valid XML name, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>`
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.createElementNS`  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createElementNS(nsURI, qName)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :rtype: :class:`PySide.QtXml.QDomElement`
+
+
+
+
+    Creates a new element with namespace support that can be inserted into the DOM tree. The name of the element is ``qName`` and the namespace URI is ``nsURI`` . This function also sets :meth:`QDomNode.prefix()<PySide.QtXml.QDomNode.prefix>` and :meth:`QDomNode.localName()<PySide.QtXml.QDomNode.localName>` to appropriate values (depending on ``qName`` ).
+
+    If ``qName`` is an empty string, returns a null element regardless of whether the invalid data policy is set.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.createElement` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createEntityReference(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtXml.QDomEntityReference`
+
+
+
+
+    Creates a new entity reference called ``name`` that can be inserted into the document, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` .
+
+    If ``name`` is not a valid XML name, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>`  :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createProcessingInstruction(target, data)
+
+
+    :param target: unicode
+    :param data: unicode
+    :rtype: :class:`PySide.QtXml.QDomProcessingInstruction`
+
+
+
+
+    Creates a new processing instruction that can be inserted into the document, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` . This function sets the target for the processing instruction to ``target`` and the data to ``data`` .
+
+    If ``target`` is not a valid XML name, or data if contains characters which cannot appear in a processing instruction, the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>`  :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.createTextNode(data)
+
+
+    :param data: unicode
+    :rtype: :class:`PySide.QtXml.QDomText`
+
+
+
+
+    Creates a text node for the string ``value`` that can be inserted into the document tree, e.g. using :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>` .
+
+    If ``value`` contains characters which cannot be stored as character data of an XML document (even in the form of character references), the behavior of this function is governed by :attr:`QDomImplementation.InvalidDataPolicy` .
+
+    .. seealso::  :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>`  :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.doctype()
+
+
+    :rtype: :class:`PySide.QtXml.QDomDocumentType`
+
+
+
+
+    Returns the document type of this document.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.documentElement()
+
+
+    :rtype: :class:`PySide.QtXml.QDomElement`
+
+
+
+
+    Returns the root element of the document.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.elementById(elementId)
+
+
+    :param elementId: unicode
+    :rtype: :class:`PySide.QtXml.QDomElement`
+
+
+
+
+    Returns the element whose ID is equal to ``elementId`` . If no element with the ID was found, this function returns a :meth:`null element<PySide.QtXml.QDomNode.isNull>` .
+
+    Since the QDomClasses do not know which attributes are element IDs, this function returns always a :meth:`null element<PySide.QtXml.QDomNode.isNull>` . This may change in a future version.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.elementsByTagName(tagname)
+
+
+    :param tagname: unicode
+    :rtype: :class:`PySide.QtXml.QDomNodeList`
+
+
+
+
+    Returns a :class:`PySide.QtXml.QDomNodeList` , that contains all the elements in the document with the name ``tagname`` . The order of the node list is the order they are encountered in a preorder traversal of the element tree.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.elementsByTagNameNS`  :meth:`QDomElement.elementsByTagName()<PySide.QtXml.QDomElement.elementsByTagName>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.elementsByTagNameNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtXml.QDomNodeList`
+
+
+
+
+    Returns a :class:`PySide.QtXml.QDomNodeList` that contains all the elements in the document with the local name ``localName`` and a namespace URI of ``nsURI`` . The order of the node list is the order they are encountered in a preorder traversal of the element tree.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.elementsByTagName`  :meth:`QDomElement.elementsByTagNameNS()<PySide.QtXml.QDomElement.elementsByTagNameNS>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.implementation()
+
+
+    :rtype: :class:`PySide.QtXml.QDomImplementation`
+
+
+
+
+    Returns a :class:`PySide.QtXml.QDomImplementation` object.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.importNode(importedNode, deep)
+
+
+    :param importedNode: :class:`PySide.QtXml.QDomNode`
+    :param deep: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Imports the node ``importedNode`` from another document to this document. ``importedNode`` remains in the original document; this function creates a copy that can be used within this document.
+
+    This function returns the imported node that belongs to this document. The returned node has no parent. It is not possible to import :class:`PySide.QtXml.QDomDocument` and :class:`PySide.QtXml.QDomDocumentType` nodes. In those cases this function returns a :meth:`null node<PySide.QtXml.QDomNode.isNull>` .
+
+    If ``deep`` is true, this function imports not only the node ``importedNode`` but its whole subtree; if it is false, only the ``importedNode`` is imported. The argument ``deep`` has no effect on :class:`PySide.QtXml.QDomAttr` and :class:`PySide.QtXml.QDomEntityReference` nodes, since the descendants of :class:`PySide.QtXml.QDomAttr` nodes are always imported and those of :class:`PySide.QtXml.QDomEntityReference` nodes are never imported.
+
+    The behavior of this function is slightly different depending on the node types:
+
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Node Type                                      |Behavior                                                                                                                                                                                                                                                                                                       |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomAttr`                 |The owner element is set to 0 and the specified flag is set to true in the generated attribute. The whole subtree of ``importedNode`` is always imported for attribute nodes: ``deep`` has no effect.                                                                                                          |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomDocument`             |Document nodes cannot be imported.                                                                                                                                                                                                                                                                             |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomDocumentFragment`     |If ``deep`` is true, this function imports the whole document fragment; otherwise it only generates an empty document fragment.                                                                                                                                                                                |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomDocumentType`         |Document type nodes cannot be imported.                                                                                                                                                                                                                                                                        |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomElement`              |Attributes for which :meth:`QDomAttr.specified()<PySide.QtXml.QDomAttr.specified>` is true are also imported, other attributes are not imported. If ``deep`` is true, this function also imports the subtree of ``importedNode`` ; otherwise it imports only the element node (and some attributes, see above).|
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomEntity`               |Entity nodes can be imported, but at the moment there is no way to use them since the document type is read-only in DOM level 2.                                                                                                                                                                               |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomEntityReference`      |Descendants of entity reference nodes are never imported: ``deep`` has no effect.                                                                                                                                                                                                                              |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomNotation`             |Notation nodes can be imported, but at the moment there is no way to use them since the document type is read-only in DOM level 2.                                                                                                                                                                             |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomProcessingInstruction`|The target and value of the processing instruction is copied to the new node.                                                                                                                                                                                                                                  |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomText`                 |The text is copied to the new node.                                                                                                                                                                                                                                                                            |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomCDATASection`         |The text is copied to the new node.                                                                                                                                                                                                                                                                            |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtXml.QDomComment`              |The text is copied to the new node.                                                                                                                                                                                                                                                                            |
+    +-----------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    :meth:`QDomNode.insertAfter()<PySide.QtXml.QDomNode.insertAfter>` :meth:`QDomNode.replaceChild()<PySide.QtXml.QDomNode.replaceChild>` :meth:`QDomNode.removeChild()<PySide.QtXml.QDomNode.removeChild>` :meth:`QDomNode.appendChild()<PySide.QtXml.QDomNode.appendChild>`
+
+    .. seealso::  :meth:`QDomElement.setAttribute()<PySide.QtXml.QDomElement.setAttribute>`  :meth:`QDomNode.insertBefore()<PySide.QtXml.QDomNode.insertBefore>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(text, namespaceProcessing)
+
+
+    :param text: :class:`PySide.QtCore.QByteArray`
+    :param namespaceProcessing: :class:`PySide.QtCore.bool`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This function parses the XML document from the byte array ``data`` and sets it as the content of the document. It tries to detect the encoding of the document as required by the XML specification.
+
+    If ``namespaceProcessing`` is true, the parser recognizes namespaces in the XML file and sets the prefix name, local name and namespace URI to appropriate values. If ``namespaceProcessing`` is false, the parser does no namespace processing when it reads the XML file.
+
+    If a parse error occurs, this function returns false and the error message is placed in ``*``\ ``errorMsg`` , the line number in ``*``\ ``errorLine`` and the column number in ``*``\ ``errorColumn`` (unless the associated pointer is set to 0); otherwise this function returns true. The various error messages are described in the :class:`PySide.QtXml.QXmlParseException` class documentation. Note that, if you want to display these error messages to your application's users, they will be displayed in English unless they are explicitly translated.
+
+    If ``namespaceProcessing`` is true, the function :meth:`QDomNode.prefix()<PySide.QtXml.QDomNode.prefix>` returns a string for all elements and attributes. It returns an empty string if the element or attribute has no prefix.
+
+    Text nodes consisting only of whitespace are stripped and won't appear in the :class:`PySide.QtXml.QDomDocument` . If this behavior is not desired, one can use the :meth:`PySide.QtXml.QDomDocument.setContent` overload that allows a :class:`PySide.QtXml.QXmlReader` to be supplied.
+
+    If ``namespaceProcessing`` is false, the functions :meth:`QDomNode.prefix()<PySide.QtXml.QDomNode.prefix>` , :meth:`QDomNode.localName()<PySide.QtXml.QDomNode.localName>` and :meth:`QDomNode.namespaceURI()<PySide.QtXml.QDomNode.namespaceURI>` return an empty string.
+
+    Entity references are handled as follows:
+
+
+    * References to internal general entities and character entities occurring in the content are included. The result is a :class:`PySide.QtXml.QDomText` node with the references replaced by their corresponding entity values.
+    * References to parameter entities occurring in the internal subset are included. The result is a :class:`PySide.QtXml.QDomDocumentType` node which contains entity and notation declarations with the references replaced by their corresponding entity values.
+    * Any general parsed entity reference which is not defined in the internal subset and which occurs in the content is represented as a :class:`PySide.QtXml.QDomEntityReference` node.
+    * Any parsed entity reference which is not defined in the internal subset and which occurs outside of the content is replaced with an empty string.
+    * Any unparsed entity reference is replaced with an empty string.
+
+    :meth:`QDomNode.prefix()<PySide.QtXml.QDomNode.prefix>` :meth:`QString.isNull` :meth:`QString.isEmpty`
+
+    .. seealso::  :meth:`QDomNode.namespaceURI()<PySide.QtXml.QDomNode.namespaceURI>`  :meth:`QDomNode.localName()<PySide.QtXml.QDomNode.localName>` 
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(text)
+
+
+    :param text: unicode
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the string ``text`` , returning true if the content was successfully parsed; otherwise returns false. Since ``text`` is already a Unicode string, no encoding detection is performed.
+
+    No namespace processing is performed either.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(text, namespaceProcessing)
+
+
+    :param text: unicode
+    :param namespaceProcessing: :class:`PySide.QtCore.bool`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the string ``text`` , returning true if the content was successfully parsed; otherwise returns false. Since ``text`` is already a Unicode string, no encoding detection is done.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(text)
+
+
+    :param text: :class:`PySide.QtCore.QByteArray`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the byte array ``buffer`` , returning true if the content was successfully parsed; otherwise returns false.
+
+    No namespace processing is performed.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(dev, namespaceProcessing)
+
+
+    :param dev: :class:`PySide.QtCore.QIODevice`
+    :param namespaceProcessing: :class:`PySide.QtCore.bool`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the IO device ``dev`` , returning true if the content was successfully parsed; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(dev)
+
+
+    :param dev: :class:`PySide.QtCore.QIODevice`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the IO device ``dev`` , returning true if the content was successfully parsed; otherwise returns false.
+
+    No namespace processing is performed.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(source, namespaceProcessing)
+
+
+    :param source: :class:`PySide.QtXml.QXmlInputSource`
+    :param namespaceProcessing: :class:`PySide.QtCore.bool`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the :class:`PySide.QtXml.QXmlInputSource` ``source`` , returning true if the content was successfully parsed; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomDocument.setContent(source, reader)
+
+
+    :param source: :class:`PySide.QtXml.QXmlInputSource`
+    :param reader: :class:`PySide.QtXml.QXmlReader`
+    :rtype: (retval, errorMsg, errorLine, errorColumn)
+
+
+
+
+    This is an overloaded function.
+
+    This function reads the XML document from the :class:`PySide.QtXml.QXmlInputSource` ``source`` and parses it with the :class:`PySide.QtXml.QXmlReader` ``reader`` , returning true if the content was successfully parsed; otherwise returns false.
+
+    This function doesn't change the features of the ``reader`` . If you want to use certain features for parsing you can use this function to set up the reader appropriately.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlSimpleReader` 
+
+
+.. method:: PySide.QtXml.QDomDocument.toByteArray([arg__1=1])
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Converts the parsed document back to its textual representation and returns a :class:`PySide.QtCore.QByteArray` containing the data encoded as UTF-8.
+
+    This function uses ``indent`` as the amount of space to indent subelements.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomDocument.toString` 
+
+
+.. method:: PySide.QtXml.QDomDocument.toString([arg__1=1])
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Converts the parsed document back to its textual representation.
+
+    This function uses ``indent`` as the amount of space to indent subelements.
+
+    If ``indent`` is -1, no whitespace at all is added.
+
+
+
+

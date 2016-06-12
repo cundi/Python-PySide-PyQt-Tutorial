@@ -1,0 +1,159 @@
+.. module:: PySide.QtGui
+.. _QGraphicsEllipseItem:
+
+QGraphicsEllipseItem
+********************
+
+.. inheritance-diagram:: QGraphicsEllipseItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`rect<PySide.QtGui.QGraphicsEllipseItem.rect>` ()
+*    def :meth:`setRect<PySide.QtGui.QGraphicsEllipseItem.setRect>` (rect)
+*    def :meth:`setRect<PySide.QtGui.QGraphicsEllipseItem.setRect>` (x, y, w, h)
+*    def :meth:`setSpanAngle<PySide.QtGui.QGraphicsEllipseItem.setSpanAngle>` (angle)
+*    def :meth:`setStartAngle<PySide.QtGui.QGraphicsEllipseItem.setStartAngle>` (angle)
+*    def :meth:`spanAngle<PySide.QtGui.QGraphicsEllipseItem.spanAngle>` ()
+*    def :meth:`startAngle<PySide.QtGui.QGraphicsEllipseItem.startAngle>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsEllipseItem` class provides an ellipse item that you can add to a :class:`PySide.QtGui.QGraphicsScene` .
+
+    :class:`PySide.QtGui.QGraphicsEllipseItem` respresents an ellipse with a fill and an outline, and you can also use it for ellipse segments (see :meth:`PySide.QtGui.QGraphicsEllipseItem.startAngle` , :meth:`PySide.QtGui.QGraphicsEllipseItem.spanAngle` ).
+
+    +-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicsview-ellipseitem.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/graphicsview-ellipseitem-pie.png|
+    +-----------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+
+
+    To set the item's ellipse, pass a :class:`PySide.QtCore.QRectF` to :class:`PySide.QtGui.QGraphicsEllipseItem` 's constructor, or call :meth:`PySide.QtGui.QGraphicsEllipseItem.setRect` . The :meth:`PySide.QtGui.QGraphicsEllipseItem.rect` function returns the current ellipse geometry.
+
+    :class:`PySide.QtGui.QGraphicsEllipseItem` uses the rect and the pen width to provide a reasonable implementation of :meth:`PySide.QtGui.QGraphicsEllipseItem.boundingRect` , :meth:`PySide.QtGui.QGraphicsEllipseItem.shape` , and :meth:`PySide.QtGui.QGraphicsEllipseItem.contains` . The :meth:`PySide.QtGui.QGraphicsEllipseItem.paint` function draws the ellipse using the item's associated pen and brush, which you can set by calling :meth:`PySide.QtGui.QAbstractGraphicsShapeItem.setPen` and :meth:`PySide.QtGui.QAbstractGraphicsShapeItem.setBrush` .
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsPathItem`  :class:`PySide.QtGui.QGraphicsRectItem`  :class:`PySide.QtGui.QGraphicsPolygonItem`  :class:`PySide.QtGui.QGraphicsTextItem`  :class:`PySide.QtGui.QGraphicsLineItem`  :class:`PySide.QtGui.QGraphicsPixmapItem`  :ref:`Graphics View Framework<graphicsview.html>` 
+
+.. class:: QGraphicsEllipseItem([parent=None[, scene=None]])
+           QGraphicsEllipseItem(rect[, parent=None[, scene=None]])
+           QGraphicsEllipseItem(x, y, w, h[, parent=None[, scene=None]])
+
+    :param w: :class:`PySide.QtCore.qreal`
+    :param x: :class:`PySide.QtCore.qreal`
+    :param y: :class:`PySide.QtCore.qreal`
+    :param h: :class:`PySide.QtCore.qreal`
+    :param rect: :class:`PySide.QtCore.QRectF`
+    :param scene: :class:`PySide.QtGui.QGraphicsScene`
+    :param parent: :class:`PySide.QtGui.QGraphicsItem`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.rect()
+
+
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the item's ellipse geometry as a :class:`PySide.QtCore.QRectF` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.setRect`  :meth:`QPainter.drawEllipse()<PySide.QtGui.QPainter.drawEllipse>` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.setRect(rect)
+
+
+    :param rect: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Sets the item's ellipse geometry to ``rect`` . The rectangle's left edge defines the left edge of the ellipse, and the rectangle's top edge describes the top of the ellipse. The height and width of the rectangle describe the height and width of the ellipse.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.rect`  :meth:`QPainter.drawEllipse()<PySide.QtGui.QPainter.drawEllipse>` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.setRect(x, y, w, h)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+    :param y: :class:`PySide.QtCore.qreal`
+    :param w: :class:`PySide.QtCore.qreal`
+    :param h: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the item's rectangle to the rectangle defined by (``x`` , ``y`` ) and the given ``width`` and ``height`` .
+
+    This convenience function is equivalent to calling ``setRect(QRectF(x, y, width, height))``\
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.rect` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.setSpanAngle(angle)
+
+
+    :param angle: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the span angle for an ellipse segment to ``angle`` , which is in 16ths of a degree. This angle is used together with :meth:`PySide.QtGui.QGraphicsEllipseItem.startAngle` to represent an ellipse segment (a pie). By default, the span angle is 5760 (360 \* 16, a full ellipse).
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.spanAngle`  :meth:`PySide.QtGui.QGraphicsEllipseItem.setStartAngle`  :meth:`QPainter.drawPie()<PySide.QtGui.QPainter.drawPie>` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.setStartAngle(angle)
+
+
+    :param angle: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the start angle for an ellipse segment to ``angle`` , which is in 16ths of a degree. This angle is used together with :meth:`PySide.QtGui.QGraphicsEllipseItem.spanAngle` for representing an ellipse segment (a pie). By default, the start angle is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.startAngle`  :meth:`PySide.QtGui.QGraphicsEllipseItem.setSpanAngle`  :meth:`QPainter.drawPie()<PySide.QtGui.QPainter.drawPie>` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.spanAngle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the span angle of an ellipse segment in 16ths of a degree. This angle is used together with :meth:`PySide.QtGui.QGraphicsEllipseItem.startAngle` for representing an ellipse segment (a pie). By default, this function returns 5760 (360 \* 16, a full ellipse).
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.setSpanAngle`  :meth:`PySide.QtGui.QGraphicsEllipseItem.startAngle` 
+
+
+.. method:: PySide.QtGui.QGraphicsEllipseItem.startAngle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the start angle for an ellipse segment in 16ths of a degree. This angle is used together with :meth:`PySide.QtGui.QGraphicsEllipseItem.spanAngle` for representing an ellipse segment (a pie). By default, the start angle is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsEllipseItem.setStartAngle`  :meth:`PySide.QtGui.QGraphicsEllipseItem.spanAngle` 
+
+
+

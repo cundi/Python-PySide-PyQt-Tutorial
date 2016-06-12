@@ -1,0 +1,339 @@
+.. module:: PySide.QtMultimedia
+.. _QAudioDeviceInfo:
+
+QAudioDeviceInfo
+****************
+
+.. inheritance-diagram:: QAudioDeviceInfo
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`deviceName<PySide.QtMultimedia.QAudioDeviceInfo.deviceName>` ()
+*    def :meth:`handle<PySide.QtMultimedia.QAudioDeviceInfo.handle>` ()
+*    def :meth:`isFormatSupported<PySide.QtMultimedia.QAudioDeviceInfo.isFormatSupported>` (format)
+*    def :meth:`isNull<PySide.QtMultimedia.QAudioDeviceInfo.isNull>` ()
+*    def :meth:`mode<PySide.QtMultimedia.QAudioDeviceInfo.mode>` ()
+*    def :meth:`nearestFormat<PySide.QtMultimedia.QAudioDeviceInfo.nearestFormat>` (format)
+*    def :meth:`preferredFormat<PySide.QtMultimedia.QAudioDeviceInfo.preferredFormat>` ()
+*    def :meth:`realm<PySide.QtMultimedia.QAudioDeviceInfo.realm>` ()
+*    def :meth:`supportedByteOrders<PySide.QtMultimedia.QAudioDeviceInfo.supportedByteOrders>` ()
+*    def :meth:`supportedChannelCounts<PySide.QtMultimedia.QAudioDeviceInfo.supportedChannelCounts>` ()
+*    def :meth:`supportedChannels<PySide.QtMultimedia.QAudioDeviceInfo.supportedChannels>` ()
+*    def :meth:`supportedCodecs<PySide.QtMultimedia.QAudioDeviceInfo.supportedCodecs>` ()
+*    def :meth:`supportedFrequencies<PySide.QtMultimedia.QAudioDeviceInfo.supportedFrequencies>` ()
+*    def :meth:`supportedSampleRates<PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleRates>` ()
+*    def :meth:`supportedSampleSizes<PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleSizes>` ()
+*    def :meth:`supportedSampleTypes<PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleTypes>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`availableDevices<PySide.QtMultimedia.QAudioDeviceInfo.availableDevices>` (mode)
+*    def :meth:`defaultInputDevice<PySide.QtMultimedia.QAudioDeviceInfo.defaultInputDevice>` ()
+*    def :meth:`defaultOutputDevice<PySide.QtMultimedia.QAudioDeviceInfo.defaultOutputDevice>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QAudioDeviceInfo` class provides an interface to query audio devices and their functionality.
+
+    :class:`PySide.QtMultimedia.QAudioDeviceInfo` lets you query for audio devices--such as sound cards and USB headsets--that are currently available on the system. The audio devices available are dependent on the platform or audio plugins installed.
+
+    You can also query each device for the formats it supports. A format in this context is a set consisting of a specific byte order, channel, codec, frequency, sample rate, and sample type. A format is represented by the :class:`PySide.QtMultimedia.QAudioFormat` class.
+
+    The values supported by the the device for each of these parameters can be fetched with :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedByteOrders` , :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedChannelCounts` , :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedCodecs` , :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleRates` , :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleSizes` , and :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleTypes` . The combinations supported are dependent on the platform, audio plugins installed and the audio device capabilities. If you need a specific format, you can check if the device supports it with :meth:`PySide.QtMultimedia.QAudioDeviceInfo.isFormatSupported` , or fetch a supported format that is as close as possible to the format with :meth:`PySide.QtMultimedia.QAudioDeviceInfo.nearestFormat` . For instance:
+
+    ::
+
+        <Code snippet "doc/src/snippets/audio/main.cpp:6" not found>                ...
+        <Code snippet "doc/src/snippets/audio/main.cpp:7" not found>
+
+    A :class:`PySide.QtMultimedia.QAudioDeviceInfo` is used by Qt to construct classes that communicate with the device--such as :class:`PySide.QtMultimedia.QAudioInput` , and :class:`PySide.QtMultimedia.QAudioOutput` . The static functions :meth:`PySide.QtMultimedia.QAudioDeviceInfo.defaultInputDevice` , :meth:`PySide.QtMultimedia.QAudioDeviceInfo.defaultOutputDevice` , and :meth:`PySide.QtMultimedia.QAudioDeviceInfo.availableDevices` let you get a list of all available devices. Devices are fetch according to the value of mode this is specified by the :attr:`QAudio.Mode` enum. The :class:`PySide.QtMultimedia.QAudioDeviceInfo` returned are only valid for the :attr:`QAudio.Mode` .
+
+    For instance:
+
+    ::
+
+                foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+                    qDebug() << "Device name: " << deviceInfo.deviceName();
+
+
+    In this code sample, we loop through all devices that are able to output sound, i.e., play an audio stream in a supported format. For each device we find, we simply print the :meth:`PySide.QtMultimedia.QAudioDeviceInfo.deviceName` .
+
+    .. seealso::  :class:`PySide.QtMultimedia.QAudioOutput`  :class:`PySide.QtMultimedia.QAudioInput` 
+
+.. class:: QAudioDeviceInfo()
+           QAudioDeviceInfo(other)
+
+    :param other: :class:`PySide.QtMultimedia.QAudioDeviceInfo`
+
+    Constructs an empty :class:`PySide.QtMultimedia.QAudioDeviceInfo` object.
+
+
+    Constructs a copy of ``other`` .
+
+
+.. staticmethod:: PySide.QtMultimedia.QAudioDeviceInfo.availableDevices(mode)
+
+
+    :param mode: :attr:`PySide.QtMultimedia.QAudio.Mode`
+    :rtype: 
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtMultimedia.QAudioDeviceInfo.defaultInputDevice()
+
+
+    :rtype: :class:`PySide.QtMultimedia.QAudioDeviceInfo`
+
+
+
+
+    Returns the name of the default input audio device. All platform and audio plugin implementations provide a default audio device to use.
+
+
+
+.. staticmethod:: PySide.QtMultimedia.QAudioDeviceInfo.defaultOutputDevice()
+
+
+    :rtype: :class:`PySide.QtMultimedia.QAudioDeviceInfo`
+
+
+
+
+    Returns the name of the default output audio device. All platform and audio plugin implementations provide a default audio device to use.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.deviceName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns human readable name of audio device.
+
+    Device names vary depending on platform/audio plugin being used.
+
+    They are a unique string identifiers for the audio device.
+
+    eg. default, Intel, U0x46d0x9a4
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.handle()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.isFormatSupported(format)
+
+
+    :param format: :class:`PySide.QtMultimedia.QAudioFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``settings`` are supported by the audio device of this :class:`PySide.QtMultimedia.QAudioDeviceInfo` .
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether this :class:`PySide.QtMultimedia.QAudioDeviceInfo` object holds a device definition.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.mode()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAudio.Mode`
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.nearestFormat(format)
+
+
+    :param format: :class:`PySide.QtMultimedia.QAudioFormat`
+    :rtype: :class:`PySide.QtMultimedia.QAudioFormat`
+
+
+
+
+    Returns closest :class:`PySide.QtMultimedia.QAudioFormat` to ``settings`` that system audio supports.
+
+    These settings are provided by the platform/audio plugin being used.
+
+    They also are dependent on the :attr:`QAudio.Mode` being used.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.preferredFormat()
+
+
+    :rtype: :class:`PySide.QtMultimedia.QAudioFormat`
+
+
+
+
+    Returns :class:`PySide.QtMultimedia.QAudioFormat` of default settings.
+
+    These settings are provided by the platform/audio plugin being used.
+
+    They also are dependent on the :attr:`QAudio.Mode` being used.
+
+    A typical audio system would provide something like:
+
+
+    * Input settings: 8000Hz mono 8 bit.
+    * Output settings: 44100Hz stereo 16 bit little endian.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.realm()
+
+
+    :rtype: unicode
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedByteOrders()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of supported byte orders.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedChannelCounts()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of supported channel counts.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedChannels()
+
+
+    :rtype: 
+
+
+
+
+    Use supportedChannelCount() instead.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedCodecs()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of supported codecs.
+
+    All platform and plugin implementations should provide support for:
+
+    "audio/pcm" - Linear PCM
+
+    For writing plugins to support additional codecs refer to:
+
+    http://www.iana.org/assignments/media-types/audio/
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedFrequencies()
+
+
+    :rtype: 
+
+
+
+
+    Use :meth:`PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleRates` instead.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleRates()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of supported sample rates.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleSizes()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of supported sample sizes.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioDeviceInfo.supportedSampleTypes()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of supported sample types.
+
+
+
+

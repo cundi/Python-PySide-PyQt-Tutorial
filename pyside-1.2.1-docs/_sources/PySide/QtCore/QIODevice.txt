@@ -1,0 +1,733 @@
+.. module:: PySide.QtCore
+.. _QIODevice:
+
+QIODevice
+*********
+
+.. inheritance-diagram:: QIODevice
+    :parts: 2
+
+**Inherited by:** :ref:`QNetworkReply`, :ref:`QBuffer`, :ref:`QAbstractSocket`, :ref:`QUdpSocket`, :ref:`QLocalSocket`, :ref:`QFile`, :ref:`QTemporaryFile`, :ref:`QProcess`, :ref:`QTcpSocket`, :ref:`QSslSocket`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`errorString<PySide.QtCore.QIODevice.errorString>` ()
+*    def :meth:`getChar<PySide.QtCore.QIODevice.getChar>` ()
+*    def :meth:`isOpen<PySide.QtCore.QIODevice.isOpen>` ()
+*    def :meth:`isReadable<PySide.QtCore.QIODevice.isReadable>` ()
+*    def :meth:`isTextModeEnabled<PySide.QtCore.QIODevice.isTextModeEnabled>` ()
+*    def :meth:`isWritable<PySide.QtCore.QIODevice.isWritable>` ()
+*    def :meth:`openMode<PySide.QtCore.QIODevice.openMode>` ()
+*    def :meth:`peek<PySide.QtCore.QIODevice.peek>` (maxlen)
+*    def :meth:`putChar<PySide.QtCore.QIODevice.putChar>` (c)
+*    def :meth:`read<PySide.QtCore.QIODevice.read>` (maxlen)
+*    def :meth:`readAll<PySide.QtCore.QIODevice.readAll>` ()
+*    def :meth:`readLine<PySide.QtCore.QIODevice.readLine>` ([maxlen=0])
+*    def :meth:`setErrorString<PySide.QtCore.QIODevice.setErrorString>` (errorString)
+*    def :meth:`setOpenMode<PySide.QtCore.QIODevice.setOpenMode>` (openMode)
+*    def :meth:`setTextModeEnabled<PySide.QtCore.QIODevice.setTextModeEnabled>` (enabled)
+*    def :meth:`ungetChar<PySide.QtCore.QIODevice.ungetChar>` (c)
+*    def :meth:`write<PySide.QtCore.QIODevice.write>` (data)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`atEnd<PySide.QtCore.QIODevice.atEnd>` ()
+*    def :meth:`bytesAvailable<PySide.QtCore.QIODevice.bytesAvailable>` ()
+*    def :meth:`bytesToWrite<PySide.QtCore.QIODevice.bytesToWrite>` ()
+*    def :meth:`canReadLine<PySide.QtCore.QIODevice.canReadLine>` ()
+*    def :meth:`close<PySide.QtCore.QIODevice.close>` ()
+*    def :meth:`isSequential<PySide.QtCore.QIODevice.isSequential>` ()
+*    def :meth:`open<PySide.QtCore.QIODevice.open>` (mode)
+*    def :meth:`pos<PySide.QtCore.QIODevice.pos>` ()
+*    def :meth:`readData<PySide.QtCore.QIODevice.readData>` (, maxlen)
+*    def :meth:`readLineData<PySide.QtCore.QIODevice.readLineData>` (, maxlen)
+*    def :meth:`reset<PySide.QtCore.QIODevice.reset>` ()
+*    def :meth:`seek<PySide.QtCore.QIODevice.seek>` (pos)
+*    def :meth:`size<PySide.QtCore.QIODevice.size>` ()
+*    def :meth:`waitForBytesWritten<PySide.QtCore.QIODevice.waitForBytesWritten>` (msecs)
+*    def :meth:`waitForReadyRead<PySide.QtCore.QIODevice.waitForReadyRead>` (msecs)
+*    def :meth:`writeData<PySide.QtCore.QIODevice.writeData>` (data, len)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToClose<PySide.QtCore.QIODevice.aboutToClose>` ()
+*    def :meth:`bytesWritten<PySide.QtCore.QIODevice.bytesWritten>` (bytes)
+*    def :meth:`readChannelFinished<PySide.QtCore.QIODevice.readChannelFinished>` ()
+*    def :meth:`readyRead<PySide.QtCore.QIODevice.readyRead>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QIODevice` class is the base interface class of all I/O devices in Qt.
+
+    :class:`PySide.QtCore.QIODevice` provides both a common implementation and an abstract interface for devices that support reading and writing of blocks of data, such as :class:`PySide.QtCore.QFile` , :class:`PySide.QtCore.QBuffer` and :class:`PySide.QtNetwork.QTcpSocket` . :class:`PySide.QtCore.QIODevice` is abstract and can not be instantiated, but it is common to use the interface it defines to provide device-independent I/O features. For example, Qt's XML classes operate on a :class:`PySide.QtCore.QIODevice` pointer, allowing them to be used with various devices (such as files and buffers).
+
+    Before accessing the device, :meth:`PySide.QtCore.QIODevice.open` must be called to set the correct :class:`~PySide.QtCore.OpenMode` (such as :attr:`ReadOnly<QIODevice.OpenModeFlag>` or :attr:`ReadWrite<QIODevice.OpenModeFlag>` ). You can then write to the device with :meth:`PySide.QtCore.QIODevice.write` or :meth:`PySide.QtCore.QIODevice.putChar` , and read by calling either :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readLine` , or :meth:`PySide.QtCore.QIODevice.readAll` . Call :meth:`PySide.QtCore.QIODevice.close` when you are done with the device.
+
+    :class:`PySide.QtCore.QIODevice` distinguishes between two types of devices: random-access devices and sequential devices.
+
+
+    * Random-access devices support seeking to arbitrary positions using :meth:`PySide.QtCore.QIODevice.seek` . The current position in the file is available by calling :meth:`PySide.QtCore.QIODevice.pos` . :class:`PySide.QtCore.QFile` and :class:`PySide.QtCore.QBuffer` are examples of random-access devices.
+    * Sequential devices don't support seeking to arbitrary positions. The data must be read in one pass. The functions :meth:`PySide.QtCore.QIODevice.pos` and :meth:`PySide.QtCore.QIODevice.size` don't work for sequential devices. :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtCore.QProcess` are examples of sequential devices.
+
+    You can use :meth:`PySide.QtCore.QIODevice.isSequential` to determine the type of device.
+
+    :class:`PySide.QtCore.QIODevice` emits :meth:`PySide.QtCore.QIODevice.readyRead` when new data is available for reading; for example, if new data has arrived on the network or if additional data is appended to a file that you are reading from. You can call :meth:`PySide.QtCore.QIODevice.bytesAvailable` to determine the number of bytes that are currently available for reading. It's common to use :meth:`PySide.QtCore.QIODevice.bytesAvailable` together with the :meth:`PySide.QtCore.QIODevice.readyRead` signal when programming with asynchronous devices such as :class:`PySide.QtNetwork.QTcpSocket` , where fragments of data can arrive at arbitrary points in time. :class:`PySide.QtCore.QIODevice` emits the :meth:`PySide.QtCore.QIODevice.bytesWritten` signal every time a payload of data has been written to the device. Use :meth:`PySide.QtCore.QIODevice.bytesToWrite` to determine the current amount of data waiting to be written.
+
+    Certain subclasses of :class:`PySide.QtCore.QIODevice` , such as :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtCore.QProcess` , are asynchronous. This means that I/O functions such as :meth:`PySide.QtCore.QIODevice.write` or :meth:`PySide.QtCore.QIODevice.read` always return immediately, while communication with the device itself may happen when control goes back to the event loop. :class:`PySide.QtCore.QIODevice` provides functions that allow you to force these operations to be performed immediately, while blocking the calling thread and without entering the event loop. This allows :class:`PySide.QtCore.QIODevice` subclasses to be used without an event loop, or in a separate thread:
+
+
+    * :meth:`PySide.QtCore.QIODevice.waitForReadyRead` - This function suspends operation in the calling thread until new data is available for reading.
+    * :meth:`PySide.QtCore.QIODevice.waitForBytesWritten` - This function suspends operation in the calling thread until one payload of data has been written to the device.
+    * waitFor....() - Subclasses of :class:`PySide.QtCore.QIODevice` implement blocking functions for device-specific operations. For example, :class:`PySide.QtCore.QProcess` has a function called waitForStarted() which suspends operation in the calling thread until the process has started.
+
+    Calling these functions from the main, GUI thread, may cause your user interface to freeze. Example:
+
+    ::
+
+        gzip = QProcess()
+        gzip.start("gzip", ["-c"])
+        if not gzip.waitForStarted():
+            return False
+
+        gzip.write("uncompressed data")
+
+        compressed = QByteArray()
+        while gzip.waitForReadyRead():
+            compressed += gzip.readAll()
+
+
+    By subclassing :class:`PySide.QtCore.QIODevice` , you can provide the same interface to your own I/O devices. Subclasses of :class:`PySide.QtCore.QIODevice` are only required to implement the protected :meth:`PySide.QtCore.QIODevice.readData` and :meth:`PySide.QtCore.QIODevice.writeData` functions. :class:`PySide.QtCore.QIODevice` uses these functions to implement all its convenience functions, such as :meth:`PySide.QtCore.QIODevice.getChar` , :meth:`PySide.QtCore.QIODevice.readLine` and :meth:`PySide.QtCore.QIODevice.write` . :class:`PySide.QtCore.QIODevice` also handles access control for you, so you can safely assume that the device is opened in write mode if :meth:`PySide.QtCore.QIODevice.writeData` is called.
+
+    Some subclasses, such as :class:`PySide.QtCore.QFile` and :class:`PySide.QtNetwork.QTcpSocket` , are implemented using a memory buffer for intermediate storing of data. This reduces the number of required device accessing calls, which are often very slow. Buffering makes functions like :meth:`PySide.QtCore.QIODevice.getChar` and :meth:`PySide.QtCore.QIODevice.putChar` fast, as they can operate on the memory buffer instead of directly on the device itself. Certain I/O operations, however, don't work well with a buffer. For example, if several users open the same device and read it character by character, they may end up reading the same data when they meant to read a separate chunk each. For this reason, :class:`PySide.QtCore.QIODevice` allows you to bypass any buffering by passing the Unbuffered flag to :meth:`PySide.QtCore.QIODevice.open` . When subclassing :class:`PySide.QtCore.QIODevice` , remember to bypass any buffer you may use when the device is open in Unbuffered mode.
+
+    .. seealso::  :class:`PySide.QtCore.QBuffer`  :class:`PySide.QtCore.QFile`  :class:`PySide.QtNetwork.QTcpSocket` 
+
+.. class:: QIODevice()
+           QIODevice(parent)
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QIODevice` object.
+
+
+    Constructs a :class:`PySide.QtCore.QIODevice` object with the given ``parent`` .
+
+
+.. attribute:: PySide.QtCore.QIODevice.OpenModeFlag
+
+    This enum is used with :meth:`PySide.QtCore.QIODevice.open` to describe the mode in which a device is opened. It is also returned by :meth:`PySide.QtCore.QIODevice.openMode` .
+
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant            |Description                                                                                                                                                                    |
+    +====================+===============================================================================================================================================================================+
+    |QIODevice.NotOpen   |The device is not open.                                                                                                                                                        |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.ReadOnly  |The device is open for reading.                                                                                                                                                |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.WriteOnly |The device is open for writing.                                                                                                                                                |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.ReadWrite |The device is open for reading and writing.                                                                                                                                    |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.Append    |The device is opened in append mode, so that all data is written to the end of the file.                                                                                       |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.Truncate  |If possible, the device is truncated before it is opened. All earlier contents of the device are lost.                                                                         |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.Text      |When reading, the end-of-line terminators are translated to '\n'. When writing, the end-of-line terminators are translated to the local encoding, for example '\r\n' for Win32.|
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QIODevice.Unbuffered|Any buffer in the device is bypassed.                                                                                                                                          |
+    +--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Certain flags, such as ``Unbuffered`` and ``Truncate`` , are meaningless when used with some subclasses. Some of these restrictions are implied by the type of device that is represented by a subclass. In other cases, the restriction may be due to the implementation, or may be imposed by the underlying platform; for example, :class:`PySide.QtNetwork.QTcpSocket` does not support ``Unbuffered`` mode, and limitations in the native API prevent :class:`PySide.QtCore.QFile` from supporting ``Unbuffered`` on Windows.
+
+
+.. method:: PySide.QtCore.QIODevice.aboutToClose()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.atEnd()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the current read and write position is at the end of the device (i.e. there is no more data available for reading on the device); otherwise returns false.
+
+    For some devices, :meth:`PySide.QtCore.QIODevice.atEnd` can return true even though there is more data to read. This special case only applies to devices that generate data in direct response to you calling :meth:`PySide.QtCore.QIODevice.read` (e.g., ``/dev`` or ``/proc`` files on Unix and Mac OS X, or console input / ``stdin`` on all platforms).
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.bytesAvailable`  :meth:`PySide.QtCore.QIODevice.read`  :meth:`PySide.QtCore.QIODevice.isSequential` 
+
+
+.. method:: PySide.QtCore.QIODevice.bytesAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of bytes that are available for reading. This function is commonly used with sequential devices to determine the number of bytes to allocate in a buffer before reading.
+
+    Subclasses that reimplement this function must call the base implementation in order to include the size of QIODevices' buffer. Example:
+
+    ::
+
+        def bytesAvailable(self):
+            return buffer.size() + QIODevice.bytesAvailable()
+
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.bytesToWrite`  :meth:`PySide.QtCore.QIODevice.readyRead`  :meth:`PySide.QtCore.QIODevice.isSequential` 
+
+
+.. method:: PySide.QtCore.QIODevice.bytesToWrite()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    For buffered devices, this function returns the number of bytes waiting to be written. For devices with no buffer, this function returns 0.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.bytesAvailable`  :meth:`PySide.QtCore.QIODevice.bytesWritten`  :meth:`PySide.QtCore.QIODevice.isSequential` 
+
+
+.. method:: PySide.QtCore.QIODevice.bytesWritten(bytes)
+
+
+    :param bytes: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.canReadLine()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if a complete line of data can be read from the device; otherwise returns false.
+
+    Note that unbuffered devices, which have no way of determining what can be read, always return false.
+
+    This function is often called in conjunction with the :meth:`PySide.QtCore.QIODevice.readyRead` signal.
+
+    Subclasses that reimplement this function must call the base implementation in order to include the contents of the :class:`PySide.QtCore.QIODevice` 's buffer. Example:
+
+    ::
+
+        def canReadLine(self):
+            return buffer.contains('\n') or QIODevice.canReadLine()
+
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.readyRead`  :meth:`PySide.QtCore.QIODevice.readLine` 
+
+
+.. method:: PySide.QtCore.QIODevice.close()
+
+
+
+
+
+
+    First emits :meth:`PySide.QtCore.QIODevice.aboutToClose` , then closes the device and sets its :class:`~PySide.QtCore.OpenMode` to :attr:`NotOpen<QIODevice.OpenModeFlag>` . The error string is also reset.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.setOpenMode`  :class:`~PySide.QtCore.OpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human-readable description of the last device error that occurred.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.setErrorString` 
+
+
+.. method:: PySide.QtCore.QIODevice.getChar()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reads one character from the device and stores it in ``c`` . If ``c`` is 0, the character is discarded. Returns true on success; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.read`  :meth:`PySide.QtCore.QIODevice.putChar`  :meth:`PySide.QtCore.QIODevice.ungetChar` 
+
+
+.. method:: PySide.QtCore.QIODevice.isOpen()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the device is open; otherwise returns false. A device is open if it can be read from and/or written to. By default, this function returns false if :meth:`PySide.QtCore.QIODevice.openMode` returns ``NotOpen`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.openMode`  :class:`~PySide.QtCore.OpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.isReadable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if data can be read from the device; otherwise returns false. Use :meth:`PySide.QtCore.QIODevice.bytesAvailable` to determine how many bytes can be read.
+
+    This is a convenience function which checks if the :class:`~PySide.QtCore.OpenMode` of the device contains the :attr:`ReadOnly<QIODevice.OpenModeFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.openMode`  :class:`~PySide.QtCore.OpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.isSequential()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this device is sequential; otherwise returns false.
+
+    Sequential devices, as opposed to a random-access devices, have no concept of a start, an end, a size, or a current position, and they do not support seeking. You can only read from the device when it reports that data is available. The most common example of a sequential device is a network socket. On Unix, special files such as /dev/zero and fifo pipes are sequential.
+
+    Regular files, on the other hand, do support random access. They have both a size and a current position, and they also support seeking backwards and forwards in the data stream. Regular files are non-sequential.
+
+    The :class:`PySide.QtCore.QIODevice` implementation returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.bytesAvailable` 
+
+
+.. method:: PySide.QtCore.QIODevice.isTextModeEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :attr:`Text<QIODevice.OpenModeFlag>` flag is enabled; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.setTextModeEnabled` 
+
+
+.. method:: PySide.QtCore.QIODevice.isWritable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if data can be written to the device; otherwise returns false.
+
+    This is a convenience function which checks if the :class:`~PySide.QtCore.OpenMode` of the device contains the :attr:`WriteOnly<QIODevice.OpenModeFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.openMode`  :class:`~PySide.QtCore.OpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.open(mode)
+
+
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.openMode()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+    Returns the mode in which the device has been opened; i.e. :attr:`ReadOnly<QIODevice.OpenModeFlag>` or :attr:`WriteOnly<QIODevice.OpenModeFlag>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.setOpenMode`  :class:`~PySide.QtCore.OpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.peek(maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    Peeks at most ``maxSize`` bytes from the device, returning the data peeked as a :class:`PySide.QtCore.QByteArray` .
+
+    Example:
+
+    ::
+
+        def isExeFile(file_):
+            return file_.peek(2) == "MZ"
+
+
+    This function has no way of reporting errors; returning an empty :meth:`~PySide.QtCore.QIODevice.QByteArray` can mean either that no data was currently available for peeking, or that an error occurred.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.read` 
+
+
+.. method:: PySide.QtCore.QIODevice.pos()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    For random-access devices, this function returns the position that data is written to or read from. For sequential devices or closed devices, where there is no concept of a "current position", 0 is returned.
+
+    The current read/write position of the device is maintained internally by :class:`PySide.QtCore.QIODevice` , so reimplementing this function is not necessary. When subclassing :class:`PySide.QtCore.QIODevice` , use :meth:`QIODevice.seek()<PySide.QtCore.QIODevice.seek>` to notify :class:`PySide.QtCore.QIODevice` about changes in the device position.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.isSequential`  :meth:`PySide.QtCore.QIODevice.seek` 
+
+
+.. method:: PySide.QtCore.QIODevice.putChar(c)
+
+
+    :param c: :class:`PySide.QtCore.char`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes the character ``c`` to the device. Returns true on success; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.write`  :meth:`PySide.QtCore.QIODevice.getChar`  :meth:`PySide.QtCore.QIODevice.ungetChar` 
+
+
+.. method:: PySide.QtCore.QIODevice.read(maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    Reads at most ``maxSize`` bytes from the device, and returns the data read as a :class:`PySide.QtCore.QByteArray` .
+
+    This function has no way of reporting errors; returning an empty :meth:`~PySide.QtCore.QIODevice.QByteArray` can mean either that no data was currently available for reading, or that an error occurred.
+
+
+
+.. method:: PySide.QtCore.QIODevice.readAll()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    Reads all available data from the device, and returns it as a :class:`PySide.QtCore.QByteArray` .
+
+    This function has no way of reporting errors; returning an empty :meth:`~PySide.QtCore.QIODevice.QByteArray` can mean either that no data was currently available for reading, or that an error occurred.
+
+
+
+.. method:: PySide.QtCore.QIODevice.readChannelFinished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.readData(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: PyObject
+
+
+
+
+    Reads up to ``maxSize`` bytes from the device into ``data`` , and returns the number of bytes read or -1 if an error occurred.
+
+    If there are no bytes to be read and there can never be more bytes available (examples include socket closed, pipe closed, sub-process finished), this function returns -1.
+
+    This function is called by :class:`PySide.QtCore.QIODevice` . Reimplement this function when creating a subclass of :class:`PySide.QtCore.QIODevice` .
+
+    When reimplementing this function it is important that this function reads all the required data before returning. This is required in order for :class:`PySide.QtCore.QDataStream` to be able to operate on the class. :class:`PySide.QtCore.QDataStream` assumes all the requested information was read and therefore does not retry reading if there was a problem.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.read`  :meth:`PySide.QtCore.QIODevice.readLine`  :meth:`PySide.QtCore.QIODevice.writeData` 
+
+
+.. method:: PySide.QtCore.QIODevice.readLine([maxlen=0])
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    Reads a line from the device, but no more than ``maxSize`` characters, and returns the result as a :class:`PySide.QtCore.QByteArray` .
+
+    This function has no way of reporting errors; returning an empty :meth:`~PySide.QtCore.QIODevice.QByteArray` can mean either that no data was currently available for reading, or that an error occurred.
+
+
+
+.. method:: PySide.QtCore.QIODevice.readLineData(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: PyObject
+
+
+
+
+    Reads up to ``maxSize`` characters into ``data`` and returns the number of characters read.
+
+    This function is called by :meth:`PySide.QtCore.QIODevice.readLine` , and provides its base implementation, using :meth:`PySide.QtCore.QIODevice.getChar` . Buffered devices can improve the performance of :meth:`PySide.QtCore.QIODevice.readLine` by reimplementing this function.
+
+    :meth:`PySide.QtCore.QIODevice.readLine` appends a '\0' byte to ``data`` ; :meth:`PySide.QtCore.QIODevice.readLineData` does not need to do this.
+
+    If you reimplement this function, be careful to return the correct value: it should return the number of bytes read in this line, including the terminating newline, or 0 if there is no line to be read at this point. If an error occurs, it should return -1 if and only if no bytes were read. Reading past EOF is considered an error.
+
+
+
+.. method:: PySide.QtCore.QIODevice.readyRead()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.reset()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Seeks to the start of input for random-access devices. Returns true on success; otherwise returns false (for example, if the device is not open).
+
+    Note that when using a :class:`PySide.QtCore.QTextStream` on a :class:`PySide.QtCore.QFile` , calling :meth:`PySide.QtCore.QIODevice.reset` on the :class:`PySide.QtCore.QFile` will not have the expected result because :class:`PySide.QtCore.QTextStream` buffers the file. Use the :meth:`QTextStream.seek()<PySide.QtCore.QTextStream.seek>` function instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.seek` 
+
+
+.. method:: PySide.QtCore.QIODevice.seek(pos)
+
+
+    :param pos: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For random-access devices, this function sets the current position to ``pos`` , returning true on success, or false if an error occurred. For sequential devices, the default behavior is to do nothing and return false.
+
+    When subclassing :class:`PySide.QtCore.QIODevice` , you must call :meth:`QIODevice.seek()<PySide.QtCore.QIODevice.seek>` at the start of your function to ensure integrity with :class:`PySide.QtCore.QIODevice` 's built-in buffer. The base implementation always returns true.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.pos`  :meth:`PySide.QtCore.QIODevice.isSequential` 
+
+
+.. method:: PySide.QtCore.QIODevice.setErrorString(errorString)
+
+
+    :param errorString: unicode
+
+
+
+
+    Sets the human readable description of the last device error that occurred to ``str`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.errorString` 
+
+
+.. method:: PySide.QtCore.QIODevice.setOpenMode(openMode)
+
+
+    :param openMode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QIODevice.setTextModeEnabled(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, this function sets the :attr:`Text<QIODevice.OpenModeFlag>` flag on the device; otherwise the :attr:`Text<QIODevice.OpenModeFlag>` flag is removed. This feature is useful for classes that provide custom end-of-line handling on a :class:`PySide.QtCore.QIODevice` .
+
+    The IO device should be opened before calling this function.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.isTextModeEnabled`  :meth:`PySide.QtCore.QIODevice.open`  :meth:`PySide.QtCore.QIODevice.setOpenMode` 
+
+
+.. method:: PySide.QtCore.QIODevice.size()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    For open random-access devices, this function returns the size of the device. For open sequential devices, :meth:`PySide.QtCore.QIODevice.bytesAvailable` is returned.
+
+    If the device is closed, the size returned will not reflect the actual size of the device.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.isSequential`  :meth:`PySide.QtCore.QIODevice.pos` 
+
+
+.. method:: PySide.QtCore.QIODevice.ungetChar(c)
+
+
+    :param c: :class:`PySide.QtCore.char`
+
+
+
+
+    Puts the character ``c`` back into the device, and decrements the current position unless the position is 0. This function is usually called to "undo" a :meth:`PySide.QtCore.QIODevice.getChar` operation, such as when writing a backtracking parser.
+
+    If ``c`` was not previously read from the device, the behavior is undefined.
+
+
+
+.. method:: PySide.QtCore.QIODevice.waitForBytesWritten(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For buffered devices, this function waits until a payload of buffered written data has been written to the device and the :meth:`PySide.QtCore.QIODevice.bytesWritten` signal has been emitted, or until ``msecs`` milliseconds have passed. If msecs is -1, this function will not time out. For unbuffered devices, it returns immediately.
+
+    Returns true if a payload of data was written to the device; otherwise returns false (i.e. if the operation timed out, or if an error occurred).
+
+    This function can operate without an event loop. It is useful when writing non-GUI applications and when performing I/O operations in a non-GUI thread.
+
+    If called from within a slot connected to the :meth:`PySide.QtCore.QIODevice.bytesWritten` signal, :meth:`PySide.QtCore.QIODevice.bytesWritten` will not be reemitted.
+
+    Reimplement this function to provide a blocking API for a custom device. The default implementation does nothing, and returns false.
+
+    .. warning::  Calling this function from the main (GUI) thread might cause your user interface to freeze.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.waitForReadyRead` 
+
+
+.. method:: PySide.QtCore.QIODevice.waitForReadyRead(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Blocks until new data is available for reading and the :meth:`PySide.QtCore.QIODevice.readyRead` signal has been emitted, or until ``msecs`` milliseconds have passed. If msecs is -1, this function will not time out.
+
+    Returns true if new data is available for reading; otherwise returns false (if the operation timed out or if an error occurred).
+
+    This function can operate without an event loop. It is useful when writing non-GUI applications and when performing I/O operations in a non-GUI thread.
+
+    If called from within a slot connected to the :meth:`PySide.QtCore.QIODevice.readyRead` signal, :meth:`PySide.QtCore.QIODevice.readyRead` will not be reemitted.
+
+    Reimplement this function to provide a blocking API for a custom device. The default implementation does nothing, and returns false.
+
+    .. warning::  Calling this function from the main (GUI) thread might cause your user interface to freeze.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.waitForBytesWritten` 
+
+
+.. method:: PySide.QtCore.QIODevice.write(data)
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    This is an overloaded function.
+
+    Writes the content of ``byteArray`` to the device. Returns the number of bytes that were actually written, or -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.read`  :meth:`PySide.QtCore.QIODevice.writeData` 
+
+
+.. method:: PySide.QtCore.QIODevice.writeData(data, len)
+
+
+    :param data: str
+    :param len: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Writes up to ``maxSize`` bytes from ``data`` to the device. Returns the number of bytes written, or -1 if an error occurred.
+
+    This function is called by :class:`PySide.QtCore.QIODevice` . Reimplement this function when creating a subclass of :class:`PySide.QtCore.QIODevice` .
+
+    When reimplementing this function it is important that this function writes all the data available before returning. This is required in order for :class:`PySide.QtCore.QDataStream` to be able to operate on the class. :class:`PySide.QtCore.QDataStream` assumes all the information was written and therefore does not retry writing if there was a problem.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.read`  :meth:`PySide.QtCore.QIODevice.write` 
+
+
+

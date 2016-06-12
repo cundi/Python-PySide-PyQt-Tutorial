@@ -1,0 +1,156 @@
+.. module:: PySide.QtGui
+.. _QWidgetAction:
+
+QWidgetAction
+*************
+
+.. inheritance-diagram:: QWidgetAction
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createdWidgets<PySide.QtGui.QWidgetAction.createdWidgets>` ()
+*    def :meth:`defaultWidget<PySide.QtGui.QWidgetAction.defaultWidget>` ()
+*    def :meth:`releaseWidget<PySide.QtGui.QWidgetAction.releaseWidget>` (widget)
+*    def :meth:`requestWidget<PySide.QtGui.QWidgetAction.requestWidget>` (parent)
+*    def :meth:`setDefaultWidget<PySide.QtGui.QWidgetAction.setDefaultWidget>` (w)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createWidget<PySide.QtGui.QWidgetAction.createWidget>` (parent)
+*    def :meth:`deleteWidget<PySide.QtGui.QWidgetAction.deleteWidget>` (widget)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWidgetAction` class extends :class:`PySide.QtGui.QAction` by an interface for inserting custom widgets into action based containers, such as toolbars.
+
+    Most actions in an application are represented as items in menus or buttons in toolbars. However sometimes more complex widgets are necessary. For example a zoom action in a word processor may be realized using a :class:`PySide.QtGui.QComboBox` in a :class:`PySide.QtGui.QToolBar` , presenting a range of different zoom levels. :class:`PySide.QtGui.QToolBar` provides :meth:`QToolBar.insertWidget()<PySide.QtGui.QToolBar.insertWidget>` as convenience function for inserting a single widget. However if you want to implement an action that uses custom widgets for visualization in multiple containers then you have to subclass :class:`PySide.QtGui.QWidgetAction` .
+
+    If a :class:`PySide.QtGui.QWidgetAction` is added for example to a :class:`PySide.QtGui.QToolBar` then :meth:`QWidgetAction.createWidget()<PySide.QtGui.QWidgetAction.createWidget>` is called. Reimplementations of that function should create a new custom widget with the specified parent.
+
+    If the action is removed from a container widget then :meth:`QWidgetAction.deleteWidget()<PySide.QtGui.QWidgetAction.deleteWidget>` is called with the previously created custom widget as argument. The default implementation hides the widget and deletes it using :meth:`QObject.deleteLater()<PySide.QtCore.QObject.deleteLater>` .
+
+    If you have only one single custom widget then you can set it as default widget using :meth:`PySide.QtGui.QWidgetAction.setDefaultWidget` . That widget will then be used if the action is added to a :class:`PySide.QtGui.QToolBar` , or in general to an action container that supports :class:`PySide.QtGui.QWidgetAction` . If a :class:`PySide.QtGui.QWidgetAction` with only a default widget is added to two toolbars at the same time then the default widget is shown only in the first toolbar the action was added to. :class:`PySide.QtGui.QWidgetAction` takes over ownership of the default widget.
+
+    Note that it is up to the widget to activate the action, for example by reimplementing mouse event handlers and calling :meth:`QAction.trigger()<PySide.QtGui.QAction.trigger>` .
+
+    **Mac OS X** : If you add a widget to a menu in the application's menu bar on Mac OS X, the widget will be added and it will function but with some limitations:
+
+    .. seealso::  :class:`PySide.QtGui.QAction`  :class:`PySide.QtGui.QActionGroup`  :class:`PySide.QtGui.QWidget` 
+
+.. class:: QWidgetAction(parent)
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an action with ``parent`` .
+
+
+.. method:: PySide.QtGui.QWidgetAction.createWidget(parent)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This function is called whenever the action is added to a container widget that supports custom widgets. If you don't want a custom widget to be used as representation of the action in the specified ``parent`` widget then 0 should be returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.deleteWidget` 
+
+
+.. method:: PySide.QtGui.QWidgetAction.createdWidgets()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of widgets that have been using :meth:`PySide.QtGui.QWidgetAction.createWidget` and are currently in use by widgets the action has been added to.
+
+
+
+.. method:: PySide.QtGui.QWidgetAction.defaultWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the default widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.setDefaultWidget` 
+
+
+.. method:: PySide.QtGui.QWidgetAction.deleteWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This function is called whenever the action is removed from a container widget that displays the action using a custom ``widget`` previously created using :meth:`PySide.QtGui.QWidgetAction.createWidget` . The default implementation hides the ``widget`` and schedules it for deletion using :meth:`QObject.deleteLater()<PySide.QtCore.QObject.deleteLater>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.createWidget` 
+
+
+.. method:: PySide.QtGui.QWidgetAction.releaseWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Releases the specified ``widget`` .
+
+    Container widgets that support actions call this function when a widget action is removed.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.requestWidget`  :meth:`PySide.QtGui.QWidgetAction.deleteWidget`  :meth:`PySide.QtGui.QWidgetAction.defaultWidget` 
+
+
+.. method:: PySide.QtGui.QWidgetAction.requestWidget(parent)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns a widget that represents the action, with the given ``parent`` .
+
+    Container widgets that support actions can call this function to request a widget as visual representation of the action.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.releaseWidget`  :meth:`PySide.QtGui.QWidgetAction.createWidget`  :meth:`PySide.QtGui.QWidgetAction.defaultWidget` 
+
+
+.. method:: PySide.QtGui.QWidgetAction.setDefaultWidget(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets ``widget`` to be the default widget. The ownership is transferred to :class:`PySide.QtGui.QWidgetAction` . Unless :meth:`PySide.QtGui.QWidgetAction.createWidget` is reimplemented by a subclass to return a new widget the default widget is used when a container widget requests a widget through :meth:`PySide.QtGui.QWidgetAction.requestWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWidgetAction.defaultWidget` 
+
+
+

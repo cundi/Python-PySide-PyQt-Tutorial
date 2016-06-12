@@ -1,0 +1,221 @@
+.. module:: PySide.QtWebKit
+.. _QWebSecurityOrigin:
+
+QWebSecurityOrigin
+******************
+
+.. inheritance-diagram:: QWebSecurityOrigin
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`databaseQuota<PySide.QtWebKit.QWebSecurityOrigin.databaseQuota>` ()
+*    def :meth:`databaseUsage<PySide.QtWebKit.QWebSecurityOrigin.databaseUsage>` ()
+*    def :meth:`databases<PySide.QtWebKit.QWebSecurityOrigin.databases>` ()
+*    def :meth:`host<PySide.QtWebKit.QWebSecurityOrigin.host>` ()
+*    def :meth:`port<PySide.QtWebKit.QWebSecurityOrigin.port>` ()
+*    def :meth:`scheme<PySide.QtWebKit.QWebSecurityOrigin.scheme>` ()
+*    def :meth:`setApplicationCacheQuota<PySide.QtWebKit.QWebSecurityOrigin.setApplicationCacheQuota>` (quota)
+*    def :meth:`setDatabaseQuota<PySide.QtWebKit.QWebSecurityOrigin.setDatabaseQuota>` (quota)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addLocalScheme<PySide.QtWebKit.QWebSecurityOrigin.addLocalScheme>` (scheme)
+*    def :meth:`allOrigins<PySide.QtWebKit.QWebSecurityOrigin.allOrigins>` ()
+*    def :meth:`localSchemes<PySide.QtWebKit.QWebSecurityOrigin.localSchemes>` ()
+*    def :meth:`removeLocalScheme<PySide.QtWebKit.QWebSecurityOrigin.removeLocalScheme>` (scheme)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebSecurityOrigin` class defines a security boundary for web sites.
+
+    :class:`PySide.QtWebKit.QWebSecurityOrigin` provides access to the security domains defined by web sites. An origin consists of a host name, a scheme, and a port number. Web sites with the same security origin can access each other's resources for client-side scripting or databases.
+
+    For example the site ``http://www.example.com/my/page.html`` is allowed to share the same database as ``http://www.example.com/my/overview.html`` , or access each other's documents when used in HTML frame sets and JavaScript. At the same time it prevents ``http://www.malicious.com/evil.html`` from accessing ``http://www.example.com/`` 's resources, because they are of a different security origin.
+
+    By default local schemes like ``file://`` and ``qrc://`` are concidered to be in the same security origin, and can access each other's resources. You can add additional local schemes by using :meth:`QWebSecurityOrigin.addLocalScheme()<PySide.QtWebKit.QWebSecurityOrigin.addLocalScheme>` , or override the default same-origin behavior by setting :attr:`QWebSettings.LocalContentCanAccessFileUrls<QWebSettings.WebAttribute>` to ``false`` .
+
+    .. note::  Local resources are by default restricted from accessing remote content, which means your ``file://`` will not be able to access ``http://domain.com/foo.html`` . You can relax this restriction by setting :attr:`QWebSettings.LocalContentCanAccessRemoteUrls<QWebSettings.WebAttribute>` to ``true`` .
+
+    Call :meth:`QWebFrame.securityOrigin()<PySide.QtWebKit.QWebFrame.securityOrigin>` to get the :class:`PySide.QtWebKit.QWebSecurityOrigin` for a frame in a web page, and use :meth:`PySide.QtWebKit.QWebSecurityOrigin.host` , :meth:`PySide.QtWebKit.QWebSecurityOrigin.scheme` and :meth:`PySide.QtWebKit.QWebSecurityOrigin.port` to identify the security origin.
+
+    Use :meth:`PySide.QtWebKit.QWebSecurityOrigin.databases` to access the databases defined within a security origin. The disk usage of the origin's databases can be limited with :meth:`PySide.QtWebKit.QWebSecurityOrigin.setDatabaseQuota` . :meth:`PySide.QtWebKit.QWebSecurityOrigin.databaseQuota` and :meth:`PySide.QtWebKit.QWebSecurityOrigin.databaseUsage` report the current limit as well as the current usage.
+
+    For more information refer to the "Same origin policy" Wikipedia Article.
+
+    .. seealso::  :meth:`QWebFrame.securityOrigin()<PySide.QtWebKit.QWebFrame.securityOrigin>` 
+
+.. class:: QWebSecurityOrigin(other)
+
+    :param other: :class:`PySide.QtWebKit.QWebSecurityOrigin`
+
+    Constructs a security origin from ``other`` .
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSecurityOrigin.addLocalScheme(scheme)
+
+
+    :param scheme: unicode
+
+
+
+
+    Adds the given ``scheme`` to the list of schemes that are considered equivalent to the ``file`` : scheme.
+
+    Cross domain restrictions depend on the two web settings :attr:`QWebSettings.LocalContentCanAccessFileUrls<QWebSettings.WebAttribute>` and :attr:`QWebSettings.LocalContentCanAccessFileUrls<QWebSettings.WebAttribute>` . By default all local schemes are concidered to be in the same security origin, and local schemes can not access remote content.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSecurityOrigin.allOrigins()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all security origins with a database quota defined.
+
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.databaseQuota()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the quota for the databases in the security origin.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSecurityOrigin.setDatabaseQuota` 
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.databaseUsage()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of bytes all databases in the security origin use on the disk.
+
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.databases()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all databases defined in the security origin.
+
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.host()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the host name defining the security origin.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSecurityOrigin.localSchemes()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all the schemes concidered to be local.
+
+    By default this is ``file://`` and ``qrc://`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSecurityOrigin.addLocalScheme`  :meth:`PySide.QtWebKit.QWebSecurityOrigin.removeLocalScheme` 
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.port()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the port number defining the security origin.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSecurityOrigin.removeLocalScheme(scheme)
+
+
+    :param scheme: unicode
+
+
+
+
+    Removes the given ``scheme`` from the list of local schemes.
+
+    .. note::  You can not remove the ``file://`` scheme from the list of local schemes.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSecurityOrigin.addLocalScheme` 
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.scheme()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the scheme defining the security origin.
+
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.setApplicationCacheQuota(quota)
+
+
+    :param quota: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebSecurityOrigin.setDatabaseQuota(quota)
+
+
+    :param quota: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the quota for the databases in the security origin to ``quota`` bytes.
+
+    If the quota is set to a value less than the current usage, the quota will remain and no data will be purged to meet the new quota. However, no new data can be added to databases in this origin.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSecurityOrigin.databaseQuota` 
+
+
+

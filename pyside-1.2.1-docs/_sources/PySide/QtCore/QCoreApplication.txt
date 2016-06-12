@@ -1,0 +1,910 @@
+.. module:: PySide.QtCore
+.. _QCoreApplication:
+
+QCoreApplication
+****************
+
+.. inheritance-diagram:: QCoreApplication
+    :parts: 2
+
+**Inherited by:** :ref:`QApplication`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`init<PySide.QtCore.QCoreApplication.init>` ()
+*    def :meth:`notifyInternal<PySide.QtCore.QCoreApplication.notifyInternal>` (receiver, event)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`notify<PySide.QtCore.QCoreApplication.notify>` (arg__1, arg__2)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToQuit<PySide.QtCore.QCoreApplication.aboutToQuit>` ()
+*    def :meth:`unixSignal<PySide.QtCore.QCoreApplication.unixSignal>` (arg__1)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addLibraryPath<PySide.QtCore.QCoreApplication.addLibraryPath>` (arg__1)
+*    def :meth:`applicationDirPath<PySide.QtCore.QCoreApplication.applicationDirPath>` ()
+*    def :meth:`applicationFilePath<PySide.QtCore.QCoreApplication.applicationFilePath>` ()
+*    def :meth:`applicationName<PySide.QtCore.QCoreApplication.applicationName>` ()
+*    def :meth:`applicationPid<PySide.QtCore.QCoreApplication.applicationPid>` ()
+*    def :meth:`applicationVersion<PySide.QtCore.QCoreApplication.applicationVersion>` ()
+*    def :meth:`arguments<PySide.QtCore.QCoreApplication.arguments>` ()
+*    def :meth:`closingDown<PySide.QtCore.QCoreApplication.closingDown>` ()
+*    def :meth:`exec_<PySide.QtCore.QCoreApplication.exec_>` ()
+*    def :meth:`exit<PySide.QtCore.QCoreApplication.exit>` ([retcode=0])
+*    def :meth:`flush<PySide.QtCore.QCoreApplication.flush>` ()
+*    def :meth:`hasPendingEvents<PySide.QtCore.QCoreApplication.hasPendingEvents>` ()
+*    def :meth:`installTranslator<PySide.QtCore.QCoreApplication.installTranslator>` (messageFile)
+*    def :meth:`instance<PySide.QtCore.QCoreApplication.instance>` ()
+*    def :meth:`libraryPaths<PySide.QtCore.QCoreApplication.libraryPaths>` ()
+*    def :meth:`organizationDomain<PySide.QtCore.QCoreApplication.organizationDomain>` ()
+*    def :meth:`organizationName<PySide.QtCore.QCoreApplication.organizationName>` ()
+*    def :meth:`postEvent<PySide.QtCore.QCoreApplication.postEvent>` (receiver, event)
+*    def :meth:`postEvent<PySide.QtCore.QCoreApplication.postEvent>` (receiver, event, priority)
+*    def :meth:`processEvents<PySide.QtCore.QCoreApplication.processEvents>` ([flags=QEventLoop.AllEvents])
+*    def :meth:`processEvents<PySide.QtCore.QCoreApplication.processEvents>` (flags, maxtime)
+*    def :meth:`quit<PySide.QtCore.QCoreApplication.quit>` ()
+*    def :meth:`removeLibraryPath<PySide.QtCore.QCoreApplication.removeLibraryPath>` (arg__1)
+*    def :meth:`removePostedEvents<PySide.QtCore.QCoreApplication.removePostedEvents>` (receiver)
+*    def :meth:`removePostedEvents<PySide.QtCore.QCoreApplication.removePostedEvents>` (receiver, eventType)
+*    def :meth:`removeTranslator<PySide.QtCore.QCoreApplication.removeTranslator>` (messageFile)
+*    def :meth:`sendEvent<PySide.QtCore.QCoreApplication.sendEvent>` (receiver, event)
+*    def :meth:`sendPostedEvents<PySide.QtCore.QCoreApplication.sendPostedEvents>` ()
+*    def :meth:`sendPostedEvents<PySide.QtCore.QCoreApplication.sendPostedEvents>` (receiver, event_type)
+*    def :meth:`sendSpontaneousEvent<PySide.QtCore.QCoreApplication.sendSpontaneousEvent>` (receiver, event)
+*    def :meth:`setApplicationName<PySide.QtCore.QCoreApplication.setApplicationName>` (application)
+*    def :meth:`setApplicationVersion<PySide.QtCore.QCoreApplication.setApplicationVersion>` (version)
+*    def :meth:`setAttribute<PySide.QtCore.QCoreApplication.setAttribute>` (attribute[, on=true])
+*    def :meth:`setLibraryPaths<PySide.QtCore.QCoreApplication.setLibraryPaths>` (arg__1)
+*    def :meth:`setOrganizationDomain<PySide.QtCore.QCoreApplication.setOrganizationDomain>` (orgDomain)
+*    def :meth:`setOrganizationName<PySide.QtCore.QCoreApplication.setOrganizationName>` (orgName)
+*    def :meth:`startingUp<PySide.QtCore.QCoreApplication.startingUp>` ()
+*    def :meth:`testAttribute<PySide.QtCore.QCoreApplication.testAttribute>` (attribute)
+*    def :meth:`translate<PySide.QtCore.QCoreApplication.translate>` (context, key, disambiguation, encoding, n)
+*    def :meth:`translate<PySide.QtCore.QCoreApplication.translate>` (context, key[, disambiguation=0[, encoding=CodecForTr]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QCoreApplication` class provides an event loop for console Qt applications.
+
+    This class is used by non-GUI applications to provide their event loop. For non-GUI application that uses Qt, there should be exactly one :class:`PySide.QtCore.QCoreApplication` object. For GUI applications, see :class:`PySide.QtGui.QApplication` .
+
+    :class:`PySide.QtCore.QCoreApplication` contains the main event loop, where all events from the operating system (e.g., timer and network events) and other sources are processed and dispatched. It also handles the application's initialization and finalization, as well as system-wide and application-wide settings.
+
+    .. _PySide.QtCore.QCoreApplication_the-event-loop-and-event-handling:
+
+
+
+The Event Loop and Event Handling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The event loop is started with a call to :meth:`~PySide.QtCore.QCoreApplication.exec` . Long running operations can call :meth:`PySide.QtCore.QCoreApplication.processEvents` to keep the application responsive.
+
+    In general, we recommend that you create a :class:`PySide.QtCore.QCoreApplication` or a :class:`PySide.QtGui.QApplication` object in your ``main()`` function as early as possible. :meth:`~PySide.QtCore.QCoreApplication.exec` will not return until the event loop exits; e.g., when :meth:`PySide.QtCore.QCoreApplication.quit` is called.
+
+    Several static convenience functions are also provided. The :class:`PySide.QtCore.QCoreApplication` object is available from :meth:`PySide.QtCore.QCoreApplication.instance` . Events can be sent or posted using :meth:`PySide.QtCore.QCoreApplication.sendEvent` , :meth:`PySide.QtCore.QCoreApplication.postEvent` , and :meth:`PySide.QtCore.QCoreApplication.sendPostedEvents` . Pending events can be removed with :meth:`PySide.QtCore.QCoreApplication.removePostedEvents` or flushed with :meth:`PySide.QtCore.QCoreApplication.flush` .
+
+    The class provides a :meth:`PySide.QtCore.QCoreApplication.quit` slot and an :meth:`PySide.QtCore.QCoreApplication.aboutToQuit` signal.
+
+    .. _PySide.QtCore.QCoreApplication_application-and-library-paths:
+
+
+
+Application and Library Paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    An application has an :meth:`PySide.QtCore.QCoreApplication.applicationDirPath` and an :meth:`PySide.QtCore.QCoreApplication.applicationFilePath` . Library paths (see :class:`~PySide.QtCore.QLibrary` ) can be retrieved with :meth:`PySide.QtCore.QCoreApplication.libraryPaths` and manipulated by :meth:`PySide.QtCore.QCoreApplication.setLibraryPaths` , :meth:`PySide.QtCore.QCoreApplication.addLibraryPath` , and :meth:`PySide.QtCore.QCoreApplication.removeLibraryPath` .
+
+    .. _PySide.QtCore.QCoreApplication_internationalization-and-translations:
+
+
+
+Internationalization and Translations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Translation files can be added or removed using :meth:`PySide.QtCore.QCoreApplication.installTranslator` and :meth:`PySide.QtCore.QCoreApplication.removeTranslator` . Application strings can be translated using :meth:`PySide.QtCore.QCoreApplication.translate` . The :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` and :meth:`QObject.trUtf8()<PySide.QtCore.QObject.trUtf8>` functions are implemented in terms of :meth:`PySide.QtCore.QCoreApplication.translate` .
+
+    .. _PySide.QtCore.QCoreApplication_accessing-command-line-arguments:
+
+
+
+Accessing Command Line Arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The command line arguments which are passed to :class:`PySide.QtCore.QCoreApplication` 's constructor should be accessed using the :meth:`PySide.QtCore.QCoreApplication.arguments` function. Note that some arguments supplied by the user may have been processed and removed by :class:`PySide.QtCore.QCoreApplication` .
+
+    In cases where command line arguments need to be obtained using the :meth:`PySide.QtCore.QCoreApplication.argv` function, you must convert them from the local string encoding using :meth:`QString.fromLocal8Bit` .
+
+    .. _PySide.QtCore.QCoreApplication_locale-settings:
+
+
+
+Locale Settings
+^^^^^^^^^^^^^^^
+
+    On Unix/Linux Qt is configured to use the system locale settings by default. This can cause a conflict when using POSIX functions, for instance, when converting between data types such as floats and strings, since the notation may differ between locales. To get around this problem, call the POSIX function ``setlocale(LC_NUMERIC,"C")`` right after initializing :class:`PySide.QtGui.QApplication` or :class:`PySide.QtCore.QCoreApplication` to reset the locale that is used for number formatting to "C"-locale.
+
+    .. seealso::  :class:`PySide.QtGui.QApplication`  :class:`PySide.QtCore.QAbstractEventDispatcher`  :class:`PySide.QtCore.QEventLoop`  :ref:`Semaphores Example<threads/semaphores>`  :ref:`Wait Conditions Example<threads/waitconditions>` 
+
+.. class:: QCoreApplication(arg__1)
+
+    :param arg__1: :class:`PySequence`
+
+
+
+.. attribute:: PySide.QtCore.QCoreApplication.Encoding
+
+    This enum type defines the 8-bit encoding of character string arguments to :meth:`PySide.QtCore.QCoreApplication.translate` :
+
+    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                     |Description                                                                                                                   |
+    +=============================+==============================================================================================================================+
+    |QCoreApplication.CodecForTr  |The encoding specified by :meth:`QTextCodec.codecForTr()<PySide.QtCore.QTextCodec.codecForTr>` (Latin-1 if none has been set).|
+    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |QCoreApplication.UnicodeUTF8 |UTF-8.                                                                                                                        |
+    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------+
+    |QCoreApplication.DefaultCodec|(Obsolete) Use :attr:`CodecForTr<QCoreApplication.Encoding>` instead.                                                         |
+    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QObject.tr()<PySide.QtCore.QObject.tr>`  :meth:`QObject.trUtf8()<PySide.QtCore.QObject.trUtf8>`  :meth:`QString.fromUtf8` 
+
+.. method:: PySide.QtCore.QCoreApplication.aboutToQuit()
+
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.addLibraryPath(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    Prepends ``path`` to the beginning of the library path list, ensuring that it is searched for libraries first. If ``path`` is empty or already in the path list, the path list is not changed.
+
+    The default path list consists of a single entry, the installation directory for plugins. The default installation directory for plugins is ``INSTALL/plugins`` , where ``INSTALL`` is the directory where Qt was installed.
+
+    In Symbian this function is only useful for adding paths for finding Qt extension plugin stubs, since the OS can only load libraries from the ``/sys/bin`` directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.removeLibraryPath`  :meth:`PySide.QtCore.QCoreApplication.libraryPaths`  :meth:`PySide.QtCore.QCoreApplication.setLibraryPaths` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.applicationDirPath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the directory that contains the application executable.
+
+    For example, if you have installed Qt in the ``C:\Trolltech\Qt`` directory, and you run the ``regexp`` example, this function will return "C:/Trolltech/Qt/examples/tools/regexp".
+
+    On Mac OS X this will point to the directory actually containing the executable, which may be inside of an application bundle (if the application is bundled).
+
+    .. warning::  On Linux, this function will try to get the path from the ``/proc`` file system. If that fails, it assumes that ``argv[0]`` contains the absolute file name of the executable. The function also assumes that the current directory has not been changed by the application.
+
+    In Symbian this function will return the application private directory, not the path to executable itself, as those are always in ``/sys/bin`` . If the application is in a read only drive, i.e. ROM, then the private path on the system drive will be returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.applicationFilePath` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.applicationFilePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file path of the application executable.
+
+    For example, if you have installed Qt in the ``/usr/local/qt`` directory, and you run the ``regexp`` example, this function will return "/usr/local/qt/examples/tools/regexp/regexp".
+
+    .. warning::  On Linux, this function will try to get the path from the ``/proc`` file system. If that fails, it assumes that ``argv[0]`` contains the absolute file name of the executable. The function also assumes that the current directory has not been changed by the application.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.applicationDirPath` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.applicationName()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the name of this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.organizationDomain`  :meth:`PySide.QtCore.QCoreApplication.applicationVersion` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.applicationPid()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current process ID for the application.
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.applicationVersion()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the version of this application.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.applicationName`  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.organizationDomain` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.arguments()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the list of command-line arguments.
+
+    Usually :meth:`PySide.QtCore.QCoreApplication.arguments` .at(0) is the program name, :meth:`PySide.QtCore.QCoreApplication.arguments` .at(1) is the first argument, and :meth:`PySide.QtCore.QCoreApplication.arguments` . :meth:`~PySide.QtCore.QCoreApplication.last` is the last argument. See the note below about Windows.
+
+    Calling this function is slow - you should store the result in a variable when parsing the command line.
+
+    .. warning::  On Unix, this list is built from the argc and argv parameters passed to the constructor in the main() function. The string-data in argv is interpreted using :meth:`QString.fromLocal8Bit` ; hence it is not possible to pass, for example, Japanese command line arguments on a system that runs in a Latin1 locale. Most modern Unix systems do not have this limitation, as they are Unicode-based.
+
+    On NT-based Windows, this limitation does not apply either. On Windows, the :meth:`PySide.QtCore.QCoreApplication.arguments` are not built from the contents of argv/argc, as the content does not support Unicode. Instead, the :meth:`PySide.QtCore.QCoreApplication.arguments` are constructed from the return value of GetCommandLine(). As a result of this, the string given by :meth:`PySide.QtCore.QCoreApplication.arguments` .at(0) might not be the program name on Windows, depending on how the application was started.
+
+    For Symbian applications started with ``RApaLsSession::StartApp`` one can specify arguments using ``CApaCommandLine::SetTailEndL`` function. Such arguments are only available via this method; they will not be passed to ``main`` function. Also note that only 8-bit string data set with ``CApaCommandLine::SetTailEndL`` is supported by this function.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.applicationFilePath` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.closingDown()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the application objects are being destroyed; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.startingUp` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.exec_()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Enters the main event loop and waits until :meth:`PySide.QtCore.QCoreApplication.exit` is called. Returns the value that was set to :meth:`PySide.QtCore.QCoreApplication.exit` (which is 0 if :meth:`PySide.QtCore.QCoreApplication.exit` is called via :meth:`PySide.QtCore.QCoreApplication.quit` ).
+
+    It is necessary to call this function to start event handling. The main event loop receives events from the window system and dispatches these to the application widgets.
+
+    To make your application perform idle processing (i.e. executing a special function whenever there are no pending events), use a :class:`PySide.QtCore.QTimer` with 0 timeout. More advanced idle processing schemes can be achieved using :meth:`PySide.QtCore.QCoreApplication.processEvents` .
+
+    We recommend that you connect clean-up code to the :meth:`PySide.QtCore.QCoreApplication.aboutToQuit` signal, instead of putting it in your application's ``main()`` function because on some platforms the :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` call may not return. For example, on Windows when the user logs off, the system terminates the process after Qt closes all top-level windows. Hence, there is no guarantee that the application will have time to exit its event loop and execute code at the end of the ``main()`` function after the :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` call.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.quit`  :meth:`PySide.QtCore.QCoreApplication.exit`  :meth:`PySide.QtCore.QCoreApplication.processEvents`  :meth:`QApplication.exec()<PySide.QtGui.QApplication.exec>` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.exit([retcode=0])
+
+
+    :param retcode: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the application to exit with a return code.
+
+    After this function has been called, the application leaves the main event loop and returns from the call to :meth:`~PySide.QtCore.QCoreApplication.exec` . The :meth:`~PySide.QtCore.QCoreApplication.exec` function returns ``returnCode`` . If the event loop is not running, this function does nothing.
+
+    By convention, a ``returnCode`` of 0 means success, and any non-zero value indicates an error.
+
+    Note that unlike the C library function of the same name, this function *does* return to the caller -- it is event processing that stops.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.quit`  :meth:`~PySide.QtCore.QCoreApplication.exec` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.flush()
+
+
+
+
+
+
+    Flushes the platform specific event queues.
+
+    If you are doing graphical changes inside a loop that does not return to the event loop on asynchronous window systems like X11 or double buffered window systems like Mac OS X, and you want to visualize these changes immediately (e.g. Splash Screens), call this function.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.sendPostedEvents` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.hasPendingEvents()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function returns true if there are pending events; otherwise returns false. Pending events can be either from the window system or posted events using :meth:`PySide.QtCore.QCoreApplication.postEvent` .
+
+    .. seealso::  :meth:`QAbstractEventDispatcher.hasPendingEvents()<PySide.QtCore.QAbstractEventDispatcher.hasPendingEvents>` 
+
+
+.. method:: PySide.QtCore.QCoreApplication.init()
+
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.installTranslator(messageFile)
+
+
+    :param messageFile: :class:`PySide.QtCore.QTranslator`
+
+
+
+
+    Adds the translation file ``translationFile`` to the list of translation files to be used for translations.
+
+    Multiple translation files can be installed. Translations are searched for in the reverse order in which they were installed, so the most recently installed translation file is searched first and the first translation file installed is searched last. The search stops as soon as a translation containing a matching string is found.
+
+    Installing or removing a :class:`PySide.QtCore.QTranslator` , or changing an installed :class:`PySide.QtCore.QTranslator` generates a :attr:`LanguageChange<QEvent.Type>` event for the :class:`PySide.QtCore.QCoreApplication` instance. A :class:`PySide.QtGui.QApplication` instance will propagate the event to all toplevel windows, where a reimplementation of changeEvent can re-translate the user interface by passing user-visible strings via the :meth:`~PySide.QtCore.QCoreApplication.tr` function to the respective property setters. User-interface classes generated by :ref:`Qt Designer<designer-manual.html>` provide a ``retranslateUi()`` function that can be called.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.removeTranslator`  :meth:`PySide.QtCore.QCoreApplication.translate`  :meth:`QTranslator.load()<PySide.QtCore.QTranslator.load>`  :ref:`Dynamic Translation<internationalization>` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.instance()
+
+
+    :rtype: :class:`PySide.QtCore.QCoreApplication`
+
+
+
+
+    Returns a pointer to the application's :class:`PySide.QtCore.QCoreApplication` (or :class:`PySide.QtGui.QApplication` ) instance.
+
+    If no instance has been allocated, ``null`` is returned.
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.libraryPaths()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of paths that the application will search when dynamically loading libraries.
+
+    Qt provides default library paths, but they can also be set using a :ref:`qt.conf<qt-conf.html>` file. Paths specified in this file will override default values.
+
+    This list will include the installation directory for plugins if it exists (the default installation directory for plugins is ``INSTALL/plugins`` , where ``INSTALL`` is the directory where Qt was installed). The directory of the application executable (NOT the working directory) is always added, as well as the colon separated entries of the QT\_PLUGIN\_PATH environment variable.
+
+    If you want to iterate over the list, you can use the :ref:`foreach<containers.html>` pseudo-keyword:
+
+    ::
+
+        for path in app.libraryPaths():
+            do_something(path)
+
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.setLibraryPaths`  :meth:`PySide.QtCore.QCoreApplication.addLibraryPath`  :meth:`PySide.QtCore.QCoreApplication.removeLibraryPath`  :class:`~PySide.QtCore.QLibrary`  :ref:`How to Create Qt Plugins<plugins-howto.html>` 
+
+
+.. method:: PySide.QtCore.QCoreApplication.notify(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sends ``event`` to ``receiver`` : ``receiver`` ->event(``event`` ). Returns the value that is returned from the receiver's event handler. Note that this function is called for all events sent to any object in any thread.
+
+    For certain types of events (e.g. mouse and key events), the event will be propagated to the receiver's parent and so on up to the top-level object if the receiver is not interested in the event (i.e., it returns false).
+
+    There are five different ways that events can be processed; reimplementing this virtual function is just one of them. All five approaches are listed below:
+
+    .. seealso::  :meth:`QObject.event()<PySide.QtCore.QObject.event>`  :meth:`PySide.QtCore.QObject.installEventFilter` 
+
+
+.. method:: PySide.QtCore.QCoreApplication.notifyInternal(receiver, event)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.organizationDomain()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the Internet domain of the organization that wrote this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    On Mac, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationDomain` as the organization if it's not an empty string; otherwise it uses :meth:`PySide.QtCore.QCoreApplication.organizationName` . On all other platforms, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationName` as the organization.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.applicationName`  :meth:`PySide.QtCore.QCoreApplication.applicationVersion` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.organizationName()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the name of the organization that wrote this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    On Mac, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationDomain` as the organization if it's not an empty string; otherwise it uses :meth:`PySide.QtCore.QCoreApplication.organizationName` . On all other platforms, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationName` as the organization.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationDomain`  :meth:`PySide.QtCore.QCoreApplication.applicationName` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.postEvent(receiver, event)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    Adds the event ``event`` , with the object ``receiver`` as the receiver of the event, to an event queue and returns immediately.
+
+    The event must be allocated on the heap since the post event queue will take ownership of the event and delete it once it has been posted. It is *not safe* to access the event after it has been posted.
+
+    When control returns to the main event loop, all events that are stored in the queue will be sent using the :meth:`PySide.QtCore.QCoreApplication.notify` function.
+
+    Events are processed in the order posted. For more control over the processing order, use the :meth:`PySide.QtCore.QCoreApplication.postEvent` overload below, which takes a priority argument. This function posts all event with a :attr:`Qt.NormalEventPriority<Qt.EventPriority>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.sendEvent`  :meth:`PySide.QtCore.QCoreApplication.notify`  :meth:`PySide.QtCore.QCoreApplication.sendPostedEvents` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.postEvent(receiver, event, priority)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+    :param priority: :class:`PySide.QtCore.int`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QCoreApplication.postEvent` .
+
+    Adds the event ``event`` , with the object ``receiver`` as the receiver of the event, to an event queue and returns immediately.
+
+    The event must be allocated on the heap since the post event queue will take ownership of the event and delete it once it has been posted. It is *not safe* to access the event after it has been posted.
+
+    When control returns to the main event loop, all events that are stored in the queue will be sent using the :meth:`PySide.QtCore.QCoreApplication.notify` function.
+
+    Events are sorted in descending ``priority`` order, i.e. events with a high ``priority`` are queued before events with a lower ``priority`` . The ``priority`` can be any integer value, i.e. between INT\_MAX and INT\_MIN, inclusive; see :attr:`Qt.EventPriority` for more details. Events with equal ``priority`` will be processed in the order posted.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.sendEvent`  :meth:`PySide.QtCore.QCoreApplication.notify`  :meth:`PySide.QtCore.QCoreApplication.sendPostedEvents`  :attr:`Qt.EventPriority` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.processEvents(flags, maxtime)
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+    :param maxtime: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.processEvents([flags=QEventLoop.AllEvents])
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.quit()
+
+
+
+
+
+
+    Tells the application to exit with return code 0 (success). Equivalent to calling QCoreApplication::exit(0).
+
+    It's common to connect the :meth:`QApplication.lastWindowClosed()<PySide.QtGui.QApplication.lastWindowClosed>` signal to :meth:`PySide.QtCore.QCoreApplication.quit` , and you also often connect e.g. :meth:`QAbstractButton.clicked()<PySide.QtGui.QAbstractButton.clicked>` or signals in :class:`PySide.QtGui.QAction` , :class:`PySide.QtGui.QMenu` , or :class:`PySide.QtGui.QMenuBar` to it.
+
+    Example:
+
+    ::
+
+        quitButton = QPushButton("Quit")
+        quitButton.clicked.connect(app.quit)
+
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.exit`  :meth:`PySide.QtCore.QCoreApplication.aboutToQuit`  :meth:`QApplication.lastWindowClosed()<PySide.QtGui.QApplication.lastWindowClosed>` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.removeLibraryPath(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    Removes ``path`` from the library path list. If ``path`` is empty or not in the path list, the list is not changed.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.addLibraryPath`  :meth:`PySide.QtCore.QCoreApplication.libraryPaths`  :meth:`PySide.QtCore.QCoreApplication.setLibraryPaths` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.removePostedEvents(receiver)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Removes all events posted using :meth:`PySide.QtCore.QCoreApplication.postEvent` for ``receiver`` .
+
+    The events are *not* dispatched, instead they are removed from the queue. You should never need to call this function. If you do call it, be aware that killing events may cause ``receiver`` to break one or more invariants.
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.removePostedEvents(receiver, eventType)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param eventType: :class:`PySide.QtCore.int`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QCoreApplication.removePostedEvents` .
+
+    Removes all events of the given ``eventType`` that were posted using :meth:`PySide.QtCore.QCoreApplication.postEvent` for ``receiver`` .
+
+    The events are *not* dispatched, instead they are removed from the queue. You should never need to call this function. If you do call it, be aware that killing events may cause ``receiver`` to break one or more invariants.
+
+    If ``receiver`` is null, the events of ``eventType`` are removed for all objects. If ``eventType`` is 0, all the events are removed for ``receiver`` .
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.removeTranslator(messageFile)
+
+
+    :param messageFile: :class:`PySide.QtCore.QTranslator`
+
+
+
+
+    Removes the translation file ``translationFile`` from the list of translation files used by this application. (It does not delete the translation file from the file system.)
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.installTranslator`  :meth:`PySide.QtCore.QCoreApplication.translate`  :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.sendEvent(receiver, event)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sends event ``event`` directly to receiver ``receiver`` , using the :meth:`PySide.QtCore.QCoreApplication.notify` function. Returns the value that was returned from the event handler.
+
+    The event is *not* deleted when the event has been sent. The normal approach is to create the event on the stack, for example:
+
+    ::
+
+        event = QMouseEvent(QEvent.MouseButtonPress, pos, 0, 0, 0)
+        QApplication.sendEvent(mainWindow, event)
+
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.postEvent`  :meth:`PySide.QtCore.QCoreApplication.notify` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.sendPostedEvents(receiver, event_type)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event_type: :class:`PySide.QtCore.int`
+
+
+
+
+    Immediately dispatches all events which have been previously queued with :meth:`QCoreApplication.postEvent()<PySide.QtCore.QCoreApplication.postEvent>` and which are for the object ``receiver`` and have the event type ``event_type`` .
+
+    Events from the window system are *not* dispatched by this function, but by :meth:`PySide.QtCore.QCoreApplication.processEvents` .
+
+    If ``receiver`` is null, the events of ``event_type`` are sent for all objects. If ``event_type`` is 0, all the events are sent for ``receiver`` .
+
+    .. note::  This method must be called from the same thread as its :class:`PySide.QtCore.QObject` parameter, ``receiver`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.flush`  :meth:`PySide.QtCore.QCoreApplication.postEvent` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.sendPostedEvents()
+
+
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QCoreApplication.sendPostedEvents` .
+
+    Dispatches all posted events, i.e. empties the event queue.
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.sendSpontaneousEvent(receiver, event)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setApplicationName(application)
+
+
+    :param application: unicode
+
+
+
+
+    This property holds the name of this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.organizationDomain`  :meth:`PySide.QtCore.QCoreApplication.applicationVersion` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setApplicationVersion(version)
+
+
+    :param version: unicode
+
+
+
+
+    This property holds the version of this application.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.applicationName`  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.organizationDomain` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setAttribute(attribute[, on=true])
+
+
+    :param attribute: :attr:`PySide.QtCore.Qt.ApplicationAttribute`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setLibraryPaths(arg__1)
+
+
+    :param arg__1: list of strings
+
+
+
+
+    Sets the list of directories to search when loading libraries to ``paths`` . All existing paths will be deleted and the path list will consist of the paths given in ``paths`` .
+
+    In Symbian this function is only useful for setting paths for finding Qt extension plugin stubs, since the OS can only load libraries from the ``/sys/bin`` directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.libraryPaths`  :meth:`PySide.QtCore.QCoreApplication.addLibraryPath`  :meth:`PySide.QtCore.QCoreApplication.removeLibraryPath`  :class:`~PySide.QtCore.QLibrary` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setOrganizationDomain(orgDomain)
+
+
+    :param orgDomain: unicode
+
+
+
+
+    This property holds the Internet domain of the organization that wrote this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    On Mac, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationDomain` as the organization if it's not an empty string; otherwise it uses :meth:`PySide.QtCore.QCoreApplication.organizationName` . On all other platforms, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationName` as the organization.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationName`  :meth:`PySide.QtCore.QCoreApplication.applicationName`  :meth:`PySide.QtCore.QCoreApplication.applicationVersion` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.setOrganizationName(orgName)
+
+
+    :param orgName: unicode
+
+
+
+
+    This property holds the name of the organization that wrote this application.
+
+    The value is used by the :class:`PySide.QtCore.QSettings` class when it is constructed using the empty constructor. This saves having to repeat this information each time a :class:`PySide.QtCore.QSettings` object is created.
+
+    On Mac, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationDomain` as the organization if it's not an empty string; otherwise it uses :meth:`PySide.QtCore.QCoreApplication.organizationName` . On all other platforms, :class:`PySide.QtCore.QSettings` uses :meth:`PySide.QtCore.QCoreApplication.organizationName` as the organization.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.organizationDomain`  :meth:`PySide.QtCore.QCoreApplication.applicationName` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.startingUp()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if an application object has not been created yet; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QCoreApplication.closingDown` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.testAttribute(attribute)
+
+
+    :param attribute: :attr:`PySide.QtCore.Qt.ApplicationAttribute`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.translate(context, key, disambiguation, encoding, n)
+
+
+    :param context: str
+    :param key: str
+    :param disambiguation: str
+    :param encoding: :attr:`PySide.QtCore.QCoreApplication.Encoding`
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the translation text for ``sourceText`` , by querying the installed translation files. The translation files are searched from the most recently installed file back to the first installed file.
+
+    :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` and :meth:`QObject.trUtf8()<PySide.QtCore.QObject.trUtf8>` provide this functionality more conveniently.
+
+    ``context`` is typically a class name (e.g., "MyDialog") and ``sourceText`` is either English text or a short identifying text.
+
+    ``disambiguation`` is an identifying string, for when the same ``sourceText`` is used in different roles within the same context. By default, it is null.
+
+    See the :class:`PySide.QtCore.QTranslator` and :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` documentation for more information about contexts, disambiguations and comments.
+
+    ``encoding`` indicates the 8-bit encoding of character strings.
+
+    ``n`` is used in conjunction with ``%n`` to support plural forms. See :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` for details.
+
+    If none of the translation files contain a translation for ``sourceText`` in ``context`` , this function returns a :class:`PySide.QtCore.QString` equivalent of ``sourceText`` . The encoding of ``sourceText`` is specified by *encoding* ; it defaults to :attr:`CodecForTr<QCoreApplication.Encoding>` .
+
+    This function is not virtual. You can use alternative translation techniques by subclassing :class:`PySide.QtCore.QTranslator` .
+
+    .. warning::  This method is reentrant only if all translators are installed *before* calling this method. Installing or removing translators while performing translations is not supported. Doing so will most likely result in crashes or other undesirable behavior.
+
+    .. seealso::  :meth:`QObject.tr()<PySide.QtCore.QObject.tr>`  :meth:`PySide.QtCore.QCoreApplication.installTranslator`  :meth:`QTextCodec.codecForTr()<PySide.QtCore.QTextCodec.codecForTr>` 
+
+
+.. staticmethod:: PySide.QtCore.QCoreApplication.translate(context, key[, disambiguation=0[, encoding=CodecForTr]])
+
+
+    :param context: str
+    :param key: str
+    :param disambiguation: str
+    :param encoding: :attr:`PySide.QtCore.QCoreApplication.Encoding`
+    :rtype: unicode
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QCoreApplication.translate` .
+
+
+
+.. method:: PySide.QtCore.QCoreApplication.unixSignal(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+    
+    .. class:: QCoreApplication(args)
+    
+        Constructs a Qt kernel application. Kernel applications are applications
+        without a graphical user interface. These type of applications are used
+        at the console or as server processes.
+    
+        The *args* argument is processed by the application, and made available
+        in a more convenient form by the :meth:`~QCoreApplication.arguments()`
+        method.
+        
+
+

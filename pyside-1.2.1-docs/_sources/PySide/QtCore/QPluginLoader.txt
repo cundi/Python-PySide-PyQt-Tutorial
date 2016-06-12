@@ -1,0 +1,211 @@
+.. module:: PySide.QtCore
+.. _QPluginLoader:
+
+QPluginLoader
+*************
+
+.. inheritance-diagram:: QPluginLoader
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`errorString<PySide.QtCore.QPluginLoader.errorString>` ()
+*    def :meth:`fileName<PySide.QtCore.QPluginLoader.fileName>` ()
+*    def :meth:`instance<PySide.QtCore.QPluginLoader.instance>` ()
+*    def :meth:`isLoaded<PySide.QtCore.QPluginLoader.isLoaded>` ()
+*    def :meth:`load<PySide.QtCore.QPluginLoader.load>` ()
+*    def :meth:`setFileName<PySide.QtCore.QPluginLoader.setFileName>` (fileName)
+*    def :meth:`unload<PySide.QtCore.QPluginLoader.unload>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`staticInstances<PySide.QtCore.QPluginLoader.staticInstances>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QPluginLoader` class loads a plugin at run-time.
+
+    :class:`PySide.QtCore.QPluginLoader` provides access to a :ref:`Qt plugin<plugins-howto.html>` . A Qt plugin is stored in a shared library (a DLL) and offers these benefits over shared libraries accessed using :class:`~PySide.QtCore.QLibrary` :
+
+
+    * :class:`PySide.QtCore.QPluginLoader` checks that a plugin is linked against the same version of Qt as the application.
+    * :class:`PySide.QtCore.QPluginLoader` provides direct access to a root component object ( :meth:`PySide.QtCore.QPluginLoader.instance` ), instead of forcing you to resolve a C function manually.
+
+    An instance of a :class:`PySide.QtCore.QPluginLoader` object operates on a single shared library file, which we call a plugin. It provides access to the functionality in the plugin in a platform-independent way. To specify which plugin to load, either pass a file name in the constructor or set it with :meth:`PySide.QtCore.QPluginLoader.setFileName` .
+
+    The most important functions are :meth:`PySide.QtCore.QPluginLoader.load` to dynamically load the plugin file, :meth:`PySide.QtCore.QPluginLoader.isLoaded` to check whether loading was successful, and :meth:`PySide.QtCore.QPluginLoader.instance` to access the root component in the plugin. The :meth:`PySide.QtCore.QPluginLoader.instance` function implicitly tries to load the plugin if it has not been loaded yet. Multiple instances of :class:`PySide.QtCore.QPluginLoader` can be used to access the same physical plugin.
+
+    Once loaded, plugins remain in memory until all instances of :class:`PySide.QtCore.QPluginLoader` has been unloaded, or until the application terminates. You can attempt to unload a plugin using :meth:`PySide.QtCore.QPluginLoader.unload` , but if other instances of :class:`PySide.QtCore.QPluginLoader` are using the same library, the call will fail, and unloading will only happen when every instance has called :meth:`PySide.QtCore.QPluginLoader.unload` . Right before the unloading happen, the root component will also be deleted.
+
+    In order to speed up loading and validation of plugins, some of the information that is collected during loading is cached in persistent memory (through :class:`PySide.QtCore.QSettings` ). For instance, the result of a load operation (e.g. succeeded or failed) is stored in the cache, so that subsequent load operations don't try to load an invalid plugin. However, if the "last modified" timestamp of a plugin has changed, the plugin's cache entry is invalidated and the plugin is reloaded regardless of the values in the cache entry. The cache entry is then updated with the new result of the load operation.
+
+    This also means that the timestamp must be updated each time the plugin or any dependent resources (such as a shared library) is updated, since the dependent resources might influence the result of loading a plugin.
+
+    See :ref:`How to Create Qt Plugins<plugins-howto.html>` for more information about how to make your application extensible through plugins.
+
+    Note that the :class:`PySide.QtCore.QPluginLoader` cannot be used if your application is statically linked against Qt. In this case, you will also have to link to plugins statically. You can use :class:`~PySide.QtCore.QLibrary` if you need to load dynamic libraries in a statically linked application.
+
+    .. note::  In Symbian the plugin stub files must be used whenever a path to plugin is needed. For the purposes of loading plugins, the stubs can be considered to have the same name as the actual plugin binary. In practice they have ".qtplugin" extension instead of ".dll", but this difference is handled transparently by :class:`PySide.QtCore.QPluginLoader` and :class:`~PySide.QtCore.QLibrary` to avoid need for Symbian specific plugin handling in most Qt applications. Plugin stubs are needed because Symbian Platform Security denies all access to the directory where the actual plugin binaries are located.
+
+    .. seealso::  :class:`~PySide.QtCore.QLibrary`  :ref:`Plug & Paint Example<tools/plugandpaint>` 
+
+.. class:: QPluginLoader([parent=None])
+           QPluginLoader(fileName[, parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param fileName: unicode
+
+    Constructs a plugin loader with the given ``parent`` .
+
+
+    Constructs a plugin loader with the given ``parent`` that will load the plugin specified by ``fileName`` .
+
+    To be loadable, the file's suffix must be a valid suffix for a loadable library in accordance with the platform, e.g. ``.so`` on Unix, - ``.dylib`` on Mac OS X, and ``.dll`` on Windows. The suffix can be verified with :meth:`QLibrary.isLibrary` .
+
+    Note: In Symbian the ``fileName`` must point to plugin stub file.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.setFileName` 
+
+.. method:: PySide.QtCore.QPluginLoader.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a text string with the description of the last error that occurred.
+
+
+
+.. method:: PySide.QtCore.QPluginLoader.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the file name of the plugin.
+
+    To be loadable, the file's suffix must be a valid suffix for a loadable library in accordance with the platform, e.g. ``.so`` on Unix, ``.dylib`` on Mac OS X, and ``.dll`` on Windows. The suffix can be verified with :meth:`QLibrary.isLibrary` .
+
+    If the file name does not exist, it will not be set. This property will then contain an empty string.
+
+    By default, this property contains an empty string.
+
+    Note: In Symbian the ``fileName`` must point to plugin stub file.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.load` 
+
+
+.. method:: PySide.QtCore.QPluginLoader.instance()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the root component object of the plugin. The plugin is loaded if necessary. The function returns 0 if the plugin could not be loaded or if the root component object could not be instantiated.
+
+    If the root component object was destroyed, calling this function creates a new instance.
+
+    The root component, returned by this function, is not deleted when the :class:`PySide.QtCore.QPluginLoader` is destroyed. If you want to ensure that the root component is deleted, you should call :meth:`PySide.QtCore.QPluginLoader.unload` as soon you don't need to access the core component anymore. When the library is finally unloaded, the root component will automatically be deleted.
+
+    The component object is a :class:`PySide.QtCore.QObject` . Use :meth:`~PySide.QtCore.QPluginLoader.qobject\_cast` to access interfaces you are interested in.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.load` 
+
+
+.. method:: PySide.QtCore.QPluginLoader.isLoaded()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the plugin is loaded; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.load` 
+
+
+.. method:: PySide.QtCore.QPluginLoader.load()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads the plugin and returns true if the plugin was loaded successfully; otherwise returns false. Since :meth:`PySide.QtCore.QPluginLoader.instance` always calls this function before resolving any symbols it is not necessary to call it explicitly. In some situations you might want the plugin loaded in advance, in which case you would use this function.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.unload` 
+
+
+.. method:: PySide.QtCore.QPluginLoader.setFileName(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    This property holds the file name of the plugin.
+
+    To be loadable, the file's suffix must be a valid suffix for a loadable library in accordance with the platform, e.g. ``.so`` on Unix, ``.dylib`` on Mac OS X, and ``.dll`` on Windows. The suffix can be verified with :meth:`QLibrary.isLibrary` .
+
+    If the file name does not exist, it will not be set. This property will then contain an empty string.
+
+    By default, this property contains an empty string.
+
+    Note: In Symbian the ``fileName`` must point to plugin stub file.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.load` 
+
+
+.. staticmethod:: PySide.QtCore.QPluginLoader.staticInstances()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of static plugin instances (root components) held by the plugin loader.
+
+
+
+.. method:: PySide.QtCore.QPluginLoader.unload()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unloads the plugin and returns true if the plugin could be unloaded; otherwise returns false.
+
+    This happens automatically on application termination, so you shouldn't normally need to call this function.
+
+    If other instances of :class:`PySide.QtCore.QPluginLoader` are using the same plugin, the call will fail, and unloading will only happen when every instance has called :meth:`PySide.QtCore.QPluginLoader.unload` .
+
+    Don't try to delete the root component. Instead rely on that :meth:`PySide.QtCore.QPluginLoader.unload` will automatically delete it when needed.
+
+    .. seealso::  :meth:`PySide.QtCore.QPluginLoader.instance`  :meth:`PySide.QtCore.QPluginLoader.load` 
+
+
+

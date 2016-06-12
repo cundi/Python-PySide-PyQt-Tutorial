@@ -1,0 +1,168 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkProxyFactory:
+
+QNetworkProxyFactory
+********************
+
+.. inheritance-diagram:: QNetworkProxyFactory
+    :parts: 2
+
+Synopsis
+--------
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`queryProxy<PySide.QtNetwork.QNetworkProxyFactory.queryProxy>` ([query=QNetworkProxyQuery()])
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`proxyForQuery<PySide.QtNetwork.QNetworkProxyFactory.proxyForQuery>` (query)
+*    def :meth:`setApplicationProxyFactory<PySide.QtNetwork.QNetworkProxyFactory.setApplicationProxyFactory>` (factory)
+*    def :meth:`setUseSystemConfiguration<PySide.QtNetwork.QNetworkProxyFactory.setUseSystemConfiguration>` (enable)
+*    def :meth:`systemProxyForQuery<PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery>` ([query=QNetworkProxyQuery()])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkProxyFactory` class provides fine-grained proxy selection.
+
+    :class:`PySide.QtNetwork.QNetworkProxyFactory` is an extension to :class:`PySide.QtNetwork.QNetworkProxy` , allowing applications to have a more fine-grained control over which proxy servers are used, depending on the socket requesting the proxy. This allows an application to apply different settings, according to the protocol or destination hostname, for instance.
+
+    :class:`PySide.QtNetwork.QNetworkProxyFactory` can be set globally for an application, in which case it will override any global proxies set with :meth:`QNetworkProxy.setApplicationProxy()<PySide.QtNetwork.QNetworkProxy.setApplicationProxy>` . If set globally, any sockets created with Qt will query the factory to determine the proxy to be used.
+
+    A factory can also be set in certain frameworks that support multiple connections, such as :class:`PySide.QtNetwork.QNetworkAccessManager` . When set on such object, the factory will be queried for sockets created by that framework only.
+
+    .. _PySide.QtNetwork.QNetworkProxyFactory_system-proxies:
+
+
+
+System Proxies
+^^^^^^^^^^^^^^
+
+    You can configure a factory to use the system proxy's settings. Call the :meth:`PySide.QtNetwork.QNetworkProxyFactory.setUseSystemConfiguration` function with true to enable this behavior, or false to disable it.
+
+    Similarly, you can use a factory to make queries directly to the system proxy by calling its :meth:`PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery` function.
+
+    .. warning::  Depending on the configuration of the user's system, the use of system proxy features on certain platforms may be subject to limitations. The :meth:`PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery` documentation contains a list of these limitations for those platforms that are affected.
+
+
+.. class:: QNetworkProxyFactory()
+
+
+    Creates a :class:`PySide.QtNetwork.QNetworkProxyFactory` object.
+
+    Since :class:`PySide.QtNetwork.QNetworkProxyFactory` is an abstract class, you cannot create objects of type :class:`PySide.QtNetwork.QNetworkProxyFactory` directly.
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkProxyFactory.proxyForQuery(query)
+
+
+    :param query: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :rtype: 
+
+
+
+
+    This function takes the query request, ``query`` , examines the details of the type of socket or request and returns a list of :class:`PySide.QtNetwork.QNetworkProxy` objects that indicate the proxy servers to be used, in order of preference.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyFactory.queryProxy([query=QNetworkProxyQuery()])
+
+
+    :param query: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :rtype: 
+
+
+
+
+    This function takes the query request, ``query`` , examines the details of the type of socket or request and returns a list of :class:`PySide.QtNetwork.QNetworkProxy` objects that indicate the proxy servers to be used, in order of preference.
+
+    When reimplementing this class, take care to return at least one element.
+
+    If you cannot determine a better proxy alternative, use :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` , which tells the code querying for a proxy to use a higher alternative. For example, if this factory is set to a :class:`PySide.QtNetwork.QNetworkAccessManager` object, DefaultProxy will tell it to query the application-level proxy settings.
+
+    If this factory is set as the application proxy factory, DefaultProxy and NoProxy will have the same meaning.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkProxyFactory.setApplicationProxyFactory(factory)
+
+
+    :param factory: :class:`PySide.QtNetwork.QNetworkProxyFactory`
+
+
+
+
+    Sets the application-wide proxy factory to be ``factory`` . This function will take ownership of that object and will delete it when necessary.
+
+    The application-wide proxy is used as a last-resort when all other proxy selection requests returned :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` . For example, :class:`PySide.QtNetwork.QTcpSocket` objects can have a proxy set with QTcpSocket::setProxy, but if none is set, the proxy factory class set with this function will be queried.
+
+    If you set a proxy factory with this function, any application level proxies set with QNetworkProxy::setApplicationProxy will be overridden.
+
+    .. seealso::  :meth:`QNetworkProxy.setApplicationProxy()<PySide.QtNetwork.QNetworkProxy.setApplicationProxy>`  :meth:`QAbstractSocket.proxy()<PySide.QtNetwork.QAbstractSocket.proxy>`  :meth:`QAbstractSocket.setProxy()<PySide.QtNetwork.QAbstractSocket.setProxy>` 
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkProxyFactory.setUseSystemConfiguration(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables the use of the platform-specific proxy settings, and only those. See :meth:`PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery` for more information.
+
+    Internally, this method (when called with ``enable`` set to true) sets an application-wide proxy factory. For this reason, this method is mutually exclusive with :meth:`PySide.QtNetwork.QNetworkProxyFactory.setApplicationProxyFactory` : calling :meth:`PySide.QtNetwork.QNetworkProxyFactory.setApplicationProxyFactory` overrides the use of the system-wide proxy, and calling :meth:`PySide.QtNetwork.QNetworkProxyFactory.setUseSystemConfiguration` overrides any application proxy or proxy factory that was previously set.
+
+    .. note::  See the :meth:`PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery` documentation for a list of limitations related to the use of system proxies.
+
+
+
+.. staticmethod:: PySide.QtNetwork.QNetworkProxyFactory.systemProxyForQuery([query=QNetworkProxyQuery()])
+
+
+    :param query: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :rtype: 
+
+
+
+
+    This function takes the query request, ``query`` , examines the details of the type of socket or request and returns a list of :class:`PySide.QtNetwork.QNetworkProxy` objects that indicate the proxy servers to be used, in order of preference.
+
+    This function can be used to determine the platform-specific proxy settings. This function will use the libraries provided by the operating system to determine the proxy for a given connection, if such libraries exist. If they don't, this function will just return a :class:`PySide.QtNetwork.QNetworkProxy` of type :attr:`QNetworkProxy.NoProxy<QNetworkProxy.ProxyType>` .
+
+    On Windows, this function will use the WinHTTP DLL functions. Despite its name, Microsoft suggests using it for all applications that require network connections, not just HTTP. This will respect the proxy settings set on the registry with the proxycfg.exe tool. If those settings are not found, this function will attempt to obtain Internet Explorer's settings and use them.
+
+    On MacOS X, this function will obtain the proxy settings using the SystemConfiguration framework from Apple. It will apply the FTP, HTTP and HTTPS proxy configurations for queries that contain the protocol tag "ftp", "http" and "https", respectively. If the SOCKS proxy is enabled in that configuration, this function will use the SOCKS server for all queries. If SOCKS isn't enabled, it will use the HTTPS proxy for all TcpSocket and UrlRequest queries.
+
+    On BlackBerry, this function obtains proxy settings for the default configuration using system configuration. The type will be set based on protocol tag "http", "https", "ftp", respectively. By default, it assumes http type. Proxy username and password are also set during the query using system configuration.
+
+    On other systems, this function will pick up proxy settings from the "http\_proxy" environment variable. This variable must be a URL using one of the following schemes: "http", "socks5" or "socks5h".
+
+    .. _PySide.QtNetwork.QNetworkProxyFactory_limitations:
+
+
+
+Limitations
+^^^^^^^^^^^
+
+    These are the limitations for the current version of this function. Future versions of Qt may lift some of the limitations listed here.
+
+
+    * On MacOS X, this function will ignore the Proxy Auto Configuration settings, since it cannot execute the associated ECMAScript code.
+    * On Windows platforms, this function may take several seconds to execute depending on the configuration of the user's system.
+      
+      UnknownCommandOn BlackBerry, only UrlRequest and TcpSocket queries are supported. SOCKS is not supported. The proxy credentials are only retrieved for the default configuration.
+
+
+
+

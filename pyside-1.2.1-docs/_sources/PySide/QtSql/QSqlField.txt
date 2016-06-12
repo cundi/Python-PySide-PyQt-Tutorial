@@ -1,0 +1,482 @@
+.. module:: PySide.QtSql
+.. _QSqlField:
+
+QSqlField
+*********
+
+.. inheritance-diagram:: QSqlField
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtSql.QSqlField.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtSql.QSqlField.__ne__>` (other)
+*    def :meth:`clear<PySide.QtSql.QSqlField.clear>` ()
+*    def :meth:`defaultValue<PySide.QtSql.QSqlField.defaultValue>` ()
+*    def :meth:`isAutoValue<PySide.QtSql.QSqlField.isAutoValue>` ()
+*    def :meth:`isGenerated<PySide.QtSql.QSqlField.isGenerated>` ()
+*    def :meth:`isNull<PySide.QtSql.QSqlField.isNull>` ()
+*    def :meth:`isReadOnly<PySide.QtSql.QSqlField.isReadOnly>` ()
+*    def :meth:`isValid<PySide.QtSql.QSqlField.isValid>` ()
+*    def :meth:`length<PySide.QtSql.QSqlField.length>` ()
+*    def :meth:`name<PySide.QtSql.QSqlField.name>` ()
+*    def :meth:`precision<PySide.QtSql.QSqlField.precision>` ()
+*    def :meth:`requiredStatus<PySide.QtSql.QSqlField.requiredStatus>` ()
+*    def :meth:`setAutoValue<PySide.QtSql.QSqlField.setAutoValue>` (autoVal)
+*    def :meth:`setDefaultValue<PySide.QtSql.QSqlField.setDefaultValue>` (value)
+*    def :meth:`setGenerated<PySide.QtSql.QSqlField.setGenerated>` (gen)
+*    def :meth:`setLength<PySide.QtSql.QSqlField.setLength>` (fieldLength)
+*    def :meth:`setName<PySide.QtSql.QSqlField.setName>` (name)
+*    def :meth:`setPrecision<PySide.QtSql.QSqlField.setPrecision>` (precision)
+*    def :meth:`setReadOnly<PySide.QtSql.QSqlField.setReadOnly>` (readOnly)
+*    def :meth:`setRequired<PySide.QtSql.QSqlField.setRequired>` (required)
+*    def :meth:`setRequiredStatus<PySide.QtSql.QSqlField.setRequiredStatus>` (status)
+*    def :meth:`setSqlType<PySide.QtSql.QSqlField.setSqlType>` (type)
+*    def :meth:`setType<PySide.QtSql.QSqlField.setType>` (type)
+*    def :meth:`setValue<PySide.QtSql.QSqlField.setValue>` (value)
+*    def :meth:`type<PySide.QtSql.QSqlField.type>` ()
+*    def :meth:`typeID<PySide.QtSql.QSqlField.typeID>` ()
+*    def :meth:`value<PySide.QtSql.QSqlField.value>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlField` class manipulates the fields in SQL database tables and views.
+
+    :class:`PySide.QtSql.QSqlField` represents the characteristics of a single column in a database table or view, such as the data type and column name. A field also contains the value of the database column, which can be viewed or changed.
+
+    Field data values are stored as :ref:`QVariants<qtwebkit-bridge.html>` . Using an incompatible type is not permitted. For example:
+
+    ::
+
+            field = QSqlField("age", QVariant.Int)
+            field.setValue(QPixmap())  # WRONG
+
+
+    However, the field will attempt to cast certain data types to the field data type where possible:
+
+    ::
+
+            field = QSqlField("age", QVariant.Int)
+            field.setValue(QString("123"))  # casts QString to int
+
+
+    :class:`PySide.QtSql.QSqlField` objects are rarely created explicitly in application code. They are usually accessed indirectly through :class:`PySide.QtSql.QSqlRecord` s that already contain a list of fields. For example:
+
+    ::
+
+            query = QSqlQuery()
+            ...
+            record = query.record()
+            field = record.field("country")
+
+
+    A :class:`PySide.QtSql.QSqlField` object can provide some meta-data about the field, for example, its :meth:`PySide.QtSql.QSqlField.name` , variant :meth:`PySide.QtSql.QSqlField.type` , :meth:`PySide.QtSql.QSqlField.length` , :meth:`PySide.QtSql.QSqlField.precision` , :meth:`PySide.QtSql.QSqlField.defaultValue` , :meth:`PySide.QtSql.QSqlField.typeID` , and its :meth:`PySide.QtSql.QSqlField.requiredStatus` , :meth:`PySide.QtSql.QSqlField.isGenerated` and :meth:`PySide.QtSql.QSqlField.isReadOnly` . The field's data can be checked to see if it :meth:`PySide.QtSql.QSqlField.isNull` , and its :meth:`PySide.QtSql.QSqlField.value` retrieved. When editing the data can be set with :meth:`PySide.QtSql.QSqlField.setValue` or set to NULL with :meth:`PySide.QtSql.QSqlField.clear` .
+
+    .. seealso::  :class:`PySide.QtSql.QSqlRecord` 
+
+.. class:: QSqlField(other)
+           QSqlField([fieldName=""[, type=QVariant.Invalid]])
+
+    :param fieldName: unicode
+    :param other: :class:`PySide.QtSql.QSqlField`
+    :param type: :class:`PySide.QtCore.QVariant::Type`
+
+    Constructs a copy of ``other`` .
+
+
+
+
+.. attribute:: PySide.QtSql.QSqlField.RequiredStatus
+
+    Specifies whether the field is required or optional.
+
+    +------------------+---------------------------------------------------------------------------------+
+    |Constant          |Description                                                                      |
+    +==================+=================================================================================+
+    |QSqlField.Required|The field must be specified when inserting records.                              |
+    +------------------+---------------------------------------------------------------------------------+
+    |QSqlField.Optional|The fields doesn't have to be specified when inserting records.                  |
+    +------------------+---------------------------------------------------------------------------------+
+    |QSqlField.Unknown |The database driver couldn't determine whether the field is required or optional.|
+    +------------------+---------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.requiredStatus` 
+
+.. method:: PySide.QtSql.QSqlField.clear()
+
+
+
+
+
+
+    Clears the value of the field and sets it to NULL. If the field is read-only, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setValue`  :meth:`PySide.QtSql.QSqlField.isReadOnly`  :meth:`PySide.QtSql.QSqlField.requiredStatus` 
+
+
+.. method:: PySide.QtSql.QSqlField.defaultValue()
+
+
+    :rtype: object
+
+
+
+
+    Returns the field's default value (which may be NULL).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setDefaultValue`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlField.isAutoValue()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the value is auto-generated by the database, for example auto-increment primary key values.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setAutoValue` 
+
+
+.. method:: PySide.QtSql.QSqlField.isGenerated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field is generated; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setGenerated`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.defaultValue` 
+
+
+.. method:: PySide.QtSql.QSqlField.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field's value is NULL; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.value` 
+
+
+.. method:: PySide.QtSql.QSqlField.isReadOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field's value is read-only; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setReadOnly`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.defaultValue`  :meth:`PySide.QtSql.QSqlField.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlField.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field's variant type is valid; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlField.length()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the field's length.
+
+    If the returned value is negative, it means that the information is not available from the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setLength`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.defaultValue`  :meth:`PySide.QtSql.QSqlField.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlField.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the field.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setName` 
+
+
+.. method:: PySide.QtSql.QSqlField.__ne__(other)
+
+
+    :param other: :class:`PySide.QtSql.QSqlField`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field is unequal to ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlField.__eq__(other)
+
+
+    :param other: :class:`PySide.QtSql.QSqlField`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field is equal to ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlField.precision()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the field's precision; this is only meaningful for numeric types.
+
+    If the returned value is negative, it means that the information is not available from the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setPrecision`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.defaultValue`  :meth:`PySide.QtSql.QSqlField.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlField.requiredStatus()
+
+
+    :rtype: :attr:`PySide.QtSql.QSqlField.RequiredStatus`
+
+
+
+
+    Returns true if this is a required field; otherwise returns false. An ``INSERT`` will fail if a required field does not have a value.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.type`  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.defaultValue`  :meth:`PySide.QtSql.QSqlField.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlField.setAutoValue(autoVal)
+
+
+    :param autoVal: :class:`PySide.QtCore.bool`
+
+
+
+
+    Marks the field as an auto-generated value if ``autoVal`` is true.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.isAutoValue` 
+
+
+.. method:: PySide.QtSql.QSqlField.setDefaultValue(value)
+
+
+    :param value: object
+
+
+
+
+    Sets the default value used for this field to ``value`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.defaultValue`  :meth:`PySide.QtSql.QSqlField.value`  :meth:`PySide.QtSql.QSqlField.setType`  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.setLength`  :meth:`PySide.QtSql.QSqlField.setPrecision`  :meth:`PySide.QtSql.QSqlField.setGenerated`  :meth:`PySide.QtSql.QSqlField.setReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setGenerated(gen)
+
+
+    :param gen: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the generated state. If ``gen`` is false, no SQL will be generated for this field; otherwise, Qt classes such as :class:`PySide.QtSql.QSqlQueryModel` and :class:`PySide.QtSql.QSqlTableModel` will generate SQL for this field.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.isGenerated`  :meth:`PySide.QtSql.QSqlField.setType`  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.setLength`  :meth:`PySide.QtSql.QSqlField.setPrecision`  :meth:`PySide.QtSql.QSqlField.setDefaultValue`  :meth:`PySide.QtSql.QSqlField.setReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setLength(fieldLength)
+
+
+    :param fieldLength: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the field's length to ``fieldLength`` . For strings this is the maximum number of characters the string can hold; the meaning varies for other types.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.length`  :meth:`PySide.QtSql.QSqlField.setType`  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.setPrecision`  :meth:`PySide.QtSql.QSqlField.setDefaultValue`  :meth:`PySide.QtSql.QSqlField.setGenerated`  :meth:`PySide.QtSql.QSqlField.setReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the name of the field to ``name`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.name` 
+
+
+.. method:: PySide.QtSql.QSqlField.setPrecision(precision)
+
+
+    :param precision: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the field's ``precision`` . This only affects numeric fields.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.precision`  :meth:`PySide.QtSql.QSqlField.setType`  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.setLength`  :meth:`PySide.QtSql.QSqlField.setDefaultValue`  :meth:`PySide.QtSql.QSqlField.setGenerated`  :meth:`PySide.QtSql.QSqlField.setReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setReadOnly(readOnly)
+
+
+    :param readOnly: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the read only flag of the field's value to ``readOnly`` . A read-only field cannot have its value set with :meth:`PySide.QtSql.QSqlField.setValue` and cannot be cleared to NULL with :meth:`PySide.QtSql.QSqlField.clear` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.isReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setRequired(required)
+
+
+    :param required: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the required status of this field to :attr:`Required<QSqlField.RequiredStatus>` if ``required`` is true; otherwise sets it to :attr:`Optional<QSqlField.RequiredStatus>` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setRequiredStatus`  :meth:`PySide.QtSql.QSqlField.requiredStatus` 
+
+
+.. method:: PySide.QtSql.QSqlField.setRequiredStatus(status)
+
+
+    :param status: :attr:`PySide.QtSql.QSqlField.RequiredStatus`
+
+
+
+
+    Sets the required status of this field to ``required`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.requiredStatus`  :meth:`PySide.QtSql.QSqlField.setType`  :meth:`PySide.QtSql.QSqlField.setLength`  :meth:`PySide.QtSql.QSqlField.setPrecision`  :meth:`PySide.QtSql.QSqlField.setDefaultValue`  :meth:`PySide.QtSql.QSqlField.setGenerated`  :meth:`PySide.QtSql.QSqlField.setReadOnly` 
+
+
+.. method:: PySide.QtSql.QSqlField.setSqlType(type)
+
+
+    :param type: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlField.setType(type)
+
+
+    :param type: :class:`PySide.QtCore.QVariant::Type`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlField.setValue(value)
+
+
+    :param value: object
+
+
+
+
+    Sets the value of the field to ``value`` . If the field is read-only ( :meth:`PySide.QtSql.QSqlField.isReadOnly` returns true), nothing happens.
+
+    If the data type of ``value`` differs from the field's current data type, an attempt is made to cast it to the proper type. This preserves the data type of the field in the case of assignment, e.g. a :class:`PySide.QtCore.QString` to an integer data type.
+
+    To set the value to NULL, use :meth:`PySide.QtSql.QSqlField.clear` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.value`  :meth:`PySide.QtSql.QSqlField.isReadOnly`  :meth:`PySide.QtSql.QSqlField.defaultValue` 
+
+
+.. method:: PySide.QtSql.QSqlField.type()
+
+
+    :rtype: :class:`PySide.QtCore.QVariant::Type`
+
+
+
+
+    Returns the field's type as stored in the database. Note that the actual value might have a different type, Numerical values that are too large to store in a long int or double are usually stored as strings to prevent precision loss.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setType` 
+
+
+.. method:: PySide.QtSql.QSqlField.typeID()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the type ID for the field.
+
+    If the returned value is negative, it means that the information is not available from the database.
+
+
+
+.. method:: PySide.QtSql.QSqlField.value()
+
+
+    :rtype: object
+
+
+
+
+    Returns the value of the field as a :class:`PySide.QtCore.QVariant` .
+
+    Use :meth:`PySide.QtSql.QSqlField.isNull` to check if the field's value is NULL.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlField.setValue` 
+
+
+

@@ -1,0 +1,452 @@
+.. module:: PySide.QtMultimedia
+.. _QVideoSurfaceFormat:
+
+QVideoSurfaceFormat
+*******************
+
+.. inheritance-diagram:: QVideoSurfaceFormat
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtMultimedia.QVideoSurfaceFormat.__eq__>` (format)
+*    def :meth:`__ne__<PySide.QtMultimedia.QVideoSurfaceFormat.__ne__>` (format)
+*    def :meth:`frameHeight<PySide.QtMultimedia.QVideoSurfaceFormat.frameHeight>` ()
+*    def :meth:`frameRate<PySide.QtMultimedia.QVideoSurfaceFormat.frameRate>` ()
+*    def :meth:`frameSize<PySide.QtMultimedia.QVideoSurfaceFormat.frameSize>` ()
+*    def :meth:`frameWidth<PySide.QtMultimedia.QVideoSurfaceFormat.frameWidth>` ()
+*    def :meth:`handleType<PySide.QtMultimedia.QVideoSurfaceFormat.handleType>` ()
+*    def :meth:`isValid<PySide.QtMultimedia.QVideoSurfaceFormat.isValid>` ()
+*    def :meth:`pixelAspectRatio<PySide.QtMultimedia.QVideoSurfaceFormat.pixelAspectRatio>` ()
+*    def :meth:`pixelFormat<PySide.QtMultimedia.QVideoSurfaceFormat.pixelFormat>` ()
+*    def :meth:`property<PySide.QtMultimedia.QVideoSurfaceFormat.property>` (name)
+*    def :meth:`propertyNames<PySide.QtMultimedia.QVideoSurfaceFormat.propertyNames>` ()
+*    def :meth:`scanLineDirection<PySide.QtMultimedia.QVideoSurfaceFormat.scanLineDirection>` ()
+*    def :meth:`setFrameRate<PySide.QtMultimedia.QVideoSurfaceFormat.setFrameRate>` (rate)
+*    def :meth:`setFrameSize<PySide.QtMultimedia.QVideoSurfaceFormat.setFrameSize>` (size)
+*    def :meth:`setFrameSize<PySide.QtMultimedia.QVideoSurfaceFormat.setFrameSize>` (width, height)
+*    def :meth:`setPixelAspectRatio<PySide.QtMultimedia.QVideoSurfaceFormat.setPixelAspectRatio>` (ratio)
+*    def :meth:`setPixelAspectRatio<PySide.QtMultimedia.QVideoSurfaceFormat.setPixelAspectRatio>` (width, height)
+*    def :meth:`setProperty<PySide.QtMultimedia.QVideoSurfaceFormat.setProperty>` (name, value)
+*    def :meth:`setScanLineDirection<PySide.QtMultimedia.QVideoSurfaceFormat.setScanLineDirection>` (direction)
+*    def :meth:`setViewport<PySide.QtMultimedia.QVideoSurfaceFormat.setViewport>` (viewport)
+*    def :meth:`setYCbCrColorSpace<PySide.QtMultimedia.QVideoSurfaceFormat.setYCbCrColorSpace>` (colorSpace)
+*    def :meth:`sizeHint<PySide.QtMultimedia.QVideoSurfaceFormat.sizeHint>` ()
+*    def :meth:`viewport<PySide.QtMultimedia.QVideoSurfaceFormat.viewport>` ()
+*    def :meth:`yCbCrColorSpace<PySide.QtMultimedia.QVideoSurfaceFormat.yCbCrColorSpace>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QVideoSurfaceFormat` class specifies the stream format of a video presentation surface.
+
+    A video surface presents a stream of video frames. The surface's format describes the type of the frames and determines how they should be presented.
+
+    The core properties of a video stream required to setup a video surface are the pixel format given by :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.pixelFormat` , and the frame dimensions given by :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameSize` .
+
+    If the surface is to present frames using a frame's handle a surface format will also include a handle type which is given by the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.handleType` function.
+
+    The region of a frame that is actually displayed on a video surface is given by the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.viewport` . A stream may have a viewport less than the entire region of a frame to allow for videos smaller than the nearest optimal size of a video frame. For example the width of a frame may be extended so that the start of each scan line is eight byte aligned.
+
+    Other common properties are the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.pixelAspectRatio` , :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.scanLineDirection` , and :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameRate` . Additionally a stream may have some additional type specific properties which are listed by the dynamicPropertyNames() function and can be accessed using the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.property` , and :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setProperty` functions.
+
+
+.. class:: QVideoSurfaceFormat()
+           QVideoSurfaceFormat(size, pixelFormat[, handleType=QAbstractVideoBuffer.NoHandle])
+           QVideoSurfaceFormat(format)
+
+    :param size: :class:`PySide.QtCore.QSize`
+    :param format: :class:`PySide.QtMultimedia.QVideoSurfaceFormat`
+    :param pixelFormat: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+    :param handleType: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.HandleType`
+
+    Constructs a null video stream format.
+
+
+
+
+    Constructs a copy of ``other`` .
+
+
+.. attribute:: PySide.QtMultimedia.QVideoSurfaceFormat.YCbCrColorSpace
+
+    Enumerates the Y'CbCr color space of video frames.
+
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                                   |
+    +===================================+==============================================================================================================================================================================+
+    |QVideoSurfaceFormat.YCbCr_Undefined|No color space is specified.                                                                                                                                                  |
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoSurfaceFormat.YCbCr_BT601    |A Y'CbCr color space defined by ITU-R recommendation BT.601 with Y value range from 16 to 235, and Cb/Cr range from 16 to 240. Used in standard definition video.             |
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoSurfaceFormat.YCbCr_BT709    |A Y'CbCr color space defined by ITU-R BT.709 with the same values range as :attr:`YCbCr_BT601<QVideoSurfaceFormat.YCbCrColorSpace>` . Used for HDTV.                          |
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoSurfaceFormat.YCbCr_xvYCC601 |The BT.601 color space with the value range extended to 0 to 255. It is backward compatibile with BT.601 and uses values outside BT.601 range to represent wider colors range.|
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoSurfaceFormat.YCbCr_xvYCC709 |The BT.709 color space with the value range extended to 0 to 255.                                                                                                             |
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QVideoSurfaceFormat.YCbCr_JPEG     |The full range Y'CbCr color space used in JPEG files.                                                                                                                         |
+    +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtMultimedia.QVideoSurfaceFormat.Direction
+
+    Enumerates the layout direction of video scan lines.
+
+    +-------------------------------+----------------------------------------------------------------+
+    |Constant                       |Description                                                     |
+    +===============================+================================================================+
+    |QVideoSurfaceFormat.TopToBottom|Scan lines are arranged from the top of the frame to the bottom.|
+    +-------------------------------+----------------------------------------------------------------+
+    |QVideoSurfaceFormat.BottomToTop|Scan lines are arranged from the bottom of the frame to the top.|
+    +-------------------------------+----------------------------------------------------------------+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.frameHeight()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the height of frame in a video stream.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.frameRate()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the frame rate of a video stream in frames per second.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setFrameRate` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.frameSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size of frames in a video stream.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setFrameSize`  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameWidth`  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameHeight` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.frameWidth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the width of frames in a video stream.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameSize`  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameHeight` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.handleType()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAbstractVideoBuffer.HandleType`
+
+
+
+
+    Returns the type of handle the surface uses to present the frame data.
+
+    If the handle type is :attr:`QAbstractVideoBuffer.NoHandle<QAbstractVideoBuffer.HandleType>` buffers with any handle type are valid provided they can be :meth:`mapped<PySide.QtMultimedia.QAbstractVideoBuffer.map>` with the :attr:`QAbstractVideoBuffer.ReadOnly<QAbstractVideoBuffer.MapMode>` flag. If the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.handleType` is not :attr:`QAbstractVideoBuffer.NoHandle<QAbstractVideoBuffer.HandleType>` then the handle type of the buffer be the same as that of the surface format.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Identifies if a video surface format has a valid pixel format and frame size.
+
+    Returns true if the format is valid, and false otherwise.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.__ne__(format)
+
+
+    :param format: :class:`PySide.QtMultimedia.QVideoSurfaceFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` is different to a video format, and false if they are the same.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.__eq__(format)
+
+
+    :param format: :class:`PySide.QtMultimedia.QVideoSurfaceFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` is the same as a video format, and false if they are the different.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.pixelAspectRatio()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns a video stream's pixel aspect ratio.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setPixelAspectRatio` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.pixelFormat()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QVideoFrame.PixelFormat`
+
+
+
+
+    Returns the pixel format of frames in a video stream.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.property(name)
+
+
+    :param name: str
+    :rtype: object
+
+
+
+
+    Returns the value of the video format's ``name`` property.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setProperty` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.propertyNames()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of video format dynamic property names.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.scanLineDirection()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QVideoSurfaceFormat.Direction`
+
+
+
+
+    Returns the direction of scan lines.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setScanLineDirection` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setFrameRate(rate)
+
+
+    :param rate: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the frame ``rate`` of a video stream in frames per second.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameRate` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setFrameSize(width, height)
+
+
+    :param width: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the ``width`` and ``height`` of frames in a video stream.
+
+    This will reset the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.viewport` to fill the entire frame.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setFrameSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets the size of frames in a video stream to ``size`` .
+
+    This will reset the :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.viewport` to fill the entire frame.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.frameSize` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setPixelAspectRatio(ratio)
+
+
+    :param ratio: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets a video stream's pixel aspect ``ratio`` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.pixelAspectRatio` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setPixelAspectRatio(width, height)
+
+
+    :param width: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the ``horizontal`` and ``vertical`` elements of a video stream's pixel aspect ratio.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setProperty(name, value)
+
+
+    :param name: str
+    :param value: object
+
+
+
+
+    Sets the video format's ``name`` property to ``value`` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.property` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setScanLineDirection(direction)
+
+
+    :param direction: :attr:`PySide.QtMultimedia.QVideoSurfaceFormat.Direction`
+
+
+
+
+    Sets the ``direction`` of scan lines.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.scanLineDirection` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setViewport(viewport)
+
+
+    :param viewport: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Sets the viewport of a video stream to ``viewport`` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.viewport` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.setYCbCrColorSpace(colorSpace)
+
+
+    :param colorSpace: :attr:`PySide.QtMultimedia.QVideoSurfaceFormat.YCbCrColorSpace`
+
+
+
+
+    Sets the Y'CbCr color ``space`` of a video stream. It is only used with raw YUV frame types.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.yCbCrColorSpace` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.sizeHint()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns a suggested size in pixels for the video stream.
+
+    This is the size of the viewport scaled according to the pixel aspect ratio.
+
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.viewport()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the viewport of a video stream.
+
+    The viewport is the region of a video frame that is actually displayed.
+
+    By default the viewport covers an entire frame.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setViewport` 
+
+
+.. method:: PySide.QtMultimedia.QVideoSurfaceFormat.yCbCrColorSpace()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QVideoSurfaceFormat.YCbCrColorSpace`
+
+
+
+
+    Returns the Y'CbCr color space of a video stream.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QVideoSurfaceFormat.setYCbCrColorSpace` 
+
+
+

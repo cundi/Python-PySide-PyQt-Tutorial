@@ -1,0 +1,326 @@
+.. module:: PySide.QtGui
+.. _QFontDialog:
+
+QFontDialog
+***********
+
+.. inheritance-diagram:: QFontDialog
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFont<PySide.QtGui.QFontDialog.currentFont>` ()
+*    def :meth:`open<PySide.QtGui.QFontDialog.open>` (receiver, member)
+*    def :meth:`options<PySide.QtGui.QFontDialog.options>` ()
+*    def :meth:`selectedFont<PySide.QtGui.QFontDialog.selectedFont>` ()
+*    def :meth:`setCurrentFont<PySide.QtGui.QFontDialog.setCurrentFont>` (font)
+*    def :meth:`setOption<PySide.QtGui.QFontDialog.setOption>` (option[, on=true])
+*    def :meth:`setOptions<PySide.QtGui.QFontDialog.setOptions>` (options)
+*    def :meth:`testOption<PySide.QtGui.QFontDialog.testOption>` (option)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFontChanged<PySide.QtGui.QFontDialog.currentFontChanged>` (font)
+*    def :meth:`fontSelected<PySide.QtGui.QFontDialog.fontSelected>` (font)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`getFont<PySide.QtGui.QFontDialog.getFont>` (, initial, parent, title)
+*    def :meth:`getFont<PySide.QtGui.QFontDialog.getFont>` (, initial, parent, title, options)
+*    def :meth:`getFont<PySide.QtGui.QFontDialog.getFont>` (, initial[, parent=None])
+*    def :meth:`getFont<PySide.QtGui.QFontDialog.getFont>` ([, parent=None])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFontDialog` class provides a dialog widget for selecting a font.
+
+    A font dialog is created through one of the static :meth:`PySide.QtGui.QFontDialog.getFont` functions.
+
+    Examples:
+
+    ::
+
+
+        (ok, font) = QFontDialog.getFont(QFont("Helvetica [Cronyx]", 10), self)
+        if ok:
+            # the user clicked OK and font is set to the font the user selected
+        else:
+            # the user canceled the dialog; font is set to the initial
+            # value, in this case Helvetica [Cronyx], 10
+
+
+    The dialog can also be used to set a widget's font directly:
+
+    ::
+
+        myWidget.setFont(QFontDialog.getFont(0, myWidget.font()))
+
+
+    If the user clicks OK the font they chose will be used for myWidget, and if they click Cancel the original font is used.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-fontdialog.png
+
+    .. seealso::  :class:`PySide.QtGui.QFont`  :class:`PySide.QtGui.QFontInfo`  :class:`PySide.QtGui.QFontMetrics`  :class:`PySide.QtGui.QColorDialog`  :class:`PySide.QtGui.QFileDialog`  :class:`PySide.QtGui.QPrintDialog`  :ref:`Standard Dialogs Example<dialogs/standarddialogs>` 
+
+.. class:: QFontDialog([parent=None])
+           QFontDialog(initial[, parent=None])
+
+    :param initial: :class:`PySide.QtGui.QFont`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a standard font dialog.
+
+    Use :meth:`PySide.QtGui.QFontDialog.setCurrentFont` to set the initial font attributes.
+
+    The ``parent`` parameter is passed to the :class:`PySide.QtGui.QDialog` constructor.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.getFont` 
+
+    Constructs a standard font dialog with the given ``parent`` and specified ``initial`` font.
+
+
+.. attribute:: PySide.QtGui.QFontDialog.FontDialogOption
+
+    This enum specifies various options that affect the look and feel of a font dialog.
+
+    +-------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                                                                                                                     |
+    +===============================+================================================================================================================================================================================+
+    |QFontDialog.NoButtons          |Don't display **OK** and **Cancel** buttons. (Useful for "live dialogs".)                                                                                                       |
+    +-------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFontDialog.DontUseNativeDialog|Use Qt's standard font dialog on the Mac instead of Apple's native font panel. (Currently, the native dialog is never used, but this is likely to change in future Qt releases.)|
+    +-------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.options`  :meth:`PySide.QtGui.QFontDialog.setOption`  :meth:`PySide.QtGui.QFontDialog.testOption` 
+
+.. method:: PySide.QtGui.QFontDialog.currentFont()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    This property holds the current font of the dialog..
+
+
+
+.. method:: PySide.QtGui.QFontDialog.currentFontChanged(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontDialog.fontSelected(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QFontDialog.getFont(, initial, parent, title, options)
+
+
+    :param initial: :class:`PySide.QtGui.QFont`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param options: :class:`PySide.QtGui.QFontDialog.FontDialogOptions`
+    :rtype: PyTuple
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QFontDialog.getFont(, initial, parent, title)
+
+
+    :param initial: :class:`PySide.QtGui.QFont`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :rtype: PyTuple
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. staticmethod:: PySide.QtGui.QFontDialog.getFont(, initial[, parent=None])
+
+
+    :param initial: :class:`PySide.QtGui.QFont`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: PyTuple
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. staticmethod:: PySide.QtGui.QFontDialog.getFont([, parent=None])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: PyTuple
+
+
+
+
+    This is an overloaded function.
+
+    Executes a modal font dialog and returns a font.
+
+    If the user clicks **OK** , the selected font is returned. If the user clicks **Cancel** , the Qt default font is returned.
+
+    The dialog is constructed with the given ``parent`` . If the ``ok`` parameter is not-null, the value it refers to is set to true if the user clicks **OK** , and false if the user clicks **Cancel** .
+
+    Example:
+
+    ::
+
+
+        (ok, font) = QFontDialog.getFont(self)
+        if ok:
+            # font is set to the font the user selected
+        else:
+            # the user canceled the dialog; font is set to the default
+            # application font, QApplication.font()
+
+
+    .. warning::  Do not delete ``parent`` during the execution of the dialog. If you want to do this, you should create the dialog yourself using one of the :class:`PySide.QtGui.QFontDialog` constructors.
+
+
+
+.. method:: PySide.QtGui.QFontDialog.open(receiver, member)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+
+
+
+
+    This is an overloaded function.
+
+    Opens the dialog and connects its :meth:`PySide.QtGui.QFontDialog.fontSelected` signal to the slot specified by ``receiver`` and ``member`` .
+
+    The signal will be disconnected from the slot when the dialog is closed.
+
+
+
+.. method:: PySide.QtGui.QFontDialog.options()
+
+
+    :rtype: :class:`PySide.QtGui.QFontDialog.FontDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.setOption`  :meth:`PySide.QtGui.QFontDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QFontDialog.selectedFont()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the font that the user selected by clicking the **OK** or equivalent button.
+
+    .. note::  This font is not always the same as the font held by the :meth:`PySide.QtGui.QFontDialog.currentFont` property since the user can choose different fonts before finally selecting the one to use.
+
+
+
+.. method:: PySide.QtGui.QFontDialog.setCurrentFont(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+
+
+
+
+    This property holds the current font of the dialog..
+
+
+
+.. method:: PySide.QtGui.QFontDialog.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QFontDialog.FontDialogOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the given ``option`` to be enabled if ``on`` is true; otherwise, clears the given ``option`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.options`  :meth:`PySide.QtGui.QFontDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QFontDialog.setOptions(options)
+
+
+    :param options: :class:`PySide.QtGui.QFontDialog.FontDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.setOption`  :meth:`PySide.QtGui.QFontDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QFontDialog.testOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QFontDialog.FontDialogOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given ``option`` is enabled; otherwise, returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDialog.options`  :meth:`PySide.QtGui.QFontDialog.setOption` 
+
+
+

@@ -1,0 +1,153 @@
+.. module:: PySide.QtGui
+.. _QBitmap:
+
+QBitmap
+*******
+
+.. inheritance-diagram:: QBitmap
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QBitmap.clear>` ()
+*    def :meth:`swap<PySide.QtGui.QBitmap.swap>` (other)
+*    def :meth:`transformed<PySide.QtGui.QBitmap.transformed>` (arg__1)
+*    def :meth:`transformed<PySide.QtGui.QBitmap.transformed>` (matrix)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fromData<PySide.QtGui.QBitmap.fromData>` (size, bits[, monoFormat=QImage.Format_MonoLSB])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QBitmap` class provides monochrome (1-bit depth) pixmaps.
+
+    The :class:`PySide.QtGui.QBitmap` class is a monochrome off-screen paint device used mainly for creating custom :class:`PySide.QtGui.QCursor` and :class:`PySide.QtGui.QBrush` objects, constructing :class:`PySide.QtGui.QRegion` objects, and for setting masks for pixmaps and widgets.
+
+    :class:`PySide.QtGui.QBitmap` is a :class:`PySide.QtGui.QPixmap` subclass ensuring a depth of 1, except for null objects which have a depth of 0. If a pixmap with a depth greater than 1 is assigned to a bitmap, the bitmap will be dithered automatically.
+
+    Use the :class:`PySide.QtGui.QColor` objects :attr:`Qt.color0<Qt.GlobalColor>` and :attr:`Qt.color1<Qt.GlobalColor>` when drawing on a :class:`PySide.QtGui.QBitmap` object (or a :class:`PySide.QtGui.QPixmap` object with depth 1).
+
+    Painting with :attr:`Qt.color0<Qt.GlobalColor>` sets the bitmap bits to 0, and painting with :attr:`Qt.color1<Qt.GlobalColor>` sets the bits to 1. For a bitmap, 0-bits indicate background (or transparent pixels) and 1-bits indicate foreground (or opaque pixels). Use the :meth:`PySide.QtGui.QBitmap.clear` function to set all the bits to :attr:`Qt.color0<Qt.GlobalColor>` . Note that using the :attr:`Qt.black<Qt.GlobalColor>` and :attr:`Qt.white<Qt.GlobalColor>` colors make no sense because the :meth:`QColor.pixel()<PySide.QtGui.QColor.pixel>` value is not necessarily 0 for black and 1 for white.
+
+    The :class:`PySide.QtGui.QBitmap` class provides the :meth:`PySide.QtGui.QBitmap.transformed` function returning a transformed copy of the bitmap; use the :class:`PySide.QtGui.QTransform` argument to translate, scale, shear, and rotate the bitmap. In addition, :class:`PySide.QtGui.QBitmap` provides the static :meth:`PySide.QtGui.QBitmap.fromData` function which returns a bitmap constructed from the given ``uchar`` data, and the static :meth:`PySide.QtGui.QBitmap.fromImage` function returning a converted copy of a :class:`PySide.QtGui.QImage` object.
+
+    Just like the :class:`PySide.QtGui.QPixmap` class, :class:`PySide.QtGui.QBitmap` is optimized by the use of implicit data sharing. For more information, see the :ref:`Implicit Data Sharing<implicit-sharing.html>` documentation.
+
+    .. seealso::  :class:`PySide.QtGui.QPixmap`  :class:`PySide.QtGui.QImage`  :class:`PySide.QtGui.QImageReader`  :class:`PySide.QtGui.QImageWriter` 
+
+.. class:: QBitmap()
+           QBitmap(arg__1)
+           QBitmap(arg__1)
+           QBitmap(fileName[, format=0])
+           QBitmap(w, h)
+
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+    :param format: str
+    :param fileName: unicode
+    :param arg__1: :class:`PySide.QtGui.QPixmap`
+
+    Constructs a null bitmap.
+
+    .. seealso::  :meth:`QPixmap.isNull()<PySide.QtGui.QPixmap.isNull>` 
+
+    Constructs a bitmap that is a copy of the given ``pixmap`` .
+
+    If the pixmap has a depth greater than 1, the resulting bitmap will be dithered automatically.
+
+    .. seealso::  :meth:`QPixmap.depth()<PySide.QtGui.QPixmap.depth>`  :meth:`PySide.QtGui.QBitmap.fromImage`  :meth:`PySide.QtGui.QBitmap.fromData` 
+
+    Constructs a bitmap with the given ``size`` . The pixels in the bitmap are uninitialized.
+
+    .. seealso::  :meth:`PySide.QtGui.QBitmap.clear` 
+
+    Constructs a bitmap from the file specified by the given ``fileName`` . If the file does not exist, or has an unknown format, the bitmap becomes a null bitmap.
+
+    The ``fileName`` and ``format`` parameters are passed on to the :meth:`QPixmap.load()<PySide.QtGui.QPixmap.load>` function. If the file format uses more than 1 bit per pixel, the resulting bitmap will be dithered automatically.
+
+    .. seealso::  :meth:`QPixmap.isNull()<PySide.QtGui.QPixmap.isNull>`  :meth:`QImageReader.imageFormat()<PySide.QtGui.QImageReader.imageFormat>` 
+
+    Constructs a bitmap with the given ``width`` and ``height`` . The pixels inside are uninitialized.
+
+    .. seealso::  :meth:`PySide.QtGui.QBitmap.clear` 
+
+.. method:: PySide.QtGui.QBitmap.clear()
+
+
+
+
+
+
+    Clears the bitmap, setting all its bits to :attr:`Qt.color0<Qt.GlobalColor>` .
+
+
+
+.. staticmethod:: PySide.QtGui.QBitmap.fromData(size, bits[, monoFormat=QImage.Format_MonoLSB])
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+    :param bits: :class:`PySide.QtCore.uchar`
+    :param monoFormat: :attr:`PySide.QtGui.QImage.Format`
+    :rtype: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBitmap.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+    Swaps bitmap ``other`` with this bitmap. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtGui.QBitmap.transformed(matrix)
+
+
+    :param matrix: :class:`PySide.QtGui.QTransform`
+    :rtype: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+    Returns a copy of this bitmap, transformed according to the given ``matrix`` .
+
+    .. seealso::  :meth:`QPixmap.transformed()<PySide.QtGui.QPixmap.transformed>` 
+
+
+.. method:: PySide.QtGui.QBitmap.transformed(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QMatrix`
+    :rtype: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function converts the ``matrix`` to a :class:`PySide.QtGui.QTransform` and calls the overloaded function.
+
+
+
+

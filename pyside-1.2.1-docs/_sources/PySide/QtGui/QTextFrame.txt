@@ -1,0 +1,201 @@
+.. module:: PySide.QtGui
+.. _QTextFrame:
+
+QTextFrame
+**********
+
+.. inheritance-diagram:: QTextFrame
+    :parts: 2
+
+**Inherited by:** :ref:`QTextTable`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__iter__<PySide.QtGui.QTextFrame.__iter__>` ()
+*    def :meth:`begin<PySide.QtGui.QTextFrame.begin>` ()
+*    def :meth:`childFrames<PySide.QtGui.QTextFrame.childFrames>` ()
+*    def :meth:`end<PySide.QtGui.QTextFrame.end>` ()
+*    def :meth:`firstCursorPosition<PySide.QtGui.QTextFrame.firstCursorPosition>` ()
+*    def :meth:`firstPosition<PySide.QtGui.QTextFrame.firstPosition>` ()
+*    def :meth:`frameFormat<PySide.QtGui.QTextFrame.frameFormat>` ()
+*    def :meth:`lastCursorPosition<PySide.QtGui.QTextFrame.lastCursorPosition>` ()
+*    def :meth:`lastPosition<PySide.QtGui.QTextFrame.lastPosition>` ()
+*    def :meth:`parentFrame<PySide.QtGui.QTextFrame.parentFrame>` ()
+*    def :meth:`setFrameFormat<PySide.QtGui.QTextFrame.setFrameFormat>` (format)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextFrame` class represents a frame in a :class:`PySide.QtGui.QTextDocument` .
+
+    Text frames provide structure for the text in a document. They are used as generic containers for other document elements. Frames are usually created by using :meth:`QTextCursor.insertFrame()<PySide.QtGui.QTextCursor.insertFrame>` .
+
+    Frames can be used to create hierarchical structures in rich text documents. Each document has a root frame ( :meth:`QTextDocument.rootFrame()<PySide.QtGui.QTextDocument.rootFrame>` ), and each frame beneath the root frame has a parent frame and a (possibly empty) list of child frames. The parent frame can be found with :meth:`PySide.QtGui.QTextFrame.parentFrame` , and the :meth:`PySide.QtGui.QTextFrame.childFrames` function provides a list of child frames.
+
+    Each frame contains at least one text block to enable text cursors to insert new document elements within. As a result, the :class:`QTextFrame.iterator<~PySide.QtGui.QTextFrame.iterator>` class is used to traverse both the blocks and child frames within a given frame. The first and last child elements in the frame can be found with :meth:`PySide.QtGui.QTextFrame.begin` and :meth:`PySide.QtGui.QTextFrame.end` .
+
+    A frame also has a format (specified using :class:`PySide.QtGui.QTextFrameFormat` ) which can be set with :meth:`PySide.QtGui.QTextObject.setFormat` and read with :meth:`PySide.QtGui.QTextObject.format` .
+
+    Text cursors can be obtained that point to the first and last valid cursor positions within a frame; use the :meth:`PySide.QtGui.QTextFrame.firstCursorPosition` and :meth:`PySide.QtGui.QTextFrame.lastCursorPosition` functions for this. The frame's extent in the document can be found with :meth:`PySide.QtGui.QTextFrame.firstPosition` and :meth:`PySide.QtGui.QTextFrame.lastPosition` .
+
+    You can iterate over a frame's contents using the :class:`QTextFrame.iterator<~PySide.QtGui.QTextFrame.iterator>` class: this provides read-only access to its internal list of text blocks and child frames.
+
+    .. seealso::  :class:`PySide.QtGui.QTextCursor`  :class:`PySide.QtGui.QTextDocument` 
+
+.. class:: QTextFrame(doc)
+
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+
+    Creates a new empty frame for the text ``document`` .
+
+
+.. method:: PySide.QtGui.QTextFrame.__iter__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextFrame.begin()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFrame::iterator`
+
+
+
+
+    Returns an iterator pointing to the first document element inside the frame. Please see the document :ref:`STL-style-Iterators<containers.html>` for more information.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.end` 
+
+
+.. method:: PySide.QtGui.QTextFrame.childFrames()
+
+
+    :rtype: 
+
+
+
+
+    Returns a (possibly empty) list of the frame's child frames.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.parentFrame` 
+
+
+.. method:: PySide.QtGui.QTextFrame.end()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFrame::iterator`
+
+
+
+
+    Returns an iterator pointing to the position past the last document element inside the frame. Please see the document :ref:`STL-Style Iterators<containers.html>` for more information.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.begin` 
+
+
+.. method:: PySide.QtGui.QTextFrame.firstCursorPosition()
+
+
+    :rtype: :class:`PySide.QtGui.QTextCursor`
+
+
+
+
+    Returns the first cursor position inside the frame.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.lastCursorPosition`  :meth:`PySide.QtGui.QTextFrame.firstPosition`  :meth:`PySide.QtGui.QTextFrame.lastPosition` 
+
+
+.. method:: PySide.QtGui.QTextFrame.firstPosition()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the first document position inside the frame.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.lastPosition`  :meth:`PySide.QtGui.QTextFrame.firstCursorPosition`  :meth:`PySide.QtGui.QTextFrame.lastCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextFrame.frameFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFrameFormat`
+
+
+
+
+    Returns the frame's format.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.setFrameFormat` 
+
+
+.. method:: PySide.QtGui.QTextFrame.lastCursorPosition()
+
+
+    :rtype: :class:`PySide.QtGui.QTextCursor`
+
+
+
+
+    Returns the last cursor position inside the frame.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.firstCursorPosition`  :meth:`PySide.QtGui.QTextFrame.firstPosition`  :meth:`PySide.QtGui.QTextFrame.lastPosition` 
+
+
+.. method:: PySide.QtGui.QTextFrame.lastPosition()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the last document position inside the frame.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.firstPosition`  :meth:`PySide.QtGui.QTextFrame.firstCursorPosition`  :meth:`PySide.QtGui.QTextFrame.lastCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextFrame.parentFrame()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFrame`
+
+
+
+
+    Returns the frame's parent frame. If the frame is the root frame of a document, this will return 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.childFrames`  :meth:`QTextDocument.rootFrame()<PySide.QtGui.QTextDocument.rootFrame>` 
+
+
+.. method:: PySide.QtGui.QTextFrame.setFrameFormat(format)
+
+
+    :param format: :class:`PySide.QtGui.QTextFrameFormat`
+
+
+
+
+    Sets the frame's ``format`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFrame.frameFormat` 
+
+
+

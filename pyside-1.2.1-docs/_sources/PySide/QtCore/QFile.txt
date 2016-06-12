@@ -1,0 +1,848 @@
+.. module:: PySide.QtCore
+.. _QFile:
+
+QFile
+*****
+
+.. inheritance-diagram:: QFile
+    :parts: 2
+
+**Inherited by:** :ref:`QTemporaryFile`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`copy<PySide.QtCore.QFile.copy>` (newName)
+*    def :meth:`error<PySide.QtCore.QFile.error>` ()
+*    def :meth:`exists<PySide.QtCore.QFile.exists>` ()
+*    def :meth:`fileName<PySide.QtCore.QFile.fileName>` ()
+*    def :meth:`flush<PySide.QtCore.QFile.flush>` ()
+*    def :meth:`handle<PySide.QtCore.QFile.handle>` ()
+*    def :meth:`link<PySide.QtCore.QFile.link>` (newName)
+*    def :meth:`map<PySide.QtCore.QFile.map>` (offset, size[, flags=NoOptions])
+*    def :meth:`open<PySide.QtCore.QFile.open>` (fd, flags)
+*    def :meth:`open<PySide.QtCore.QFile.open>` (fd, ioFlags, handleFlags)
+*    def :meth:`permissions<PySide.QtCore.QFile.permissions>` ()
+*    def :meth:`readLink<PySide.QtCore.QFile.readLink>` ()
+*    def :meth:`remove<PySide.QtCore.QFile.remove>` ()
+*    def :meth:`rename<PySide.QtCore.QFile.rename>` (newName)
+*    def :meth:`resize<PySide.QtCore.QFile.resize>` (sz)
+*    def :meth:`setFileName<PySide.QtCore.QFile.setFileName>` (name)
+*    def :meth:`setPermissions<PySide.QtCore.QFile.setPermissions>` (permissionSpec)
+*    def :meth:`symLinkTarget<PySide.QtCore.QFile.symLinkTarget>` ()
+*    def :meth:`unmap<PySide.QtCore.QFile.unmap>` (address)
+*    def :meth:`unsetError<PySide.QtCore.QFile.unsetError>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fileEngine<PySide.QtCore.QFile.fileEngine>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`copy<PySide.QtCore.QFile.copy>` (fileName, newName)
+*    def :meth:`decodeName<PySide.QtCore.QFile.decodeName>` (localFileName)
+*    def :meth:`decodeName<PySide.QtCore.QFile.decodeName>` (localFileName)
+*    def :meth:`encodeName<PySide.QtCore.QFile.encodeName>` (fileName)
+*    def :meth:`exists<PySide.QtCore.QFile.exists>` (fileName)
+*    def :meth:`link<PySide.QtCore.QFile.link>` (oldname, newName)
+*    def :meth:`permissions<PySide.QtCore.QFile.permissions>` (filename)
+*    def :meth:`readLink<PySide.QtCore.QFile.readLink>` (fileName)
+*    def :meth:`remove<PySide.QtCore.QFile.remove>` (fileName)
+*    def :meth:`rename<PySide.QtCore.QFile.rename>` (oldName, newName)
+*    def :meth:`resize<PySide.QtCore.QFile.resize>` (filename, sz)
+*    def :meth:`setPermissions<PySide.QtCore.QFile.setPermissions>` (filename, permissionSpec)
+*    def :meth:`symLinkTarget<PySide.QtCore.QFile.symLinkTarget>` (fileName)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QFile` class provides an interface for reading from and writing to files.
+
+    :class:`PySide.QtCore.QFile` is an I/O device for reading and writing text and binary files and :ref:`resources<resources.html>` . A :class:`PySide.QtCore.QFile` may be used by itself or, more conveniently, with a :class:`PySide.QtCore.QTextStream` or :class:`PySide.QtCore.QDataStream` .
+
+    The file name is usually passed in the constructor, but it can be set at any time using :meth:`PySide.QtCore.QFile.setFileName` . :class:`PySide.QtCore.QFile` expects the file separator to be '/' regardless of operating system. The use of other separators (e.g., '\') is not supported.
+
+    You can check for a file's existence using :meth:`PySide.QtCore.QFile.exists` , and remove a file using :meth:`PySide.QtCore.QFile.remove` . (More advanced file system related operations are provided by :class:`PySide.QtCore.QFileInfo` and :class:`PySide.QtCore.QDir` .)
+
+    The file is opened with :meth:`PySide.QtCore.QFile.open` , closed with :meth:`PySide.QtCore.QFile.close` , and flushed with :meth:`PySide.QtCore.QFile.flush` . Data is usually read and written using :class:`PySide.QtCore.QDataStream` or :class:`PySide.QtCore.QTextStream` , but you can also call the :class:`PySide.QtCore.QIODevice` -inherited functions :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readLine` , :meth:`PySide.QtCore.QIODevice.readAll` , :meth:`PySide.QtCore.QIODevice.write` . :class:`PySide.QtCore.QFile` also inherits :meth:`PySide.QtCore.QIODevice.getChar` , :meth:`PySide.QtCore.QIODevice.putChar` , and :meth:`PySide.QtCore.QIODevice.ungetChar` , which work one character at a time.
+
+    The size of the file is returned by :meth:`PySide.QtCore.QFile.size` . You can get the current file position using :meth:`PySide.QtCore.QFile.pos` , or move to a new file position using :meth:`PySide.QtCore.QFile.seek` . If you've reached the end of the file, :meth:`PySide.QtCore.QFile.atEnd` returns true.
+
+    .. _PySide.QtCore.QFile_reading-files-directly:
+
+
+
+Reading Files Directly
+^^^^^^^^^^^^^^^^^^^^^^
+
+    The following example reads a text file line by line:
+
+    ::
+
+            file = QFile("in.txt")
+            if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+                return
+
+            while not file.atEnd():
+                line = file.readLine() # A QByteArray
+                process_line(line)
+
+
+    The :attr:`QIODevice.Text<QIODevice.OpenModeFlag>` flag passed to :meth:`PySide.QtCore.QFile.open` tells Qt to convert Windows-style line terminators ("\r\n") into C++-style terminators ("\n"). By default, :class:`PySide.QtCore.QFile` assumes binary, i.e. it doesn't perform any conversion on the bytes stored in the file.
+
+    .. _PySide.QtCore.QFile_using-streams-to-read-files:
+
+
+
+Using Streams to Read Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The next example uses :class:`PySide.QtCore.QTextStream` to read a text file line by line:
+
+    ::
+
+            file = QFile("in.txt")
+            if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+                return
+
+            in = QTextStream(file)
+            while not in.atEnd():
+                line = in.readLine() # A QByteArray
+                process_line(line)
+
+
+    :class:`PySide.QtCore.QTextStream` takes care of converting the 8-bit data stored on disk into a 16-bit Unicode :class:`PySide.QtCore.QString` . By default, it assumes that the user system's local 8-bit encoding is used (e.g., ISO 8859-1 for most of Europe; see :meth:`QTextCodec.codecForLocale()<PySide.QtCore.QTextCodec.codecForLocale>` for details). This can be changed using setCodec().
+
+    To write text, we can use operator<<(), which is overloaded to take a :class:`PySide.QtCore.QTextStream` on the left and various data types (including :class:`PySide.QtCore.QString` ) on the right:
+
+    ::
+
+            file = QFile("out.txt")
+            if not file.open(QIODevice.WriteOnly | QIODevice.Text):
+                return
+
+            out = QTextStream(file)
+            out << "The magic number is: " << 49 << "\n"
+
+
+    :class:`PySide.QtCore.QDataStream` is similar, in that you can use operator<<() to write data and operator>>() to read it back. See the class documentation for details.
+
+    When you use :class:`PySide.QtCore.QFile` , :class:`PySide.QtCore.QFileInfo` , and :class:`PySide.QtCore.QDir` to access the file system with Qt, you can use Unicode file names. On Unix, these file names are converted to an 8-bit encoding. If you want to use standard C++ APIs (``<cstdio>`` or ``<iostream>`` ) or platform-specific APIs to access files instead of :class:`PySide.QtCore.QFile` , you can use the :meth:`PySide.QtCore.QFile.encodeName` and :meth:`PySide.QtCore.QFile.decodeName` functions to convert between Unicode file names and 8-bit file names.
+
+    On Unix, there are some special system files (e.g. in ``/proc`` ) for which :meth:`PySide.QtCore.QFile.size` will always return 0, yet you may still be able to read more data from such a file; the data is generated in direct response to you calling :meth:`PySide.QtCore.QIODevice.read` . In this case, however, you cannot use :meth:`PySide.QtCore.QFile.atEnd` to determine if there is more data to read (since :meth:`PySide.QtCore.QFile.atEnd` will return true for a file that claims to have size 0). Instead, you should either call :meth:`PySide.QtCore.QIODevice.readAll` , or call :meth:`PySide.QtCore.QIODevice.read` or :meth:`PySide.QtCore.QIODevice.readLine` repeatedly until no more data can be read. The next example uses :class:`PySide.QtCore.QTextStream` to read ``/proc/modules`` line by line:
+
+    ::
+
+            file = QFile("/proc/modules")
+            if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+                return
+
+            in = QTextStream(file)
+            line = in.readLine()
+            while not line.isNull():
+                process_line(line)
+                line = in.readLine()
+
+
+    .. _PySide.QtCore.QFile_signals:
+
+
+
+Signals
+^^^^^^^
+
+    Unlike other :class:`PySide.QtCore.QIODevice` implementations, such as :class:`PySide.QtNetwork.QTcpSocket` , :class:`PySide.QtCore.QFile` does not emit the :meth:`PySide.QtCore.QIODevice.aboutToClose` , :meth:`PySide.QtCore.QIODevice.bytesWritten` , or :meth:`PySide.QtCore.QIODevice.readyRead` signals. This implementation detail means that :class:`PySide.QtCore.QFile` is not suitable for reading and writing certain types of files, such as device files on Unix platforms.
+
+    .. _PySide.QtCore.QFile_platform-specific-issues:
+
+
+
+Platform Specific Issues
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File permissions are handled differently on Linux/Mac OS X and Windows. In a non :meth:`writable<PySide.QtCore.QIODevice.isWritable>` directory on Linux, files cannot be created. This is not always the case on Windows, where, for instance, the 'My Documents' directory usually is not writable, but it is still possible to create files in it.
+
+    .. seealso::  :class:`PySide.QtCore.QTextStream`  :class:`PySide.QtCore.QDataStream`  :class:`PySide.QtCore.QFileInfo`  :class:`PySide.QtCore.QDir`  :ref:`The Qt Resource System<resources.html>` 
+
+.. class:: QFile()
+           QFile(parent)
+           QFile(name)
+           QFile(name, parent)
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param name: unicode
+
+
+    Constructs a new file object with the given ``parent`` .
+
+
+    Constructs a new file object to represent the file with the given ``name`` .
+
+
+    Constructs a new file object with the given ``parent`` to represent the file with the specified ``name`` .
+
+
+.. attribute:: PySide.QtCore.QFile.FileError
+
+    This enum describes the errors that may be returned by the :meth:`PySide.QtCore.QFile.error` function.
+
+    +----------------------+----------------------------------------------+
+    |Constant              |Description                                   |
+    +======================+==============================================+
+    |QFile.NoError         |No error occurred.                            |
+    +----------------------+----------------------------------------------+
+    |QFile.ReadError       |An error occurred when reading from the file. |
+    +----------------------+----------------------------------------------+
+    |QFile.WriteError      |An error occurred when writing to the file.   |
+    +----------------------+----------------------------------------------+
+    |QFile.FatalError      |A fatal error occurred.                       |
+    +----------------------+----------------------------------------------+
+    |QFile.ResourceError   |                                              |
+    +----------------------+----------------------------------------------+
+    |QFile.OpenError       |The file could not be opened.                 |
+    +----------------------+----------------------------------------------+
+    |QFile.AbortError      |The operation was aborted.                    |
+    +----------------------+----------------------------------------------+
+    |QFile.TimeOutError    |A timeout occurred.                           |
+    +----------------------+----------------------------------------------+
+    |QFile.UnspecifiedError|An unspecified error occurred.                |
+    +----------------------+----------------------------------------------+
+    |QFile.RemoveError     |The file could not be removed.                |
+    +----------------------+----------------------------------------------+
+    |QFile.RenameError     |The file could not be renamed.                |
+    +----------------------+----------------------------------------------+
+    |QFile.PositionError   |The position in the file could not be changed.|
+    +----------------------+----------------------------------------------+
+    |QFile.ResizeError     |The file could not be resized.                |
+    +----------------------+----------------------------------------------+
+    |QFile.PermissionsError|The file could not be accessed.               |
+    +----------------------+----------------------------------------------+
+    |QFile.CopyError       |The file could not be copied.                 |
+    +----------------------+----------------------------------------------+
+
+
+.. attribute:: PySide.QtCore.QFile.FileHandleFlag
+
+    This enum is used when opening a file to specify additional options which only apply to files and not to a generic :class:`PySide.QtCore.QIODevice` .
+
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                                                                                                                                                                                                                                                            |
+    +=====================+=======================================================================================================================================================================================================================================================================================================================================================+
+    |QFile.AutoCloseHandle|The file handle passed into :meth:`PySide.QtCore.QFile.open` should be closed by :meth:`PySide.QtCore.QFile.close` , the default behaviour is that close just flushes the file and the application is responsible for closing the file handle. When opening a file by name, this flag is ignored as Qt always "owns" the file handle and must close it.|
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFile.DontCloseHandle|The file handle passed into :meth:`PySide.QtCore.QFile.open` will not be closed by Qt. The application must ensure that :meth:`PySide.QtCore.QFile.close` is called.                                                                                                                                                                                   |
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.8
+.. attribute:: PySide.QtCore.QFile.MemoryMapFlags
+
+    This enum describes special options that may be used by the :meth:`PySide.QtCore.QFile.map` function.
+
+    +---------------+-----------+
+    |Constant       |Description|
+    +===============+===========+
+    |QFile.NoOptions|No options.|
+    +---------------+-----------+
+
+
+.. attribute:: PySide.QtCore.QFile.Permission
+
+    This enum is used by the permission() function to report the permissions and ownership of a file. The values may be OR-ed together to test multiple permissions and ownership values.
+
+    +----------------+------------------------------------------------+
+    |Constant        |Description                                     |
+    +================+================================================+
+    |QFile.ReadOwner |The file is readable by the owner of the file.  |
+    +----------------+------------------------------------------------+
+    |QFile.WriteOwner|The file is writable by the owner of the file.  |
+    +----------------+------------------------------------------------+
+    |QFile.ExeOwner  |The file is executable by the owner of the file.|
+    +----------------+------------------------------------------------+
+    |QFile.ReadUser  |The file is readable by the user.               |
+    +----------------+------------------------------------------------+
+    |QFile.WriteUser |The file is writable by the user.               |
+    +----------------+------------------------------------------------+
+    |QFile.ExeUser   |The file is executable by the user.             |
+    +----------------+------------------------------------------------+
+    |QFile.ReadGroup |The file is readable by the group.              |
+    +----------------+------------------------------------------------+
+    |QFile.WriteGroup|The file is writable by the group.              |
+    +----------------+------------------------------------------------+
+    |QFile.ExeGroup  |The file is executable by the group.            |
+    +----------------+------------------------------------------------+
+    |QFile.ReadOther |The file is readable by anyone.                 |
+    +----------------+------------------------------------------------+
+    |QFile.WriteOther|The file is writable by anyone.                 |
+    +----------------+------------------------------------------------+
+    |QFile.ExeOther  |The file is executable by anyone.               |
+    +----------------+------------------------------------------------+
+
+    .. warning::  Because of differences in the platforms supported by Qt, the semantics of :attr:`ReadUser<QFile.Permission>` , :attr:`WriteUser<QFile.Permission>` and :attr:`ExeUser<QFile.Permission>` are platform-dependent: On Unix, the rights of the owner of the file are returned and on Windows the rights of the current user are returned. This behavior might change in a future Qt version.
+
+    Note that Qt does not by default check for permissions on NTFS file systems, as this may decrease the performance of file handling considerably. It is possible to force permission checking on NTFS by including the following code in your source:
+
+    ::
+
+        extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
+
+
+    Permission checking is then turned on and off by incrementing and decrementing ``qt_ntfs_permission_lookup`` by 1.
+
+    ::
+
+        qt_ntfs_permission_lookup += 1 // turn checking on
+        qt_ntfs_permission_lookup += 1 // turn it off again
+
+
+
+.. method:: PySide.QtCore.QFile.copy(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Copies the file currently specified by :meth:`PySide.QtCore.QFile.fileName` to a file called ``newName`` . Returns true if successful; otherwise returns false.
+
+    Note that if a file with the name ``newName`` already exists, :meth:`PySide.QtCore.QFile.copy` returns false (i.e. :class:`PySide.QtCore.QFile` will not overwrite it).
+
+    The source file is closed before it is copied.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.copy(fileName, newName)
+
+
+    :param fileName: unicode
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Copies the file ``fileName`` to ``newName`` . Returns true if successful; otherwise returns false.
+
+    If a file with the name ``newName`` already exists, :meth:`PySide.QtCore.QFile.copy` returns false (i.e., :class:`PySide.QtCore.QFile` will not overwrite it).
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.rename` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.decodeName(localFileName)
+
+
+    :param localFileName: str
+    :rtype: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Returns the Unicode version of the given ``localFileName`` . See :meth:`PySide.QtCore.QFile.encodeName` for details.
+
+
+
+.. staticmethod:: PySide.QtCore.QFile.decodeName(localFileName)
+
+
+    :param localFileName: :class:`PySide.QtCore.QByteArray`
+    :rtype: unicode
+
+
+
+
+    This does the reverse of :meth:`QFile.encodeName()<PySide.QtCore.QFile.encodeName>` using ``localFileName`` .
+
+    .. seealso::  :meth:`~PySide.QtCore.QFile.setDecodingFunction`  :meth:`PySide.QtCore.QFile.encodeName` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.encodeName(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    By default, this function converts ``fileName`` to the local 8-bit encoding determined by the user's locale. This is sufficient for file names that the user chooses. File names hard-coded into the application should only use 7-bit ASCII filename characters.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.decodeName`  :meth:`~PySide.QtCore.QFile.setEncodingFunction` 
+
+
+.. method:: PySide.QtCore.QFile.error()
+
+
+    :rtype: :attr:`PySide.QtCore.QFile.FileError`
+
+
+
+
+    Returns the file error status.
+
+    The I/O device status returns an error code. For example, if :meth:`PySide.QtCore.QFile.open` returns false, or a read/write operation returns -1, this function can be called to find out the reason why the operation failed.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.unsetError` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.exists(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file specified by ``fileName`` exists; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QFile.exists()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the file specified by :meth:`PySide.QtCore.QFile.fileName` exists; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.fileName`  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. method:: PySide.QtCore.QFile.fileEngine()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractFileEngine`
+
+
+
+
+    Returns the QIOEngine for this :class:`PySide.QtCore.QFile` object.
+
+
+
+.. method:: PySide.QtCore.QFile.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name set by :meth:`PySide.QtCore.QFile.setFileName` or to the :class:`PySide.QtCore.QFile` constructors.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setFileName`  :meth:`QFileInfo.fileName()<PySide.QtCore.QFileInfo.fileName>` 
+
+
+.. method:: PySide.QtCore.QFile.flush()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Flushes any buffered data to the file. Returns true if successful; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QFile.handle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the file handle of the file.
+
+    This is a small positive integer, suitable for use with C library functions such as fdopen() and fcntl(). On systems that use file descriptors for sockets (i.e. Unix systems, but not Windows) the handle can be used with :class:`PySide.QtCore.QSocketNotifier` as well.
+
+    If the file is not open, or there is an error, :meth:`PySide.QtCore.QFile.handle` returns -1.
+
+    This function is not supported on Windows CE.
+
+    On Symbian, this function returns -1 if the file was opened normally, as Symbian OS native file handles do not fit in an int, and are incompatible with C library functions that the handle would be used for. If the file was opened using the overloads that take an open C library file handle / file descriptor, then this function returns that same handle.
+
+    .. seealso::  :class:`PySide.QtCore.QSocketNotifier` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.link(oldname, newName)
+
+
+    :param oldname: unicode
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a link named ``linkName`` that points to the file ``fileName`` . What a link is depends on the underlying filesystem (be it a shortcut on Windows or a symbolic link on Unix). Returns true if successful; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.link` 
+
+
+.. method:: PySide.QtCore.QFile.link(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Creates a link named ``linkName`` that points to the file currently specified by :meth:`PySide.QtCore.QFile.fileName` . What a link is depends on the underlying filesystem (be it a shortcut on Windows or a symbolic link on Unix). Returns true if successful; otherwise returns false.
+
+    This function will not overwrite an already existing entity in the file system; in this case, ``link()`` will return false and set :meth:`PySide.QtCore.QFile.error` to return :attr:`RenameError<QFile.FileError>` .
+
+    .. note::  To create a valid link on Windows, ``linkName`` must have a ``.lnk`` file extension.
+
+    .. note::  Symbian filesystem does not support links.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. method:: PySide.QtCore.QFile.map(offset, size[, flags=NoOptions])
+
+
+    :param offset: :class:`PySide.QtCore.qint64`
+    :param size: :class:`PySide.QtCore.qint64`
+    :param flags: :attr:`PySide.QtCore.QFile.MemoryMapFlags`
+    :rtype: PyObject
+
+
+
+
+    Maps ``size`` bytes of the file into memory starting at ``offset`` . A file should be open for a map to succeed but the file does not need to stay open after the memory has been mapped. When the :class:`PySide.QtCore.QFile` is destroyed or a new file is opened with this object, any maps that have not been unmapped will automatically be unmapped.
+
+    Any mapping options can be passed through ``flags`` .
+
+    Returns a pointer to the memory or 0 if there is an error.
+
+    .. note::  On Windows CE 5.0 the file will be closed before mapping occurs.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.unmap`  :meth:`QAbstractFileEngine.supportsExtension()<PySide.QtCore.QAbstractFileEngine.supportsExtension>` 
+
+
+.. method:: PySide.QtCore.QFile.open(fd, flags)
+
+
+    :param fd: :class:`PySide.QtCore.int`
+    :param flags: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFile.open(fd, ioFlags, handleFlags)
+
+
+    :param fd: :class:`PySide.QtCore.int`
+    :param ioFlags: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :param handleFlags: :class:`PySide.QtCore.QFile.FileHandleFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFile.permissions()
+
+
+    :rtype: :class:`PySide.QtCore.QFile.Permissions`
+
+
+
+
+    Returns the complete OR-ed together combination of :attr:`QFile.Permission` for the file.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setPermissions`  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.permissions(filename)
+
+
+    :param filename: unicode
+    :rtype: :class:`PySide.QtCore.QFile.Permissions`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the complete OR-ed together combination of :attr:`QFile.Permission` for ``fileName`` .
+
+
+
+.. method:: PySide.QtCore.QFile.readLink()
+
+
+    :rtype: unicode
+
+
+
+
+    Use :meth:`PySide.QtCore.QFile.symLinkTarget` instead.
+
+
+
+.. staticmethod:: PySide.QtCore.QFile.readLink(fileName)
+
+
+    :param fileName: unicode
+    :rtype: unicode
+
+
+
+
+    Use :meth:`PySide.QtCore.QFile.symLinkTarget` instead.
+
+
+
+.. method:: PySide.QtCore.QFile.remove()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the file specified by :meth:`PySide.QtCore.QFile.fileName` . Returns true if successful; otherwise returns false.
+
+    The file is closed before it is removed.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.remove(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Removes the file specified by the ``fileName`` given.
+
+    Returns true if successful; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.remove` 
+
+
+.. method:: PySide.QtCore.QFile.rename(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Renames the file currently specified by :meth:`PySide.QtCore.QFile.fileName` to ``newName`` . Returns true if successful; otherwise returns false.
+
+    If a file with the name ``newName`` already exists, :meth:`PySide.QtCore.QFile.rename` returns false (i.e., :class:`PySide.QtCore.QFile` will not overwrite it).
+
+    The file is closed before it is renamed.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.rename(oldName, newName)
+
+
+    :param oldName: unicode
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Renames the file ``oldName`` to ``newName`` . Returns true if successful; otherwise returns false.
+
+    If a file with the name ``newName`` already exists, :meth:`PySide.QtCore.QFile.rename` returns false (i.e., :class:`PySide.QtCore.QFile` will not overwrite it).
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.rename` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.resize(filename, sz)
+
+
+    :param filename: unicode
+    :param sz: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Sets ``fileName`` to size (in bytes) ``sz`` . Returns true if the file if the resize succeeds; false otherwise. If ``sz`` is larger than ``fileName`` currently is the new bytes will be set to 0, if ``sz`` is smaller the file is simply truncated.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.resize` 
+
+
+.. method:: PySide.QtCore.QFile.resize(sz)
+
+
+    :param sz: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the file size (in bytes) ``sz`` . Returns true if the file if the resize succeeds; false otherwise. If ``sz`` is larger than the file currently is the new bytes will be set to 0, if ``sz`` is smaller the file is simply truncated.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.size`  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. method:: PySide.QtCore.QFile.setFileName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the ``name`` of the file. The name can have no path, a relative path, or an absolute path.
+
+    Do not call this function if the file has already been opened.
+
+    If the file name has no path or a relative path, the path used will be the application's current directory path *at the time of the :meth:`PySide.QtCore.QFile.open` ** call.
+
+    Example:
+
+    ::
+
+        file = QFile()
+        QDir.setCurrent("/tmp")
+        file.setFileName("readme.txt")
+        QDir.setCurrent("/home")
+        file.open(QIODevice.ReadOnly)       # opens "/home/readme.txt" under Unix
+
+
+    Note that the directory separator "/" works for all operating systems supported by Qt.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.fileName`  :class:`PySide.QtCore.QFileInfo`  :class:`PySide.QtCore.QDir` 
+
+
+.. staticmethod:: PySide.QtCore.QFile.setPermissions(filename, permissionSpec)
+
+
+    :param filename: unicode
+    :param permissionSpec: :class:`PySide.QtCore.QFile.Permissions`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QFile.setPermissions(permissionSpec)
+
+
+    :param permissionSpec: :class:`PySide.QtCore.QFile.Permissions`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QFile.symLinkTarget(fileName)
+
+
+    :param fileName: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the absolute path of the file or directory referred to by the symlink (or shortcut on Windows) specified by ``fileName`` , or returns an empty string if the ``fileName`` does not correspond to a symbolic link.
+
+    This name may not represent an existing file; it is only a string. :meth:`QFile.exists()<PySide.QtCore.QFile.exists>` returns true if the symlink points to an existing file.
+
+
+
+.. method:: PySide.QtCore.QFile.symLinkTarget()
+
+
+    :rtype: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Returns the absolute path of the file or directory a symlink (or shortcut on Windows) points to, or a an empty string if the object isn't a symbolic link.
+
+    This name may not represent an existing file; it is only a string. :meth:`QFile.exists()<PySide.QtCore.QFile.exists>` returns true if the symlink points to an existing file.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.fileName`  :meth:`PySide.QtCore.QFile.setFileName` 
+
+
+.. method:: PySide.QtCore.QFile.unmap(address)
+
+
+    :param address: :class:`PySide.QtCore.uchar`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unmaps the memory ``address`` .
+
+    Returns true if the unmap succeeds; false otherwise.
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.map`  :meth:`QAbstractFileEngine.supportsExtension()<PySide.QtCore.QAbstractFileEngine.supportsExtension>` 
+
+
+.. method:: PySide.QtCore.QFile.unsetError()
+
+
+
+
+
+
+    Sets the file's error to :attr:`QFile.NoError<QFile.FileError>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QFile.error` 
+
+
+

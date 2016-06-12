@@ -1,0 +1,168 @@
+.. module:: PySide.QtSvg
+.. _QGraphicsSvgItem:
+
+QGraphicsSvgItem
+****************
+
+.. inheritance-diagram:: QGraphicsSvgItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`elementId<PySide.QtSvg.QGraphicsSvgItem.elementId>` ()
+*    def :meth:`isCachingEnabled<PySide.QtSvg.QGraphicsSvgItem.isCachingEnabled>` ()
+*    def :meth:`maximumCacheSize<PySide.QtSvg.QGraphicsSvgItem.maximumCacheSize>` ()
+*    def :meth:`renderer<PySide.QtSvg.QGraphicsSvgItem.renderer>` ()
+*    def :meth:`setCachingEnabled<PySide.QtSvg.QGraphicsSvgItem.setCachingEnabled>` (arg__1)
+*    def :meth:`setElementId<PySide.QtSvg.QGraphicsSvgItem.setElementId>` (id)
+*    def :meth:`setMaximumCacheSize<PySide.QtSvg.QGraphicsSvgItem.setMaximumCacheSize>` (size)
+*    def :meth:`setSharedRenderer<PySide.QtSvg.QGraphicsSvgItem.setSharedRenderer>` (renderer)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSvg.QGraphicsSvgItem` class is a :class:`PySide.QtGui.QGraphicsItem` that can be used to render the contents of SVG files.
+
+    :class:`PySide.QtSvg.QGraphicsSvgItem` provides a way of rendering SVG files onto :class:`PySide.QtGui.QGraphicsView` . :class:`PySide.QtSvg.QGraphicsSvgItem` can be created by passing the SVG file to be rendered to its constructor or by explicit setting a shared :class:`PySide.QtSvg.QSvgRenderer` on it.
+
+    Note that setting :class:`PySide.QtSvg.QSvgRenderer` on a :class:`PySide.QtSvg.QGraphicsSvgItem` doesn't make the item take ownership of the renderer, therefore if using :meth:`PySide.QtSvg.QGraphicsSvgItem.setSharedRenderer` method one has to make sure that the lifetime of the :class:`PySide.QtSvg.QSvgRenderer` object will be at least as long as that of the :class:`PySide.QtSvg.QGraphicsSvgItem` .
+
+    :class:`PySide.QtSvg.QGraphicsSvgItem` provides a way of rendering only parts of the SVG files via the setElementId. If :meth:`PySide.QtSvg.QGraphicsSvgItem.setElementId` method is called, only the SVG element (and its children) with the passed id will be renderer. This provides a convenient way of selectively rendering large SVG files that contain a number of discrete elements. For example the following code renders only jokers from a SVG file containing a whole card deck:
+
+    ::
+
+        renderer = QSvgRenderer(QLatin1String("SvgCardDeck.svg"))
+        black = QGraphicsSvgItem()
+        red   = QGraphicsSvgItem()
+
+        black.setSharedRenderer(renderer)
+        black.setElementId(QLatin1String("black_joker"))
+
+        red.setSharedRenderer(renderer)
+        red.setElementId(QLatin1String("red_joker"))
+
+
+    Size of the item can be set via the :meth:`PySide.QtCore.QRectF.setSize` method of the :meth:`bounding rectangle<PySide.QtSvg.QGraphicsSvgItem.boundingRect>` or via direct manipulation of the items transformation matrix.
+
+    By default the SVG rendering is cached using :attr:`QGraphicsItem.DeviceCoordinateCache<QGraphicsItem.CacheMode>` mode to speedup the display of items. Caching can be disabled by passing :attr:`QGraphicsItem.NoCache<QGraphicsItem.CacheMode>` to the :meth:`QGraphicsItem.setCacheMode()<PySide.QtGui.QGraphicsItem.setCacheMode>` method.
+
+    .. seealso::  :class:`PySide.QtSvg.QSvgWidget`  :ref:`QtSvg Module<QtSvg>`  :class:`PySide.QtGui.QGraphicsItem`  :class:`PySide.QtGui.QGraphicsView` 
+
+.. class:: QGraphicsSvgItem([parentItem=None])
+           QGraphicsSvgItem(fileName[, parentItem=None])
+
+    :param fileName: unicode
+    :param parentItem: :class:`PySide.QtGui.QGraphicsItem`
+
+    Constructs a new SVG item with the given ``parent`` .
+
+
+    Constructs a new item with the given ``parent`` and loads the contents of the SVG file with the specified ``fileName`` .
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.elementId()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the element's XML ID.
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.isCachingEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Use :meth:`QGraphicsItem.cacheMode()<PySide.QtGui.QGraphicsItem.cacheMode>` instead.
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.maximumCacheSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the maximum size of the device coordinate cache for this item.
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.renderer()
+
+
+    :rtype: :class:`PySide.QtSvg.QSvgRenderer`
+
+
+
+
+    Returns the currently use :class:`PySide.QtSvg.QSvgRenderer` .
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.setCachingEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Use :meth:`QGraphicsItem.setCacheMode()<PySide.QtGui.QGraphicsItem.setCacheMode>` instead. Passing true to this function is equivalent to QGraphicsItem::setCacheMode( :attr:`QGraphicsItem.DeviceCoordinateCache<QGraphicsItem.CacheMode>` ).
+
+    .. seealso::  :meth:`PySide.QtSvg.QGraphicsSvgItem.isCachingEnabled` 
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.setElementId(id)
+
+
+    :param id: unicode
+
+
+
+
+    This property holds the element's XML ID.
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.setMaximumCacheSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the maximum size of the device coordinate cache for this item.
+
+
+
+.. method:: PySide.QtSvg.QGraphicsSvgItem.setSharedRenderer(renderer)
+
+
+    :param renderer: :class:`PySide.QtSvg.QSvgRenderer`
+
+
+
+
+    Sets ``renderer`` to be a shared :class:`PySide.QtSvg.QSvgRenderer` on the item. By using this method one can share the same :class:`PySide.QtSvg.QSvgRenderer` on a number of items. This means that the SVG file will be parsed only once. :class:`PySide.QtSvg.QSvgRenderer` passed to this method has to exist for as long as this item is used.
+
+
+
+

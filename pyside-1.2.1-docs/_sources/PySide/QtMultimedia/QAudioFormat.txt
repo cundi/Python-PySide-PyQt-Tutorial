@@ -1,0 +1,358 @@
+.. module:: PySide.QtMultimedia
+.. _QAudioFormat:
+
+QAudioFormat
+************
+
+.. inheritance-diagram:: QAudioFormat
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtMultimedia.QAudioFormat.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtMultimedia.QAudioFormat.__ne__>` (other)
+*    def :meth:`byteOrder<PySide.QtMultimedia.QAudioFormat.byteOrder>` ()
+*    def :meth:`channelCount<PySide.QtMultimedia.QAudioFormat.channelCount>` ()
+*    def :meth:`channels<PySide.QtMultimedia.QAudioFormat.channels>` ()
+*    def :meth:`codec<PySide.QtMultimedia.QAudioFormat.codec>` ()
+*    def :meth:`frequency<PySide.QtMultimedia.QAudioFormat.frequency>` ()
+*    def :meth:`isValid<PySide.QtMultimedia.QAudioFormat.isValid>` ()
+*    def :meth:`sampleRate<PySide.QtMultimedia.QAudioFormat.sampleRate>` ()
+*    def :meth:`sampleSize<PySide.QtMultimedia.QAudioFormat.sampleSize>` ()
+*    def :meth:`sampleType<PySide.QtMultimedia.QAudioFormat.sampleType>` ()
+*    def :meth:`setByteOrder<PySide.QtMultimedia.QAudioFormat.setByteOrder>` (byteOrder)
+*    def :meth:`setChannelCount<PySide.QtMultimedia.QAudioFormat.setChannelCount>` (channelCount)
+*    def :meth:`setChannels<PySide.QtMultimedia.QAudioFormat.setChannels>` (channels)
+*    def :meth:`setCodec<PySide.QtMultimedia.QAudioFormat.setCodec>` (codec)
+*    def :meth:`setFrequency<PySide.QtMultimedia.QAudioFormat.setFrequency>` (frequency)
+*    def :meth:`setSampleRate<PySide.QtMultimedia.QAudioFormat.setSampleRate>` (sampleRate)
+*    def :meth:`setSampleSize<PySide.QtMultimedia.QAudioFormat.setSampleSize>` (sampleSize)
+*    def :meth:`setSampleType<PySide.QtMultimedia.QAudioFormat.setSampleType>` (sampleType)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtMultimedia.QAudioFormat` class stores audio parameter information.
+
+    An audio format specifies how data in an audio stream is arranged, i.e, how the stream is to be interpreted. The encoding itself is specified by the :meth:`PySide.QtMultimedia.QAudioFormat.codec` used for the stream.
+
+    In addition to the encoding, :class:`PySide.QtMultimedia.QAudioFormat` contains other parameters that further specify how the audio data is arranged. These are the frequency, the number of channels, the sample size, the sample type, and the byte order. The following table describes these in more detail.
+
+    +------------------+----------------------------------------------------------------------------------------+
+    |Parameter         |Description                                                                             |
+    +------------------+----------------------------------------------------------------------------------------+
+    |Sample Rate       |Samples per second of audio data in Hertz.                                              |
+    +------------------+----------------------------------------------------------------------------------------+
+    |Number of channels|The number of audio channels (typically one for mono or two for stereo)                 |
+    +------------------+----------------------------------------------------------------------------------------+
+    |Sample size       |How much data is stored in each sample (typically 8 or 16 bits)                         |
+    +------------------+----------------------------------------------------------------------------------------+
+    |Sample type       |Numerical representation of sample (typically signed integer, unsigned integer or float)|
+    +------------------+----------------------------------------------------------------------------------------+
+    |Byte order        |Byte ordering of sample (typically little endian, big endian)                           |
+    +------------------+----------------------------------------------------------------------------------------+
+
+    You can obtain audio formats compatible with the audio device used through functions in :class:`PySide.QtMultimedia.QAudioDeviceInfo` . This class also lets you query available parameter values for a device, so that you can set the parameters yourself. See the :class:`PySide.QtMultimedia.QAudioDeviceInfo` class description for details. You need to know the format of the audio streams you wish to play. Qt does not set up formats for you.
+
+
+.. class:: QAudioFormat()
+           QAudioFormat(other)
+
+    :param other: :class:`PySide.QtMultimedia.QAudioFormat`
+
+    Construct a new audio format.
+
+    Values are initialized as follows:
+
+
+    * :meth:`PySide.QtMultimedia.QAudioFormat.sampleRate` = -1
+    * :meth:`PySide.QtMultimedia.QAudioFormat.channelCount` = -1
+    * :meth:`PySide.QtMultimedia.QAudioFormat.sampleSize` = -1
+    * :meth:`PySide.QtMultimedia.QAudioFormat.byteOrder` = :attr:`QAudioFormat.Endian` ( :attr:`QSysInfo.ByteOrder<QSysInfo.Endian>` )
+    * :meth:`PySide.QtMultimedia.QAudioFormat.sampleType` = :attr:`QAudioFormat.Unknown<QAudioFormat.SampleType>` ``codec()`` = ""
+
+
+    Construct a new audio format using ``other`` .
+
+
+.. attribute:: PySide.QtMultimedia.QAudioFormat.SampleType
+
+    +------------------------+------------------------------+
+    |Constant                |Description                   |
+    +========================+==============================+
+    |QAudioFormat.Unknown    |Not Set                       |
+    +------------------------+------------------------------+
+    |QAudioFormat.SignedInt  |samples are signed integers   |
+    +------------------------+------------------------------+
+    |QAudioFormat.UnSignedInt|samples are unsigned intergers|
+    +------------------------+------------------------------+
+    |QAudioFormat.Float      |samples are floats            |
+    +------------------------+------------------------------+
+
+
+.. attribute:: PySide.QtMultimedia.QAudioFormat.Endian
+
+    +-------------------------+------------------------------------+
+    |Constant                 |Description                         |
+    +=========================+====================================+
+    |QAudioFormat.BigEndian   |samples are big endian byte order   |
+    +-------------------------+------------------------------------+
+    |QAudioFormat.LittleEndian|samples are little endian byte order|
+    +-------------------------+------------------------------------+
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.byteOrder()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAudioFormat.Endian`
+
+
+
+
+    Returns the current byteOrder value.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setByteOrder` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.channelCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current channel count value.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setChannelCount` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.channels()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Use :meth:`PySide.QtMultimedia.QAudioFormat.channelCount` instead.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setChannels` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.codec()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the current codec value.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setCodec`  :meth:`QAudioDeviceInfo.supportedCodecs()<PySide.QtMultimedia.QAudioDeviceInfo.supportedCodecs>` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.frequency()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Use :meth:`PySide.QtMultimedia.QAudioFormat.sampleRate` instead.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setFrequency` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if all of the parameters are valid.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.__ne__(other)
+
+
+    :param other: :class:`PySide.QtMultimedia.QAudioFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtMultimedia.QAudioFormat` is not equal to the ``other``\ :class:`PySide.QtMultimedia.QAudioFormat` ; otherwise returns false.
+
+    All elements of :class:`PySide.QtMultimedia.QAudioFormat` are used for the comparison.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.__eq__(other)
+
+
+    :param other: :class:`PySide.QtMultimedia.QAudioFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtMultimedia.QAudioFormat` is equal to the ``other``\ :class:`PySide.QtMultimedia.QAudioFormat` ; otherwise returns false.
+
+    All elements of :class:`PySide.QtMultimedia.QAudioFormat` are used for the comparison.
+
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.sampleRate()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current sample rate in Hertz.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setSampleRate` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.sampleSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current sample size value.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setSampleSize` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.sampleType()
+
+
+    :rtype: :attr:`PySide.QtMultimedia.QAudioFormat.SampleType`
+
+
+
+
+    Returns the current :attr:`QAudioFormat.SampleType` value.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.setSampleType` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setByteOrder(byteOrder)
+
+
+    :param byteOrder: :attr:`PySide.QtMultimedia.QAudioFormat.Endian`
+
+
+
+
+
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setChannelCount(channelCount)
+
+
+    :param channelCount: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the channel count to ``channels`` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.channelCount` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setChannels(channels)
+
+
+    :param channels: :class:`PySide.QtCore.int`
+
+
+
+
+    Use :meth:`PySide.QtMultimedia.QAudioFormat.setChannelCount` instead.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.channels` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setCodec(codec)
+
+
+    :param codec: unicode
+
+
+
+
+    Sets the codec to ``codec`` .
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.codec`  :meth:`QAudioDeviceInfo.supportedCodecs()<PySide.QtMultimedia.QAudioDeviceInfo.supportedCodecs>` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setFrequency(frequency)
+
+
+    :param frequency: :class:`PySide.QtCore.int`
+
+
+
+
+    Use :meth:`PySide.QtMultimedia.QAudioFormat.setSampleRate` instead.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.frequency` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setSampleRate(sampleRate)
+
+
+    :param sampleRate: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the sample rate to ``samplerate`` Hertz.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.sampleRate` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setSampleSize(sampleSize)
+
+
+    :param sampleSize: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the sample size to the ``sampleSize`` specified.
+
+    .. seealso::  :meth:`PySide.QtMultimedia.QAudioFormat.sampleSize` 
+
+
+.. method:: PySide.QtMultimedia.QAudioFormat.setSampleType(sampleType)
+
+
+    :param sampleType: :attr:`PySide.QtMultimedia.QAudioFormat.SampleType`
+
+
+
+
+
+
+
+

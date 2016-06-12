@@ -1,0 +1,105 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlResultItems:
+
+QXmlResultItems
+***************
+
+.. inheritance-diagram:: QXmlResultItems
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`current<PySide.QtXmlPatterns.QXmlResultItems.current>` ()
+*    def :meth:`hasError<PySide.QtXmlPatterns.QXmlResultItems.hasError>` ()
+*    def :meth:`next<PySide.QtXmlPatterns.QXmlResultItems.next>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlResultItems` class iterates through the results of evaluating an :ref:`XQuery<xmlprocessing.html>` in :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+    :class:`PySide.QtXmlPatterns.QXmlResultItems` presents the evaluation of an associated query as a sequence of :class:`QXmlItems<PySide.QtXmlPatterns.QXmlItem>` . The sequence is traversed by repeatedly calling :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` , which actually produces the sequence by lazy evaluation of the query.
+
+    ::
+
+        QXmlQuery query;
+        query.setQuery("<e/>, 1, 'two'");
+        QXmlResultItems result;
+
+        if (query.isValid()) {
+            query.evaluateTo(&result);
+            QXmlItem item(result.next());
+            while (!item.isNull()) {
+                // use item
+                item = result.next();
+            }
+            if (result.hasError())
+                /* Runtime error! */;
+        }
+
+
+    An effect of letting :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` produce the sequence by lazy evaluation is that a query error can occur on any call to :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` . If an error occurs, both :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` and :meth:`PySide.QtXmlPatterns.QXmlResultItems.current` will return the null :class:`PySide.QtXmlPatterns.QXmlItem` , and :meth:`PySide.QtXmlPatterns.QXmlResultItems.hasError` will return true.
+
+    :class:`PySide.QtXmlPatterns.QXmlResultItems` can be thought of as an "iterator" that traverses the sequence of query results once, in the forward direction. Each call to :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` advances the iterator to the next :class:`PySide.QtXmlPatterns.QXmlItem` in the sequence and returns it, and :meth:`PySide.QtXmlPatterns.QXmlResultItems.current` always returns the :class:`PySide.QtXmlPatterns.QXmlItem` that :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` returned the last time it was called.
+
+    .. note::  When using the :class:`PySide.QtXmlPatterns.QXmlResultItems` overload of :meth:`QXmlQuery.evaluateTo()<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` to execute a query, it is advisable to create a new instance of this class for each new set of results rather than reusing an old instance.
+
+    .. seealso::  :meth:`QXmlItem.isNode()<PySide.QtXmlPatterns.QXmlItem.isNode>`  :meth:`QXmlItem.isAtomicValue()<PySide.QtXmlPatterns.QXmlItem.isAtomicValue>`  :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` 
+
+.. class:: QXmlResultItems()
+
+
+    Constructs an instance of :class:`PySide.QtXmlPatterns.QXmlResultItems` .
+
+
+.. method:: PySide.QtXmlPatterns.QXmlResultItems.current()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlItem`
+
+
+
+
+    Returns the current item. The current item is the last item that was produced and returned by :meth:`PySide.QtXmlPatterns.QXmlResultItems.next` .
+
+    Returns a null :class:`PySide.QtXmlPatterns.QXmlItem` if there is no associated :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlResultItems.hasError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    If an error occurred during evaluation of the query, true is returned.
+
+    Returns false if query evaluation has been done.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlResultItems.next()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlItem`
+
+
+
+
+    Returns the next result in the sequence produced by lazy evaluation of the associated query. When the returned :class:`PySide.QtXmlPatterns.QXmlItem` is null, either the evaluation terminated normally without producing another result, or an error occurred. Call :meth:`PySide.QtXmlPatterns.QXmlResultItems.hasError` to determine whether the null item was caused by normal termination or by an error.
+
+    Returns a null :class:`PySide.QtXmlPatterns.QXmlItem` if there is no associated :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+
+
+

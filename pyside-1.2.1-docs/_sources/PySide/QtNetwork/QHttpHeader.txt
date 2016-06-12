@@ -1,0 +1,402 @@
+.. module:: PySide.QtNetwork
+.. _QHttpHeader:
+
+QHttpHeader
+***********
+
+.. inheritance-diagram:: QHttpHeader
+    :parts: 2
+
+**Inherited by:** :ref:`QHttpRequestHeader`, :ref:`QHttpResponseHeader`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addValue<PySide.QtNetwork.QHttpHeader.addValue>` (key, value)
+*    def :meth:`allValues<PySide.QtNetwork.QHttpHeader.allValues>` (key)
+*    def :meth:`contentLength<PySide.QtNetwork.QHttpHeader.contentLength>` ()
+*    def :meth:`contentType<PySide.QtNetwork.QHttpHeader.contentType>` ()
+*    def :meth:`hasContentLength<PySide.QtNetwork.QHttpHeader.hasContentLength>` ()
+*    def :meth:`hasContentType<PySide.QtNetwork.QHttpHeader.hasContentType>` ()
+*    def :meth:`hasKey<PySide.QtNetwork.QHttpHeader.hasKey>` (key)
+*    def :meth:`isValid<PySide.QtNetwork.QHttpHeader.isValid>` ()
+*    def :meth:`keys<PySide.QtNetwork.QHttpHeader.keys>` ()
+*    def :meth:`parse<PySide.QtNetwork.QHttpHeader.parse>` (str)
+*    def :meth:`removeAllValues<PySide.QtNetwork.QHttpHeader.removeAllValues>` (key)
+*    def :meth:`removeValue<PySide.QtNetwork.QHttpHeader.removeValue>` (key)
+*    def :meth:`setContentLength<PySide.QtNetwork.QHttpHeader.setContentLength>` (len)
+*    def :meth:`setContentType<PySide.QtNetwork.QHttpHeader.setContentType>` (type)
+*    def :meth:`setValid<PySide.QtNetwork.QHttpHeader.setValid>` (arg__1)
+*    def :meth:`setValue<PySide.QtNetwork.QHttpHeader.setValue>` (key, value)
+*    def :meth:`setValues<PySide.QtNetwork.QHttpHeader.setValues>` (values)
+*    def :meth:`value<PySide.QtNetwork.QHttpHeader.value>` (key)
+*    def :meth:`values<PySide.QtNetwork.QHttpHeader.values>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`majorVersion<PySide.QtNetwork.QHttpHeader.majorVersion>` ()
+*    def :meth:`minorVersion<PySide.QtNetwork.QHttpHeader.minorVersion>` ()
+*    def :meth:`parseLine<PySide.QtNetwork.QHttpHeader.parseLine>` (line, number)
+*    def :meth:`toString<PySide.QtNetwork.QHttpHeader.toString>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QHttpHeader` class contains header information for HTTP.
+
+    In most cases you should use the more specialized derivatives of this class, :class:`PySide.QtNetwork.QHttpResponseHeader` and :class:`PySide.QtNetwork.QHttpRequestHeader` , rather than directly using :class:`PySide.QtNetwork.QHttpHeader` .
+
+    :class:`PySide.QtNetwork.QHttpHeader` provides the HTTP header fields. A HTTP header field consists of a name followed by a colon, a single space, and the field value. (See RFC 1945.) Field names are case-insensitive. A typical header field looks like this:
+
+    ::
+
+        content-type: text/html
+
+
+    In the API the header field name is called the "key" and the content is called the "value". You can get and set a header field's value by using its key with :meth:`PySide.QtNetwork.QHttpHeader.value` and :meth:`PySide.QtNetwork.QHttpHeader.setValue` , e.g.
+
+    ::
+
+        header.setValue("content-type", "text/html")
+        contentType = header.value("content-type")
+
+
+    Some fields are so common that getters and setters are provided for them as a convenient alternative to using :meth:`PySide.QtNetwork.QHttpHeader.value` and :meth:`PySide.QtNetwork.QHttpHeader.setValue` , e.g. :meth:`PySide.QtNetwork.QHttpHeader.contentLength` and :meth:`PySide.QtNetwork.QHttpHeader.contentType` , :meth:`PySide.QtNetwork.QHttpHeader.setContentLength` and :meth:`PySide.QtNetwork.QHttpHeader.setContentType` .
+
+    Each header key has a *single* value associated with it. If you set the value for a key which already exists the previous value will be discarded.
+
+    .. seealso::  :class:`PySide.QtNetwork.QHttpRequestHeader`  :class:`PySide.QtNetwork.QHttpResponseHeader` 
+
+.. class:: QHttpHeader()
+           QHttpHeader(header)
+           QHttpHeader(str)
+
+    :param str: unicode
+    :param header: :class:`PySide.QtNetwork.QHttpHeader`
+
+    Constructs an empty HTTP header.
+
+
+    Constructs a copy of ``header`` .
+
+
+    Constructs a HTTP header for ``str`` .
+
+    This constructor parses the string ``str`` for header fields and adds this information. The ``str`` should consist of one or more "\r\n" delimited lines; each of these lines should have the format key, colon, space, value.
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.addValue(key, value)
+
+
+    :param key: unicode
+    :param value: unicode
+
+
+
+
+    Adds a new entry with the ``key`` and ``value`` .
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.allValues(key)
+
+
+    :param key: unicode
+    :rtype: list of strings
+
+
+
+
+    Returns all the entries with the given ``key`` . If no entry has this ``key`` , an empty string list is returned.
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.contentLength()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the value of the special HTTP header field ``content-length`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.setContentLength`  :meth:`PySide.QtNetwork.QHttpHeader.hasContentLength` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.contentType()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the value of the special HTTP header field ``content-type`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.setContentType`  :meth:`PySide.QtNetwork.QHttpHeader.hasContentType` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.hasContentLength()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the header has an entry for the special HTTP header field ``content-length`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.contentLength`  :meth:`PySide.QtNetwork.QHttpHeader.setContentLength` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.hasContentType()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the header has an entry for the special HTTP header field ``content-type`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.contentType`  :meth:`PySide.QtNetwork.QHttpHeader.setContentType` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.hasKey(key)
+
+
+    :param key: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the HTTP header has an entry with the given ``key`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.value`  :meth:`PySide.QtNetwork.QHttpHeader.setValue`  :meth:`PySide.QtNetwork.QHttpHeader.keys` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the HTTP header is valid; otherwise returns false.
+
+    A :class:`PySide.QtNetwork.QHttpHeader` is invalid if it was created by parsing a malformed string.
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.keys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of the keys in the HTTP header.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.hasKey` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.majorVersion()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the major protocol-version of the HTTP header.
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.minorVersion()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the minor protocol-version of the HTTP header.
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.parse(str)
+
+
+    :param str: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Parses the HTTP header string ``str`` for header fields and adds the keys/values it finds. If the string is not parsed successfully the :class:`PySide.QtNetwork.QHttpHeader` becomes :meth:`invalid<PySide.QtNetwork.QHttpHeader.isValid>` .
+
+    Returns true if ``str`` was successfully parsed; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.toString` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.parseLine(line, number)
+
+
+    :param line: unicode
+    :param number: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Parses the single HTTP header line ``line`` which has the format key, colon, space, value, and adds key/value to the headers. The linenumber is ``number`` . Returns true if the line was successfully parsed and the key/value added; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.parse` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.removeAllValues(key)
+
+
+    :param key: unicode
+
+
+
+
+    Removes all the entries with the key ``key`` from the HTTP header.
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.removeValue(key)
+
+
+    :param key: unicode
+
+
+
+
+    Removes the entry with the key ``key`` from the HTTP header.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.value`  :meth:`PySide.QtNetwork.QHttpHeader.setValue` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.setContentLength(len)
+
+
+    :param len: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the value of the special HTTP header field ``content-length`` to ``len`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.contentLength`  :meth:`PySide.QtNetwork.QHttpHeader.hasContentLength` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.setContentType(type)
+
+
+    :param type: unicode
+
+
+
+
+    Sets the value of the special HTTP header field ``content-type`` to ``type`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.contentType`  :meth:`PySide.QtNetwork.QHttpHeader.hasContentType` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.setValid(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.isValid` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.setValue(key, value)
+
+
+    :param key: unicode
+    :param value: unicode
+
+
+
+
+    Sets the value of the entry with the ``key`` to ``value`` .
+
+    If no entry with ``key`` exists, a new entry with the given ``key`` and ``value`` is created. If an entry with the ``key`` already exists, the first value is discarded and replaced with the given ``value`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.value`  :meth:`PySide.QtNetwork.QHttpHeader.hasKey`  :meth:`PySide.QtNetwork.QHttpHeader.removeValue` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.setValues(values)
+
+
+    :param values: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.toString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a string representation of the HTTP header.
+
+    The string is suitable for use by the constructor that takes a :class:`PySide.QtCore.QString` . It consists of lines with the format: key, colon, space, value, "\r\n".
+
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.value(key)
+
+
+    :param key: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the first value for the entry with the given ``key`` . If no entry has this ``key`` , an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.setValue`  :meth:`PySide.QtNetwork.QHttpHeader.removeValue`  :meth:`PySide.QtNetwork.QHttpHeader.hasKey`  :meth:`PySide.QtNetwork.QHttpHeader.keys` 
+
+
+.. method:: PySide.QtNetwork.QHttpHeader.values()
+
+
+    :rtype: 
+
+
+
+
+    Returns all the entries in the header.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHttpHeader.setValues` 
+
+
+

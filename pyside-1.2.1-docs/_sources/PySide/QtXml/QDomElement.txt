@@ -1,0 +1,565 @@
+.. module:: PySide.QtXml
+.. _QDomElement:
+
+QDomElement
+***********
+
+.. inheritance-diagram:: QDomElement
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`attribute<PySide.QtXml.QDomElement.attribute>` (name[, defValue=""])
+*    def :meth:`attributeNS<PySide.QtXml.QDomElement.attributeNS>` (nsURI, localName[, defValue=""])
+*    def :meth:`attributeNode<PySide.QtXml.QDomElement.attributeNode>` (name)
+*    def :meth:`attributeNodeNS<PySide.QtXml.QDomElement.attributeNodeNS>` (nsURI, localName)
+*    def :meth:`elementsByTagName<PySide.QtXml.QDomElement.elementsByTagName>` (tagname)
+*    def :meth:`elementsByTagNameNS<PySide.QtXml.QDomElement.elementsByTagNameNS>` (nsURI, localName)
+*    def :meth:`hasAttribute<PySide.QtXml.QDomElement.hasAttribute>` (name)
+*    def :meth:`hasAttributeNS<PySide.QtXml.QDomElement.hasAttributeNS>` (nsURI, localName)
+*    def :meth:`removeAttribute<PySide.QtXml.QDomElement.removeAttribute>` (name)
+*    def :meth:`removeAttributeNS<PySide.QtXml.QDomElement.removeAttributeNS>` (nsURI, localName)
+*    def :meth:`removeAttributeNode<PySide.QtXml.QDomElement.removeAttributeNode>` (oldAttr)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttribute<PySide.QtXml.QDomElement.setAttribute>` (name, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNS<PySide.QtXml.QDomElement.setAttributeNS>` (nsURI, qName, value)
+*    def :meth:`setAttributeNode<PySide.QtXml.QDomElement.setAttributeNode>` (newAttr)
+*    def :meth:`setAttributeNodeNS<PySide.QtXml.QDomElement.setAttributeNodeNS>` (newAttr)
+*    def :meth:`setTagName<PySide.QtXml.QDomElement.setTagName>` (name)
+*    def :meth:`tagName<PySide.QtXml.QDomElement.tagName>` ()
+*    def :meth:`text<PySide.QtXml.QDomElement.text>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QDomElement` class represents one element in the DOM tree.
+
+    Elements have a :meth:`PySide.QtXml.QDomElement.tagName` and zero or more attributes associated with them. The tag name can be changed with :meth:`PySide.QtXml.QDomElement.setTagName` .
+
+    Element attributes are represented by :class:`PySide.QtXml.QDomAttr` objects that can be queried using the :meth:`PySide.QtXml.QDomElement.attribute` and :meth:`PySide.QtXml.QDomElement.attributeNode` functions. You can set attributes with the :meth:`PySide.QtXml.QDomElement.setAttribute` and :meth:`PySide.QtXml.QDomElement.setAttributeNode` functions. Attributes can be removed with :meth:`PySide.QtXml.QDomElement.removeAttribute` . There are namespace-aware equivalents to these functions, i.e. :meth:`PySide.QtXml.QDomElement.setAttributeNS` , :meth:`PySide.QtXml.QDomElement.setAttributeNodeNS` and :meth:`PySide.QtXml.QDomElement.removeAttributeNS` .
+
+    If you want to access the text of a node use :meth:`PySide.QtXml.QDomElement.text` , e.g.
+
+    ::
+
+        e = # some QDomElement...
+        #...
+        s = e.text()
+
+
+    The :meth:`PySide.QtXml.QDomElement.text` function operates recursively to find the text (since not all elements contain text). If you want to find all the text in all of a node's children, iterate over the children looking for :class:`PySide.QtXml.QDomText` nodes, e.g.
+
+    ::
+
+        text = QString()
+        element = doc.documentElement()
+
+        n = element.firstChild()
+        while True:
+            if not n.isNull()
+                break
+            t = n.toText()
+            if !t.isNull():
+                text += t.data()
+
+            n = n.nextSibling()
+
+
+    Note that we attempt to convert each node to a text node and use :meth:`PySide.QtXml.QDomElement.text` rather than using :meth:`PySide.QtXml.QDomNode.firstChild` . :meth:`PySide.QtXml.QDomNode.toText` . :meth:`~PySide.QtXml.QDomElement.data` or n. :meth:`PySide.QtXml.QDomNode.toText` . :meth:`~PySide.QtXml.QDomElement.data` directly on the node, because the node may not be a text element.
+
+    You can get a list of all the decendents of an element which have a specified tag name with :meth:`PySide.QtXml.QDomElement.elementsByTagName` or :meth:`PySide.QtXml.QDomElement.elementsByTagNameNS` .
+
+    To browse the elements of a dom document use :meth:`PySide.QtXml.QDomNode.firstChildElement` , :meth:`PySide.QtXml.QDomNode.lastChildElement` , :meth:`PySide.QtXml.QDomNode.nextSiblingElement` and :meth:`PySide.QtXml.QDomNode.previousSiblingElement` . For example, to iterate over all child elements called "entry" in a root element called "database", you can use:
+
+    ::
+
+        doc = # some QDomDocument ...
+        root = doc.firstChildElement("database")
+        elt = root.firstChildElement("entry")
+        while True:
+            if not elt.isNull():
+                break
+            # ...
+            elt = elt.nextSiblingElement("entry")
+
+
+    For further information about the Document Object Model see Level 1 and Level 2 Core. For a more general introduction of the DOM implementation see the :class:`PySide.QtXml.QDomDocument` documentation.
+
+
+.. class:: QDomElement()
+           QDomElement(x)
+
+    :param x: :class:`PySide.QtXml.QDomElement`
+
+    Constructs an empty element. Use the :meth:`QDomDocument.createElement()<PySide.QtXml.QDomDocument.createElement>` function to construct elements with content.
+
+
+    Constructs a copy of ``x`` .
+
+    The data of the copy is shared (shallow copy): modifying one node will also change the other. If you want to make a deep copy, use :meth:`PySide.QtXml.QDomNode.cloneNode` .
+
+
+.. method:: PySide.QtXml.QDomElement.attribute(name[, defValue=""])
+
+
+    :param name: unicode
+    :param defValue: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the attribute called ``name`` . If the attribute does not exist ``defValue`` is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttribute`  :meth:`PySide.QtXml.QDomElement.attributeNode`  :meth:`PySide.QtXml.QDomElement.setAttributeNode`  :meth:`PySide.QtXml.QDomElement.attributeNS` 
+
+
+.. method:: PySide.QtXml.QDomElement.attributeNS(nsURI, localName[, defValue=""])
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :param defValue: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the attribute with the local name ``localName`` and the namespace URI ``nsURI`` . If the attribute does not exist ``defValue`` is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttributeNS`  :meth:`PySide.QtXml.QDomElement.attributeNodeNS`  :meth:`PySide.QtXml.QDomElement.setAttributeNodeNS`  :meth:`PySide.QtXml.QDomElement.attribute` 
+
+
+.. method:: PySide.QtXml.QDomElement.attributeNode(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Returns the :class:`PySide.QtXml.QDomAttr` object that corresponds to the attribute called ``name`` . If no such attribute exists a :meth:`null attribute<PySide.QtXml.QDomNode.isNull>` is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttributeNode`  :meth:`PySide.QtXml.QDomElement.attribute`  :meth:`PySide.QtXml.QDomElement.setAttribute`  :meth:`PySide.QtXml.QDomElement.attributeNodeNS` 
+
+
+.. method:: PySide.QtXml.QDomElement.attributeNodeNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Returns the :class:`PySide.QtXml.QDomAttr` object that corresponds to the attribute with the local name ``localName`` and the namespace URI ``nsURI`` . If no such attribute exists a :meth:`null attribute<PySide.QtXml.QDomNode.isNull>` is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttributeNodeNS`  :meth:`PySide.QtXml.QDomElement.setAttributeNode`  :meth:`PySide.QtXml.QDomElement.attribute`  :meth:`PySide.QtXml.QDomElement.setAttribute` 
+
+
+.. method:: PySide.QtXml.QDomElement.elementsByTagName(tagname)
+
+
+    :param tagname: unicode
+    :rtype: :class:`PySide.QtXml.QDomNodeList`
+
+
+
+
+    Returns a :class:`PySide.QtXml.QDomNodeList` containing all descendants of this element named ``tagname`` encountered during a preorder traversal of the element subtree with this element as its root. The order of the elements in the returned list is the order they are encountered during the preorder traversal.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.elementsByTagNameNS`  :meth:`QDomDocument.elementsByTagName()<PySide.QtXml.QDomDocument.elementsByTagName>` 
+
+
+.. method:: PySide.QtXml.QDomElement.elementsByTagNameNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtXml.QDomNodeList`
+
+
+
+
+    Returns a :class:`PySide.QtXml.QDomNodeList` containing all descendants of this element with local name ``localName`` and namespace URI ``nsURI`` encountered during a preorder traversal of the element subtree with this element as its root. The order of the elements in the returned list is the order they are encountered during the preorder traversal.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.elementsByTagName`  :meth:`QDomDocument.elementsByTagNameNS()<PySide.QtXml.QDomDocument.elementsByTagNameNS>` 
+
+
+.. method:: PySide.QtXml.QDomElement.hasAttribute(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this element has an attribute called ``name`` ; otherwise returns false.
+
+    .. note::  This function does not take the presence of namespaces into account. As a result, the specified name will be tested against fully-qualified attribute names that include any namespace prefixes that may be present.
+
+    Use :meth:`PySide.QtXml.QDomElement.hasAttributeNS` to explicitly test for attributes with specific namespaces and names.
+
+
+
+.. method:: PySide.QtXml.QDomElement.hasAttributeNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this element has an attribute with the local name ``localName`` and the namespace URI ``nsURI`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomElement.removeAttribute(name)
+
+
+    :param name: unicode
+
+
+
+
+    Removes the attribute called name ``name`` from this element.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttribute`  :meth:`PySide.QtXml.QDomElement.attribute`  :meth:`PySide.QtXml.QDomElement.removeAttributeNS` 
+
+
+.. method:: PySide.QtXml.QDomElement.removeAttributeNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+
+
+
+
+    Removes the attribute with the local name ``localName`` and the namespace URI ``nsURI`` from this element.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setAttributeNS`  :meth:`PySide.QtXml.QDomElement.attributeNS`  :meth:`PySide.QtXml.QDomElement.removeAttribute` 
+
+
+.. method:: PySide.QtXml.QDomElement.removeAttributeNode(oldAttr)
+
+
+    :param oldAttr: :class:`PySide.QtXml.QDomAttr`
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Removes the attribute ``oldAttr`` from the element and returns it.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.attributeNode`  :meth:`PySide.QtXml.QDomElement.setAttributeNode` 
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.qulonglong`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.uint`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.qlonglong`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.double`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: unicode
+
+
+
+
+    Adds an attribute called ``name`` with value ``value`` . If an attribute with the same name exists, its value is replaced by ``value`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.attribute`  :meth:`PySide.QtXml.QDomElement.setAttributeNode`  :meth:`PySide.QtXml.QDomElement.setAttributeNS` 
+
+
+.. method:: PySide.QtXml.QDomElement.setAttribute(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.float`
+
+
+
+
+    This is an overloaded function.
+
+    The number is formatted according to the current locale.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: :class:`PySide.QtCore.qulonglong`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: :class:`PySide.QtCore.uint`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: :class:`PySide.QtCore.qlonglong`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: :class:`PySide.QtCore.double`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNS(nsURI, qName, value)
+
+
+    :param nsURI: unicode
+    :param qName: unicode
+    :param value: unicode
+
+
+
+
+    Adds an attribute with the qualified name ``qName`` and the namespace URI ``nsURI`` with the value ``value`` . If an attribute with the same local name and namespace URI exists, its prefix is replaced by the prefix of ``qName`` and its value is repaced by ``value`` .
+
+    Although ``qName`` is the qualified name, the local name is used to decide if an existing attribute's value should be replaced.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.attributeNS`  :meth:`PySide.QtXml.QDomElement.setAttributeNodeNS`  :meth:`PySide.QtXml.QDomElement.setAttribute` 
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNode(newAttr)
+
+
+    :param newAttr: :class:`PySide.QtXml.QDomAttr`
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Adds the attribute ``newAttr`` to this element.
+
+    If the element has another attribute that has the same name as ``newAttr`` , this function replaces that attribute and returns it; otherwise the function returns a :meth:`null attribute<PySide.QtXml.QDomNode.isNull>` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.attributeNode`  :meth:`PySide.QtXml.QDomElement.setAttribute`  :meth:`PySide.QtXml.QDomElement.setAttributeNodeNS` 
+
+
+.. method:: PySide.QtXml.QDomElement.setAttributeNodeNS(newAttr)
+
+
+    :param newAttr: :class:`PySide.QtXml.QDomAttr`
+    :rtype: :class:`PySide.QtXml.QDomAttr`
+
+
+
+
+    Adds the attribute ``newAttr`` to this element.
+
+    If the element has another attribute that has the same local name and namespace URI as ``newAttr`` , this function replaces that attribute and returns it; otherwise the function returns a :meth:`null attribute<PySide.QtXml.QDomNode.isNull>` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.attributeNodeNS`  :meth:`PySide.QtXml.QDomElement.setAttributeNS`  :meth:`PySide.QtXml.QDomElement.setAttributeNode` 
+
+
+.. method:: PySide.QtXml.QDomElement.setTagName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets this element's tag name to ``name`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.tagName` 
+
+
+.. method:: PySide.QtXml.QDomElement.tagName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the tag name of this element. For an XML element like this:
+
+    ::
+
+        <img src="myimg.png">
+
+
+    the tagname would return "img".
+
+    .. seealso::  :meth:`PySide.QtXml.QDomElement.setTagName` 
+
+
+.. method:: PySide.QtXml.QDomElement.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the element's text or an empty string.
+
+    Example:
+
+    ::
+
+        <h1>Hello <b>Qt</b> <![CDATA[<xml is cool>]]></h1>
+
+
+    The function :meth:`PySide.QtXml.QDomElement.text` of the :class:`PySide.QtXml.QDomElement` for the ``<h1>`` tag, will return the following text:
+
+    ::
+
+        Hello Qt <xml is cool>
+
+
+    Comments are ignored by this function. It only evaluates :class:`PySide.QtXml.QDomText` and :class:`PySide.QtXml.QDomCDATASection` objects.
+
+
+
+

@@ -1,0 +1,262 @@
+.. module:: PySide.QtGui
+.. _QPixmapCache:
+
+QPixmapCache
+************
+
+.. inheritance-diagram:: QPixmapCache
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`find<PySide.QtGui.QPixmapCache.find>` (arg__1)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cacheLimit<PySide.QtGui.QPixmapCache.cacheLimit>` ()
+*    def :meth:`clear<PySide.QtGui.QPixmapCache.clear>` ()
+*    def :meth:`find<PySide.QtGui.QPixmapCache.find>` (key)
+*    def :meth:`find<PySide.QtGui.QPixmapCache.find>` (key, pixmap)
+*    def :meth:`find<PySide.QtGui.QPixmapCache.find>` (key, pixmap)
+*    def :meth:`insert<PySide.QtGui.QPixmapCache.insert>` (key, pixmap)
+*    def :meth:`insert<PySide.QtGui.QPixmapCache.insert>` (pixmap)
+*    def :meth:`remove<PySide.QtGui.QPixmapCache.remove>` (key)
+*    def :meth:`remove<PySide.QtGui.QPixmapCache.remove>` (key)
+*    def :meth:`replace<PySide.QtGui.QPixmapCache.replace>` (key, pixmap)
+*    def :meth:`setCacheLimit<PySide.QtGui.QPixmapCache.setCacheLimit>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPixmapCache` class provides an application-wide cache for pixmaps.
+
+    This class is a tool for optimized drawing with :class:`PySide.QtGui.QPixmap` . You can use it to store temporary pixmaps that are expensive to generate without using more storage space than :meth:`PySide.QtGui.QPixmapCache.cacheLimit` . Use :meth:`PySide.QtGui.QPixmapCache.insert` to insert pixmaps, :meth:`PySide.QtGui.QPixmapCache.find` to find them, and :meth:`PySide.QtGui.QPixmapCache.clear` to empty the cache.
+
+    :class:`PySide.QtGui.QPixmapCache` contains no member data, only static functions to access the global pixmap cache. It creates an internal :class:`~PySide.QtGui.QCache` object for caching the pixmaps.
+
+    The cache associates a pixmap with a user-provided string as a key, or with a :class:`QPixmapCache.Key<~PySide.QtGui.QPixmapCache.Key>` that the cache generates. Using :class:`QPixmapCache.Key<~PySide.QtGui.QPixmapCache.Key>` for keys is faster than using strings. The string API is very convenient for complex keys but the :class:`QPixmapCache.Key<~PySide.QtGui.QPixmapCache.Key>` API will be very efficient and convenient for a one-to-one object-to-pixmap mapping .. raw:: html &mdash; in this case, you can store the keys as members of an object.
+
+    If two pixmaps are inserted into the cache using equal keys then the last pixmap will replace the first pixmap in the cache. This follows the behavior of the :class:`QHash` and :class:`~PySide.QtGui.QCache` classes.
+
+    The cache becomes full when the total size of all pixmaps in the cache exceeds :meth:`PySide.QtGui.QPixmapCache.cacheLimit` . The initial cache limit is 2048 KB (2 MB) on embedded platforms, 10240 KB (10 MB) on desktop platforms; you can change this by calling :meth:`PySide.QtGui.QPixmapCache.setCacheLimit` with the required value. A pixmap takes roughly (*width* \* *height* \* *depth* )/8 bytes of memory.
+
+    The *Qt Quarterly* article Optimizing with :class:`PySide.QtGui.QPixmapCache` explains how to use :class:`PySide.QtGui.QPixmapCache` to speed up applications by caching the results of painting.
+
+    .. seealso::  :class:`~PySide.QtGui.QCache`  :class:`PySide.QtGui.QPixmap` 
+
+.. class:: QPixmapCache()
+
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.cacheLimit()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the cache limit (in kilobytes).
+
+    The default cache limit is 2048 KB on embedded platforms, 10240 KB on desktop platforms.
+
+    .. seealso::  :meth:`PySide.QtGui.QPixmapCache.setCacheLimit` 
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.clear()
+
+
+
+
+
+
+    Removes all pixmaps from the cache.
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.find(key)
+
+
+    :param key: unicode
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the pixmap associated with the ``key`` in the cache, or null if there is no such pixmap.
+
+    .. warning::  If valid, you should copy the pixmap immediately (this is fast). Subsequent insertions into the cache could cause the pointer to become invalid. For this reason, we recommend you use bool find(const :class:`PySide.QtCore.QString` &, :class:`PySide.QtGui.QPixmap` \*) instead.
+
+    Example:
+
+    ::
+
+        pm = QPixmap()
+        if not QPixmapCache.find("my_big_image", pm):
+            pm.load("bigimage.png")
+            QPixmapCache.insert("my_big_image", pm)
+        painter.drawPixmap(0, 0, pm)
+
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.find(key, pixmap)
+
+
+    :param key: unicode
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Looks for a cached pixmap associated with the given ``key`` in the cache. If the pixmap is found, the function sets ``pixmap`` to that pixmap and returns true; otherwise it leaves ``pixmap`` alone and returns false.
+
+    Example:
+
+    ::
+
+        pm = QPixmap()
+        if not QPixmapCache.find("my_big_image", pm):
+            pm.load("bigimage.png")
+            QPixmapCache.insert("my_big_image", pm)
+        painter.drawPixmap(0, 0, pm)
+
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.find(key, pixmap)
+
+
+    :param key: :class:`PySide.QtGui.QPixmapCache::Key`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Looks for a cached pixmap associated with the given ``key`` in the cache. If the pixmap is found, the function sets ``pixmap`` to that pixmap and returns true; otherwise it leaves ``pixmap`` alone and returns false. If the pixmap is not found, it means that the ``key`` is no longer valid, so it will be released for the next insertion.
+
+
+
+.. method:: PySide.QtGui.QPixmapCache.find(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPixmapCache::Key`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.insert(key, pixmap)
+
+
+    :param key: unicode
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Inserts a copy of the pixmap ``pixmap`` associated with the ``key`` into the cache.
+
+    All pixmaps inserted by the Qt library have a key starting with "$qt", so your own pixmap keys should never begin "$qt".
+
+    When a pixmap is inserted and the cache is about to exceed its limit, it removes pixmaps until there is enough room for the pixmap to be inserted.
+
+    The oldest pixmaps (least recently accessed in the cache) are deleted when more space is needed.
+
+    The function returns true if the object was inserted into the cache; otherwise it returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPixmapCache.setCacheLimit` 
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.insert(pixmap)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :rtype: :class:`PySide.QtGui.QPixmapCache::Key`
+
+
+
+
+    Inserts a copy of the given ``pixmap`` into the cache and returns a key that can be used to retrieve it.
+
+    When a pixmap is inserted and the cache is about to exceed its limit, it removes pixmaps until there is enough room for the pixmap to be inserted.
+
+    The oldest pixmaps (least recently accessed in the cache) are deleted when more space is needed.
+
+    .. seealso::  :meth:`PySide.QtGui.QPixmapCache.setCacheLimit`  :meth:`PySide.QtGui.QPixmapCache.replace` 
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.remove(key)
+
+
+    :param key: unicode
+
+
+
+
+    Removes the pixmap associated with ``key`` from the cache.
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.remove(key)
+
+
+    :param key: :class:`PySide.QtGui.QPixmapCache::Key`
+
+
+
+
+    Removes the pixmap associated with ``key`` from the cache and releases the key for a future insertion.
+
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.replace(key, pixmap)
+
+
+    :param key: :class:`PySide.QtGui.QPixmapCache::Key`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Replaces the pixmap associated with the given ``key`` with the ``pixmap`` specified. Returns true if the ``pixmap`` has been correctly inserted into the cache; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPixmapCache.setCacheLimit`  :meth:`PySide.QtGui.QPixmapCache.insert` 
+
+
+.. staticmethod:: PySide.QtGui.QPixmapCache.setCacheLimit(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the cache limit to ``n`` kilobytes.
+
+    The default setting is 2048 KB on embedded platforms, 10240 KB on desktop platforms.
+
+    .. seealso::  :meth:`PySide.QtGui.QPixmapCache.cacheLimit` 
+
+
+

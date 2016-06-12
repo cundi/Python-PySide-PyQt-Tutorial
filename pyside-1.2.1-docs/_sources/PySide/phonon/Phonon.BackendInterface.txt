@@ -1,0 +1,244 @@
+.. module:: PySide.phonon
+.. _Phonon.BackendInterface:
+
+Phonon.BackendInterface
+***********************
+
+.. inheritance-diagram:: Phonon.BackendInterface
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    Main Backend class interface
+
+    This interface defines the main factory of the backend. The :meth:`PySide.phonon.Phonon::BackendInterface.createObject` function creates all the objects needed by the frontend.
+
+    The objectDescriptionIndexes and objectDescriptionProperties functions return information about available devices, effects and codecs.
+
+    An implementation could look like this:
+
+    ::
+
+        def createObject(self, c, parent, args):
+            if c == BackendInterface.MediaObjectClass:
+                return MediaObject(parent)
+            elif c == BackendInterface.VolumeFaderEffectClass:
+                return VolumeFaderEffect(parent)
+            elif c == BackendInterface.AudioOutputClass:
+                return AudioOutput(parent)
+            elif c == BackendInterface.AudioDataOutputClass:
+                return AudioDataOutput(parent)
+            elif c == BackendInterface.VisualizationClass:
+                return Visualization(parent)
+            elif c == BackendInterface.VideoDataOutputClass:
+                return VideoDataOutput(parent)
+            elif c == BackendInterface.EffectClass:
+                return Effect(args[0].toInt(), parent)
+            elif c == BackendInterface.VideoWidgetClass:
+                return VideoWidget(parent)
+            return None
+
+        def objectDescriptionIndexes(self, type_):
+            retval = set()
+
+            if type_ == Phonon.AudioOutputDeviceType:
+                # use AudioDeviceEnumerator to list ALSA and OSS devices
+                retval.add(10000)
+                retval.add(10001)
+            elif type_ == Phonon.AudioCaptureDeviceType:
+                retval.add(20000)
+                retval.add(20001)
+            elif type_ == Phonon.VideoCaptureDeviceType:
+                retval.add(30000)
+                retval.add(30001)
+            elif type_ == Phonon.EffectType:
+                retval.add(0x7F000001)
+            return retval
+
+        def objectDescriptionProperties(self, type_, index):
+            ret = {}
+            if type_ == Phonon.AudioOutputDeviceType:
+                if index == 10000:
+                    ret["name"] = "internal Soundcard"
+                elif index == 10001:
+                    ret["name"] = "USB Headset"
+                    ret["available"] = False
+            elif type_ == Phonon.AudioCaptureDeviceType:
+                if index == 20000:
+                    ret["name"] = "Soundcard"
+                    ret["description"] = "first description"
+                elif index == 20001:
+                    ret["name"] = "DV"
+                    ret["description"] = "second description"
+            elif type_ == Phonon.VideoCaptureDeviceType:
+                elif index == 30000:
+                    ret["name"] = "USB Webcam"
+                    ret["description"] = "first description"
+                elif index == 30001:
+                    ret["name"] = "DV"))
+                    ret["description"] = "second description"
+            elif type_ == Phonon.EffectType:
+                if index == 0x7F000001:
+                    ret["name"] = "Delay"
+                    ret["description"] = "Simple delay effect with time, feedback and level controls."
+            return ret
+
+
+
+.. class:: PySide.phonon.Phonon.BackendInterface()
+
+
+
+
+.. attribute:: PySide.phonon.Phonon.BackendInterface.Class
+
+    Classes that the :meth:`PySide.phonon.Phonon::BackendInterface.createObject` function has to handle.
+
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Constant                                      |Description                                                                                 |
+    +==============================================+============================================================================================+
+    |Phonon.BackendInterface.MediaObjectClass      |Request to return a ``MediaObject`` object.                                                 |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.VolumeFaderEffectClass|Request to return a ``VolumeFaderEffect`` object.                                           |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.AudioOutputClass      |Request to return an ``AudioOutput`` object.                                                |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.AudioDataOutputClass  |Request to return an ``AudioDataOutput`` object.                                            |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.VisualizationClass    |Request to return a ``Visualization`` object.                                               |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.VideoDataOutputClass  |Request to return a ``VideoDataOutput`` object.                                             |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.EffectClass           |Request to return a ``Effect`` object. Takes an additional int that specifies the effect ID.|
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+    |Phonon.BackendInterface.VideoWidgetClass      |Request to return a ``VideoWidget`` object.                                                 |
+    +----------------------------------------------+--------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.availableMimeTypes()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns all available MIME types.
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.connectNodes(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Defines a signal connection between the two given nodes.
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.createObject(c, parent[, args=list()])
+
+
+    :param c: :attr:`PySide.phonon.Phonon::BackendInterface.Class`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param args: 
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.disconnectNodes(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Cuts a signal connection between the two given nodes.
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.endConnectionChange(arg__1)
+
+
+    :param arg__1: 
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.objectDescriptionIndexes(type)
+
+
+    :param type: :attr:`PySide.phonon.Phonon.ObjectDescriptionType`
+    :rtype: 
+
+
+
+
+    Returns the unique identifiers for the devices/effects/codecs of the given ``type`` .
+
+    *type* see :attr:`Phonon.ObjectDescriptionType`
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.objectDescriptionProperties(type, index)
+
+
+    :param type: :attr:`PySide.phonon.Phonon.ObjectDescriptionType`
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Given a unique identifier that was returned from objectDescriptionIndexes this function returns a hash mapping property names to values.
+
+    The property "name" must always be present. All other properties are optional.
+
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+    |Property   |Description                                                                                                         |
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+    |name       |The name of the device/effect/codec/...                                                                             |
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+    |description|A text explaining what this device/effect/codec/... is/can do                                                       |
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+    |icon       |An icon name (using the freedesktop naming scheme) or a :class:`PySide.QtGui.QIcon` for this device/effect/codec/...|
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+    |available  |A bool telling whether the device is present or unplugged.                                                          |
+    +-----------+--------------------------------------------------------------------------------------------------------------------+
+
+    *type* see :attr:`Phonon.ObjectDescriptionType` *index* The unique identifier that is returned from objectDescriptionIndexes
+
+
+
+.. method:: PySide.phonon.Phonon.BackendInterface.startConnectionChange(arg__1)
+
+
+    :param arg__1: 
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+

@@ -1,0 +1,443 @@
+.. module:: PySide.QtGui
+.. _QProgressBar:
+
+QProgressBar
+************
+
+.. inheritance-diagram:: QProgressBar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QProgressBar.alignment>` ()
+*    def :meth:`format<PySide.QtGui.QProgressBar.format>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QProgressBar.initStyleOption>` (option)
+*    def :meth:`invertedAppearance<PySide.QtGui.QProgressBar.invertedAppearance>` ()
+*    def :meth:`isTextVisible<PySide.QtGui.QProgressBar.isTextVisible>` ()
+*    def :meth:`maximum<PySide.QtGui.QProgressBar.maximum>` ()
+*    def :meth:`minimum<PySide.QtGui.QProgressBar.minimum>` ()
+*    def :meth:`orientation<PySide.QtGui.QProgressBar.orientation>` ()
+*    def :meth:`setAlignment<PySide.QtGui.QProgressBar.setAlignment>` (alignment)
+*    def :meth:`setFormat<PySide.QtGui.QProgressBar.setFormat>` (format)
+*    def :meth:`setInvertedAppearance<PySide.QtGui.QProgressBar.setInvertedAppearance>` (invert)
+*    def :meth:`setTextDirection<PySide.QtGui.QProgressBar.setTextDirection>` (textDirection)
+*    def :meth:`setTextVisible<PySide.QtGui.QProgressBar.setTextVisible>` (visible)
+*    def :meth:`textDirection<PySide.QtGui.QProgressBar.textDirection>` ()
+*    def :meth:`value<PySide.QtGui.QProgressBar.value>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`text<PySide.QtGui.QProgressBar.text>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`reset<PySide.QtGui.QProgressBar.reset>` ()
+*    def :meth:`setMaximum<PySide.QtGui.QProgressBar.setMaximum>` (maximum)
+*    def :meth:`setMinimum<PySide.QtGui.QProgressBar.setMinimum>` (minimum)
+*    def :meth:`setOrientation<PySide.QtGui.QProgressBar.setOrientation>` (arg__1)
+*    def :meth:`setRange<PySide.QtGui.QProgressBar.setRange>` (minimum, maximum)
+*    def :meth:`setValue<PySide.QtGui.QProgressBar.setValue>` (value)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueChanged<PySide.QtGui.QProgressBar.valueChanged>` (value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QProgressBar` widget provides a horizontal or vertical progress bar.
+
+    A progress bar is used to give the user an indication of the progress of an operation and to reassure them that the application is still running.
+
+    The progress bar uses the concept of *steps* . You set it up by specifying the minimum and maximum possible step values, and it will display the percentage of steps that have been completed when you later give it the current step value. The percentage is calculated by dividing the progress ( :meth:`PySide.QtGui.QProgressBar.value` - :meth:`PySide.QtGui.QProgressBar.minimum` ) divided by :meth:`PySide.QtGui.QProgressBar.maximum` - :meth:`PySide.QtGui.QProgressBar.minimum` .
+
+    You can specify the minimum and maximum number of steps with :meth:`PySide.QtGui.QProgressBar.setMinimum` and setMaximum. The current number of steps is set with :meth:`PySide.QtGui.QProgressBar.setValue` . The progress bar can be rewound to the beginning with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+    If minimum and maximum both are set to 0, the bar shows a busy indicator instead of a percentage of steps. This is useful, for example, when using :class:`PySide.QtNetwork.QFtp` or :class:`PySide.QtNetwork.QNetworkAccessManager` to download items when they are unable to determine the size of the item being downloaded.
+
+    +--------------------------------------------------------------------------------------------------------+----------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-progressbar.png|A progress bar shown in the Macintosh widget style. |
+    +--------------------------------------------------------------------------------------------------------+----------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-progressbar.png|A progress bar shown in the Windows XP widget style.|
+    +--------------------------------------------------------------------------------------------------------+----------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-progressbar.png|A progress bar shown in the Plastique widget style. |
+    +--------------------------------------------------------------------------------------------------------+----------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QProgressDialog`  :ref:`GUI Design Handbook: Progress Indicator<guibooks.html>` 
+
+.. class:: QProgressBar([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a progress bar with the given ``parent`` .
+
+    By default, the minimum step value is set to 0, and the maximum to 100.
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.setRange` 
+
+.. attribute:: PySide.QtGui.QProgressBar.Direction
+
+    Specifies the reading direction of the :meth:`PySide.QtGui.QProgressBar.text` for vertical progress bars.
+
+    +------------------------+-------------------------------------------------+
+    |Constant                |Description                                      |
+    +========================+=================================================+
+    |QProgressBar.TopToBottom|The text is rotated 90 degrees clockwise.        |
+    +------------------------+-------------------------------------------------+
+    |QProgressBar.BottomToTop|The text is rotated 90 degrees counter-clockwise.|
+    +------------------------+-------------------------------------------------+
+
+    Note that whether or not the text is drawn is dependent on the style. Currently CDE, CleanLooks, Motif, and Plastique draw the text. Mac, Windows and WindowsXP style do not.
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.textDirection` 
+
+.. method:: PySide.QtGui.QProgressBar.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the progress bar.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.format()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the string used to generate the current text.
+
+    %p - is replaced by the percentage completed. %v - is replaced by the current value. %m - is replaced by the total number of steps.
+
+    The default value is "%p%".
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.text` 
+
+
+.. method:: PySide.QtGui.QProgressBar.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionProgressBar`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QProgressBar` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionProgressBar` or :class:`PySide.QtGui.QStyleOptionProgressBarV2` , but don't want to fill in all the information themselves. This function will check the version of the :class:`PySide.QtGui.QStyleOptionProgressBar` and fill in the additional values for a :class:`PySide.QtGui.QStyleOptionProgressBarV2` .
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QProgressBar.invertedAppearance()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not a progress bar shows its progress inverted.
+
+    If this property is false, the progress bar grows in the other direction (e.g. from right to left). By default, the progress bar is not inverted.
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.orientation`  :meth:`PySide.QtGui.QWidget.layoutDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.isTextVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the current completed percentage should be displayed.
+
+    This property may be ignored by the style (e.g., :class:`PySide.QtGui.QMacStyle` never draws the text).
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.textDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.maximum()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's maximum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QProgressBar.minimum` is adjusted if necessary to ensure that the range remains valid. If the current value falls outside the new range, the progress bar is reset with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+
+
+.. method:: PySide.QtGui.QProgressBar.minimum()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's minimum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QProgressBar.maximum` is adjusted if necessary to ensure that the range remains valid. If the current value falls outside the new range, the progress bar is reset with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+
+
+.. method:: PySide.QtGui.QProgressBar.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the progress bar.
+
+    The orientation must be :attr:`Qt.Horizontal<Qt.Orientation>` (the default) or :attr:`Qt.Vertical<Qt.Orientation>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.invertedAppearance`  :meth:`PySide.QtGui.QProgressBar.textDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.reset()
+
+
+
+
+
+
+    Reset the progress bar. The progress bar "rewinds" and shows no progress.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.setAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the progress bar.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.setFormat(format)
+
+
+    :param format: unicode
+
+
+
+
+    This property holds the string used to generate the current text.
+
+    %p - is replaced by the percentage completed. %v - is replaced by the current value. %m - is replaced by the total number of steps.
+
+    The default value is "%p%".
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.text` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setInvertedAppearance(invert)
+
+
+    :param invert: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not a progress bar shows its progress inverted.
+
+    If this property is false, the progress bar grows in the other direction (e.g. from right to left). By default, the progress bar is not inverted.
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.orientation`  :meth:`PySide.QtGui.QWidget.layoutDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setMaximum(maximum)
+
+
+    :param maximum: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's maximum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QProgressBar.minimum` is adjusted if necessary to ensure that the range remains valid. If the current value falls outside the new range, the progress bar is reset with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+
+
+.. method:: PySide.QtGui.QProgressBar.setMinimum(minimum)
+
+
+    :param minimum: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's minimum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QProgressBar.maximum` is adjusted if necessary to ensure that the range remains valid. If the current value falls outside the new range, the progress bar is reset with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+
+
+.. method:: PySide.QtGui.QProgressBar.setOrientation(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the progress bar.
+
+    The orientation must be :attr:`Qt.Horizontal<Qt.Orientation>` (the default) or :attr:`Qt.Vertical<Qt.Orientation>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.invertedAppearance`  :meth:`PySide.QtGui.QProgressBar.textDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setRange(minimum, maximum)
+
+
+    :param minimum: :class:`PySide.QtCore.int`
+    :param maximum: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the progress bar's minimum and maximum values to ``minimum`` and ``maximum`` respectively.
+
+    If ``maximum`` is smaller than ``minimum`` , ``minimum`` becomes the only legal value.
+
+    If the current value falls outside the new range, the progress bar is reset with :meth:`PySide.QtGui.QProgressBar.reset` .
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.minimum`  :meth:`PySide.QtGui.QProgressBar.maximum` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setTextDirection(textDirection)
+
+
+    :param textDirection: :attr:`PySide.QtGui.QProgressBar.Direction`
+
+
+
+
+    This property holds the reading direction of the :meth:`PySide.QtGui.QProgressBar.text` for vertical progress bars.
+
+    This property has no impact on horizontal progress bars. By default, the reading direction is :attr:`QProgressBar.TopToBottom<QProgressBar.Direction>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.orientation`  :meth:`~PySide.QtGui.QProgressBar.textVisible` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setTextVisible(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the current completed percentage should be displayed.
+
+    This property may be ignored by the style (e.g., :class:`PySide.QtGui.QMacStyle` never draws the text).
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.textDirection` 
+
+
+.. method:: PySide.QtGui.QProgressBar.setValue(value)
+
+
+    :param value: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's current value.
+
+    Attempting to change the current value to one outside the minimum-maximum range has no effect on the current value.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the descriptive text shown with the progress bar.
+
+    The text returned is the same as the text displayed in the center (or in some styles, to the left) of the progress bar.
+
+    The progress shown in the text may be smaller than the minimum value, indicating that the progress bar is in the "reset" state before any progress is set.
+
+    In the default implementation, the text either contains a percentage value that indicates the progress so far, or it is blank because the progress bar is in the reset state.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.textDirection()
+
+
+    :rtype: :attr:`PySide.QtGui.QProgressBar.Direction`
+
+
+
+
+    This property holds the reading direction of the :meth:`PySide.QtGui.QProgressBar.text` for vertical progress bars.
+
+    This property has no impact on horizontal progress bars. By default, the reading direction is :attr:`QProgressBar.TopToBottom<QProgressBar.Direction>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QProgressBar.orientation`  :meth:`~PySide.QtGui.QProgressBar.textVisible` 
+
+
+.. method:: PySide.QtGui.QProgressBar.value()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the progress bar's current value.
+
+    Attempting to change the current value to one outside the minimum-maximum range has no effect on the current value.
+
+
+
+.. method:: PySide.QtGui.QProgressBar.valueChanged(value)
+
+
+    :param value: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

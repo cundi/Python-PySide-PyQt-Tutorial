@@ -1,0 +1,1500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QScriptEngine &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtScript" href="index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="ools.html" />
+    <link rel="prev" title="QScriptExtensionPlugin" href="QScriptExtensionPlugin.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtScript</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QScriptEngine</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#static-functions">Static functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a><ul>
+<li><a class="reference internal" href="#evaluating-scripts">Evaluating Scripts</a></li>
+<li><a class="reference internal" href="#engine-configuration">Engine Configuration</a></li>
+<li><a class="reference internal" href="#script-exceptions">Script Exceptions</a></li>
+<li><a class="reference internal" href="#script-object-creation">Script Object Creation</a></li>
+<li><a class="reference internal" href="#qobject-integration">QObject Integration</a></li>
+<li><a class="reference internal" href="#support-for-custom-c-types">Support for Custom C++ Types</a></li>
+<li><a class="reference internal" href="#importing-extensions">Importing Extensions</a></li>
+<li><a class="reference internal" href="#native-functions">Native Functions</a></li>
+<li><a class="reference internal" href="#long-running-scripts">Long-running Scripts</a></li>
+<li><a class="reference internal" href="#garbage-collection">Garbage Collection</a></li>
+<li><a class="reference internal" href="#core-debugging-tracing-facilities">Core Debugging/Tracing Facilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QScriptExtensionPlugin.html"
+                        title="previous chapter">QScriptExtensionPlugin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ools.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtScript"></span><div class="section" id="qscriptengine">
+<span id="id1"></span><h1>QScriptEngine<a class="headerlink" href="#qscriptengine" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation"><tt class="xref py py-meth docutils literal"><span class="pre">abortEvaluation</span></tt></a> ([result=QScriptValue()])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.agent" title="PySide.QtScript.PySide.QtScript.QScriptEngine.agent"><tt class="xref py py-meth docutils literal"><span class="pre">agent</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">availableExtensions</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">canEvaluate</span></tt></a> (program)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions"><tt class="xref py py-meth docutils literal"><span class="pre">clearExceptions</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage" title="PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage"><tt class="xref py py-meth docutils literal"><span class="pre">collectGarbage</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.convert" title="PySide.QtScript.PySide.QtScript.QScriptEngine.convert"><tt class="xref py py-meth docutils literal"><span class="pre">convert</span></tt></a> (value, type, ptr)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.create" title="PySide.QtScript.PySide.QtScript.QScriptEngine.create"><tt class="xref py py-meth docutils literal"><span class="pre">create</span></tt></a> (type, ptr)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.currentContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.currentContext"><tt class="xref py py-meth docutils literal"><span class="pre">currentContext</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">defaultPrototype</span></tt></a> (metaTypeId)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">evaluate</span></tt></a> (program)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">evaluate</span></tt></a> (program[, fileName=&#8221;&#8220;[, lineNumber=1]])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject"><tt class="xref py py-meth docutils literal"><span class="pre">globalObject</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">hasUncaughtException</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">importExtension</span></tt></a> (extension)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">importedExtensions</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.installTranslatorFunctions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.installTranslatorFunctions"><tt class="xref py py-meth docutils literal"><span class="pre">installTranslatorFunctions</span></tt></a> ([object=QScriptValue()])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating"><tt class="xref py py-meth docutils literal"><span class="pre">isEvaluating</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newActivationObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newActivationObject"><tt class="xref py py-meth docutils literal"><span class="pre">newActivationObject</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newArray" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newArray"><tt class="xref py py-meth docutils literal"><span class="pre">newArray</span></tt></a> ([length=0])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newDate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newDate"><tt class="xref py py-meth docutils literal"><span class="pre">newDate</span></tt></a> (value)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newDate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newDate"><tt class="xref py py-meth docutils literal"><span class="pre">newDate</span></tt></a> (value)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">newObject</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">newObject</span></tt></a> (scriptClass[, data=QScriptValue()])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject"><tt class="xref py py-meth docutils literal"><span class="pre">newQMetaObject</span></tt></a> (metaObject[, ctor=QScriptValue()])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">newQObject</span></tt></a> (object[, ownership=QtOwnership[, options=0]])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">newQObject</span></tt></a> (scriptObject, qtObject[, ownership=QtOwnership[, options=0]])</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp"><tt class="xref py py-meth docutils literal"><span class="pre">newRegExp</span></tt></a> (pattern, flags)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp"><tt class="xref py py-meth docutils literal"><span class="pre">newRegExp</span></tt></a> (regexp)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant"><tt class="xref py py-meth docutils literal"><span class="pre">newVariant</span></tt></a> (object, value)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant"><tt class="xref py py-meth docutils literal"><span class="pre">newVariant</span></tt></a> (value)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue"><tt class="xref py py-meth docutils literal"><span class="pre">nullValue</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.objectById" title="PySide.QtScript.PySide.QtScript.QScriptEngine.objectById"><tt class="xref py py-meth docutils literal"><span class="pre">objectById</span></tt></a> (id)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.popContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.popContext"><tt class="xref py py-meth docutils literal"><span class="pre">popContext</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">processEventsInterval</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext"><tt class="xref py py-meth docutils literal"><span class="pre">pushContext</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">reportAdditionalMemoryCost</span></tt></a> (size)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent"><tt class="xref py py-meth docutils literal"><span class="pre">setAgent</span></tt></a> (agent)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">setDefaultPrototype</span></tt></a> (metaTypeId, prototype)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject"><tt class="xref py py-meth docutils literal"><span class="pre">setGlobalObject</span></tt></a> (object)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">setProcessEventsInterval</span></tt></a> (interval)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.toObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.toObject"><tt class="xref py py-meth docutils literal"><span class="pre">toObject</span></tt></a> (value)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.toStringHandle" title="PySide.QtScript.PySide.QtScript.QScriptEngine.toStringHandle"><tt class="xref py py-meth docutils literal"><span class="pre">toStringHandle</span></tt></a> (str)</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">uncaughtException</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace"><tt class="xref py py-meth docutils literal"><span class="pre">uncaughtExceptionBacktrace</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber"><tt class="xref py py-meth docutils literal"><span class="pre">uncaughtExceptionLineNumber</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue"><tt class="xref py py-meth docutils literal"><span class="pre">undefinedValue</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="signals">
+<h3>Signals<a class="headerlink" href="#signals" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException"><tt class="xref py py-meth docutils literal"><span class="pre">signalHandlerException</span></tt></a> (exception)</li>
+</ul>
+</div>
+<div class="section" id="static-functions">
+<h3>Static functions<a class="headerlink" href="#static-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.convertV2" title="PySide.QtScript.PySide.QtScript.QScriptEngine.convertV2"><tt class="xref py py-meth docutils literal"><span class="pre">convertV2</span></tt></a> (value, type, ptr)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> class provides an environment for evaluating Qt Script code.</p>
+<p>See the <em class="xref std std-ref">QtScript</em> documentation for information about the Qt Script language, and how to get started with scripting your C++ application.</p>
+</div></blockquote>
+<div class="section" id="evaluating-scripts">
+<span id="pyside-qtscript-qscriptengine-evaluating-scripts"></span><h3>Evaluating Scripts<a class="headerlink" href="#evaluating-scripts" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> to evaluate script code; this is the C++ equivalent of the built-in script function <tt class="docutils literal"><span class="pre">eval()</span></tt> .</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myEngine</span> <span class="o">=</span> <span class="n">QScriptEngine</span><span class="p">()</span>
+<span class="n">three</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot;1 + 2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> returns a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> that holds the result of the evaluation. The <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> class provides functions for converting the result to various C++ types (e.g. <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toString" title="PySide.QtScript.PySide.QtScript.QScriptValue.toString"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toString()</span></tt></a> and <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toNumber" title="PySide.QtScript.PySide.QtScript.QScriptValue.toNumber"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toNumber()</span></tt></a> ).</p>
+<p>The following code snippet shows how a script function can be defined and then invoked from C++ using <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.call" title="PySide.QtScript.PySide.QtScript.QScriptValue.call"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.call()</span></tt></a> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">fun</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot;function(a, b) { return a + b }&quot;</span><span class="p">);</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">QScriptValueList</span><span class="p">()</span>
+<span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+<span class="n">threeAgain</span> <span class="o">=</span> <span class="n">fun</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">QScriptValue</span><span class="p">(),</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As can be seen from the above snippets, a script is provided to the engine in the form of a string. One common way of loading scripts is by reading the contents of a file and passing it to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> :</p>
+<div class="highlight-python"><pre>fileName = "helloworld.qs"
+scriptFile = QFile(fileName)
+if !scriptFile.open(QIODevice.ReadOnly):
+    # handle error
+stream = QTextStream(scriptFile)
+contents = stream.readAll()
+scriptFile.close()
+myEngine.evaluate(contents, fileName)</pre>
+</div>
+<p>Here we pass the name of the file as the second argument to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> . This does not affect evaluation in any way; the second argument is a general-purpose string that is used to identify the script for debugging purposes (for example, our filename will now show up in any <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace()</span></tt></a> involving the script).</p>
+</div></blockquote>
+</div>
+<div class="section" id="engine-configuration">
+<span id="pyside-qtscript-qscriptengine-engine-configuration"></span><h3>Engine Configuration<a class="headerlink" href="#engine-configuration" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.globalObject()</span></tt></a> function returns the <strong>Global Object</strong> associated with the script engine. Properties of the Global Object are accessible from any script code (i.e. they are global variables). Typically, before evaluating &#8220;user&#8221; scripts, you will want to configure a script engine by adding one or more properties to the Global Object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myEngine</span><span class="o">.</span><span class="n">globalObject</span><span class="p">()</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;myNumber&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">myNumberPlusOne</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot;myNumber + 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Adding custom properties to the scripting environment is one of the standard means of providing a scripting API that is specific to your application. Usually these custom properties are objects created by the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> or <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a> functions, or constructor functions created by <tt class="xref py py-meth docutils literal"><span class="pre">newFunction()</span></tt> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="script-exceptions">
+<span id="pyside-qtscript-qscriptengine-script-exceptions"></span><h3>Script Exceptions<a class="headerlink" href="#script-exceptions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> can throw a script exception (e.g. due to a syntax error); in that case, the return value is the value that was thrown (typically an <tt class="docutils literal"><span class="pre">Error</span></tt> object). You can check whether the evaluation caused an exception by calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a> . In that case, you can call <tt class="xref py py-meth docutils literal"><span class="pre">toString()</span></tt> on the error object to obtain an error message. The current uncaught exception is also available through <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtException()</span></tt></a> . Calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.clearExceptions()</span></tt></a> will cause any uncaught exceptions to be cleared.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">hasUncaughtException</span><span class="p">():</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">uncaughtExceptionLineNumber</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&quot;uncaught exception at line&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <tt class="xref py py-meth docutils literal"><span class="pre">checkSyntax()</span></tt> function can be used to determine whether code can be usefully passed to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="script-object-creation">
+<span id="pyside-qtscript-qscriptengine-script-object-creation"></span><h3>Script Object Creation<a class="headerlink" href="#script-object-creation" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a> to create a standard Qt Script object; this is the C++ equivalent of the script statement <tt class="docutils literal"><span class="pre">new</span> <span class="pre">Object()</span></tt> . You can use the object-specific functionality in <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> to manipulate the script object (e.g. <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.setProperty" title="PySide.QtScript.PySide.QtScript.QScriptValue.setProperty"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.setProperty()</span></tt></a> ). Similarly, use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newArray" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newArray()</span></tt></a> to create a Qt Script array object. Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newDate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newDate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newDate()</span></tt></a> to create a <tt class="docutils literal"><span class="pre">Date</span></tt> object, and <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newRegExp()</span></tt></a> to create a <tt class="docutils literal"><span class="pre">RegExp</span></tt> object.</div></blockquote>
+</div>
+<div class="section" id="qobject-integration">
+<span id="pyside-qtscript-qscriptengine-qobject-integration"></span><h3>QObject Integration<a class="headerlink" href="#qobject-integration" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> to wrap a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> (or subclass) pointer. <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> returns a proxy script object; properties, children, and signals and slots of the <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> are available as properties of the proxy object. No binding code is needed because it is done dynamically using the Qt meta object system.</p>
+<div class="highlight-python"><pre>button = QPushButton()
+QScriptValue scriptButton = myEngine.QObject(button)
+myEngine.globalObject().setProperty("button", scriptButton)
+
+myEngine.evaluate("button.checkable = True")
+
+print scriptButton.property("checkable").toBoolean()
+scriptButton.property("show").call() # call the show() slot</pre>
+</div>
+<p>Use <tt class="xref py py-meth docutils literal"><span class="pre">qScriptConnect()</span></tt> to connect a C++ signal to a script function; this is the Qt Script equivalent of <tt class="xref py py-meth docutils literal"><span class="pre">QObject.connect()</span></tt> . When a script function is invoked in response to a C++ signal, it can cause a script exception; you can connect to the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.signalHandlerException()</span></tt></a> signal to catch such an exception.</p>
+<p>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQMetaObject()</span></tt></a> to wrap a <a class="reference internal" href="../QtCore/QMetaObject.html#PySide.QtCore.QMetaObject" title="PySide.QtCore.QMetaObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QMetaObject</span></tt></a> ; this gives you a &#8220;script representation&#8221; of a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> -based class. <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQMetaObject()</span></tt></a> returns a proxy script object; enum values of the class are available as properties of the proxy object. You can also specify a function that will be used to construct objects of the class (e.g. when the constructor is invoked from a script). For classes that have a &#8220;standard&#8221; Qt constructor, Qt Script can provide a default script constructor for you; see <tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.scriptValueFromQMetaObject()</span></tt> .</p>
+<p>For more information about <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> integration, see <em class="xref std std-ref">Making Applications Scriptable</em></p>
+</div></blockquote>
+</div>
+<div class="section" id="support-for-custom-c-types">
+<span id="pyside-qtscript-qscriptengine-support-for-custom-c-types"></span><h3>Support for Custom C++ Types<a class="headerlink" href="#support-for-custom-c-types" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newVariant()</span></tt></a> to wrap a <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> . This can be used to store values of custom (non- <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> ) C++ types that have been registered with the Qt meta-type system. To make such types scriptable, you typically associate a prototype (delegate) object with the C++ type by calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setDefaultPrototype()</span></tt></a> ; the prototype object defines the scripting API for the C++ type. Unlike the <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> integration, there is no automatic binding possible here; i.e. you have to create the scripting API yourself, for example by using the <a class="reference internal" href="QScriptable.html#PySide.QtScript.QScriptable" title="PySide.QtScript.QScriptable"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptable</span></tt></a> class.</p>
+<p>Use <tt class="xref py py-meth docutils literal"><span class="pre">fromScriptValue()</span></tt> to cast from a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> to another type, and <tt class="xref py py-meth docutils literal"><span class="pre">toScriptValue()</span></tt> to create a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> from another value. You can specify how the conversion of C++ types is to be performed with <tt class="xref py py-meth docutils literal"><span class="pre">qScriptRegisterMetaType()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">qScriptRegisterSequenceMetaType()</span></tt> . By default, Qt Script will use <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> to store values of custom types.</p>
+</div></blockquote>
+</div>
+<div class="section" id="importing-extensions">
+<span id="pyside-qtscript-qscriptengine-importing-extensions"></span><h3>Importing Extensions<a class="headerlink" href="#importing-extensions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importExtension()</span></tt></a> to import plugin-based extensions into the engine. Call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.availableExtensions()</span></tt></a> to obtain a list naming all the available extensions, and <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importedExtensions()</span></tt></a> to obtain a list naming only those extensions that have been imported.</p>
+<p>Call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.pushContext()</span></tt></a> to open up a new variable scope, and <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.popContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.popContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.popContext()</span></tt></a> to close the current scope. This is useful if you are implementing an extension that evaluates script code containing temporary variable definitions (e.g. <tt class="docutils literal"><span class="pre">var</span> <span class="pre">foo</span> <span class="pre">=</span> <span class="pre">123;</span></tt> ) that are safe to discard when evaluation has completed.</p>
+</div></blockquote>
+</div>
+<div class="section" id="native-functions">
+<span id="pyside-qtscript-qscriptengine-native-functions"></span><h3>Native Functions<a class="headerlink" href="#native-functions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use <tt class="xref py py-meth docutils literal"><span class="pre">newFunction()</span></tt> to wrap native (C++) functions, including constructors for your own custom types, so that these can be invoked from script code. Such functions must have the signature <tt class="xref py py-class docutils literal"><span class="pre">QScriptEngine.FunctionSignature</span></tt> . You may then pass the function as argument to <tt class="xref py py-meth docutils literal"><span class="pre">newFunction()</span></tt> . Here is an example of a function that returns the sum of its first two arguments:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">myAdd</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
+   <span class="n">a</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+   <span class="n">b</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">toNumber</span><span class="p">()</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">toNumber</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To expose this function to script code, you can set it as a property of the Global Object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">fun</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="n">myAdd</span><span class="p">)</span>
+<span class="n">myEngine</span><span class="o">.</span><span class="n">globalObject</span><span class="p">()</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;myAdd&quot;</span><span class="p">,</span> <span class="n">fun</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once this is done, script code can call your function in the exact same manner as a &#8220;normal&#8221; script function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="n">myEngine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot;myAdd(myNumber, 1)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="long-running-scripts">
+<span id="pyside-qtscript-qscriptengine-long-running-scripts"></span><h3>Long-running Scripts<a class="headerlink" href="#long-running-scripts" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>If you need to evaluate possibly long-running scripts from the main (GUI) thread, you should first call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setProcessEventsInterval()</span></tt></a> to make sure that the GUI stays responsive. You can abort a currently running script by calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.abortEvaluation()</span></tt></a> . You can determine whether an engine is currently running a script by calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.isEvaluating()</span></tt></a> .</div></blockquote>
+</div>
+<div class="section" id="garbage-collection">
+<span id="pyside-qtscript-qscriptengine-garbage-collection"></span><h3>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Qt Script objects may be garbage collected when they are no longer referenced. There is no guarantee as to when automatic garbage collection will take place.</p>
+<p>The <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage" title="PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.collectGarbage()</span></tt></a> function can be called to explicitly request garbage collection.</p>
+<p>The <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a> function can be called to indicate that a Qt Script object occupies memory that isn&#8217;t managed by the scripting environment. Reporting the additional cost makes it more likely that the garbage collector will be triggered. This can be useful, for example, when many custom, native Qt Script objects are allocated.</p>
+</div></blockquote>
+</div>
+<div class="section" id="core-debugging-tracing-facilities">
+<span id="pyside-qtscript-qscriptengine-core-debugging-tracing-facilities"></span><h3>Core Debugging/Tracing Facilities<a class="headerlink" href="#core-debugging-tracing-facilities" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Since Qt 4.4, you can be notified of events pertaining to script execution (e.g. script function calls and statement execution) through the <a class="reference internal" href="QScriptEngineAgent.html#PySide.QtScript.QScriptEngineAgent" title="PySide.QtScript.QScriptEngineAgent"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngineAgent</span></tt></a> interface; see the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setAgent()</span></tt></a> function. This can be used to implement debugging and profiling of a <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a>  <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptContext</span></tt>  <a class="reference internal" href="QScriptEngineAgent.html#PySide.QtScript.QScriptEngineAgent" title="PySide.QtScript.QScriptEngineAgent"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngineAgent</span></tt></a></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtScript.QScriptEngine">
+<em class="property">class </em><tt class="descclassname">PySide.QtScript.</tt><tt class="descname">QScriptEngine</tt><a class="headerlink" href="#PySide.QtScript.QScriptEngine" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><tt class="descclassname">PySide.QtScript.</tt><tt class="descname">QScriptEngine</tt><big>(</big><em>parent</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Constructs a <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> object.</p>
+<p>The <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.globalObject()</span></tt></a> is initialized to have properties as described in <em class="xref std std-ref">ECMA-262</em> , Section 15.1.</p>
+<p>Constructs a <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> object with the given <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>The <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.globalObject()</span></tt></a> is initialized to have properties as described in <em class="xref std std-ref">ECMA-262</em> , Section 15.1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">ValueOwnership</tt><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership" title="Permalink to this definition">¶</a></dt>
+<dd><p>This enum specifies the ownership when wrapping a C++ value, e.g. by using <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> .</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QScriptEngine.QtOwnership</td>
+<td>The standard Qt ownership rules apply, i.e. the associated object will never be explicitly deleted by the script engine. This is the default. ( <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> ownership is explained in <em class="xref std std-ref">Object Trees &amp; Ownership</em> .)</td>
+</tr>
+<tr class="row-odd"><td>QScriptEngine.ScriptOwnership</td>
+<td>The value is owned by the script environment. The associated data will be deleted when appropriate (i.e. after the garbage collector has discovered that there are no more live references to the value).</td>
+</tr>
+<tr class="row-even"><td>QScriptEngine.AutoOwnership</td>
+<td>If the associated object has a parent, the Qt ownership rules apply ( <tt class="xref py py-attr docutils literal"><span class="pre">QtOwnership</span></tt> ); otherwise, the object is owned by the script environment ( <tt class="xref py py-attr docutils literal"><span class="pre">ScriptOwnership</span></tt> ).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.QObjectWrapOption">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">QObjectWrapOption</tt><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.QObjectWrapOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>These flags specify options when wrapping a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> pointer with <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> .</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QScriptEngine.ExcludeChildObjects</td>
+<td>The script object will not expose child objects as properties.</td>
+</tr>
+<tr class="row-odd"><td>QScriptEngine.ExcludeSuperClassMethods</td>
+<td>The script object will not expose signals and slots inherited from the superclass.</td>
+</tr>
+<tr class="row-even"><td>QScriptEngine.ExcludeSuperClassProperties</td>
+<td>The script object will not expose properties inherited from the superclass.</td>
+</tr>
+<tr class="row-odd"><td>QScriptEngine.ExcludeSuperClassContents</td>
+<td>Shorthand form for <tt class="xref py py-attr docutils literal"><span class="pre">ExcludeSuperClassMethods</span></tt> | <tt class="xref py py-attr docutils literal"><span class="pre">ExcludeSuperClassProperties</span></tt></td>
+</tr>
+<tr class="row-even"><td>QScriptEngine.ExcludeDeleteLater</td>
+<td>The script object will not expose the <tt class="xref py py-meth docutils literal"><span class="pre">QObject.deleteLater()</span></tt> slot.</td>
+</tr>
+<tr class="row-odd"><td>QScriptEngine.ExcludeSlots</td>
+<td>The script object will not expose the <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> &#8216;s slots.</td>
+</tr>
+<tr class="row-even"><td>QScriptEngine.AutoCreateDynamicProperties</td>
+<td>Properties that don&#8217;t already exist in the <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> will be created as dynamic properties of that object, rather than as properties of the script object.</td>
+</tr>
+<tr class="row-odd"><td>QScriptEngine.PreferExistingWrapperObject</td>
+<td>If a wrapper object with the requested configuration already exists, return that object.</td>
+</tr>
+<tr class="row-even"><td>QScriptEngine.SkipMethodsInEnumeration</td>
+<td>Don&#8217;t include methods (signals and slots) when enumerating the object&#8217;s properties.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">abortEvaluation</tt><big>(</big><span class="optional">[</span><em>result=QScriptValue()</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Aborts any script evaluation currently taking place in this engine. The given <tt class="docutils literal"><span class="pre">result</span></tt> is passed back as the result of the evaluation (i.e. it is returned from the call to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> being aborted).</p>
+<p>If the engine isn&#8217;t evaluating a script (i.e. <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.isEvaluating()</span></tt></a> returns false), this function does nothing.</p>
+<p>Call this function if you need to abort a running script for some reason, e.g. when you have detected that the script has been running for several seconds without completing.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.isEvaluating()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setProcessEventsInterval()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.agent">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">agent</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.agent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptEngineAgent.html#PySide.QtScript.QScriptEngineAgent" title="PySide.QtScript.QScriptEngineAgent"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngineAgent</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the agent currently installed on this engine, or 0 if no agent is installed.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setAgent()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">availableExtensions</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list naming the available extensions that can be imported using the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importExtension()</span></tt></a> function. This list includes extensions that have been imported.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importExtension()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importedExtensions()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">canEvaluate</tt><big>(</big><em>program</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if <tt class="docutils literal"><span class="pre">program</span></tt> can be evaluated; i.e. the code is sufficient to determine whether it appears to be a syntactically correct program, or contains a syntax error.</p>
+<p>This function returns false if <tt class="docutils literal"><span class="pre">program</span></tt> is incomplete; i.e. the input is syntactically correct up to the point where the input is terminated.</p>
+<p>Note that this function only does a static check of <tt class="docutils literal"><span class="pre">program</span></tt> ; e.g. it does not check whether references to variables are valid, and so on.</p>
+<p>A typical usage of <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> is to implement an interactive interpreter for <em class="xref std std-ref">QtScript</em> . The user is repeatedly queried for individual lines of code; the lines are concatened internally, and only when <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> returns true for the resulting program is it passed to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> .</p>
+<p>The following are some examples to illustrate the behavior of <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> . (Note that all example inputs are assumed to have an explicit newline as their last character, since otherwise the <em class="xref std std-ref">QtScript</em> parser would automatically insert a semi-colon character at the end of the input, and this could cause <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> to produce different results.)</p>
+<p>Given the input</p>
+<div class="highlight-python"><pre>if hello &amp;&amp; world:
+    print("hello world")</pre>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> will return true, since the program appears to be complete.</p>
+<p>Given the input</p>
+<div class="highlight-python"><pre>if hello &amp;&amp;</pre>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> will return false, since the if-statement is not complete, but is syntactically correct so far.</p>
+<p>Given the input</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">0</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> will return true, but <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> will throw a SyntaxError given the same input.</p>
+<p>Given the input</p>
+<div class="highlight-python"><pre>./test.js</pre>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> will return true, even though the code is clearly not syntactically valid <em class="xref std std-ref">QtScript</em> code. <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> will throw a SyntaxError when this code is evaluated.</p>
+<p>Given the input</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">foo</span><span class="p">[</span><span class="s">&quot;bar&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a> will return true, but <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> will throw a ReferenceError if <tt class="docutils literal"><span class="pre">foo</span></tt> is not defined in the script environment.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a>  <tt class="xref py py-meth docutils literal"><span class="pre">checkSyntax()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">clearExceptions</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.clearExceptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears any uncaught exceptions in this engine.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">collectGarbage</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the garbage collector.</p>
+<p>The garbage collector will attempt to reclaim memory by locating and disposing of objects that are no longer reachable in the script environment.</p>
+<p>Normally you don&#8217;t need to call this function; the garbage collector will automatically be invoked when the <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> decides that it&#8217;s wise to do so (i.e. when a certain number of new objects have been created). However, you can call this function to explicitly request that garbage collection should be performed as soon as possible.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.convert">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">convert</tt><big>(</big><em>value</em>, <em>type</em>, <em>ptr</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.convert" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+<li><strong>type</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+<li><strong>ptr</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">void</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.convertV2">
+<em class="property">static </em><tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">convertV2</tt><big>(</big><em>value</em>, <em>type</em>, <em>ptr</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.convertV2" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+<li><strong>type</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+<li><strong>ptr</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">void</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.create">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">create</tt><big>(</big><em>type</em>, <em>ptr</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.create" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+<li><strong>ptr</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">void</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.currentContext">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">currentContext</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.currentContext" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptContext</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the current context.</p>
+<p>The current context is typically accessed to retrieve the arguments and <cite>this&#8217; object in native functions; for convenience, it is available as the first argument in :class:`QScriptEngine.FunctionSignature&lt;~PySide.QtScript.QScriptEngine.FunctionSignature&gt;</cite> .</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">defaultPrototype</tt><big>(</big><em>metaTypeId</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>metaTypeId</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the default prototype associated with the given <tt class="docutils literal"><span class="pre">metaTypeId</span></tt> , or an invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> if no default prototype has been set.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setDefaultPrototype()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">evaluate</tt><big>(</big><em>program</em><span class="optional">[</span>, <em>fileName=&quot;&quot;</em><span class="optional">[</span>, <em>lineNumber=1</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>program</strong> &#8211; unicode</li>
+<li><strong>fileName</strong> &#8211; unicode</li>
+<li><strong>lineNumber</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluates <tt class="docutils literal"><span class="pre">program</span></tt> , using <tt class="docutils literal"><span class="pre">lineNumber</span></tt> as the base line number, and returns the result of the evaluation.</p>
+<p>The script code will be evaluated in the current context.</p>
+<p>The evaluation of <tt class="docutils literal"><span class="pre">program</span></tt> can cause an exception in the engine; in this case the return value will be the exception that was thrown (typically an <tt class="docutils literal"><span class="pre">Error</span></tt> object). You can call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a> to determine if an exception occurred in the last call to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> .</p>
+<p><tt class="docutils literal"><span class="pre">lineNumber</span></tt> is used to specify a starting line number for <tt class="docutils literal"><span class="pre">program</span></tt> ; line number information reported by the engine that pertain to this evaluation (e.g. <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber()</span></tt></a> ) will be based on this argument. For example, if <tt class="docutils literal"><span class="pre">program</span></tt> consists of two lines of code, and the statement on the second line causes a script exception, <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber()</span></tt></a> would return the given <tt class="docutils literal"><span class="pre">lineNumber</span></tt> plus one. When no starting line number is specified, line numbers will be 1-based.</p>
+<p><tt class="docutils literal"><span class="pre">fileName</span></tt> is used for error reporting. For example in error objects the file name is accessible through the &#8220;fileName&#8221; property if it&#8217;s provided with this function.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.canEvaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.canEvaluate()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.isEvaluating()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.abortEvaluation()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">evaluate</tt><big>(</big><em>program</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program</strong> &#8211; <a class="reference internal" href="QScriptProgram.html#PySide.QtScript.QScriptProgram" title="PySide.QtScript.QScriptProgram"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptProgram</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Evaluates the given <tt class="docutils literal"><span class="pre">program</span></tt> and returns the result of the evaluation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">globalObject</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns this engine&#8217;s Global Object.</p>
+<p>By default, the Global Object contains the built-in objects that are part of <em class="xref std std-ref">ECMA-262</em> , such as Math, Date and String. Additionally, you can set properties of the Global Object to make your own extensions available to all script code. Non-local variables in script code will be created as properties of the Global Object, as well as local variables in global code.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setGlobalObject()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">hasUncaughtException</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if the last script evaluation resulted in an uncaught exception; otherwise returns false.</p>
+<p>The exception state is cleared when <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> is called.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtException()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">importExtension</tt><big>(</big><em>extension</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extension</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Imports the given <tt class="docutils literal"><span class="pre">extension</span></tt> into this <a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> . Returns <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.undefinedValue()</span></tt></a> if the extension was successfully imported. You can call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a> to check if an error occurred; in that case, the return value is the value that was thrown by the exception (usually an <tt class="docutils literal"><span class="pre">Error</span></tt> object).</p>
+<p><a class="reference internal" href="#PySide.QtScript.QScriptEngine" title="PySide.QtScript.QScriptEngine"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine</span></tt></a> ensures that a particular extension is only imported once; subsequent calls to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importExtension()</span></tt></a> with the same extension name will do nothing and return <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.undefinedValue()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.availableExtensions()</span></tt></a>  <a class="reference internal" href="QScriptExtensionPlugin.html#PySide.QtScript.QScriptExtensionPlugin" title="PySide.QtScript.QScriptExtensionPlugin"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptExtensionPlugin</span></tt></a>  <em class="xref std std-ref">Creating QtScript Extensions</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">importedExtensions</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importedExtensions" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list naming the extensions that have been imported using the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension" title="PySide.QtScript.PySide.QtScript.QScriptEngine.importExtension"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.importExtension()</span></tt></a> function.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions" title="PySide.QtScript.PySide.QtScript.QScriptEngine.availableExtensions"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.availableExtensions()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.installTranslatorFunctions">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">installTranslatorFunctions</tt><big>(</big><span class="optional">[</span><em>object=QScriptValue()</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.installTranslatorFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Installs translator functions on the given <tt class="docutils literal"><span class="pre">object</span></tt> , or on the Global Object if no object is specified.</p>
+<p>The relation between Qt Script translator functions and C++ translator functions is described in the following table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Script Function</td>
+<td>Corresponding C++ Function</td>
+</tr>
+<tr class="row-even"><td>qsTr()</td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">QObject.tr()</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TR_NOOP()</span></tt></td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TR_NOOP()</span></tt></td>
+</tr>
+<tr class="row-even"><td>qsTranslate()</td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.translate()</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TRANSLATE_NOOP()</span></tt></td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TRANSLATE_NOOP()</span></tt></td>
+</tr>
+<tr class="row-even"><td>qsTrId() (since 4.7)</td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">qtTrId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TRID_NOOP()</span></tt> (since 4.7)</td>
+<td><tt class="xref py py-meth docutils literal"><span class="pre">QT_TRID_NOOP()</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">Internationalization with Qt</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">isEvaluating</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.isEvaluating" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if this engine is currently evaluating a script, otherwise returns false.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.abortEvaluation()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newActivationObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newActivationObject</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newActivationObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newArray">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newArray</tt><big>(</big><span class="optional">[</span><em>length=0</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newArray" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.uint</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object of class Array with the given <tt class="docutils literal"><span class="pre">length</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newDate">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newDate</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newDate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.double</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newDate</tt><big>(</big><em>value</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; <a class="reference internal" href="../QtCore/QDateTime.html#PySide.QtCore.QDateTime" title="PySide.QtCore.QDateTime"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QDateTime</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object of class Date from the given <tt class="docutils literal"><span class="pre">value</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toDateTime" title="PySide.QtScript.PySide.QtScript.QScriptValue.toDateTime"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toDateTime()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newObject</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object of class Object.</p>
+<p>The prototype of the created object will be the Object prototype object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newArray" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newArray()</span></tt></a>  <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.setProperty" title="PySide.QtScript.PySide.QtScript.QScriptValue.setProperty"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.setProperty()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newObject</tt><big>(</big><em>scriptClass</em><span class="optional">[</span>, <em>data=QScriptValue()</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scriptClass</strong> &#8211; <a class="reference internal" href="QScriptClass.html#PySide.QtScript.QScriptClass" title="PySide.QtScript.QScriptClass"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptClass</span></tt></a></li>
+<li><strong>data</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This is an overloaded function.</p>
+<p>Creates a <em class="xref std std-ref">QtScript</em> Object of the given class, <tt class="docutils literal"><span class="pre">scriptClass</span></tt> .</p>
+<p>The prototype of the created object will be the Object prototype object.</p>
+<p><tt class="docutils literal"><span class="pre">data</span></tt> , if specified, is set as the internal data of the new object (using <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.setData" title="PySide.QtScript.PySide.QtScript.QScriptValue.setData"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.setData()</span></tt></a> ).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.scriptClass" title="PySide.QtScript.PySide.QtScript.QScriptValue.scriptClass"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.scriptClass()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newQMetaObject</tt><big>(</big><em>metaObject</em><span class="optional">[</span>, <em>ctor=QScriptValue()</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>metaObject</strong> &#8211; <a class="reference internal" href="../QtCore/QMetaObject.html#PySide.QtCore.QMetaObject" title="PySide.QtCore.QMetaObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QMetaObject</span></tt></a></li>
+<li><strong>ctor</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object that represents a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> class, using the the given <tt class="docutils literal"><span class="pre">metaObject</span></tt> and constructor <tt class="docutils literal"><span class="pre">ctor</span></tt> .</p>
+<p>Enums of <tt class="docutils literal"><span class="pre">metaObject</span></tt> (declared with Q_ENUMS) are available as properties of the created <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> . When the class is called as a function, <tt class="docutils literal"><span class="pre">ctor</span></tt> will be called to create a new instance of the class.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">mySpecialQObjectConstructor</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">toQObject</span><span class="p">()</span>
+    <span class="nb">object</span> <span class="o">=</span>  <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">engine</span><span class="o">.</span><span class="n">QObject</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">QScriptEngine</span><span class="o">.</span><span class="n">ScriptOwnership</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">ctor</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="n">mySpecialQObjectConstructor</span><span class="p">)</span>
+<span class="n">metaObject</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">QMetaObject</span><span class="p">(</span><span class="n">QObject</span><span class="o">.</span><span class="n">staticMetaObject</span><span class="p">,</span> <span class="n">ctor</span><span class="p">)</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">globalObject</span><span class="p">()</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;QObject&quot;</span><span class="p">,</span> <span class="n">metaObject</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot; QObject()&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a>  <tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.scriptValueFromQMetaObject()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newQObject</tt><big>(</big><em>object</em><span class="optional">[</span>, <em>ownership=QtOwnership</em><span class="optional">[</span>, <em>options=0</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>object</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>ownership</strong> &#8211; <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership" title="PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.ValueOwnership</span></tt></a></li>
+<li><strong>options</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.QObjectWrapOptions</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object that wraps the given <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> <tt class="docutils literal"><span class="pre">object</span></tt> , using the given <tt class="docutils literal"><span class="pre">ownership</span></tt> . The given <tt class="docutils literal"><span class="pre">options</span></tt> control various aspects of the interaction with the resulting script object.</p>
+<p>Signals and slots, properties and children of <tt class="docutils literal"><span class="pre">object</span></tt> are available as properties of the created <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> . For more information, see the <em class="xref std std-ref">QtScript</em> documentation.</p>
+<p>If <tt class="docutils literal"><span class="pre">object</span></tt> is a null pointer, this function returns <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.nullValue()</span></tt></a> .</p>
+<p>If a default prototype has been registered for the <tt class="docutils literal"><span class="pre">object</span></tt> &#8216;s class (or its superclass, recursively), the prototype of the new script object will be set to be that default prototype.</p>
+<p>If the given <tt class="docutils literal"><span class="pre">object</span></tt> is deleted outside of <em class="xref std std-ref">QtScript</em> &#8216;s control, any attempt to access the deleted <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> &#8216;s members through the <em class="xref std std-ref">QtScript</em> wrapper object (either by script code or C++) will result in a script exception.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toQObject" title="PySide.QtScript.PySide.QtScript.QScriptValue.toQObject"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toQObject()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newQObject</tt><big>(</big><em>scriptObject</em>, <em>qtObject</em><span class="optional">[</span>, <em>ownership=QtOwnership</em><span class="optional">[</span>, <em>options=0</em><span class="optional">]</span><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scriptObject</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+<li><strong>qtObject</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>ownership</strong> &#8211; <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership" title="PySide.QtScript.PySide.QtScript.QScriptEngine.ValueOwnership"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.ValueOwnership</span></tt></a></li>
+<li><strong>options</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.QObjectWrapOptions</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This is an overloaded function.</p>
+<p>Initializes the given <tt class="docutils literal"><span class="pre">scriptObject</span></tt> to hold the given <tt class="docutils literal"><span class="pre">qtObject</span></tt> , and returns the <tt class="docutils literal"><span class="pre">scriptObject</span></tt> .</p>
+<p>This function enables you to &#8220;promote&#8221; a plain Qt Script object (created by the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a> function) to a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> proxy, or to replace the <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> contained inside an object previously created by the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> function.</p>
+<p>The prototype() of the <tt class="docutils literal"><span class="pre">scriptObject</span></tt> will remain unchanged.</p>
+<p>If <tt class="docutils literal"><span class="pre">scriptObject</span></tt> is not an object, this function behaves like the normal <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newQObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newQObject()</span></tt></a> , i.e. it creates a new script object and returns it.</p>
+<p>This function is useful when you want to provide a script constructor for a <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> -based class. If your constructor is invoked in a <tt class="docutils literal"><span class="pre">new</span></tt> expression ( <a class="reference internal" href="QScriptContext.html#PySide.QtScript.PySide.QtScript.QScriptContext.isCalledAsConstructor" title="PySide.QtScript.PySide.QtScript.QScriptContext.isCalledAsConstructor"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptContext.isCalledAsConstructor()</span></tt></a> returns true), you can pass <a class="reference internal" href="QScriptContext.html#PySide.QtScript.PySide.QtScript.QScriptContext.thisObject" title="PySide.QtScript.PySide.QtScript.QScriptContext.thisObject"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptContext.thisObject()</span></tt></a> (the default constructed script object) to this function to initialize the new object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newRegExp</tt><big>(</big><em>pattern</em>, <em>flags</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newRegExp" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pattern</strong> &#8211; unicode</li>
+<li><strong>flags</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object of class RegExp with the given <tt class="docutils literal"><span class="pre">pattern</span></tt> and <tt class="docutils literal"><span class="pre">flags</span></tt> .</p>
+<p>The legal flags are &#8216;g&#8217; (global), &#8216;i&#8217; (ignore case), and &#8216;m&#8217; (multiline).</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newRegExp</tt><big>(</big><em>regexp</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>regexp</strong> &#8211; <a class="reference internal" href="../QtCore/QRegExp.html#PySide.QtCore.QRegExp" title="PySide.QtCore.QRegExp"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QRegExp</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object of class RegExp with the given <tt class="docutils literal"><span class="pre">regexp</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toRegExp" title="PySide.QtScript.PySide.QtScript.QScriptValue.toRegExp"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toRegExp()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newVariant</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Creates a <em class="xref std std-ref">QtScript</em> object holding the given variant <tt class="docutils literal"><span class="pre">value</span></tt> .</p>
+<p>If a default prototype has been registered with the meta type id of <tt class="docutils literal"><span class="pre">value</span></tt> , then the prototype of the created object will be that prototype; otherwise, the prototype will be the Object prototype object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setDefaultPrototype()</span></tt></a>  <a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.toVariant" title="PySide.QtScript.PySide.QtScript.QScriptValue.toVariant"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.toVariant()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">newVariant</tt><big>(</big><em>object</em>, <em>value</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>object</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+<li><strong>value</strong> &#8211; object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This is an overloaded function.</p>
+<p>Initializes the given Qt Script <tt class="docutils literal"><span class="pre">object</span></tt> to hold the given variant <tt class="docutils literal"><span class="pre">value</span></tt> , and returns the <tt class="docutils literal"><span class="pre">object</span></tt> .</p>
+<p>This function enables you to &#8220;promote&#8221; a plain Qt Script object (created by the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a> function) to a variant, or to replace the variant contained inside an object previously created by the <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newVariant()</span></tt></a> function.</p>
+<p>The prototype() of the <tt class="docutils literal"><span class="pre">object</span></tt> will remain unchanged.</p>
+<p>If <tt class="docutils literal"><span class="pre">object</span></tt> is not an object, this function behaves like the normal <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newVariant"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newVariant()</span></tt></a> , i.e. it creates a new script object and returns it.</p>
+<p>This function is useful when you want to provide a script constructor for a C++ type. If your constructor is invoked in a <tt class="docutils literal"><span class="pre">new</span></tt> expression ( <a class="reference internal" href="QScriptContext.html#PySide.QtScript.PySide.QtScript.QScriptContext.isCalledAsConstructor" title="PySide.QtScript.PySide.QtScript.QScriptContext.isCalledAsConstructor"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptContext.isCalledAsConstructor()</span></tt></a> returns true), you can pass <a class="reference internal" href="QScriptContext.html#PySide.QtScript.PySide.QtScript.QScriptContext.thisObject" title="PySide.QtScript.PySide.QtScript.QScriptContext.thisObject"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptContext.thisObject()</span></tt></a> (the default constructed script object) to this function to initialize the new object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">nullValue</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> of the primitive type Null.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.undefinedValue()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.objectById">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">objectById</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.objectById" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.qint64</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the object with the given <tt class="docutils literal"><span class="pre">id</span></tt> , or an invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> if there is no object with that id.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.objectId" title="PySide.QtScript.PySide.QtScript.QScriptValue.objectId"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.objectId()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.popContext">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">popContext</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.popContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pops the current execution context and restores the previous one. This function must be used in conjunction with <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.pushContext()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.pushContext()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">processEventsInterval</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the interval in milliseconds between calls to <tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.processEvents()</span></tt> while the interpreter is running.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.setProcessEventsInterval()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">pushContext</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.pushContext" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptContext</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Enters a new execution context and returns the associated <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptContext</span></tt> object.</p>
+<p>Once you are done with the context, you should call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.popContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.popContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.popContext()</span></tt></a> to restore the old context.</p>
+<p>By default, the <cite>this&#8217; object of the new context is the Global Object. The context&#8217;s :meth:`PySide.QtScript.QScriptContext.callee</cite> () will be invalid.</p>
+<p>This function is useful when you want to evaluate script code as if it were the body of a function. You can use the context&#8217;s <a class="reference internal" href="QScriptContext.html#PySide.QtScript.PySide.QtScript.QScriptContext.activationObject" title="PySide.QtScript.PySide.QtScript.QScriptContext.activationObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptContext.activationObject()</span></tt></a> () to initialize local variables that will be available to scripts. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">engine</span> <span class="o">=</span> <span class="n">QScriptEngine</span><span class="p">()</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">pushContext</span><span class="p">()</span>
+<span class="n">context</span><span class="o">.</span><span class="n">activationObject</span><span class="p">()</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;myArg&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&quot;var tmp = myArg + 42&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">popContext</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the above example, the new variable &#8220;tmp&#8221; defined in the script will be local to the context; in other words, the script doesn&#8217;t have any effect on the global environment.</p>
+<p>Returns 0 in case of stack overflow</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.popContext" title="PySide.QtScript.PySide.QtScript.QScriptEngine.popContext"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.popContext()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">reportAdditionalMemoryCost</tt><big>(</big><em>size</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.reportAdditionalMemoryCost" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Reports an additional memory cost of the given <tt class="docutils literal"><span class="pre">size</span></tt> , measured in bytes, to the garbage collector.</p>
+<p>This function can be called to indicate that a Qt Script object has memory associated with it that isn&#8217;t managed by Qt Script itself. Reporting the additional cost makes it more likely that the garbage collector will be triggered.</p>
+<p>Note that if the additional memory is shared with objects outside the scripting environment, the cost should not be reported, since collecting the Qt Script object would not cause the memory to be freed anyway.</p>
+<p>Negative <tt class="docutils literal"><span class="pre">size</span></tt> values are ignored, i.e. this function can&#8217;t be used to report that the additional memory has been deallocated.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage" title="PySide.QtScript.PySide.QtScript.QScriptEngine.collectGarbage"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.collectGarbage()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">setAgent</tt><big>(</big><em>agent</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setAgent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>agent</strong> &#8211; <a class="reference internal" href="QScriptEngineAgent.html#PySide.QtScript.QScriptEngineAgent" title="PySide.QtScript.QScriptEngineAgent"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptEngineAgent</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Installs the given <tt class="docutils literal"><span class="pre">agent</span></tt> on this engine. The agent will be notified of various events pertaining to script execution. This is useful when you want to find out exactly what the engine is doing, e.g. when <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> is called. The agent interface is the basis of tools like debuggers and profilers.</p>
+<p>The engine maintains ownership of the <tt class="docutils literal"><span class="pre">agent</span></tt> .</p>
+<p>Calling this function will replace the existing agent, if any.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.agent" title="PySide.QtScript.PySide.QtScript.QScriptEngine.agent"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.agent()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">setDefaultPrototype</tt><big>(</big><em>metaTypeId</em>, <em>prototype</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setDefaultPrototype" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>metaTypeId</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+<li><strong>prototype</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the default prototype of the C++ type identified by the given <tt class="docutils literal"><span class="pre">metaTypeId</span></tt> to <tt class="docutils literal"><span class="pre">prototype</span></tt> .</p>
+<p>The default prototype provides a script interface for values of type <tt class="docutils literal"><span class="pre">metaTypeId</span></tt> when a value of that type is accessed from script code. Whenever the script engine (implicitly or explicitly) creates a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> from a value of type <tt class="docutils literal"><span class="pre">metaTypeId</span></tt> , the default prototype will be set as the <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> &#8216;s prototype.</p>
+<p>The <tt class="docutils literal"><span class="pre">prototype</span></tt> object itself may be constructed using one of two principal techniques; the simplest is to subclass <a class="reference internal" href="QScriptable.html#PySide.QtScript.QScriptable" title="PySide.QtScript.QScriptable"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptable</span></tt></a> , which enables you to define the scripting API of the type through <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> properties and slots. Another possibility is to create a script object by calling <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a> , and populate the object with the desired properties (e.g. native functions wrapped with <tt class="xref py py-meth docutils literal"><span class="pre">newFunction()</span></tt> ).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype" title="PySide.QtScript.PySide.QtScript.QScriptEngine.defaultPrototype"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.defaultPrototype()</span></tt></a>  <tt class="xref py py-meth docutils literal"><span class="pre">qScriptRegisterMetaType()</span></tt>  <a class="reference internal" href="QScriptable.html#PySide.QtScript.QScriptable" title="PySide.QtScript.QScriptable"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptable</span></tt></a>  <em class="xref std std-ref">Default Prototypes Example</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">setGlobalObject</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setGlobalObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Sets this engine&#8217;s Global Object to be the given <tt class="docutils literal"><span class="pre">object</span></tt> . If <tt class="docutils literal"><span class="pre">object</span></tt> is not a valid script object, this function does nothing.</p>
+<p>When setting a custom global object, you may want to use <a class="reference internal" href="QScriptValueIterator.html#PySide.QtScript.QScriptValueIterator" title="PySide.QtScript.QScriptValueIterator"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValueIterator</span></tt></a> to copy the properties of the standard Global Object; alternatively, you can set the internal prototype of your custom object to be the original Global Object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.globalObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.globalObject()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">setProcessEventsInterval</tt><big>(</big><em>interval</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.setProcessEventsInterval" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>interval</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Sets the interval between calls to QCoreApplication::processEvents to <tt class="docutils literal"><span class="pre">interval</span></tt> milliseconds.</p>
+<p>While the interpreter is running, all event processing is by default blocked. This means for instance that the gui will not be updated and timers will not be fired. To allow event processing during interpreter execution one can specify the processing interval to be a positive value, indicating the number of milliseconds between each time <tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.processEvents()</span></tt> is called.</p>
+<p>The default value is -1, which disables event processing during interpreter execution.</p>
+<p>You can use <tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.postEvent()</span></tt> to post an event that performs custom processing at the next interval. For example, you could keep track of the total running time of the script and call <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation" title="PySide.QtScript.PySide.QtScript.QScriptEngine.abortEvaluation"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.abortEvaluation()</span></tt></a> when you detect that the script has been running for a long time without completing.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval" title="PySide.QtScript.PySide.QtScript.QScriptEngine.processEventsInterval"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.processEventsInterval()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">signalHandlerException</tt><big>(</big><em>exception</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.signalHandlerException" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exception</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.toObject">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">toObject</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.toObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Converts the given <tt class="docutils literal"><span class="pre">value</span></tt> to an object, if such a conversion is possible; otherwise returns an invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> . The conversion is performed according to the following table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Input Type</td>
+<td>Result</td>
+</tr>
+<tr class="row-even"><td>Undefined</td>
+<td>An invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> .</td>
+</tr>
+<tr class="row-odd"><td>Null</td>
+<td>An invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> .</td>
+</tr>
+<tr class="row-even"><td>Boolean</td>
+<td>A new Boolean object whose internal value is set to the value of the boolean.</td>
+</tr>
+<tr class="row-odd"><td>Number</td>
+<td>A new Number object whose internal value is set to the value of the number.</td>
+</tr>
+<tr class="row-even"><td>String</td>
+<td>A new String object whose internal value is set to the value of the string.</td>
+</tr>
+<tr class="row-odd"><td>Object</td>
+<td>The result is the object itself (no conversion).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.newObject" title="PySide.QtScript.PySide.QtScript.QScriptEngine.newObject"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.newObject()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.toStringHandle">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">toStringHandle</tt><big>(</big><em>str</em><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.toStringHandle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptString.html#PySide.QtScript.QScriptString" title="PySide.QtScript.QScriptString"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptString</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a handle that represents the given string, <tt class="docutils literal"><span class="pre">str</span></tt> .</p>
+<p><a class="reference internal" href="QScriptString.html#PySide.QtScript.QScriptString" title="PySide.QtScript.QScriptString"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptString</span></tt></a> can be used to quickly look up properties, and compare property names, of script objects.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.PySide.QtScript.QScriptValue.property" title="PySide.QtScript.PySide.QtScript.QScriptValue.property"><tt class="xref py py-meth docutils literal"><span class="pre">QScriptValue.property()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">uncaughtException</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the current uncaught exception, or an invalid <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> if there is no uncaught exception.</p>
+<p>The exception value is typically an <tt class="docutils literal"><span class="pre">Error</span></tt> object; in that case, you can call <tt class="xref py py-meth docutils literal"><span class="pre">toString()</span></tt> on the return value to obtain an error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a>  <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">uncaughtExceptionBacktrace</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a human-readable backtrace of the last uncaught exception.</p>
+<p>It is in the form <tt class="docutils literal"><span class="pre">&lt;function-name&gt;()&#64;&lt;file-name&gt;:&lt;line-number&gt;</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.uncaughtException()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">uncaughtExceptionLineNumber</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.uncaughtExceptionLineNumber" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the line number where the last uncaught exception occurred.</p>
+<p>Line numbers are 1-based, unless a different base was specified as the second argument to <a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate" title="PySide.QtScript.PySide.QtScript.QScriptEngine.evaluate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.evaluate()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException" title="PySide.QtScript.PySide.QtScript.QScriptEngine.hasUncaughtException"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.hasUncaughtException()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue">
+<tt class="descclassname">PySide.QtScript.QScriptEngine.</tt><tt class="descname">undefinedValue</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.undefinedValue" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a <a class="reference internal" href="QScriptValue.html#PySide.QtScript.QScriptValue" title="PySide.QtScript.QScriptValue"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtScript.QScriptValue</span></tt></a> of the primitive type Undefined.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue" title="PySide.QtScript.PySide.QtScript.QScriptEngine.nullValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtScript.QScriptEngine.nullValue()</span></tt></a></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

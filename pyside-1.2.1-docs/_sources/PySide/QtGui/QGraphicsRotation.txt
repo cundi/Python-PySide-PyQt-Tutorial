@@ -1,0 +1,192 @@
+.. module:: PySide.QtGui
+.. _QGraphicsRotation:
+
+QGraphicsRotation
+*****************
+
+.. inheritance-diagram:: QGraphicsRotation
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`angle<PySide.QtGui.QGraphicsRotation.angle>` ()
+*    def :meth:`axis<PySide.QtGui.QGraphicsRotation.axis>` ()
+*    def :meth:`origin<PySide.QtGui.QGraphicsRotation.origin>` ()
+*    def :meth:`setAngle<PySide.QtGui.QGraphicsRotation.setAngle>` (arg__1)
+*    def :meth:`setAxis<PySide.QtGui.QGraphicsRotation.setAxis>` (axis)
+*    def :meth:`setAxis<PySide.QtGui.QGraphicsRotation.setAxis>` (axis)
+*    def :meth:`setOrigin<PySide.QtGui.QGraphicsRotation.setOrigin>` (point)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`angleChanged<PySide.QtGui.QGraphicsRotation.angleChanged>` ()
+*    def :meth:`axisChanged<PySide.QtGui.QGraphicsRotation.axisChanged>` ()
+*    def :meth:`originChanged<PySide.QtGui.QGraphicsRotation.originChanged>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsRotation` class provides a rotation transformation around a given axis.
+
+    You can provide the desired axis by assigning a :class:`PySide.QtGui.QVector3D` to the axis property or by passing a member if :attr:`Qt.Axis` to the setAxis convenience function. By default the axis is (0, 0, 1) i.e., rotation around the Z axis.
+
+    The angle property, which is provided by :class:`PySide.QtGui.QGraphicsRotation` , now describes the number of degrees to rotate around this axis.
+
+    :class:`PySide.QtGui.QGraphicsRotation` provides certain parameters to help control how the rotation should be applied.
+
+    The origin is the point that the item is rotated around (i.e., it stays fixed relative to the parent as the rest of the item is rotated). By default the origin is :class:`PySide.QtCore.QPointF` (0, 0).
+
+    The angle property provides the number of degrees to rotate the item clockwise around the origin. This value also be negative, indicating a counter-clockwise rotation. For animation purposes it may also be useful to provide rotation angles exceeding (-360, 360) degrees, for instance to animate how an item rotates several times.
+
+    Note: the final rotation is the combined effect of a rotation in 3D space followed by a projection back to 2D. If several rotations are performed in succession, they will not behave as expected unless they were all around the Z axis.
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsTransform`  :meth:`QGraphicsItem.setRotation()<PySide.QtGui.QGraphicsItem.setRotation>`  :meth:`QTransform.rotate()<PySide.QtGui.QTransform.rotate>` 
+
+.. class:: QGraphicsRotation([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtGui.QGraphicsRotation` with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.angle()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the angle for clockwise rotation, in degrees..
+
+    The angle can be any real number; the default value is 0.0. A value of 180 will rotate 180 degrees, clockwise. If you provide a negative number, the item will be rotated counter-clockwise. Normally the rotation angle will be in the range (-360, 360), but you can also provide numbers outside of this range (e.g., a angle of 370 degrees gives the same result as 10 degrees). Setting the angle to NaN results in no rotation.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsRotation.origin` 
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.angleChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.axis()
+
+
+    :rtype: :class:`PySide.QtGui.QVector3D`
+
+
+
+
+    This property holds a rotation axis, specified by a vector in 3D space..
+
+    This can be any axis in 3D space. By default the axis is (0, 0, 1), which is aligned with the Z axis. If you provide another axis, :class:`PySide.QtGui.QGraphicsRotation` will provide a transformation that rotates around this axis. For example, if you would like to rotate an item around its X axis, you could pass (1, 0, 0) as the axis.
+
+    .. seealso::  :class:`PySide.QtGui.QTransform`  :meth:`QGraphicsRotation.angle<PySide.QtGui.QGraphicsRotation.angle>` 
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.axisChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.origin()
+
+
+    :rtype: :class:`PySide.QtGui.QVector3D`
+
+
+
+
+    This property holds the origin of the rotation in 3D space..
+
+    All rotations will be done relative to this point (i.e., this point will stay fixed, relative to the parent, when the item is rotated).
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsRotation.angle` 
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.originChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.setAngle(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the angle for clockwise rotation, in degrees..
+
+    The angle can be any real number; the default value is 0.0. A value of 180 will rotate 180 degrees, clockwise. If you provide a negative number, the item will be rotated counter-clockwise. Normally the rotation angle will be in the range (-360, 360), but you can also provide numbers outside of this range (e.g., a angle of 370 degrees gives the same result as 10 degrees). Setting the angle to NaN results in no rotation.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsRotation.origin` 
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.setAxis(axis)
+
+
+    :param axis: :class:`PySide.QtGui.QVector3D`
+
+
+
+
+    This property holds a rotation axis, specified by a vector in 3D space..
+
+    This can be any axis in 3D space. By default the axis is (0, 0, 1), which is aligned with the Z axis. If you provide another axis, :class:`PySide.QtGui.QGraphicsRotation` will provide a transformation that rotates around this axis. For example, if you would like to rotate an item around its X axis, you could pass (1, 0, 0) as the axis.
+
+    .. seealso::  :class:`PySide.QtGui.QTransform`  :meth:`QGraphicsRotation.angle<PySide.QtGui.QGraphicsRotation.angle>` 
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.setAxis(axis)
+
+
+    :param axis: :attr:`PySide.QtCore.Qt.Axis`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsRotation.setOrigin(point)
+
+
+    :param point: :class:`PySide.QtGui.QVector3D`
+
+
+
+
+    This property holds the origin of the rotation in 3D space..
+
+    All rotations will be done relative to this point (i.e., this point will stay fixed, relative to the parent, when the item is rotated).
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsRotation.angle` 
+
+
+

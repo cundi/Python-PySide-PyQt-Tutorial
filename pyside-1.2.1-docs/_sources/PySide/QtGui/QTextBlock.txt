@@ -1,0 +1,543 @@
+.. module:: PySide.QtGui
+.. _QTextBlock:
+
+QTextBlock
+**********
+
+.. inheritance-diagram:: QTextBlock
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QTextBlock.__eq__>` (o)
+*    def :meth:`__iter__<PySide.QtGui.QTextBlock.__iter__>` ()
+*    def :meth:`__lt__<PySide.QtGui.QTextBlock.__lt__>` (o)
+*    def :meth:`__ne__<PySide.QtGui.QTextBlock.__ne__>` (o)
+*    def :meth:`begin<PySide.QtGui.QTextBlock.begin>` ()
+*    def :meth:`blockFormat<PySide.QtGui.QTextBlock.blockFormat>` ()
+*    def :meth:`blockFormatIndex<PySide.QtGui.QTextBlock.blockFormatIndex>` ()
+*    def :meth:`blockNumber<PySide.QtGui.QTextBlock.blockNumber>` ()
+*    def :meth:`charFormat<PySide.QtGui.QTextBlock.charFormat>` ()
+*    def :meth:`charFormatIndex<PySide.QtGui.QTextBlock.charFormatIndex>` ()
+*    def :meth:`clearLayout<PySide.QtGui.QTextBlock.clearLayout>` ()
+*    def :meth:`contains<PySide.QtGui.QTextBlock.contains>` (position)
+*    def :meth:`document<PySide.QtGui.QTextBlock.document>` ()
+*    def :meth:`end<PySide.QtGui.QTextBlock.end>` ()
+*    def :meth:`firstLineNumber<PySide.QtGui.QTextBlock.firstLineNumber>` ()
+*    def :meth:`fragmentIndex<PySide.QtGui.QTextBlock.fragmentIndex>` ()
+*    def :meth:`isValid<PySide.QtGui.QTextBlock.isValid>` ()
+*    def :meth:`isVisible<PySide.QtGui.QTextBlock.isVisible>` ()
+*    def :meth:`layout<PySide.QtGui.QTextBlock.layout>` ()
+*    def :meth:`length<PySide.QtGui.QTextBlock.length>` ()
+*    def :meth:`lineCount<PySide.QtGui.QTextBlock.lineCount>` ()
+*    def :meth:`next<PySide.QtGui.QTextBlock.next>` ()
+*    def :meth:`position<PySide.QtGui.QTextBlock.position>` ()
+*    def :meth:`previous<PySide.QtGui.QTextBlock.previous>` ()
+*    def :meth:`revision<PySide.QtGui.QTextBlock.revision>` ()
+*    def :meth:`setLineCount<PySide.QtGui.QTextBlock.setLineCount>` (count)
+*    def :meth:`setRevision<PySide.QtGui.QTextBlock.setRevision>` (rev)
+*    def :meth:`setUserData<PySide.QtGui.QTextBlock.setUserData>` (data)
+*    def :meth:`setUserState<PySide.QtGui.QTextBlock.setUserState>` (state)
+*    def :meth:`setVisible<PySide.QtGui.QTextBlock.setVisible>` (visible)
+*    def :meth:`text<PySide.QtGui.QTextBlock.text>` ()
+*    def :meth:`textDirection<PySide.QtGui.QTextBlock.textDirection>` ()
+*    def :meth:`textList<PySide.QtGui.QTextBlock.textList>` ()
+*    def :meth:`userData<PySide.QtGui.QTextBlock.userData>` ()
+*    def :meth:`userState<PySide.QtGui.QTextBlock.userState>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextBlock` class provides a container for text fragments in a :class:`PySide.QtGui.QTextDocument` .
+
+    A text block encapsulates a block or paragraph of text in a :class:`PySide.QtGui.QTextDocument` . :class:`PySide.QtGui.QTextBlock` provides read-only access to the block/paragraph structure of QTextDocuments. It is mainly of use if you want to implement your own layouts for the visual representation of a :class:`PySide.QtGui.QTextDocument` , or if you want to iterate over a document and write out the contents in your own custom format.
+
+    Text blocks are created by their parent documents. If you need to create a new text block, or modify the contents of a document while examining its contents, use the cursor-based interface provided by :class:`PySide.QtGui.QTextCursor` instead.
+
+    Each text block is located at a specific :meth:`PySide.QtGui.QTextBlock.position` in a :meth:`PySide.QtGui.QTextBlock.document` . The contents of the block can be obtained by using the :meth:`PySide.QtGui.QTextBlock.text` function. The :meth:`PySide.QtGui.QTextBlock.length` function determines the block's size within the document (including formatting characters). The visual properties of the block are determined by its text :meth:`PySide.QtGui.QTextBlock.layout` , its :meth:`PySide.QtGui.QTextBlock.charFormat` , and its :meth:`PySide.QtGui.QTextBlock.blockFormat` .
+
+    The :meth:`PySide.QtGui.QTextBlock.next` and :meth:`PySide.QtGui.QTextBlock.previous` functions enable iteration over consecutive valid blocks in a document under the condition that the document is not modified by other means during the iteration process. Note that, although blocks are returned in sequence, adjacent blocks may come from different places in the document structure. The validity of a block can be determined by calling :meth:`PySide.QtGui.QTextBlock.isValid` .
+
+    :class:`PySide.QtGui.QTextBlock` provides comparison operators to make it easier to work with blocks: :meth:`PySide.QtGui.QTextBlock.operator==` compares two block for equality, :meth:`PySide.QtGui.QTextBlock.operator!=` compares two blocks for inequality, and :meth:`PySide.QtGui.QTextBlock.operator<` determines whether a block precedes another in the same document.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtextblock-sequence.png
+
+    .. seealso::  :class:`PySide.QtGui.QTextBlockFormat`  :class:`PySide.QtGui.QTextCharFormat`  :class:`PySide.QtGui.QTextFragment` 
+
+.. class:: QTextBlock()
+           QTextBlock(o)
+
+    :param o: :class:`PySide.QtGui.QTextBlock`
+
+
+    Copies the ``other`` text block's attributes to this text block.
+
+
+.. method:: PySide.QtGui.QTextBlock.__iter__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBlock.begin()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlock::iterator`
+
+
+
+
+    Returns a text block iterator pointing to the beginning of the text block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.end` 
+
+
+.. method:: PySide.QtGui.QTextBlock.blockFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlockFormat`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QTextBlockFormat` that describes block-specific properties.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.charFormat` 
+
+
+.. method:: PySide.QtGui.QTextBlock.blockFormatIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns an index into the document's internal list of block formats for the text block's format.
+
+    .. seealso::  :meth:`QTextDocument.allFormats()<PySide.QtGui.QTextDocument.allFormats>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.blockNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of this block, or -1 if the block is invalid.
+
+    .. seealso::  :meth:`QTextCursor.blockNumber()<PySide.QtGui.QTextCursor.blockNumber>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.charFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextCharFormat`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QTextCharFormat` that describes the block's character format. The block's character format is used when inserting text into an empty block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.blockFormat` 
+
+
+.. method:: PySide.QtGui.QTextBlock.charFormatIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns an index into the document's internal list of character formats for the text block's character format.
+
+    .. seealso::  :meth:`QTextDocument.allFormats()<PySide.QtGui.QTextDocument.allFormats>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.clearLayout()
+
+
+
+
+
+
+    Clears the :class:`PySide.QtGui.QTextLayout` that is used to lay out and display the block's contents.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.layout` 
+
+
+.. method:: PySide.QtGui.QTextBlock.contains(position)
+
+
+    :param position: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given ``position`` is located within the text block; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.document()
+
+
+    :rtype: :class:`PySide.QtGui.QTextDocument`
+
+
+
+
+    Returns the text document this text block belongs to, or 0 if the text block does not belong to any document.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.end()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlock::iterator`
+
+
+
+
+    Returns a text block iterator pointing to the end of the text block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.begin`  :meth:`PySide.QtGui.QTextBlock.next`  :meth:`PySide.QtGui.QTextBlock.previous` 
+
+
+.. method:: PySide.QtGui.QTextBlock.firstLineNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the first line number of this block, or -1 if the block is invalid. Unless the layout supports it, the line number is identical to the block number.
+
+    .. seealso::  :meth:`QTextBlock.blockNumber()<PySide.QtGui.QTextBlock.blockNumber>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.fragmentIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBlock.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text block is valid; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.isVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the block is visible; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.setVisible` 
+
+
+.. method:: PySide.QtGui.QTextBlock.layout()
+
+
+    :rtype: :class:`PySide.QtGui.QTextLayout`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QTextLayout` that is used to lay out and display the block's contents.
+
+    Note that the returned :class:`PySide.QtGui.QTextLayout` object can only be modified from the documentChanged implementation of a :class:`PySide.QtGui.QAbstractTextDocumentLayout` subclass. Any changes applied from the outside cause undefined behavior.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.clearLayout` 
+
+
+.. method:: PySide.QtGui.QTextBlock.length()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the length of the block in characters.
+
+    .. note::  The length returned includes all formatting characters, for example, newline.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.text`  :meth:`PySide.QtGui.QTextBlock.charFormat`  :meth:`PySide.QtGui.QTextBlock.blockFormat` 
+
+
+.. method:: PySide.QtGui.QTextBlock.lineCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the line count. Not all document layouts support this feature.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.setLineCount` 
+
+
+.. method:: PySide.QtGui.QTextBlock.next()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+    Returns the text block in the document after this block, or an empty text block if this is the last one.
+
+    Note that the next block may be in a different frame or table to this block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.previous`  :meth:`PySide.QtGui.QTextBlock.begin`  :meth:`PySide.QtGui.QTextBlock.end` 
+
+
+.. method:: PySide.QtGui.QTextBlock.__ne__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextBlock`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text block is different from the ``other`` text block.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.__lt__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextBlock`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text block occurs before the ``other`` text block in the document.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.__eq__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextBlock`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text block is the same as the ``other`` text block.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.position()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the block's first character within the document.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.previous()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+    Returns the text block in the document before this block, or an empty text block if this is the first one.
+
+    Note that the next block may be in a different frame or table to this block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.next`  :meth:`PySide.QtGui.QTextBlock.begin`  :meth:`PySide.QtGui.QTextBlock.end` 
+
+
+.. method:: PySide.QtGui.QTextBlock.revision()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the blocks revision.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.setRevision`  :meth:`QTextDocument.revision()<PySide.QtGui.QTextDocument.revision>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.setLineCount(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the line count to ``count`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.lineCount` 
+
+
+.. method:: PySide.QtGui.QTextBlock.setRevision(rev)
+
+
+    :param rev: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets a blocks revision to ``rev`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.revision`  :meth:`QTextDocument.revision()<PySide.QtGui.QTextDocument.revision>` 
+
+
+.. method:: PySide.QtGui.QTextBlock.setUserData(data)
+
+
+    :param data: :class:`PySide.QtGui.QTextBlockUserData`
+
+
+
+
+    Attaches the given ``data`` object to the text block.
+
+    :class:`PySide.QtGui.QTextBlockUserData` can be used to store custom settings. The ownership is passed to the underlying text document, i.e. the provided :class:`PySide.QtGui.QTextBlockUserData` object will be deleted if the corresponding text block gets deleted. The user data object is not stored in the undo history, so it will not be available after undoing the deletion of a text block.
+
+    For example, if you write a programming editor in an IDE, you may want to let your user set breakpoints visually in your code for an integrated debugger. In a programming editor a line of text usually corresponds to one :class:`PySide.QtGui.QTextBlock` . The :class:`PySide.QtGui.QTextBlockUserData` interface allows the developer to store data for each :class:`PySide.QtGui.QTextBlock` , like for example in which lines of the source code the user has a breakpoint set. Of course this could also be stored externally, but by storing it inside the :class:`PySide.QtGui.QTextDocument` , it will for example be automatically deleted when the user deletes the associated line. It's really just a way to store custom information in the :class:`PySide.QtGui.QTextDocument` without using custom properties in :class:`PySide.QtGui.QTextFormat` which would affect the undo/redo stack.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.userData` 
+
+
+.. method:: PySide.QtGui.QTextBlock.setUserState(state)
+
+
+    :param state: :class:`PySide.QtCore.int`
+
+
+
+
+    Stores the specified ``state`` integer value in the text block. This may be useful for example in a syntax highlighter to store a text parsing state.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.userState` 
+
+
+.. method:: PySide.QtGui.QTextBlock.setVisible(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the block's visibility to ``visible`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.isVisible` 
+
+
+.. method:: PySide.QtGui.QTextBlock.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the block's contents as plain text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.length`  :meth:`PySide.QtGui.QTextBlock.charFormat`  :meth:`PySide.QtGui.QTextBlock.blockFormat` 
+
+
+.. method:: PySide.QtGui.QTextBlock.textDirection()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.LayoutDirection`
+
+
+
+
+    Returns the resolved text direction.
+
+    If the block has no explicit direction set, it will resolve the direction from the blocks content. Returns either :attr:`Qt.LeftToRight<Qt.LayoutDirection>` or :attr:`Qt.RightToLeft<Qt.LayoutDirection>` .
+
+    .. seealso::  :meth:`QTextFormat.layoutDirection()<PySide.QtGui.QTextFormat.layoutDirection>`  :meth:`QString.isRightToLeft`  :attr:`Qt.LayoutDirection` 
+
+
+.. method:: PySide.QtGui.QTextBlock.textList()
+
+
+    :rtype: :class:`PySide.QtGui.QTextList`
+
+
+
+
+    If the block represents a list item, returns the list that the item belongs to; otherwise returns 0.
+
+
+
+.. method:: PySide.QtGui.QTextBlock.userData()
+
+
+    :rtype: :class:`PySide.QtGui.QTextBlockUserData`
+
+
+
+
+    Returns a pointer to a :class:`PySide.QtGui.QTextBlockUserData` object if previously set with :meth:`PySide.QtGui.QTextBlock.setUserData` or a null pointer.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.setUserData` 
+
+
+.. method:: PySide.QtGui.QTextBlock.userState()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the integer value previously set with :meth:`PySide.QtGui.QTextBlock.setUserState` or -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlock.setUserState` 
+
+
+

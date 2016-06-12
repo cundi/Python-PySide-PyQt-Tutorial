@@ -1,0 +1,348 @@
+.. module:: PySide.QtCore
+.. _QEasingCurve:
+
+QEasingCurve
+************
+
+.. inheritance-diagram:: QEasingCurve
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QEasingCurve.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtCore.QEasingCurve.__ne__>` (other)
+*    def :meth:`amplitude<PySide.QtCore.QEasingCurve.amplitude>` ()
+*    def :meth:`customType<PySide.QtCore.QEasingCurve.customType>` ()
+*    def :meth:`overshoot<PySide.QtCore.QEasingCurve.overshoot>` ()
+*    def :meth:`period<PySide.QtCore.QEasingCurve.period>` ()
+*    def :meth:`setAmplitude<PySide.QtCore.QEasingCurve.setAmplitude>` (amplitude)
+*    def :meth:`setCustomType<PySide.QtCore.QEasingCurve.setCustomType>` (arg__1)
+*    def :meth:`setOvershoot<PySide.QtCore.QEasingCurve.setOvershoot>` (overshoot)
+*    def :meth:`setPeriod<PySide.QtCore.QEasingCurve.setPeriod>` (period)
+*    def :meth:`setType<PySide.QtCore.QEasingCurve.setType>` (type)
+*    def :meth:`type<PySide.QtCore.QEasingCurve.type>` ()
+*    def :meth:`valueForProgress<PySide.QtCore.QEasingCurve.valueForProgress>` (progress)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QEasingCurve` class provides easing curves for controlling animation.
+
+    Easing curves describe a function that controls how the speed of the interpolation between 0 and 1 should be. Easing curves allow transitions from one value to another to appear more natural than a simple constant speed would allow. The :class:`PySide.QtCore.QEasingCurve` class is usually used in conjunction with the :class:`PySide.QtCore.QVariantAnimation` and :class:`PySide.QtCore.QPropertyAnimation` classes but can be used on its own. It is usually used to accelerate the interpolation from zero velocity (ease in) or decelerate to zero velocity (ease out). Ease in and ease out can also be combined in the same easing curve.
+
+    To calculate the speed of the interpolation, the easing curve provides the function :meth:`PySide.QtCore.QEasingCurve.valueForProgress` , where the ``progress`` argument specifies the progress of the interpolation: 0 is the start value of the interpolation, 1 is the end value of the interpolation. The returned value is the effective progress of the interpolation. If the returned value is the same as the input value for all input values the easing curve is a linear curve. This is the default behaviour.
+
+    For example,
+
+    ::
+
+                QEasingCurve easing(QEasingCurve::InOutQuad);
+                
+                for(qreal t = 0.0; t < 1.0; t+=0.1)
+                    qWarning() << "Effective progress" << t << " is
+                               << easing.valueForProgress(t);
+
+
+    will print the effective progress of the interpolation between 0 and 1.
+
+    When using a :class:`PySide.QtCore.QPropertyAnimation` , the associated easing curve will be used to control the progress of the interpolation between startValue and endValue:
+
+    ::
+
+                QPropertyAnimation animation;
+                animation.setStartValue(0);
+                animation.setEndValue(1000);
+                animation.setDuration(1000);
+                animation.setEasingCurve(QEasingCurve::InOutQuad);
+
+
+    The ability to set an amplitude, overshoot, or period depends on the :class:`PySide.QtCore.QEasingCurve` type. Amplitude access is available to curves that behave as springs such as elastic and bounce curves. Changing the amplitude changes the height of the curve. Period access is only available to elastic curves and setting a higher period slows the rate of bounce. Only curves that have "boomerang" behaviors such as the :attr:`InBack<QEasingCurve.Type>` , :attr:`OutBack<QEasingCurve.Type>` , :attr:`InOutBack<QEasingCurve.Type>` , and :attr:`OutInBack<QEasingCurve.Type>` have overshoot settings. These curves will interpolate beyond the end points and return to the end point, acting similar to a boomerang.
+
+    The :ref:`Easing Curves Example<animation/easing>` contains samples of :class:`PySide.QtCore.QEasingCurve` types and lets you change the curve settings.
+
+
+.. class:: QEasingCurve([type=Linear])
+           QEasingCurve(other)
+
+    :param other: :class:`PySide.QtCore.QEasingCurve`
+    :param type: :attr:`PySide.QtCore.QEasingCurve.Type`
+
+    Constructs an easing curve of the given ``type`` .
+
+
+    Construct a copy of ``other`` .
+
+
+.. attribute:: PySide.QtCore.QEasingCurve.Type
+
+    The type of easing curve.
+
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                 |Description                                                                                                                                                                                                                                                                                                                                               |
+    +=========================+==========================================================================================================================================================================================================================================================================================================================================================+
+    |QEasingCurve.Linear      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-linear.png .. raw:: html <br /> Easing curve for a linear (t) function: velocity is constant.                                                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InQuad      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inquad.png .. raw:: html <br /> Easing curve for a quadratic (t^2) function: accelerating from zero velocity.                                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutQuad     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outquad.png .. raw:: html <br /> Easing curve for a quadratic (t^2) function: decelerating to zero velocity.                                                                                                                                                  |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutQuad   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutquad.png .. raw:: html <br /> Easing curve for a quadratic (t^2) function: acceleration until halfway, then deceleration.                                                                                                                                |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInQuad   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinquad.png .. raw:: html <br /> Easing curve for a quadratic (t^2) function: deceleration until halfway, then acceleration.                                                                                                                                |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InCubic     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-incubic.png .. raw:: html <br /> Easing curve for a cubic (t^3) function: accelerating from zero velocity.                                                                                                                                                    |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutCubic    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outcubic.png .. raw:: html <br /> Easing curve for a cubic (t^3) function: decelerating to zero velocity.                                                                                                                                                     |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutCubic  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutcubic.png .. raw:: html <br /> Easing curve for a cubic (t^3) function: acceleration until halfway, then deceleration.                                                                                                                                   |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInCubic  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outincubic.png .. raw:: html <br /> Easing curve for a cubic (t^3) function: deceleration until halfway, then acceleration.                                                                                                                                   |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InQuart     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inquart.png .. raw:: html <br /> Easing curve for a quartic (t^4) function: accelerating from zero velocity.                                                                                                                                                  |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutQuart    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outquart.png .. raw:: html <br /> Easing curve for a quartic (t^4) function: decelerating to zero velocity.                                                                                                                                                   |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutQuart  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutquart.png .. raw:: html <br /> Easing curve for a quartic (t^4) function: acceleration until halfway, then deceleration.                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInQuart  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinquart.png .. raw:: html <br /> Easing curve for a quartic (t^4) function: deceleration until halfway, then acceleration.                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InQuint     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inquint.png .. raw:: html <br /> Easing curve for a quintic (t^5) easing in: accelerating from zero velocity.                                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutQuint    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outquint.png .. raw:: html <br /> Easing curve for a quintic (t^5) function: decelerating to zero velocity.                                                                                                                                                   |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutQuint  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutquint.png .. raw:: html <br /> Easing curve for a quintic (t^5) function: acceleration until halfway, then deceleration.                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInQuint  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinquint.png .. raw:: html <br /> Easing curve for a quintic (t^5) function: deceleration until halfway, then acceleration.                                                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InSine      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-insine.png .. raw:: html <br /> Easing curve for a sinusoidal (sin(t)) function: accelerating from zero velocity.                                                                                                                                             |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutSine     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outsine.png .. raw:: html <br /> Easing curve for a sinusoidal (sin(t)) function: decelerating from zero velocity.                                                                                                                                            |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutSine   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutsine.png .. raw:: html <br /> Easing curve for a sinusoidal (sin(t)) function: acceleration until halfway, then deceleration.                                                                                                                            |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInSine   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinsine.png .. raw:: html <br /> Easing curve for a sinusoidal (sin(t)) function: deceleration until halfway, then acceleration.                                                                                                                            |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InExpo      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inexpo.png .. raw:: html <br /> Easing curve for an exponential (2^t) function: accelerating from zero velocity.                                                                                                                                              |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutExpo     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outexpo.png .. raw:: html <br /> Easing curve for an exponential (2^t) function: decelerating from zero velocity.                                                                                                                                             |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutExpo   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutexpo.png .. raw:: html <br /> Easing curve for an exponential (2^t) function: acceleration until halfway, then deceleration.                                                                                                                             |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInExpo   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinexpo.png .. raw:: html <br /> Easing curve for an exponential (2^t) function: deceleration until halfway, then acceleration.                                                                                                                             |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InCirc      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-incirc.png .. raw:: html <br /> Easing curve for a circular (sqrt(1-t^2)) function: accelerating from zero velocity.                                                                                                                                          |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutCirc     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outcirc.png .. raw:: html <br /> Easing curve for a circular (sqrt(1-t^2)) function: decelerating from zero velocity.                                                                                                                                         |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutCirc   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutcirc.png .. raw:: html <br /> Easing curve for a circular (sqrt(1-t^2)) function: acceleration until halfway, then deceleration.                                                                                                                         |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInCirc   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outincirc.png .. raw:: html <br /> Easing curve for a circular (sqrt(1-t^2)) function: deceleration until halfway, then acceleration.                                                                                                                         |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InElastic   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inelastic.png .. raw:: html <br /> Easing curve for an elastic (exponentially decaying sine wave) function: accelerating from zero velocity. The peak amplitude can be set with the *amplitude* parameter, and the period of decay by the *period* parameter. |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutElastic  |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outelastic.png .. raw:: html <br /> Easing curve for an elastic (exponentially decaying sine wave) function: decelerating from zero velocity. The peak amplitude can be set with the *amplitude* parameter, and the period of decay by the *period* parameter.|
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutElastic|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutelastic.png .. raw:: html <br /> Easing curve for an elastic (exponentially decaying sine wave) function: acceleration until halfway, then deceleration.                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInElastic|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinelastic.png .. raw:: html <br /> Easing curve for an elastic (exponentially decaying sine wave) function: deceleration until halfway, then acceleration.                                                                                                 |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InBack      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inback.png .. raw:: html <br /> Easing curve for a back (overshooting cubic function: (s+1)\*t^3 - s\*t^2) easing in: accelerating from zero velocity.                                                                                                        |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutBack     |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outback.png .. raw:: html <br /> Easing curve for a back (overshooting cubic function: (s+1)\*t^3 - s\*t^2) easing out: decelerating to zero velocity.                                                                                                        |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutBack   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutback.png .. raw:: html <br /> Easing curve for a back (overshooting cubic function: (s+1)\*t^3 - s\*t^2) easing in/out: acceleration until halfway, then deceleration.                                                                                   |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInBack   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinback.png .. raw:: html <br /> Easing curve for a back (overshooting cubic easing: (s+1)\*t^3 - s\*t^2) easing out/in: deceleration until halfway, then acceleration.                                                                                     |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InBounce    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inbounce.png .. raw:: html <br /> Easing curve for a bounce (exponentially decaying parabolic bounce) function: accelerating from zero velocity.                                                                                                              |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutBounce   |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outbounce.png .. raw:: html <br /> Easing curve for a bounce (exponentially decaying parabolic bounce) function: decelerating from zero velocity.                                                                                                             |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.InOutBounce |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-inoutbounce.png .. raw:: html <br /> Easing curve for a bounce (exponentially decaying parabolic bounce) function easing in/out: acceleration until halfway, then deceleration.                                                                               |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.OutInBounce |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qeasingcurve-outinbounce.png .. raw:: html <br /> Easing curve for a bounce (exponentially decaying parabolic bounce) function easing out/in: deceleration until halfway, then acceleration.                                                                               |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEasingCurve.Custom      |This is returned if the user specified a custom curve type with :meth:`PySide.QtCore.QEasingCurve.setCustomType` . Note that you cannot call :meth:`PySide.QtCore.QEasingCurve.setType` with this value, but :meth:`PySide.QtCore.QEasingCurve.type` can return it.                                                                                       |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QEasingCurve.amplitude()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the amplitude. This is not applicable for all curve types. It is only applicable for bounce and elastic curves (curves of :meth:`PySide.QtCore.QEasingCurve.type` :attr:`QEasingCurve.InBounce<QEasingCurve.Type>` , :attr:`QEasingCurve.OutBounce<QEasingCurve.Type>` , :attr:`QEasingCurve.InOutBounce<QEasingCurve.Type>` , :attr:`QEasingCurve.OutInBounce<QEasingCurve.Type>` , :attr:`QEasingCurve.InElastic<QEasingCurve.Type>` , :attr:`QEasingCurve.OutElastic<QEasingCurve.Type>` , :attr:`QEasingCurve.InOutElastic<QEasingCurve.Type>` or :attr:`QEasingCurve.OutInElastic<QEasingCurve.Type>` ).
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.setAmplitude` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.customType()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QEasingCurve.__ne__(other)
+
+
+    :param other: :class:`PySide.QtCore.QEasingCurve`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Compare this easing curve with ``other`` and returns true if they are not equal. It will also compare the properties of a curve.
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.operator==` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.__eq__(other)
+
+
+    :param other: :class:`PySide.QtCore.QEasingCurve`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Compare this easing curve with ``other`` and returns true if they are equal. It will also compare the properties of a curve.
+
+
+
+.. method:: PySide.QtCore.QEasingCurve.overshoot()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the overshoot. This is not applicable for all curve types. It is only applicable if :meth:`PySide.QtCore.QEasingCurve.type` is :attr:`QEasingCurve.InBack<QEasingCurve.Type>` , :attr:`QEasingCurve.OutBack<QEasingCurve.Type>` , :attr:`QEasingCurve.InOutBack<QEasingCurve.Type>` or :attr:`QEasingCurve.OutInBack<QEasingCurve.Type>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.setOvershoot` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.period()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the period. This is not applicable for all curve types. It is only applicable if :meth:`PySide.QtCore.QEasingCurve.type` is :attr:`QEasingCurve.InElastic<QEasingCurve.Type>` , :attr:`QEasingCurve.OutElastic<QEasingCurve.Type>` , :attr:`QEasingCurve.InOutElastic<QEasingCurve.Type>` or :attr:`QEasingCurve.OutInElastic<QEasingCurve.Type>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.setPeriod` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.setAmplitude(amplitude)
+
+
+    :param amplitude: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the amplitude to ``amplitude`` .
+
+    This will set the amplitude of the bounce or the amplitude of the elastic "spring" effect. The higher the number, the higher the amplitude.
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.amplitude` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.setCustomType(arg__1)
+
+
+    :param arg__1: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QEasingCurve.setOvershoot(overshoot)
+
+
+    :param overshoot: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the overshoot to ``overshoot`` .
+
+    0 produces no overshoot, and the default value of 1.70158 produces an overshoot of 10 percent.
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.overshoot` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.setPeriod(period)
+
+
+    :param period: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the period to ``period`` . Setting a small period value will give a high frequency of the curve. A large period will give it a small frequency.
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.period` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.setType(type)
+
+
+    :param type: :attr:`PySide.QtCore.QEasingCurve.Type`
+
+
+
+
+    Sets the type of the easing curve to ``type`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.type` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.type()
+
+
+    :rtype: :attr:`PySide.QtCore.QEasingCurve.Type`
+
+
+
+
+    Returns the type of the easing curve.
+
+    .. seealso::  :meth:`PySide.QtCore.QEasingCurve.setType` 
+
+
+.. method:: PySide.QtCore.QEasingCurve.valueForProgress(progress)
+
+
+    :param progress: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Return the effective progress for the easing curve at ``progress`` . While ``progress`` must be between 0 and 1, the returned effective progress can be outside those bounds. For instance, :attr:`QEasingCurve.InBack<QEasingCurve.Type>` will return negative values in the beginning of the function.
+
+
+
+

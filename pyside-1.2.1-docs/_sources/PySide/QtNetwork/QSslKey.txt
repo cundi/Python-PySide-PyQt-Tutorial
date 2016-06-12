@@ -1,0 +1,193 @@
+.. module:: PySide.QtNetwork
+.. _QSslKey:
+
+QSslKey
+*******
+
+.. inheritance-diagram:: QSslKey
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QSslKey.__eq__>` (key)
+*    def :meth:`__ne__<PySide.QtNetwork.QSslKey.__ne__>` (key)
+*    def :meth:`algorithm<PySide.QtNetwork.QSslKey.algorithm>` ()
+*    def :meth:`clear<PySide.QtNetwork.QSslKey.clear>` ()
+*    def :meth:`handle<PySide.QtNetwork.QSslKey.handle>` ()
+*    def :meth:`isNull<PySide.QtNetwork.QSslKey.isNull>` ()
+*    def :meth:`length<PySide.QtNetwork.QSslKey.length>` ()
+*    def :meth:`toDer<PySide.QtNetwork.QSslKey.toDer>` ([passPhrase=QByteArray()])
+*    def :meth:`toPem<PySide.QtNetwork.QSslKey.toPem>` ([passPhrase=QByteArray()])
+*    def :meth:`type<PySide.QtNetwork.QSslKey.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QSslKey` class provides an interface for private and public keys.
+
+    :class:`PySide.QtNetwork.QSslKey` provides a simple API for managing keys.
+
+    .. seealso::  :class:`PySide.QtNetwork.QSslSocket`  :class:`PySide.QtNetwork.QSslCertificate`  :class:`PySide.QtNetwork.QSslCipher` 
+
+.. class:: QSslKey()
+           QSslKey(device, algorithm[, format=QSsl.Pem[, type=QSsl.PrivateKey[, passPhrase=QByteArray()]]])
+           QSslKey(encoded, algorithm[, format=QSsl.Pem[, type=QSsl.PrivateKey[, passPhrase=QByteArray()]]])
+           QSslKey(other)
+
+    :param algorithm: :attr:`PySide.QtNetwork.QSsl.KeyAlgorithm`
+    :param encoded: :class:`PySide.QtCore.QByteArray`
+    :param format: :attr:`PySide.QtNetwork.QSsl.EncodingFormat`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param other: :class:`PySide.QtNetwork.QSslKey`
+    :param type: :attr:`PySide.QtNetwork.QSsl.KeyType`
+    :param passPhrase: :class:`PySide.QtCore.QByteArray`
+
+    Constructs a null key.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslKey.isNull` 
+
+
+
+
+
+    Constructs an identical copy of ``other`` .
+
+
+.. method:: PySide.QtNetwork.QSslKey.algorithm()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QSsl.KeyAlgorithm`
+
+
+
+
+    Returns the key algorithm.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.clear()
+
+
+
+
+
+
+    Clears the contents of this key, making it a null key.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslKey.isNull` 
+
+
+.. method:: PySide.QtNetwork.QSslKey.handle()
+
+
+    :rtype: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+    Returns a pointer to the native key handle, if it is available; otherwise a null pointer is returned.
+
+    You can use this handle together with the native API to access extended information about the key.
+
+    .. warning::  Use of this function has a high probability of being non-portable, and its return value may vary across platforms, and between minor Qt releases.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this is a null key; otherwise false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QSslKey.clear` 
+
+
+.. method:: PySide.QtNetwork.QSslKey.length()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the length of the key in bits, or -1 if the key is null.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.__ne__(key)
+
+
+    :param key: :class:`PySide.QtNetwork.QSslKey`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key is not equal to key ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.__eq__(key)
+
+
+    :param key: :class:`PySide.QtNetwork.QSslKey`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key is equal to ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.toDer([passPhrase=QByteArray()])
+
+
+    :param passPhrase: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the key in DER encoding. The result is encrypted with ``passPhrase`` if the key is a private key and ``passPhrase`` is non-empty.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.toPem([passPhrase=QByteArray()])
+
+
+    :param passPhrase: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the key in PEM encoding. The result is encrypted with ``passPhrase`` if the key is a private key and ``passPhrase`` is non-empty.
+
+
+
+.. method:: PySide.QtNetwork.QSslKey.type()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QSsl.KeyType`
+
+
+
+
+    Returns the type of the key (i.e., PublicKey or PrivateKey).
+
+
+
+

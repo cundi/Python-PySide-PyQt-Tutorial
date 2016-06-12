@@ -1,0 +1,319 @@
+.. module:: PySide.QtNetwork
+.. _QHostInfo:
+
+QHostInfo
+*********
+
+.. inheritance-diagram:: QHostInfo
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addresses<PySide.QtNetwork.QHostInfo.addresses>` ()
+*    def :meth:`error<PySide.QtNetwork.QHostInfo.error>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QHostInfo.errorString>` ()
+*    def :meth:`hostName<PySide.QtNetwork.QHostInfo.hostName>` ()
+*    def :meth:`lookupId<PySide.QtNetwork.QHostInfo.lookupId>` ()
+*    def :meth:`setAddresses<PySide.QtNetwork.QHostInfo.setAddresses>` (addresses)
+*    def :meth:`setError<PySide.QtNetwork.QHostInfo.setError>` (error)
+*    def :meth:`setErrorString<PySide.QtNetwork.QHostInfo.setErrorString>` (errorString)
+*    def :meth:`setHostName<PySide.QtNetwork.QHostInfo.setHostName>` (name)
+*    def :meth:`setLookupId<PySide.QtNetwork.QHostInfo.setLookupId>` (id)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`abortHostLookup<PySide.QtNetwork.QHostInfo.abortHostLookup>` (lookupId)
+*    def :meth:`fromName<PySide.QtNetwork.QHostInfo.fromName>` (name)
+*    def :meth:`localDomainName<PySide.QtNetwork.QHostInfo.localDomainName>` ()
+*    def :meth:`localHostName<PySide.QtNetwork.QHostInfo.localHostName>` ()
+*    def :meth:`lookupHost<PySide.QtNetwork.QHostInfo.lookupHost>` (name, receiver, member)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QHostInfo` class provides static functions for host name lookups.
+
+    :class:`PySide.QtNetwork.QHostInfo` uses the lookup mechanisms provided by the operating system to find the IP address(es) associated with a host name, or the host name associated with an IP address. The class provides two static convenience functions: one that works asynchronously and emits a signal once the host is found, and one that blocks and returns a :class:`PySide.QtNetwork.QHostInfo` object.
+
+    To look up a host's IP addresses asynchronously, call :meth:`PySide.QtNetwork.QHostInfo.lookupHost` , which takes the host name or IP address, a receiver object, and a slot signature as arguments and returns an ID. You can abort the lookup by calling :meth:`PySide.QtNetwork.QHostInfo.abortHostLookup` with the lookup ID.
+
+    Example:
+
+    ::
+
+        # To find the IP address of qtsoftware.com
+        QHostInfo.lookupHost("qtsoftware.com", self, SLOT("printResults(QHostInfo)"))
+
+        # To find the host name for 4.2.2.1
+        QHostInfo.lookupHost("4.2.2.1", self, SLOT("printResults(QHostInfo)"))
+
+
+    The slot is invoked when the results are ready. The results are stored in a :class:`PySide.QtNetwork.QHostInfo` object. Call :meth:`PySide.QtNetwork.QHostInfo.addresses` to get the list of IP addresses for the host, and :meth:`PySide.QtNetwork.QHostInfo.hostName` to get the host name that was looked up.
+
+    If the lookup failed, :meth:`PySide.QtNetwork.QHostInfo.error` returns the type of error that occurred. :meth:`PySide.QtNetwork.QHostInfo.errorString` gives a human-readable description of the lookup error.
+
+    If you want a blocking lookup, use the :meth:`QHostInfo.fromName()<PySide.QtNetwork.QHostInfo.fromName>` function:
+
+    ::
+
+        info = QHostInfo.fromName("qtsoftware.com")
+
+
+    :class:`PySide.QtNetwork.QHostInfo` supports Internationalized Domain Names (IDNs) through the IDNA and Punycode standards.
+
+    To retrieve the name of the local host, use the static :meth:`QHostInfo.localHostName()<PySide.QtNetwork.QHostInfo.localHostName>` function.
+
+    .. note::  Since Qt 4.6.1 :class:`PySide.QtNetwork.QHostInfo` is using multiple threads for DNS lookup instead of one dedicated DNS thread. This improves performance, but also changes the order of signal emissions when using :meth:`PySide.QtNetwork.QHostInfo.lookupHost` compared to previous versions of Qt. **Note:** Since Qt 4.6.3 :class:`PySide.QtNetwork.QHostInfo` is using a small internal 60 second DNS cache for performance improvements.
+
+    .. seealso::  :class:`PySide.QtNetwork.QAbstractSocket` 
+
+.. class:: QHostInfo(d)
+           QHostInfo([lookupId=-1])
+
+    :param lookupId: :class:`PySide.QtCore.int`
+    :param d: :class:`PySide.QtNetwork.QHostInfo`
+
+    Constructs a copy of ``other`` .
+
+
+    Constructs an empty host info object with lookup ID ``id`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.lookupId` 
+
+.. attribute:: PySide.QtNetwork.QHostInfo.HostInfoError
+
+    This enum describes the various errors that can occur when trying to resolve a host name.
+
+    +----------------------+----------------------------------------+
+    |Constant              |Description                             |
+    +======================+========================================+
+    |QHostInfo.NoError     |The lookup was successful.              |
+    +----------------------+----------------------------------------+
+    |QHostInfo.HostNotFound|No IP addresses were found for the host.|
+    +----------------------+----------------------------------------+
+    |QHostInfo.UnknownError|An unknown error occurred.              |
+    +----------------------+----------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.error`  :meth:`PySide.QtNetwork.QHostInfo.setError` 
+
+.. staticmethod:: PySide.QtNetwork.QHostInfo.abortHostLookup(lookupId)
+
+
+    :param lookupId: :class:`PySide.QtCore.int`
+
+
+
+
+    Aborts the host lookup with the ID ``id`` , as returned by :meth:`PySide.QtNetwork.QHostInfo.lookupHost` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.lookupHost`  :meth:`PySide.QtNetwork.QHostInfo.lookupId` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.addresses()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of IP addresses associated with :meth:`PySide.QtNetwork.QHostInfo.hostName` . This list may be empty.
+
+    Example:
+
+    ::
+
+        info = QHostInfo()
+        ...
+        if not info.addresses().isEmpty():
+            address = info.addresses().first()
+            # use the first IP address
+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.setAddresses`  :meth:`PySide.QtNetwork.QHostInfo.hostName`  :meth:`PySide.QtNetwork.QHostInfo.error` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QHostInfo.HostInfoError`
+
+
+
+
+    Returns the type of error that occurred if the host name lookup failed; otherwise returns :attr:`NoError<QHostInfo.HostInfoError>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.setError`  :meth:`PySide.QtNetwork.QHostInfo.errorString` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    If the lookup failed, this function returns a human readable description of the error; otherwise "Unknown error" is returned.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.setErrorString`  :meth:`PySide.QtNetwork.QHostInfo.error` 
+
+
+.. staticmethod:: PySide.QtNetwork.QHostInfo.fromName(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtNetwork.QHostInfo`
+
+
+
+
+    Looks up the IP address(es) for the given host ``name`` . The function blocks during the lookup which means that execution of the program is suspended until the results of the lookup are ready. Returns the result of the lookup in a :class:`PySide.QtNetwork.QHostInfo` object.
+
+    If you pass a literal IP address to ``name`` instead of a host name, :class:`PySide.QtNetwork.QHostInfo` will search for the domain name for the IP (i.e., :class:`PySide.QtNetwork.QHostInfo` will perform a *reverse* lookup). On success, the returned :class:`PySide.QtNetwork.QHostInfo` will contain both the resolved domain name and IP addresses for the host name.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.lookupHost` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.hostName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the host whose IP addresses were looked up.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.setHostName`  :meth:`PySide.QtNetwork.QHostInfo.localHostName` 
+
+
+.. staticmethod:: PySide.QtNetwork.QHostInfo.localDomainName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the DNS domain of this machine.
+
+    Note: DNS domains are not related to domain names found in Windows networks.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.hostName` 
+
+
+.. staticmethod:: PySide.QtNetwork.QHostInfo.localHostName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the host name of this machine.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.hostName` 
+
+
+.. staticmethod:: PySide.QtNetwork.QHostInfo.lookupHost(name, receiver, member)
+
+
+    :param name: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHostInfo.lookupId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the ID of this lookup.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.setLookupId`  :meth:`PySide.QtNetwork.QHostInfo.abortHostLookup`  :meth:`PySide.QtNetwork.QHostInfo.hostName` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.setAddresses(addresses)
+
+
+    :param addresses: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QHostInfo.setError(error)
+
+
+    :param error: :attr:`PySide.QtNetwork.QHostInfo.HostInfoError`
+
+
+
+
+    Sets the error type of this :class:`PySide.QtNetwork.QHostInfo` to ``error`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.error`  :meth:`PySide.QtNetwork.QHostInfo.errorString` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.setErrorString(errorString)
+
+
+    :param errorString: unicode
+
+
+
+
+    Sets the human readable description of the error that occurred to ``str`` if the lookup failed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.errorString`  :meth:`PySide.QtNetwork.QHostInfo.setError` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.setHostName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the host name of this :class:`PySide.QtNetwork.QHostInfo` to ``hostName`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.hostName` 
+
+
+.. method:: PySide.QtNetwork.QHostInfo.setLookupId(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the ID of this lookup to ``id`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QHostInfo.lookupId`  :meth:`PySide.QtNetwork.QHostInfo.lookupHost` 
+
+
+

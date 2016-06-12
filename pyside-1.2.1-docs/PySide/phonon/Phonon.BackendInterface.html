@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Phonon.BackendInterface &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.phonon" href="index.html" />
+    <link rel="next" title="Phonon.AddonInterface" href="Phonon.AddonInterface.html" />
+    <link rel="prev" title="Phonon.EffectInterface" href="Phonon.EffectInterface.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.phonon</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Phonon.BackendInterface</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Phonon.EffectInterface.html"
+                        title="previous chapter">Phonon.EffectInterface</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Phonon.AddonInterface.html"
+                        title="next chapter">Phonon.AddonInterface</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.phonon"></span><div class="section" id="phonon-backendinterface">
+<span id="id1"></span><h1>Phonon.BackendInterface<a class="headerlink" href="#phonon-backendinterface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Main Backend class interface</p>
+<p>This interface defines the main factory of the backend. The <tt class="xref py py-meth docutils literal"><span class="pre">PySide.phonon.Phonon::BackendInterface.createObject()</span></tt> function creates all the objects needed by the frontend.</p>
+<p>The objectDescriptionIndexes and objectDescriptionProperties functions return information about available devices, effects and codecs.</p>
+<p>An implementation could look like this:</p>
+<div class="highlight-python"><pre>def createObject(self, c, parent, args):
+    if c == BackendInterface.MediaObjectClass:
+        return MediaObject(parent)
+    elif c == BackendInterface.VolumeFaderEffectClass:
+        return VolumeFaderEffect(parent)
+    elif c == BackendInterface.AudioOutputClass:
+        return AudioOutput(parent)
+    elif c == BackendInterface.AudioDataOutputClass:
+        return AudioDataOutput(parent)
+    elif c == BackendInterface.VisualizationClass:
+        return Visualization(parent)
+    elif c == BackendInterface.VideoDataOutputClass:
+        return VideoDataOutput(parent)
+    elif c == BackendInterface.EffectClass:
+        return Effect(args[0].toInt(), parent)
+    elif c == BackendInterface.VideoWidgetClass:
+        return VideoWidget(parent)
+    return None
+
+def objectDescriptionIndexes(self, type_):
+    retval = set()
+
+    if type_ == Phonon.AudioOutputDeviceType:
+        # use AudioDeviceEnumerator to list ALSA and OSS devices
+        retval.add(10000)
+        retval.add(10001)
+    elif type_ == Phonon.AudioCaptureDeviceType:
+        retval.add(20000)
+        retval.add(20001)
+    elif type_ == Phonon.VideoCaptureDeviceType:
+        retval.add(30000)
+        retval.add(30001)
+    elif type_ == Phonon.EffectType:
+        retval.add(0x7F000001)
+    return retval
+
+def objectDescriptionProperties(self, type_, index):
+    ret = {}
+    if type_ == Phonon.AudioOutputDeviceType:
+        if index == 10000:
+            ret["name"] = "internal Soundcard"
+        elif index == 10001:
+            ret["name"] = "USB Headset"
+            ret["available"] = False
+    elif type_ == Phonon.AudioCaptureDeviceType:
+        if index == 20000:
+            ret["name"] = "Soundcard"
+            ret["description"] = "first description"
+        elif index == 20001:
+            ret["name"] = "DV"
+            ret["description"] = "second description"
+    elif type_ == Phonon.VideoCaptureDeviceType:
+        elif index == 30000:
+            ret["name"] = "USB Webcam"
+            ret["description"] = "first description"
+        elif index == 30001:
+            ret["name"] = "DV"))
+            ret["description"] = "second description"
+    elif type_ == Phonon.EffectType:
+        if index == 0x7F000001:
+            ret["name"] = "Delay"
+            ret["description"] = "Simple delay effect with time, feedback and level controls."
+    return ret</pre>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface">
+<em class="property">class </em><tt class="descclassname">PySide.phonon.Phonon.</tt><tt class="descname">BackendInterface</tt><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.Class">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">Class</tt><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.Class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classes that the <tt class="xref py py-meth docutils literal"><span class="pre">PySide.phonon.Phonon::BackendInterface.createObject()</span></tt> function has to handle.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Phonon.BackendInterface.MediaObjectClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">MediaObject</span></tt> object.</td>
+</tr>
+<tr class="row-odd"><td>Phonon.BackendInterface.VolumeFaderEffectClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">VolumeFaderEffect</span></tt> object.</td>
+</tr>
+<tr class="row-even"><td>Phonon.BackendInterface.AudioOutputClass</td>
+<td>Request to return an <tt class="docutils literal"><span class="pre">AudioOutput</span></tt> object.</td>
+</tr>
+<tr class="row-odd"><td>Phonon.BackendInterface.AudioDataOutputClass</td>
+<td>Request to return an <tt class="docutils literal"><span class="pre">AudioDataOutput</span></tt> object.</td>
+</tr>
+<tr class="row-even"><td>Phonon.BackendInterface.VisualizationClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">Visualization</span></tt> object.</td>
+</tr>
+<tr class="row-odd"><td>Phonon.BackendInterface.VideoDataOutputClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">VideoDataOutput</span></tt> object.</td>
+</tr>
+<tr class="row-even"><td>Phonon.BackendInterface.EffectClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">Effect</span></tt> object. Takes an additional int that specifies the effect ID.</td>
+</tr>
+<tr class="row-odd"><td>Phonon.BackendInterface.VideoWidgetClass</td>
+<td>Request to return a <tt class="docutils literal"><span class="pre">VideoWidget</span></tt> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.availableMimeTypes">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">availableMimeTypes</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.availableMimeTypes" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns all available MIME types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.connectNodes">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">connectNodes</tt><big>(</big><em>arg__1</em>, <em>arg__2</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.connectNodes" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arg__1</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>arg__2</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Defines a signal connection between the two given nodes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.createObject">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">createObject</tt><big>(</big><em>c</em>, <em>parent</em><span class="optional">[</span>, <em>args=list()</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.createObject" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>c</strong> &#8211; <tt class="xref py py-attr docutils literal"><span class="pre">PySide.phonon.Phonon::BackendInterface.Class</span></tt></li>
+<li><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>args</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.disconnectNodes">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">disconnectNodes</tt><big>(</big><em>arg__1</em>, <em>arg__2</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.disconnectNodes" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arg__1</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>arg__2</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Cuts a signal connection between the two given nodes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.endConnectionChange">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">endConnectionChange</tt><big>(</big><em>arg__1</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.endConnectionChange" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg__1</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.objectDescriptionIndexes">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">objectDescriptionIndexes</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.objectDescriptionIndexes" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type</strong> &#8211; <a class="reference internal" href="Phonon.html#PySide.phonon.PySide.phonon.Phonon.ObjectDescriptionType" title="PySide.phonon.PySide.phonon.Phonon.ObjectDescriptionType"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.phonon.Phonon.ObjectDescriptionType</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the unique identifiers for the devices/effects/codecs of the given <tt class="docutils literal"><span class="pre">type</span></tt> .</p>
+<p><em>type</em> see <tt class="xref py py-attr docutils literal"><span class="pre">Phonon.ObjectDescriptionType</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.objectDescriptionProperties">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">objectDescriptionProperties</tt><big>(</big><em>type</em>, <em>index</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.objectDescriptionProperties" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> &#8211; <a class="reference internal" href="Phonon.html#PySide.phonon.PySide.phonon.Phonon.ObjectDescriptionType" title="PySide.phonon.PySide.phonon.Phonon.ObjectDescriptionType"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.phonon.Phonon.ObjectDescriptionType</span></tt></a></li>
+<li><strong>index</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Given a unique identifier that was returned from objectDescriptionIndexes this function returns a hash mapping property names to values.</p>
+<p>The property &#8220;name&#8221; must always be present. All other properties are optional.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Property</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>The name of the device/effect/codec/...</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>A text explaining what this device/effect/codec/... is/can do</td>
+</tr>
+<tr class="row-even"><td>icon</td>
+<td>An icon name (using the freedesktop naming scheme) or a <a class="reference internal" href="../QtGui/QIcon.html#PySide.QtGui.QIcon" title="PySide.QtGui.QIcon"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QIcon</span></tt></a> for this device/effect/codec/...</td>
+</tr>
+<tr class="row-odd"><td>available</td>
+<td>A bool telling whether the device is present or unplugged.</td>
+</tr>
+</tbody>
+</table>
+<p><em>type</em> see <tt class="xref py py-attr docutils literal"><span class="pre">Phonon.ObjectDescriptionType</span></tt> <em>index</em> The unique identifier that is returned from objectDescriptionIndexes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.phonon.PySide.phonon.Phonon.BackendInterface.startConnectionChange">
+<tt class="descclassname">PySide.phonon.Phonon.BackendInterface.</tt><tt class="descname">startConnectionChange</tt><big>(</big><em>arg__1</em><big>)</big><a class="headerlink" href="#PySide.phonon.PySide.phonon.Phonon.BackendInterface.startConnectionChange" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg__1</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

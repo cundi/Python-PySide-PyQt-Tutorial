@@ -1,0 +1,377 @@
+.. module:: PySide.QtNetwork
+.. _QTcpServer:
+
+QTcpServer
+**********
+
+.. inheritance-diagram:: QTcpServer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addPendingConnection<PySide.QtNetwork.QTcpServer.addPendingConnection>` (socket)
+*    def :meth:`close<PySide.QtNetwork.QTcpServer.close>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QTcpServer.errorString>` ()
+*    def :meth:`isListening<PySide.QtNetwork.QTcpServer.isListening>` ()
+*    def :meth:`listen<PySide.QtNetwork.QTcpServer.listen>` ([address=QHostAddress.Any[, port=0]])
+*    def :meth:`maxPendingConnections<PySide.QtNetwork.QTcpServer.maxPendingConnections>` ()
+*    def :meth:`proxy<PySide.QtNetwork.QTcpServer.proxy>` ()
+*    def :meth:`serverAddress<PySide.QtNetwork.QTcpServer.serverAddress>` ()
+*    def :meth:`serverError<PySide.QtNetwork.QTcpServer.serverError>` ()
+*    def :meth:`serverPort<PySide.QtNetwork.QTcpServer.serverPort>` ()
+*    def :meth:`setMaxPendingConnections<PySide.QtNetwork.QTcpServer.setMaxPendingConnections>` (numConnections)
+*    def :meth:`setProxy<PySide.QtNetwork.QTcpServer.setProxy>` (networkProxy)
+*    def :meth:`setSocketDescriptor<PySide.QtNetwork.QTcpServer.setSocketDescriptor>` (socketDescriptor)
+*    def :meth:`socketDescriptor<PySide.QtNetwork.QTcpServer.socketDescriptor>` ()
+*    def :meth:`waitForNewConnection<PySide.QtNetwork.QTcpServer.waitForNewConnection>` (msec)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hasPendingConnections<PySide.QtNetwork.QTcpServer.hasPendingConnections>` ()
+*    def :meth:`incomingConnection<PySide.QtNetwork.QTcpServer.incomingConnection>` (handle)
+*    def :meth:`nextPendingConnection<PySide.QtNetwork.QTcpServer.nextPendingConnection>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`newConnection<PySide.QtNetwork.QTcpServer.newConnection>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QTcpServer` class provides a TCP-based server.
+
+    This class makes it possible to accept incoming TCP connections. You can specify the port or have :class:`PySide.QtNetwork.QTcpServer` pick one automatically. You can listen on a specific address or on all the machine's addresses.
+
+    Call :meth:`PySide.QtNetwork.QTcpServer.listen` to have the server listen for incoming connections. The :meth:`PySide.QtNetwork.QTcpServer.newConnection` signal is then emitted each time a client connects to the server.
+
+    Call :meth:`PySide.QtNetwork.QTcpServer.nextPendingConnection` to accept the pending connection as a connected :class:`PySide.QtNetwork.QTcpSocket` . The function returns a pointer to a :class:`PySide.QtNetwork.QTcpSocket` in :attr:`QAbstractSocket.ConnectedState<QAbstractSocket.SocketState>` that you can use for communicating with the client.
+
+    If an error occurs, :meth:`PySide.QtNetwork.QTcpServer.serverError` returns the type of error, and :meth:`PySide.QtNetwork.QTcpServer.errorString` can be called to get a human readable description of what happened.
+
+    When listening for connections, the address and port on which the server is listening are available as :meth:`PySide.QtNetwork.QTcpServer.serverAddress` and :meth:`PySide.QtNetwork.QTcpServer.serverPort` .
+
+    Calling :meth:`PySide.QtNetwork.QTcpServer.close` makes :class:`PySide.QtNetwork.QTcpServer` stop listening for incoming connections.
+
+    Although :class:`PySide.QtNetwork.QTcpServer` is mostly designed for use with an event loop, it's possible to use it without one. In that case, you must use :meth:`PySide.QtNetwork.QTcpServer.waitForNewConnection` , which blocks until either a connection is available or a timeout expires.
+
+    .. _PySide.QtNetwork.QTcpServer_symbian-platform-security-requirements:
+
+
+
+Symbian Platform Security Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Symbian, processes which use this class must have the ``NetworkServices`` platform security capability. If the client process lacks this capability, it will lead to a panic.
+
+    Platform security capabilities are added via the :ref:`TARGET.CAPABILITY<qmake-variable-reference.html>` qmake variable.
+
+    .. seealso::  :class:`PySide.QtNetwork.QTcpSocket`  :ref:`Fortune Server Example<network/fortuneserver>`  :ref:`Threaded Fortune Server Example<network/threadedfortuneserver>`  :ref:`Loopback Example<network/loopback>`  :ref:`Torrent Example<network/torrent>` 
+
+.. class:: QTcpServer([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtNetwork.QTcpServer` object.
+
+    ``parent`` is passed to the :class:`PySide.QtCore.QObject` constructor.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.listen`  :meth:`PySide.QtNetwork.QTcpServer.setSocketDescriptor` 
+
+.. method:: PySide.QtNetwork.QTcpServer.addPendingConnection(socket)
+
+
+    :param socket: :class:`PySide.QtNetwork.QTcpSocket`
+
+
+
+
+    This function is called by :meth:`QTcpServer.incomingConnection()<PySide.QtNetwork.QTcpServer.incomingConnection>` to add the ``socket`` to the list of pending incoming connections.
+
+    .. note::  Don't forget to call this member from reimplemented :meth:`PySide.QtNetwork.QTcpServer.incomingConnection` if you do not want to break the Pending Connections mechanism.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.incomingConnection` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.close()
+
+
+
+
+
+
+    Closes the server. The server will no longer listen for incoming connections.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.listen` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human readable description of the last error that occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.serverError` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.hasPendingConnections()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the server has a pending connection; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.nextPendingConnection`  :meth:`PySide.QtNetwork.QTcpServer.setMaxPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.incomingConnection(handle)
+
+
+    :param handle: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtNetwork.QTcpServer` when a new connection is available. The ``socketDescriptor`` argument is the native socket descriptor for the accepted connection.
+
+    The base implementation creates a :class:`PySide.QtNetwork.QTcpSocket` , sets the socket descriptor and then stores the :class:`PySide.QtNetwork.QTcpSocket` in an internal list of pending connections. Finally :meth:`PySide.QtNetwork.QTcpServer.newConnection` is emitted.
+
+    Reimplement this function to alter the server's behavior when a connection is available.
+
+    If this server is using :class:`PySide.QtNetwork.QNetworkProxy` then the ``socketDescriptor`` may not be usable with native socket functions, and should only be used with :meth:`QTcpSocket.setSocketDescriptor()<PySide.QtNetwork.QTcpSocket.setSocketDescriptor>` .
+
+    .. note::  If you want to handle an incoming connection as a new :class:`PySide.QtNetwork.QTcpSocket` object in another thread you have to pass the socketDescriptor to the other thread and create the :class:`PySide.QtNetwork.QTcpSocket` object there and use its :meth:`PySide.QtNetwork.QTcpServer.setSocketDescriptor` method.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.newConnection`  :meth:`PySide.QtNetwork.QTcpServer.nextPendingConnection`  :meth:`PySide.QtNetwork.QTcpServer.addPendingConnection` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.isListening()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the server is currently listening for incoming connections; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.listen` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.listen([address=QHostAddress.Any[, port=0]])
+
+
+    :param address: :class:`PySide.QtNetwork.QHostAddress`
+    :param port: :class:`PySide.QtCore.quint16`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Tells the server to listen for incoming connections on address ``address`` and port ``port`` . If ``port`` is 0, a port is chosen automatically. If ``address`` is :attr:`QHostAddress.Any<QHostAddress.SpecialAddress>` , the server will listen on all network interfaces.
+
+    Returns true on success; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.isListening` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.maxPendingConnections()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the maximum number of pending accepted connections. The default is 30.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.setMaxPendingConnections`  :meth:`PySide.QtNetwork.QTcpServer.hasPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.newConnection()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QTcpServer.nextPendingConnection()
+
+
+    :rtype: :class:`PySide.QtNetwork.QTcpSocket`
+
+
+
+
+    Returns the next pending connection as a connected :class:`PySide.QtNetwork.QTcpSocket` object.
+
+    The socket is created as a child of the server, which means that it is automatically deleted when the :class:`PySide.QtNetwork.QTcpServer` object is destroyed. It is still a good idea to delete the object explicitly when you are done with it, to avoid wasting memory.
+
+    0 is returned if this function is called when there are no pending connections.
+
+    .. note::  The returned :class:`PySide.QtNetwork.QTcpSocket` object cannot be used from another thread. If you want to use an incoming connection from another thread, you need to override :meth:`PySide.QtNetwork.QTcpServer.incomingConnection` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.hasPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.proxy()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Returns the network proxy for this socket. By default :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` is used.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.setProxy`  :class:`PySide.QtNetwork.QNetworkProxy` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.serverAddress()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Returns the server's address if the server is listening for connections; otherwise returns :attr:`QHostAddress.Null<QHostAddress.SpecialAddress>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.serverPort`  :meth:`PySide.QtNetwork.QTcpServer.listen` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.serverError()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QAbstractSocket.SocketError`
+
+
+
+
+    Returns an error code for the last error that occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.errorString` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.serverPort()
+
+
+    :rtype: :class:`PySide.QtCore.quint16`
+
+
+
+
+    Returns the server's port if the server is listening for connections; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.serverAddress`  :meth:`PySide.QtNetwork.QTcpServer.listen` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.setMaxPendingConnections(numConnections)
+
+
+    :param numConnections: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the maximum number of pending accepted connections to ``numConnections`` . :class:`PySide.QtNetwork.QTcpServer` will accept no more than ``numConnections`` incoming connections before :meth:`PySide.QtNetwork.QTcpServer.nextPendingConnection` is called. By default, the limit is 30 pending connections.
+
+    Clients may still able to connect after the server has reached its maximum number of pending connections (i.e., :class:`PySide.QtNetwork.QTcpSocket` can still emit the connected() signal). :class:`PySide.QtNetwork.QTcpServer` will stop accepting the new connections, but the operating system may still keep them in queue.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.maxPendingConnections`  :meth:`PySide.QtNetwork.QTcpServer.hasPendingConnections` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.setProxy(networkProxy)
+
+
+    :param networkProxy: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Sets the explicit network proxy for this socket to ``networkProxy`` .
+
+    To disable the use of a proxy for this socket, use the :attr:`QNetworkProxy.NoProxy<QNetworkProxy.ProxyType>` proxy type:
+
+    ::
+
+        server.setProxy(QNetworkProxy.NoProxy)
+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.proxy`  :class:`PySide.QtNetwork.QNetworkProxy` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.setSocketDescriptor(socketDescriptor)
+
+
+    :param socketDescriptor: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the socket descriptor this server should use when listening for incoming connections to ``socketDescriptor`` . Returns true if the socket is set successfully; otherwise returns false.
+
+    The socket is assumed to be in listening state.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.socketDescriptor`  :meth:`PySide.QtNetwork.QTcpServer.isListening` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.socketDescriptor()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the native socket descriptor the server uses to listen for incoming instructions, or -1 if the server is not listening.
+
+    If the server is using :class:`PySide.QtNetwork.QNetworkProxy` , the returned descriptor may not be usable with native socket functions.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.setSocketDescriptor`  :meth:`PySide.QtNetwork.QTcpServer.isListening` 
+
+
+.. method:: PySide.QtNetwork.QTcpServer.waitForNewConnection(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+    :rtype: (retval, timeOut)
+
+
+
+
+    Waits for at most ``msec`` milliseconds or until an incoming connection is available. Returns true if a connection is available; otherwise returns false. If the operation timed out and ``timedOut`` is not 0, \*``timedOut`` will be set to true.
+
+    This is a blocking function call. Its use is disadvised in a single-threaded GUI application, since the whole application will stop responding until the function returns. :meth:`PySide.QtNetwork.QTcpServer.waitForNewConnection` is mostly useful when there is no event loop available.
+
+    The non-blocking alternative is to connect to the :meth:`PySide.QtNetwork.QTcpServer.newConnection` signal.
+
+    If msec is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QTcpServer.hasPendingConnections`  :meth:`PySide.QtNetwork.QTcpServer.nextPendingConnection` 
+
+
+

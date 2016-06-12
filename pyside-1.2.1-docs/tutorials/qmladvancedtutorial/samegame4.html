@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QML Advanced Tutorial 4 - Finishing Touches &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="QML Advanced Tutorial" href="index.html" />
+    <link rel="next" title="PySide API 2" href="../../pysideapi2.html" />
+    <link rel="prev" title="QML Advanced Tutorial 3 - Implementing the Game Logic" href="samegame3.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../index.html" >PySide tutorials</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">QML Advanced Tutorial</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QML Advanced Tutorial 4 - Finishing Touches</a><ul>
+<li><a class="reference internal" href="#adding-some-flair">Adding some flair</a><ul>
+<li><a class="reference internal" href="#animating-block-movement">Animating block movement</a></li>
+<li><a class="reference internal" href="#animating-block-opacity-changes">Animating block opacity changes</a></li>
+<li><a class="reference internal" href="#adding-particle-effects">Adding particle effects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#keeping-a-high-scores-table">Keeping a High Scores table</a><ul>
+<li><a class="reference internal" href="#storing-high-scores-offline">Storing high scores offline</a></li>
+<li><a class="reference internal" href="#storing-high-scores-online">Storing high scores online</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#that-s-it">That&#8217;s it!</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="samegame3.html"
+                        title="previous chapter">QML Advanced Tutorial 3 - Implementing the Game Logic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../pysideapi2.html"
+                        title="next chapter">PySide API 2</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qml-advanced-tutorial-4-finishing-touches">
+<span id="samegame4"></span><h1>QML Advanced Tutorial 4 - Finishing Touches<a class="headerlink" href="#qml-advanced-tutorial-4-finishing-touches" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-some-flair">
+<h2>Adding some flair<a class="headerlink" href="#adding-some-flair" title="Permalink to this headline">¶</a></h2>
+<p>Now we&#8217;re going to do two things to liven up the game: animate the blocks and add a High Score system.</p>
+<p>We&#8217;ve also cleaned up the directory structure for our application files. We now have a lot of files, so all the
+JavaScript and QML files outside of <tt class="docutils literal"><span class="pre">samegame.qml</span></tt> have been moved into a new sub-directory named &#8220;content&#8221;.</p>
+<p>In anticipation of the new block animations, <tt class="docutils literal"><span class="pre">Block.qml</span></tt> file is now renamed to <tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>.</p>
+<div class="section" id="animating-block-movement">
+<h3>Animating block movement<a class="headerlink" href="#animating-block-movement" title="Permalink to this headline">¶</a></h3>
+<p>First we will animate the blocks so that they move in a fluid manner. QML has a number of methods for adding fluid
+movement, and in this case we&#8217;re going to use the Behavior element to add a SpringAnimation.
+In <tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>, we apply a SpringAnimation behavior to the <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> properties so that the
+block will follow and animate its movement in a spring-like fashion towards the specified position (whose
+values will be set by <tt class="docutils literal"><span class="pre">samegame.js</span></tt>).Here is the code added to <tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>:</p>
+<div class="highlight-python"><pre>    property bool spawned: false
+
+    Behavior on x {
+        enabled: spawned;
+        SpringAnimation{ spring: 2; damping: 0.2 }
+    }
+    Behavior on y {
+        SpringAnimation{ spring: 2; damping: 0.2 }
+    }
+</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">spring</span></tt> and <tt class="docutils literal"><span class="pre">damping</span></tt> values can be changed to modify the spring-like effect of the animation.</p>
+<p>The <tt class="docutils literal"><span class="pre">enabled:</span> <span class="pre">spawned</span></tt> setting refers to the <tt class="docutils literal"><span class="pre">spawned</span></tt> value that is set from <tt class="docutils literal"><span class="pre">createBlock()</span></tt> in <tt class="docutils literal"><span class="pre">samegame.js</span></tt>.
+This ensures the SpringAnimation on the <tt class="docutils literal"><span class="pre">x</span></tt> is only enabled after <tt class="docutils literal"><span class="pre">createBlock()</span></tt> has set the block to
+the correct position. Otherwise, the blocks will slide out of the corner (0,0) when a game begins, instead of falling
+from the top in rows. (Try commenting out <tt class="docutils literal"><span class="pre">enabled:</span> <span class="pre">spawned</span></tt> and see for yourself.)</p>
+</div>
+<div class="section" id="animating-block-opacity-changes">
+<h3>Animating block opacity changes<a class="headerlink" href="#animating-block-opacity-changes" title="Permalink to this headline">¶</a></h3>
+<p>Next, we will add a smooth exit animation. For this, we&#8217;ll use a Behavior element, which allows us to specify
+a default animation when a property change occurs. In this case, when the <tt class="docutils literal"><span class="pre">opacity</span></tt> of a Block changes, we will
+animate the opacity value so that it gradually fades in and out, instead of abruptly changing between fully
+visible and invisible. To do this, we&#8217;ll apply a Behavior on the <tt class="docutils literal"><span class="pre">opacity</span></tt> property of the <tt class="docutils literal"><span class="pre">Image</span></tt>
+element in <tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>:</p>
+<div class="highlight-python"><pre>    Image {
+        id: img
+
+        anchors.fill: parent
+        source: {
+            if (type == 0)
+                return "../../shared/pics/redStone.png";
+            else if (type == 1)
+                return "../../shared/pics/blueStone.png";
+            else
+                return "../../shared/pics/greenStone.png";
+        }
+        opacity: 0
+
+        Behavior on opacity {
+            NumberAnimation { properties:"opacity"; duration: 200 }
+        }
+    }
+</pre>
+</div>
+<p>Note the <tt class="docutils literal"><span class="pre">opacity:</span> <span class="pre">0</span></tt> which means the block is transparent when it is first created. We could set the opacity
+in <tt class="docutils literal"><span class="pre">samegame.js</span></tt> when we create and destroy the blocks,
+but instead we&#8217;ll use states, since this is useful for the next animation we&#8217;re going to add.
+Initially, we add these States to the root element of <tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>:</p>
+<div class="highlight-python"><pre>property bool dying: false
+states: [
+    State{ name: "AliveState"; when: spawned == true &amp;&amp; dying == false
+        PropertyChanges { target: img; opacity: 1 }
+    },
+    State{ name: "DeathState"; when: dying == true
+        PropertyChanges { target: img; opacity: 0 }
+    }
+]</pre>
+</div>
+<p>Now blocks will automatically fade in, as we already set <tt class="docutils literal"><span class="pre">spawned</span></tt> to true when we implemented the block animations.
+To fade out, we set <tt class="docutils literal"><span class="pre">dying</span></tt> to true instead of setting opacity to 0 when a block is destroyed (in the <tt class="docutils literal"><span class="pre">floodFill()</span></tt> function).</p>
+</div>
+<div class="section" id="adding-particle-effects">
+<h3>Adding particle effects<a class="headerlink" href="#adding-particle-effects" title="Permalink to this headline">¶</a></h3>
+<p>Finally, we&#8217;ll add a cool-looking particle effect to the blocks when they are destroyed. To do this, we first add a Particles element in
+<tt class="docutils literal"><span class="pre">BoomBlock.qml</span></tt>, like so:</p>
+<div class="highlight-python"><pre>    Particles {
+        id: particles
+
+        width: 1; height: 1
+        anchors.centerIn: parent
+
+        emissionRate: 0
+        lifeSpan: 700; lifeSpanDeviation: 600
+        angle: 0; angleDeviation: 360;
+        velocity: 100; velocityDeviation: 30
+        source: {
+            if (type == 0)
+                return "../../shared/pics/redStar.png";
+            else if (type == 1) 
+                return "../../shared/pics/blueStar.png";
+            else
+                return "../../shared/pics/greenStar.png";
+        }
+    }
+</pre>
+</div>
+<p>To fully understand this you should read the Particles documentation, but it&#8217;s important to note that <tt class="docutils literal"><span class="pre">emissionRate</span></tt> is set
+to zero so that particles are not emitted normally.
+Also, we extend the <tt class="docutils literal"><span class="pre">dying</span></tt> State, which creates a burst of particles by calling the <tt class="docutils literal"><span class="pre">burst()</span></tt> method on the particles element. The code for the states now look
+like this:</p>
+<div class="highlight-python"><pre>    states: [
+        State {
+            name: "AliveState"
+            when: spawned == true &amp;&amp; dying == false
+            PropertyChanges { target: img; opacity: 1 }
+        },
+
+        State {
+            name: "DeathState"
+            when: dying == true
+            StateChangeScript { script: particles.burst(50); }
+            PropertyChanges { target: img; opacity: 0 }
+            StateChangeScript { script: block.destroy(1000); }
+        }
+    ]
+</pre>
+</div>
+<p>Now the game is beautifully animated, with subtle (or not-so-subtle) animations added for all of the
+player&#8217;s actions. The end result is shown below, with a different set of images to demonstrate basic theming:</p>
+<div class="figure align-center">
+<img alt="../../_images/declarative-adv-tutorial4.gif" src="../../_images/declarative-adv-tutorial4.gif" />
+</div>
+<p>The theme change here is produced simply by replacing the block images. This can be done at runtime by changing the l Image c source property, so for a further challenge, you could add a button that toggles between themes with different images.</p>
+</div>
+</div>
+<div class="section" id="keeping-a-high-scores-table">
+<h2>Keeping a High Scores table<a class="headerlink" href="#keeping-a-high-scores-table" title="Permalink to this headline">¶</a></h2>
+<p>Another feature we might want to add to the game is a method of storing and retrieving high scores.</p>
+<p>To do this, we will show a dialog when the game is over to request the player&#8217;s name and add it to a High Scores table.
+This requires a few changes to <tt class="docutils literal"><span class="pre">Dialog.qml</span></tt>. In addition to a <tt class="docutils literal"><span class="pre">Text</span></tt> element, it now has a
+<tt class="docutils literal"><span class="pre">TextInput</span></tt> child item for receiving keyboard text input:</p>
+<div class="highlight-python"><pre>Rectangle {
+...
+    TextInput {
+        id: textInput
+        anchors { verticalCenter: parent.verticalCenter; left: dialogText.right }
+        width: 80
+        text: ""
+
+        onAccepted: container.hide()    // close dialog when Enter is pressed
+    }
+...
+}
+</pre>
+</div>
+<p>We&#8217;ll also add a <tt class="docutils literal"><span class="pre">showWithInput()</span></tt> function. The text input will only be visible if this function
+is called instead of <tt class="docutils literal"><span class="pre">show()</span></tt>. When the dialog is closed, it emits a <tt class="docutils literal"><span class="pre">closed()</span></tt> signal, and
+other elements can retrieve the text entered by the user through an <tt class="docutils literal"><span class="pre">inputText</span></tt> property:</p>
+<div class="highlight-python"><pre>Rectangle {
+...
+    property string inputText: textInput.text
+    signal closed
+
+    function show(text) {
+        dialogText.text = text;
+        container.opacity = 1;
+        textInput.opacity = 0;
+    }
+
+    function showWithInput(text) {
+        show(text);
+        textInput.opacity = 1;
+        textInput.focus = true;
+        textInput.text = ""
+    }
+
+    function hide() {
+        textInput.focus = false;
+        container.opacity = 0;
+        container.closed();
+    }
+...
+}
+</pre>
+</div>
+<p>Now the dialog can be used in <tt class="docutils literal"><span class="pre">samegame.qml</span></tt>:</p>
+<div class="highlight-python"><pre>    Dialog {
+        id: nameInputDialog
+        anchors.centerIn: parent
+        z: 100
+
+        onClosed: {
+            if (nameInputDialog.inputText != "")
+                SameGame.saveHighScore(nameInputDialog.inputText);
+        }
+    }
+</pre>
+</div>
+<p>When the dialog emits the <tt class="docutils literal"><span class="pre">closed</span></tt> signal, we call the new <tt class="docutils literal"><span class="pre">saveHighScore()</span></tt> function in <tt class="docutils literal"><span class="pre">samegame.js</span></tt>, which stores the high score locally in an SQL database and also send the score to an online database if possible.</p>
+<p>The <tt class="docutils literal"><span class="pre">nameInputDialog</span></tt> is activated in the <tt class="docutils literal"><span class="pre">victoryCheck()</span></tt> function in <tt class="docutils literal"><span class="pre">samegame.js</span></tt>:</p>
+<div class="highlight-python"><pre>function vitoryCheck() {
+...
+    //Check whether game has finished
+    if (deservesBonus || !(floodMoveCheck(0, maxRow - 1, -1))) {
+        gameDuration = new Date() - gameDuration;
+        nameInputDialog.showWithInput("You won! Please enter your name: ");
+    }
+}
+</pre>
+</div>
+<div class="section" id="storing-high-scores-offline">
+<h3>Storing high scores offline<a class="headerlink" href="#storing-high-scores-offline" title="Permalink to this headline">¶</a></h3>
+<p>Now we need to implement the functionality to actually save the High Scores table.</p>
+<p>Here is the <tt class="docutils literal"><span class="pre">saveHighScore()</span></tt> function in <tt class="docutils literal"><span class="pre">samegame.js</span></tt>:</p>
+<div class="highlight-python"><pre>function saveHighScore(name) {
+    if (scoresURL != "")
+        sendHighScore(name);
+
+    var db = openDatabaseSync("SameGameScores", "1.0", "Local SameGame High Scores", 100);
+    var dataStr = "INSERT INTO Scores VALUES(?, ?, ?, ?)";
+    var data = [name, gameCanvas.score, maxColumn + "x" + maxRow, Math.floor(gameDuration / 1000)];
+    db.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS Scores(name TEXT, score NUMBER, gridSize TEXT, time NUMBER)');
+        tx.executeSql(dataStr, data);
+
+        var rs = tx.executeSql('SELECT * FROM Scores WHERE gridSize = "12x17" ORDER BY score desc LIMIT 10');
+        var r = "\nHIGH SCORES for a standard sized grid\n\n"
+        for (var i = 0; i &lt; rs.rows.length; i++) {
+            r += (i + 1) + ". " + rs.rows.item(i).name + ' got ' + rs.rows.item(i).score + ' points in ' + rs.rows.item(i).time + ' seconds.\n';
+        }
+        dialog.show(r);
+    });
+}
+</pre>
+</div>
+<p>First we call <tt class="docutils literal"><span class="pre">sendHighScore()</span></tt> (explained in the section below) if it is possible to send the high scores to an online database.</p>
+<p>Then, we use the Offline Storage API to maintain a persistant SQL database unique to this application. We create an offline storage database for the high scores using <tt class="docutils literal"><span class="pre">openDatabase()</span></tt> and prepare the data and SQL query that we want to use to save it. The offline storage API uses SQL queries for data manipulation and retrival, and in the <tt class="docutils literal"><span class="pre">db.transaction()</span></tt> call we use three SQL queries to initialize the database (if necessary), and then add to and retrieve high scores. To use the returned data, we turn it into a string with one line per row returned, and show a dialog containing that string.</p>
+<p>This is one way of storing and displaying high scores locally, but certainly not the only way. A more complex alternative would be to create a high score dialog component, and pass it the results for processing and display (instead of reusing the <tt class="docutils literal"><span class="pre">Dialog</span></tt>). This would allow a more themeable dialog that could beter present the high scores. If your QML is the UI for a Python application, you could also have passed the score to a Python function to store it locally in a variety of ways, including a simple format without SQL or in another SQL database.</p>
+</div>
+<div class="section" id="storing-high-scores-online">
+<h3>Storing high scores online<a class="headerlink" href="#storing-high-scores-online" title="Permalink to this headline">¶</a></h3>
+<p>You&#8217;ve seen how you can store high scores locally, but it is also easy to integrate a web-enabled high score storage into your QML application. The implementation we&#8217;ve done here is very
+simple: the high score data is posted to a php script running on a server somewhere, and that server then stores it and
+displays it to visitors. You could also request an XML or QML file from that same server, which contains and displays the scores,
+but that&#8217;s beyond the scope of this tutorial. The php script we use here is available in the <tt class="docutils literal"><span class="pre">examples</span></tt> directory.</p>
+<p>If the player entered their name we can send the data to the web service us</p>
+<p>If the player enters a name, we send the data to the service using this code in <tt class="docutils literal"><span class="pre">samegame.js</span></tt>:</p>
+<div class="highlight-python"><pre>function sendHighScore(name) {
+    var postman = new XMLHttpRequest()
+        var postData = "name=" + name + "&amp;score=" + gameCanvas.score + "&amp;gridSize=" + maxColumn + "x" + maxRow + "&amp;time=" + Math.floor(gameDuration / 1000);
+    postman.open("POST", scoresURL, true);
+    postman.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    postman.onreadystatechange = function() {
+        if (postman.readyState == postman.DONE) {
+            dialog.show("Your score has been uploaded.");
+        }
+    }
+    postman.send(postData);
+}
+</pre>
+</div>
+<p>The XMLHttpRequest in this code is the same as the <tt class="docutils literal"><span class="pre">XMLHttpRequest()</span></tt> as you&#8217;ll find in standard browser JavaScript, and can be used in the same way to dynamically get XML
+or QML from the web service to display the high scores. We don&#8217;t worry about the response in this case - we just post the high
+score data to the web server. If it had returned a QML file (or a URL to a QML file) you could instantiate it in much the same
+way as you did with the blocks.</p>
+<p>An alternate way to access and submit web-based data would be to use QML elements designed for this purpose. XmlListModel
+makes it very easy to fetch and display XML based data such as RSS in a QML application (see the Flickr demo for an example).</p>
+</div>
+</div>
+<div class="section" id="that-s-it">
+<h2>That&#8217;s it!<a class="headerlink" href="#that-s-it" title="Permalink to this headline">¶</a></h2>
+<p>By following this tutorial you&#8217;ve seen how you can write a fully functional application in QML:</p>
+<ul class="simple">
+<li>Build your application with QML elements.</li>
+<li>Add application logic with JavaScript code.</li>
+<li>Add animations with Behaviors and states.</li>
+<li>Store persistent application data using, for example, the Offline Storage API or XMLHttpRequest.</li>
+</ul>
+<p>There is so much more to learn about QML that we haven&#8217;t been able to cover in this tutorial. Check out all the
+demos and examples and the documentation to see all the things you can do with QML!</p>
+<p>[Previous <a class="reference internal" href="samegame3.html#samegame3"><em>QML Advanced Tutorial 3 - Implementing the Game Logic</em></a>]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

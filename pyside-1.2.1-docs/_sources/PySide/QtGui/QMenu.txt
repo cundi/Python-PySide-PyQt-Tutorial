@@ -1,0 +1,830 @@
+.. module:: PySide.QtGui
+.. _QMenu:
+
+QMenu
+*****
+
+.. inheritance-diagram:: QMenu
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionAt<PySide.QtGui.QMenu.actionAt>` (arg__1)
+*    def :meth:`actionGeometry<PySide.QtGui.QMenu.actionGeometry>` (arg__1)
+*    def :meth:`activeAction<PySide.QtGui.QMenu.activeAction>` ()
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (arg__1, arg__2, arg__3[, arg__4=0])
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (arg__1, arg__2[, arg__3=0])
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (icon, text)
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (icon, text, receiver, member[, shortcut=0])
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (text)
+*    def :meth:`addAction<PySide.QtGui.QMenu.addAction>` (text, receiver, member[, shortcut=0])
+*    def :meth:`addMenu<PySide.QtGui.QMenu.addMenu>` (icon, title)
+*    def :meth:`addMenu<PySide.QtGui.QMenu.addMenu>` (menu)
+*    def :meth:`addMenu<PySide.QtGui.QMenu.addMenu>` (title)
+*    def :meth:`addSeparator<PySide.QtGui.QMenu.addSeparator>` ()
+*    def :meth:`clear<PySide.QtGui.QMenu.clear>` ()
+*    def :meth:`columnCount<PySide.QtGui.QMenu.columnCount>` ()
+*    def :meth:`defaultAction<PySide.QtGui.QMenu.defaultAction>` ()
+*    def :meth:`exec_<PySide.QtGui.QMenu.exec_>` ()
+*    def :meth:`exec_<PySide.QtGui.QMenu.exec_>` (pos[, at=None])
+*    def :meth:`hideTearOffMenu<PySide.QtGui.QMenu.hideTearOffMenu>` ()
+*    def :meth:`icon<PySide.QtGui.QMenu.icon>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QMenu.initStyleOption>` (option, action)
+*    def :meth:`insertMenu<PySide.QtGui.QMenu.insertMenu>` (before, menu)
+*    def :meth:`insertSeparator<PySide.QtGui.QMenu.insertSeparator>` (before)
+*    def :meth:`isEmpty<PySide.QtGui.QMenu.isEmpty>` ()
+*    def :meth:`isTearOffEnabled<PySide.QtGui.QMenu.isTearOffEnabled>` ()
+*    def :meth:`isTearOffMenuVisible<PySide.QtGui.QMenu.isTearOffMenuVisible>` ()
+*    def :meth:`menuAction<PySide.QtGui.QMenu.menuAction>` ()
+*    def :meth:`popup<PySide.QtGui.QMenu.popup>` (pos[, at=None])
+*    def :meth:`separatorsCollapsible<PySide.QtGui.QMenu.separatorsCollapsible>` ()
+*    def :meth:`setActiveAction<PySide.QtGui.QMenu.setActiveAction>` (act)
+*    def :meth:`setDefaultAction<PySide.QtGui.QMenu.setDefaultAction>` (arg__1)
+*    def :meth:`setIcon<PySide.QtGui.QMenu.setIcon>` (icon)
+*    def :meth:`setSeparatorsCollapsible<PySide.QtGui.QMenu.setSeparatorsCollapsible>` (collapse)
+*    def :meth:`setTearOffEnabled<PySide.QtGui.QMenu.setTearOffEnabled>` (arg__1)
+*    def :meth:`setTitle<PySide.QtGui.QMenu.setTitle>` (title)
+*    def :meth:`title<PySide.QtGui.QMenu.title>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`internalDelayedPopup<PySide.QtGui.QMenu.internalDelayedPopup>` ()
+*    def :meth:`internalSetSloppyAction<PySide.QtGui.QMenu.internalSetSloppyAction>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToHide<PySide.QtGui.QMenu.aboutToHide>` ()
+*    def :meth:`aboutToShow<PySide.QtGui.QMenu.aboutToShow>` ()
+*    def :meth:`hovered<PySide.QtGui.QMenu.hovered>` (action)
+*    def :meth:`triggered<PySide.QtGui.QMenu.triggered>` (action)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`exec_<PySide.QtGui.QMenu.exec_>` (actions, pos, at, parent)
+*    def :meth:`exec_<PySide.QtGui.QMenu.exec_>` (actions, pos[, at=None])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMenu` class provides a menu widget for use in menu bars, context menus, and other popup menus.
+
+    A menu widget is a selection menu. It can be either a pull-down menu in a menu bar or a standalone context menu. Pull-down menus are shown by the menu bar when the user clicks on the respective item or presses the specified shortcut key. Use :meth:`QMenuBar.addMenu()<PySide.QtGui.QMenuBar.addMenu>` to insert a menu into a menu bar. Context menus are usually invoked by some special keyboard key or by right-clicking. They can be executed either asynchronously with :meth:`PySide.QtGui.QMenu.popup` or synchronously with :meth:`~PySide.QtGui.QMenu.exec` . Menus can also be invoked in response to button presses; these are just like context menus except for how they are invoked.
+
+    +-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-menu.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-menu.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-menu.png|
+    +-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+    Fig. A menu shown in :ref:`Plastique widget style<gallery-plastique.html>` , :ref:`Windows XP widget style<gallery-windowsxp.html>` , and :ref:`Macintosh widget style<gallery-macintosh.html>` .
+
+    .. _PySide.QtGui.QMenu_actions:
+
+
+
+Actions
+^^^^^^^
+
+    A menu consists of a list of action items. Actions are added with the :meth:`PySide.QtGui.QMenu.addAction` , :meth:`PySide.QtGui.QWidget.addActions` and :meth:`PySide.QtGui.QWidget.insertAction` functions. An action is represented vertically and rendered by :class:`PySide.QtGui.QStyle` . In addition, actions can have a text label, an optional icon drawn on the very left side, and shortcut key sequence such as "Ctrl+X".
+
+    The existing actions held by a menu can be found with :meth:`PySide.QtGui.QWidget.actions` .
+
+    There are four kinds of action items: separators, actions that show a submenu, widgets, and actions that perform an action. Separators are inserted with :meth:`PySide.QtGui.QMenu.addSeparator` , submenus with :meth:`PySide.QtGui.QMenu.addMenu` , and all other items are considered action items.
+
+    When inserting action items you usually specify a receiver and a slot. The receiver will be notifed whenever the item is :meth:`PySide.QtGui.QAction.triggered` . In addition, :class:`PySide.QtGui.QMenu` provides two signals, :meth:`~PySide.QtGui.QMenu.activated` and :meth:`~PySide.QtGui.QMenu.highlighted` , which signal the :class:`PySide.QtGui.QAction` that was triggered from the menu.
+
+    You clear a menu with :meth:`PySide.QtGui.QMenu.clear` and remove individual action items with :meth:`PySide.QtGui.QWidget.removeAction` .
+
+    A :class:`PySide.QtGui.QMenu` can also provide a tear-off menu. A tear-off menu is a top-level window that contains a copy of the menu. This makes it possible for the user to "tear off" frequently used menus and position them in a convenient place on the screen. If you want this functionality for a particular menu, insert a tear-off handle with :meth:`PySide.QtGui.QMenu.setTearOffEnabled` . When using tear-off menus, bear in mind that the concept isn't typically used on Microsoft Windows so some users may not be familiar with it. Consider using a :class:`PySide.QtGui.QToolBar` instead.
+
+    Widgets can be inserted into menus with the :class:`PySide.QtGui.QWidgetAction` class. Instances of this class are used to hold widgets, and are inserted into menus with the :meth:`PySide.QtGui.QMenu.addAction` overload that takes a :class:`PySide.QtGui.QAction` .
+
+    Conversely, actions can be added to widgets with the :meth:`PySide.QtGui.QMenu.addAction` , :meth:`PySide.QtGui.QWidget.addActions` and :meth:`PySide.QtGui.QWidget.insertAction` functions.
+
+    .. warning::  To make :class:`PySide.QtGui.QMenu` visible on the screen, :meth:`~PySide.QtGui.QMenu.exec` or :meth:`PySide.QtGui.QMenu.popup` should be used instead of :meth:`PySide.QtGui.QWidget.show` .
+
+    .. _PySide.QtGui.QMenu_qmenu-on-qt-for-windows-ce:
+
+
+
+QMenu on Qt for Windows CE
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    If a menu is integrated into the native menubar on Windows Mobile we do not support the signals: aboutToHide (), aboutToShow () and hovered (). It is not possible to display an icon in a native menu on Windows Mobile.
+
+    .. _PySide.QtGui.QMenu_qmenu-on-mac-os-x-with-qt-build-against-cocoa:
+
+
+
+QMenu on Mac OS X with Qt build against Cocoa
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QMenu` can be inserted only once in a menu/menubar. Subsequent insertions will have no effect or will result in a disabled menu item.
+
+    See the :ref:`Menus<mainwindows/menus>` example for an example of how to use :class:`PySide.QtGui.QMenuBar` and :class:`PySide.QtGui.QMenu` in your application.
+
+    **Important inherited functions:**\ :meth:`PySide.QtGui.QMenu.addAction` , :meth:`PySide.QtGui.QWidget.removeAction` , :meth:`PySide.QtGui.QMenu.clear` , :meth:`PySide.QtGui.QMenu.addSeparator` , and :meth:`PySide.QtGui.QMenu.addMenu` .
+
+    .. seealso::  :class:`PySide.QtGui.QMenuBar`  :ref:`GUI Design Handbook: Menu, Drop-Down and Pop-Up<guibooks.html>`  :ref:`Application Example<mainwindows/application>`  :ref:`Menus Example<mainwindows/menus>`  :ref:`Recent Files Example<mainwindows/recentfiles>` 
+
+.. class:: QMenu([parent=None])
+           QMenu(title[, parent=None])
+
+    :param title: unicode
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a menu with parent ``parent`` .
+
+    Although a popup menu is always a top-level widget, if a parent is passed the popup menu will be deleted when that parent is destroyed (as with any other :class:`PySide.QtCore.QObject` ).
+
+
+    Constructs a menu with a ``title`` and a ``parent`` .
+
+    Although a popup menu is always a top-level widget, if a parent is passed the popup menu will be deleted when that parent is destroyed (as with any other :class:`PySide.QtCore.QObject` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.title` 
+
+.. method:: PySide.QtGui.QMenu.aboutToHide()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.aboutToShow()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.actionAt(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the item at ``pt`` ; returns 0 if there is no item there.
+
+
+
+.. method:: PySide.QtGui.QMenu.actionGeometry(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of action ``act`` .
+
+
+
+.. method:: PySide.QtGui.QMenu.activeAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the currently highlighted action, or 0 if no action is currently highlighted.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.setActiveAction` 
+
+
+.. method:: PySide.QtGui.QMenu.addAction(icon, text, receiver, member[, shortcut=0])
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param text: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param shortcut: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with an ``icon`` and some ``text`` and an optional shortcut ``shortcut`` . The action's :meth:`PySide.QtGui.QAction.triggered` signal is connected to the ``member`` slot of the ``receiver`` object. The function adds the newly created action to the menu's list of actions, and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addAction(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with ``text`` . The function adds the newly created action to the menu's list of actions, and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addAction(icon, text)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with an ``icon`` and some ``text`` . The function adds the newly created action to the menu's list of actions, and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addAction(arg__1, arg__2[, arg__3=0])
+
+
+    :param arg__1: unicode
+    :param arg__2: :class:`PyObject`
+    :param arg__3: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.addAction(arg__1, arg__2, arg__3[, arg__4=0])
+
+
+    :param arg__1: :class:`PySide.QtGui.QIcon`
+    :param arg__2: unicode
+    :param arg__3: :class:`PyObject`
+    :param arg__4: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.addAction(text, receiver, member[, shortcut=0])
+
+
+    :param text: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param shortcut: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with the text ``text`` and an optional shortcut ``shortcut`` . The action's :meth:`PySide.QtGui.QAction.triggered` signal is connected to the ``receiver`` 's ``member`` slot. The function adds the newly created action to the menu's list of actions and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addMenu(icon, title)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param title: unicode
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Appends a new :class:`PySide.QtGui.QMenu` with ``icon`` and ``title`` to the menu. The menu takes ownership of the menu. Returns the new menu.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addMenu(title)
+
+
+    :param title: unicode
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Appends a new :class:`PySide.QtGui.QMenu` with ``title`` to the menu. The menu takes ownership of the menu. Returns the new menu.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addMenu(menu)
+
+
+    :param menu: :class:`PySide.QtGui.QMenu`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function adds ``menu`` as a submenu to this menu. It returns ``menu`` 's :meth:`PySide.QtGui.QMenu.menuAction` . This menu does not take ownership of ``menu`` .
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.addSeparator()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function creates a new separator action, i.e. an action with :meth:`QAction.isSeparator()<PySide.QtGui.QAction.isSeparator>` returning true, and adds the new action to this menu's list of actions. It returns the newly created action.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>` 
+
+
+.. method:: PySide.QtGui.QMenu.clear()
+
+
+
+
+
+
+    Removes all the menu's actions. Actions owned by the menu and not shown in any other widget are deleted.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.removeAction` 
+
+
+.. method:: PySide.QtGui.QMenu.columnCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    If a menu does not fit on the screen it lays itself out so that it does fit. It is style dependent what layout means (for example, on Windows it will use multiple columns).
+
+    This functions returns the number of columns necessary.
+
+
+
+.. method:: PySide.QtGui.QMenu.defaultAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the current default action.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.setDefaultAction` 
+
+
+.. staticmethod:: PySide.QtGui.QMenu.exec_(actions, pos, at, parent)
+
+
+    :param actions: 
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param at: :class:`PySide.QtGui.QAction`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.exec_(pos[, at=None])
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param at: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Executes this menu synchronously.
+
+    Pops up the menu so that the action ``action`` will be at the specified *global* position ``p`` . To translate a widget's local coordinates into global coordinates, use :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` .
+
+    This returns the triggered :class:`PySide.QtGui.QAction` in either the popup menu or one of its submenus, or 0 if no item was triggered (normally because the user pressed Esc).
+
+    Note that all signals are emitted as usual. If you connect a :class:`PySide.QtGui.QAction` to a slot and call the menu's :meth:`~PySide.QtGui.QMenu.exec` , you get the result both via the signal-slot connection and in the return value of :meth:`~PySide.QtGui.QMenu.exec` .
+
+    Common usage is to position the menu at the current mouse position:
+
+    ::
+
+        exec_(QCursor.pos())
+
+
+    or aligned to a widget:
+
+    ::
+
+        exec_(somewidget.mapToGlobal(QPoint(0, 0)))
+
+
+    or in reaction to a :class:`PySide.QtGui.QMouseEvent` \*e:
+
+    ::
+
+        exec_(e.globalPos())
+
+
+    When positioning a menu with :meth:`~PySide.QtGui.QMenu.exec` or :meth:`PySide.QtGui.QMenu.popup` , bear in mind that you cannot rely on the menu's current :meth:`PySide.QtGui.QWidget.size` . For performance reasons, the menu adapts its size only when necessary. So in many cases, the size before and after the show is different. Instead, use :meth:`PySide.QtGui.QMenu.sizeHint` which calculates the proper size depending on the menu's current contents.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.popup`  :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` 
+
+
+.. staticmethod:: PySide.QtGui.QMenu.exec_(actions, pos[, at=None])
+
+
+    :param actions: 
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param at: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.exec_()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Executes this menu synchronously.
+
+    This is equivalent to ``exec(pos())`` .
+
+    This returns the triggered :class:`PySide.QtGui.QAction` in either the popup menu or one of its submenus, or 0 if no item was triggered (normally because the user pressed Esc).
+
+    In most situations you'll want to specify the position yourself, for example, the current mouse position:
+
+    ::
+
+        exec_(QCursor.pos())
+
+
+    or aligned to a widget:
+
+    ::
+
+        exec_(somewidget.mapToGlobal(QPoint(0,0)))
+
+
+    or in reaction to a :class:`PySide.QtGui.QMouseEvent` \*e:
+
+    ::
+
+        exec_(e.globalPos())
+
+
+
+
+.. method:: PySide.QtGui.QMenu.hideTearOffMenu()
+
+
+
+
+
+
+    This function will forcibly hide the torn off menu making it disappear from the users desktop.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.isTearOffMenuVisible`  :meth:`PySide.QtGui.QMenu.isTearOffEnabled` 
+
+
+.. method:: PySide.QtGui.QMenu.hovered(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds The icon of the menu.
+
+    This is equivalent to the :meth:`QAction.icon<PySide.QtGui.QAction.icon>` property of the :meth:`PySide.QtGui.QMenu.menuAction` .
+
+    By default, if no icon is explicitly set, this property contains a null icon.
+
+
+
+.. method:: PySide.QtGui.QMenu.initStyleOption(option, action)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionMenuItem`
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Initialize ``option`` with the values from this menu and information from ``action`` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionMenuItem` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>`  :meth:`QMenuBar.initStyleOption()<PySide.QtGui.QMenuBar.initStyleOption>` 
+
+
+.. method:: PySide.QtGui.QMenu.insertMenu(before, menu)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :param menu: :class:`PySide.QtGui.QMenu`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function inserts ``menu`` before action ``before`` and returns the menus :meth:`PySide.QtGui.QMenu.menuAction` .
+
+    .. seealso::  :meth:`QWidget.insertAction()<PySide.QtGui.QWidget.insertAction>`  :meth:`PySide.QtGui.QMenu.addMenu` 
+
+
+.. method:: PySide.QtGui.QMenu.insertSeparator(before)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function creates a new separator action, i.e. an action with :meth:`QAction.isSeparator()<PySide.QtGui.QAction.isSeparator>` returning true. The function inserts the newly created action into this menu's list of actions before action ``before`` and returns it.
+
+    .. seealso::  :meth:`QWidget.insertAction()<PySide.QtGui.QWidget.insertAction>`  :meth:`PySide.QtGui.QMenu.addSeparator` 
+
+
+.. method:: PySide.QtGui.QMenu.internalDelayedPopup()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.internalSetSloppyAction()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenu.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are no visible actions inserted into the menu, false otherwise.
+
+    .. seealso::  :meth:`QWidget.actions()<PySide.QtGui.QWidget.actions>` 
+
+
+.. method:: PySide.QtGui.QMenu.isTearOffEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the menu supports being torn off.
+
+    When true, the menu contains a special tear-off item (often shown as a dashed line at the top of the menu) that creates a copy of the menu when it is triggered.
+
+    This "torn-off" copy lives in a separate window. It contains the same menu items as the original menu, with the exception of the tear-off handle.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QMenu.isTearOffMenuVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    When a menu is torn off a second menu is shown to display the menu contents in a new window. When the menu is in this mode and the menu is visible returns true; otherwise false.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.hideTearOffMenu`  :meth:`PySide.QtGui.QMenu.isTearOffEnabled` 
+
+
+.. method:: PySide.QtGui.QMenu.menuAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the action associated with this menu.
+
+
+
+.. method:: PySide.QtGui.QMenu.popup(pos[, at=None])
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param at: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Displays the menu so that the action ``atAction`` will be at the specified *global* position ``p`` . To translate a widget's local coordinates into global coordinates, use :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` .
+
+    When positioning a menu with :meth:`~PySide.QtGui.QMenu.exec` or :meth:`PySide.QtGui.QMenu.popup` , bear in mind that you cannot rely on the menu's current :meth:`PySide.QtGui.QWidget.size` . For performance reasons, the menu adapts its size only when necessary, so in many cases, the size before and after the show is different. Instead, use :meth:`PySide.QtGui.QMenu.sizeHint` which calculates the proper size depending on the menu's current contents.
+
+    .. seealso::  :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>`  :meth:`~PySide.QtGui.QMenu.exec` 
+
+
+.. method:: PySide.QtGui.QMenu.separatorsCollapsible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether consecutive separators should be collapsed.
+
+    This property specifies whether consecutive separators in the menu should be visually collapsed to a single one. Separators at the beginning or the end of the menu are also hidden.
+
+    By default, this property is true.
+
+
+
+.. method:: PySide.QtGui.QMenu.setActiveAction(act)
+
+
+    :param act: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Sets the currently highlighted action to ``act`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.activeAction` 
+
+
+.. method:: PySide.QtGui.QMenu.setDefaultAction(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This sets the default action to ``act`` . The default action may have a visual cue, depending on the current :class:`PySide.QtGui.QStyle` . A default action usually indicates what will happen by default when a drop occurs.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenu.defaultAction` 
+
+
+.. method:: PySide.QtGui.QMenu.setIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds The icon of the menu.
+
+    This is equivalent to the :meth:`QAction.icon<PySide.QtGui.QAction.icon>` property of the :meth:`PySide.QtGui.QMenu.menuAction` .
+
+    By default, if no icon is explicitly set, this property contains a null icon.
+
+
+
+.. method:: PySide.QtGui.QMenu.setSeparatorsCollapsible(collapse)
+
+
+    :param collapse: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether consecutive separators should be collapsed.
+
+    This property specifies whether consecutive separators in the menu should be visually collapsed to a single one. Separators at the beginning or the end of the menu are also hidden.
+
+    By default, this property is true.
+
+
+
+.. method:: PySide.QtGui.QMenu.setTearOffEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the menu supports being torn off.
+
+    When true, the menu contains a special tear-off item (often shown as a dashed line at the top of the menu) that creates a copy of the menu when it is triggered.
+
+    This "torn-off" copy lives in a separate window. It contains the same menu items as the original menu, with the exception of the tear-off handle.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QMenu.setTitle(title)
+
+
+    :param title: unicode
+
+
+
+
+    This property holds The title of the menu.
+
+    This is equivalent to the :meth:`QAction.text<PySide.QtGui.QAction.text>` property of the :meth:`PySide.QtGui.QMenu.menuAction` .
+
+    By default, this property contains an empty string.
+
+
+
+.. method:: PySide.QtGui.QMenu.title()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds The title of the menu.
+
+    This is equivalent to the :meth:`QAction.text<PySide.QtGui.QAction.text>` property of the :meth:`PySide.QtGui.QMenu.menuAction` .
+
+    By default, this property contains an empty string.
+
+
+
+.. method:: PySide.QtGui.QMenu.triggered(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+

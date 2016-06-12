@@ -1,0 +1,659 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QThread &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtCore" href="index.html" />
+    <link rel="next" title="QIODevice" href="QIODevice.html" />
+    <link rel="prev" title="QThreadPool" href="QThreadPool.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtCore</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QThread</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#virtual-functions">Virtual functions</a></li>
+<li><a class="reference internal" href="#slots">Slots</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#static-functions">Static functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a><ul>
+<li><a class="reference internal" href="#managing-threads">Managing threads</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QThreadPool.html"
+                        title="previous chapter">QThreadPool</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QIODevice.html"
+                        title="next chapter">QIODevice</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtCore"></span><div class="section" id="qthread">
+<span id="id1"></span><h1>QThread<a class="headerlink" href="#qthread" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exec_" title="PySide.QtCore.PySide.QtCore.QThread.exec_"><tt class="xref py py-meth docutils literal"><span class="pre">exec_</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">exit</span></tt></a> ([retcode=0])</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isFinished" title="PySide.QtCore.PySide.QtCore.QThread.isFinished"><tt class="xref py py-meth docutils literal"><span class="pre">isFinished</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isRunning" title="PySide.QtCore.PySide.QtCore.QThread.isRunning"><tt class="xref py py-meth docutils literal"><span class="pre">isRunning</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.priority" title="PySide.QtCore.PySide.QtCore.QThread.priority"><tt class="xref py py-meth docutils literal"><span class="pre">priority</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setPriority" title="PySide.QtCore.PySide.QtCore.QThread.setPriority"><tt class="xref py py-meth docutils literal"><span class="pre">setPriority</span></tt></a> (priority)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setStackSize" title="PySide.QtCore.PySide.QtCore.QThread.setStackSize"><tt class="xref py py-meth docutils literal"><span class="pre">setStackSize</span></tt></a> (stackSize)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.stackSize" title="PySide.QtCore.PySide.QtCore.QThread.stackSize"><tt class="xref py py-meth docutils literal"><span class="pre">stackSize</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">wait</span></tt></a> ([time=ULONG_MAX])</li>
+</ul>
+</div>
+<div class="section" id="virtual-functions">
+<h3>Virtual functions<a class="headerlink" href="#virtual-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">run</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="slots">
+<h3>Slots<a class="headerlink" href="#slots" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="PySide.QtCore.PySide.QtCore.QThread.quit"><tt class="xref py py-meth docutils literal"><span class="pre">quit</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">start</span></tt></a> ([priority=InheritPriority])</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">terminate</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="signals">
+<h3>Signals<a class="headerlink" href="#signals" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.finished" title="PySide.QtCore.PySide.QtCore.QThread.finished"><tt class="xref py py-meth docutils literal"><span class="pre">finished</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.started" title="PySide.QtCore.PySide.QtCore.QThread.started"><tt class="xref py py-meth docutils literal"><span class="pre">started</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminated" title="PySide.QtCore.PySide.QtCore.QThread.terminated"><tt class="xref py py-meth docutils literal"><span class="pre">terminated</span></tt></a> ()</li>
+</ul>
+</div>
+<div class="section" id="static-functions">
+<h3>Static functions<a class="headerlink" href="#static-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.cleanup" title="PySide.QtCore.PySide.QtCore.QThread.cleanup"><tt class="xref py py-meth docutils literal"><span class="pre">cleanup</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.currentThread" title="PySide.QtCore.PySide.QtCore.QThread.currentThread"><tt class="xref py py-meth docutils literal"><span class="pre">currentThread</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.currentThreadId" title="PySide.QtCore.PySide.QtCore.QThread.currentThreadId"><tt class="xref py py-meth docutils literal"><span class="pre">currentThreadId</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.idealThreadCount" title="PySide.QtCore.PySide.QtCore.QThread.idealThreadCount"><tt class="xref py py-meth docutils literal"><span class="pre">idealThreadCount</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.initialize" title="PySide.QtCore.PySide.QtCore.QThread.initialize"><tt class="xref py py-meth docutils literal"><span class="pre">initialize</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.msleep" title="PySide.QtCore.PySide.QtCore.QThread.msleep"><tt class="xref py py-meth docutils literal"><span class="pre">msleep</span></tt></a> (arg__1)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">setTerminationEnabled</span></tt></a> ([enabled=true])</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">sleep</span></tt></a> (arg__1)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.usleep" title="PySide.QtCore.PySide.QtCore.QThread.usleep"><tt class="xref py py-meth docutils literal"><span class="pre">usleep</span></tt></a> (arg__1)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.yieldCurrentThread" title="PySide.QtCore.PySide.QtCore.QThread.yieldCurrentThread"><tt class="xref py py-meth docutils literal"><span class="pre">yieldCurrentThread</span></tt></a> ()</li>
+</ul>
+</div>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> class provides a platform-independent way to manage threads.</p>
+<p>A <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> object manages one thread of control within the program. QThreads begin executing in <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> . By default, <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> starts the event loop by calling <tt class="xref py py-meth docutils literal"><span class="pre">exec()</span></tt> and runs a Qt event loop inside the thread.</p>
+<p>You can use worker objects by moving them to the thread using <a class="reference internal" href="QObject.html#PySide.QtCore.PySide.QtCore.QObject.moveToThread" title="PySide.QtCore.PySide.QtCore.QObject.moveToThread"><tt class="xref py py-meth docutils literal"><span class="pre">QObject.moveToThread()</span></tt></a> .</p>
+<div class="highlight-python"><pre>&lt;Code snippet "doc/src/snippets/code/src_corelib_thread_qthread.cpp:worker" not found&gt;</pre>
+</div>
+<p>The code inside the Worker&#8217;s slot would then execute in a separate thread. However, you are free to connect the Worker&#8217;s slots to any signal, from any object, in any thread. It is safe to connect signals and slots across different threads, thanks to a mechanism called <tt class="xref py py-attr docutils literal"><span class="pre">queued</span> <span class="pre">connections</span></tt> .</p>
+<p>Another way to make code run in a separate thread, is to subclass <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> and reimplement <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> . For example:</p>
+<div class="highlight-python"><pre>&lt;Code snippet "code/src_corelib_thread_qthread.cpp:reimpl-run" not found&gt;</pre>
+</div>
+<p>In that example, the thread will exit after the run function has returned. There will not be any event loop running in the thread unless you call <tt class="xref py py-meth docutils literal"><span class="pre">exec()</span></tt> .</p>
+<p>It is important to remember that a <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> object usually lives in the thread where it was created, not in the thread that it manages. This oft-overlooked detail means that a <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> &#8216;s slots will be executed in the context of its home thread, not in the context of the thread it is managing. For this reason, implementing new slots in a <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> subclass is error-prone and discouraged.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you interact with an object, using any technique other than queued signal/slot connections (e.g. direct function calls), then the usual multithreading precautions need to be taken.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is not possible to change the thread affinity of GUI objects; they must remain in the main thread.</p>
+</div>
+</div></blockquote>
+<div class="section" id="managing-threads">
+<span id="pyside-qtcore-qthread-managing-threads"></span><h3>Managing threads<a class="headerlink" href="#managing-threads" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> will notifiy you via a signal when the thread is <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.started" title="PySide.QtCore.PySide.QtCore.QThread.started"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.started()</span></tt></a> , <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.finished" title="PySide.QtCore.PySide.QtCore.QThread.finished"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.finished()</span></tt></a> , and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminated" title="PySide.QtCore.PySide.QtCore.QThread.terminated"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminated()</span></tt></a> , or you can use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isFinished" title="PySide.QtCore.PySide.QtCore.QThread.isFinished"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.isFinished()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isRunning" title="PySide.QtCore.PySide.QtCore.QThread.isRunning"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.isRunning()</span></tt></a> to query the state of the thread.</p>
+<p>You can stop the thread by calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a> or <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="PySide.QtCore.PySide.QtCore.QThread.quit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.quit()</span></tt></a> . In extreme cases, you may want to forcibly <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a> an executing thread. However, doing so is dangerous and discouraged. Please read the documentation for <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.setTerminationEnabled()</span></tt></a> for detailed information.</p>
+<p>From Qt 4.8 onwards, it is possible to deallocate objects that live in a thread that has just ended, by connecting the <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.finished" title="PySide.QtCore.PySide.QtCore.QThread.finished"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.finished()</span></tt></a> signal to <a class="reference internal" href="QObject.html#PySide.QtCore.PySide.QtCore.QObject.deleteLater" title="PySide.QtCore.PySide.QtCore.QObject.deleteLater"><tt class="xref py py-meth docutils literal"><span class="pre">QObject.deleteLater()</span></tt></a> .</p>
+<p>Use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.wait()</span></tt></a> to block the calling thread, until the other thread has finished execution (or until a specified time has passed).</p>
+<p>The static functions <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.currentThreadId" title="PySide.QtCore.PySide.QtCore.QThread.currentThreadId"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.currentThreadId()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.currentThread" title="PySide.QtCore.PySide.QtCore.QThread.currentThread"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.currentThread()</span></tt></a> return identifiers for the currently executing thread. The former returns a platform specific ID for the thread; the latter returns a <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> pointer.</p>
+<p>To choose the name that your thread will be given (as identified by the command <tt class="docutils literal"><span class="pre">ps</span> <span class="pre">-L</span></tt> on Linux, for example), you can call <a class="reference internal" href="QObject.html#PySide.QtCore.PySide.QtCore.QObject.setObjectName" title="PySide.QtCore.PySide.QtCore.QObject.setObjectName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QObject.setObjectName()</span></tt></a> before starting the thread. If you don&#8217;t call <a class="reference internal" href="QObject.html#PySide.QtCore.PySide.QtCore.QObject.setObjectName" title="PySide.QtCore.PySide.QtCore.QObject.setObjectName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QObject.setObjectName()</span></tt></a> , the name given to your thread will be the class name of the runtime type of your thread object (for example, <tt class="docutils literal"><span class="pre">&quot;RenderThread&quot;</span></tt> in the case of the <em class="xref std std-ref">Mandelbrot Example</em> , as that is the name of the <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> subclass). Note that this is currently not available with release builds on Windows.</p>
+<p><a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> also provides static, platform independent sleep functions: <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a> , <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.msleep" title="PySide.QtCore.PySide.QtCore.QThread.msleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.msleep()</span></tt></a> , and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.usleep" title="PySide.QtCore.PySide.QtCore.QThread.usleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.usleep()</span></tt></a> allow full second, millisecond, and microsecond resolution respectively.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.wait()</span></tt></a> and the <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a> functions should be unnecessary in general, since Qt is an event-driven framework. Instead of <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.wait()</span></tt></a> , consider listening for the <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.finished" title="PySide.QtCore.PySide.QtCore.QThread.finished"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.finished()</span></tt></a> signal. Instead of the <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a> functions, consider using <a class="reference internal" href="QTimer.html#PySide.QtCore.QTimer" title="PySide.QtCore.QTimer"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QTimer</span></tt></a> .</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">Thread Support in Qt</em>  <tt class="xref py py-class docutils literal"><span class="pre">QThreadStorage</span></tt>  <a class="reference internal" href="QMutex.html#PySide.QtCore.QMutex" title="PySide.QtCore.QMutex"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QMutex</span></tt></a>  <a class="reference internal" href="QSemaphore.html#PySide.QtCore.QSemaphore" title="PySide.QtCore.QSemaphore"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSemaphore</span></tt></a>  <a class="reference internal" href="QWaitCondition.html#PySide.QtCore.QWaitCondition" title="PySide.QtCore.QWaitCondition"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QWaitCondition</span></tt></a>  <em class="xref std std-ref">Mandelbrot Example</em>  <em class="xref std std-ref">Semaphores Example</em>  <em class="xref std std-ref">Wait Conditions Example</em></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtCore.QThread">
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QThread</tt><big>(</big><span class="optional">[</span><em>parent=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.QThread" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parent</strong> &#8211; <a class="reference internal" href="QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Constructs a new <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> to manage a new thread. The <tt class="docutils literal"><span class="pre">parent</span></tt> takes ownership of the <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> . The thread does not begin executing until <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a> is called.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.Priority">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">Priority</tt><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.Priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>This enum type indicates how the operating system should schedule newly created threads.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QThread.IdlePriority</td>
+<td>scheduled only when no other threads are running.</td>
+</tr>
+<tr class="row-odd"><td>QThread.LowestPriority</td>
+<td>scheduled less often than <tt class="xref py py-attr docutils literal"><span class="pre">LowPriority</span></tt> .</td>
+</tr>
+<tr class="row-even"><td>QThread.LowPriority</td>
+<td>scheduled less often than <tt class="xref py py-attr docutils literal"><span class="pre">NormalPriority</span></tt> .</td>
+</tr>
+<tr class="row-odd"><td>QThread.NormalPriority</td>
+<td>the default priority of the operating system.</td>
+</tr>
+<tr class="row-even"><td>QThread.HighPriority</td>
+<td>scheduled more often than <tt class="xref py py-attr docutils literal"><span class="pre">NormalPriority</span></tt> .</td>
+</tr>
+<tr class="row-odd"><td>QThread.HighestPriority</td>
+<td>scheduled more often than <tt class="xref py py-attr docutils literal"><span class="pre">HighPriority</span></tt> .</td>
+</tr>
+<tr class="row-even"><td>QThread.TimeCriticalPriority</td>
+<td>scheduled as often as possible.</td>
+</tr>
+<tr class="row-odd"><td>QThread.InheritPriority</td>
+<td>use the same priority as the creating thread. This is the default.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.cleanup">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">cleanup</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.currentThread">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">currentThread</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.currentThread" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a pointer to a <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> which manages the currently executing thread.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.currentThreadId">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">currentThreadId</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.currentThreadId" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.Qt::HANDLE</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the thread handle of the currently executing thread.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The handle returned by this function is used for internal purposes and should not be used in any application code.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">On Windows, the returned value is a pseudo-handle for the current thread. It can&#8217;t be used for numerical comparison. i.e., this function returns the DWORD (Windows-Thread ID) returned by the Win32 function getCurrentThreadId(), not the HANDLE (Windows-Thread HANDLE) returned by the Win32 function getCurrentThread().</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.exec_">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">exec_</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.exec_" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Enters the event loop and waits until <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a> is called, returning the value that was passed to <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a> . The value returned is 0 if <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a> is called via <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="PySide.QtCore.PySide.QtCore.QThread.quit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.quit()</span></tt></a> .</p>
+<p>It is necessary to call this function to start event handling.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="PySide.QtCore.PySide.QtCore.QThread.quit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.quit()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.exit">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">exit</tt><big>(</big><span class="optional">[</span><em>retcode=0</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>retcode</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Tells the thread&#8217;s event loop to exit with a return code.</p>
+<p>After calling this function, the thread leaves the event loop and returns from the call to <tt class="xref py py-meth docutils literal"><span class="pre">QEventLoop.exec()</span></tt> . The <tt class="xref py py-meth docutils literal"><span class="pre">QEventLoop.exec()</span></tt> function returns <tt class="docutils literal"><span class="pre">returnCode</span></tt> .</p>
+<p>By convention, a <tt class="docutils literal"><span class="pre">returnCode</span></tt> of 0 means success, any non-zero value indicates an error.</p>
+<p>Note that unlike the C library function of the same name, this function <em>does</em> return to the caller &#8211; it is event processing that stops.</p>
+<p>No QEventLoops will be started anymore in this thread until <tt class="xref py py-meth docutils literal"><span class="pre">QThread.exec()</span></tt> has been called again. If the eventloop in <tt class="xref py py-meth docutils literal"><span class="pre">QThread.exec()</span></tt> is not running then the next call to <tt class="xref py py-meth docutils literal"><span class="pre">QThread.exec()</span></tt> will also return immediately.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="PySide.QtCore.PySide.QtCore.QThread.quit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.quit()</span></tt></a>  <a class="reference internal" href="QEventLoop.html#PySide.QtCore.QEventLoop" title="PySide.QtCore.QEventLoop"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QEventLoop</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.finished">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">finished</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.finished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.idealThreadCount">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">idealThreadCount</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.idealThreadCount" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the ideal number of threads that can be run on the system. This is done querying the number of processor cores, both real and logical, in the system. This function returns -1 if the number of processor cores could not be detected.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.initialize">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.isFinished">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">isFinished</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.isFinished" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if the thread is finished; otherwise returns false.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isRunning" title="PySide.QtCore.PySide.QtCore.QThread.isRunning"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.isRunning()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.isRunning">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">isRunning</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.isRunning" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if the thread is running; otherwise returns false.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.isFinished" title="PySide.QtCore.PySide.QtCore.QThread.isFinished"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.isFinished()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.msleep">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">msleep</tt><big>(</big><em>arg__1</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.msleep" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg__1</strong> &#8211; long</td>
+</tr>
+</tbody>
+</table>
+<p>Forces the current thread to sleep for <tt class="docutils literal"><span class="pre">msecs</span></tt> milliseconds.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.usleep" title="PySide.QtCore.PySide.QtCore.QThread.usleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.usleep()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.priority">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">priority</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.priority" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.Priority" title="PySide.QtCore.PySide.QtCore.QThread.Priority"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QThread.Priority</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the priority for a running thread. If the thread is not running, this function returns <tt class="docutils literal"><span class="pre">InheritPriority</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-attr docutils literal"><span class="pre">QThread.Priority</span></tt>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setPriority" title="PySide.QtCore.PySide.QtCore.QThread.setPriority"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.setPriority()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.quit">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">quit</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells the thread&#8217;s event loop to exit with return code 0 (success). Equivalent to calling QThread::exit(0).</p>
+<p>This function does nothing if the thread does not have an event loop.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.exit" title="PySide.QtCore.PySide.QtCore.QThread.exit"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.exit()</span></tt></a>  <a class="reference internal" href="QEventLoop.html#PySide.QtCore.QEventLoop" title="PySide.QtCore.QEventLoop"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QEventLoop</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.run">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The starting point for the thread. After calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a> , the newly created thread calls this function. The default implementation simply calls <tt class="xref py py-meth docutils literal"><span class="pre">exec()</span></tt> .</p>
+<p>You can reimplement this function to facilitate advanced thread management. Returning from this method will end the execution of the thread.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.wait()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.setPriority">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">setPriority</tt><big>(</big><em>priority</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.setPriority" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>priority</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.Priority" title="PySide.QtCore.PySide.QtCore.QThread.Priority"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QThread.Priority</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>This function sets the <tt class="docutils literal"><span class="pre">priority</span></tt> for a running thread. If the thread is not running, this function does nothing and returns immediately. Use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a> to start a thread with a specific priority.</p>
+<p>The <tt class="docutils literal"><span class="pre">priority</span></tt> argument can be any value in the <tt class="docutils literal"><span class="pre">QThread::Priority</span></tt> enum except for <tt class="docutils literal"><span class="pre">InheritPriorty</span></tt> .</p>
+<p>The effect of the <tt class="docutils literal"><span class="pre">priority</span></tt> parameter is dependent on the operating system&#8217;s scheduling policy. In particular, the <tt class="docutils literal"><span class="pre">priority</span></tt> will be ignored on systems that do not support thread priorities (such as on Linux, see <a class="reference external" href="http://linux.die.net/man/2/sched_setscheduler">http://linux.die.net/man/2/sched_setscheduler</a> for more details).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-attr docutils literal"><span class="pre">QThread.Priority</span></tt>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.priority" title="PySide.QtCore.PySide.QtCore.QThread.priority"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.priority()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="PySide.QtCore.PySide.QtCore.QThread.start"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.start()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.setStackSize">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">setStackSize</tt><big>(</big><em>stackSize</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.setStackSize" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stackSize</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.uint</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Sets the maximum stack size for the thread to <tt class="docutils literal"><span class="pre">stackSize</span></tt> . If <tt class="docutils literal"><span class="pre">stackSize</span></tt> is greater than zero, the maximum stack size is set to <tt class="docutils literal"><span class="pre">stackSize</span></tt> bytes, otherwise the maximum stack size is automatically determined by the operating system.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Most operating systems place minimum and maximum limits on thread stack sizes. The thread will fail to start if the stack size is outside these limits.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.stackSize" title="PySide.QtCore.PySide.QtCore.QThread.stackSize"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.stackSize()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">setTerminationEnabled</tt><big>(</big><span class="optional">[</span><em>enabled=true</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>enabled</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Enables or disables termination of the current thread based on the <tt class="docutils literal"><span class="pre">enabled</span></tt> parameter. The thread must have been started by <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> .</p>
+<p>When <tt class="docutils literal"><span class="pre">enabled</span></tt> is false, termination is disabled. Future calls to <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.terminate()</span></tt></a> will return immediately without effect. Instead, the termination is deferred until termination is enabled.</p>
+<p>When <tt class="docutils literal"><span class="pre">enabled</span></tt> is true, termination is enabled. Future calls to <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.terminate()</span></tt></a> will terminate the thread normally. If termination has been deferred (i.e. <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.terminate()</span></tt></a> was called with termination disabled), this function will terminate the calling thread <em>immediately</em> . Note that this function will not return in this case.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.sleep">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">sleep</tt><big>(</big><em>arg__1</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg__1</strong> &#8211; long</td>
+</tr>
+</tbody>
+</table>
+<p>Forces the current thread to sleep for <tt class="docutils literal"><span class="pre">secs</span></tt> seconds.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.msleep" title="PySide.QtCore.PySide.QtCore.QThread.msleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.msleep()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.usleep" title="PySide.QtCore.PySide.QtCore.QThread.usleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.usleep()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.stackSize">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">stackSize</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.stackSize" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.uint</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the maximum stack size for the thread (if set with <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setStackSize" title="PySide.QtCore.PySide.QtCore.QThread.setStackSize"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.setStackSize()</span></tt></a> ); otherwise returns zero.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setStackSize" title="PySide.QtCore.PySide.QtCore.QThread.setStackSize"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.setStackSize()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.start">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">start</tt><big>(</big><span class="optional">[</span><em>priority=InheritPriority</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.start" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>priority</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.Priority" title="PySide.QtCore.PySide.QtCore.QThread.Priority"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QThread.Priority</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Begins execution of the thread by calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> . The operating system will schedule the thread according to the <tt class="docutils literal"><span class="pre">priority</span></tt> parameter. If the thread is already running, this function does nothing.</p>
+<p>The effect of the <tt class="docutils literal"><span class="pre">priority</span></tt> parameter is dependent on the operating system&#8217;s scheduling policy. In particular, the <tt class="docutils literal"><span class="pre">priority</span></tt> will be ignored on systems that do not support thread priorities (such as on Linux, see <a class="reference external" href="http://linux.die.net/man/2/sched_setscheduler">http://linux.die.net/man/2/sched_setscheduler</a> for more details).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.started">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">started</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.started" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.terminate">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">terminate</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminates the execution of the thread. The thread may or may not be terminated immediately, depending on the operating system&#8217;s scheduling policies. Listen for the <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminated" title="PySide.QtCore.PySide.QtCore.QThread.terminated"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminated()</span></tt></a> signal, or use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="PySide.QtCore.PySide.QtCore.QThread.wait"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.wait()</span></tt></a> after <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a> , to be sure.</p>
+<p>When the thread is terminated, all threads waiting for the thread to finish will be woken up.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function is dangerous and its use is discouraged. The thread can be terminated at any point in its code path. Threads can be terminated while modifying data. There is no chance for the thread to clean up after itself, unlock any held mutexes, etc. In short, use this function only if absolutely necessary.</p>
+</div>
+<p>Termination can be explicitly enabled or disabled by calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.setTerminationEnabled()</span></tt></a> . Calling this function while termination is disabled results in the termination being deferred, until termination is re-enabled. See the documentation of <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">QThread.setTerminationEnabled()</span></tt></a> for more information.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled" title="PySide.QtCore.PySide.QtCore.QThread.setTerminationEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.setTerminationEnabled()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.terminated">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">terminated</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.terminated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.usleep">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">usleep</tt><big>(</big><em>arg__1</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.usleep" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg__1</strong> &#8211; long</td>
+</tr>
+</tbody>
+</table>
+<p>Forces the current thread to sleep for <tt class="docutils literal"><span class="pre">usecs</span></tt> microseconds.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.msleep" title="PySide.QtCore.PySide.QtCore.QThread.msleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.msleep()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.wait">
+<tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">wait</tt><big>(</big><span class="optional">[</span><em>time=ULONG_MAX</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.wait" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>time</strong> &#8211; long</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Blocks the thread until either of these conditions is met:</p>
+<ul class="simple">
+<li>The thread associated with this <a class="reference internal" href="#PySide.QtCore.QThread" title="PySide.QtCore.QThread"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QThread</span></tt></a> object has finished execution (i.e. when it returns from <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> ). This function will return true if the thread has finished. It also returns true if the thread has not been started yet.</li>
+<li><tt class="docutils literal"><span class="pre">time</span></tt> milliseconds has elapsed. If <tt class="docutils literal"><span class="pre">time</span></tt> is ULONG_MAX (the default), then the wait will never timeout (the thread must return from <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.run" title="PySide.QtCore.PySide.QtCore.QThread.run"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.run()</span></tt></a> ). This function will return false if the wait timed out.</li>
+</ul>
+<p>This provides similar functionality to the POSIX <tt class="docutils literal"><span class="pre">pthread_join()</span></tt> function.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.sleep" title="PySide.QtCore.PySide.QtCore.QThread.sleep"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.sleep()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QThread.terminate" title="PySide.QtCore.PySide.QtCore.QThread.terminate"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QThread.terminate()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QThread.yieldCurrentThread">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QThread.</tt><tt class="descname">yieldCurrentThread</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QThread.yieldCurrentThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields execution of the current thread to another runnable thread, if any. Note that the operating system decides to which thread to switch.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

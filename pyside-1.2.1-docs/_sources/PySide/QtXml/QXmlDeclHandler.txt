@@ -1,0 +1,102 @@
+.. module:: PySide.QtXml
+.. _QXmlDeclHandler:
+
+QXmlDeclHandler
+***************
+
+.. inheritance-diagram:: QXmlDeclHandler
+    :parts: 2
+
+**Inherited by:** :ref:`QXmlDefaultHandler`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlDeclHandler` class provides an interface to report declaration content of XML data.
+
+    You can set the declaration handler with :meth:`QXmlReader.setDeclHandler()<PySide.QtXml.QXmlReader.setDeclHandler>` .
+
+    This interface is based on the SAX2 extension DeclHandler.
+
+    The interface provides :meth:`PySide.QtXml.QXmlDeclHandler.attributeDecl` , :meth:`PySide.QtXml.QXmlDeclHandler.internalEntityDecl` and :meth:`PySide.QtXml.QXmlDeclHandler.externalEntityDecl` functions.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlDTDHandler`  :class:`PySide.QtXml.QXmlContentHandler`  :class:`PySide.QtXml.QXmlEntityResolver`  :class:`PySide.QtXml.QXmlErrorHandler`  :class:`PySide.QtXml.QXmlLexicalHandler`  :ref:`Introduction to SAX2<xml-sax.html>` 
+
+.. class:: QXmlDeclHandler()
+
+
+
+
+.. method:: PySide.QtXml.QXmlDeclHandler.attributeDecl(eName, aName, type, valueDefault, value)
+
+
+    :param eName: unicode
+    :param aName: unicode
+    :param type: unicode
+    :param valueDefault: unicode
+    :param value: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report an attribute type declaration. Only the effective (first) declaration for an attribute is reported.
+
+    The reader passes the name of the associated element in ``eName`` and the name of the attribute in ``aName`` . It passes a string that represents the attribute type in ``type`` and a string that represents the attribute default in ``valueDefault`` . This string is one of "#IMPLIED", "#REQUIRED", "#FIXED" or an empty string (if none of the others applies). The reader passes the attribute's default value in ``value`` . If no default value is specified in the XML file, ``value`` is an empty string.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlDeclHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlDeclHandler.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    The reader calls this function to get an error string if any of the handler functions returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlDeclHandler.externalEntityDecl(name, publicId, systemId)
+
+
+    :param name: unicode
+    :param publicId: unicode
+    :param systemId: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report a parsed external entity declaration. Only the effective (first) declaration for each entity is reported.
+
+    The reader passes the name of the entity in ``name`` , the public identifier in ``publicId`` and the system identifier in ``systemId`` . If there is no public identifier specified, it passes an empty string in ``publicId`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlDeclHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlDeclHandler.internalEntityDecl(name, value)
+
+
+    :param name: unicode
+    :param value: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report an internal entity declaration. Only the effective (first) declaration is reported.
+
+    The reader passes the name of the entity in ``name`` and the value of the entity in ``value`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlDeclHandler.errorString` to get the error message.
+
+
+
+

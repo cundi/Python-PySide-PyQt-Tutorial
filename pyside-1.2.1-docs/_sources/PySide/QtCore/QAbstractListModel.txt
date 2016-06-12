@@ -1,0 +1,57 @@
+.. module:: PySide.QtCore
+.. _QAbstractListModel:
+
+QAbstractListModel
+******************
+
+.. inheritance-diagram:: QAbstractListModel
+    :parts: 2
+
+**Inherited by:** :ref:`Phonon.ObjectDescriptionModel`, :ref:`Phonon.EffectDescriptionModel`, :ref:`Phonon.AudioOutputDeviceModel`, :ref:`QStringListModel`, :ref:`QHelpIndexModel`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractListModel` class provides an abstract model that can be subclassed to create one-dimensional list models.
+
+    :class:`PySide.QtCore.QAbstractListModel` provides a standard interface for models that represent their data as a simple non-hierarchical sequence of items. It is not used directly, but must be subclassed.
+
+    Since the model provides a more specialized interface than :class:`PySide.QtCore.QAbstractItemModel` , it is not suitable for use with tree views; you will need to subclass :class:`PySide.QtCore.QAbstractItemModel` if you want to provide a model for that purpose. If you need to use a number of list models to manage data, it may be more appropriate to subclass :class:`PySide.QtCore.QAbstractTableModel` class instead.
+
+    Simple models can be created by subclassing this class and implementing the minimum number of required functions. For example, we could implement a simple read-only :class:`PySide.QtCore.QStringList` -based model that provides a list of strings to a :class:`PySide.QtGui.QListView` widget. In such a case, we only need to implement the :meth:`PySide.QtCore.QAbstractItemModel.rowCount` function to return the number of items in the list, and the :meth:`PySide.QtCore.QAbstractItemModel.data` function to retrieve items from the list.
+
+    Since the model represents a one-dimensional structure, the :meth:`PySide.QtCore.QAbstractItemModel.rowCount` function returns the total number of items in the model. The :meth:`PySide.QtCore.QAbstractListModel.columnCount` function is implemented for interoperability with all kinds of views, but by default informs views that the model contains only one column.
+
+    .. _PySide.QtCore.QAbstractListModel_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When subclassing :class:`PySide.QtCore.QAbstractListModel` , you must provide implementations of the :meth:`PySide.QtCore.QAbstractItemModel.rowCount` and :meth:`PySide.QtCore.QAbstractItemModel.data` functions. Well behaved models also provide a :meth:`PySide.QtCore.QAbstractItemModel.headerData` implementation.
+
+    For editable list models, you must also provide an implementation of :meth:`PySide.QtCore.QAbstractItemModel.setData` , implement the :meth:`PySide.QtCore.QAbstractItemModel.flags` function so that it returns a value containing :class:`Qt.ItemIsEditable<Qt.ItemFlags>` .
+
+    Note that :class:`PySide.QtCore.QAbstractListModel` provides a default implementation of :meth:`PySide.QtCore.QAbstractListModel.columnCount` that informs views that there is only a single column of items in this model.
+
+    Models that provide interfaces to resizable list-like data structures can provide implementations of :meth:`PySide.QtCore.QAbstractItemModel.insertRows` and :meth:`PySide.QtCore.QAbstractItemModel.removeRows` . When implementing these functions, it is important to call the appropriate functions so that all connected views are aware of any changes:
+
+
+    * An :meth:`PySide.QtCore.QAbstractItemModel.insertRows` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginInsertRows` *before* inserting new rows into the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endInsertRows` *immediately afterwards*.
+    * A :meth:`PySide.QtCore.QAbstractItemModel.removeRows` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginRemoveRows` *before* the rows are removed from the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endRemoveRows` *immediately afterwards*.
+
+    .. note::  Some general guidelines for subclassing models are available in the :ref:`Model Subclassing Reference<model-view-programming.html>` .
+
+    .. seealso::  :ref:`Model Classes<model-view-programming.html>`  :ref:`Model Subclassing Reference<model-view-programming.html>`  :class:`PySide.QtGui.QAbstractItemView`  :class:`PySide.QtCore.QAbstractTableModel`  :ref:`Item Views Puzzle Example<itemviews/puzzle>` 
+
+.. class:: QAbstractListModel([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an abstract list model with the given ``parent`` .
+
+
+

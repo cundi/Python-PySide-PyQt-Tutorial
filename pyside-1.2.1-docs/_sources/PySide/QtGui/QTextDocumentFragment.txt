@@ -1,0 +1,162 @@
+.. module:: PySide.QtGui
+.. _QTextDocumentFragment:
+
+QTextDocumentFragment
+*********************
+
+.. inheritance-diagram:: QTextDocumentFragment
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isEmpty<PySide.QtGui.QTextDocumentFragment.isEmpty>` ()
+*    def :meth:`toHtml<PySide.QtGui.QTextDocumentFragment.toHtml>` ()
+*    def :meth:`toHtml<PySide.QtGui.QTextDocumentFragment.toHtml>` (encoding)
+*    def :meth:`toPlainText<PySide.QtGui.QTextDocumentFragment.toPlainText>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fromHtml<PySide.QtGui.QTextDocumentFragment.fromHtml>` (html)
+*    def :meth:`fromHtml<PySide.QtGui.QTextDocumentFragment.fromHtml>` (html, resourceProvider)
+*    def :meth:`fromPlainText<PySide.QtGui.QTextDocumentFragment.fromPlainText>` (plainText)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextDocumentFragment` class represents a piece of formatted text from a :class:`PySide.QtGui.QTextDocument` .
+
+    A :class:`PySide.QtGui.QTextDocumentFragment` is a fragment of rich text, that can be inserted into a :class:`PySide.QtGui.QTextDocument` . A document fragment can be created from a :class:`PySide.QtGui.QTextDocument` , from a :class:`PySide.QtGui.QTextCursor` 's selection, or from another document fragment. Document fragments can also be created by the static functions, :meth:`PySide.QtGui.QTextDocumentFragment.fromPlainText` and :meth:`PySide.QtGui.QTextDocumentFragment.fromHtml` .
+
+    The contents of a document fragment can be obtained as plain text by using the :meth:`PySide.QtGui.QTextDocumentFragment.toPlainText` function, or it can be obtained as HTML with :meth:`PySide.QtGui.QTextDocumentFragment.toHtml` .
+
+
+.. class:: QTextDocumentFragment()
+           QTextDocumentFragment(range)
+           QTextDocumentFragment(document)
+           QTextDocumentFragment(rhs)
+
+    :param range: :class:`PySide.QtGui.QTextCursor`
+    :param rhs: :class:`PySide.QtGui.QTextDocumentFragment`
+    :param document: :class:`PySide.QtGui.QTextDocument`
+
+    Constructs an empty :class:`PySide.QtGui.QTextDocumentFragment` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextDocumentFragment.isEmpty` 
+
+    Creates a :class:`PySide.QtGui.QTextDocumentFragment` from the ``cursor`` 's selection. If the cursor doesn't have a selection, the created fragment is empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextDocumentFragment.isEmpty`  :meth:`QTextCursor.selection()<PySide.QtGui.QTextCursor.selection>` 
+
+    Converts the given ``document`` into a :class:`PySide.QtGui.QTextDocumentFragment` . Note that the :class:`PySide.QtGui.QTextDocumentFragment` only stores the document contents, not meta information like the document's title.
+
+
+    Copy constructor. Creates a copy of the ``other`` fragment.
+
+
+.. staticmethod:: PySide.QtGui.QTextDocumentFragment.fromHtml(html)
+
+
+    :param html: unicode
+    :rtype: :class:`PySide.QtGui.QTextDocumentFragment`
+
+
+
+
+    Returns a :class:`PySide.QtGui.QTextDocumentFragment` based on the arbitrary piece of HTML in the given ``text`` . The formatting is preserved as much as possible; for example, "<b>bold</b>" will become a document fragment with the text "bold" with a bold character format.
+
+
+
+.. staticmethod:: PySide.QtGui.QTextDocumentFragment.fromHtml(html, resourceProvider)
+
+
+    :param html: unicode
+    :param resourceProvider: :class:`PySide.QtGui.QTextDocument`
+    :rtype: :class:`PySide.QtGui.QTextDocumentFragment`
+
+
+
+
+    Returns a :class:`PySide.QtGui.QTextDocumentFragment` based on the arbitrary piece of HTML in the given ``text`` . The formatting is preserved as much as possible; for example, "<b>bold</b>" will become a document fragment with the text "bold" with a bold character format.
+
+    If the provided HTML contains references to external resources such as imported style sheets, then they will be loaded through the ``resourceProvider`` .
+
+
+
+.. staticmethod:: PySide.QtGui.QTextDocumentFragment.fromPlainText(plainText)
+
+
+    :param plainText: unicode
+    :rtype: :class:`PySide.QtGui.QTextDocumentFragment`
+
+
+
+
+    Returns a document fragment that contains the given ``plainText`` .
+
+    When inserting such a fragment into a :class:`PySide.QtGui.QTextDocument` the current char format of the :class:`PySide.QtGui.QTextCursor` used for insertion is used as format for the text.
+
+
+
+.. method:: PySide.QtGui.QTextDocumentFragment.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the fragment is empty; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextDocumentFragment.toHtml(encoding)
+
+
+    :param encoding: :class:`PySide.QtCore.QByteArray`
+    :rtype: unicode
+
+
+
+
+    Returns the contents of the document fragment as HTML, using the specified ``encoding`` (e.g., "UTF-8", "ISO 8859-1").
+
+    .. seealso::  :meth:`PySide.QtGui.QTextDocumentFragment.toPlainText`  :meth:`QTextDocument.toHtml()<PySide.QtGui.QTextDocument.toHtml>`  :class:`PySide.QtCore.QTextCodec` 
+
+
+.. method:: PySide.QtGui.QTextDocumentFragment.toHtml()
+
+
+    :rtype: unicode
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QTextDocumentFragment.toPlainText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the document fragment's text as plain text (i.e. with no formatting information).
+
+    .. seealso::  :meth:`PySide.QtGui.QTextDocumentFragment.toHtml` 
+
+
+

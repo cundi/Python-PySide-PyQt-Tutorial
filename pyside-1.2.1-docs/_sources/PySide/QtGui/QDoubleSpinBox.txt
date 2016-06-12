@@ -1,0 +1,456 @@
+.. module:: PySide.QtGui
+.. _QDoubleSpinBox:
+
+QDoubleSpinBox
+**************
+
+.. inheritance-diagram:: QDoubleSpinBox
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cleanText<PySide.QtGui.QDoubleSpinBox.cleanText>` ()
+*    def :meth:`decimals<PySide.QtGui.QDoubleSpinBox.decimals>` ()
+*    def :meth:`maximum<PySide.QtGui.QDoubleSpinBox.maximum>` ()
+*    def :meth:`minimum<PySide.QtGui.QDoubleSpinBox.minimum>` ()
+*    def :meth:`prefix<PySide.QtGui.QDoubleSpinBox.prefix>` ()
+*    def :meth:`setDecimals<PySide.QtGui.QDoubleSpinBox.setDecimals>` (prec)
+*    def :meth:`setMaximum<PySide.QtGui.QDoubleSpinBox.setMaximum>` (max)
+*    def :meth:`setMinimum<PySide.QtGui.QDoubleSpinBox.setMinimum>` (min)
+*    def :meth:`setPrefix<PySide.QtGui.QDoubleSpinBox.setPrefix>` (prefix)
+*    def :meth:`setRange<PySide.QtGui.QDoubleSpinBox.setRange>` (min, max)
+*    def :meth:`setSingleStep<PySide.QtGui.QDoubleSpinBox.setSingleStep>` (val)
+*    def :meth:`setSuffix<PySide.QtGui.QDoubleSpinBox.setSuffix>` (suffix)
+*    def :meth:`singleStep<PySide.QtGui.QDoubleSpinBox.singleStep>` ()
+*    def :meth:`suffix<PySide.QtGui.QDoubleSpinBox.suffix>` ()
+*    def :meth:`value<PySide.QtGui.QDoubleSpinBox.value>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`textFromValue<PySide.QtGui.QDoubleSpinBox.textFromValue>` (val)
+*    def :meth:`valueFromText<PySide.QtGui.QDoubleSpinBox.valueFromText>` (text)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setValue<PySide.QtGui.QDoubleSpinBox.setValue>` (val)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueChanged<PySide.QtGui.QDoubleSpinBox.valueChanged>` (arg__1)
+*    def :meth:`valueChanged<PySide.QtGui.QDoubleSpinBox.valueChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDoubleSpinBox` class provides a spin box widget that takes doubles.
+
+    :class:`PySide.QtGui.QDoubleSpinBox` allows the user to choose a value by clicking the up and down buttons or by pressing Up or Down on the keyboard to increase or decrease the value currently displayed. The user can also type the value in manually. The spin box supports double values but can be extended to use different strings with :meth:`PySide.QtGui.QDoubleSpinBox.validate` , :meth:`PySide.QtGui.QDoubleSpinBox.textFromValue` and :meth:`PySide.QtGui.QDoubleSpinBox.valueFromText` .
+
+    Every time the value changes :class:`PySide.QtGui.QDoubleSpinBox` emits the :meth:`PySide.QtGui.QDoubleSpinBox.valueChanged` signal. The current value can be fetched with :meth:`PySide.QtGui.QDoubleSpinBox.value` and set with :meth:`PySide.QtGui.QDoubleSpinBox.setValue` .
+
+    Note: :class:`PySide.QtGui.QDoubleSpinBox` will round numbers so they can be displayed with the current precision. In a :class:`PySide.QtGui.QDoubleSpinBox` with decimals set to 2, calling setValue(2.555) will cause :meth:`PySide.QtGui.QDoubleSpinBox.value` to return 2.56.
+
+    Clicking the up and down buttons or using the keyboard accelerator's Up and Down arrows will increase or decrease the current value in steps of size :meth:`PySide.QtGui.QDoubleSpinBox.singleStep` . If you want to change this behavior you can reimplement the virtual function :meth:`PySide.QtGui.QAbstractSpinBox.stepBy` . The minimum and maximum value and the step size can be set using one of the constructors, and can be changed later with :meth:`PySide.QtGui.QDoubleSpinBox.setMinimum` , :meth:`PySide.QtGui.QDoubleSpinBox.setMaximum` and :meth:`PySide.QtGui.QDoubleSpinBox.setSingleStep` . The spinbox has a default precision of 2 decimal places but this can be changed using :meth:`PySide.QtGui.QDoubleSpinBox.setDecimals` .
+
+    Most spin boxes are directional, but :class:`PySide.QtGui.QDoubleSpinBox` can also operate as a circular spin box, i.e. if the range is 0.0-99.9 and the current value is 99.9, clicking "up" will give 0 if :meth:`PySide.QtGui.QAbstractSpinBox.wrapping` is set to true. Use :meth:`PySide.QtGui.QAbstractSpinBox.setWrapping` if you want circular behavior.
+
+    The displayed value can be prepended and appended with arbitrary strings indicating, for example, currency or the unit of measurement. See :meth:`PySide.QtGui.QDoubleSpinBox.setPrefix` and :meth:`PySide.QtGui.QDoubleSpinBox.setSuffix` . The text in the spin box is retrieved with :meth:`PySide.QtGui.QAbstractSpinBox.text` (which includes any :meth:`PySide.QtGui.QDoubleSpinBox.prefix` and :meth:`PySide.QtGui.QDoubleSpinBox.suffix` ), or with :meth:`PySide.QtGui.QDoubleSpinBox.cleanText` (which has no :meth:`PySide.QtGui.QDoubleSpinBox.prefix` , no :meth:`PySide.QtGui.QDoubleSpinBox.suffix` and no leading or trailing whitespace).
+
+    It is often desirable to give the user a special (often default) choice in addition to the range of numeric values. See :meth:`PySide.QtGui.QAbstractSpinBox.setSpecialValueText` for how to do this with :class:`PySide.QtGui.QDoubleSpinBox` .
+
+    .. seealso::  :class:`PySide.QtGui.QSpinBox`  :class:`PySide.QtGui.QDateTimeEdit`  :class:`PySide.QtGui.QSlider`  :ref:`Spin Boxes Example<widgets/spinboxes>` 
+
+.. class:: QDoubleSpinBox([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a spin box with 0.0 as minimum value and 99.99 as maximum value, a step value of 1.0 and a precision of 2 decimal places. The value is initially set to 0.00. The spin box has the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.setMinimum`  :meth:`PySide.QtGui.QDoubleSpinBox.setMaximum`  :meth:`PySide.QtGui.QDoubleSpinBox.setSingleStep` 
+
+.. method:: PySide.QtGui.QDoubleSpinBox.cleanText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the text of the spin box excluding any prefix, suffix, or leading or trailing whitespace..
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.text`  :meth:`QDoubleSpinBox.prefix<PySide.QtGui.QDoubleSpinBox.prefix>`  :meth:`QDoubleSpinBox.suffix<PySide.QtGui.QDoubleSpinBox.suffix>` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.decimals()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the precision of the spin box, in decimals.
+
+    Sets how many decimals the spinbox will use for displaying and interpreting doubles.
+
+    .. warning::  The maximum value for ``decimals`` is DBL\_MAX\_10\_EXP + DBL\_DIG (ie. 323) because of the limitations of the double type.
+
+    Note: The maximum, minimum and value might change as a result of changing this property.
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.maximum()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the maximum value of the spin box.
+
+    When setting this property the :meth:`PySide.QtGui.QDoubleSpinBox.minimum` is adjusted if necessary, to ensure that the range remains valid.
+
+    The default maximum value is 99.99.
+
+    Note: The maximum value will be rounded to match the decimals property.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals`  :meth:`PySide.QtGui.QDoubleSpinBox.setRange` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.minimum()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the minimum value of the spin box.
+
+    When setting this property the :meth:`PySide.QtGui.QDoubleSpinBox.maximum` is adjusted if necessary to ensure that the range remains valid.
+
+    The default minimum value is 0.0.
+
+    Note: The minimum value will be rounded to match the decimals property.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals`  :meth:`PySide.QtGui.QDoubleSpinBox.setRange`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.prefix()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the spin box's prefix.
+
+    The prefix is prepended to the start of the displayed value. Typical use is to display a unit of measurement or a currency symbol. For example:
+
+    ::
+
+        spinbox.setPrefix("$")
+
+
+    To turn off the prefix display, set this property to an empty string. The default is no prefix. The prefix is not displayed when :meth:`PySide.QtGui.QDoubleSpinBox.value` == :meth:`PySide.QtGui.QDoubleSpinBox.minimum` and :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` is set.
+
+    If no prefix is set, :meth:`PySide.QtGui.QDoubleSpinBox.prefix` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.suffix`  :meth:`PySide.QtGui.QDoubleSpinBox.setSuffix`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText`  :meth:`PySide.QtGui.QAbstractSpinBox.setSpecialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setDecimals(prec)
+
+
+    :param prec: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the precision of the spin box, in decimals.
+
+    Sets how many decimals the spinbox will use for displaying and interpreting doubles.
+
+    .. warning::  The maximum value for ``decimals`` is DBL\_MAX\_10\_EXP + DBL\_DIG (ie. 323) because of the limitations of the double type.
+
+    Note: The maximum, minimum and value might change as a result of changing this property.
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setMaximum(max)
+
+
+    :param max: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the maximum value of the spin box.
+
+    When setting this property the :meth:`PySide.QtGui.QDoubleSpinBox.minimum` is adjusted if necessary, to ensure that the range remains valid.
+
+    The default maximum value is 99.99.
+
+    Note: The maximum value will be rounded to match the decimals property.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals`  :meth:`PySide.QtGui.QDoubleSpinBox.setRange` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setMinimum(min)
+
+
+    :param min: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the minimum value of the spin box.
+
+    When setting this property the :meth:`PySide.QtGui.QDoubleSpinBox.maximum` is adjusted if necessary to ensure that the range remains valid.
+
+    The default minimum value is 0.0.
+
+    Note: The minimum value will be rounded to match the decimals property.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals`  :meth:`PySide.QtGui.QDoubleSpinBox.setRange`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setPrefix(prefix)
+
+
+    :param prefix: unicode
+
+
+
+
+    This property holds the spin box's prefix.
+
+    The prefix is prepended to the start of the displayed value. Typical use is to display a unit of measurement or a currency symbol. For example:
+
+    ::
+
+        spinbox.setPrefix("$")
+
+
+    To turn off the prefix display, set this property to an empty string. The default is no prefix. The prefix is not displayed when :meth:`PySide.QtGui.QDoubleSpinBox.value` == :meth:`PySide.QtGui.QDoubleSpinBox.minimum` and :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` is set.
+
+    If no prefix is set, :meth:`PySide.QtGui.QDoubleSpinBox.prefix` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.suffix`  :meth:`PySide.QtGui.QDoubleSpinBox.setSuffix`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText`  :meth:`PySide.QtGui.QAbstractSpinBox.setSpecialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setRange(min, max)
+
+
+    :param min: :class:`PySide.QtCore.double`
+    :param max: :class:`PySide.QtCore.double`
+
+
+
+
+    Convenience function to set the ``minimum`` and ``maximum`` values with a single function call.
+
+    Note: The maximum and minimum values will be rounded to match the decimals property.
+
+    ::
+
+        setRange(minimum, maximum)
+
+
+    is equivalent to:
+
+    ::
+
+        setMinimum(minimum)
+        setMaximum(maximum)
+
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.minimum`  :meth:`PySide.QtGui.QDoubleSpinBox.maximum` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setSingleStep(val)
+
+
+    :param val: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the step value.
+
+    When the user uses the arrows to change the spin box's value the value will be incremented/decremented by the amount of the :meth:`PySide.QtGui.QDoubleSpinBox.singleStep` . The default value is 1.0. Setting a :meth:`PySide.QtGui.QDoubleSpinBox.singleStep` value of less than 0 does nothing.
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setSuffix(suffix)
+
+
+    :param suffix: unicode
+
+
+
+
+    This property holds the suffix of the spin box.
+
+    The suffix is appended to the end of the displayed value. Typical use is to display a unit of measurement or a currency symbol. For example:
+
+    ::
+
+        spinbox.setSuffix(" km")
+
+
+    To turn off the suffix display, set this property to an empty string. The default is no suffix. The suffix is not displayed for the :meth:`PySide.QtGui.QDoubleSpinBox.minimum` if :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` is set.
+
+    If no suffix is set, :meth:`PySide.QtGui.QDoubleSpinBox.suffix` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.prefix`  :meth:`PySide.QtGui.QDoubleSpinBox.setPrefix`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText`  :meth:`PySide.QtGui.QAbstractSpinBox.setSpecialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.setValue(val)
+
+
+    :param val: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the value of the spin box.
+
+    :meth:`PySide.QtGui.QDoubleSpinBox.setValue` will emit :meth:`PySide.QtGui.QDoubleSpinBox.valueChanged` if the new value is different from the old one.
+
+    Note: The value will be rounded so it can be displayed with the current setting of decimals.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.singleStep()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the step value.
+
+    When the user uses the arrows to change the spin box's value the value will be incremented/decremented by the amount of the :meth:`PySide.QtGui.QDoubleSpinBox.singleStep` . The default value is 1.0. Setting a :meth:`PySide.QtGui.QDoubleSpinBox.singleStep` value of less than 0 does nothing.
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.suffix()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the suffix of the spin box.
+
+    The suffix is appended to the end of the displayed value. Typical use is to display a unit of measurement or a currency symbol. For example:
+
+    ::
+
+        spinbox.setSuffix(" km")
+
+
+    To turn off the suffix display, set this property to an empty string. The default is no suffix. The suffix is not displayed for the :meth:`PySide.QtGui.QDoubleSpinBox.minimum` if :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` is set.
+
+    If no suffix is set, :meth:`PySide.QtGui.QDoubleSpinBox.suffix` returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.prefix`  :meth:`PySide.QtGui.QDoubleSpinBox.setPrefix`  :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText`  :meth:`PySide.QtGui.QAbstractSpinBox.setSpecialValueText` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.textFromValue(val)
+
+
+    :param val: :class:`PySide.QtCore.double`
+    :rtype: unicode
+
+
+
+
+    This virtual function is used by the spin box whenever it needs to display the given ``value`` . The default implementation returns a string containing ``value`` printed using :meth:`QWidget.locale()<PySide.QtGui.QWidget.locale>` .toString(``value`` , :class:`~PySide.QtGui.QLatin1Char` ('f'), :meth:`PySide.QtGui.QDoubleSpinBox.decimals` ) and will remove the thousand separator. Reimplementations may return anything.
+
+    Note: :class:`PySide.QtGui.QDoubleSpinBox` does not call this function for :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` and that neither :meth:`PySide.QtGui.QDoubleSpinBox.prefix` nor :meth:`PySide.QtGui.QDoubleSpinBox.suffix` should be included in the return value.
+
+    If you reimplement this, you may also need to reimplement :meth:`PySide.QtGui.QDoubleSpinBox.valueFromText` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.valueFromText`  :meth:`QLocale.groupSeparator()<PySide.QtCore.QLocale.groupSeparator>` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.value()
+
+
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This property holds the value of the spin box.
+
+    :meth:`PySide.QtGui.QDoubleSpinBox.setValue` will emit :meth:`PySide.QtGui.QDoubleSpinBox.valueChanged` if the new value is different from the old one.
+
+    Note: The value will be rounded so it can be displayed with the current setting of decimals.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.decimals` 
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.valueChanged(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.valueChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.double`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDoubleSpinBox.valueFromText(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtCore.double`
+
+
+
+
+    This virtual function is used by the spin box whenever it needs to interpret ``text`` entered by the user as a value.
+
+    Subclasses that need to display spin box values in a non-numeric way need to reimplement this function.
+
+    Note: :class:`PySide.QtGui.QDoubleSpinBox` handles :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` separately; this function is only concerned with the other values.
+
+    .. seealso::  :meth:`PySide.QtGui.QDoubleSpinBox.textFromValue`  :meth:`PySide.QtGui.QDoubleSpinBox.validate` 
+
+
+

@@ -1,0 +1,303 @@
+.. module:: PySide.QtGui
+.. _QPaintDevice:
+
+QPaintDevice
+************
+
+.. inheritance-diagram:: QPaintDevice
+    :parts: 2
+
+**Inherited by:** :ref:`QGLPixelBuffer`, :ref:`QGLFramebufferObject`, :ref:`QPrinter`, :ref:`QSvgGenerator`, :ref:`QPicture`, :ref:`QPixmap`, :ref:`QImage`, :ref:`QBitmap`, :ref:`QWidget`, :ref:`QDesktopWidget`, :ref:`QHelpSearchResultWidget`, :ref:`QHelpSearchQueryWidget`, :ref:`QComboBox`, :ref:`QCalendarWidget`, :ref:`QAbstractButton`, :ref:`QPushButton`, :ref:`QCommandLinkButton`, :ref:`QCheckBox`, :ref:`QWizardPage`, :ref:`QWebInspector`, :ref:`QLineEdit`, :ref:`QSvgWidget`, :ref:`Phonon.VolumeSlider`, :ref:`Phonon.VideoPlayer`, :ref:`Phonon.SeekSlider`, :ref:`QWorkspace`, :ref:`QToolButton`, :ref:`QFrame`, :ref:`QToolBox`, :ref:`QAbstractScrollArea`, :ref:`QGraphicsView`, :ref:`QDeclarativeView`, :ref:`QAbstractItemView`, :ref:`QTreeView`, :ref:`QHelpContentWidget`, :ref:`QTreeWidget`, :ref:`QHeaderView`, :ref:`QTableView`, :ref:`QTableWidget`, :ref:`QColumnView`, :ref:`QListView`, :ref:`QUndoView`, :ref:`QListWidget`, :ref:`QHelpIndexWidget`, :ref:`QToolBar`, :ref:`QRubberBand`, :ref:`QTabWidget`, :ref:`QStatusBar`, :ref:`QTabBar`, :ref:`Phonon.EffectWidget`, :ref:`QStackedWidget`, :ref:`QSplitterHandle`, :ref:`QAbstractSlider`, :ref:`QSlider`, :ref:`QDial`, :ref:`QSplitter`, :ref:`QAbstractSpinBox`, :ref:`QDateTimeEdit`, :ref:`QTimeEdit`, :ref:`QDateEdit`, :ref:`QSplashScreen`, :ref:`QDoubleSpinBox`, :ref:`QSpinBox`, :ref:`QSizeGrip`, :ref:`QScrollBar`, :ref:`QScrollArea`, :ref:`QRadioButton`, :ref:`QProgressBar`, :ref:`QDialog`, :ref:`QAbstractPrintDialog`, :ref:`QPrintDialog`, :ref:`QAbstractPageSetupDialog`, :ref:`QPageSetupDialog`, :ref:`QFileDialog`, :ref:`QWizard`, :ref:`QProgressDialog`, :ref:`QPrintPreviewDialog`, :ref:`QFontDialog`, :ref:`QMessageBox`, :ref:`QInputDialog`, :ref:`QErrorMessage`, :ref:`QColorDialog`, :ref:`QPrintPreviewWidget`, :ref:`QPlainTextEdit`, :ref:`QTextEdit`, :ref:`QTextBrowser`, :ref:`QMenuBar`, :ref:`QMenu`, :ref:`QMdiSubWindow`, :ref:`QMdiArea`, :ref:`QMainWindow`, :ref:`QLCDNumber`, :ref:`QLabel`, :ref:`QGroupBox`, :ref:`QFontComboBox`, :ref:`QFocusFrame`, :ref:`QDockWidget`, :ref:`QGLWidget`, :ref:`QDialogButtonBox`, :ref:`QWebView`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`colorCount<PySide.QtGui.QPaintDevice.colorCount>` ()
+*    def :meth:`depth<PySide.QtGui.QPaintDevice.depth>` ()
+*    def :meth:`height<PySide.QtGui.QPaintDevice.height>` ()
+*    def :meth:`heightMM<PySide.QtGui.QPaintDevice.heightMM>` ()
+*    def :meth:`logicalDpiX<PySide.QtGui.QPaintDevice.logicalDpiX>` ()
+*    def :meth:`logicalDpiY<PySide.QtGui.QPaintDevice.logicalDpiY>` ()
+*    def :meth:`numColors<PySide.QtGui.QPaintDevice.numColors>` ()
+*    def :meth:`paintingActive<PySide.QtGui.QPaintDevice.paintingActive>` ()
+*    def :meth:`physicalDpiX<PySide.QtGui.QPaintDevice.physicalDpiX>` ()
+*    def :meth:`physicalDpiY<PySide.QtGui.QPaintDevice.physicalDpiY>` ()
+*    def :meth:`width<PySide.QtGui.QPaintDevice.width>` ()
+*    def :meth:`widthMM<PySide.QtGui.QPaintDevice.widthMM>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`devType<PySide.QtGui.QPaintDevice.devType>` ()
+*    def :meth:`metric<PySide.QtGui.QPaintDevice.metric>` (metric)
+*    def :meth:`paintEngine<PySide.QtGui.QPaintDevice.paintEngine>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPaintDevice` class is the base class of objects that can be painted.
+
+    A paint device is an abstraction of a two-dimensional space that can be drawn using a :class:`PySide.QtGui.QPainter` . Its default coordinate system has its origin located at the top-left position. X increases to the right and Y increases downwards. The unit is one pixel.
+
+    The drawing capabilities of :class:`PySide.QtGui.QPaintDevice` are currently implemented by the :class:`PySide.QtGui.QWidget` , :class:`PySide.QtGui.QImage` , :class:`PySide.QtGui.QPixmap` , :class:`PySide.QtOpenGL.QGLPixelBuffer` , :class:`PySide.QtGui.QPicture` , and :class:`PySide.QtGui.QPrinter` subclasses.
+
+    To implement support for a new backend, you must derive from :class:`PySide.QtGui.QPaintDevice` and reimplement the virtual :meth:`PySide.QtGui.QPaintDevice.paintEngine` function to tell :class:`PySide.QtGui.QPainter` which paint engine should be used to draw on this particular device. Note that you also must create a corresponding paint engine to be able to draw on the device, i.e derive from :class:`PySide.QtGui.QPaintEngine` and reimplement its virtual functions.
+
+    .. warning::  Qt requires that a :class:`PySide.QtGui.QApplication` object exists before any paint devices can be created. Paint devices access window system resources, and these resources are not initialized before an application object is created.
+
+    The :class:`PySide.QtGui.QPaintDevice` class provides several functions returning the various device metrics: The :meth:`PySide.QtGui.QPaintDevice.depth` function returns its bit depth (number of bit planes). The :meth:`PySide.QtGui.QPaintDevice.height` function returns its height in default coordinate system units (e.g. pixels for :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QWidget` ) while :meth:`PySide.QtGui.QPaintDevice.heightMM` returns the height of the device in millimeters. Similiarily, the :meth:`PySide.QtGui.QPaintDevice.width` and :meth:`PySide.QtGui.QPaintDevice.widthMM` functions return the width of the device in default coordinate system units and in millimeters, respectively. Alternatively, the protected :meth:`PySide.QtGui.QPaintDevice.metric` function can be used to retrieve the metric information by specifying the desired :attr:`QPaintDevice.PaintDeviceMetric` as argument.
+
+    The :meth:`PySide.QtGui.QPaintDevice.logicalDpiX` and :meth:`PySide.QtGui.QPaintDevice.logicalDpiY` functions return the horizontal and vertical resolution of the device in dots per inch. The :meth:`PySide.QtGui.QPaintDevice.physicalDpiX` and :meth:`PySide.QtGui.QPaintDevice.physicalDpiY` functions also return the resolution of the device in dots per inch, but note that if the logical and physical resolution differ, the corresponding :class:`PySide.QtGui.QPaintEngine` must handle the mapping. Finally, the :meth:`PySide.QtGui.QPaintDevice.colorCount` function returns the number of different colors available for the paint device.
+
+    .. seealso::  :class:`PySide.QtGui.QPaintEngine`  :class:`PySide.QtGui.QPainter`  :ref:`Coordinate System<coordsys.html>`  :ref:`Paint System<paintsystem.html>` 
+
+.. class:: QPaintDevice()
+
+
+    Constructs a paint device. This constructor can be invoked only from subclasses of :class:`PySide.QtGui.QPaintDevice` .
+
+
+.. attribute:: PySide.QtGui.QPaintDevice.PaintDeviceMetric
+
+    Describes the various metrics of a paint device.
+
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                              |
+    +============================+=========================================================================================================================================================================================================+
+    |QPaintDevice.PdmWidth       |The width of the paint device in default coordinate system units (e.g. pixels for :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QWidget` ). See also :meth:`PySide.QtGui.QPaintDevice.width` .  |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmHeight      |The height of the paint device in default coordinate system units (e.g. pixels for :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QWidget` ). See also :meth:`PySide.QtGui.QPaintDevice.height` .|
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmWidthMM     |The width of the paint device in millimeters. See also :meth:`PySide.QtGui.QPaintDevice.widthMM` .                                                                                                       |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmHeightMM    |The height of the paint device in millimeters. See also :meth:`PySide.QtGui.QPaintDevice.heightMM` .                                                                                                     |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmNumColors   |The number of different colors available for the paint device. See also :meth:`PySide.QtGui.QPaintDevice.colorCount` .                                                                                   |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmDepth       |The bit depth (number of bit planes) of the paint device. See also :meth:`PySide.QtGui.QPaintDevice.depth` .                                                                                             |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmDpiX        |The horizontal resolution of the device in dots per inch. See also :meth:`PySide.QtGui.QPaintDevice.logicalDpiX` .                                                                                       |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmDpiY        |The vertical resolution of the device in dots per inch. See also :meth:`PySide.QtGui.QPaintDevice.logicalDpiY` .                                                                                         |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmPhysicalDpiX|The horizontal resolution of the device in dots per inch. See also :meth:`PySide.QtGui.QPaintDevice.physicalDpiX` .                                                                                      |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintDevice.PdmPhysicalDpiY|The vertical resolution of the device in dots per inch. See also :meth:`PySide.QtGui.QPaintDevice.physicalDpiY` .                                                                                        |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.metric` 
+
+.. attribute:: PySide.QtGui.QPaintDevice.painters
+
+
+.. method:: PySide.QtGui.QPaintDevice.colorCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of different colors available for the paint device. Since this value is an int, it will not be sufficient to represent the number of colors on 32 bit displays, in this case INT\_MAX is returned instead.
+
+
+
+.. method:: PySide.QtGui.QPaintDevice.depth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the bit depth (number of bit planes) of the paint device.
+
+
+
+.. method:: PySide.QtGui.QPaintDevice.devType()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the device type identifier, which is :attr:`QInternal.Widget<QInternal.PaintDeviceFlags>` if the device is a :class:`PySide.QtGui.QWidget` , :attr:`QInternal.Pixmap<QInternal.PaintDeviceFlags>` if it's a :class:`PySide.QtGui.QPixmap` , :attr:`QInternal.Printer<QInternal.PaintDeviceFlags>` if it's a :class:`PySide.QtGui.QPrinter` , :attr:`QInternal.Picture<QInternal.PaintDeviceFlags>` if it's a :class:`PySide.QtGui.QPicture` , or :attr:`QInternal.UnknownDevice<QInternal.PaintDeviceFlags>` in other cases.
+
+
+
+.. method:: PySide.QtGui.QPaintDevice.height()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the height of the paint device in default coordinate system units (e.g. pixels for :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QWidget` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.heightMM` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.heightMM()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the height of the paint device in millimeters. Due to platform limitations it may not be possible to use this function to determine the actual physical size of a widget on the screen.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.height` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.logicalDpiX()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the horizontal resolution of the device in dots per inch, which is used when computing font sizes. For X11, this is usually the same as could be computed from :meth:`PySide.QtGui.QPaintDevice.widthMM` .
+
+    Note that if the :meth:`PySide.QtGui.QPaintDevice.logicalDpiX` doesn't equal the :meth:`PySide.QtGui.QPaintDevice.physicalDpiX` , the corresponding :class:`PySide.QtGui.QPaintEngine` must handle the resolution mapping.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.logicalDpiY`  :meth:`PySide.QtGui.QPaintDevice.physicalDpiX` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.logicalDpiY()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the vertical resolution of the device in dots per inch, which is used when computing font sizes. For X11, this is usually the same as could be computed from :meth:`PySide.QtGui.QPaintDevice.heightMM` .
+
+    Note that if the :meth:`PySide.QtGui.QPaintDevice.logicalDpiY` doesn't equal the :meth:`PySide.QtGui.QPaintDevice.physicalDpiY` , the corresponding :class:`PySide.QtGui.QPaintEngine` must handle the resolution mapping.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.logicalDpiX`  :meth:`PySide.QtGui.QPaintDevice.physicalDpiY` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.metric(metric)
+
+
+    :param metric: :attr:`PySide.QtGui.QPaintDevice.PaintDeviceMetric`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the metric information for the given paint device ``metric`` .
+
+    .. seealso::  :attr:`QPaintDevice.PaintDeviceMetric` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.numColors()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Use :meth:`PySide.QtGui.QPaintDevice.colorCount` instead.
+
+    Returns the number of different colors available for the paint device. Since this value is an int, it will not be sufficient to represent the number of colors on 32 bit displays, in this case INT\_MAX is returned instead.
+
+
+
+.. method:: PySide.QtGui.QPaintDevice.paintEngine()
+
+
+    :rtype: :class:`PySide.QtGui.QPaintEngine`
+
+
+
+
+    Returns a pointer to the paint engine used for drawing on the device.
+
+
+
+.. method:: PySide.QtGui.QPaintDevice.paintingActive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the device is currently being painted on, i.e. someone has called :meth:`QPainter.begin()<PySide.QtGui.QPainter.begin>` but not yet called :meth:`QPainter.end()<PySide.QtGui.QPainter.end>` for this device; otherwise returns false.
+
+    .. seealso::  :meth:`QPainter.isActive()<PySide.QtGui.QPainter.isActive>` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.physicalDpiX()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the horizontal resolution of the device in dots per inch. For example, when printing, this resolution refers to the physical printer's resolution. The logical DPI on the other hand, refers to the resolution used by the actual paint engine.
+
+    Note that if the :meth:`PySide.QtGui.QPaintDevice.physicalDpiX` doesn't equal the :meth:`PySide.QtGui.QPaintDevice.logicalDpiX` , the corresponding :class:`PySide.QtGui.QPaintEngine` must handle the resolution mapping.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.physicalDpiY`  :meth:`PySide.QtGui.QPaintDevice.logicalDpiX` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.physicalDpiY()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the horizontal resolution of the device in dots per inch. For example, when printing, this resolution refers to the physical printer's resolution. The logical DPI on the other hand, refers to the resolution used by the actual paint engine.
+
+    Note that if the :meth:`PySide.QtGui.QPaintDevice.physicalDpiY` doesn't equal the :meth:`PySide.QtGui.QPaintDevice.logicalDpiY` , the corresponding :class:`PySide.QtGui.QPaintEngine` must handle the resolution mapping.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.physicalDpiX`  :meth:`PySide.QtGui.QPaintDevice.logicalDpiY` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.width()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the width of the paint device in default coordinate system units (e.g. pixels for :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QWidget` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.widthMM` 
+
+
+.. method:: PySide.QtGui.QPaintDevice.widthMM()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the width of the paint device in millimeters. Due to platform limitations it may not be possible to use this function to determine the actual physical size of a widget on the screen.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintDevice.width` 
+
+
+

@@ -1,0 +1,627 @@
+.. module:: PySide.QtCore
+.. _QTextCodec:
+
+QTextCodec
+**********
+
+.. inheritance-diagram:: QTextCodec
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`canEncode<PySide.QtCore.QTextCodec.canEncode>` (arg__1)
+*    def :meth:`canEncode<PySide.QtCore.QTextCodec.canEncode>` (arg__1)
+*    def :meth:`fromUnicode<PySide.QtCore.QTextCodec.fromUnicode>` (uc)
+*    def :meth:`makeDecoder<PySide.QtCore.QTextCodec.makeDecoder>` ()
+*    def :meth:`makeDecoder<PySide.QtCore.QTextCodec.makeDecoder>` (flags)
+*    def :meth:`makeEncoder<PySide.QtCore.QTextCodec.makeEncoder>` ()
+*    def :meth:`makeEncoder<PySide.QtCore.QTextCodec.makeEncoder>` (flags)
+*    def :meth:`toUnicode<PySide.QtCore.QTextCodec.toUnicode>` (arg__1)
+*    def :meth:`toUnicode<PySide.QtCore.QTextCodec.toUnicode>` (chars)
+*    def :meth:`toUnicode<PySide.QtCore.QTextCodec.toUnicode>` (in, length[, state=None])
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aliases<PySide.QtCore.QTextCodec.aliases>` ()
+*    def :meth:`convertToUnicode<PySide.QtCore.QTextCodec.convertToUnicode>` (in, length, state)
+*    def :meth:`mibEnum<PySide.QtCore.QTextCodec.mibEnum>` ()
+*    def :meth:`name<PySide.QtCore.QTextCodec.name>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`availableCodecs<PySide.QtCore.QTextCodec.availableCodecs>` ()
+*    def :meth:`availableMibs<PySide.QtCore.QTextCodec.availableMibs>` ()
+*    def :meth:`codecForCStrings<PySide.QtCore.QTextCodec.codecForCStrings>` ()
+*    def :meth:`codecForHtml<PySide.QtCore.QTextCodec.codecForHtml>` (ba)
+*    def :meth:`codecForHtml<PySide.QtCore.QTextCodec.codecForHtml>` (ba, defaultCodec)
+*    def :meth:`codecForLocale<PySide.QtCore.QTextCodec.codecForLocale>` ()
+*    def :meth:`codecForMib<PySide.QtCore.QTextCodec.codecForMib>` (mib)
+*    def :meth:`codecForName<PySide.QtCore.QTextCodec.codecForName>` (name)
+*    def :meth:`codecForName<PySide.QtCore.QTextCodec.codecForName>` (name)
+*    def :meth:`codecForTr<PySide.QtCore.QTextCodec.codecForTr>` ()
+*    def :meth:`codecForUtfText<PySide.QtCore.QTextCodec.codecForUtfText>` (ba)
+*    def :meth:`codecForUtfText<PySide.QtCore.QTextCodec.codecForUtfText>` (ba, defaultCodec)
+*    def :meth:`setCodecForCStrings<PySide.QtCore.QTextCodec.setCodecForCStrings>` (c)
+*    def :meth:`setCodecForLocale<PySide.QtCore.QTextCodec.setCodecForLocale>` (c)
+*    def :meth:`setCodecForTr<PySide.QtCore.QTextCodec.setCodecForTr>` (c)
+*    def :meth:`validCodecs<PySide.QtCore.QTextCodec.validCodecs>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTextCodec` class provides conversions between text encodings.
+
+    Qt uses Unicode to store, draw and manipulate strings. In many situations you may wish to deal with data that uses a different encoding. For example, most Japanese documents are still stored in Shift-JIS or ISO 2022-JP, while Russian users often have their documents in KOI8-R or Windows-1251.
+
+    Qt provides a set of :class:`PySide.QtCore.QTextCodec` classes to help with converting non-Unicode formats to and from Unicode. You can also create your own codec classes.
+
+    The supported encodings are:
+
+
+    * Apple Roman
+    * :ref:`Big5<codec-big5.html>`
+    * :ref:`Big5-HKSCS<codec-big5hkscs.html>`
+    * CP949
+    * :ref:`EUC-JP<codec-eucjp.html>`
+    * :ref:`EUC-KR<codec-euckr.html>`
+    * :ref:`GB18030-0<codec-gbk.html>`
+    * IBM 850
+    * IBM 866
+    * IBM 874
+    * :ref:`ISO 2022-JP<codecs-jis.html>`
+    * ISO 8859-1 to 10
+    * ISO 8859-13 to 16
+    * Iscii-Bng, Dev, Gjr, Knd, Mlm, Ori, Pnj, Tlg, and Tml
+    * JIS X 0201
+    * JIS X 0208
+    * KOI8-R
+    * KOI8-U
+    * MuleLao-1
+    * ROMAN8
+    * :ref:`Shift-JIS<codec-sjis.html>`
+    * TIS-620
+    * :ref:`TSCII<codec-tscii.html>`
+    * UTF-8
+    * UTF-16
+    * UTF-16BE
+    * UTF-16LE
+    * UTF-32
+    * UTF-32BE
+    * UTF-32LE
+    * Windows-1250 to 1258
+    * WINSAMI2
+
+    QTextCodecs can be used as follows to convert some locally encoded string to Unicode. Suppose you have some string encoded in Russian KOI8-R encoding, and want to convert it to Unicode. The simple way to do it is like this:
+
+    ::
+
+        encodedString = QByteArray("...")
+        codec = QTextCodec.codecForName("KOI8-R")
+        string = codec.toUnicode(encodedString)
+
+
+    After this, ``string`` holds the text converted to Unicode. Converting a string from Unicode to the local encoding is just as easy:
+
+    ::
+
+        string = u"..."
+        codec = QTextCodec.codecForName("KOI8-R")
+        encodedString = codec.fromUnicode(string)
+
+
+    To read or write files in various encodings, use :class:`PySide.QtCore.QTextStream` and its :meth:`PySide.QtCore.QTextStream.setCodec` function. See the :ref:`Codecs<tools/codecs>` example for an application of :class:`PySide.QtCore.QTextCodec` to file I/O.
+
+    Some care must be taken when trying to convert the data in chunks, for example, when receiving it over a network. In such cases it is possible that a multi-byte character will be split over two chunks. At best this might result in the loss of a character and at worst cause the entire conversion to fail.
+
+    The approach to use in these situations is to create a :class:`PySide.QtCore.QTextDecoder` object for the codec and use this :class:`PySide.QtCore.QTextDecoder` for the whole decoding process, as shown below:
+
+    ::
+
+        codec = QTextCodec.codecForName("Shift-JIS")
+        decoder = codec.makeDecoder()
+
+        string = u''
+        while new_data_available():
+            chunk = get_new_data()
+            string += decoder.toUnicode(chunk)
+
+
+
+    The :class:`PySide.QtCore.QTextDecoder` object maintains state between chunks and therefore works correctly even if a multi-byte character is split between chunks.
+
+    .. _PySide.QtCore.QTextCodec_creating-your-own-codec-class:
+
+
+
+Creating Your Own Codec Class
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Support for new text encodings can be added to Qt by creating :class:`PySide.QtCore.QTextCodec` subclasses.
+
+    The pure virtual functions describe the encoder to the system and the coder is used as required in the different text file formats supported by :class:`PySide.QtCore.QTextStream` , and under X11, for the locale-specific character input and output.
+
+    To add support for another encoding to Qt, make a subclass of :class:`PySide.QtCore.QTextCodec` and implement the functions listed in the table below.
+
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Function                                           |Description                                                                                                                                                                                                                                  |
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtCore.QTextCodec.name`              |Returns the official name for the encoding. If the encoding is listed in the :ref:`IANA character-sets encoding file<http://www.iana.org/assignments/character-sets>` , the name should be the preferred MIME name for the encoding.         |
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtCore.QTextCodec.aliases`           |Returns a list of alternative names for the encoding. :class:`PySide.QtCore.QTextCodec` provides a default implementation that returns an empty list. For example, "ISO-8859-1" has "latin1", "CP819", "IBM819", and "iso-ir-100" as aliases.|
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtCore.QTextCodec.mibEnum`           |Return the MIB enum for the encoding if it is listed in the :ref:`IANA character-sets encoding file<http://www.iana.org/assignments/character-sets>` .                                                                                       |
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtCore.QTextCodec.convertToUnicode`  |Converts an 8-bit character string to Unicode.                                                                                                                                                                                               |
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtCore.QTextCodec.convertFromUnicode`|Converts a Unicode string to an 8-bit character string.                                                                                                                                                                                      |
+    +---------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    You may find it more convenient to make your codec class available as a plugin; see :ref:`How to Create Qt Plugins<plugins-howto.html>` for details.
+
+    .. seealso::  :class:`PySide.QtCore.QTextStream`  :class:`PySide.QtCore.QTextDecoder`  :class:`PySide.QtCore.QTextEncoder`  :ref:`Codecs Example<tools/codecs>` 
+
+.. class:: QTextCodec()
+
+
+    Constructs a :class:`PySide.QtCore.QTextCodec` , and gives it the highest precedence. The :class:`PySide.QtCore.QTextCodec` should always be constructed on the heap (i.e. with ``new`` ). Qt takes ownership and will delete it when the application terminates.
+
+
+.. attribute:: PySide.QtCore.QTextCodec.ConversionFlag
+
+    +-------------------------------+--------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                     |
+    +===============================+================================================================================+
+    |QTextCodec.DefaultConversion   |No flag is set.                                                                 |
+    +-------------------------------+--------------------------------------------------------------------------------+
+    |QTextCodec.ConvertInvalidToNull|If this flag is set, each invalid input character is output as a null character.|
+    +-------------------------------+--------------------------------------------------------------------------------+
+    |QTextCodec.IgnoreHeader        |Ignore any Unicode byte-order mark and don't generate any.                      |
+    +-------------------------------+--------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QTextCodec.aliases()
+
+
+    :rtype: 
+
+
+
+
+    Subclasses can return a number of aliases for the codec in question.
+
+    Standard aliases for codecs can be found in the :ref:`IANA character-sets encoding file<http://www.iana.org/assignments/character-sets>` .
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.availableCodecs()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of all available codecs, by name. Call :meth:`QTextCodec.codecForName()<PySide.QtCore.QTextCodec.codecForName>` to obtain the :class:`PySide.QtCore.QTextCodec` for the name.
+
+    The list may contain many mentions of the same codec if the codec has aliases.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.availableMibs`  :meth:`PySide.QtCore.QTextCodec.name`  :meth:`PySide.QtCore.QTextCodec.aliases` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.availableMibs()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of MIBs for all available codecs. Call :meth:`QTextCodec.codecForMib()<PySide.QtCore.QTextCodec.codecForMib>` to obtain the :class:`PySide.QtCore.QTextCodec` for the MIB.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.availableCodecs`  :meth:`PySide.QtCore.QTextCodec.mibEnum` 
+
+
+.. method:: PySide.QtCore.QTextCodec.canEncode(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the Unicode character ``ch`` can be fully encoded with this codec; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.canEncode(arg__1)
+
+
+    :param arg__1: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    ``s`` contains the string being tested for encode-ability.
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForCStrings()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec used by :class:`PySide.QtCore.QString` to convert to and from ``const char *`` and QByteArrays. If this function returns 0 (the default), :class:`PySide.QtCore.QString` assumes Latin-1.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.setCodecForCStrings` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForHtml(ba, defaultCodec)
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :param defaultCodec: :class:`PySide.QtCore.QTextCodec`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Tries to detect the encoding of the provided snippet of HTML in the given byte array, ``ba`` , by checking the BOM (Byte Order Mark) and the content-type meta header and returns a :class:`PySide.QtCore.QTextCodec` instance that is capable of decoding the html to unicode. If the codec cannot be detected from the content provided, ``defaultCodec`` is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForUtfText` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForHtml(ba)
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    This is an overloaded function.
+
+    Tries to detect the encoding of the provided snippet of HTML in the given byte array, ``ba`` , by checking the BOM (Byte Order Mark) and the content-type meta header and returns a :class:`PySide.QtCore.QTextCodec` instance that is capable of decoding the html to unicode. If the codec cannot be detected, this overload returns a Latin-1 :class:`PySide.QtCore.QTextCodec` .
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForLocale()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns a pointer to the codec most suitable for this locale.
+
+    On Windows, the codec will be based on a system locale. On Unix systems, starting with Qt 4.2, the codec will be using the *iconv* library. Note that in both cases the codec's name will be "System".
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.setCodecForLocale` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForMib(mib)
+
+
+    :param mib: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QTextCodec` which matches the :meth:`MIBenum<PySide.QtCore.QTextCodec.mibEnum>` ``mib`` .
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForName(name)
+
+
+    :param name: str
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Searches all installed :class:`PySide.QtCore.QTextCodec` objects and returns the one which best matches ``name`` ; the match is case-insensitive. Returns 0 if no codec matching the name ``name`` could be found.
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForName(name)
+
+
+    :param name: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Searches all installed :class:`PySide.QtCore.QTextCodec` objects and returns the one which best matches ``name`` ; the match is case-insensitive. Returns 0 if no codec matching the name ``name`` could be found.
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForTr()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec used by :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` on its argument. If this function returns 0 (the default), tr() assumes Latin-1.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.setCodecForTr` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForUtfText(ba)
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    This is an overloaded function.
+
+    Tries to detect the encoding of the provided snippet ``ba`` by using the BOM (Byte Order Mark) and returns a :class:`PySide.QtCore.QTextCodec` instance that is capable of decoding the text to unicode. If the codec cannot be detected, this overload returns a Latin-1 :class:`PySide.QtCore.QTextCodec` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForHtml` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.codecForUtfText(ba, defaultCodec)
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :param defaultCodec: :class:`PySide.QtCore.QTextCodec`
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Tries to detect the encoding of the provided snippet ``ba`` by using the BOM (Byte Order Mark) and returns a :class:`PySide.QtCore.QTextCodec` instance that is capable of decoding the text to unicode. If the codec cannot be detected from the content provided, ``defaultCodec`` is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForHtml` 
+
+
+.. method:: PySide.QtCore.QTextCodec.convertToUnicode(in, length, state)
+
+
+    :param in: str
+    :param length: :class:`PySide.QtCore.int`
+    :param state: :class:`PySide.QtCore.QTextCodec::ConverterState`
+    :rtype: unicode
+
+
+
+
+    :class:`PySide.QtCore.QTextCodec` subclasses must reimplement this function.
+
+    Converts the first ``len`` characters of ``chars`` from the encoding of the subclass to Unicode, and returns the result in a :class:`PySide.QtCore.QString` .
+
+    ``state`` can be 0, in which case the conversion is stateless and default conversion rules should be used. If state is not 0, the codec should save the state after the conversion in ``state`` , and adjust the remainingChars and invalidChars members of the struct.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.fromUnicode(uc)
+
+
+    :param uc: unicode
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Converts ``str`` from Unicode to the encoding of this codec, and returns the result in a :class:`PySide.QtCore.QByteArray` .
+
+
+
+.. method:: PySide.QtCore.QTextCodec.makeDecoder(flags)
+
+
+    :param flags: :class:`PySide.QtCore.QTextCodec.ConversionFlags`
+    :rtype: :class:`PySide.QtCore.QTextDecoder`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextCodec.makeDecoder()
+
+
+    :rtype: :class:`PySide.QtCore.QTextDecoder`
+
+
+
+
+    Creates a :class:`PySide.QtCore.QTextDecoder` which stores enough state to decode chunks of ``char *`` data to create chunks of Unicode data.
+
+    The caller is responsible for deleting the returned object.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.makeEncoder(flags)
+
+
+    :param flags: :class:`PySide.QtCore.QTextCodec.ConversionFlags`
+    :rtype: :class:`PySide.QtCore.QTextEncoder`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextCodec.makeEncoder()
+
+
+    :rtype: :class:`PySide.QtCore.QTextEncoder`
+
+
+
+
+    Creates a :class:`PySide.QtCore.QTextEncoder` which stores enough state to encode chunks of Unicode data as ``char *`` data.
+
+    The caller is responsible for deleting the returned object.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.mibEnum()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Subclasses of :class:`PySide.QtCore.QTextCodec` must reimplement this function. It returns the MIBenum (see :ref:`IANA character-sets encoding file<http://www.iana.org/assignments/character-sets>` for more information). It is important that each :class:`PySide.QtCore.QTextCodec` subclass returns the correct unique value for this function.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.name()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    :class:`PySide.QtCore.QTextCodec` subclasses must reimplement this function. It returns the name of the encoding supported by the subclass.
+
+    If the codec is registered as a character set in the :ref:`IANA character-sets encoding file<http://www.iana.org/assignments/character-sets>` this method should return the preferred mime name for the codec if defined, otherwise its name.
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.setCodecForCStrings(c)
+
+
+    :param c: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec used by :class:`PySide.QtCore.QString` to convert to and from ``const char *`` and QByteArrays. If the ``codec`` is 0 (the default), :class:`PySide.QtCore.QString` assumes Latin-1.
+
+    .. warning::  Some codecs do not preserve the characters in the ASCII range (0x00 to 0x7F). For example, the Japanese Shift-JIS encoding maps the backslash character (0x5A) to the Yen character. To avoid undesirable side-effects, we recommend avoiding such codecs with setCodecsForCString().
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForCStrings`  :meth:`PySide.QtCore.QTextCodec.setCodecForTr` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.setCodecForLocale(c)
+
+
+    :param c: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Set the codec to ``c`` ; this will be returned by :meth:`PySide.QtCore.QTextCodec.codecForLocale` . If ``c`` is a null pointer, the codec is reset to the default.
+
+    This might be needed for some applications that want to use their own mechanism for setting the locale.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForLocale` 
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.setCodecForTr(c)
+
+
+    :param c: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec used by :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` on its argument to ``c`` . If ``c`` is 0 (the default), tr() assumes Latin-1.
+
+    If the literal quoted text in the program is not in the Latin-1 encoding, this function can be used to set the appropriate encoding. For example, software developed by Korean programmers might use eucKR for all the text in the program, in which case the main() function might look like this:
+
+    ::
+
+        def main():
+            app = QApplication([])
+            QTextCodec.setCodecForTr(QTextCodec.codecForName("eucKR"))
+            ...
+
+
+    Note that this is not the way to select the encoding that the *user* has chosen. For example, to convert an application containing literal English strings to Korean, all that is needed is for the English strings to be passed through tr() and for translation files to be loaded. For details of internationalization, see :ref:`Internationalization with Qt<internationalization>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextCodec.codecForTr`  :meth:`PySide.QtCore.QTextCodec.setCodecForCStrings` 
+
+
+.. method:: PySide.QtCore.QTextCodec.toUnicode(in, length[, state=None])
+
+
+    :param in: str
+    :param length: :class:`PySide.QtCore.int`
+    :param state: :class:`PySide.QtCore.QTextCodec::ConverterState`
+    :rtype: unicode
+
+
+
+
+    Converts the first ``size`` characters from the ``input`` from the encoding of this codec to Unicode, and returns the result in a :class:`PySide.QtCore.QString` .
+
+    The ``state`` of the convertor used is updated.
+
+
+
+.. method:: PySide.QtCore.QTextCodec.toUnicode(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QByteArray`
+    :rtype: unicode
+
+
+
+
+    Converts ``a`` from the encoding of this codec to Unicode, and returns the result in a :class:`PySide.QtCore.QString` .
+
+
+
+.. method:: PySide.QtCore.QTextCodec.toUnicode(chars)
+
+
+    :param chars: str
+    :rtype: unicode
+
+
+
+
+    This is an overloaded function.
+
+    ``chars`` contains the source characters.
+
+
+
+.. staticmethod:: PySide.QtCore.QTextCodec.validCodecs()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+

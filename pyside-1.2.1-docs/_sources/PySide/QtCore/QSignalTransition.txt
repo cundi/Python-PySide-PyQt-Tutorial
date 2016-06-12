@@ -1,0 +1,130 @@
+.. module:: PySide.QtCore
+.. _QSignalTransition:
+
+QSignalTransition
+*****************
+
+.. inheritance-diagram:: QSignalTransition
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`senderObject<PySide.QtCore.QSignalTransition.senderObject>` ()
+*    def :meth:`setSenderObject<PySide.QtCore.QSignalTransition.setSenderObject>` (sender)
+*    def :meth:`setSignal<PySide.QtCore.QSignalTransition.setSignal>` (signal)
+*    def :meth:`signal<PySide.QtCore.QSignalTransition.signal>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSignalTransition` class provides a transition based on a Qt signal.
+
+    Typically you would use the overload of :meth:`QState.addTransition()<PySide.QtCore.QState.addTransition>` that takes a sender and signal as arguments, rather than creating :class:`PySide.QtCore.QSignalTransition` objects directly. :class:`PySide.QtCore.QSignalTransition` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    You can subclass :class:`PySide.QtCore.QSignalTransition` and reimplement :meth:`PySide.QtCore.QSignalTransition.eventTest` to make a signal transition conditional; the event object passed to :meth:`PySide.QtCore.QSignalTransition.eventTest` will be a :class:`QStateMachine.SignalEvent` object. Example:
+
+    ::
+
+                class CheckedTransition : public QSignalTransition
+                {
+                public:
+                    CheckedTransition(QCheckBox *check)
+                        : QSignalTransition(check, SIGNAL(stateChanged(int))) {}
+                protected:
+                    bool eventTest(QEvent *e) {
+                        if (!QSignalTransition::eventTest(e))
+                            return false;
+                        QStateMachine::SignalEvent *se = static_cast<QStateMachine::SignalEvent*>(e);
+                        return (se->arguments().at(0).toInt() == Qt::Checked);
+                    }
+                };
+                
+                ...
+                
+                QCheckBox *check = new QCheckBox();
+                check->setTristate(true);
+                
+                QState *s1 = new QState();
+                QState *s2 = new QState();
+                CheckedTransition *t1 = new CheckedTransition(check);
+                t1->setTargetState(s2);
+                s1->addTransition(t1);
+
+
+
+.. class:: QSignalTransition(arg__1[, arg__2=None])
+           QSignalTransition(sender, signal[, sourceState=None])
+           QSignalTransition([sourceState=None])
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param sourceState: :class:`PySide.QtCore.QState`
+    :param signal: str
+    :param arg__1: :class:`PyObject`
+    :param arg__2: :class:`PySide.QtCore.QState`
+
+
+
+    Constructs a new signal transition associated with the given ``signal`` of the given ``sender`` , and with the given ``sourceState`` .
+
+
+    Constructs a new signal transition with the given ``sourceState`` .
+
+
+.. method:: PySide.QtCore.QSignalTransition.senderObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the sender object that this signal transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QSignalTransition.setSenderObject(sender)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the sender object that this signal transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QSignalTransition.setSignal(signal)
+
+
+    :param signal: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This property holds the signal that this signal transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QSignalTransition.signal()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This property holds the signal that this signal transition is associated with.
+
+
+
+

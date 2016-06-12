@@ -1,0 +1,116 @@
+.. module:: PySide.QtCore
+.. _QSequentialAnimationGroup:
+
+QSequentialAnimationGroup
+*************************
+
+.. inheritance-diagram:: QSequentialAnimationGroup
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addPause<PySide.QtCore.QSequentialAnimationGroup.addPause>` (msecs)
+*    def :meth:`currentAnimation<PySide.QtCore.QSequentialAnimationGroup.currentAnimation>` ()
+*    def :meth:`insertPause<PySide.QtCore.QSequentialAnimationGroup.insertPause>` (index, msecs)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentAnimationChanged<PySide.QtCore.QSequentialAnimationGroup.currentAnimationChanged>` (current)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSequentialAnimationGroup` class provides a sequential group of animations.
+
+    :class:`PySide.QtCore.QSequentialAnimationGroup` is a :class:`PySide.QtCore.QAnimationGroup` that runs its animations in sequence, i.e., it starts one animation after another has finished playing. The animations are played in the order they are added to the group (using :meth:`PySide.QtCore.QAnimationGroup.addAnimation` or :meth:`PySide.QtCore.QAnimationGroup.insertAnimation` ). The animation group finishes when its last animation has finished.
+
+    At each moment there is at most one animation that is active in the group; it is returned by :meth:`PySide.QtCore.QSequentialAnimationGroup.currentAnimation` . An empty group has no current animation.
+
+    A sequential animation group can be treated as any other animation, i.e., it can be started, stopped, and added to other groups. You can also call :meth:`PySide.QtCore.QSequentialAnimationGroup.addPause` or :meth:`PySide.QtCore.QSequentialAnimationGroup.insertPause` to add a pause to a sequential animation group.
+
+    ::
+
+                QSequentialAnimationGroup *group = new QSequentialAnimationGroup;
+                
+                group->addAnimation(anim1);
+                group->addAnimation(anim2);
+                
+                group->start();
+
+
+    In this example, ``anim1`` and ``anim2`` are two already set up :class:`PySide.QtCore.QPropertyAnimation` s.
+
+    .. seealso::  :class:`PySide.QtCore.QAnimationGroup`  :class:`PySide.QtCore.QAbstractAnimation`  :ref:`The Animation Framework<animation-overview.html>` 
+
+.. class:: QSequentialAnimationGroup([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QSequentialAnimationGroup` . ``parent`` is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+
+.. method:: PySide.QtCore.QSequentialAnimationGroup.addPause(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QPauseAnimation`
+
+
+
+
+    Adds a pause of ``msecs`` to this animation group. The pause is considered as a special type of animation, thus :meth:`PySide.QtCore.QAnimationGroup.animationCount` will be increased by one.
+
+    .. seealso::  :meth:`PySide.QtCore.QSequentialAnimationGroup.insertPause`  :meth:`QAnimationGroup.addAnimation()<PySide.QtCore.QAnimationGroup.addAnimation>` 
+
+
+.. method:: PySide.QtCore.QSequentialAnimationGroup.currentAnimation()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Returns the animation in the current time.
+
+    .. seealso::  :meth:`PySide.QtCore.QSequentialAnimationGroup.currentAnimationChanged` 
+
+
+.. method:: PySide.QtCore.QSequentialAnimationGroup.currentAnimationChanged(current)
+
+
+    :param current: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSequentialAnimationGroup.insertPause(index, msecs)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QPauseAnimation`
+
+
+
+
+    Inserts a pause of ``msecs`` milliseconds at ``index`` in this animation group.
+
+    .. seealso::  :meth:`PySide.QtCore.QSequentialAnimationGroup.addPause`  :meth:`QAnimationGroup.insertAnimation()<PySide.QtCore.QAnimationGroup.insertAnimation>` 
+
+
+

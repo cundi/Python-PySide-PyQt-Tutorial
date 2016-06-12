@@ -1,0 +1,302 @@
+.. module:: PySide.QtCore
+.. _QSignalMapper:
+
+QSignalMapper
+*************
+
+.. inheritance-diagram:: QSignalMapper
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`mapping<PySide.QtCore.QSignalMapper.mapping>` (id)
+*    def :meth:`mapping<PySide.QtCore.QSignalMapper.mapping>` (object)
+*    def :meth:`mapping<PySide.QtCore.QSignalMapper.mapping>` (text)
+*    def :meth:`mapping<PySide.QtCore.QSignalMapper.mapping>` (widget)
+*    def :meth:`removeMappings<PySide.QtCore.QSignalMapper.removeMappings>` (sender)
+*    def :meth:`setMapping<PySide.QtCore.QSignalMapper.setMapping>` (sender, id)
+*    def :meth:`setMapping<PySide.QtCore.QSignalMapper.setMapping>` (sender, object)
+*    def :meth:`setMapping<PySide.QtCore.QSignalMapper.setMapping>` (sender, text)
+*    def :meth:`setMapping<PySide.QtCore.QSignalMapper.setMapping>` (sender, widget)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`map<PySide.QtCore.QSignalMapper.map>` ()
+*    def :meth:`map<PySide.QtCore.QSignalMapper.map>` (sender)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`mapped<PySide.QtCore.QSignalMapper.mapped>` (arg__1)
+*    def :meth:`mapped<PySide.QtCore.QSignalMapper.mapped>` (arg__1)
+*    def :meth:`mapped<PySide.QtCore.QSignalMapper.mapped>` (arg__1)
+*    def :meth:`mapped<PySide.QtCore.QSignalMapper.mapped>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSignalMapper` class bundles signals from identifiable senders.
+
+    This class collects a set of parameterless signals, and re-emits them with integer, string or widget parameters corresponding to the object that sent the signal.
+
+    The class supports the mapping of particular strings or integers with particular objects using :meth:`PySide.QtCore.QSignalMapper.setMapping` . The objects' signals can then be connected to the :meth:`PySide.QtCore.QSignalMapper.map` slot which will emit the :meth:`PySide.QtCore.QSignalMapper.mapped` signal with the string or integer associated with the original signalling object. Mappings can be removed later using :meth:`PySide.QtCore.QSignalMapper.removeMappings` .
+
+    Example: Suppose we want to create a custom widget that contains a group of buttons (like a tool palette). One approach is to connect each button's ``clicked()`` signal to its own custom slot; but in this example we want to connect all the buttons to a single slot and parameterize the slot by the button that was clicked.
+
+    Here's the definition of a simple custom widget that has a single signal, ``clicked()`` , which is emitted with the text of the button that was clicked:
+
+    ::
+
+
+        class ButtonWidget(QWidget):
+            def __init__(self, texts, parent=None):
+                QWidget.__init__(self, parent)
+                ...
+
+
+
+    The only function that we need to implement is the constructor:
+
+    ::
+
+
+        def __init__(self, texts, parent):
+            QWidget.__init__(self, parent)
+
+            self.signalMapper = QSignalMapper(self)
+
+            layout = QGridLayout()
+
+            for text, index in enumerate(texts):
+                button = QPushButton(text)
+                self.connect(SIGNAL("clicked()"), self.signalMapper, SLOT("map()"))
+                self.signalMapper.setMapping(button, text)
+                layout.addWidget(button, index / 3, index % 3)
+
+            self.signalMapper.connect(SIGNAL("mapped(const QString &)"),
+                    self, SLOT("clicked(const QString &)"))
+
+            self.setLayout(layout)
+
+
+
+    A list of texts is passed to the constructor. A signal mapper is constructed and for each text in the list a :class:`PySide.QtGui.QPushButton` is created. We connect each button's ``clicked()`` signal to the signal mapper's :meth:`PySide.QtCore.QSignalMapper.map` slot, and create a mapping in the signal mapper from each button to the button's text. Finally we connect the signal mapper's :meth:`PySide.QtCore.QSignalMapper.mapped` signal to the custom widget's ``clicked()`` signal. When the user clicks a button, the custom widget will emit a single ``clicked()`` signal whose argument is the text of the button the user clicked.
+
+    .. seealso::  :class:`PySide.QtCore.QObject`  :class:`PySide.QtGui.QButtonGroup`  :class:`PySide.QtGui.QActionGroup` 
+
+.. class:: QSignalMapper([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtCore.QSignalMapper` with parent ``parent`` .
+
+
+.. method:: PySide.QtCore.QSignalMapper.map(sender)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This slot emits signals based on the ``sender`` object.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.map()
+
+
+
+
+
+
+    This slot emits signals based on which object sends signals to it.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapped(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapped(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapped(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapped(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapping(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the sender :class:`PySide.QtCore.QObject` that is associated with the ``id`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QSignalMapper.setMapping` 
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapping(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QSignalMapper.mapping` .
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapping(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QSignalMapper.mapping` .
+
+    Returns the sender :class:`PySide.QtCore.QObject` that is associated with the ``widget`` .
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.mapping(object)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QSignalMapper.mapping` .
+
+    Returns the sender :class:`PySide.QtCore.QObject` that is associated with the ``object`` .
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.removeMappings(sender)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Removes all mappings for ``sender`` .
+
+    This is done automatically when mapped objects are destroyed.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.setMapping(sender, text)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param text: unicode
+
+
+
+
+    Adds a mapping so that when :meth:`PySide.QtCore.QSignalMapper.map` is signalled from the ``sender`` , the signal mapped(``text`` ) is emitted.
+
+    There may be at most one text for each sender.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.setMapping(sender, widget)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Adds a mapping so that when :meth:`PySide.QtCore.QSignalMapper.map` is signalled from the ``sender`` , the signal mapped(``widget`` ) is emitted.
+
+    There may be at most one widget for each sender.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.setMapping(sender, object)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param object: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Adds a mapping so that when :meth:`PySide.QtCore.QSignalMapper.map` is signalled from the ``sender`` , the signal mapped(``object`` ) is emitted.
+
+    There may be at most one object for each sender.
+
+
+
+.. method:: PySide.QtCore.QSignalMapper.setMapping(sender, id)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds a mapping so that when :meth:`PySide.QtCore.QSignalMapper.map` is signalled from the given ``sender`` , the signal mapped(``id`` ) is emitted.
+
+    There may be at most one integer ID for each sender.
+
+    .. seealso::  :meth:`PySide.QtCore.QSignalMapper.mapping` 
+
+
+

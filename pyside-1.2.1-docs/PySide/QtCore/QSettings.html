@@ -1,0 +1,1488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QSettings &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtCore" href="index.html" />
+    <link rel="next" title="QFileSystemWatcher" href="QFileSystemWatcher.html" />
+    <link rel="prev" title="QParallelAnimationGroup" href="QParallelAnimationGroup.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtCore</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QSettings</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#static-functions">Static functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a><ul>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li><a class="reference internal" href="#qvariant-and-gui-types">QVariant and GUI Types</a></li>
+<li><a class="reference internal" href="#section-and-key-syntax">Section and Key Syntax</a></li>
+<li><a class="reference internal" href="#fallback-mechanism">Fallback Mechanism</a></li>
+<li><a class="reference internal" href="#restoring-the-state-of-a-gui-application">Restoring the State of a GUI Application</a></li>
+<li><a class="reference internal" href="#accessing-settings-from-multiple-threads-or-processes-simultaneously">Accessing Settings from Multiple Threads or Processes Simultaneously</a></li>
+<li><a class="reference internal" href="#platform-specific-notes">Platform-Specific Notes</a></li>
+<li><a class="reference internal" href="#locations-where-application-settings-are-stored">Locations Where Application Settings Are Stored</a></li>
+<li><a class="reference internal" href="#accessing-ini-and-plist-files-directly">Accessing INI and .plist Files Directly</a></li>
+<li><a class="reference internal" href="#accessing-the-windows-registry-directly">Accessing the Windows Registry Directly</a></li>
+<li><a class="reference internal" href="#accessing-common-registry-settings-on-windows">Accessing Common Registry Settings on Windows</a></li>
+<li><a class="reference internal" href="#securing-application-settings-in-symbian">Securing application settings in Symbian</a></li>
+<li><a class="reference internal" href="#changing-the-location-of-global-qt-settings-on-mac-os-x">Changing the location of global Qt settings on Mac OS X</a></li>
+<li><a class="reference internal" href="#platform-limitations">Platform Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QParallelAnimationGroup.html"
+                        title="previous chapter">QParallelAnimationGroup</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QFileSystemWatcher.html"
+                        title="next chapter">QFileSystemWatcher</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtCore"></span><div class="section" id="qsettings">
+<span id="id1"></span><h1>QSettings<a class="headerlink" href="#qsettings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="PySide.QtCore.PySide.QtCore.QSettings.allKeys"><tt class="xref py py-meth docutils literal"><span class="pre">allKeys</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.applicationName" title="PySide.QtCore.PySide.QtCore.QSettings.applicationName"><tt class="xref py py-meth docutils literal"><span class="pre">applicationName</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">beginGroup</span></tt></a> (prefix)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">beginReadArray</span></tt></a> (prefix)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">beginWriteArray</span></tt></a> (prefix[, size=-1])</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">childGroups</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">childKeys</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.clear" title="PySide.QtCore.PySide.QtCore.QSettings.clear"><tt class="xref py py-meth docutils literal"><span class="pre">clear</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">contains</span></tt></a> (key)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endArray" title="PySide.QtCore.PySide.QtCore.QSettings.endArray"><tt class="xref py py-meth docutils literal"><span class="pre">endArray</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="PySide.QtCore.PySide.QtCore.QSettings.endGroup"><tt class="xref py py-meth docutils literal"><span class="pre">endGroup</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled" title="PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">fallbacksEnabled</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fileName" title="PySide.QtCore.PySide.QtCore.QSettings.fileName"><tt class="xref py py-meth docutils literal"><span class="pre">fileName</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">format</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="PySide.QtCore.PySide.QtCore.QSettings.group"><tt class="xref py py-meth docutils literal"><span class="pre">group</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.iniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.iniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">iniCodec</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.isWritable" title="PySide.QtCore.PySide.QtCore.QSettings.isWritable"><tt class="xref py py-meth docutils literal"><span class="pre">isWritable</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.organizationName" title="PySide.QtCore.PySide.QtCore.QSettings.organizationName"><tt class="xref py py-meth docutils literal"><span class="pre">organizationName</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">remove</span></tt></a> (key)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.scope" title="PySide.QtCore.PySide.QtCore.QSettings.scope"><tt class="xref py py-meth docutils literal"><span class="pre">scope</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex" title="PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex"><tt class="xref py py-meth docutils literal"><span class="pre">setArrayIndex</span></tt></a> (i)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled" title="PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">setFallbacksEnabled</span></tt></a> (b)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setIniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.setIniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">setIniCodec</span></tt></a> (codec)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setIniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.setIniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">setIniCodec</span></tt></a> (codecName)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">setValue</span></tt></a> (key, value)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">status</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">sync</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">value</span></tt></a> (key[, defaultValue=None])</li>
+</ul>
+</div>
+<div class="section" id="static-functions">
+<h3>Static functions<a class="headerlink" href="#static-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.defaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.defaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">defaultFormat</span></tt></a> ()</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">setDefaultFormat</span></tt></a> (format)</li>
+<li>def <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="PySide.QtCore.PySide.QtCore.QSettings.setPath"><tt class="xref py py-meth docutils literal"><span class="pre">setPath</span></tt></a> (format, scope, path)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> class provides persistent platform-independent application settings.</p>
+<p>Users normally expect an application to remember its settings (window sizes and positions, options, etc.) across sessions. This information is often stored in the system registry on Windows, and in XML preferences files on Mac OS X. On Unix systems, in the absence of a standard, many applications (including the KDE applications) use INI text files.</p>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> is an abstraction around these technologies, enabling you to save and restore application settings in a portable manner. It also supports <tt class="xref py py-meth docutils literal"><span class="pre">custom</span> <span class="pre">storage</span> <span class="pre">formats</span></tt> .</p>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> &#8216;s API is based on <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> , allowing you to save most value-based types, such as <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QString</span></tt> , <a class="reference internal" href="QRect.html#PySide.QtCore.QRect" title="PySide.QtCore.QRect"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QRect</span></tt></a> , and <a class="reference internal" href="../QtGui/QImage.html#PySide.QtGui.QImage" title="PySide.QtGui.QImage"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QImage</span></tt></a> , with the minimum of effort.</p>
+<p>If all you need is a non-persistent memory-based structure, consider using <tt class="xref py py-class docutils literal"><span class="pre">QMap</span></tt> &lt; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QString</span></tt> , <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> &gt; instead.</p>
+</div></blockquote>
+<div class="section" id="basic-usage">
+<span id="pyside-qtcore-qsettings-basic-usage"></span><h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>When creating a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object, you must pass the name of your company or organization as well as the name of your application. For example, if your product is called Star Runner and your company is called MySoft, you would construct the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> objects can be created either on the stack or on the heap (i.e. using <tt class="docutils literal"><span class="pre">new</span></tt> ). Constructing and destroying a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object is very fast.</p>
+<p>If you use <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> from many places in your application, you might want to specify the organization name and the application name using <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationName()</span></tt></a> and <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setApplicationName()</span></tt></a> , and then use the default <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> constructor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setOrganizationName</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">)</span>
+<span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setOrganizationDomain</span><span class="p">(</span><span class="s">&quot;mysoft.com&quot;</span><span class="p">)</span>
+<span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setApplicationName</span><span class="p">(</span><span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(Here, we also specify the organization&#8217;s Internet domain. When the Internet domain is set, it is used on Mac OS X instead of the organization name, since Mac OS X applications conventionally use Internet domains to identify themselves. If no domain is set, a fake domain is derived from the organization name. See the Platform-Specific Notes below for details.)</p>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> stores settings. Each setting consists of a <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QString</span></tt> that specifies the setting&#8217;s name (the <em>key</em> ) and a <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> that stores the data associated with the key. To write a setting, use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setValue()</span></tt></a> . For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;editor/wrapMargin&quot;</span><span class="p">,</span> <span class="mi">68</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If there already exists a setting with the same key, the existing value is overwritten by the new value. For efficiency, the changes may not be saved to permanent storage immediately. (You can always call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.sync()</span></tt></a> to commit your changes.)</p>
+<p>You can get a setting&#8217;s value back using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">margin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;editor/wrapMargin&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If there is no setting with the specified name, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> returns a null <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> (which can be converted to the integer 0). You can specify another default value by passing a second argument to <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">margin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;editor/wrapMargin&quot;</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To test whether a given key exists, call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.contains()</span></tt></a> . To remove the setting associated with a key, call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a> . To obtain the list of all keys, call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="PySide.QtCore.PySide.QtCore.QSettings.allKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.allKeys()</span></tt></a> . To remove all keys, call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.clear" title="PySide.QtCore.PySide.QtCore.QSettings.clear"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.clear()</span></tt></a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="qvariant-and-gui-types">
+<span id="pyside-qtcore-qsettings-qvariant-and-gui-types"></span><h3>QVariant and GUI Types<a class="headerlink" href="#qvariant-and-gui-types" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Because <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> is part of the <em class="xref std std-ref">QtCore</em> library, it cannot provide conversion functions to data types such as <a class="reference internal" href="../QtGui/QColor.html#PySide.QtGui.QColor" title="PySide.QtGui.QColor"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QColor</span></tt></a> , <a class="reference internal" href="../QtGui/QImage.html#PySide.QtGui.QImage" title="PySide.QtGui.QImage"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QImage</span></tt></a> , and <a class="reference internal" href="../QtGui/QPixmap.html#PySide.QtGui.QPixmap" title="PySide.QtGui.QPixmap"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QPixmap</span></tt></a> , which are part of <em class="xref std std-ref">QtGui</em> . In other words, there is no <tt class="docutils literal"><span class="pre">toColor()</span></tt> , <tt class="docutils literal"><span class="pre">toImage()</span></tt> , or <tt class="docutils literal"><span class="pre">toPixmap()</span></tt> functions in <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> .</p>
+<p>Instead, you can use the <tt class="xref py py-meth docutils literal"><span class="pre">QVariant.value()</span></tt> or the <tt class="xref py py-meth docutils literal"><span class="pre">qVariantValue()</span></tt> template function. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;DataPump/bgcolor&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The inverse conversion (e.g., from <a class="reference internal" href="../QtGui/QColor.html#PySide.QtGui.QColor" title="PySide.QtGui.QColor"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QColor</span></tt></a> to <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> ) is automatic for all data types supported by <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> , including GUI-related types:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">palette</span><span class="p">()</span><span class="o">.</span><span class="n">background</span><span class="p">()</span><span class="o">.</span><span class="n">color</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;DataPump/bgcolor&quot;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Custom types registered using <tt class="xref py py-meth docutils literal"><span class="pre">qRegisterMetaType()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">qRegisterMetaTypeStreamOperators()</span></tt> can be stored using <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="section-and-key-syntax">
+<span id="pyside-qtcore-qsettings-section-and-key-syntax"></span><h3>Section and Key Syntax<a class="headerlink" href="#section-and-key-syntax" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Setting keys can contain any Unicode characters. The Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, follow these simple rules:</p>
+<p>You can form hierarchical keys using the &#8216;/&#8217; character as a separator, similar to Unix file paths. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;mainwindow/size&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;mainwindow/fullScreen&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;outputpanel/visible&quot;</span><span class="p">,</span> <span class="n">panel</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>If you want to save or restore many settings with the same prefix, you can specify the prefix using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> and call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="PySide.QtCore.PySide.QtCore.QSettings.endGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endGroup()</span></tt></a> at the end. Here&#8217;s the same example again, but this time using the group mechanism:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;mainwindow&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fullScreen&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;outputpanel&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;visible&quot;</span><span class="p">,</span> <span class="n">panel</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If a group is set using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> , the behavior of most functions changes consequently. Groups can be set recursively.</p>
+<p>In addition to groups, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> also supports an &#8220;array&#8221; concept. See <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a> for details.</p>
+</div></blockquote>
+</div>
+<div class="section" id="fallback-mechanism">
+<span id="pyside-qtcore-qsettings-fallback-mechanism"></span><h3>Fallback Mechanism<a class="headerlink" href="#fallback-mechanism" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Let&#8217;s assume that you have created a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object with the organization name MySoft and the application name Star Runner. When you look up a value, up to four locations are searched in that order:</p>
+<p>(See Platform-Specific Notes below for information on what these locations are on the different platforms supported by Qt.)</p>
+<p>If a key cannot be found in the first location, the search goes on in the second location, and so on. This enables you to store system-wide or organization-wide settings and to override them on a per-user or per-application basis. To turn off this mechanism, call setFallbacksEnabled(false).</p>
+<p>Although keys from all four locations are available for reading, only the first file (the user-specific location for the application at hand) is accessible for writing. To write to any of the other files, omit the application name and/or specify <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.SystemScope</span></tt> (as opposed to <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.UserScope</span></tt> , the default).</p>
+<p>Let&#8217;s see with an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">obj1</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+<span class="n">obj2</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;MySoft&quot;</span><span class="p">)</span>
+<span class="n">obj3</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="n">QSettings</span><span class="o">.</span><span class="n">SystemScope</span><span class="p">,</span> <span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+<span class="n">obj4</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="n">QSettings</span><span class="o">.</span><span class="n">SystemScope</span><span class="p">,</span> <span class="s">&quot;MySoft&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The table below summarizes which <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> objects access which location. &#8220;<strong>X</strong> &#8221; means that the location is the main location associated to the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object and is used both for reading and for writing; &#8220;o&#8221; means that the location is used as a fallback when reading.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Locations</td>
+<td><tt class="docutils literal"><span class="pre">obj1</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">obj2</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">obj3</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">obj4</span></tt></td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple">
+<li>User, Application</li>
+</ol>
+</td>
+<td><strong>X</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="2">
+<li>User, Organization</li>
+</ol>
+</td>
+<td>o</td>
+<td><strong>X</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="3">
+<li>System, Application</li>
+</ol>
+</td>
+<td>o</td>
+<td>&nbsp;</td>
+<td><strong>X</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="4">
+<li>System, Organization</li>
+</ol>
+</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td><strong>X</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The beauty of this mechanism is that it works on all platforms supported by Qt and that it still gives you a lot of flexibility, without requiring you to specify any file names or registry paths.</p>
+<p>If you want to use INI files on all platforms instead of the native API, you can pass <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.IniFormat</span></tt> as the first argument to the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> constructor, followed by the scope, the organization name, and the application name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="n">QSettings</span><span class="o">.</span><span class="n">IniFormat</span><span class="p">,</span> <span class="n">QSettings</span><span class="o">.</span><span class="n">UserScope</span><span class="p">,</span>
+                     <span class="s">&quot;MySoft&quot;</span><span class="p">,</span> <span class="s">&quot;Star Runner&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <em class="xref std std-ref">Settings Editor</em> example lets you experiment with different settings location and with fallbacks turned on or off.</p>
+</div></blockquote>
+</div>
+<div class="section" id="restoring-the-state-of-a-gui-application">
+<span id="pyside-qtcore-qsettings-restoring-the-state-of-a-gui-application"></span><h3>Restoring the State of a GUI Application<a class="headerlink" href="#restoring-the-state-of-a-gui-application" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> is often used to store the state of a GUI application. The following example illustrates how to use <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> to save and restore the geometry of an application&#8217;s main window.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">writeSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;Moose Soft&quot;</span><span class="p">,</span> <span class="s">&quot;Clipper&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;MainWindow&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;pos&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;Moose Soft&quot;</span><span class="p">,</span> <span class="s">&quot;Clipper&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;MainWindow&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span><span class="o">.</span><span class="n">toSize</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;pos&quot;</span><span class="p">,</span> <span class="n">QPoint</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span><span class="o">.</span><span class="n">toPoint</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See <em class="xref std std-ref">Window Geometry</em> for a discussion on why it is better to call <tt class="xref py py-meth docutils literal"><span class="pre">QWidget.resize()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">QWidget.move()</span></tt> rather than <tt class="xref py py-meth docutils literal"><span class="pre">QWidget.setGeometry()</span></tt> to restore a window&#8217;s geometry.</p>
+<p>The <tt class="docutils literal"><span class="pre">readSettings()</span></tt> and <tt class="docutils literal"><span class="pre">writeSettings()</span></tt> functions must be called from the main window&#8217;s constructor and close event handler as follows:</p>
+<div class="highlight-python"><pre>def __init__(self):
+    self.settings = None
+...
+    self.readSettings()
+
+
+# event : QCloseEvent
+def closeEvent(self, event):
+    if self.userReallyWantsToQuit():
+        self.writeSettings()
+        event.accept()
+    else:
+        event.ignore()</pre>
+</div>
+<p>See the <em class="xref std std-ref">Application</em> example for a self-contained example that uses <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="accessing-settings-from-multiple-threads-or-processes-simultaneously">
+<span id="pyside-qtcore-qsettings-accessing-settings-from-multiple-threads-or-processes-simultaneously"></span><h3>Accessing Settings from Multiple Threads or Processes Simultaneously<a class="headerlink" href="#accessing-settings-from-multiple-threads-or-processes-simultaneously" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> is <em class="xref std std-ref">reentrant</em> . This means that you can use distinct <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object in different threads simultaneously. This guarantee stands even when the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> objects refer to the same files on disk (or to the same entries in the system registry). If a setting is modified through one <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object, the change will immediately be visible in any other <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> objects that operate on the same location and that live in the same process.</p>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> can safely be used from different processes (which can be different instances of your application running at the same time or different applications altogether) to read and write to the same system locations. It uses advisory file locking and a smart merging algorithm to ensure data integrity. Note that <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.sync()</span></tt></a> imports changes made by other processes (in addition to writing the changes from this <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> ).</p>
+</div></blockquote>
+</div>
+<div class="section" id="platform-specific-notes">
+<span id="pyside-qtcore-qsettings-platform-specific-notes"></span><h3>Platform-Specific Notes<a class="headerlink" href="#platform-specific-notes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div></div></blockquote>
+</div>
+<div class="section" id="locations-where-application-settings-are-stored">
+<span id="pyside-qtcore-qsettings-locations-where-application-settings-are-stored"></span><h3>Locations Where Application Settings Are Stored<a class="headerlink" href="#locations-where-application-settings-are-stored" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>As mentioned in the <tt class="xref py py-class docutils literal"><span class="pre">Fallback</span> <span class="pre">Mechanism</span></tt> section, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> stores settings for an application in up to four locations, depending on whether the settings are user-specific or system-wide and whether the settings are application-specific or organization-wide. For simplicity, we&#8217;re assuming the organization is called MySoft and the application is called Star Runner.</p>
+<p>On Unix systems, if the file format is <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> , the following files are used by default:</p>
+<p>On Mac OS X versions 10.2 and 10.3, these files are used by default:</p>
+<p>On Windows, <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> settings are stored in the following registry paths:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On Windows, for 32-bit programs running in WOW64 mode, settings are stored in the following registry path: <tt class="docutils literal"><span class="pre">HKEY_LOCAL_MACHINE\Software\WOW6432node</span></tt> .</p>
+</div>
+<p>If the file format is <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt> , the following files are used on Unix and Mac OS X:</p>
+<p>On Windows, the following files are used:</p>
+<p>The <tt class="docutils literal"><span class="pre">%APPDATA%</span></tt> path is usually <tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\*User</span> <span class="pre">Name*\Application</span> <span class="pre">Data</span></tt> ; the <tt class="docutils literal"><span class="pre">%COMMON_APPDATA%</span></tt> path is usually <tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\All</span> <span class="pre">Users\Application</span> <span class="pre">Data</span></tt> .</p>
+<p>On Symbian, the following files are used for both <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> (in this example, we assume that the application is installed on the <tt class="docutils literal"><span class="pre">e-drive</span></tt> and its Secure ID is <tt class="docutils literal"><span class="pre">0xECB00931</span></tt> ):</p>
+<p>The <tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt> settings location is determined from the installation drive and Secure ID (UID3) of the application. If the application is built-in on the ROM, the drive used for <tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt> is <tt class="docutils literal"><span class="pre">c:</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Symbian <tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt> settings are by default private to the application and not shared between applications, unlike other environments.</p>
+</div>
+<p>The paths for the <tt class="docutils literal"><span class="pre">.ini</span></tt> and <tt class="docutils literal"><span class="pre">.conf</span></tt> files can be changed using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="PySide.QtCore.PySide.QtCore.QSettings.setPath"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setPath()</span></tt></a> . On Unix and Mac OS X, the user can override them by by setting the <tt class="docutils literal"><span class="pre">XDG_CONFIG_HOME</span></tt> environment variable; see <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="PySide.QtCore.PySide.QtCore.QSettings.setPath"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setPath()</span></tt></a> for details.</p>
+</div></blockquote>
+</div>
+<div class="section" id="accessing-ini-and-plist-files-directly">
+<span id="pyside-qtcore-qsettings-accessing-ini-and-plist-files-directly"></span><h3>Accessing INI and .plist Files Directly<a class="headerlink" href="#accessing-ini-and-plist-files-directly" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Sometimes you do want to access settings stored in a specific file or registry path. On all platforms, if you want to read an INI file directly, you can use the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> constructor that takes a file name as first argument and pass <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.IniFormat</span></tt> as second argument. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;/home/petra/misc/myapp.ini&quot;</span><span class="p">,</span>
+                     <span class="n">QSettings</span><span class="o">.</span><span class="n">IniFormat</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can then use the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object to read and write settings in the file.</p>
+<p>On Mac OS X, you can access XML-based <tt class="docutils literal"><span class="pre">.plist</span></tt> files by passing <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> as second argument. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;/Users/petra/misc/myapp.plist&quot;</span><span class="p">,</span>
+                     <span class="n">QSettings</span><span class="o">.</span><span class="n">NativeFormat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="accessing-the-windows-registry-directly">
+<span id="pyside-qtcore-qsettings-accessing-the-windows-registry-directly"></span><h3>Accessing the Windows Registry Directly<a class="headerlink" href="#accessing-the-windows-registry-directly" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>On Windows, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> lets you access settings that have been written with <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> (or settings in a supported format, e.g., string data) in the system registry. This is done by constructing a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object with a path in the registry and <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> .</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;HKEY_CURRENT_USER</span><span class="se">\\</span><span class="s">Software</span><span class="se">\\</span><span class="s">Microsoft</span><span class="se">\\</span><span class="s">Office&quot;</span><span class="p">,</span>
+                     <span class="n">QSettings</span><span class="o">.</span><span class="n">NativeFormat</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All the registry entries that appear under the specified path can be read or written through the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object as usual (using forward slashes instead of backslashes). For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;11.0/Outlook/Security/DontTrustInstalledFiles&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the backslash character is, as mentioned, used by <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> to separate subkeys. As a result, you cannot read or write windows registry entries that contain slashes or backslashes; you should use a native windows API if you need to do so.</p>
+</div></blockquote>
+</div>
+<div class="section" id="accessing-common-registry-settings-on-windows">
+<span id="pyside-qtcore-qsettings-accessing-common-registry-settings-on-windows"></span><h3>Accessing Common Registry Settings on Windows<a class="headerlink" href="#accessing-common-registry-settings-on-windows" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>On Windows, it is possible for a key to have both a value and subkeys. Its default value is accessed by using &#8220;Default&#8221; or &#8221;.&#8221; in place of a subkey:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;HKEY_CURRENT_USER</span><span class="se">\\</span><span class="s">MySoft</span><span class="se">\\</span><span class="s">Star Runner</span><span class="se">\\</span><span class="s">Galaxy&quot;</span><span class="p">,</span> <span class="s">&quot;Milkyway&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;HKEY_CURRENT_USER</span><span class="se">\\</span><span class="s">MySoft</span><span class="se">\\</span><span class="s">Star Runner</span><span class="se">\\</span><span class="s">Galaxy</span><span class="se">\\</span><span class="s">Sun&quot;</span><span class="p">,</span> <span class="s">&quot;OurStar&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;HKEY_CURRENT_USER</span><span class="se">\\</span><span class="s">MySoft</span><span class="se">\\</span><span class="s">Star Runner</span><span class="se">\\</span><span class="s">Galaxy</span><span class="se">\\</span><span class="s">Default&quot;</span><span class="p">)</span>   <span class="c"># returns &quot;Milkyway&quot;</span>
+</pre></div>
+</div>
+<p>On other platforms than Windows, &#8220;Default&#8221; and &#8221;.&#8221; would be treated as regular subkeys.</p>
+</div></blockquote>
+</div>
+<div class="section" id="securing-application-settings-in-symbian">
+<span id="pyside-qtcore-qsettings-securing-application-settings-in-symbian"></span><h3>Securing application settings in Symbian<a class="headerlink" href="#securing-application-settings-in-symbian" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt> settings in Symbian are writable by any application by default. To protect the application settings from access and tampering by other applications, the settings need to be placed in the private secure area of the application. This can be done by specifying the settings storage path directly to the private area. The following snippet changes the <tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt> to <tt class="docutils literal"><span class="pre">c:/private/ecb00931/MySoft.conf</span></tt> (provided the application is installed on the <tt class="docutils literal"><span class="pre">c-drive</span></tt> and its Secure ID is <tt class="docutils literal"><span class="pre">0xECB00931</span></tt> :</p>
+<div class="highlight-python"><pre>&lt;Code snippet "doc/src/snippets/code/src_corelib_io_qsettings.cpp:30" not found&gt;</pre>
+</div>
+<p>Framework libraries (like Qt itself) may store configuration and cache settings using <tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt> , which is accessible and writable by other applications. If the application is very security sensitive or uses high platform security capabilities, it may be prudent to also force framework settings to be stored in the private directory of the application. This can be done by changing the default path of <tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt> before <a class="reference internal" href="../QtGui/QApplication.html#PySide.QtGui.QApplication" title="PySide.QtGui.QApplication"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QApplication</span></tt></a> is created:</p>
+<div class="highlight-python"><pre>&lt;Code snippet "doc/src/snippets/code/src_corelib_io_qsettings.cpp:31" not found&gt;</pre>
+</div>
+<p>Note that this may affect framework libraries&#8217; functionality if they expect the settings to be shared between applications.</p>
+</div></blockquote>
+</div>
+<div class="section" id="changing-the-location-of-global-qt-settings-on-mac-os-x">
+<span id="pyside-qtcore-qsettings-changing-the-location-of-global-qt-settings-on-mac-os-x"></span><h3>Changing the location of global Qt settings on Mac OS X<a class="headerlink" href="#changing-the-location-of-global-qt-settings-on-mac-os-x" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>On Mac OS X, the global Qt settings (stored in <tt class="docutils literal"><span class="pre">com.trolltech.plist</span></tt> ) are stored in the application settings file in two situations:</p>
+<p>In these situations, the application settings file is named using the bundle identifier of the application, which must consequently be set in the application&#8217;s <tt class="docutils literal"><span class="pre">Info.plist</span></tt> file.</p>
+<p>This feature is provided to ease the acceptance of Qt applications into the Mac App Store, as the default behaviour of storing global Qt settings in the <tt class="docutils literal"><span class="pre">com.trolltech.plist</span></tt> file does not conform with Mac App Store file system usage requirements. For more information about submitting Qt applications to the Mac App Store, see <em class="xref std std-ref">Preparing a Qt application for Mac App Store submission</em> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="platform-limitations">
+<span id="pyside-qtcore-qsettings-platform-limitations"></span><h3>Platform Limitations<a class="headerlink" href="#platform-limitations" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>While <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> attempts to smooth over the differences between the different supported platforms, there are still a few differences that you should be aware of when porting your application:</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt>  <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QSessionManager</span></tt>  <em class="xref std std-ref">Settings Editor Example</em>  <em class="xref std std-ref">Application Example</em></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtCore.QSettings">
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QSettings</tt><big>(</big><span class="optional">[</span><em>parent=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.QSettings" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QSettings</tt><big>(</big><em>format</em>, <em>scope</em>, <em>organization</em><span class="optional">[</span>, <em>application=&quot;&quot;</em><span class="optional">[</span>, <em>parent=None</em><span class="optional">]</span><span class="optional">]</span><big>)</big></dt>
+<dt>
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QSettings</tt><big>(</big><em>scope</em>, <em>organization</em><span class="optional">[</span>, <em>application=&quot;&quot;</em><span class="optional">[</span>, <em>parent=None</em><span class="optional">]</span><span class="optional">]</span><big>)</big></dt>
+<dt>
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QSettings</tt><big>(</big><em>fileName</em>, <em>format</em><span class="optional">[</span>, <em>parent=None</em><span class="optional">]</span><big>)</big></dt>
+<dt>
+<em class="property">class </em><tt class="descclassname">PySide.QtCore.</tt><tt class="descname">QSettings</tt><big>(</big><em>organization</em><span class="optional">[</span>, <em>application=&quot;&quot;</em><span class="optional">[</span>, <em>parent=None</em><span class="optional">]</span><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>format</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="PySide.QtCore.PySide.QtCore.QSettings.Format"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Format</span></tt></a></li>
+<li><strong>organization</strong> &#8211; unicode</li>
+<li><strong>parent</strong> &#8211; <a class="reference internal" href="QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></li>
+<li><strong>application</strong> &#8211; unicode</li>
+<li><strong>fileName</strong> &#8211; unicode</li>
+<li><strong>scope</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Scope" title="PySide.QtCore.PySide.QtCore.QSettings.Scope"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Scope</span></tt></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Constructs a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object for accessing settings of the application and organization set previously with a call to <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationName()</span></tt></a> , <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationDomain" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationDomain"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationDomain()</span></tt></a> , and <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setApplicationName()</span></tt></a> .</p>
+<p>The scope is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.UserScope</span></tt> and the format is <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.defaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.defaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.defaultFormat()</span></tt></a> ( <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> by default). Use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a> before calling this constructor to change the default format used by this constructor.</p>
+<p>The code</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;Moose Soft&quot;</span><span class="p">,</span> <span class="s">&quot;Facturo-Pro&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setOrganizationName</span><span class="p">(</span><span class="s">&quot;Moose Soft&quot;</span><span class="p">)</span>
+<span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setApplicationName</span><span class="p">(</span><span class="s">&quot;Facturo-Pro&quot;</span><span class="p">)</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationName()</span></tt></a> and <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setApplicationName()</span></tt></a> has not been previously called, the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object will not be able to read or write any settings, and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.status()</span></tt></a> will return <tt class="xref py py-attr docutils literal"><span class="pre">AccessError</span></tt> .</p>
+<p>On Mac OS X, if both a name and an Internet domain are specified for the organization, the domain is preferred over the name. On other platforms, the name is preferred over the domain.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationName()</span></tt></a>  <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationDomain" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setOrganizationDomain"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setOrganizationDomain()</span></tt></a>  <a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.setApplicationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.setApplicationName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a></p>
+</div>
+<p>Constructs a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object for accessing settings of the application called <tt class="docutils literal"><span class="pre">application</span></tt> from the organization called <tt class="docutils literal"><span class="pre">organization</span></tt> , and with parent <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>If <tt class="docutils literal"><span class="pre">scope</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.UserScope</span></tt> , the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object searches user-specific settings first, before it searches system-wide settings as a fallback. If <tt class="docutils literal"><span class="pre">scope</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.SystemScope</span></tt> , the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object ignores user-specific settings and provides access to system-wide settings.</p>
+<p>If <tt class="docutils literal"><span class="pre">format</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> , the native API is used for storing settings. If <tt class="docutils literal"><span class="pre">format</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.IniFormat</span></tt> , the INI format is used.</p>
+<p>If no application name is given, the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object will only access the organization-wide <tt class="xref py py-class docutils literal"><span class="pre">locations</span></tt> .</p>
+<p>Constructs a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object for accessing settings of the application called <tt class="docutils literal"><span class="pre">application</span></tt> from the organization called <tt class="docutils literal"><span class="pre">organization</span></tt> , and with parent <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>If <tt class="docutils literal"><span class="pre">scope</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.UserScope</span></tt> , the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object searches user-specific settings first, before it searches system-wide settings as a fallback. If <tt class="docutils literal"><span class="pre">scope</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.SystemScope</span></tt> , the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object ignores user-specific settings and provides access to system-wide settings.</p>
+<p>The storage format is set to <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> (i.e. calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a> before calling this constructor has no effect).</p>
+<p>If no application name is given, the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object will only access the organization-wide <tt class="xref py py-class docutils literal"><span class="pre">locations</span></tt> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a></p>
+</div>
+<p>Constructs a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object for accessing the settings stored in the file called <tt class="docutils literal"><span class="pre">fileName</span></tt> , with parent <tt class="docutils literal"><span class="pre">parent</span></tt> . If the file doesn&#8217;t already exist, it is created.</p>
+<p>If <tt class="docutils literal"><span class="pre">format</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> , the meaning of <tt class="docutils literal"><span class="pre">fileName</span></tt> depends on the platform. On Unix, <tt class="docutils literal"><span class="pre">fileName</span></tt> is the name of an INI file. On Mac OS X, <tt class="docutils literal"><span class="pre">fileName</span></tt> is the name of a <tt class="docutils literal"><span class="pre">.plist</span></tt> file. On Windows, <tt class="docutils literal"><span class="pre">fileName</span></tt> is a path in the system registry.</p>
+<p>If <tt class="docutils literal"><span class="pre">format</span></tt> is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.IniFormat</span></tt> , <tt class="docutils literal"><span class="pre">fileName</span></tt> is the name of an INI file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function is provided for convenience. It works well for accessing INI or <tt class="docutils literal"><span class="pre">.plist</span></tt> files generated by Qt, but might fail on some syntaxes found in such files originated by other programs. In particular, be aware of the following limitations:</p>
+</div>
+<ul class="simple">
+<li><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> provides no way of reading INI &#8220;path&#8221; entries, i.e., entries with unescaped slash characters. (This is because these entries are ambiguous and cannot be resolved automatically.)</li>
+<li>In INI files, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> uses the <tt class="docutils literal"><span class="pre">&#64;</span></tt> character as a metacharacter in some contexts, to encode Qt-specific data types (e.g., <tt class="docutils literal"><span class="pre">&#64;Rect</span></tt>), and might therefore misinterpret it when it occurs in pure INI files.</li>
+</ul>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fileName" title="PySide.QtCore.PySide.QtCore.QSettings.fileName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.fileName()</span></tt></a></p>
+</div>
+<p>Constructs a <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object for accessing settings of the application called <tt class="docutils literal"><span class="pre">application</span></tt> from the organization called <tt class="docutils literal"><span class="pre">organization</span></tt> , and with parent <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s">&quot;Moose Tech&quot;</span><span class="p">,</span> <span class="s">&quot;Facturo-Pro&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The scope is set to <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.UserScope</span></tt> , and the format is set to <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> (i.e. calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a> before calling this constructor has no effect).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a>  <tt class="xref py py-class docutils literal"><span class="pre">Fallback</span> <span class="pre">Mechanism</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.Format">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">Format</tt><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="Permalink to this definition">¶</a></dt>
+<dd><p>This enum type specifies the storage format used by <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> .</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QSettings.NativeFormat</td>
+<td>Store the settings using the most appropriate storage format for the platform. On Windows, this means the system registry; on Mac OS X, this means the CFPreferences API; on Unix, this means textual configuration files in INI format.</td>
+</tr>
+<tr class="row-odd"><td>QSettings.IniFormat</td>
+<td>Store the settings in INI files.</td>
+</tr>
+<tr class="row-even"><td>QSettings.InvalidFormat</td>
+<td>Special value returned by <tt class="xref py py-meth docutils literal"><span class="pre">registerFormat()</span></tt> .</td>
+</tr>
+</tbody>
+</table>
+<p>On Unix, <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt> mean the same thing, except that the file extension is different (<tt class="docutils literal"><span class="pre">.conf</span></tt> for <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> , <tt class="docutils literal"><span class="pre">.ini</span></tt> for <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt> ).</p>
+<p>The INI file format is a Windows file format that Qt supports on all platforms. In the absence of an INI standard, we try to follow what Microsoft does, with the following exceptions:</p>
+<ul>
+<li><p class="first">If you store types that <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> can&#8217;t convert to <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QString</span></tt> (e.g., <a class="reference internal" href="QPoint.html#PySide.QtCore.QPoint" title="PySide.QtCore.QPoint"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QPoint</span></tt></a> , <a class="reference internal" href="QRect.html#PySide.QtCore.QRect" title="PySide.QtCore.QRect"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QRect</span></tt></a> , and <a class="reference internal" href="QSize.html#PySide.QtCore.QSize" title="PySide.QtCore.QSize"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSize</span></tt></a> ), Qt uses an <tt class="docutils literal"><span class="pre">&#64;</span></tt>-based syntax to encode the type. For example:</p>
+<div class="highlight-python"><pre>pos = @Point(100 100)</pre>
+</div>
+<p>To minimize compatibility issues, any <tt class="docutils literal"><span class="pre">&#64;</span></tt> that doesn&#8217;t appear at the first position in the value or that isn&#8217;t followed by a Qt type (<tt class="docutils literal"><span class="pre">Point</span></tt>, <tt class="docutils literal"><span class="pre">Rect</span></tt>, <tt class="docutils literal"><span class="pre">Size</span></tt>, etc.) is treated as a normal character.</p>
+</li>
+<li><p class="first">Although backslash is a special character in INI files, most Windows applications don&#8217;t escape backslashes (<tt class="docutils literal"><span class="pre">\</span></tt>) in file paths:</p>
+<div class="highlight-python"><pre>windir = C:\Windows</pre>
+</div>
+<p><a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> always treats backslash as a special character and provides no API for reading or writing such entries.</p>
+</li>
+<li><p class="first">The INI file format has severe restrictions on the syntax of a key. Qt works around this by using <tt class="docutils literal"><span class="pre">%</span></tt> as an escape character in keys. In addition, if you save a top-level setting (a key with no slashes in it, e.g., &#8220;someKey&#8221;), it will appear in the INI file&#8217;s &#8220;General&#8221; section. To avoid overwriting other keys, if you save something using the a key such as &#8220;General/someKey&#8221;, the key will be located in the &#8220;%General&#8221; section, <em>not</em> in the &#8220;General&#8221; section.</p>
+</li>
+<li><p class="first">Following the philosophy that we should be liberal in what we accept and conservative in what we generate, <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> will accept Latin-1 encoded INI files, but generate pure ASCII files, where non-ASCII values are encoded using standard INI escape sequences. To make the INI files more readable (but potentially less compatible), call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setIniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.setIniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setIniCodec()</span></tt></a> .</p>
+</li>
+</ul>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">registerFormat()</span></tt>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="PySide.QtCore.PySide.QtCore.QSettings.setPath"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setPath()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.Status">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">Status</tt><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.Status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The following status values are possible:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QSettings.NoError</td>
+<td>No error occurred.</td>
+</tr>
+<tr class="row-odd"><td>QSettings.AccessError</td>
+<td>An access error occurred (e.g. trying to write to a read-only file).</td>
+</tr>
+<tr class="row-even"><td>QSettings.FormatError</td>
+<td>A format error occurred (e.g. loading a malformed INI file).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.status()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.Scope">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">Scope</tt><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.Scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>This enum specifies whether settings are user-specific or shared by all users of the same system.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Constant</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>QSettings.UserScope</td>
+<td>Store settings in a location specific to the current user (e.g., in the user&#8217;s home directory).</td>
+</tr>
+<tr class="row-odd"><td>QSettings.SystemScope</td>
+<td>Store settings in a global location, so that all users on the same machine access the same set of settings.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="PySide.QtCore.PySide.QtCore.QSettings.setPath"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setPath()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.allKeys">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">allKeys</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list of all keys, including subkeys, that can be read using the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/color&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/size&quot;</span><span class="p">,</span> <span class="n">QSize</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">96</span><span class="p">))</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;sofa&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;tv&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">allKeys</span><span class="p">();</span>
+<span class="c"># keys: [&quot;fridge/color&quot;, &quot;fridge/size&quot;, &quot;sofa&quot;, &quot;tv&quot;]</span>
+</pre></div>
+</div>
+<p>If a group is set using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> , only the keys in the group are returned, without the group prefix:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;fridge&quot;</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">allKeys</span><span class="p">()</span>
+<span class="c"># keys: [&quot;color&quot;, &quot;size&quot;]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childGroups()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childKeys()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.applicationName">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">applicationName</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.applicationName" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the application name used for storing the settings.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.applicationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.applicationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.applicationName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.scope" title="PySide.QtCore.PySide.QtCore.QSettings.scope"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.scope()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.organizationName" title="PySide.QtCore.PySide.QtCore.QSettings.organizationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.organizationName()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.beginGroup">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">beginGroup</tt><big>(</big><em>prefix</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix</strong> &#8211; unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Appends <tt class="docutils literal"><span class="pre">prefix</span></tt> to the current group.</p>
+<p>The current group is automatically prepended to all keys specified to <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> . In addition, query functions such as <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childGroups()</span></tt></a> , <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childKeys()</span></tt></a> , and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="PySide.QtCore.PySide.QtCore.QSettings.allKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.allKeys()</span></tt></a> are based on the group. By default, no group is set.</p>
+<p>Groups are useful to avoid typing in the same setting paths over and over. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;mainwindow&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;size&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fullScreen&quot;</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;outputpanel&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;visible&quot;</span><span class="p">,</span> <span class="n">panel</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will set the value of three settings:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">mainwindow/size</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mainwindow/fullScreen</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">outputpanel/visible</span></tt></li>
+</ul>
+<p>Call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="PySide.QtCore.PySide.QtCore.QSettings.endGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endGroup()</span></tt></a> to reset the current group to what it was before the corresponding <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> call. Groups can be nested.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="PySide.QtCore.PySide.QtCore.QSettings.endGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endGroup()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="PySide.QtCore.PySide.QtCore.QSettings.group"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.group()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">beginReadArray</tt><big>(</big><em>prefix</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Adds <tt class="docutils literal"><span class="pre">prefix</span></tt> to the current group and starts reading from an array. Returns the size of the array.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Login</span><span class="p">:</span>
+    <span class="n">userName</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+    <span class="n">logins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="o">...</span>
+
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">beginReadArray</span><span class="p">(</span><span class="s">&quot;logins&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">setArrayIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">login</span> <span class="o">=</span> <span class="n">Login</span><span class="p">()</span>
+        <span class="n">login</span><span class="o">.</span><span class="n">userName</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;userName&quot;</span><span class="p">)</span>
+        <span class="n">login</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+        <span class="n">logins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">login</span><span class="p">)</span>
+
+    <span class="n">settings</span><span class="o">.</span><span class="n">endArray</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a> to write the array in the first place.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endArray" title="PySide.QtCore.PySide.QtCore.QSettings.endArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endArray()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex" title="PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setArrayIndex()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">beginWriteArray</tt><big>(</big><em>prefix</em><span class="optional">[</span>, <em>size=-1</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>prefix</strong> &#8211; unicode</li>
+<li><strong>size</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Adds <tt class="docutils literal"><span class="pre">prefix</span></tt> to the current group and starts writing an array of size <tt class="docutils literal"><span class="pre">size</span></tt> . If <tt class="docutils literal"><span class="pre">size</span></tt> is -1 (the default), it is automatically determined based on the indexes of the entries written.</p>
+<p>If you have many occurrences of a certain set of keys, you can use arrays to make your life easier. For example, let&#8217;s suppose that you want to save a variable-length list of user names and passwords. You could then write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Login</span><span class="p">:</span>
+    <span class="n">userName</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+    <span class="n">logins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="o">...</span>
+
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">beginWriteArray</span><span class="p">(</span><span class="s">&quot;logins&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">logins</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">setArrayIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;userName&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">userName</span><span class="p">)</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;password&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+
+    <span class="n">settings</span><span class="o">.</span><span class="n">endArray</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The generated keys will have the form</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">logins/size</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/1/userName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/1/password</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/2/userName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/2/password</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/3/userName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">logins/3/password</span></tt></li>
+<li>...</li>
+</ul>
+<p>To read back an array, use <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endArray" title="PySide.QtCore.PySide.QtCore.QSettings.endArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endArray()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex" title="PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setArrayIndex()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.childGroups">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">childGroups</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list of all key top-level groups that contain keys that can be read using the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/color&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/size&quot;</span><span class="p">,</span> <span class="n">QSize</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">96</span><span class="p">));</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;sofa&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;tv&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">childGroups</span><span class="p">()</span>
+<span class="c"># group: [&quot;fridge&quot;]</span>
+</pre></div>
+</div>
+<p>If a group is set using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> , the first-level keys in that group are returned, without the group prefix.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;fridge&quot;</span><span class="p">)</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">childGroups</span><span class="p">()</span>
+<span class="c"># groups: []</span>
+</pre></div>
+</div>
+<p>You can navigate through the entire setting hierarchy using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childKeys()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childGroups()</span></tt></a> recursively.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childKeys()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="PySide.QtCore.PySide.QtCore.QSettings.allKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.allKeys()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.childKeys">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">childKeys</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list of all top-level keys that can be read using the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/color&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;fridge/size&quot;</span><span class="p">,</span> <span class="n">QSize</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">96</span><span class="p">))</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;sofa&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;tv&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">childKeys</span><span class="p">()</span>
+<span class="c"># keys: [&quot;sofa&quot;, &quot;tv&quot;]</span>
+</pre></div>
+</div>
+<p>If a group is set using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> , the top-level keys in that group are returned, without the group prefix:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;fridge&quot;</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">childKeys</span><span class="p">()</span>
+<span class="c"># keys: [&quot;color&quot;, &quot;size&quot;]</span>
+</pre></div>
+</div>
+<p>You can navigate through the entire setting hierarchy using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childKeys" title="PySide.QtCore.PySide.QtCore.QSettings.childKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childKeys()</span></tt></a> and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childGroups()</span></tt></a> recursively.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.childGroups" title="PySide.QtCore.PySide.QtCore.QSettings.childGroups"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.childGroups()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.allKeys" title="PySide.QtCore.PySide.QtCore.QSettings.allKeys"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.allKeys()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.clear">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all entries in the primary location associated to this <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object.</p>
+<p>Entries in fallback locations are not removed.</p>
+<p>If you only want to remove the entries in the current <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="PySide.QtCore.PySide.QtCore.QSettings.group"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.group()</span></tt></a> , use remove(&#8220;&#8221;) instead.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled" title="PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setFallbacksEnabled()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.contains">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">contains</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if there exists a setting called <tt class="docutils literal"><span class="pre">key</span></tt> ; returns false otherwise.</p>
+<p>If a group is set using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> , <tt class="docutils literal"><span class="pre">key</span></tt> is taken to be relative to that group.</p>
+<p>Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the <tt class="xref py py-class docutils literal"><span class="pre">Section</span> <span class="pre">and</span> <span class="pre">Key</span> <span class="pre">Syntax</span></tt> rules.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setValue()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.defaultFormat">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">defaultFormat</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.defaultFormat" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="PySide.QtCore.PySide.QtCore.QSettings.Format"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Format</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns default file format used for storing settings for the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> ( <a class="reference internal" href="QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> *) constructor. If no default format is set, <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> is used.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setDefaultFormat()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.endArray">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">endArray</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.endArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the array that was started using <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a> or <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.endGroup">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">endGroup</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the group to what it was before the corresponding <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a> call.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="c"># settings.group() == &quot;alpha&quot;</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;beta&quot;</span><span class="p">)</span>
+<span class="c"># settings.group() == &quot;alpha/beta&quot;</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+<span class="c"># settings.group() == &quot;alpha&quot;</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+<span class="c"># settings.group() == &quot;&quot;</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="PySide.QtCore.PySide.QtCore.QSettings.group"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.group()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">fallbacksEnabled</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if fallbacks are enabled; returns false otherwise.</p>
+<p>By default, fallbacks are enabled.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled" title="PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setFallbacksEnabled()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.fileName">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">fileName</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.fileName" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the path where settings written using this <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object are stored.</p>
+<p>On Windows, if the format is <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> , the return value is a system registry path, not a file path.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.isWritable" title="PySide.QtCore.PySide.QtCore.QSettings.isWritable"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.isWritable()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.format">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">format</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="PySide.QtCore.PySide.QtCore.QSettings.Format"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Format</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the format used for storing the settings.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.defaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.defaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.defaultFormat()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fileName" title="PySide.QtCore.PySide.QtCore.QSettings.fileName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.fileName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.scope" title="PySide.QtCore.PySide.QtCore.QSettings.scope"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.scope()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.organizationName" title="PySide.QtCore.PySide.QtCore.QSettings.organizationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.organizationName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.applicationName" title="PySide.QtCore.PySide.QtCore.QSettings.applicationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.applicationName()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.group">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">group</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the current group.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginGroup" title="PySide.QtCore.PySide.QtCore.QSettings.beginGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginGroup()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.endGroup" title="PySide.QtCore.PySide.QtCore.QSettings.endGroup"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.endGroup()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.iniCodec">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">iniCodec</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.iniCodec" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="QTextCodec.html#PySide.QtCore.QTextCodec" title="PySide.QtCore.QTextCodec"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QTextCodec</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the codec that is used for accessing INI files. By default, no codec is used, so a null pointer is returned.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setIniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.setIniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setIniCodec()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.isWritable">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">isWritable</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.isWritable" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Returns true if settings can be written using this <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object; returns false otherwise.</p>
+<p>One reason why <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.isWritable" title="PySide.QtCore.PySide.QtCore.QSettings.isWritable"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.isWritable()</span></tt></a> might return false is if <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> operates on a read-only file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function is not perfectly reliable, because the file permissions can change at any time.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fileName" title="PySide.QtCore.PySide.QtCore.QSettings.fileName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.fileName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.status()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.sync()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.organizationName">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">organizationName</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.organizationName" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the organization name used for storing the settings.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QCoreApplication.html#PySide.QtCore.PySide.QtCore.QCoreApplication.organizationName" title="PySide.QtCore.PySide.QtCore.QCoreApplication.organizationName"><tt class="xref py py-meth docutils literal"><span class="pre">QCoreApplication.organizationName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.scope" title="PySide.QtCore.PySide.QtCore.QSettings.scope"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.scope()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.applicationName" title="PySide.QtCore.PySide.QtCore.QSettings.applicationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.applicationName()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.remove">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">remove</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> &#8211; unicode</td>
+</tr>
+</tbody>
+</table>
+<p>Removes the setting <tt class="docutils literal"><span class="pre">key</span></tt> and any sub-settings of <tt class="docutils literal"><span class="pre">key</span></tt> .</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;ape&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey/sea&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey/doe&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&quot;monkey&quot;</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">allKeys</span><span class="p">()</span>
+<span class="c"># keys: [&quot;ape&quot;]</span>
+</pre></div>
+</div>
+<p>Be aware that if one of the fallback locations contains a setting with the same key, that setting will be visible after calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a> .</p>
+<p>If <tt class="docutils literal"><span class="pre">key</span></tt> is an empty string, all keys in the current <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.group" title="PySide.QtCore.PySide.QtCore.QSettings.group"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.group()</span></tt></a> are removed. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;ape&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey/sea&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;monkey/doe&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">beginGroup</span><span class="p">(</span><span class="s">&quot;monkey&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">endGroup</span><span class="p">()</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">allKeys</span><span class="p">()</span>
+<span class="c"># keys: [&quot;ape&quot;]</span>
+</pre></div>
+</div>
+<p>Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the <tt class="xref py py-class docutils literal"><span class="pre">Section</span> <span class="pre">and</span> <span class="pre">Key</span> <span class="pre">Syntax</span></tt> rules.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setValue()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.contains()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.scope">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">scope</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.scope" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Scope" title="PySide.QtCore.PySide.QtCore.QSettings.Scope"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Scope</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the scope used for storing the settings.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.organizationName" title="PySide.QtCore.PySide.QtCore.QSettings.organizationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.organizationName()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.applicationName" title="PySide.QtCore.PySide.QtCore.QSettings.applicationName"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.applicationName()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setArrayIndex</tt><big>(</big><em>i</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setArrayIndex" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.int</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Sets the current array index to <tt class="docutils literal"><span class="pre">i</span></tt> . Calls to functions such as <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setValue()</span></tt></a> , <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a> , <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a> , and <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.contains()</span></tt></a> will operate on the array entry at that index.</p>
+<p>You must call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginReadArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginReadArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginReadArray()</span></tt></a> or <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray" title="PySide.QtCore.PySide.QtCore.QSettings.beginWriteArray"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.beginWriteArray()</span></tt></a> before you can call this function.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setDefaultFormat</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setDefaultFormat" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>format</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="PySide.QtCore.PySide.QtCore.QSettings.Format"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Format</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Sets the default file format to the given <tt class="docutils literal"><span class="pre">format</span></tt> , which is used for storing settings for the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> ( <a class="reference internal" href="QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a> *) constructor.</p>
+<p>If no default format is set, <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NativeFormat</span></tt> is used. See the documentation for the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> constructor you are using to see if that constructor will ignore this function.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.defaultFormat" title="PySide.QtCore.PySide.QtCore.QSettings.defaultFormat"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.defaultFormat()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.format" title="PySide.QtCore.PySide.QtCore.QSettings.format"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.format()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setFallbacksEnabled</tt><big>(</big><em>b</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setFallbacksEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Sets whether fallbacks are enabled to <tt class="docutils literal"><span class="pre">b</span></tt> .</p>
+<p>By default, fallbacks are enabled.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled" title="PySide.QtCore.PySide.QtCore.QSettings.fallbacksEnabled"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.fallbacksEnabled()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setIniCodec">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setIniCodec</tt><big>(</big><em>codecName</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setIniCodec" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>codecName</strong> &#8211; str</td>
+</tr>
+</tbody>
+</table>
+<p>This is an overloaded function.</p>
+<p>Sets the codec for accessing INI files (including <tt class="docutils literal"><span class="pre">.conf</span></tt> files on Unix) to the <a class="reference internal" href="QTextCodec.html#PySide.QtCore.QTextCodec" title="PySide.QtCore.QTextCodec"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QTextCodec</span></tt></a> for the encoding specified by <tt class="docutils literal"><span class="pre">codecName</span></tt> . Common values for <tt class="docutils literal"><span class="pre">codecName</span></tt> include &#8220;ISO 8859-1&#8221;, &#8220;UTF-8&#8221;, and &#8220;UTF-16&#8221;. If the encoding isn&#8217;t recognized, nothing happens.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QTextCodec.html#PySide.QtCore.PySide.QtCore.QTextCodec.codecForName" title="PySide.QtCore.PySide.QtCore.QTextCodec.codecForName"><tt class="xref py py-meth docutils literal"><span class="pre">QTextCodec.codecForName()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setIniCodec</tt><big>(</big><em>codec</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>codec</strong> &#8211; <a class="reference internal" href="QTextCodec.html#PySide.QtCore.QTextCodec" title="PySide.QtCore.QTextCodec"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QTextCodec</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Sets the codec for accessing INI files (including <tt class="docutils literal"><span class="pre">.conf</span></tt> files on Unix) to <tt class="docutils literal"><span class="pre">codec</span></tt> . The codec is used for decoding any data that is read from the INI file, and for encoding any data that is written to the file. By default, no codec is used, and non-ASCII characters are encoded using standard INI escape sequences.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The codec must be set immediately after creating the <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> object, before accessing any data.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.iniCodec" title="PySide.QtCore.PySide.QtCore.QSettings.iniCodec"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.iniCodec()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setPath">
+<em class="property">static </em><tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setPath</tt><big>(</big><em>format</em>, <em>scope</em>, <em>path</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setPath" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>format</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Format" title="PySide.QtCore.PySide.QtCore.QSettings.Format"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Format</span></tt></a></li>
+<li><strong>scope</strong> &#8211; <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Scope" title="PySide.QtCore.PySide.QtCore.QSettings.Scope"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Scope</span></tt></a></li>
+<li><strong>path</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the path used for storing settings for the given <tt class="docutils literal"><span class="pre">format</span></tt> and <tt class="docutils literal"><span class="pre">scope</span></tt> , to <tt class="docutils literal"><span class="pre">path</span></tt> . The <tt class="docutils literal"><span class="pre">format</span></tt> can be a custom format.</p>
+<p>The table below summarizes the default values:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="48%" />
+<col width="23%" />
+<col width="16%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Platform</td>
+<td>Format</td>
+<td>Scope</td>
+<td>Path</td>
+</tr>
+<tr class="row-even"><td rowspan="2">Windows</td>
+<td rowspan="2"><tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt></td>
+<td><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">%APPDATA%</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">%COMMON_APPDATA%</span></tt></td>
+</tr>
+<tr class="row-even"><td rowspan="2">Unix</td>
+<td rowspan="2"><tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> , <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt></td>
+<td><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">$HOME/.config</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">/etc/xdg</span></tt></td>
+</tr>
+<tr class="row-even"><td rowspan="2">Qt for Embedded Linux</td>
+<td rowspan="2"><tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> , <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt></td>
+<td><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">$HOME/Settings</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">/etc/xdg</span></tt></td>
+</tr>
+<tr class="row-even"><td rowspan="2">Mac OS X</td>
+<td rowspan="2"><tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt></td>
+<td><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">$HOME/.config</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">/etc/xdg</span></tt></td>
+</tr>
+<tr class="row-even"><td rowspan="2">Symbian</td>
+<td rowspan="2"><tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> , <tt class="xref py py-attr docutils literal"><span class="pre">IniFormat</span></tt></td>
+<td><tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">c:/data/.config</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">&lt;drive&gt;/private/&lt;uid&gt;</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The default <tt class="xref py py-attr docutils literal"><span class="pre">UserScope</span></tt> paths on Unix and Mac OS X (<tt class="docutils literal"><span class="pre">$HOME/.config</span></tt> or $HOME/Settings) can be overridden by the user by setting the <tt class="docutils literal"><span class="pre">XDG_CONFIG_HOME</span></tt> environment variable. The default <tt class="xref py py-attr docutils literal"><span class="pre">SystemScope</span></tt> paths on Unix and Mac OS X (<tt class="docutils literal"><span class="pre">/etc/xdg</span></tt> ) can be overridden when building the Qt library using the <tt class="docutils literal"><span class="pre">configure</span></tt> script&#8217;s <tt class="docutils literal"><span class="pre">--sysconfdir</span></tt> flag (see <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QLibraryInfo</span></tt> for details).</p>
+<p>Setting the <tt class="xref py py-attr docutils literal"><span class="pre">NativeFormat</span></tt> paths on Windows and Mac OS X has no effect.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function doesn&#8217;t affect existing <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> objects.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">registerFormat()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.setValue">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">setValue</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> &#8211; unicode</li>
+<li><strong>value</strong> &#8211; object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the value of setting <tt class="docutils literal"><span class="pre">key</span></tt> to <tt class="docutils literal"><span class="pre">value</span></tt> . If the <tt class="docutils literal"><span class="pre">key</span></tt> already exists, the previous value is overwritten.</p>
+<p>Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the <tt class="xref py py-class docutils literal"><span class="pre">Section</span> <span class="pre">and</span> <span class="pre">Key</span> <span class="pre">Syntax</span></tt> rules.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;interval&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;interval&quot;</span><span class="p">)</span>      <span class="c"># returns 30</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;interval&quot;</span><span class="p">,</span> <span class="mf">6.55</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;interval&quot;</span><span class="p">)</span>  <span class="c"># returns 6.55</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="PySide.QtCore.PySide.QtCore.QSettings.value"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.value()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.contains()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.status">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">status</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.Status" title="PySide.QtCore.PySide.QtCore.QSettings.Status"><tt class="xref py py-attr docutils literal"><span class="pre">PySide.QtCore.QSettings.Status</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Returns a status code indicating the first error that was met by <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> , or <tt class="xref py py-attr docutils literal"><span class="pre">QSettings.NoError</span></tt> if no error occurred.</p>
+<p>Be aware that <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> delays performing some operations. For this reason, you might want to call <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.sync()</span></tt></a> to ensure that the data stored in <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> is written to disk before calling <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.status()</span></tt></a> .</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="PySide.QtCore.PySide.QtCore.QSettings.sync"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.sync()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.sync">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">sync</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes any unsaved changes to permanent storage, and reloads any settings that have been changed in the meantime by another application.</p>
+<p>This function is called automatically from <a class="reference internal" href="#PySide.QtCore.QSettings" title="PySide.QtCore.QSettings"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QSettings</span></tt></a> &#8216;s destructor and by the event loop at regular intervals, so you normally don&#8217;t need to call it yourself.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.status" title="PySide.QtCore.PySide.QtCore.QSettings.status"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.status()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtCore.PySide.QtCore.QSettings.value">
+<tt class="descclassname">PySide.QtCore.QSettings.</tt><tt class="descname">value</tt><big>(</big><em>key</em><span class="optional">[</span>, <em>defaultValue=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtCore.PySide.QtCore.QSettings.value" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; unicode</li>
+<li><strong>defaultValue</strong> &#8211; object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns the value for setting <tt class="docutils literal"><span class="pre">key</span></tt> . If the setting doesn&#8217;t exist, returns <tt class="docutils literal"><span class="pre">defaultValue</span></tt> .</p>
+<p>If no default value is specified, a default <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QVariant</span></tt> is returned.</p>
+<p>Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the <tt class="xref py py-class docutils literal"><span class="pre">Section</span> <span class="pre">and</span> <span class="pre">Key</span> <span class="pre">Syntax</span></tt> rules.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s">&quot;animal/snake&quot;</span><span class="p">,</span> <span class="mi">58</span><span class="p">)</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;animal/snake&quot;</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>   <span class="c"># returns 58</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;animal/zebra&quot;</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>   <span class="c"># returns 1024</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s">&quot;animal/zebra&quot;</span><span class="p">)</span>         <span class="c"># returns 0</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.setValue" title="PySide.QtCore.PySide.QtCore.QSettings.setValue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.setValue()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.contains" title="PySide.QtCore.PySide.QtCore.QSettings.contains"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.contains()</span></tt></a>  <a class="reference internal" href="#PySide.QtCore.PySide.QtCore.QSettings.remove" title="PySide.QtCore.PySide.QtCore.QSettings.remove"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtCore.QSettings.remove()</span></tt></a></p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">QSettings.value can return different types (QVariant types) depending on the platform it&#8217;s running on, so the safest way to use it is always casting the result to the desired type, e.g.: int(settings.value(&#8220;myKey&#8221;))</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,603 @@
+.. module:: PySide.QtCore
+.. _QXmlStreamWriter:
+
+QXmlStreamWriter
+****************
+
+.. inheritance-diagram:: QXmlStreamWriter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoFormatting<PySide.QtCore.QXmlStreamWriter.autoFormatting>` ()
+*    def :meth:`autoFormattingIndent<PySide.QtCore.QXmlStreamWriter.autoFormattingIndent>` ()
+*    def :meth:`codec<PySide.QtCore.QXmlStreamWriter.codec>` ()
+*    def :meth:`device<PySide.QtCore.QXmlStreamWriter.device>` ()
+*    def :meth:`hasError<PySide.QtCore.QXmlStreamWriter.hasError>` ()
+*    def :meth:`setAutoFormatting<PySide.QtCore.QXmlStreamWriter.setAutoFormatting>` (arg__1)
+*    def :meth:`setAutoFormattingIndent<PySide.QtCore.QXmlStreamWriter.setAutoFormattingIndent>` (spacesOrTabs)
+*    def :meth:`setCodec<PySide.QtCore.QXmlStreamWriter.setCodec>` (codec)
+*    def :meth:`setCodec<PySide.QtCore.QXmlStreamWriter.setCodec>` (codecName)
+*    def :meth:`setDevice<PySide.QtCore.QXmlStreamWriter.setDevice>` (device)
+*    def :meth:`writeAttribute<PySide.QtCore.QXmlStreamWriter.writeAttribute>` (attribute)
+*    def :meth:`writeAttribute<PySide.QtCore.QXmlStreamWriter.writeAttribute>` (namespaceUri, name, value)
+*    def :meth:`writeAttribute<PySide.QtCore.QXmlStreamWriter.writeAttribute>` (qualifiedName, value)
+*    def :meth:`writeAttributes<PySide.QtCore.QXmlStreamWriter.writeAttributes>` (attributes)
+*    def :meth:`writeCDATA<PySide.QtCore.QXmlStreamWriter.writeCDATA>` (text)
+*    def :meth:`writeCharacters<PySide.QtCore.QXmlStreamWriter.writeCharacters>` (text)
+*    def :meth:`writeComment<PySide.QtCore.QXmlStreamWriter.writeComment>` (text)
+*    def :meth:`writeCurrentToken<PySide.QtCore.QXmlStreamWriter.writeCurrentToken>` (reader)
+*    def :meth:`writeDTD<PySide.QtCore.QXmlStreamWriter.writeDTD>` (dtd)
+*    def :meth:`writeDefaultNamespace<PySide.QtCore.QXmlStreamWriter.writeDefaultNamespace>` (namespaceUri)
+*    def :meth:`writeEmptyElement<PySide.QtCore.QXmlStreamWriter.writeEmptyElement>` (namespaceUri, name)
+*    def :meth:`writeEmptyElement<PySide.QtCore.QXmlStreamWriter.writeEmptyElement>` (qualifiedName)
+*    def :meth:`writeEndDocument<PySide.QtCore.QXmlStreamWriter.writeEndDocument>` ()
+*    def :meth:`writeEndElement<PySide.QtCore.QXmlStreamWriter.writeEndElement>` ()
+*    def :meth:`writeEntityReference<PySide.QtCore.QXmlStreamWriter.writeEntityReference>` (name)
+*    def :meth:`writeNamespace<PySide.QtCore.QXmlStreamWriter.writeNamespace>` (namespaceUri[, prefix=""])
+*    def :meth:`writeProcessingInstruction<PySide.QtCore.QXmlStreamWriter.writeProcessingInstruction>` (target[, data=""])
+*    def :meth:`writeStartDocument<PySide.QtCore.QXmlStreamWriter.writeStartDocument>` ()
+*    def :meth:`writeStartDocument<PySide.QtCore.QXmlStreamWriter.writeStartDocument>` (version)
+*    def :meth:`writeStartDocument<PySide.QtCore.QXmlStreamWriter.writeStartDocument>` (version, standalone)
+*    def :meth:`writeStartElement<PySide.QtCore.QXmlStreamWriter.writeStartElement>` (namespaceUri, name)
+*    def :meth:`writeStartElement<PySide.QtCore.QXmlStreamWriter.writeStartElement>` (qualifiedName)
+*    def :meth:`writeTextElement<PySide.QtCore.QXmlStreamWriter.writeTextElement>` (namespaceUri, name, text)
+*    def :meth:`writeTextElement<PySide.QtCore.QXmlStreamWriter.writeTextElement>` (qualifiedName, text)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QXmlStreamWriter` class provides an XML writer with a simple streaming API.
+
+    :class:`PySide.QtCore.QXmlStreamWriter` is the counterpart to :class:`PySide.QtCore.QXmlStreamReader` for writing XML. Like its related class, it operates on a :class:`PySide.QtCore.QIODevice` specified with :meth:`PySide.QtCore.QXmlStreamWriter.setDevice` . The API is simple and straightforward: for every XML token or event you want to write, the writer provides a specialized function.
+
+    You start a document with :meth:`PySide.QtCore.QXmlStreamWriter.writeStartDocument` and end it with :meth:`PySide.QtCore.QXmlStreamWriter.writeEndDocument` . This will implicitly close all remaining open tags.
+
+    Element tags are opened with :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` followed by :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute` or :meth:`PySide.QtCore.QXmlStreamWriter.writeAttributes` , element content, and then :meth:`PySide.QtCore.QXmlStreamWriter.writeEndElement` . A shorter form :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` can be used to write empty elements, followed by :meth:`PySide.QtCore.QXmlStreamWriter.writeAttributes` .
+
+    Element content consists of either characters, entity references or nested elements. It is written with :meth:`PySide.QtCore.QXmlStreamWriter.writeCharacters` , which also takes care of escaping all forbidden characters and character sequences, :meth:`PySide.QtCore.QXmlStreamWriter.writeEntityReference` , or subsequent calls to :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` . A convenience method :meth:`PySide.QtCore.QXmlStreamWriter.writeTextElement` can be used for writing terminal elements that contain nothing but text.
+
+    The following abridged code snippet shows the basic use of the class to write formatted XML with indentation:
+
+    ::
+
+            QXmlStreamWriter stream(&output);
+            stream.setAutoFormatting(true);
+            stream.writeStartDocument();
+            ...
+            stream.writeStartElement("bookmark");
+            stream.writeAttribute("href", "http://www.qtsoftware.com/");
+            stream.writeTextElement("title", "Qt Home");
+            stream.writeEndElement(); // bookmark
+            ...
+            stream.writeEndDocument();
+
+
+    :class:`PySide.QtCore.QXmlStreamWriter` takes care of prefixing namespaces, all you have to do is specify the ``namespaceUri`` when writing elements or attributes. If you must conform to certain prefixes, you can force the writer to use them by declaring the namespaces manually with either :meth:`PySide.QtCore.QXmlStreamWriter.writeNamespace` or :meth:`PySide.QtCore.QXmlStreamWriter.writeDefaultNamespace` . Alternatively, you can bypass the stream writer's namespace support and use overloaded methods that take a qualified name instead. The namespace *http://www.w3.org/XML/1998/namespace* is implicit and mapped to the prefix *xml* .
+
+    The stream writer can automatically format the generated XML data by adding line-breaks and indentation to empty sections between elements, making the XML data more readable for humans and easier to work with for most source code management systems. The feature can be turned on with the :meth:`PySide.QtCore.QXmlStreamWriter.autoFormatting` property, and customized with the :meth:`PySide.QtCore.QXmlStreamWriter.autoFormattingIndent` property.
+
+    Other functions are :meth:`PySide.QtCore.QXmlStreamWriter.writeCDATA` , :meth:`PySide.QtCore.QXmlStreamWriter.writeComment` , :meth:`PySide.QtCore.QXmlStreamWriter.writeProcessingInstruction` , and :meth:`PySide.QtCore.QXmlStreamWriter.writeDTD` . Chaining of XML streams is supported with :meth:`PySide.QtCore.QXmlStreamWriter.writeCurrentToken` .
+
+    By default, :class:`PySide.QtCore.QXmlStreamWriter` encodes XML in UTF-8. Different encodings can be enforced using :meth:`PySide.QtCore.QXmlStreamWriter.setCodec` .
+
+    If an error occurs while writing to the underlying device, :meth:`PySide.QtCore.QXmlStreamWriter.hasError` starts returning true and subsequent writes are ignored.
+
+    The :ref:`QXmlStream Bookmarks Example<xml/streambookmarks>` illustrates how to use a stream writer to write an XML bookmark file (XBEL) that was previously read in by a :class:`PySide.QtCore.QXmlStreamReader` .
+
+
+.. class:: QXmlStreamWriter()
+           QXmlStreamWriter(array)
+           QXmlStreamWriter(device)
+
+    :param array: :class:`PySide.QtCore.QByteArray`
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+    Constructs a stream writer.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.setDevice` 
+
+    Constructs a stream writer that writes into ``array`` . This is the same as creating an xml writer that operates on a :class:`PySide.QtCore.QBuffer` device which in turn operates on ``array`` .
+
+
+    Constructs a stream writer that writes into ``device`` ;
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.autoFormatting()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns ``true`` if auto formattting is enabled, otherwise ``false`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.setAutoFormatting` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.autoFormattingIndent()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.setAutoFormattingIndent` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.codec()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec that is currently assigned to the stream.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.setCodec` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the current device associated with the :class:`PySide.QtCore.QXmlStreamWriter` , or 0 if no device has been assigned.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.setDevice` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.hasError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the stream failed to write to the underlying device; otherwise returns false.
+
+    The error status is never reset. Writes happening after the error occurred are ignored, even if the error condition is cleared.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.setAutoFormatting(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables auto formatting if ``enable`` is ``true`` , otherwise disables it.
+
+    The default value is ``false`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.autoFormatting` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.setAutoFormattingIndent(spacesOrTabs)
+
+
+    :param spacesOrTabs: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.autoFormattingIndent` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.setCodec(codec)
+
+
+    :param codec: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec for this stream to ``codec`` . The codec is used for encoding any data that is written. By default, :class:`PySide.QtCore.QXmlStreamWriter` uses UTF-8.
+
+    The encoding information is stored in the initial xml tag which gets written when you call :meth:`PySide.QtCore.QXmlStreamWriter.writeStartDocument` . Call this function before calling :meth:`PySide.QtCore.QXmlStreamWriter.writeStartDocument` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.codec` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.setCodec(codecName)
+
+
+    :param codecName: str
+
+
+
+
+    Sets the codec for this stream to the :class:`PySide.QtCore.QTextCodec` for the encoding specified by ``codecName`` . Common values for ``codecName`` include "ISO 8859-1", "UTF-8", and "UTF-16". If the encoding isn't recognized, nothing happens.
+
+    .. seealso::  :meth:`QTextCodec.codecForName()<PySide.QtCore.QTextCodec.codecForName>` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets the current device to ``device`` . If you want the stream to write into a :class:`PySide.QtCore.QByteArray` , you can create a :class:`PySide.QtCore.QBuffer` device.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.device` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeAttribute(qualifiedName, value)
+
+
+    :param qualifiedName: unicode
+    :param value: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Writes an attribute with ``qualifiedName`` and ``value`` .
+
+    This function can only be called after :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` before any content is written, or after :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` .
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeAttribute(attribute)
+
+
+    :param attribute: :class:`PySide.QtCore.QXmlStreamAttribute`
+
+
+
+
+    This is an overloaded function.
+
+    Writes the ``attribute`` .
+
+    This function can only be called after :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` before any content is written, or after :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` .
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeAttribute(namespaceUri, name, value)
+
+
+    :param namespaceUri: unicode
+    :param name: unicode
+    :param value: unicode
+
+
+
+
+    Writes an attribute with ``name`` and ``value`` , prefixed for the specified ``namespaceUri`` . If the namespace has not been declared yet, :class:`PySide.QtCore.QXmlStreamWriter` will generate a namespace declaration for it.
+
+    This function can only be called after :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` before any content is written, or after :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` .
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeAttributes(attributes)
+
+
+    :param attributes: :class:`PySide.QtCore.QXmlStreamAttributes`
+
+
+
+
+    Writes the attribute vector ``attributes`` . If a namespace referenced in an attribute not been declared yet, :class:`PySide.QtCore.QXmlStreamWriter` will generate a namespace declaration for it.
+
+    This function can only be called after :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` before any content is written, or after :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute`  :meth:`PySide.QtCore.QXmlStreamWriter.writeNamespace` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeCDATA(text)
+
+
+    :param text: unicode
+
+
+
+
+    Writes ``text`` as CDATA section. If ``text`` contains the forbidden character sequence "]]>", it is split into different CDATA sections.
+
+    This function mainly exists for completeness. Normally you should not need use it, because :meth:`PySide.QtCore.QXmlStreamWriter.writeCharacters` automatically escapes all non-content characters.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeCharacters(text)
+
+
+    :param text: unicode
+
+
+
+
+    Writes ``text`` . The characters "<", "&", and """ are escaped as entity references "&lt;", "&amp;, and "&quot;". To avoid the forbidden sequence "]]>", ">" is also escaped as "&gt;".
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeEntityReference` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeComment(text)
+
+
+    :param text: unicode
+
+
+
+
+    Writes ``text`` as XML comment, where ``text`` must not contain the forbidden sequence "--" or end with "-". Note that XML does not provide any way to escape "-" in a comment.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeCurrentToken(reader)
+
+
+    :param reader: :class:`PySide.QtCore.QXmlStreamReader`
+
+
+
+
+    Writes the current state of the ``reader`` . All possible valid states are supported.
+
+    The purpose of this function is to support chained processing of XML data.
+
+    .. seealso::  :meth:`QXmlStreamReader.tokenType()<PySide.QtCore.QXmlStreamReader.tokenType>` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeDTD(dtd)
+
+
+    :param dtd: unicode
+
+
+
+
+    Writes a DTD section. The ``dtd`` represents the entire doctypedecl production from the XML 1.0 specification.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeDefaultNamespace(namespaceUri)
+
+
+    :param namespaceUri: unicode
+
+
+
+
+    Writes a default namespace declaration for ``namespaceUri`` .
+
+    If :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` or :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` was called, the declaration applies to the current element; otherwise it applies to the next child element.
+
+    Note that the namespaces *http://www.w3.org/XML/1998/namespace* (bound to *xmlns* ) and *http://www.w3.org/2000/xmlns/* (bound to *xml* ) by definition cannot be declared as default.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeEmptyElement(namespaceUri, name)
+
+
+    :param namespaceUri: unicode
+    :param name: unicode
+
+
+
+
+    Writes an empty element with ``name`` , prefixed for the specified ``namespaceUri`` . If the namespace has not been declared, :class:`PySide.QtCore.QXmlStreamWriter` will generate a namespace declaration for it. Subsequent calls to :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute` will add attributes to this element.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeNamespace` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeEmptyElement(qualifiedName)
+
+
+    :param qualifiedName: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Writes an empty element with qualified name ``qualifiedName`` . Subsequent calls to :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute` will add attributes to this element.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeEndDocument()
+
+
+
+
+
+
+    Closes all remaining open start elements and writes a newline.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeStartDocument` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeEndElement()
+
+
+
+
+
+
+    Closes the previous start element.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeEntityReference(name)
+
+
+    :param name: unicode
+
+
+
+
+    Writes the entity reference ``name`` to the stream, as "&``name`` ;".
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeNamespace(namespaceUri[, prefix=""])
+
+
+    :param namespaceUri: unicode
+    :param prefix: unicode
+
+
+
+
+    Writes a namespace declaration for ``namespaceUri`` with ``prefix`` . If ``prefix`` is empty, :class:`PySide.QtCore.QXmlStreamWriter` assigns a unique prefix consisting of the letter 'n' followed by a number.
+
+    If :meth:`PySide.QtCore.QXmlStreamWriter.writeStartElement` or :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` was called, the declaration applies to the current element; otherwise it applies to the next child element.
+
+    Note that the prefix *xml* is both predefined and reserved for *http://www.w3.org/XML/1998/namespace* , which in turn cannot be bound to any other prefix. The prefix *xmlns* and its URI *http://www.w3.org/2000/xmlns/* are used for the namespace mechanism itself and thus completely forbidden in declarations.
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeProcessingInstruction(target[, data=""])
+
+
+    :param target: unicode
+    :param data: unicode
+
+
+
+
+    Writes an XML processing instruction with ``target`` and ``data`` , where ``data`` must not contain the sequence "?>".
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeStartDocument(version)
+
+
+    :param version: unicode
+
+
+
+
+    Writes a document start with the XML version number ``version`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeEndDocument` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeStartDocument(version, standalone)
+
+
+    :param version: unicode
+    :param standalone: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes a document start with the XML version number ``version`` and a standalone attribute ``standalone`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeEndDocument` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeStartDocument()
+
+
+
+
+
+
+    This is an overloaded function.
+
+    Writes a document start with XML version number "1.0". This also writes the encoding information.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeEndDocument`  :meth:`PySide.QtCore.QXmlStreamWriter.setCodec` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeStartElement(qualifiedName)
+
+
+    :param qualifiedName: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Writes a start element with ``qualifiedName`` . Subsequent calls to :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute` will add attributes to this element.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeEndElement`  :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeStartElement(namespaceUri, name)
+
+
+    :param namespaceUri: unicode
+    :param name: unicode
+
+
+
+
+    Writes a start element with ``name`` , prefixed for the specified ``namespaceUri`` . If the namespace has not been declared yet, :class:`PySide.QtCore.QXmlStreamWriter` will generate a namespace declaration for it. Subsequent calls to :meth:`PySide.QtCore.QXmlStreamWriter.writeAttribute` will add attributes to this element.
+
+    .. seealso::  :meth:`PySide.QtCore.QXmlStreamWriter.writeNamespace`  :meth:`PySide.QtCore.QXmlStreamWriter.writeEndElement`  :meth:`PySide.QtCore.QXmlStreamWriter.writeEmptyElement` 
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeTextElement(namespaceUri, name, text)
+
+
+    :param namespaceUri: unicode
+    :param name: unicode
+    :param text: unicode
+
+
+
+
+    Writes a text element with ``name`` , prefixed for the specified ``namespaceUri`` , and ``text`` . If the namespace has not been declared, :class:`PySide.QtCore.QXmlStreamWriter` will generate a namespace declaration for it.
+
+    This is a convenience function equivalent to:
+
+    ::
+
+        writeStartElement(namespaceUri, name)
+        writeCharacters(text)
+        writeEndElement()
+
+
+
+
+.. method:: PySide.QtCore.QXmlStreamWriter.writeTextElement(qualifiedName, text)
+
+
+    :param qualifiedName: unicode
+    :param text: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Writes a text element with ``qualifiedName`` and ``text`` .
+
+    This is a convenience function equivalent to:
+
+    ::
+
+        writeStartElement(qualifiedName)
+        writeCharacters(text)
+        writeEndElement()
+
+
+
+
+

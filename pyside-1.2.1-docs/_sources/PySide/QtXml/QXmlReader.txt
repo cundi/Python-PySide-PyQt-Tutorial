@@ -1,0 +1,306 @@
+.. module:: PySide.QtXml
+.. _QXmlReader:
+
+QXmlReader
+**********
+
+.. inheritance-diagram:: QXmlReader
+    :parts: 2
+
+**Inherited by:** :ref:`QXmlSimpleReader`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlReader` class provides an interface for XML readers (i.e. parsers).
+
+    This abstract class provides an interface for all of Qt's XML readers. Currently there is only one implementation of a reader included in Qt's XML module: :class:`PySide.QtXml.QXmlSimpleReader` . In future releases there might be more readers with different properties available (e.g. a validating parser).
+
+    The design of the XML classes follows the SAX2 Java interface, with the names adapted to fit Qt naming conventions. It should be very easy for anybody who has worked with SAX2 to get started with the Qt XML classes.
+
+    All readers use the class :class:`PySide.QtXml.QXmlInputSource` to read the input document. Since you are normally interested in particular content in the XML document, the reader reports the content through special handler classes ( :class:`PySide.QtXml.QXmlDTDHandler` , :class:`PySide.QtXml.QXmlDeclHandler` , :class:`PySide.QtXml.QXmlContentHandler` , :class:`PySide.QtXml.QXmlEntityResolver` , :class:`PySide.QtXml.QXmlErrorHandler` and :class:`PySide.QtXml.QXmlLexicalHandler` ), which you must subclass, if you want to process the contents.
+
+    Since the handler classes only describe interfaces you must implement all the functions. We provide the :class:`PySide.QtXml.QXmlDefaultHandler` class to make this easier: it implements a default behavior (do nothing) for all functions, so you can subclass it and just implement the functions you are interested in.
+
+    Features and properties of the reader can be set with :meth:`PySide.QtXml.QXmlReader.setFeature` and :meth:`PySide.QtXml.QXmlReader.setProperty` respectively. You can set the reader to use your own subclasses with :meth:`PySide.QtXml.QXmlReader.setEntityResolver` , :meth:`PySide.QtXml.QXmlReader.setDTDHandler` , :meth:`PySide.QtXml.QXmlReader.setContentHandler` , :meth:`PySide.QtXml.QXmlReader.setErrorHandler` , :meth:`PySide.QtXml.QXmlReader.setLexicalHandler` and :meth:`PySide.QtXml.QXmlReader.setDeclHandler` . The parse itself is started with a call to :meth:`PySide.QtXml.QXmlReader.parse` .
+
+    .. seealso::  :class:`PySide.QtXml.QXmlSimpleReader` 
+
+.. class:: QXmlReader()
+
+
+
+
+.. method:: PySide.QtXml.QXmlReader.DTDHandler()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlDTDHandler`
+
+
+
+
+    Returns the DTD handler or 0 if none was set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setDTDHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.contentHandler()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlContentHandler`
+
+
+
+
+    Returns the content handler or 0 if none was set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setContentHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.declHandler()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlDeclHandler`
+
+
+
+
+    Returns the declaration handler or 0 if none was set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setDeclHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.entityResolver()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlEntityResolver`
+
+
+
+
+    Returns the entity resolver or 0 if none was set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setEntityResolver` 
+
+
+.. method:: PySide.QtXml.QXmlReader.errorHandler()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlErrorHandler`
+
+
+
+
+    Returns the error handler or 0 if none is set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setErrorHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.feature(name)
+
+
+    :param name: unicode
+    :rtype: PySequence
+
+
+
+
+    If the reader has the feature called ``name`` , the feature's value is returned. If no such feature exists the return value is undefined.
+
+    If ``ok`` is not 0: ``*``\ ``ok`` is set to true if the reader has the feature called ``name`` ; otherwise ``*``\ ``ok`` is set to false.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setFeature`  :meth:`PySide.QtXml.QXmlReader.hasFeature` 
+
+
+.. method:: PySide.QtXml.QXmlReader.hasFeature(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns ``true`` if the reader has the feature called ``name`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.feature`  :meth:`PySide.QtXml.QXmlReader.setFeature` 
+
+
+.. method:: PySide.QtXml.QXmlReader.hasProperty(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the reader has the property ``name`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.property`  :meth:`PySide.QtXml.QXmlReader.setProperty` 
+
+
+.. method:: PySide.QtXml.QXmlReader.lexicalHandler()
+
+
+    :rtype: :class:`PySide.QtXml.QXmlLexicalHandler`
+
+
+
+
+    Returns the lexical handler or 0 if none was set.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setLexicalHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.parse(input)
+
+
+    :param input: :class:`PySide.QtXml.QXmlInputSource`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reads an XML document from ``input`` and parses it. Returns true if the parsing was successful; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlReader.parse(input)
+
+
+    :param input: :class:`PySide.QtXml.QXmlInputSource`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Parses the given ``input`` .
+
+
+
+.. method:: PySide.QtXml.QXmlReader.property(name)
+
+
+    :param name: unicode
+    :rtype: PySequence
+
+
+
+
+    If the reader has the property ``name`` , this function returns the value of the property; otherwise the return value is undefined.
+
+    If ``ok`` is not 0: if the reader has the ``name`` property ``*``\ ``ok`` is set to true; otherwise ``*``\ ``ok`` is set to false.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.setProperty`  :meth:`PySide.QtXml.QXmlReader.hasProperty` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setContentHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlContentHandler`
+
+
+
+
+    Sets the content handler to ``handler`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.contentHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setDTDHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlDTDHandler`
+
+
+
+
+    Sets the DTD handler to ``handler`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.DTDHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setDeclHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlDeclHandler`
+
+
+
+
+    Sets the declaration handler to ``handler`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.declHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setEntityResolver(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlEntityResolver`
+
+
+
+
+    Sets the entity resolver to ``handler`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.entityResolver` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setErrorHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlErrorHandler`
+
+
+
+
+    Sets the error handler to ``handler`` . Clears the error handler if ``handler`` is 0.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.errorHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setFeature(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the feature called ``name`` to the given ``value`` . If the reader doesn't have the feature nothing happens.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.feature`  :meth:`PySide.QtXml.QXmlReader.hasFeature` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setLexicalHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXml.QXmlLexicalHandler`
+
+
+
+
+    Sets the lexical handler to ``handler`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.lexicalHandler` 
+
+
+.. method:: PySide.QtXml.QXmlReader.setProperty(name, value)
+
+
+    :param name: unicode
+    :param value: :class:`void`
+
+
+
+
+    Sets the property ``name`` to ``value`` . If the reader doesn't have the property nothing happens.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlReader.property`  :meth:`PySide.QtXml.QXmlReader.hasProperty` 
+
+
+

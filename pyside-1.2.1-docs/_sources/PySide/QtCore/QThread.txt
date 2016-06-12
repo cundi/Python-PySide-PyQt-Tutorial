@@ -1,0 +1,511 @@
+.. module:: PySide.QtCore
+.. _QThread:
+
+QThread
+*******
+
+.. inheritance-diagram:: QThread
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`exec_<PySide.QtCore.QThread.exec_>` ()
+*    def :meth:`exit<PySide.QtCore.QThread.exit>` ([retcode=0])
+*    def :meth:`isFinished<PySide.QtCore.QThread.isFinished>` ()
+*    def :meth:`isRunning<PySide.QtCore.QThread.isRunning>` ()
+*    def :meth:`priority<PySide.QtCore.QThread.priority>` ()
+*    def :meth:`setPriority<PySide.QtCore.QThread.setPriority>` (priority)
+*    def :meth:`setStackSize<PySide.QtCore.QThread.setStackSize>` (stackSize)
+*    def :meth:`stackSize<PySide.QtCore.QThread.stackSize>` ()
+*    def :meth:`wait<PySide.QtCore.QThread.wait>` ([time=ULONG_MAX])
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`run<PySide.QtCore.QThread.run>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`quit<PySide.QtCore.QThread.quit>` ()
+*    def :meth:`start<PySide.QtCore.QThread.start>` ([priority=InheritPriority])
+*    def :meth:`terminate<PySide.QtCore.QThread.terminate>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`finished<PySide.QtCore.QThread.finished>` ()
+*    def :meth:`started<PySide.QtCore.QThread.started>` ()
+*    def :meth:`terminated<PySide.QtCore.QThread.terminated>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cleanup<PySide.QtCore.QThread.cleanup>` ()
+*    def :meth:`currentThread<PySide.QtCore.QThread.currentThread>` ()
+*    def :meth:`currentThreadId<PySide.QtCore.QThread.currentThreadId>` ()
+*    def :meth:`idealThreadCount<PySide.QtCore.QThread.idealThreadCount>` ()
+*    def :meth:`initialize<PySide.QtCore.QThread.initialize>` ()
+*    def :meth:`msleep<PySide.QtCore.QThread.msleep>` (arg__1)
+*    def :meth:`setTerminationEnabled<PySide.QtCore.QThread.setTerminationEnabled>` ([enabled=true])
+*    def :meth:`sleep<PySide.QtCore.QThread.sleep>` (arg__1)
+*    def :meth:`usleep<PySide.QtCore.QThread.usleep>` (arg__1)
+*    def :meth:`yieldCurrentThread<PySide.QtCore.QThread.yieldCurrentThread>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QThread` class provides a platform-independent way to manage threads.
+
+    A :class:`PySide.QtCore.QThread` object manages one thread of control within the program. QThreads begin executing in :meth:`PySide.QtCore.QThread.run` . By default, :meth:`PySide.QtCore.QThread.run` starts the event loop by calling :meth:`~PySide.QtCore.QThread.exec` and runs a Qt event loop inside the thread.
+
+    You can use worker objects by moving them to the thread using :meth:`QObject.moveToThread()<PySide.QtCore.QObject.moveToThread>` .
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/src_corelib_thread_qthread.cpp:worker" not found>
+
+    The code inside the Worker's slot would then execute in a separate thread. However, you are free to connect the Worker's slots to any signal, from any object, in any thread. It is safe to connect signals and slots across different threads, thanks to a mechanism called :attr:`queued connections<Qt.ConnectionType>` .
+
+    Another way to make code run in a separate thread, is to subclass :class:`PySide.QtCore.QThread` and reimplement :meth:`PySide.QtCore.QThread.run` . For example:
+
+    ::
+
+        <Code snippet "code/src_corelib_thread_qthread.cpp:reimpl-run" not found>
+
+    In that example, the thread will exit after the run function has returned. There will not be any event loop running in the thread unless you call :meth:`~PySide.QtCore.QThread.exec` .
+
+    It is important to remember that a :class:`PySide.QtCore.QThread` object usually lives in the thread where it was created, not in the thread that it manages. This oft-overlooked detail means that a :class:`PySide.QtCore.QThread` 's slots will be executed in the context of its home thread, not in the context of the thread it is managing. For this reason, implementing new slots in a :class:`PySide.QtCore.QThread` subclass is error-prone and discouraged.
+
+    .. note::  If you interact with an object, using any technique other than queued signal/slot connections (e.g. direct function calls), then the usual multithreading precautions need to be taken.
+
+    .. note::  It is not possible to change the thread affinity of GUI objects; they must remain in the main thread.
+
+    .. _PySide.QtCore.QThread_managing-threads:
+
+
+
+Managing threads
+^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QThread` will notifiy you via a signal when the thread is :meth:`PySide.QtCore.QThread.started` , :meth:`PySide.QtCore.QThread.finished` , and :meth:`PySide.QtCore.QThread.terminated` , or you can use :meth:`PySide.QtCore.QThread.isFinished` and :meth:`PySide.QtCore.QThread.isRunning` to query the state of the thread.
+
+    You can stop the thread by calling :meth:`PySide.QtCore.QThread.exit` or :meth:`PySide.QtCore.QThread.quit` . In extreme cases, you may want to forcibly :meth:`PySide.QtCore.QThread.terminate` an executing thread. However, doing so is dangerous and discouraged. Please read the documentation for :meth:`PySide.QtCore.QThread.terminate` and :meth:`PySide.QtCore.QThread.setTerminationEnabled` for detailed information.
+
+    From Qt 4.8 onwards, it is possible to deallocate objects that live in a thread that has just ended, by connecting the :meth:`PySide.QtCore.QThread.finished` signal to :meth:`QObject.deleteLater()<PySide.QtCore.QObject.deleteLater>` .
+
+    Use :meth:`PySide.QtCore.QThread.wait` to block the calling thread, until the other thread has finished execution (or until a specified time has passed).
+
+    The static functions :meth:`PySide.QtCore.QThread.currentThreadId` and :meth:`PySide.QtCore.QThread.currentThread` return identifiers for the currently executing thread. The former returns a platform specific ID for the thread; the latter returns a :class:`PySide.QtCore.QThread` pointer.
+
+    To choose the name that your thread will be given (as identified by the command ``ps -L`` on Linux, for example), you can call :meth:`PySide.QtCore.QObject.setObjectName` before starting the thread. If you don't call :meth:`PySide.QtCore.QObject.setObjectName` , the name given to your thread will be the class name of the runtime type of your thread object (for example, ``"RenderThread"`` in the case of the :ref:`Mandelbrot Example<threads/mandelbrot>` , as that is the name of the :class:`PySide.QtCore.QThread` subclass). Note that this is currently not available with release builds on Windows.
+
+    :class:`PySide.QtCore.QThread` also provides static, platform independent sleep functions: :meth:`PySide.QtCore.QThread.sleep` , :meth:`PySide.QtCore.QThread.msleep` , and :meth:`PySide.QtCore.QThread.usleep` allow full second, millisecond, and microsecond resolution respectively.
+
+    .. note:: \ :meth:`PySide.QtCore.QThread.wait` and the :meth:`PySide.QtCore.QThread.sleep` functions should be unnecessary in general, since Qt is an event-driven framework. Instead of :meth:`PySide.QtCore.QThread.wait` , consider listening for the :meth:`PySide.QtCore.QThread.finished` signal. Instead of the :meth:`PySide.QtCore.QThread.sleep` functions, consider using :class:`PySide.QtCore.QTimer` .
+
+    .. seealso::  :ref:`Thread Support in Qt<threads.html>`  :class:`~PySide.QtCore.QThreadStorage`  :class:`PySide.QtCore.QMutex`  :class:`PySide.QtCore.QSemaphore`  :class:`PySide.QtCore.QWaitCondition`  :ref:`Mandelbrot Example<threads/mandelbrot>`  :ref:`Semaphores Example<threads/semaphores>`  :ref:`Wait Conditions Example<threads/waitconditions>` 
+
+.. class:: QThread([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtCore.QThread` to manage a new thread. The ``parent`` takes ownership of the :class:`PySide.QtCore.QThread` . The thread does not begin executing until :meth:`PySide.QtCore.QThread.start` is called.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.start` 
+
+.. attribute:: PySide.QtCore.QThread.Priority
+
+    This enum type indicates how the operating system should schedule newly created threads.
+
+    +----------------------------+--------------------------------------------------------------------+
+    |Constant                    |Description                                                         |
+    +============================+====================================================================+
+    |QThread.IdlePriority        |scheduled only when no other threads are running.                   |
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.LowestPriority      |scheduled less often than :attr:`LowPriority<QThread.Priority>` .   |
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.LowPriority         |scheduled less often than :attr:`NormalPriority<QThread.Priority>` .|
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.NormalPriority      |the default priority of the operating system.                       |
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.HighPriority        |scheduled more often than :attr:`NormalPriority<QThread.Priority>` .|
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.HighestPriority     |scheduled more often than :attr:`HighPriority<QThread.Priority>` .  |
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.TimeCriticalPriority|scheduled as often as possible.                                     |
+    +----------------------------+--------------------------------------------------------------------+
+    |QThread.InheritPriority     |use the same priority as the creating thread. This is the default.  |
+    +----------------------------+--------------------------------------------------------------------+
+
+
+.. staticmethod:: PySide.QtCore.QThread.cleanup()
+
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QThread.currentThread()
+
+
+    :rtype: :class:`PySide.QtCore.QThread`
+
+
+
+
+    Returns a pointer to a :class:`PySide.QtCore.QThread` which manages the currently executing thread.
+
+
+
+.. staticmethod:: PySide.QtCore.QThread.currentThreadId()
+
+
+    :rtype: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+    Returns the thread handle of the currently executing thread.
+
+    .. warning::  The handle returned by this function is used for internal purposes and should not be used in any application code.
+
+    .. warning::  On Windows, the returned value is a pseudo-handle for the current thread. It can't be used for numerical comparison. i.e., this function returns the DWORD (Windows-Thread ID) returned by the Win32 function getCurrentThreadId(), not the HANDLE (Windows-Thread HANDLE) returned by the Win32 function getCurrentThread().
+
+
+
+.. method:: PySide.QtCore.QThread.exec_()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Enters the event loop and waits until :meth:`PySide.QtCore.QThread.exit` is called, returning the value that was passed to :meth:`PySide.QtCore.QThread.exit` . The value returned is 0 if :meth:`PySide.QtCore.QThread.exit` is called via :meth:`PySide.QtCore.QThread.quit` .
+
+    It is necessary to call this function to start event handling.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.quit`  :meth:`PySide.QtCore.QThread.exit` 
+
+
+.. method:: PySide.QtCore.QThread.exit([retcode=0])
+
+
+    :param retcode: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the thread's event loop to exit with a return code.
+
+    After calling this function, the thread leaves the event loop and returns from the call to :meth:`QEventLoop.exec()<PySide.QtCore.QEventLoop.exec>` . The :meth:`QEventLoop.exec()<PySide.QtCore.QEventLoop.exec>` function returns ``returnCode`` .
+
+    By convention, a ``returnCode`` of 0 means success, any non-zero value indicates an error.
+
+    Note that unlike the C library function of the same name, this function *does* return to the caller -- it is event processing that stops.
+
+    No QEventLoops will be started anymore in this thread until :meth:`QThread.exec()<PySide.QtCore.QThread.exec>` has been called again. If the eventloop in :meth:`QThread.exec()<PySide.QtCore.QThread.exec>` is not running then the next call to :meth:`QThread.exec()<PySide.QtCore.QThread.exec>` will also return immediately.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.quit`  :class:`PySide.QtCore.QEventLoop` 
+
+
+.. method:: PySide.QtCore.QThread.finished()
+
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QThread.idealThreadCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the ideal number of threads that can be run on the system. This is done querying the number of processor cores, both real and logical, in the system. This function returns -1 if the number of processor cores could not be detected.
+
+
+
+.. staticmethod:: PySide.QtCore.QThread.initialize()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QThread.isFinished()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the thread is finished; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.isRunning` 
+
+
+.. method:: PySide.QtCore.QThread.isRunning()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the thread is running; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.isFinished` 
+
+
+.. staticmethod:: PySide.QtCore.QThread.msleep(arg__1)
+
+
+    :param arg__1: long
+
+
+
+
+    Forces the current thread to sleep for ``msecs`` milliseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.sleep`  :meth:`PySide.QtCore.QThread.usleep` 
+
+
+.. method:: PySide.QtCore.QThread.priority()
+
+
+    :rtype: :attr:`PySide.QtCore.QThread.Priority`
+
+
+
+
+    Returns the priority for a running thread. If the thread is not running, this function returns ``InheritPriority`` .
+
+    .. seealso::  :attr:`QThread.Priority`  :meth:`PySide.QtCore.QThread.setPriority`  :meth:`PySide.QtCore.QThread.start` 
+
+
+.. method:: PySide.QtCore.QThread.quit()
+
+
+
+
+
+
+    Tells the thread's event loop to exit with return code 0 (success). Equivalent to calling QThread::exit(0).
+
+    This function does nothing if the thread does not have an event loop.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.exit`  :class:`PySide.QtCore.QEventLoop` 
+
+
+.. method:: PySide.QtCore.QThread.run()
+
+
+
+
+
+
+    The starting point for the thread. After calling :meth:`PySide.QtCore.QThread.start` , the newly created thread calls this function. The default implementation simply calls :meth:`~PySide.QtCore.QThread.exec` .
+
+    You can reimplement this function to facilitate advanced thread management. Returning from this method will end the execution of the thread.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.start`  :meth:`PySide.QtCore.QThread.wait` 
+
+
+.. method:: PySide.QtCore.QThread.setPriority(priority)
+
+
+    :param priority: :attr:`PySide.QtCore.QThread.Priority`
+
+
+
+
+    This function sets the ``priority`` for a running thread. If the thread is not running, this function does nothing and returns immediately. Use :meth:`PySide.QtCore.QThread.start` to start a thread with a specific priority.
+
+    The ``priority`` argument can be any value in the ``QThread::Priority`` enum except for ``InheritPriorty`` .
+
+    The effect of the ``priority`` parameter is dependent on the operating system's scheduling policy. In particular, the ``priority`` will be ignored on systems that do not support thread priorities (such as on Linux, see http://linux.die.net/man/2/sched\_setscheduler for more details).
+
+    .. seealso::  :attr:`QThread.Priority`  :meth:`PySide.QtCore.QThread.priority`  :meth:`PySide.QtCore.QThread.start` 
+
+
+.. method:: PySide.QtCore.QThread.setStackSize(stackSize)
+
+
+    :param stackSize: :class:`PySide.QtCore.uint`
+
+
+
+
+    Sets the maximum stack size for the thread to ``stackSize`` . If ``stackSize`` is greater than zero, the maximum stack size is set to ``stackSize`` bytes, otherwise the maximum stack size is automatically determined by the operating system.
+
+    .. warning::  Most operating systems place minimum and maximum limits on thread stack sizes. The thread will fail to start if the stack size is outside these limits.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.stackSize` 
+
+
+.. staticmethod:: PySide.QtCore.QThread.setTerminationEnabled([enabled=true])
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables or disables termination of the current thread based on the ``enabled`` parameter. The thread must have been started by :class:`PySide.QtCore.QThread` .
+
+    When ``enabled`` is false, termination is disabled. Future calls to :meth:`QThread.terminate()<PySide.QtCore.QThread.terminate>` will return immediately without effect. Instead, the termination is deferred until termination is enabled.
+
+    When ``enabled`` is true, termination is enabled. Future calls to :meth:`QThread.terminate()<PySide.QtCore.QThread.terminate>` will terminate the thread normally. If termination has been deferred (i.e. :meth:`QThread.terminate()<PySide.QtCore.QThread.terminate>` was called with termination disabled), this function will terminate the calling thread *immediately* . Note that this function will not return in this case.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.terminate` 
+
+
+.. staticmethod:: PySide.QtCore.QThread.sleep(arg__1)
+
+
+    :param arg__1: long
+
+
+
+
+    Forces the current thread to sleep for ``secs`` seconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.msleep`  :meth:`PySide.QtCore.QThread.usleep` 
+
+
+.. method:: PySide.QtCore.QThread.stackSize()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the maximum stack size for the thread (if set with :meth:`PySide.QtCore.QThread.setStackSize` ); otherwise returns zero.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.setStackSize` 
+
+
+.. method:: PySide.QtCore.QThread.start([priority=InheritPriority])
+
+
+    :param priority: :attr:`PySide.QtCore.QThread.Priority`
+
+
+
+
+    Begins execution of the thread by calling :meth:`PySide.QtCore.QThread.run` . The operating system will schedule the thread according to the ``priority`` parameter. If the thread is already running, this function does nothing.
+
+    The effect of the ``priority`` parameter is dependent on the operating system's scheduling policy. In particular, the ``priority`` will be ignored on systems that do not support thread priorities (such as on Linux, see http://linux.die.net/man/2/sched\_setscheduler for more details).
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.run`  :meth:`PySide.QtCore.QThread.terminate` 
+
+
+.. method:: PySide.QtCore.QThread.started()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QThread.terminate()
+
+
+
+
+
+
+    Terminates the execution of the thread. The thread may or may not be terminated immediately, depending on the operating system's scheduling policies. Listen for the :meth:`PySide.QtCore.QThread.terminated` signal, or use :meth:`QThread.wait()<PySide.QtCore.QThread.wait>` after :meth:`PySide.QtCore.QThread.terminate` , to be sure.
+
+    When the thread is terminated, all threads waiting for the thread to finish will be woken up.
+
+    .. warning::  This function is dangerous and its use is discouraged. The thread can be terminated at any point in its code path. Threads can be terminated while modifying data. There is no chance for the thread to clean up after itself, unlock any held mutexes, etc. In short, use this function only if absolutely necessary.
+
+    Termination can be explicitly enabled or disabled by calling :meth:`QThread.setTerminationEnabled()<PySide.QtCore.QThread.setTerminationEnabled>` . Calling this function while termination is disabled results in the termination being deferred, until termination is re-enabled. See the documentation of :meth:`QThread.setTerminationEnabled()<PySide.QtCore.QThread.setTerminationEnabled>` for more information.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.setTerminationEnabled` 
+
+
+.. method:: PySide.QtCore.QThread.terminated()
+
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QThread.usleep(arg__1)
+
+
+    :param arg__1: long
+
+
+
+
+    Forces the current thread to sleep for ``usecs`` microseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.sleep`  :meth:`PySide.QtCore.QThread.msleep` 
+
+
+.. method:: PySide.QtCore.QThread.wait([time=ULONG_MAX])
+
+
+    :param time: long
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Blocks the thread until either of these conditions is met:
+
+
+    * The thread associated with this :class:`PySide.QtCore.QThread` object has finished execution (i.e. when it returns from :meth:`PySide.QtCore.QThread.run` ). This function will return true if the thread has finished. It also returns true if the thread has not been started yet.
+    * ``time`` milliseconds has elapsed. If ``time`` is ULONG\_MAX (the default), then the wait will never timeout (the thread must return from :meth:`PySide.QtCore.QThread.run` ). This function will return false if the wait timed out.
+
+    This provides similar functionality to the POSIX ``pthread_join()`` function.
+
+    .. seealso::  :meth:`PySide.QtCore.QThread.sleep`  :meth:`PySide.QtCore.QThread.terminate` 
+
+
+.. staticmethod:: PySide.QtCore.QThread.yieldCurrentThread()
+
+
+
+
+
+
+    Yields execution of the current thread to another runnable thread, if any. Note that the operating system decides to which thread to switch.
+
+
+
+

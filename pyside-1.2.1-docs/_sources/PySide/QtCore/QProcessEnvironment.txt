@@ -1,0 +1,247 @@
+.. module:: PySide.QtCore
+.. _QProcessEnvironment:
+
+QProcessEnvironment
+*******************
+
+.. inheritance-diagram:: QProcessEnvironment
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QProcessEnvironment.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtCore.QProcessEnvironment.__ne__>` (other)
+*    def :meth:`clear<PySide.QtCore.QProcessEnvironment.clear>` ()
+*    def :meth:`contains<PySide.QtCore.QProcessEnvironment.contains>` (name)
+*    def :meth:`insert<PySide.QtCore.QProcessEnvironment.insert>` (e)
+*    def :meth:`insert<PySide.QtCore.QProcessEnvironment.insert>` (name, value)
+*    def :meth:`isEmpty<PySide.QtCore.QProcessEnvironment.isEmpty>` ()
+*    def :meth:`keys<PySide.QtCore.QProcessEnvironment.keys>` ()
+*    def :meth:`remove<PySide.QtCore.QProcessEnvironment.remove>` (name)
+*    def :meth:`toStringList<PySide.QtCore.QProcessEnvironment.toStringList>` ()
+*    def :meth:`value<PySide.QtCore.QProcessEnvironment.value>` (name[, defaultValue=""])
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`systemEnvironment<PySide.QtCore.QProcessEnvironment.systemEnvironment>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QProcessEnvironment` class holds the environment variables that can be passed to a program.
+
+    A process's environment is composed of a set of key=value pairs known as environment variables. The :class:`PySide.QtCore.QProcessEnvironment` class wraps that concept and allows easy manipulation of those variables. It's meant to be used along with :class:`PySide.QtCore.QProcess` , to set the environment for child processes. It cannot be used to change the current process's environment.
+
+    The environment of the calling process can be obtained using :meth:`QProcessEnvironment.systemEnvironment()<PySide.QtCore.QProcessEnvironment.systemEnvironment>` .
+
+    On Unix systems, the variable names are case-sensitive. For that reason, this class will not touch the names of the variables. Note as well that Unix environment allows both variable names and contents to contain arbitrary binary data (except for the NUL character), but this is not supported by :class:`PySide.QtCore.QProcessEnvironment` . This class only supports names and values that are encodable by the current locale settings (see QTextCodec::codecForLocale).
+
+    On Windows, the variable names are case-insensitive. Therefore, :class:`PySide.QtCore.QProcessEnvironment` will always uppercase the names and do case-insensitive comparisons.
+
+    On Windows CE, the concept of environment does not exist. This class will keep the values set for compatibility with other platforms, but the values set will have no effect on the processes being created.
+
+    .. seealso::  :class:`PySide.QtCore.QProcess`  :meth:`QProcess.systemEnvironment()<PySide.QtCore.QProcess.systemEnvironment>`  :meth:`QProcess.setProcessEnvironment()<PySide.QtCore.QProcess.setProcessEnvironment>` 
+
+.. class:: QProcessEnvironment()
+           QProcessEnvironment(other)
+
+    :param other: :class:`PySide.QtCore.QProcessEnvironment`
+
+    Creates a new :class:`PySide.QtCore.QProcessEnvironment` object. This constructor creates an empty environment. If set on a :class:`PySide.QtCore.QProcess` , this will cause the current environment variables to be removed.
+
+
+    Creates a :class:`PySide.QtCore.QProcessEnvironment` object that is a copy of ``other`` .
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.clear()
+
+
+
+
+
+
+    Removes all key=value pairs from this :class:`PySide.QtCore.QProcessEnvironment` object, making it empty.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.isEmpty`  :meth:`PySide.QtCore.QProcessEnvironment.systemEnvironment` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.contains(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the environment variable of name ``name`` is found in this :class:`PySide.QtCore.QProcessEnvironment` object.
+
+    On Windows, variable names are case-insensitive, so the key is converted to uppercase before searching. On other systems, names are case-sensitive so no trasformation is applied.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.insert`  :meth:`PySide.QtCore.QProcessEnvironment.value` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.insert(e)
+
+
+    :param e: :class:`PySide.QtCore.QProcessEnvironment`
+
+
+
+
+    This is an overloaded function.
+
+    Inserts the contents of ``e`` in this :class:`PySide.QtCore.QProcessEnvironment` object. Variables in this object that also exist in ``e`` will be overwritten.
+
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.insert(name, value)
+
+
+    :param name: unicode
+    :param value: unicode
+
+
+
+
+    Inserts the environment variable of name ``name`` and contents ``value`` into this :class:`PySide.QtCore.QProcessEnvironment` object. If that variable already existed, it is replaced by the new value.
+
+    On Windows, variable names are case-insensitive, so this function always uppercases the variable name before inserting. On other systems, names are case-sensitive, so no transformation is applied.
+
+    On most systems, inserting a variable with no contents will have the same effect for applications as if the variable had not been set at all. However, to guarantee that there are no incompatibilities, to remove a variable, please use the :meth:`PySide.QtCore.QProcessEnvironment.remove` function.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.contains`  :meth:`PySide.QtCore.QProcessEnvironment.remove`  :meth:`PySide.QtCore.QProcessEnvironment.value` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtCore.QProcessEnvironment` object is empty: that is there are no key=value pairs set.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.clear`  :meth:`PySide.QtCore.QProcessEnvironment.systemEnvironment`  :meth:`PySide.QtCore.QProcessEnvironment.insert` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.keys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list containing all the variable names in this :class:`PySide.QtCore.QProcessEnvironment` object.
+
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.__ne__(other)
+
+
+    :param other: :class:`PySide.QtCore.QProcessEnvironment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this and the ``other``\ :class:`PySide.QtCore.QProcessEnvironment` objects are different.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.operator==` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.__eq__(other)
+
+
+    :param other: :class:`PySide.QtCore.QProcessEnvironment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this and the ``other``\ :class:`PySide.QtCore.QProcessEnvironment` objects are equal.
+
+    Two :class:`PySide.QtCore.QProcessEnvironment` objects are considered equal if they have the same set of key=value pairs. The comparison of keys is done case-sensitive on platforms where the environment is case-sensitive.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.operator!=`  :meth:`PySide.QtCore.QProcessEnvironment.contains` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.remove(name)
+
+
+    :param name: unicode
+
+
+
+
+    Removes the environment variable identified by ``name`` from this :class:`PySide.QtCore.QProcessEnvironment` object. If that variable did not exist before, nothing happens.
+
+    On Windows, variable names are case-insensitive, so the key is converted to uppercase before searching. On other systems, names are case-sensitive so no trasformation is applied.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.contains`  :meth:`PySide.QtCore.QProcessEnvironment.insert`  :meth:`PySide.QtCore.QProcessEnvironment.value` 
+
+
+.. staticmethod:: PySide.QtCore.QProcessEnvironment.systemEnvironment()
+
+
+    :rtype: :class:`PySide.QtCore.QProcessEnvironment`
+
+
+
+
+    The systemEnvironment function returns the environment of the calling process.
+
+    It is returned as a :class:`PySide.QtCore.QProcessEnvironment` . This function does not cache the system environment. Therefore, it's possible to obtain an updated version of the environment if low-level C library functions like ``setenv`` ot ``putenv`` have been called.
+
+    However, note that repeated calls to this function will recreate the :class:`PySide.QtCore.QProcessEnvironment` object, which is a non-trivial operation.
+
+    .. seealso::  :meth:`QProcess.systemEnvironment()<PySide.QtCore.QProcess.systemEnvironment>` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.toStringList()
+
+
+    :rtype: list of strings
+
+
+
+
+    Converts this :class:`PySide.QtCore.QProcessEnvironment` object into a list of strings, one for each environment variable that is set. The environment variable's name and its value are separated by an equal character ('=').
+
+    The :class:`PySide.QtCore.QStringList` contents returned by this function are suitable for use with the QProcess::setEnvironment function. However, it is recommended to use QProcess::setProcessEnvironment instead since that will avoid unnecessary copying of the data.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.systemEnvironment`  :meth:`QProcess.systemEnvironment()<PySide.QtCore.QProcess.systemEnvironment>`  :meth:`QProcess.environment()<PySide.QtCore.QProcess.environment>`  :meth:`QProcess.setEnvironment()<PySide.QtCore.QProcess.setEnvironment>` 
+
+
+.. method:: PySide.QtCore.QProcessEnvironment.value(name[, defaultValue=""])
+
+
+    :param name: unicode
+    :param defaultValue: unicode
+    :rtype: unicode
+
+
+
+
+    Searches this :class:`PySide.QtCore.QProcessEnvironment` object for a variable identified by ``name`` and returns its value. If the variable is not found in this object, then ``defaultValue`` is returned instead.
+
+    On Windows, variable names are case-insensitive, so the key is converted to uppercase before searching. On other systems, names are case-sensitive so no trasformation is applied.
+
+    .. seealso::  :meth:`PySide.QtCore.QProcessEnvironment.contains`  :meth:`PySide.QtCore.QProcessEnvironment.insert`  :meth:`PySide.QtCore.QProcessEnvironment.remove` 
+
+
+

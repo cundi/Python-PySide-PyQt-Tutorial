@@ -1,0 +1,162 @@
+.. module:: PySide.QtXml
+.. _QXmlLexicalHandler:
+
+QXmlLexicalHandler
+******************
+
+.. inheritance-diagram:: QXmlLexicalHandler
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlLexicalHandler` class provides an interface to report the lexical content of XML data.
+
+    The events in the lexical handler apply to the entire document, not just to the document element, and all lexical handler events appear between the content handler's startDocument and endDocument events.
+
+    You can set the lexical handler with :meth:`QXmlReader.setLexicalHandler()<PySide.QtXml.QXmlReader.setLexicalHandler>` .
+
+    This interface's design is based on the SAX2 extension LexicalHandler.
+
+    The interface provides the :meth:`PySide.QtXml.QXmlLexicalHandler.startDTD` , :meth:`PySide.QtXml.QXmlLexicalHandler.endDTD` , :meth:`PySide.QtXml.QXmlLexicalHandler.startEntity` , :meth:`PySide.QtXml.QXmlLexicalHandler.endEntity` , :meth:`PySide.QtXml.QXmlLexicalHandler.startCDATA` , :meth:`PySide.QtXml.QXmlLexicalHandler.endCDATA` and :meth:`PySide.QtXml.QXmlLexicalHandler.comment` functions.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlDTDHandler`  :class:`PySide.QtXml.QXmlDeclHandler`  :class:`PySide.QtXml.QXmlContentHandler`  :class:`PySide.QtXml.QXmlEntityResolver`  :class:`PySide.QtXml.QXmlErrorHandler`  :ref:`Introduction to SAX2<xml-sax.html>` 
+
+.. class:: QXmlLexicalHandler()
+
+
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.comment(ch)
+
+
+    :param ch: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report an XML comment anywhere in the document. It reports the text of the comment in ``ch`` .
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.endCDATA()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the end of a CDATA section.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.startCDATA`  :meth:`QXmlContentHandler.characters()<PySide.QtXml.QXmlContentHandler.characters>` 
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.endDTD()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the end of a DTD declaration, if any.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.startDTD` 
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.endEntity(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the end of an entity called ``name`` .
+
+    For every :meth:`PySide.QtXml.QXmlLexicalHandler.startEntity` call, there is a corresponding :meth:`PySide.QtXml.QXmlLexicalHandler.endEntity` call. The calls to :meth:`PySide.QtXml.QXmlLexicalHandler.startEntity` and :meth:`PySide.QtXml.QXmlLexicalHandler.endEntity` are properly nested.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.startEntity`  :meth:`QXmlContentHandler.skippedEntity()<PySide.QtXml.QXmlContentHandler.skippedEntity>`  :meth:`QXmlSimpleReader.setFeature()<PySide.QtXml.QXmlSimpleReader.setFeature>` 
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    The reader calls this function to get an error string if any of the handler functions returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.startCDATA()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the start of a CDATA section. The content of the CDATA section is reported through the :meth:`QXmlContentHandler.characters()<PySide.QtXml.QXmlContentHandler.characters>` function. This function is intended only to report the boundary.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.endCDATA` 
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.startDTD(name, publicId, systemId)
+
+
+    :param name: unicode
+    :param publicId: unicode
+    :param systemId: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the start of a DTD declaration, if any. It reports the name of the document type in ``name`` , the public identifier in ``publicId`` and the system identifier in ``systemId`` .
+
+    If the public identifier is missing, ``publicId`` is set to an empty string. If the system identifier is missing, ``systemId`` is set to an empty string. Note that it is not valid XML to have a public identifier but no system identifier; in such cases a parse error will occur.
+
+    All declarations reported through :class:`PySide.QtXml.QXmlDTDHandler` or :class:`PySide.QtXml.QXmlDeclHandler` appear between the :meth:`PySide.QtXml.QXmlLexicalHandler.startDTD` and :meth:`PySide.QtXml.QXmlLexicalHandler.endDTD` calls.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.endDTD` 
+
+
+.. method:: PySide.QtXml.QXmlLexicalHandler.startEntity(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function to report the start of an entity called ``name`` .
+
+    Note that if the entity is unknown, the reader reports it through :meth:`QXmlContentHandler.skippedEntity()<PySide.QtXml.QXmlContentHandler.skippedEntity>` and not through this function.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlLexicalHandler.errorString` to get the error message.
+
+    .. seealso::  :meth:`PySide.QtXml.QXmlLexicalHandler.endEntity`  :meth:`QXmlSimpleReader.setFeature()<PySide.QtXml.QXmlSimpleReader.setFeature>` 
+
+
+

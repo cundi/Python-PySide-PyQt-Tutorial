@@ -1,0 +1,282 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeExpression:
+
+QDeclarativeExpression
+**********************
+
+.. inheritance-diagram:: QDeclarativeExpression
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clearError<PySide.QtDeclarative.QDeclarativeExpression.clearError>` ()
+*    def :meth:`context<PySide.QtDeclarative.QDeclarativeExpression.context>` ()
+*    def :meth:`engine<PySide.QtDeclarative.QDeclarativeExpression.engine>` ()
+*    def :meth:`error<PySide.QtDeclarative.QDeclarativeExpression.error>` ()
+*    def :meth:`evaluate<PySide.QtDeclarative.QDeclarativeExpression.evaluate>` ()
+*    def :meth:`expression<PySide.QtDeclarative.QDeclarativeExpression.expression>` ()
+*    def :meth:`hasError<PySide.QtDeclarative.QDeclarativeExpression.hasError>` ()
+*    def :meth:`lineNumber<PySide.QtDeclarative.QDeclarativeExpression.lineNumber>` ()
+*    def :meth:`notifyOnValueChanged<PySide.QtDeclarative.QDeclarativeExpression.notifyOnValueChanged>` ()
+*    def :meth:`scopeObject<PySide.QtDeclarative.QDeclarativeExpression.scopeObject>` ()
+*    def :meth:`setExpression<PySide.QtDeclarative.QDeclarativeExpression.setExpression>` (arg__1)
+*    def :meth:`setNotifyOnValueChanged<PySide.QtDeclarative.QDeclarativeExpression.setNotifyOnValueChanged>` (arg__1)
+*    def :meth:`setSourceLocation<PySide.QtDeclarative.QDeclarativeExpression.setSourceLocation>` (fileName, line)
+*    def :meth:`sourceFile<PySide.QtDeclarative.QDeclarativeExpression.sourceFile>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueChanged<PySide.QtDeclarative.QDeclarativeExpression.valueChanged>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeExpression` class evaluates JavaScript in a QML context.
+
+    For example, given a file ``main.qml`` like this:
+
+    ::
+
+                import QtQuick 1.0
+                
+                Item {
+                    width: 200; height: 200
+                }
+
+
+    The following code evaluates a JavaScript expression in the context of the above QML:
+
+    ::
+
+                QDeclarativeEngine *engine = new QDeclarativeEngine;
+                QDeclarativeComponent component(engine, QUrl::fromLocalFile("main.qml"));
+                
+                QObject *myObject = component.create();
+                QDeclarativeExpression *expr = new QDeclarativeExpression(engine->rootContext(), myObject, "width * 2");
+                int result = expr->evaluate().toInt();  // result = 400
+
+
+
+.. class:: QDeclarativeExpression()
+           QDeclarativeExpression(arg__1, arg__2, arg__3[, arg__4=None])
+
+    :param arg__4: :class:`PySide.QtCore.QObject`
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :param arg__2: :class:`PySide.QtCore.QObject`
+    :param arg__3: unicode
+
+    Create an invalid :class:`PySide.QtDeclarative.QDeclarativeExpression` .
+
+    As the expression will not have an associated :class:`PySide.QtDeclarative.QDeclarativeContext` , this will be a null expression object and its value will always be an invalid :class:`PySide.QtCore.QVariant` .
+
+
+    Create a :class:`PySide.QtDeclarative.QDeclarativeExpression` object that is a child of ``parent`` .
+
+    The ``expression`` JavaScript will be executed in the ``ctxt``\ :class:`PySide.QtDeclarative.QDeclarativeContext` . If specified, the ``scope`` object's properties will also be in scope during the expression's execution.
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.clearError()
+
+
+
+
+
+
+    Clear any expression errors. Calls to :meth:`PySide.QtDeclarative.QDeclarativeExpression.hasError` following this will return false.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.hasError`  :meth:`PySide.QtDeclarative.QDeclarativeExpression.error` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.context()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Returns the :class:`PySide.QtDeclarative.QDeclarativeContext` this expression is associated with, or 0 if there is no association or the :class:`PySide.QtDeclarative.QDeclarativeContext` has been destroyed.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.engine()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+
+
+
+
+    Returns the :class:`PySide.QtDeclarative.QDeclarativeEngine` this expression is associated with, or 0 if there is no association or the :class:`PySide.QtDeclarative.QDeclarativeEngine` has been destroyed.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.error()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeError`
+
+
+
+
+    Return any error from the last call to :meth:`PySide.QtDeclarative.QDeclarativeExpression.evaluate` . If there was no error, this returns an invalid :class:`PySide.QtDeclarative.QDeclarativeError` instance.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.hasError`  :meth:`PySide.QtDeclarative.QDeclarativeExpression.clearError` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.evaluate()
+
+
+    :rtype: object
+
+
+
+
+    Evaulates the expression, returning the result of the evaluation, or an invalid :class:`PySide.QtCore.QVariant` if the expression is invalid or has an error.
+
+    ``valueIsUndefined`` is set to true if the expression resulted in an undefined value.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.hasError`  :meth:`PySide.QtDeclarative.QDeclarativeExpression.error` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.expression()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the expression string.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.setExpression` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.hasError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the last call to :meth:`PySide.QtDeclarative.QDeclarativeExpression.evaluate` resulted in an error, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.error`  :meth:`PySide.QtDeclarative.QDeclarativeExpression.clearError` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.lineNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the source file line number for this expression. The source location must have been previously set by calling :meth:`PySide.QtDeclarative.QDeclarativeExpression.setSourceLocation` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.notifyOnValueChanged()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :meth:`PySide.QtDeclarative.QDeclarativeExpression.valueChanged` signal is emitted when the expression's evaluated value changes.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.setNotifyOnValueChanged` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.scopeObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the expression's scope object, if provided, otherwise 0.
+
+    In addition to data provided by the expression's :class:`PySide.QtDeclarative.QDeclarativeContext` , the scope object's properties are also in scope during the expression's evaluation.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.setExpression(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    Set the expression to ``expression`` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.expression` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.setNotifyOnValueChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets whether the :meth:`PySide.QtDeclarative.QDeclarativeExpression.valueChanged` signal is emitted when the expression's evaluated value changes.
+
+    If ``notifyOnChange`` is true, the :class:`PySide.QtDeclarative.QDeclarativeExpression` will monitor properties involved in the expression's evaluation, and emit :meth:`QDeclarativeExpression.valueChanged()<PySide.QtDeclarative.QDeclarativeExpression.valueChanged>` if they have changed. This allows an application to ensure that any value associated with the result of the expression remains up to date.
+
+    If ``notifyOnChange`` is false (default), the :class:`PySide.QtDeclarative.QDeclarativeExpression` will not montitor properties involved in the expression's evaluation, and :meth:`QDeclarativeExpression.valueChanged()<PySide.QtDeclarative.QDeclarativeExpression.valueChanged>` will never be emitted. This is more efficient if an application wants a "one off" evaluation of the expression.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeExpression.notifyOnValueChanged` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.setSourceLocation(fileName, line)
+
+
+    :param fileName: unicode
+    :param line: :class:`PySide.QtCore.int`
+
+
+
+
+    Set the location of this expression to ``line`` of ``url`` . This information is used by the script engine.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.sourceFile()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the source file URL for this expression. The source location must have been previously set by calling :meth:`PySide.QtDeclarative.QDeclarativeExpression.setSourceLocation` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeExpression.valueChanged()
+
+
+
+
+
+
+
+
+

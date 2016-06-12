@@ -1,0 +1,257 @@
+.. module:: PySide.QtGui
+.. _QDrag:
+
+QDrag
+*****
+
+.. inheritance-diagram:: QDrag
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`exec_<PySide.QtGui.QDrag.exec_>` ([supportedActions=Qt.MoveAction])
+*    def :meth:`exec_<PySide.QtGui.QDrag.exec_>` (supportedActions, defaultAction)
+*    def :meth:`hotSpot<PySide.QtGui.QDrag.hotSpot>` ()
+*    def :meth:`mimeData<PySide.QtGui.QDrag.mimeData>` ()
+*    def :meth:`pixmap<PySide.QtGui.QDrag.pixmap>` ()
+*    def :meth:`setDragCursor<PySide.QtGui.QDrag.setDragCursor>` (cursor, action)
+*    def :meth:`setHotSpot<PySide.QtGui.QDrag.setHotSpot>` (hotspot)
+*    def :meth:`setMimeData<PySide.QtGui.QDrag.setMimeData>` (data)
+*    def :meth:`setPixmap<PySide.QtGui.QDrag.setPixmap>` (arg__1)
+*    def :meth:`source<PySide.QtGui.QDrag.source>` ()
+*    def :meth:`start<PySide.QtGui.QDrag.start>` ([supportedActions=Qt.CopyAction])
+*    def :meth:`target<PySide.QtGui.QDrag.target>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionChanged<PySide.QtGui.QDrag.actionChanged>` (action)
+*    def :meth:`targetChanged<PySide.QtGui.QDrag.targetChanged>` (newTarget)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDrag` class provides support for MIME-based drag and drop data transfer.
+
+    Drag and drop is an intuitive way for users to copy or move data around in an application, and is used in many desktop environments as a mechanism for copying data between applications. Drag and drop support in Qt is centered around the :class:`PySide.QtGui.QDrag` class that handles most of the details of a drag and drop operation.
+
+    The data to be transferred by the drag and drop operation is contained in a :class:`PySide.QtCore.QMimeData` object. This is specified with the :meth:`PySide.QtGui.QDrag.setMimeData` function in the following way:
+
+    ::
+
+                drag =  QDrag(self)
+                mimeData =  QMimeData()
+
+                mimeData.setText(commentEdit.toPlainText())
+                drag.setMimeData(mimeData)
+
+
+    Note that :meth:`PySide.QtGui.QDrag.setMimeData` assigns ownership of the :class:`PySide.QtCore.QMimeData` object to the :class:`PySide.QtGui.QDrag` object. The :class:`PySide.QtGui.QDrag` must be constructed on the heap with a parent :class:`PySide.QtGui.QWidget` to ensure that Qt can clean up after the drag and drop operation has been completed.
+
+    A pixmap can be used to represent the data while the drag is in progress, and will move with the cursor to the drop target. This pixmap typically shows an icon that represents the MIME type of the data being transferred, but any pixmap can be set with :meth:`PySide.QtGui.QDrag.setPixmap` . The cursor's hot spot can be given a position relative to the top-left corner of the pixmap with the :meth:`PySide.QtGui.QDrag.setHotSpot` function. The following code positions the pixmap so that the cursor's hot spot points to the center of its bottom edge:
+
+    ::
+
+            drag.setHotSpot(QPoint(drag.pixmap().width()/2,
+                                   drag.pixmap().height()))
+
+
+    .. note::  On X11, the pixmap may not be able to keep up with the mouse movements if the hot spot causes the pixmap to be displayed directly under the cursor.
+
+    The source and target widgets can be found with :meth:`PySide.QtGui.QDrag.source` and :meth:`PySide.QtGui.QDrag.target` . These functions are often used to determine whether drag and drop operations started and finished at the same widget, so that special behavior can be implemented.
+
+    :class:`PySide.QtGui.QDrag` only deals with the drag and drop operation itself. It is up to the developer to decide when a drag operation begins, and how a :class:`PySide.QtGui.QDrag` object should be constructed and used. For a given widget, it is often necessary to reimplement :meth:`PySide.QtGui.QWidget.mousePressEvent` to determine whether the user has pressed a mouse button, and reimplement :meth:`PySide.QtGui.QWidget.mouseMoveEvent` to check whether a :class:`PySide.QtGui.QDrag` is required.
+
+    .. seealso::  :ref:`Drag and Drop<dnd.html>`  :class:`PySide.QtGui.QClipboard`  :class:`PySide.QtCore.QMimeData`  :class:`~PySide.QtGui.QWindowsMime`  :class:`~PySide.QtGui.QMacPasteboardMime`  :ref:`Draggable Icons Example<draganddrop/draggableicons>`  :ref:`Draggable Text Example<draganddrop/draggabletext>`  :ref:`Drop Site Example<draganddrop/dropsite>`  :ref:`Fridge Magnets Example<draganddrop/fridgemagnets>` 
+
+.. class:: QDrag(dragSource)
+
+    :param dragSource: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new drag object for the widget specified by ``dragSource`` .
+
+
+.. method:: PySide.QtGui.QDrag.actionChanged(action)
+
+
+    :param action: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDrag.exec_([supportedActions=Qt.MoveAction])
+
+
+    :param supportedActions: :class:`PySide.QtCore.Qt.DropActions`
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDrag.exec_(supportedActions, defaultAction)
+
+
+    :param supportedActions: :class:`PySide.QtCore.Qt.DropActions`
+    :param defaultAction: :attr:`PySide.QtCore.Qt.DropAction`
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDrag.hotSpot()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the hot spot relative to the top-left corner of the cursor.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.setHotSpot` 
+
+
+.. method:: PySide.QtGui.QDrag.mimeData()
+
+
+    :rtype: :class:`PySide.QtCore.QMimeData`
+
+
+
+
+    Returns the MIME data that is encapsulated by the drag object.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.setMimeData` 
+
+
+.. method:: PySide.QtGui.QDrag.pixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the pixmap used to represent the data in a drag and drop operation.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.setPixmap` 
+
+
+.. method:: PySide.QtGui.QDrag.setDragCursor(cursor, action)
+
+
+    :param cursor: :class:`PySide.QtGui.QPixmap`
+    :param action: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDrag.setHotSpot(hotspot)
+
+
+    :param hotspot: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Sets the position of the hot spot relative to the top-left corner of the pixmap used to the point specified by ``hotspot`` .
+
+    .. note::  on X11, the pixmap may not be able to keep up with the mouse movements if the hot spot causes the pixmap to be displayed directly under the cursor.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.hotSpot` 
+
+
+.. method:: PySide.QtGui.QDrag.setMimeData(data)
+
+
+    :param data: :class:`PySide.QtCore.QMimeData`
+
+
+
+
+    Sets the data to be sent to the given MIME ``data`` . Ownership of the data is transferred to the :class:`PySide.QtGui.QDrag` object.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.mimeData` 
+
+
+.. method:: PySide.QtGui.QDrag.setPixmap(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets ``pixmap`` as the pixmap used to represent the data in a drag and drop operation. You can only set a pixmap before the drag is started.
+
+    .. seealso::  :meth:`PySide.QtGui.QDrag.pixmap` 
+
+
+.. method:: PySide.QtGui.QDrag.source()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the source of the drag object. This is the widget where the drag and drop operation originated.
+
+
+
+.. method:: PySide.QtGui.QDrag.start([supportedActions=Qt.CopyAction])
+
+
+    :param supportedActions: :class:`PySide.QtCore.Qt.DropActions`
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDrag.target()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the target of the drag and drop operation. This is the widget where the drag object was dropped.
+
+
+
+.. method:: PySide.QtGui.QDrag.targetChanged(newTarget)
+
+
+    :param newTarget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+

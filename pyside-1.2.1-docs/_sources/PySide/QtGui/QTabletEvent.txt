@@ -1,0 +1,362 @@
+.. module:: PySide.QtGui
+.. _QTabletEvent:
+
+QTabletEvent
+************
+
+.. inheritance-diagram:: QTabletEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`device<PySide.QtGui.QTabletEvent.device>` ()
+*    def :meth:`globalPos<PySide.QtGui.QTabletEvent.globalPos>` ()
+*    def :meth:`globalX<PySide.QtGui.QTabletEvent.globalX>` ()
+*    def :meth:`globalY<PySide.QtGui.QTabletEvent.globalY>` ()
+*    def :meth:`hiResGlobalPos<PySide.QtGui.QTabletEvent.hiResGlobalPos>` ()
+*    def :meth:`hiResGlobalX<PySide.QtGui.QTabletEvent.hiResGlobalX>` ()
+*    def :meth:`hiResGlobalY<PySide.QtGui.QTabletEvent.hiResGlobalY>` ()
+*    def :meth:`pointerType<PySide.QtGui.QTabletEvent.pointerType>` ()
+*    def :meth:`pos<PySide.QtGui.QTabletEvent.pos>` ()
+*    def :meth:`pressure<PySide.QtGui.QTabletEvent.pressure>` ()
+*    def :meth:`rotation<PySide.QtGui.QTabletEvent.rotation>` ()
+*    def :meth:`tangentialPressure<PySide.QtGui.QTabletEvent.tangentialPressure>` ()
+*    def :meth:`uniqueId<PySide.QtGui.QTabletEvent.uniqueId>` ()
+*    def :meth:`x<PySide.QtGui.QTabletEvent.x>` ()
+*    def :meth:`xTilt<PySide.QtGui.QTabletEvent.xTilt>` ()
+*    def :meth:`y<PySide.QtGui.QTabletEvent.y>` ()
+*    def :meth:`yTilt<PySide.QtGui.QTabletEvent.yTilt>` ()
+*    def :meth:`z<PySide.QtGui.QTabletEvent.z>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTabletEvent` class contains parameters that describe a Tablet event.
+
+    Tablet Events are generated from a Wacom tablet. Most of the time you will want to deal with events from the tablet as if they were events from a mouse; for example, you would retrieve the cursor position with :meth:`PySide.QtGui.QTabletEvent.x` , :meth:`PySide.QtGui.QTabletEvent.y` , :meth:`PySide.QtGui.QTabletEvent.pos` , :meth:`PySide.QtGui.QTabletEvent.globalX` , :meth:`PySide.QtGui.QTabletEvent.globalY` , and :meth:`PySide.QtGui.QTabletEvent.globalPos` . In some situations you may wish to retrieve the extra information provided by the tablet device driver; for example, you might want to do subpixeling with higher resolution coordinates or you may want to adjust color brightness based on pressure. :class:`PySide.QtGui.QTabletEvent` allows you to read the :meth:`PySide.QtGui.QTabletEvent.pressure` , the :meth:`PySide.QtGui.QTabletEvent.xTilt` , and :meth:`PySide.QtGui.QTabletEvent.yTilt` , as well as the type of device being used with :meth:`PySide.QtGui.QTabletEvent.device` (see :attr:`QTabletEvent.TabletDevice` ). It can also give you the minimum and maximum values for each device's pressure and high resolution coordinates.
+
+    A tablet event contains a special accept flag that indicates whether the receiver wants the event. You should call :meth:`QTabletEvent.accept()<PySide.QtGui.QTabletEvent.accept>` if you handle the tablet event; otherwise it will be sent to the parent widget. The exception are :attr:`TabletEnterProximity<QEvent.Type>` and :attr:`TabletLeaveProximity<QEvent.Type>` events, these are only sent to :class:`PySide.QtGui.QApplication` and don't check whether or not they are accepted.
+
+    The :meth:`QWidget.setEnabled()<PySide.QtGui.QWidget.setEnabled>` function can be used to enable or disable mouse and keyboard events for a widget.
+
+    The event handler :meth:`QWidget.tabletEvent()<PySide.QtGui.QWidget.tabletEvent>` receives all three types of tablet events. Qt will first send a tabletEvent then, if it is not accepted, it will send a mouse event. This allows applications that don't utilize tablets to use a tablet like a mouse, while also enabling those who want to use both tablets and mouses differently.
+
+    .. _PySide.QtGui.QTabletEvent_notes-for-x11-users:
+
+
+
+Notes for X11 Users
+^^^^^^^^^^^^^^^^^^^
+
+    Qt uses the following hard-coded names to identify tablet devices from the xorg.conf file on X11 (apart from IRIX): 'stylus', 'pen', and 'eraser'. If the devices have other names, they will not be picked up Qt.
+
+
+.. class:: QTabletEvent(t, pos, globalPos, hiResGlobalPos, device, pointerType, pressure, xTilt, yTilt, tangentialPressure, rotation, z, keyState, uniqueID)
+
+    :param keyState: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pointerType: :class:`PySide.QtCore.int`
+    :param z: :class:`PySide.QtCore.int`
+    :param rotation: :class:`PySide.QtCore.qreal`
+    :param globalPos: :class:`PySide.QtCore.QPoint`
+    :param device: :class:`PySide.QtCore.int`
+    :param uniqueID: :class:`PySide.QtCore.qint64`
+    :param hiResGlobalPos: :class:`PySide.QtCore.QPointF`
+    :param xTilt: :class:`PySide.QtCore.int`
+    :param tangentialPressure: :class:`PySide.QtCore.qreal`
+    :param t: :attr:`PySide.QtCore.QEvent.Type`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param pressure: :class:`PySide.QtCore.qreal`
+    :param yTilt: :class:`PySide.QtCore.int`
+
+
+
+.. attribute:: PySide.QtGui.QTabletEvent.TabletDevice
+
+    This enum defines what type of device is generating the event.
+
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                  |
+    +===========================+=============================================================================================+
+    |QTabletEvent.NoDevice      |No device, or an unknown device.                                                             |
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |QTabletEvent.Puck          |A Puck (a device that is similar to a flat mouse with a transparent circle with cross-hairs).|
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |QTabletEvent.Stylus        |A Stylus.                                                                                    |
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |QTabletEvent.Airbrush      |An airbrush                                                                                  |
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |QTabletEvent.FourDMouse    |A 4D Mouse.                                                                                  |
+    +---------------------------+---------------------------------------------------------------------------------------------+
+    |QTabletEvent.RotationStylus|A special stylus that also knows about rotation (a 6D stylus).                               |
+    +---------------------------+---------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QTabletEvent.PointerType
+
+    This enum defines what type of point is generating the event.
+
+    +---------------------------+--------------------------------------------------------------+
+    |Constant                   |Description                                                   |
+    +===========================+==============================================================+
+    |QTabletEvent.UnknownPointer|An unknown device.                                            |
+    +---------------------------+--------------------------------------------------------------+
+    |QTabletEvent.Pen           |Tip end of a stylus-like device (the narrow end of the pen).  |
+    +---------------------------+--------------------------------------------------------------+
+    |QTabletEvent.Cursor        |Any puck-like device.                                         |
+    +---------------------------+--------------------------------------------------------------+
+    |QTabletEvent.Eraser        |Eraser end of a stylus-like device (the broad end of the pen).|
+    +---------------------------+--------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.pointerType` 
+
+.. method:: PySide.QtGui.QTabletEvent.device()
+
+
+    :rtype: :attr:`PySide.QtGui.QTabletEvent.TabletDevice`
+
+
+
+
+    Returns the type of device that generated the event.
+
+    .. seealso::  :attr:`QTabletEvent.TabletDevice` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.globalPos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the global position of the device *at the time of the event* . This is important on asynchronous windows systems like X11; whenever you move your widgets around in response to mouse events, :meth:`PySide.QtGui.QTabletEvent.globalPos` can differ significantly from the current position :meth:`QCursor.pos()<PySide.QtGui.QCursor.pos>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.globalX`  :meth:`PySide.QtGui.QTabletEvent.globalY`  :meth:`PySide.QtGui.QTabletEvent.hiResGlobalPos` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.globalX()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global x position of the mouse pointer at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.globalY`  :meth:`PySide.QtGui.QTabletEvent.globalPos`  :meth:`PySide.QtGui.QTabletEvent.hiResGlobalX` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.globalY()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the global y position of the tablet device at the time of the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.globalX`  :meth:`PySide.QtGui.QTabletEvent.globalPos`  :meth:`PySide.QtGui.QTabletEvent.hiResGlobalY` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.hiResGlobalPos()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    The high precision coordinates delivered from the tablet expressed. Sub pixeling information is in the fractional part of the :class:`PySide.QtCore.QPointF` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.globalPos`  :meth:`PySide.QtGui.QTabletEvent.hiResGlobalX`  :meth:`PySide.QtGui.QTabletEvent.hiResGlobalY` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.hiResGlobalX()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    The high precision x position of the tablet device.
+
+
+
+.. method:: PySide.QtGui.QTabletEvent.hiResGlobalY()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    The high precision y position of the tablet device.
+
+
+
+.. method:: PySide.QtGui.QTabletEvent.pointerType()
+
+
+    :rtype: :attr:`PySide.QtGui.QTabletEvent.PointerType`
+
+
+
+
+    Returns the type of point that generated the event.
+
+
+
+.. method:: PySide.QtGui.QTabletEvent.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the device, relative to the widget that received the event.
+
+    If you move widgets around in response to mouse events, use :meth:`PySide.QtGui.QTabletEvent.globalPos` instead of this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.x`  :meth:`PySide.QtGui.QTabletEvent.y`  :meth:`PySide.QtGui.QTabletEvent.globalPos` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.pressure()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the pressure for the device. 0.0 indicates that the stylus is not on the tablet, 1.0 indicates the maximum amount of pressure for the stylus.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.tangentialPressure` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.rotation()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the rotation of the current device in degress. This is usually given by a 4D Mouse. If the device doesn't support rotation this value is always 0.0.
+
+
+
+.. method:: PySide.QtGui.QTabletEvent.tangentialPressure()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the tangential pressure for the device. This is typically given by a finger wheel on an airbrush tool. The range is from -1.0 to 1.0. 0.0 indicates a neutral position. Current airbrushes can only move in the positive direction from the neutrual position. If the device does not support tangential pressure, this value is always 0.0.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.pressure` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.uniqueId()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns a unique ID for the current device, making it possible to differentiate between multiple devices being used at the same time on the tablet.
+
+    Support of this feature is dependent on the tablet.
+
+    Values for the same device may vary from OS to OS.
+
+    Later versions of the Wacom driver for Linux will now report the ID information. If you have a tablet that supports unique ID and are not getting the information on Linux, consider upgrading your driver.
+
+    As of Qt 4.2, the unique ID is the same regardless of the orientation of the pen. Earlier versions would report a different value when using the eraser-end versus the pen-end of the stylus on some OS's.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.pointerType` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.x()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the x position of the device, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.y`  :meth:`PySide.QtGui.QTabletEvent.pos` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.xTilt()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the angle between the device (a pen, for example) and the perpendicular in the direction of the x axis. Positive values are towards the tablet's physical right. The angle is in the range -60 to +60 degrees.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtabletevent-tilt.png
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.yTilt` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.y()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the y position of the device, relative to the widget that received the event.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.x`  :meth:`PySide.QtGui.QTabletEvent.pos` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.yTilt()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the angle between the device (a pen, for example) and the perpendicular in the direction of the y axis. Positive values are towards the bottom of the tablet. The angle is within the range -60 to +60 degrees.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.xTilt` 
+
+
+.. method:: PySide.QtGui.QTabletEvent.z()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the z position of the device. Typically this is represented by a wheel on a 4D Mouse. If the device does not support a Z-axis, this value is always zero. This is **not** the same as pressure.
+
+    .. seealso::  :meth:`PySide.QtGui.QTabletEvent.pressure` 
+
+
+

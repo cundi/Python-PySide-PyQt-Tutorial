@@ -1,0 +1,552 @@
+.. module:: PySide.QtXmlPatterns
+.. _QAbstractXmlNodeModel:
+
+QAbstractXmlNodeModel
+*********************
+
+.. inheritance-diagram:: QAbstractXmlNodeModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createIndex<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` (data)
+*    def :meth:`createIndex<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` (data, additionalData)
+*    def :meth:`createIndex<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` (pointer[, additionalData=0])
+*    def :meth:`sourceLocation<PySide.QtXmlPatterns.QAbstractXmlNodeModel.sourceLocation>` (index)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`attributes<PySide.QtXmlPatterns.QAbstractXmlNodeModel.attributes>` (element)
+*    def :meth:`baseUri<PySide.QtXmlPatterns.QAbstractXmlNodeModel.baseUri>` (ni)
+*    def :meth:`compareOrder<PySide.QtXmlPatterns.QAbstractXmlNodeModel.compareOrder>` (ni1, ni2)
+*    def :meth:`documentUri<PySide.QtXmlPatterns.QAbstractXmlNodeModel.documentUri>` (ni)
+*    def :meth:`elementById<PySide.QtXmlPatterns.QAbstractXmlNodeModel.elementById>` (NCName)
+*    def :meth:`isDeepEqual<PySide.QtXmlPatterns.QAbstractXmlNodeModel.isDeepEqual>` (ni1, ni2)
+*    def :meth:`kind<PySide.QtXmlPatterns.QAbstractXmlNodeModel.kind>` (ni)
+*    def :meth:`name<PySide.QtXmlPatterns.QAbstractXmlNodeModel.name>` (ni)
+*    def :meth:`namespaceBindings<PySide.QtXmlPatterns.QAbstractXmlNodeModel.namespaceBindings>` (n)
+*    def :meth:`namespaceForPrefix<PySide.QtXmlPatterns.QAbstractXmlNodeModel.namespaceForPrefix>` (ni, prefix)
+*    def :meth:`nextFromSimpleAxis<PySide.QtXmlPatterns.QAbstractXmlNodeModel.nextFromSimpleAxis>` (axis, origin)
+*    def :meth:`nodesByIdref<PySide.QtXmlPatterns.QAbstractXmlNodeModel.nodesByIdref>` (NCName)
+*    def :meth:`root<PySide.QtXmlPatterns.QAbstractXmlNodeModel.root>` (n)
+*    def :meth:`sendNamespaces<PySide.QtXmlPatterns.QAbstractXmlNodeModel.sendNamespaces>` (n, receiver)
+*    def :meth:`stringValue<PySide.QtXmlPatterns.QAbstractXmlNodeModel.stringValue>` (n)
+*    def :meth:`typedValue<PySide.QtXmlPatterns.QAbstractXmlNodeModel.typedValue>` (n)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isIgnorableInDeepEqual<PySide.QtXmlPatterns.QAbstractXmlNodeModel.isIgnorableInDeepEqual>` (n)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` class is an abstract base class for modeling non-XML data to look like XML for :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+    The :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` specifies the interface that a node model must implement for that node model be accessible to the query engine for processing :ref:`XQuery<xmlprocessing.html>` queries. A node model represents data as a structure that can be queried as if the data were XML.
+
+    The node model represented by a subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` is meant to be accessed by the :ref:`QtXmlPatterns` query engine. If the API seems a little strange in a few places, it is because the member functions are called by the query engine as it evaluates an :ref:`XQuery<xmlprocessing.html>` . They aren't meant to be used programatically.
+
+    .. _PySide.QtXmlPatterns.QAbstractXmlNodeModel_usage:
+
+
+
+Usage
+^^^^^
+
+    :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` bridges the gap between the arbitrary structure of the non-XML data to be queried and the well-defined structure of XML data understood by :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+    Consider a chemistry application that reads the file ``chemistryData`` , which contains non-XML data that represents a chemical structure composed of molecules and atoms. The application will query this chemistry data with an :ref:`XQuery<xmlprocessing.html>` it reads from file ``queryFile`` . We write a custom subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` (``ChemistryNodeModel`` ) that reads ``chemistryData`` and builds a data structure, perhaps composed of objects of our own classes ``molecule`` and ``atom`` . Clearly, this data structure is not XML. Our custom subclass will know how to traverse this non-XML structure and present it through the XPath Data Model interface.
+
+    ::
+
+        QFile queryFile(argv[1]);
+        QFile chemistryData(argv[2]);
+        QString moleculeName = argv[3];
+
+        QXmlQuery query;
+        query.setQuery(&queryFile, QUrl::fromLocalFile(queryFile.fileName()));
+
+        ChemistryNodeModel myNodeModel(query.namePool(), chemistryData);
+        QXmlNodeModelIndex startNode = myNodeModel.nodeFor(moleculeName);
+        query.bindVariable("queryRoot", startNode);
+
+        QFile out;
+        out.open(stdout, QIODevice::WriteOnly);
+
+        QXmlSerializer serializer(query, &out);
+        query.evaluateTo(&serializer);
+
+
+    The application first creates an instance of :class:`PySide.QtXmlPatterns.QXmlQuery` and calls :meth:`PySide.QtXmlPatterns.QXmlQuery.setQuery` to read ``queryFile`` containing the :ref:`XQuery<xmlprocessing.html>` we want to run. Then it creates an instance of our custom node model class, ``ChemistryNodeModel`` , which is a subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` . Its constructor is called with the :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` obtained from our :class:`PySide.QtXmlPatterns.QXmlQuery` , and with the ``chemistryFile`` containing the structure of molecules and atoms to be queried. The :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` is required because our custom node model has the member function :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.name` , which returns the :class:`name<PySide.QtXmlPatterns.QXmlName>` of any node in the model. The :class:`query<PySide.QtXmlPatterns.QXmlQuery>` and the custom node model must use the same name pool for constructing these :class:`names<PySide.QtXmlPatterns.QXmlName>` . The constructor would then read ``chemistryFile`` and build the custom node model structure.
+
+    To connect the ``query`` to the custom node model, we must bind a variable name used in the query to a node in the model. The variable can then be used in the query as a starting node. First, an :class:`index<PySide.QtXmlPatterns.QXmlNodeModelIndex>` for the desired starting node is retrieved by calling :meth:`QAbstractXmlNodeModel.createIndex()<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` . Then the index is bound to a variable name, in this case ``queryRoot`` , by passing the name and the index to :meth:`QXmlQuery.bindVariable()<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` . The query can then use a variable reference ``$queryRoot`` to refer to the starting node. Note that if the :class:`query<PySide.QtXmlPatterns.QXmlQuery>` uses multiple variable references, a call to :meth:`QXmlQuery.bindVariable()<PySide.QtXmlPatterns.QXmlQuery.bindVariable>` is required to bind each different variable name to a node in the model.
+
+    The query is executed when the application calls one of the :class:`PySide.QtXmlPatterns.QXmlQuery` evaluation functions. The application uses QXmlQuery::evaluateTo( :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` \*), because it then uses a :class:`serializer<PySide.QtXmlPatterns.QXmlSerializer>` to out the query result as XML to ``stdout`` . We could have used QXmlQuery::evaluateTo( :class:`PySide.QtXmlPatterns.QXmlResultItems` \*) to get a list of result items, or QXmlQuery::evaluateTo( :class:`PySide.QtCore.QStringList` \*) if the query evaluated to a sequence of ``xs:string`` values.
+
+    During query execution, the engine iterates over the node model using :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.nextFromSimpleAxis` to get the :class:`index<PySide.QtXmlPatterns.QXmlNodeModelIndex>` of the next node to be visited. The engine can get the name of a node by calling :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.name` with the node's :class:`index<PySide.QtXmlPatterns.QXmlNodeModelIndex>` . :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.stringValue` , :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.baseUri` , :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.documentUri` and :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.kind` are also called as needed with a node :class:`index<PySide.QtXmlPatterns.QXmlNodeModelIndex>` .
+
+    The example demonstrates the standard pattern for using a subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` in combination with :class:`PySide.QtXmlPatterns.QXmlQuery` to perform an :ref:`XQuery<xmlprocessing.html>` .
+
+    .. _PySide.QtXmlPatterns.QAbstractXmlNodeModel_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    Because the XPath Data Model interface presented by :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` allows :class:`PySide.QtXmlPatterns.QXmlQuery` to operate on non-XML data as if it were XML, implementing subclasses of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` can involve a significant amount of work. The :class:`~PySide.QtXmlPatterns.QSimpleXmlNodeModel` class is provided to simplify the implementation for many common use cases.
+
+    .. _PySide.QtXmlPatterns.QAbstractXmlNodeModel_thread-safety:
+
+
+
+Thread Safety
+^^^^^^^^^^^^^
+
+    Because the node model can be accessed concurrently by threads in the :ref:`QtXmlPatterns` module, subclasses of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` must be written to be :ref:`thread-safe<threads-reentrancy.html>` . Classes that simplify implementing thread-safety include :class:`PySide.QtCore.QReadLocker` and :class:`PySide.QtCore.QWriteLocker` .
+
+    See the example :ref:`File System Example<xmlpatterns/filetree>` for a demonstration.
+
+
+.. class:: QAbstractXmlNodeModel()
+
+
+    Default constructor.
+
+
+.. attribute:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.SimpleAxis
+
+    Four axes that each contain one node only.
+
+    +-------------------------------------+--------------------------------------+
+    |Constant                             |Description                           |
+    +=====================================+======================================+
+    |QAbstractXmlNodeModel.Parent         |The parent of the context node        |
+    +-------------------------------------+--------------------------------------+
+    |QAbstractXmlNodeModel.FirstChild     |The first child of the context node   |
+    +-------------------------------------+--------------------------------------+
+    |QAbstractXmlNodeModel.PreviousSibling|The previous child of the context node|
+    +-------------------------------------+--------------------------------------+
+    |QAbstractXmlNodeModel.NextSibling    |The next child of the context node    |
+    +-------------------------------------+--------------------------------------+
+
+
+.. attribute:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.NodeCopySetting
+
+    Controls how nodes are copied with copyNodeTo.
+
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------+
+    |Constant                                |Description                                                                                                      |
+    +========================================+=================================================================================================================+
+    |QAbstractXmlNodeModel.InheritNamespaces |Copies the node with the ``copy-namespaces`` setting being ``inherit``. If not set, ``no-inherit`` is assumed.   |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------+
+    |QAbstractXmlNodeModel.PreserveNamespaces|Copies the node with the ``copy-namespaces`` settings being ``preserve``. If not set, ``no-preserve`` is assumed.|
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.attributes(element)
+
+
+    :param element: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: 
+
+
+
+
+    Returns the attributes of ``element`` . The caller guarantees that ``element`` is an element in this node model.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.baseUri(ni)
+
+
+    :param ni: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the base URI for the node whose index is ``n`` . The caller guarantees that ``n`` is not ``null`` and that it belongs to a node in this node model.
+
+    The base URI of a node can be extracted using the ``fn:base-uri()`` function. The base URI is typically used for resolving relative URIs that appear in the node or its children. It is conformant to just return the document URI, although that might not properly reflect the underlying data.
+
+    This function maps to the ``dm:base-uri`` accessor, which returns a base URI according to the following:
+
+
+    * For document nodes, the base URI and the document URI are the same.
+    * For elements, the base URI is the URI appearing in the element's ``xml:base`` attribute, if present, or it is resolved to the parent element's base URI.
+    * Namespace nodes have no base URI.
+    * The base URI for a processing instruction, comment, attribute, or text node is the base URI of the node's parent element.
+
+    The implementation guarantees to return a valid :class:`PySide.QtCore.QUrl` , or a default constructed :class:`PySide.QtCore.QUrl` . If a node has no base URI, as in the case where a comment has no parent, a default constructed :class:`PySide.QtCore.QUrl` is returned.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.compareOrder(ni1, ni2)
+
+
+    :param ni1: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :param ni2: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :attr:`PySide.QtXmlPatterns.QXmlNodeModelIndex.DocumentOrder`
+
+
+
+
+    This function returns the relative document order for the nodes indexed by ``ni1`` and ``ni2`` . It is used for the ``Is`` operator and for sorting nodes in document order.
+
+    The caller guarantees that ``ni1`` and ``ni2`` are not ``null`` and that both identify nodes in this node model.
+
+    If ``ni1`` is identical to ``ni2`` , :attr:`QXmlNodeModelIndex.Is<QXmlNodeModelIndex.DocumentOrder>` is returned. If ``ni1`` precedes ``ni2`` in document order, :attr:`QXmlNodeModelIndex.Precedes<QXmlNodeModelIndex.DocumentOrder>` is returned. If ``ni1`` follows ``ni2`` in document order, :attr:`QXmlNodeModelIndex.Follows<QXmlNodeModelIndex.DocumentOrder>` is returned.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex(pointer[, additionalData=0])
+
+
+    :param pointer: :class:`void`
+    :param additionalData: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    Creates a node index with ``pointer`` and ``additionalData`` as its internal data.
+
+    What ``pointer`` and ``additionalData`` is, is not constrained.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex(data, additionalData)
+
+
+    :param data: :class:`PySide.QtCore.qint64`
+    :param additionalData: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` containing ``data`` and ``additionalData`` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex(data)
+
+
+    :param data: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    Creates a node index with ``data`` as its internal data. ``data`` is not constrained.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.documentUri(ni)
+
+
+    :param ni: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the document URI of ``n`` . The document URI identifies the resource which is the document. For example, the document could be a regular file, e.g., ``file:/`` , or it could be the ``http://`` URL of the location of a file. The document URI is used for resolving URIs and to simply know where the document is.
+
+    If the node model maps to a URI in a natural way, return that URI. Otherwise, return the company or product URI. The document URI can be any URI as long as its valid and absolute.
+
+    The caller guarantees that ``n`` is not ``null`` and that it belongs to this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    This function maps to the ``dm:document-uri`` accessor, which returns a document URI according to the following:
+
+
+    * If ``n`` is a document node, return an absolute :class:`PySide.QtCore.QUrl` containing the document URI, or a default constructed :class:`PySide.QtCore.QUrl` . The latter signals that no document URI is available for the document node.
+    * For all other nodes, return a default constructed :class:`PySide.QtCore.QUrl` .
+
+    .. seealso::  :meth:`QUrl.isValid()<PySide.QtCore.QUrl.isValid>`  :meth:`QUrl.isRelative()<PySide.QtCore.QUrl.isRelative>` 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.elementById(NCName)
+
+
+    :param NCName: :class:`PySide.QtXmlPatterns.QXmlName`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    Returns the index of the element identified as ``id`` . :ref:`XQuery<xmlprocessing.html>` 's ``id()`` function calls this function.
+
+    The node index returned will be the element node whose value is of type ``ID`` and equals ``id`` , or it will be the element node that has an attribute whose typed value is of type ``ID`` and equals ``id`` . If there is no such element, a default constructed :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` instance is returned. The implementor guarantees that if the returned node index is not null, it identifies an element.
+
+    It is not sufficient for an attribute or element to merely be called ``id`` . Its value type must also be ``ID`` . However, the reserved name ``xml:id`` is sufficient.
+
+    In ``id`` , the ``namespace URI`` and the ``prefix`` are undefined, and the ``local name`` is the ID that should be looked up.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.isDeepEqual(ni1, ni2)
+
+
+    :param ni1: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :param ni2: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Determines whether ``ni1`` is deep equal to ``ni2`` .
+
+    :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.isDeepEqual` is defined as evaluating the expression ``fn:deep-equal($n1, $n2)`` where ``$n1`` is ``ni1`` and ``$n1`` is ``ni2`` . This function is associative, meaning the same value is returned regardless of if :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.isDeepEqual` is invoked with ``ni1`` as first argument or second. It is guaranteed that ``ni1`` and ``ni2`` are nodes, as opposed to the definition of ``fn:deep-equal()`` .
+
+    Returns true if ``ni1`` is deep-equal to ``ni2`` , otherwise false
+
+    .. seealso:: 
+
+
+.. staticmethod:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.isIgnorableInDeepEqual(n)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.kind(ni)
+
+
+    :param ni: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :attr:`PySide.QtXmlPatterns.QXmlNodeModelIndex.NodeKind`
+
+
+
+
+    Returns a value indicating the kind of node identified by ``ni`` . The caller guarantees that ``ni`` is not null and that it identifies a node in this node model. This function maps to the ``dm:node-kind()`` accessor.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.name(ni)
+
+
+    :param ni: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    Returns the name of ``ni`` . The caller guarantees that ``ni`` is not ``null`` and that it belongs to this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    If a node does not have a name, e.g., comment nodes, a null :class:`PySide.QtXmlPatterns.QXmlName` is returned. QXmlNames must be created with the instance of :class:`PySide.QtXmlPatterns.QXmlQuery` that is being used for evaluating queries using this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    This function maps to the ``dm:node-name()`` accessor.
+
+    If ``ni`` is a processing instruction, a :class:`PySide.QtXmlPatterns.QXmlName` is returned with the local name as the target name and the namespace URI and prefix both empty.
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QXmlName` 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.namespaceBindings(n)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: 
+
+
+
+
+    Returns the in-scope namespaces of ``n`` . The caller guarantees that ``n`` is not ``null`` and that it belongs to this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    This function corresponds to the ``dm:namespace-nodes`` accessor.
+
+    The returned vector of namespace declarations includes namespaces of the ancestors of ``n`` .
+
+    The caller guarantees that ``n`` is an Element that belongs to this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.namespaceForPrefix(ni, prefix)
+
+
+    :param ni: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :param prefix: :class:`PySide.QtCore.short`
+    :rtype: :class:`PySide.QtCore.short`
+
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.nextFromSimpleAxis(axis, origin)
+
+
+    :param axis: :attr:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.SimpleAxis`
+    :param origin: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    When :ref:`QtXmlPatterns` evaluate path expressions, it emulate them through a combination of calls with :attr:`QSimpleXmlNodeModel.SimpleAxis<QAbstractXmlNodeModel.SimpleAxis>` values. Therefore, the implementation of this function must return the node, if any, that appears on the ``axis`` emanating from the ``origin`` .
+
+    If no such node is available, a default constructed :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` is returned.
+
+    :class:`~PySide.QtXmlPatterns.QSimpleXmlNodeModel` eliminates the need to handle redundant corner cases by guaranteeing that it will never ask for:
+
+
+    * Children or siblings for attributes.
+    * Children for comments, processing instructions, and text nodes.
+    * Siblings or parents for document nodes.
+
+    A typical implementation performs a ``switch`` on the value of ``axis`` :
+
+    ::
+
+                QXmlNodeModelIndex MyTreeModel::nextFromSimpleAxis(SimpleAxis axis, const QXmlNodeModelIndex &origin) const
+                {
+                  // Convert the QXmlNodeModelIndex to a value that is specific to what we represent.
+                  const MyValue value = toMyValue(ni);
+                
+                  switch(axis)
+                  {
+                      case Parent:
+                          return toNodeIndex(value.parent());
+                      case FirstChild:
+                      case PreviousSibling:
+                      case NextSibling:
+                          // and so on
+                  }
+                }
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.nodesByIdref(NCName)
+
+
+    :param NCName: :class:`PySide.QtXmlPatterns.QXmlName`
+    :rtype: 
+
+
+
+
+    Returns the elements and/or attributes that have an ``IDREF`` value equal to ``idref`` . :ref:`XQuery<xmlprocessing.html>` 's ``idref()`` function calls this function.
+
+    The implementor guarantees that the nodes identified by the returned indexes are elements or attributes.
+
+    It is not sufficient for an attribute or element to merely be called ``idref`` . It must also be of type ``IDREF`` . Elements must be typed as ``xs:IDREF`` or ``xs:IDREFS`` , or, in the case of attributes, as ``IDREF`` or ``IDREFS`` in the schema.
+
+    In ``idref`` , the ``namespace URI`` and the ``prefix`` are undefined, and the ``local name`` is the ID that should be looked up.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.root(n)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    Returns the root node of the tree that contains the node whose index is ``n`` . The caller guarantees that ``n`` is not ``null`` and that it identifies a node in this node model.
+
+    If ``n`` identifies a node that is a direct child of the root, :meth:`~PySide.QtXmlPatterns.QAbstractXmlNodeModel.parent` would return the same :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` returned by this function.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.sendNamespaces(n, receiver)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :param receiver: :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver`
+
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.sourceLocation(index)
+
+
+    :param index: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtXmlPatterns.QSourceLocation`
+
+
+
+
+    Returns the source location for the object with the given ``index`` or a default constructed :class:`PySide.QtXmlPatterns.QSourceLocation` in case no location information is available.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.stringValue(n)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the string value for node ``n`` .
+
+    The caller guarantees that ``n`` is not ``null`` and that it belong to this :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` instance.
+
+    This function maps to the ``dm:string-value()`` accessor, which the specification completely specifies. Here's a summary:
+
+
+    * For processing instructions, the string value is the data section(excluding any whitespace appearing between the name and the data).
+    * For text nodes, the string value equals the text node.
+    * For comments, the content of the comment
+    * For elements, the concatenation of all text nodes that are descendants. Note, this is not only the children, but the childrens' childrens' text nodes, and so forth.
+    * For document nodes, the concatenation of all text nodes in the document.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlNodeModel.typedValue(n)
+
+
+    :param n: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: object
+
+
+
+
+    Returns the typed value for node ``node`` .
+
+    The typed value is an atomic value, which an element or attribute contains.
+
+    The caller guarantees that ``node`` is either an element or an attribute. The implementor guarantees that the returned :class:`PySide.QtCore.QVariant` has a value which is supported in :ref:`XQuery<xmlprocessing.html>` . It cannot be an arbitrary :class:`PySide.QtCore.QVariant` value. The implementor also guarantees that :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.stringValue` returns a lexical representation of :meth:`PySide.QtXmlPatterns.QAbstractXmlNodeModel.typedValue` (this is guaranteed by :meth:`QSimpleXmlNodeModel.stringValue` ).
+
+    If the return :class:`PySide.QtCore.QVariant` is a default constructed variant, it signals that ``node`` has no typed value.
+
+
+
+

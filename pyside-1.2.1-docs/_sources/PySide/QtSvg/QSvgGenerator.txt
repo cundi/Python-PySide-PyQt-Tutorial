@@ -1,0 +1,310 @@
+.. module:: PySide.QtSvg
+.. _QSvgGenerator:
+
+QSvgGenerator
+*************
+
+.. inheritance-diagram:: QSvgGenerator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`description<PySide.QtSvg.QSvgGenerator.description>` ()
+*    def :meth:`fileName<PySide.QtSvg.QSvgGenerator.fileName>` ()
+*    def :meth:`outputDevice<PySide.QtSvg.QSvgGenerator.outputDevice>` ()
+*    def :meth:`resolution<PySide.QtSvg.QSvgGenerator.resolution>` ()
+*    def :meth:`setDescription<PySide.QtSvg.QSvgGenerator.setDescription>` (description)
+*    def :meth:`setFileName<PySide.QtSvg.QSvgGenerator.setFileName>` (fileName)
+*    def :meth:`setOutputDevice<PySide.QtSvg.QSvgGenerator.setOutputDevice>` (outputDevice)
+*    def :meth:`setResolution<PySide.QtSvg.QSvgGenerator.setResolution>` (dpi)
+*    def :meth:`setSize<PySide.QtSvg.QSvgGenerator.setSize>` (size)
+*    def :meth:`setTitle<PySide.QtSvg.QSvgGenerator.setTitle>` (title)
+*    def :meth:`setViewBox<PySide.QtSvg.QSvgGenerator.setViewBox>` (viewBox)
+*    def :meth:`setViewBox<PySide.QtSvg.QSvgGenerator.setViewBox>` (viewBox)
+*    def :meth:`size<PySide.QtSvg.QSvgGenerator.size>` ()
+*    def :meth:`title<PySide.QtSvg.QSvgGenerator.title>` ()
+*    def :meth:`viewBox<PySide.QtSvg.QSvgGenerator.viewBox>` ()
+*    def :meth:`viewBoxF<PySide.QtSvg.QSvgGenerator.viewBoxF>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSvg.QSvgGenerator` class provides a paint device that is used to create SVG drawings.
+
+    This paint device represents a Scalable Vector Graphics (SVG) drawing. Like :class:`PySide.QtGui.QPrinter` , it is designed as a write-only device that generates output in a specific format.
+
+    To write an SVG file, you first need to configure the output by setting the :meth:`PySide.QtSvg.QSvgGenerator.fileName` or :meth:`PySide.QtSvg.QSvgGenerator.outputDevice` properties. It is usually necessary to specify the size of the drawing by setting the :meth:`PySide.QtSvg.QSvgGenerator.size` property, and in some cases where the drawing will be included in another, the :meth:`PySide.QtSvg.QSvgGenerator.viewBox` property also needs to be set.
+
+    ::
+
+            generator = QSvgGenerator()
+            generator.setFileName(path)
+            generator.setSize(QSize(200, 200))
+            generator.setViewBox(QRect(0, 0, 200, 200))
+            generator.setTitle(QObject.tr("SVG Generator Example Drawing"))
+            generator.setDescription(QObject.tr("An SVG drawing created by the SVG Generator Example provided with Qt."))
+
+
+    Other meta-data can be specified by setting the ``title`` , ``description`` and ``resolution`` properties.
+
+    As with other :class:`PySide.QtGui.QPaintDevice` subclasses, a :class:`PySide.QtGui.QPainter` object is used to paint onto an instance of this class:
+
+    ::
+
+            painter = QPainter()
+            painter.begin(generator)
+            ...
+            painter.end()
+
+
+    Painting is performed in the same way as for any other paint device. However, it is necessary to use the :meth:`QPainter.begin()<PySide.QtGui.QPainter.begin>` and :meth:`PySide.QtGui.QPainter.end` to explicitly begin and end painting on the device.
+
+    The :ref:`SVG Generator Example<painting/svggenerator>` shows how the same painting commands can be used for painting a widget and writing an SVG file.
+
+    .. seealso::  :class:`PySide.QtSvg.QSvgRenderer`  :class:`PySide.QtSvg.QSvgWidget`  :ref:`About SVG<http://www.w3.org/Graphics/SVG/About.html>` 
+
+.. class:: QSvgGenerator()
+
+
+    Constructs a new generator.
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.description()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the description of the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.title` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the target filename for the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.outputDevice` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.outputDevice()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    This property holds the output device for the generated SVG drawing.
+
+    If both output device and file name are specified, the output device will have precedence.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.fileName` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.resolution()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the resolution of the generated output.
+
+    The resolution is specified in dots per inch, and is used to calculate the physical size of an SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.size`  :meth:`PySide.QtSvg.QSvgGenerator.viewBox` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setDescription(description)
+
+
+    :param description: unicode
+
+
+
+
+    This property holds the description of the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.title` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setFileName(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    This property holds the target filename for the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.outputDevice` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setOutputDevice(outputDevice)
+
+
+    :param outputDevice: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    This property holds the output device for the generated SVG drawing.
+
+    If both output device and file name are specified, the output device will have precedence.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.fileName` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setResolution(dpi)
+
+
+    :param dpi: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the resolution of the generated output.
+
+    The resolution is specified in dots per inch, and is used to calculate the physical size of an SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.size`  :meth:`PySide.QtSvg.QSvgGenerator.viewBox` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the size of the generated SVG drawing.
+
+    By default this property is set to ``QSize(-1, -1)`` , which indicates that the generator should not output the width and height attributes of the ``<svg>`` element.
+
+    .. note::  It is not possible to change this property while a :class:`PySide.QtGui.QPainter` is active on the generator.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.viewBox`  :meth:`PySide.QtSvg.QSvgGenerator.resolution` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setTitle(title)
+
+
+    :param title: unicode
+
+
+
+
+    This property holds the title of the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.description` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setViewBox(viewBox)
+
+
+    :param viewBox: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    This property holds the :meth:`PySide.QtSvg.QSvgGenerator.viewBox` of the generated SVG drawing.
+
+    By default this property is set to ``QRect(0, 0, -1, -1)`` , which indicates that the generator should not output the :meth:`PySide.QtSvg.QSvgGenerator.viewBox` attribute of the ``<svg>`` element.
+
+    .. note::  It is not possible to change this property while a :class:`PySide.QtGui.QPainter` is active on the generator.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.viewBox`  :meth:`PySide.QtSvg.QSvgGenerator.size`  :meth:`PySide.QtSvg.QSvgGenerator.resolution` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.setViewBox(viewBox)
+
+
+    :param viewBox: :class:`PySide.QtCore.QRect`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.viewBox` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.size()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the size of the generated SVG drawing.
+
+    By default this property is set to ``QSize(-1, -1)`` , which indicates that the generator should not output the width and height attributes of the ``<svg>`` element.
+
+    .. note::  It is not possible to change this property while a :class:`PySide.QtGui.QPainter` is active on the generator.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.viewBox`  :meth:`PySide.QtSvg.QSvgGenerator.resolution` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.title()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the title of the generated SVG drawing.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.description` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.viewBox()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns :meth:`PySide.QtSvg.QSvgGenerator.viewBoxF` . :meth:`~PySide.QtSvg.QSvgGenerator.toRect` .
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.setViewBox`  :meth:`PySide.QtSvg.QSvgGenerator.viewBoxF` 
+
+
+.. method:: PySide.QtSvg.QSvgGenerator.viewBoxF()
+
+
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    This property holds the :meth:`PySide.QtSvg.QSvgGenerator.viewBox` of the generated SVG drawing.
+
+    By default this property is set to ``QRect(0, 0, -1, -1)`` , which indicates that the generator should not output the :meth:`PySide.QtSvg.QSvgGenerator.viewBox` attribute of the ``<svg>`` element.
+
+    .. note::  It is not possible to change this property while a :class:`PySide.QtGui.QPainter` is active on the generator.
+
+    .. seealso::  :meth:`PySide.QtSvg.QSvgGenerator.viewBox`  :meth:`PySide.QtSvg.QSvgGenerator.size`  :meth:`PySide.QtSvg.QSvgGenerator.resolution` 
+
+
+

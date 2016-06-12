@@ -1,0 +1,184 @@
+.. module:: PySide.QtGui
+.. _QDropEvent:
+
+QDropEvent
+**********
+
+.. inheritance-diagram:: QDropEvent
+    :parts: 2
+
+**Inherited by:** :ref:`QDragMoveEvent`, :ref:`QDragEnterEvent`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`acceptProposedAction<PySide.QtGui.QDropEvent.acceptProposedAction>` ()
+*    def :meth:`dropAction<PySide.QtGui.QDropEvent.dropAction>` ()
+*    def :meth:`keyboardModifiers<PySide.QtGui.QDropEvent.keyboardModifiers>` ()
+*    def :meth:`mimeData<PySide.QtGui.QDropEvent.mimeData>` ()
+*    def :meth:`mouseButtons<PySide.QtGui.QDropEvent.mouseButtons>` ()
+*    def :meth:`pos<PySide.QtGui.QDropEvent.pos>` ()
+*    def :meth:`possibleActions<PySide.QtGui.QDropEvent.possibleActions>` ()
+*    def :meth:`proposedAction<PySide.QtGui.QDropEvent.proposedAction>` ()
+*    def :meth:`setDropAction<PySide.QtGui.QDropEvent.setDropAction>` (action)
+*    def :meth:`source<PySide.QtGui.QDropEvent.source>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDropEvent` class provides an event which is sent when a drag and drop action is completed.
+
+    When a widget :meth:`accepts drop events<PySide.QtGui.QWidget.setAcceptDrops>` , it will receive this event if it has accepted the most recent :class:`PySide.QtGui.QDragEnterEvent` or :class:`PySide.QtGui.QDragMoveEvent` sent to it.
+
+    The drop event contains a proposed action, available from :meth:`PySide.QtGui.QDropEvent.proposedAction` , for the widget to either accept or ignore. If the action can be handled by the widget, you should call the :meth:`PySide.QtGui.QDropEvent.acceptProposedAction` function. Since the proposed action can be a combination of :attr:`Qt.DropAction` values, it may be useful to either select one of these values as a default action or ask the user to select their preferred action.
+
+    If the proposed drop action is not suitable, perhaps because your custom widget does not support that action, you can replace it with any of the :meth:`possible drop actions<PySide.QtGui.QDropEvent.possibleActions>` by calling :meth:`PySide.QtGui.QDropEvent.setDropAction` with your preferred action. If you set a value that is not present in the bitwise OR combination of values returned by :meth:`PySide.QtGui.QDropEvent.possibleActions` , the default copy action will be used. Once a replacement drop action has been set, call :meth:`PySide.QtCore.QEvent.accept` instead of :meth:`PySide.QtGui.QDropEvent.acceptProposedAction` to complete the drop operation.
+
+    The :meth:`PySide.QtGui.QDropEvent.mimeData` function provides the data dropped on the widget in a :class:`PySide.QtCore.QMimeData` object. This contains information about the MIME type of the data in addition to the data itself.
+
+    .. seealso::  :class:`PySide.QtCore.QMimeData`  :class:`PySide.QtGui.QDrag`  :ref:`Drag and Drop<dnd.html>` 
+
+.. class:: QDropEvent(pos, actions, data, buttons, modifiers[, type=Drop])
+
+    :param actions: :class:`PySide.QtCore.Qt.DropActions`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+    :param data: :class:`PySide.QtCore.QMimeData`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param buttons: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+.. method:: PySide.QtGui.QDropEvent.acceptProposedAction()
+
+
+
+
+
+
+    Sets the drop action to be the proposed action.
+
+    .. seealso::  :meth:`PySide.QtGui.QDropEvent.setDropAction`  :meth:`PySide.QtGui.QDropEvent.proposedAction`  :meth:`PySide.QtCore.QEvent.accept` 
+
+
+.. method:: PySide.QtGui.QDropEvent.dropAction()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+    Returns the action to be performed on the data by the target. This may be different from the action supplied in :meth:`PySide.QtGui.QDropEvent.proposedAction` if you have called :meth:`PySide.QtGui.QDropEvent.setDropAction` to explicitly choose a drop action.
+
+    .. seealso::  :meth:`PySide.QtGui.QDropEvent.setDropAction` 
+
+
+.. method:: PySide.QtGui.QDropEvent.keyboardModifiers()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+
+
+
+
+    Returns the modifier keys that are pressed.
+
+
+
+.. method:: PySide.QtGui.QDropEvent.mimeData()
+
+
+    :rtype: :class:`PySide.QtCore.QMimeData`
+
+
+
+
+    Returns the data that was dropped on the widget and its associated MIME type information.
+
+
+
+.. method:: PySide.QtGui.QDropEvent.mouseButtons()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+
+    Returns the mouse buttons that are pressed..
+
+
+
+.. method:: PySide.QtGui.QDropEvent.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position where the drop was made.
+
+
+
+.. method:: PySide.QtGui.QDropEvent.possibleActions()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.DropActions`
+
+
+
+
+    Returns an OR-combination of possible drop actions.
+
+    .. seealso::  :meth:`PySide.QtGui.QDropEvent.dropAction` 
+
+
+.. method:: PySide.QtGui.QDropEvent.proposedAction()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+    Returns the proposed drop action.
+
+    .. seealso::  :meth:`PySide.QtGui.QDropEvent.dropAction` 
+
+
+.. method:: PySide.QtGui.QDropEvent.setDropAction(action)
+
+
+    :param action: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDropEvent.source()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    If the source of the drag operation is a widget in this application, this function returns that source; otherwise it returns 0. The source of the operation is the first parameter to the :class:`PySide.QtGui.QDrag` object used instantiate the drag.
+
+    This is useful if your widget needs special behavior when dragging to itself.
+
+    .. seealso::  :meth:`QDrag.QDrag()<PySide.QtGui.QDrag.QDrag>` 
+
+
+

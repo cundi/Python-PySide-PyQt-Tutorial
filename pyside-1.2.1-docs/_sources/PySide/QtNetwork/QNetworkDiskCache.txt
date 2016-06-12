@@ -1,0 +1,180 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkDiskCache:
+
+QNetworkDiskCache
+*****************
+
+.. inheritance-diagram:: QNetworkDiskCache
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cacheDirectory<PySide.QtNetwork.QNetworkDiskCache.cacheDirectory>` ()
+*    def :meth:`fileMetaData<PySide.QtNetwork.QNetworkDiskCache.fileMetaData>` (fileName)
+*    def :meth:`maximumCacheSize<PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize>` ()
+*    def :meth:`setCacheDirectory<PySide.QtNetwork.QNetworkDiskCache.setCacheDirectory>` (cacheDir)
+*    def :meth:`setMaximumCacheSize<PySide.QtNetwork.QNetworkDiskCache.setMaximumCacheSize>` (size)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`expire<PySide.QtNetwork.QNetworkDiskCache.expire>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkDiskCache` class provides a very basic disk cache.
+
+    :class:`PySide.QtNetwork.QNetworkDiskCache` stores each url in its own file inside of the cacheDirectory using :class:`PySide.QtCore.QDataStream` . Files with a text MimeType are compressed using qCompress. Each cache file starts with " :ref:`cache_<qmake-environment-reference.html>` " and ends in ".cache". Data is written to disk only in :meth:`PySide.QtNetwork.QNetworkDiskCache.insert` and :meth:`PySide.QtNetwork.QNetworkDiskCache.updateMetaData` .
+
+    Currently you can not share the same cache files with more then one disk cache.
+
+    :class:`PySide.QtNetwork.QNetworkDiskCache` by default limits the amount of space that the cache will use on the system to 50MB.
+
+    Note you have to set the cache directory before it will work.
+
+    A network disk cache can be enabled by:
+
+    ::
+
+        manager = QNetworkAccessManager(self)
+        diskCache = QNetworkDiskCache(self)
+        diskCache.setCacheDirectory("cacheDir")
+        manager.setCache(diskCache)
+
+
+    When sending requests, to control the preference of when to use the cache and when to use the network, consider the following:
+
+    ::
+
+        # do a normal request (preferred from network, as this is the default)
+        request = QNetworkRequest(QUrl("http://qt.nokia.com"))
+        manager.get(request)
+
+        # do a request preferred from cache
+        request2 = QNetworkRequest(QUrl("http://qt.nokia.com"))
+        request2.setAttribute(QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.PreferCache)
+        manager.get(request2)
+
+
+    To check whether the response came from the cache or from the network, the following can be applied:
+
+    ::
+
+        @Slot(QNetworkReply)
+        def replyFinished(reply):
+            fromCache = reply.attribute(QNetworkRequest.SourceIsFromCacheAttribute)
+            print("page from cache? %d" % fromCache)
+
+
+
+.. class:: QNetworkDiskCache([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a new disk cache. The ``parent`` argument is passed to :class:`PySide.QtNetwork.QAbstractNetworkCache` 's constructor.
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.cacheDirectory()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the location where cached files will be stored.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkDiskCache.setCacheDirectory` 
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.expire()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Cleans the cache so that its size is under the maximum cache size. Returns the current size of the cache.
+
+    When the current size of the cache is greater than the :meth:`PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize` older cache files are removed until the total size is less then 90% of :meth:`PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize` starting with the oldest ones first using the file creation date to determine how old a cache file is.
+
+    Subclasses can reimplement this function to change the order that cache files are removed taking into account information in the application knows about that :class:`PySide.QtNetwork.QNetworkDiskCache` does not, for example the number of times a cache is accessed.
+
+    Note: :meth:`PySide.QtNetwork.QNetworkDiskCache.cacheSize` calls expire if the current cache size is unknown.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize`  :meth:`PySide.QtNetwork.QNetworkDiskCache.fileMetaData` 
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.fileMetaData(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtNetwork.QNetworkCacheMetaData`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkCacheMetaData` for the cache file ``fileName`` .
+
+    If ``fileName`` is not a cache file :class:`PySide.QtNetwork.QNetworkCacheMetaData` will be invalid.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current maximum size in bytes for the disk cache.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkDiskCache.setMaximumCacheSize` 
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.setCacheDirectory(cacheDir)
+
+
+    :param cacheDir: unicode
+
+
+
+
+    Sets the directory where cached files will be stored to ``cacheDir``\
+
+    :class:`PySide.QtNetwork.QNetworkDiskCache` will create this directory if it does not exists.
+
+    Prepared cache items will be stored in the new cache directory when they are inserted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkDiskCache.cacheDirectory`  :attr:`QDesktopServices.CacheLocation<QDesktopServices.StandardLocation>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkDiskCache.setMaximumCacheSize(size)
+
+
+    :param size: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the maximum size of the disk cache to be ``size`` in bytes.
+
+    If the new size is smaller then the current cache size then the cache will call :meth:`PySide.QtNetwork.QNetworkDiskCache.expire` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkDiskCache.maximumCacheSize` 
+
+
+

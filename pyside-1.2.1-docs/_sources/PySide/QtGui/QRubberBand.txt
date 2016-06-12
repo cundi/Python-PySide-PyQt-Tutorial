@@ -1,0 +1,104 @@
+.. module:: PySide.QtGui
+.. _QRubberBand:
+
+QRubberBand
+***********
+
+.. inheritance-diagram:: QRubberBand
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initStyleOption<PySide.QtGui.QRubberBand.initStyleOption>` (option)
+*    def :meth:`shape<PySide.QtGui.QRubberBand.shape>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QRubberBand` class provides a rectangle or line that can indicate a selection or a boundary.
+
+    A rubber band is often used to show a new bounding area (as in a :class:`PySide.QtGui.QSplitter` or a :class:`PySide.QtGui.QDockWidget` that is undocking). Historically this has been implemented using a :class:`PySide.QtGui.QPainter` and XOR, but this approach doesn't always work properly since rendering can happen in the window below the rubber band, but before the rubber band has been "erased".
+
+    You can create a :class:`PySide.QtGui.QRubberBand` whenever you need to render a rubber band around a given area (or to represent a single line), then call :meth:`PySide.QtGui.QRubberBand.setGeometry` , :meth:`PySide.QtGui.QRubberBand.move` or :meth:`PySide.QtGui.QRubberBand.resize` to position and size it. A common pattern is to do this in conjunction with mouse events. For example:
+
+    ::
+
+        class Widget:
+            def mousePressEvent(self, event):
+                origin = event.pos()
+                if not self.rubberBand:
+                    self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+                rubberBand.setGeometry(QRect(origin, QSize()))
+                rubberBand.show()
+
+            def mouseMoveEvent(self, event):
+                rubberBand.setGeometry(QRect(origin, event.pos()).normalized())
+
+            def mouseReleaseEvent(self, event):
+                rubberBand.hide()
+                # determine selection, for example using QRect.intersects()
+                # and QRect.contains().
+
+
+    If you pass a parent to :class:`PySide.QtGui.QRubberBand` 's constructor, the rubber band will display only inside its parent, but stays on top of other child widgets. If no parent is passed, :class:`PySide.QtGui.QRubberBand` will act as a top-level widget.
+
+    Call :meth:`PySide.QtGui.QWidget.show` to make the rubber band visible; also when the rubber band is not a top-level. Hiding or destroying the widget will make the rubber band disappear. The rubber band can be a :attr:`Rectangle<QRubberBand.Shape>` or a :attr:`Line<QRubberBand.Shape>` (vertical or horizontal), depending on the :meth:`PySide.QtGui.QRubberBand.shape` it was given when constructed.
+
+
+.. class:: QRubberBand(arg__1[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param arg__1: :attr:`PySide.QtGui.QRubberBand.Shape`
+
+    Constructs a rubber band of shape ``s`` , with parent ``p`` .
+
+    By default a rectangular rubber band (``s`` is ``Rectangle`` ) will use a mask, so that a small border of the rectangle is all that is visible. Some styles (e.g., native Mac OS X) will change this and call :meth:`QWidget.setWindowOpacity()<PySide.QtGui.QWidget.setWindowOpacity>` to make a semi-transparent filled selection rectangle.
+
+
+.. attribute:: PySide.QtGui.QRubberBand.Shape
+
+    This enum specifies what shape a :class:`PySide.QtGui.QRubberBand` should have. This is a drawing hint that is passed down to the style system, and can be interpreted by each :class:`PySide.QtGui.QStyle` .
+
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                                                                                                            |
+    +=====================+=======================================================================================================================================================================================================+
+    |QRubberBand.Line     |A :class:`PySide.QtGui.QRubberBand` can represent a vertical or horizontal line. Geometry is still given in :meth:`PySide.QtGui.QWidget.rect` and the line will fill the given geometry on most styles.|
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QRubberBand.Rectangle|A :class:`PySide.QtGui.QRubberBand` can represent a rectangle. Some styles will interpret this as a filled (often semi-transparent) rectangle, or a rectangular outline.                               |
+    +---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QRubberBand.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionRubberBand`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QRubberBand` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionRubberBand` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QRubberBand.shape()
+
+
+    :rtype: :attr:`PySide.QtGui.QRubberBand.Shape`
+
+
+
+
+    Returns the shape of this rubber band. The shape can only be set upon construction.
+
+
+
+

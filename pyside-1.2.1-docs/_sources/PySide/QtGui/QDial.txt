@@ -1,0 +1,200 @@
+.. module:: PySide.QtGui
+.. _QDial:
+
+QDial
+*****
+
+.. inheritance-diagram:: QDial
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initStyleOption<PySide.QtGui.QDial.initStyleOption>` (option)
+*    def :meth:`notchSize<PySide.QtGui.QDial.notchSize>` ()
+*    def :meth:`notchTarget<PySide.QtGui.QDial.notchTarget>` ()
+*    def :meth:`notchesVisible<PySide.QtGui.QDial.notchesVisible>` ()
+*    def :meth:`setNotchTarget<PySide.QtGui.QDial.setNotchTarget>` (target)
+*    def :meth:`wrapping<PySide.QtGui.QDial.wrapping>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setNotchesVisible<PySide.QtGui.QDial.setNotchesVisible>` (visible)
+*    def :meth:`setWrapping<PySide.QtGui.QDial.setWrapping>` (on)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDial` class provides a rounded range control (like a speedometer or potentiometer).
+
+    :class:`PySide.QtGui.QDial` is used when the user needs to control a value within a program-definable range, and the range either wraps around (for example, with angles measured from 0 to 359 degrees) or the dialog layout needs a square widget.
+
+    Since :class:`PySide.QtGui.QDial` inherits from :class:`PySide.QtGui.QAbstractSlider` , the dial behaves in a similar way to a :class:`slider<PySide.QtGui.QSlider>` . When :meth:`PySide.QtGui.QDial.wrapping` is false (the default setting) there is no real difference between a slider and a dial. They both share the same signals, slots and member functions. Which one you use depends on the expectations of your users and on the type of application.
+
+    The dial initially emits :meth:`PySide.QtGui.QAbstractSlider.valueChanged` signals continuously while the slider is being moved; you can make it emit the signal less often by disabling the :meth:`PySide.QtGui.QAbstractSlider.tracking` property. The :meth:`PySide.QtGui.QAbstractSlider.sliderMoved` signal is emitted continuously even when tracking is disabled.
+
+    The dial also emits :meth:`PySide.QtGui.QAbstractSlider.sliderPressed` and :meth:`PySide.QtGui.QAbstractSlider.sliderReleased` signals when the mouse button is pressed and released. Note that the dial's value can change without these signals being emitted since the keyboard and wheel can also be used to change the value.
+
+    Unlike the slider, :class:`PySide.QtGui.QDial` attempts to draw a "nice" number of notches rather than one per line step. If possible, the number of notches drawn is one per line step, but if there aren't enough pixels to draw every one, :class:`PySide.QtGui.QDial` will skip notches to try and draw a uniform set (e.g. by drawing every second or third notch).
+
+    Like the slider, the dial makes the :class:`PySide.QtGui.QAbstractSlider` functions :meth:`PySide.QtGui.QAbstractSlider.setValue` , :meth:`~PySide.QtGui.QDial.addLine` , :meth:`~PySide.QtGui.QDial.subtractLine` , :meth:`~PySide.QtGui.QDial.addPage` and :meth:`~PySide.QtGui.QDial.subtractPage` available as slots.
+
+    The dial's keyboard interface is fairly simple: The **left** /**up** and **right** /**down** arrow keys adjust the dial's :meth:`PySide.QtGui.QAbstractSlider.value` by the defined :meth:`PySide.QtGui.QAbstractSlider.singleStep` , **Page Up** and **Page Down** by the defined :meth:`PySide.QtGui.QAbstractSlider.pageStep` , and the **Home** and **End** keys set the value to the defined :meth:`PySide.QtGui.QAbstractSlider.minimum` and :meth:`PySide.QtGui.QAbstractSlider.maximum` values.
+
+    If you are using the mouse wheel to adjust the dial, the increment value is determined by the lesser value of :meth:`PySide.QtGui.QApplication.wheelScrollLines` multipled by :meth:`PySide.QtGui.QAbstractSlider.singleStep` , and :meth:`PySide.QtGui.QAbstractSlider.pageStep` .
+
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-dial.png                                                                                           |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-dial.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-dial.png|
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |Dials shown in various widget styles (from left to right): :ref:`Plastique<gallery-plastique.html>` , :ref:`Windows XP<gallery-windowsxp.html>` , :ref:`Macintosh<gallery-macintosh.html>` .                                                                                                                                                                                                    |
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QScrollBar`  :class:`PySide.QtGui.QSpinBox`  :class:`PySide.QtGui.QSlider`  :ref:`GUI Design Handbook: Slider<guibooks.html>`  :ref:`Sliders Example<widgets/sliders>` 
+
+.. class:: QDial([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a dial.
+
+    The ``parent`` argument is sent to the :class:`PySide.QtGui.QAbstractSlider` constructor.
+
+
+.. method:: PySide.QtGui.QDial.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionSlider`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QDial` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionSlider` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QDial.notchSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current notch size.
+
+    The notch size is in range control units, not pixels, and if possible it is a multiple of :meth:`PySide.QtGui.QAbstractSlider.singleStep` that results in an on-screen notch size near :meth:`PySide.QtGui.QDial.notchTarget` .
+
+    By default, this property has a value of 1.
+
+    .. seealso::  :meth:`PySide.QtGui.QDial.notchTarget`  :meth:`PySide.QtGui.QAbstractSlider.singleStep` 
+
+
+.. method:: PySide.QtGui.QDial.notchTarget()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the target number of pixels between notches.
+
+    The notch target is the number of pixels :class:`PySide.QtGui.QDial` attempts to put between each notch.
+
+    The actual size may differ from the target size.
+
+    The default notch target is 3.7 pixels.
+
+
+
+.. method:: PySide.QtGui.QDial.notchesVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the notches are shown.
+
+    If the property is true, a series of notches are drawn around the dial to indicate the range of values available; otherwise no notches are shown.
+
+    By default, this property is disabled.
+
+
+
+.. method:: PySide.QtGui.QDial.setNotchTarget(target)
+
+
+    :param target: :class:`PySide.QtCore.double`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QDial.notchTarget` 
+
+
+.. method:: PySide.QtGui.QDial.setNotchesVisible(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the notches are shown.
+
+    If the property is true, a series of notches are drawn around the dial to indicate the range of values available; otherwise no notches are shown.
+
+    By default, this property is disabled.
+
+
+
+.. method:: PySide.QtGui.QDial.setWrapping(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether wrapping is enabled.
+
+    If true, wrapping is enabled; otherwise some space is inserted at the bottom of the dial to separate the ends of the range of valid values.
+
+    If enabled, the arrow can be oriented at any angle on the dial. If disabled, the arrow will be restricted to the upper part of the dial; if it is rotated into the space at the bottom of the dial, it will be clamped to the closest end of the valid range of values.
+
+    By default this property is false.
+
+
+
+.. method:: PySide.QtGui.QDial.wrapping()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether wrapping is enabled.
+
+    If true, wrapping is enabled; otherwise some space is inserted at the bottom of the dial to separate the ends of the range of valid values.
+
+    If enabled, the arrow can be oriented at any angle on the dial. If disabled, the arrow will be restricted to the upper part of the dial; if it is rotated into the space at the bottom of the dial, it will be clamped to the closest end of the valid range of values.
+
+    By default this property is false.
+
+
+
+

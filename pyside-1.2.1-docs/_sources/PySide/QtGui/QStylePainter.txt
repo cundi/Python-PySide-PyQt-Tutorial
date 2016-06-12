@@ -1,0 +1,202 @@
+.. module:: PySide.QtGui
+.. _QStylePainter:
+
+QStylePainter
+*************
+
+.. inheritance-diagram:: QStylePainter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`begin<PySide.QtGui.QStylePainter.begin>` (pd, w)
+*    def :meth:`begin<PySide.QtGui.QStylePainter.begin>` (w)
+*    def :meth:`drawComplexControl<PySide.QtGui.QStylePainter.drawComplexControl>` (cc, opt)
+*    def :meth:`drawControl<PySide.QtGui.QStylePainter.drawControl>` (ce, opt)
+*    def :meth:`drawItemPixmap<PySide.QtGui.QStylePainter.drawItemPixmap>` (r, flags, pixmap)
+*    def :meth:`drawItemText<PySide.QtGui.QStylePainter.drawItemText>` (r, flags, pal, enabled, text[, textRole=QPalette.NoRole])
+*    def :meth:`drawPrimitive<PySide.QtGui.QStylePainter.drawPrimitive>` (pe, opt)
+*    def :meth:`style<PySide.QtGui.QStylePainter.style>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStylePainter` class is a convenience class for drawing :class:`PySide.QtGui.QStyle` elements inside a widget.
+
+    :class:`PySide.QtGui.QStylePainter` extends :class:`PySide.QtGui.QPainter` with a set of high-level ``draw...()`` functions implemented on top of :class:`PySide.QtGui.QStyle` 's API. The advantage of using :class:`PySide.QtGui.QStylePainter` is that the parameter lists get considerably shorter. Whereas a :class:`PySide.QtGui.QStyle` object must be able to draw on any widget using any painter (because the application normally has one :class:`PySide.QtGui.QStyle` object shared by all widget), a :class:`PySide.QtGui.QStylePainter` is initialized with a widget, eliminating the need to specify the :class:`PySide.QtGui.QWidget` , the :class:`PySide.QtGui.QPainter` , and the :class:`PySide.QtGui.QStyle` for every function call.
+
+    Example using :class:`PySide.QtGui.QStyle` directly:
+
+    ::
+
+        def paintEvent(self, event):
+
+
+            painter = QPainter(self)
+
+
+            option = QStyleOptionFocusRect()
+            option.initFrom(self)
+            option.backgroundColor = palette().color(QPalette.Background)
+
+
+            style().drawPrimitive(QStyle.PE_FrameFocusRect, option, painter, self)
+
+
+
+    Example using :class:`PySide.QtGui.QStylePainter` :
+
+    ::
+
+        def paintEvent(self, event):
+        <Code snippet "doc/src/snippets/styles/styles.cpp:4" not found>            painter = QStylePainter(self)
+
+
+            option = QStyleOptionFocusRect()
+            option.initFrom(self)
+            option.backgroundColor = palette().color(QPalette.Background)
+
+
+            painter.drawPrimitive(QStyle.PE_FrameFocusRect, option)
+
+
+
+    .. seealso::  :class:`PySide.QtGui.QStyle`  :class:`PySide.QtGui.QStyleOption` 
+
+.. class:: QStylePainter()
+           QStylePainter(pd, w)
+           QStylePainter(w)
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param pd: :class:`PySide.QtGui.QPaintDevice`
+
+    Constructs a :class:`PySide.QtGui.QStylePainter` .
+
+
+    Construct a :class:`PySide.QtGui.QStylePainter` using ``pd`` for its paint device, and attributes from ``widget`` .
+
+
+    Construct a :class:`PySide.QtGui.QStylePainter` using widget ``widget`` for its paint device.
+
+
+.. method:: PySide.QtGui.QStylePainter.begin(pd, w)
+
+
+    :param pd: :class:`PySide.QtGui.QPaintDevice`
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Begin painting operations on paint device ``pd`` as if it was ``widget`` .
+
+    This is automatically called by the constructor that takes a :class:`PySide.QtGui.QPaintDevice` and a :class:`PySide.QtGui.QWidget` .
+
+
+
+.. method:: PySide.QtGui.QStylePainter.begin(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Begin painting operations on the specified ``widget`` . Returns true if the painter is ready to use; otherwise returns false.
+
+    This is automatically called by the constructor that takes a :class:`PySide.QtGui.QWidget` .
+
+
+
+.. method:: PySide.QtGui.QStylePainter.drawComplexControl(cc, opt)
+
+
+    :param cc: :attr:`PySide.QtGui.QStyle.ComplexControl`
+    :param opt: :class:`PySide.QtGui.QStyleOptionComplex`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStylePainter.drawControl(ce, opt)
+
+
+    :param ce: :attr:`PySide.QtGui.QStyle.ControlElement`
+    :param opt: :class:`PySide.QtGui.QStyleOption`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStylePainter.drawItemPixmap(r, flags, pixmap)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :param flags: :class:`PySide.QtCore.int`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Draws the ``pixmap`` in rectangle ``rect`` . The pixmap is aligned according to ``flags`` .
+
+    .. seealso::  :meth:`QStyle.drawItemPixmap()<PySide.QtGui.QStyle.drawItemPixmap>`  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QStylePainter.drawItemText(r, flags, pal, enabled, text[, textRole=QPalette.NoRole])
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :param flags: :class:`PySide.QtCore.int`
+    :param pal: :class:`PySide.QtGui.QPalette`
+    :param enabled: :class:`PySide.QtCore.bool`
+    :param text: unicode
+    :param textRole: :attr:`PySide.QtGui.QPalette.ColorRole`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStylePainter.drawPrimitive(pe, opt)
+
+
+    :param pe: :attr:`PySide.QtGui.QStyle.PrimitiveElement`
+    :param opt: :class:`PySide.QtGui.QStyleOption`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QStylePainter.style()
+
+
+    :rtype: :class:`PySide.QtGui.QStyle`
+
+
+
+
+    Return the current style used by the :class:`PySide.QtGui.QStylePainter` .
+
+
+
+

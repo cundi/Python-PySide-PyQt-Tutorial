@@ -1,0 +1,346 @@
+.. module:: PySide.QtGui
+.. _QImageIOHandler:
+
+QImageIOHandler
+***************
+
+.. inheritance-diagram:: QImageIOHandler
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`device<PySide.QtGui.QImageIOHandler.device>` ()
+*    def :meth:`format<PySide.QtGui.QImageIOHandler.format>` ()
+*    def :meth:`setDevice<PySide.QtGui.QImageIOHandler.setDevice>` (device)
+*    def :meth:`setFormat<PySide.QtGui.QImageIOHandler.setFormat>` (format)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`canRead<PySide.QtGui.QImageIOHandler.canRead>` ()
+*    def :meth:`currentImageNumber<PySide.QtGui.QImageIOHandler.currentImageNumber>` ()
+*    def :meth:`currentImageRect<PySide.QtGui.QImageIOHandler.currentImageRect>` ()
+*    def :meth:`imageCount<PySide.QtGui.QImageIOHandler.imageCount>` ()
+*    def :meth:`jumpToImage<PySide.QtGui.QImageIOHandler.jumpToImage>` (imageNumber)
+*    def :meth:`jumpToNextImage<PySide.QtGui.QImageIOHandler.jumpToNextImage>` ()
+*    def :meth:`loopCount<PySide.QtGui.QImageIOHandler.loopCount>` ()
+*    def :meth:`nextImageDelay<PySide.QtGui.QImageIOHandler.nextImageDelay>` ()
+*    def :meth:`option<PySide.QtGui.QImageIOHandler.option>` (option)
+*    def :meth:`read<PySide.QtGui.QImageIOHandler.read>` (image)
+*    def :meth:`setOption<PySide.QtGui.QImageIOHandler.setOption>` (option, value)
+*    def :meth:`supportsOption<PySide.QtGui.QImageIOHandler.supportsOption>` (option)
+*    def :meth:`write<PySide.QtGui.QImageIOHandler.write>` (image)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QImageIOHandler` class defines the common image I/O interface for all image formats in Qt.
+
+    Qt uses :class:`PySide.QtGui.QImageIOHandler` for reading and writing images through :class:`PySide.QtGui.QImageReader` and :class:`PySide.QtGui.QImageWriter` . You can also derive from this class to write your own image format handler using Qt's plugin mechanism.
+
+    Call :meth:`PySide.QtGui.QImageIOHandler.setDevice` to assign a device to the handler, and :meth:`PySide.QtGui.QImageIOHandler.setFormat` to assign a format to it. One :class:`PySide.QtGui.QImageIOHandler` may support more than one image format. :meth:`PySide.QtGui.QImageIOHandler.canRead` returns true if an image can be read from the device, and :meth:`PySide.QtGui.QImageIOHandler.read` and :meth:`PySide.QtGui.QImageIOHandler.write` return true if reading or writing an image was completed successfully.
+
+    :class:`PySide.QtGui.QImageIOHandler` also has support for animations formats, through the functions :meth:`PySide.QtGui.QImageIOHandler.loopCount` , :meth:`PySide.QtGui.QImageIOHandler.imageCount` , :meth:`PySide.QtGui.QImageIOHandler.nextImageDelay` and :meth:`PySide.QtGui.QImageIOHandler.currentImageNumber` .
+
+    In order to determine what options an image handler supports, Qt will call :meth:`PySide.QtGui.QImageIOHandler.supportsOption` and :meth:`PySide.QtGui.QImageIOHandler.setOption` . Make sure to reimplement these functions if you can provide support for any of the options in the :attr:`QImageIOHandler.ImageOption` enum.
+
+    To write your own image handler, you must at least reimplement :meth:`PySide.QtGui.QImageIOHandler.canRead` and :meth:`PySide.QtGui.QImageIOHandler.read` . Then create a :class:`~PySide.QtGui.QImageIOPlugin` that can create the handler. Finally, install your plugin, and :class:`PySide.QtGui.QImageReader` and :class:`PySide.QtGui.QImageWriter` will then automatically load the plugin, and start using it.
+
+    .. seealso::  :class:`~PySide.QtGui.QImageIOPlugin`  :class:`PySide.QtGui.QImageReader`  :class:`PySide.QtGui.QImageWriter` 
+
+.. class:: QImageIOHandler()
+
+
+    Constructs a :class:`PySide.QtGui.QImageIOHandler` object.
+
+
+.. attribute:: PySide.QtGui.QImageIOHandler.ImageOption
+
+    This enum describes the different options supported by :class:`PySide.QtGui.QImageIOHandler` . Some options are used to query an image for properties, and others are used to toggle the way in which an image should be written.
+
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                          |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +==================================+===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QImageIOHandler.Size              |The original size of an image. A handler that supports this option is expected to read the size of the image from the image metadata, and return this size from :meth:`PySide.QtGui.QImageIOHandler.option` as a :class:`PySide.QtCore.QSize` .                                                                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.ClipRect          |The clip rect, or ROI (Region Of Interest). A handler that supports this option is expected to only read the provided :class:`PySide.QtCore.QRect` area from the original image in :meth:`PySide.QtGui.QImageIOHandler.read` , before any other transformation is applied.                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.ScaledSize        |The scaled size of the image. A handler that supports this option is expected to scale the image to the provided size (a :class:`PySide.QtCore.QSize` ), after applying any clip rect transformation ( :attr:`ClipRect<QImageIOHandler.ImageOption>` ). If the handler does not support this option, :class:`PySide.QtGui.QImageReader` will perform the scaling after the image has been read.                                                                                                                                                                                                                                            |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.ScaledClipRect    |The scaled clip rect (or ROI, Region Of Interest) of the image. A handler that supports this option is expected to apply the provided clip rect (a :class:`PySide.QtCore.QRect` ), after applying any scaling (ScaleSize) or regular clipping ( :attr:`ClipRect<QImageIOHandler.ImageOption>` ). If the handler does not support this option, :class:`PySide.QtGui.QImageReader` will apply the scaled clip rect after the image has been read.                                                                                                                                                                                            |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Description       |The image description. Some image formats, such as GIF and PNG, allow embedding of text or comments into the image data (e.g., for storing copyright information). It's common that the text is stored in key-value pairs, but some formats store all text in one continuous block. :class:`PySide.QtGui.QImageIOHandler` returns the text as one :class:`PySide.QtCore.QString` , where keys and values are separated by a ':', and keys-value pairs are separated by two newlines (\n\n). For example, "Title: Sunset\n\nAuthor: Jim Smith\nSarah Jones\n\n". Formats that store text in a single block can use "Description" as the key.|
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.CompressionRatio  |The compression ratio of the image data. A handler that supports this option is expected to set its compression rate depending on the value of this option (an int) when writing.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Gamma             |The gamma level of the image. A handler that supports this option is expected to set the image gamma level depending on the value of this option (a float) when writing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Quality           |The quality level of the image. A handler that supports this option is expected to set the image quality level depending on the value of this option (an int) when writing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Name              |The name of the image. A handler that supports this option is expected to read the name from the image metadata and return this as a :class:`PySide.QtCore.QString` , or when writing an image it is expected to store the name in the image metadata.                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.SubType           |The subtype of the image. A handler that supports this option can use the subtype value to help when reading and writing images. For example, a PPM handler may have a subtype value of "ppm" or "ppmraw".                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.IncrementalReading|A handler that supports this option is expected to read the image in several passes, as if it was an animation. :class:`PySide.QtGui.QImageReader` will treat the image as an animation.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Endianness        |The endianness of the image. Certain image formats can be stored as BigEndian or LittleEndian. A handler that supports Endianness uses the value of this option to determine how the image should be stored.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.Animation         |Image formats that support animation return true for this value in :meth:`PySide.QtGui.QImageIOHandler.supportsOption` ; otherwise, false is returned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.BackgroundColor   |Certain image formats allow the background color to be specified. A handler that supports :attr:`BackgroundColor<QImageIOHandler.ImageOption>` initializes the background color to this option (a :class:`PySide.QtGui.QColor` ) when reading an image.                                                                                                                                                                                                                                                                                                                                                                                    |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageIOHandler.ImageFormat       |The image's data format returned by the handler. This can be any of the formats listed in :attr:`QImage.Format` .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+    +----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.canRead()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if an image can be read from the device (i.e., the image format is supported, the device can be read from and the initial header information suggests that the image can be read); otherwise returns false.
+
+    When reimplementing :meth:`PySide.QtGui.QImageIOHandler.canRead` , make sure that the I/O device ( :meth:`PySide.QtGui.QImageIOHandler.device` ) is left in its original state (e.g., by using peek() rather than :meth:`PySide.QtGui.QImageIOHandler.read` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.read`  :meth:`QIODevice.peek()<PySide.QtCore.QIODevice.peek>` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.currentImageNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the sequence number of the current image in the animation. If this function is called before any image is :meth:`PySide.QtGui.QImageIOHandler.read` , -1 is returned. The number of the first image in the sequence is 0.
+
+    If the image format does not support animation, 0 is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.read` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.currentImageRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rect of the current image. If no rect is defined for the image, and empty :meth:`~PySide.QtGui.QImageIOHandler.QRect` is returned.
+
+    This function is useful for animations, where only parts of the frame may be updated at a time.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the device currently assigned to the :class:`PySide.QtGui.QImageIOHandler` . If not device has been assigned, 0 is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.format()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the format that is currently assigned to :class:`PySide.QtGui.QImageIOHandler` . If no format has been assigned, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.setFormat` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.imageCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the number of images in the animation. If the image format does not support animation, or if it is unable to determine the number of images, 0 is returned.
+
+    The default implementation returns 1 if :meth:`PySide.QtGui.QImageIOHandler.canRead` returns true; otherwise 0 is returned.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.jumpToImage(imageNumber)
+
+
+    :param imageNumber: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For image formats that support animation, this function jumps to the image whose sequence number is ``imageNumber`` . The next call to :meth:`PySide.QtGui.QImageIOHandler.read` will attempt to read this image.
+
+    The default implementation does nothing, and returns false.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.jumpToNextImage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For image formats that support animation, this function jumps to the next image.
+
+    The default implementation does nothing, and returns false.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.loopCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the number of times the animation should loop. If the image format does not support animation, 0 is returned.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.nextImageDelay()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the number of milliseconds to wait until reading the next image. If the image format does not support animation, 0 is returned.
+
+
+
+.. method:: PySide.QtGui.QImageIOHandler.option(option)
+
+
+    :param option: :attr:`PySide.QtGui.QImageIOHandler.ImageOption`
+    :rtype: object
+
+
+
+
+    Returns the value assigned to ``option`` as a :class:`PySide.QtCore.QVariant` . The type of the value depends on the option. For example, option(Size) returns a :class:`PySide.QtCore.QSize` variant.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.setOption`  :meth:`PySide.QtGui.QImageIOHandler.supportsOption` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.read(image)
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Read an image from the device, and stores it in ``image`` . Returns true if the image is successfully read; otherwise returns false.
+
+    For image formats that support incremental loading, and for animation formats, the image handler can assume that ``image`` points to the previous frame.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.canRead` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets the device of the :class:`PySide.QtGui.QImageIOHandler` to ``device`` . The image handler will use this device when reading and writing images.
+
+    The device can only be set once and must be set before calling :meth:`PySide.QtGui.QImageIOHandler.canRead` , :meth:`PySide.QtGui.QImageIOHandler.read` , :meth:`PySide.QtGui.QImageIOHandler.write` , etc. If you need to read multiple files, construct multiple instances of the appropriate :class:`PySide.QtGui.QImageIOHandler` subclass.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.device` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.setFormat(format)
+
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the format of the :class:`PySide.QtGui.QImageIOHandler` to ``format`` . The format is most useful for handlers that support multiple image formats.
+
+    This function is declared const so that it can be called from :meth:`PySide.QtGui.QImageIOHandler.canRead` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.format` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.setOption(option, value)
+
+
+    :param option: :attr:`PySide.QtGui.QImageIOHandler.ImageOption`
+    :param value: object
+
+
+
+
+    Sets the option ``option`` with the value ``value`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.option`  :attr:`QImageIOHandler.ImageOption` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.supportsOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QImageIOHandler.ImageOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the :class:`PySide.QtGui.QImageIOHandler` supports the option ``option`` ; otherwise returns false. For example, if the :class:`PySide.QtGui.QImageIOHandler` supports the :attr:`Size<QImageIOHandler.ImageOption>` option, supportsOption(Size) must return true.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageIOHandler.setOption`  :meth:`PySide.QtGui.QImageIOHandler.option` 
+
+
+.. method:: PySide.QtGui.QImageIOHandler.write(image)
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Writes the image ``image`` to the assigned device. Returns true on success; otherwise returns false.
+
+    The default implementation does nothing, and simply returns false.
+
+
+
+

@@ -1,0 +1,738 @@
+.. module:: PySide.QtGui
+.. _QFormLayout:
+
+QFormLayout
+***********
+
+.. inheritance-diagram:: QFormLayout
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (label, field)
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (label, field)
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (labelText, field)
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (labelText, field)
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (layout)
+*    def :meth:`addRow<PySide.QtGui.QFormLayout.addRow>` (widget)
+*    def :meth:`fieldGrowthPolicy<PySide.QtGui.QFormLayout.fieldGrowthPolicy>` ()
+*    def :meth:`formAlignment<PySide.QtGui.QFormLayout.formAlignment>` ()
+*    def :meth:`getItemPosition<PySide.QtGui.QFormLayout.getItemPosition>` (index)
+*    def :meth:`getLayoutPosition<PySide.QtGui.QFormLayout.getLayoutPosition>` (layout)
+*    def :meth:`getWidgetPosition<PySide.QtGui.QFormLayout.getWidgetPosition>` (widget)
+*    def :meth:`horizontalSpacing<PySide.QtGui.QFormLayout.horizontalSpacing>` ()
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, label, field)
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, label, field)
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, labelText, field)
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, labelText, field)
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, layout)
+*    def :meth:`insertRow<PySide.QtGui.QFormLayout.insertRow>` (row, widget)
+*    def :meth:`itemAt<PySide.QtGui.QFormLayout.itemAt>` (row, role)
+*    def :meth:`labelAlignment<PySide.QtGui.QFormLayout.labelAlignment>` ()
+*    def :meth:`labelForField<PySide.QtGui.QFormLayout.labelForField>` (field)
+*    def :meth:`labelForField<PySide.QtGui.QFormLayout.labelForField>` (field)
+*    def :meth:`resetFieldGrowthPolicy<PySide.QtGui.QFormLayout.resetFieldGrowthPolicy>` ()
+*    def :meth:`resetFormAlignment<PySide.QtGui.QFormLayout.resetFormAlignment>` ()
+*    def :meth:`resetLabelAlignment<PySide.QtGui.QFormLayout.resetLabelAlignment>` ()
+*    def :meth:`resetRowWrapPolicy<PySide.QtGui.QFormLayout.resetRowWrapPolicy>` ()
+*    def :meth:`rowCount<PySide.QtGui.QFormLayout.rowCount>` ()
+*    def :meth:`rowWrapPolicy<PySide.QtGui.QFormLayout.rowWrapPolicy>` ()
+*    def :meth:`setFieldGrowthPolicy<PySide.QtGui.QFormLayout.setFieldGrowthPolicy>` (policy)
+*    def :meth:`setFormAlignment<PySide.QtGui.QFormLayout.setFormAlignment>` (alignment)
+*    def :meth:`setHorizontalSpacing<PySide.QtGui.QFormLayout.setHorizontalSpacing>` (spacing)
+*    def :meth:`setItem<PySide.QtGui.QFormLayout.setItem>` (row, role, item)
+*    def :meth:`setLabelAlignment<PySide.QtGui.QFormLayout.setLabelAlignment>` (alignment)
+*    def :meth:`setLayout<PySide.QtGui.QFormLayout.setLayout>` (row, role, layout)
+*    def :meth:`setRowWrapPolicy<PySide.QtGui.QFormLayout.setRowWrapPolicy>` (policy)
+*    def :meth:`setVerticalSpacing<PySide.QtGui.QFormLayout.setVerticalSpacing>` (spacing)
+*    def :meth:`setWidget<PySide.QtGui.QFormLayout.setWidget>` (row, role, widget)
+*    def :meth:`verticalSpacing<PySide.QtGui.QFormLayout.verticalSpacing>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFormLayout` class manages forms of input widgets and their associated labels.
+
+    :class:`PySide.QtGui.QFormLayout` is a convenience layout class that lays out its children in a two-column form. The left column consists of labels and the right column consists of "field" widgets (line editors, spin boxes, etc.).
+
+    Traditionally, such two-column form layouts were achieved using :class:`PySide.QtGui.QGridLayout` . :class:`PySide.QtGui.QFormLayout` is a higher-level alternative that provides the following advantages:
+
+
+    * **Adherence to the different platform's look and feel guidelines.**\
+      
+      For example, the :ref:`Mac OS X Aqua<http://developer.apple.com/documentation/UserExperience/Conceptual/AppleHIGuidelines/XHIGIntro/chapter\_1\_section\_1.html>` and KDE guidelines specify that the labels should be right-aligned, whereas Windows and GNOME applications normally use left-alignment.
+    * **Support for wrapping long rows.**\
+      
+      For devices with small displays, :class:`PySide.QtGui.QFormLayout` can be set to :attr:`wrap long rows<QFormLayout.RowWrapPolicy>` , or even to :attr:`wrap all rows<QFormLayout.RowWrapPolicy>` .
+    * **Convenient API for creating label--field pairs.**\
+      
+      The :meth:`PySide.QtGui.QFormLayout.addRow` overload that takes a :class:`PySide.QtCore.QString` and a :class:`PySide.QtGui.QWidget` \* creates a :class:`PySide.QtGui.QLabel` behind the scenes and automatically set up its buddy. We can then write code like this:
+      
+      ::
+      
+          formLayout = QFormLayout()
+          formLayout.addRow(self.tr("&Name:"), nameLineEdit)
+          formLayout.addRow(self.tr("&Email:"), emailLineEdit)
+          formLayout.addRow(self.tr("&Age:"), ageSpinBox)
+          setLayout(formLayout)
+      
+      
+      Compare this with the following code, written using :class:`PySide.QtGui.QGridLayout` :
+      
+      ::
+      
+          nameLabel = QLabel(self.tr("&Name:"))
+          nameLabel.setBuddy(nameLineEdit)
+      
+          emailLabel = QLabel(self.tr("&Name:"))
+          emailLabel.setBuddy(emailLineEdit)
+      
+          ageLabel = QLabel(self.tr("&Name:"))
+          ageLabel.setBuddy(ageSpinBox)
+      
+          gridLayout = QGridLayout()
+          gridLayout.addWidget(nameLabel, 0, 0)
+          gridLayout.addWidget(nameLineEdit, 0, 1)
+          gridLayout.addWidget(emailLabel, 1, 0)
+          gridLayout.addWidget(emailLineEdit, 1, 1)
+          gridLayout.addWidget(ageLabel, 2, 0)
+          gridLayout.addWidget(ageSpinBox, 2, 1)
+          setLayout(gridLayout)
+
+    The table below shows the default appearance in different styles.
+
+    +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:class:`PySide.QtGui.QCommonStyle` derived styles (except :class:`PySide.QtGui.QPlastiqueStyle` )                                                                                                                                                              |:class:`PySide.QtGui.QMacStyle`                                                                                                                                                                                                                                                               |:class:`PySide.QtGui.QPlastiqueStyle`                                                                                                                                                             |Qt Extended styles                                                                                                                                            |
+    +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qformlayout-win.png                                                                                                                                                             |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qformlayout-mac.png                                                                                                                                                                                            |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qformlayout-kde.png                                                                                                |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qformlayout-qpe.png                                                            |
+    +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Traditional style used for Windows, GNOME, and earlier versions of KDE. Labels are left aligned, and expanding fields grow to fill the available space. (This normally corresponds to what we would get using a two-column :class:`PySide.QtGui.QGridLayout` .)|Style based on the :ref:`Mac OS X Aqua<http://developer.apple.com/documentation/UserExperience/Conceptual/AppleHIGuidelines/XHIGIntro/chapter\_1\_section\_1.html>` guidelines. Labels are right-aligned, the fields don't grow beyond their size hint, and the form is horizontally centered.|Recommended style for :ref:`KDE applications<http://www.kdedevelopers.org/node/2345>` . Similar to MacStyle, except that the form is left-aligned and all fields grow to fill the available space.|Default style for Qt Extended styles. Labels are right-aligned, expanding fields grow to fill the available space, and row wrapping is enabled for long lines.|
+    +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    The form styles can be also be overridden individually by calling :meth:`PySide.QtGui.QFormLayout.setLabelAlignment` , :meth:`PySide.QtGui.QFormLayout.setFormAlignment` , :meth:`PySide.QtGui.QFormLayout.setFieldGrowthPolicy` , and :meth:`PySide.QtGui.QFormLayout.setRowWrapPolicy` . For example, to simulate the form layout appearance of :class:`PySide.QtGui.QMacStyle` on all platforms, but with left-aligned labels, you could write:
+
+    ::
+
+        formLayout.trowWrapPolicy(QFormLayout.DontWrapRows)
+        formLayout.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
+        formLayout.setFormAlignment(Qt.AlignHCenter | Qt.AlignTop)
+        formLayout.setLabelAlignment(Qt.AlignLeft)
+
+
+    .. seealso::  :class:`PySide.QtGui.QGridLayout`  :class:`PySide.QtGui.QBoxLayout`  :class:`PySide.QtGui.QStackedLayout` 
+
+.. class:: QFormLayout([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new form layout with the given ``parent`` widget.
+
+    .. seealso::  :meth:`QWidget.setLayout()<PySide.QtGui.QWidget.setLayout>` 
+
+.. attribute:: PySide.QtGui.QFormLayout.FieldGrowthPolicy
+
+    This enum specifies the different policies that can be used to control the way in which the form's fields grow.
+
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                                                                                                                                                                                                                                        |
+    +=================================+===================================================================================================================================================================================================================================================================================================================+
+    |QFormLayout.FieldsStayAtSizeHint |The fields never grow beyond their :meth:`effective size hint<PySide.QtGui.QWidgetItem.sizeHint>` . This is the default for :class:`PySide.QtGui.QMacStyle` .                                                                                                                                                      |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFormLayout.ExpandingFieldsGrow  |Fields with an horizontal :class:`size policy<PySide.QtGui.QSizePolicy>` of :attr:`Expanding<QSizePolicy.Policy>` or :attr:`MinimumExpanding<QSizePolicy.Policy>` will grow to fill the available space. The other fields will not grow beyond their effective size hint. This is the default policy for Plastique.|
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFormLayout.AllNonFixedFieldsGrow|All fields with a size policy that allows them to grow will grow to fill the available space. This is the default policy for most styles.                                                                                                                                                                          |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.fieldGrowthPolicy` 
+
+.. attribute:: PySide.QtGui.QFormLayout.RowWrapPolicy
+
+    This enum specifies the different policies that can be used to control the way in which the form's rows wrap.
+
+    +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                                                                                                                                                                                                                                                   |
+    +========================+==============================================================================================================================================================================================================================================================================================================================+
+    |QFormLayout.DontWrapRows|Fields are always laid out next to their label. This is the default policy for all styles except Qt Extended styles and :class:`~PySide.QtGui.QS60Style` .                                                                                                                                                                    |
+    +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFormLayout.WrapLongRows|Labels are given enough horizontal space to fit the widest label, and the rest of the space is given to the fields. If the minimum size of a field pair is wider than the available space, the field is wrapped to the next line. This is the default policy for Qt Extended styles and and :class:`~PySide.QtGui.QS60Style` .|
+    +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFormLayout.WrapAllRows |Fields are always laid out below their label.                                                                                                                                                                                                                                                                                 |
+    +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.rowWrapPolicy` 
+
+.. attribute:: PySide.QtGui.QFormLayout.ItemRole
+
+    This enum specifies the types of widgets (or other layout items) that may appear in a row.
+
+    +------------------------+--------------------------------------------+
+    |Constant                |Description                                 |
+    +========================+============================================+
+    |QFormLayout.LabelRole   |A label widget.                             |
+    +------------------------+--------------------------------------------+
+    |QFormLayout.FieldRole   |A field widget.                             |
+    +------------------------+--------------------------------------------+
+    |QFormLayout.SpanningRole|A widget that spans label and field columns.|
+    +------------------------+--------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.itemAt`  :meth:`PySide.QtGui.QFormLayout.getItemPosition` 
+
+.. method:: PySide.QtGui.QFormLayout.addRow(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+    Adds the specified ``widget`` at the end of this form layout. The ``widget`` spans both columns.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.addRow(labelText, field)
+
+
+    :param labelText: unicode
+    :param field: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+    This overload automatically creates a :class:`PySide.QtGui.QLabel` behind the scenes with ``labelText`` as its text.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.addRow(labelText, field)
+
+
+    :param labelText: unicode
+    :param field: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+    This overload automatically creates a :class:`PySide.QtGui.QLabel` behind the scenes with ``labelText`` as its text. The ``field`` is set as the new :class:`PySide.QtGui.QLabel` 's :meth:`buddy<PySide.QtGui.QLabel.setBuddy>` .
+
+
+
+.. method:: PySide.QtGui.QFormLayout.addRow(layout)
+
+
+    :param layout: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+    Adds the specified ``layout`` at the end of this form layout. The ``layout`` spans both columns.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.addRow(label, field)
+
+
+    :param label: :class:`PySide.QtGui.QWidget`
+    :param field: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.addRow(label, field)
+
+
+    :param label: :class:`PySide.QtGui.QWidget`
+    :param field: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Adds a new row to the bottom of this form layout, with the given ``label`` and ``field`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.insertRow` 
+
+
+.. method:: PySide.QtGui.QFormLayout.fieldGrowthPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QFormLayout.FieldGrowthPolicy`
+
+
+
+
+    This property holds the way in which the form's fields grow.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QMacStyle` , the default is :attr:`FieldsStayAtSizeHint<QFormLayout.FieldGrowthPolicy>` ; for :class:`PySide.QtGui.QCommonStyle` derived styles (like Plastique and Windows), the default is :attr:`ExpandingFieldsGrow<QFormLayout.FieldGrowthPolicy>` ; for Qt Extended styles, the default is :attr:`AllNonFixedFieldsGrow<QFormLayout.FieldGrowthPolicy>` .
+
+    If none of the fields can grow and the form is resized, extra space is distributed according to the current :meth:`form alignment<PySide.QtGui.QFormLayout.formAlignment>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.formAlignment`  :meth:`PySide.QtGui.QFormLayout.rowWrapPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.formAlignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the form layout's contents within the layout's geometry.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QMacStyle` , the default is :attr:`Qt.AlignHCenter<Qt.AlignmentFlag>` | :attr:`Qt.AlignTop<Qt.AlignmentFlag>` ; for the other styles, the default is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` | :attr:`Qt.AlignTop<Qt.AlignmentFlag>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.labelAlignment`  :meth:`PySide.QtGui.QFormLayout.rowWrapPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.getItemPosition(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+    Retrieves the row and role (column) of the item at the specified ``index`` . If ``index`` is out of bounds, \*``rowPtr`` is set to -1; otherwise the row is stored in \*``rowPtr`` and the role is stored in \*``rolePtr`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.itemAt`  :meth:`PySide.QtGui.QFormLayout.count`  :meth:`PySide.QtGui.QFormLayout.getLayoutPosition`  :meth:`PySide.QtGui.QFormLayout.getWidgetPosition` 
+
+
+.. method:: PySide.QtGui.QFormLayout.getLayoutPosition(layout)
+
+
+    :param layout: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    Retrieves the row and role (column) of the specified child ``layout`` . If ``layout`` is not in the form layout, \*``rowPtr`` is set to -1; otherwise the row is stored in \*``rowPtr`` and the role is stored in \*``rolePtr`` .
+
+
+
+.. method:: PySide.QtGui.QFormLayout.getWidgetPosition(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Retrieves the row and role (column) of the specified ``widget`` in the layout. If ``widget`` is not in the layout, \*``rowPtr`` is set to -1; otherwise the row is stored in \*``rowPtr`` and the role is stored in \*``rolePtr`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.getItemPosition`  :meth:`PySide.QtGui.QFormLayout.itemAt` 
+
+
+.. method:: PySide.QtGui.QFormLayout.horizontalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets that are laid out side by side.
+
+    By default, if no value is explicitly set, the layout's horizontal spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.verticalSpacing`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutHorizontalSpacing<QStyle.PixelMetric>` 
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, labelText, field)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param labelText: unicode
+    :param field: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+    This overload automatically creates a :class:`PySide.QtGui.QLabel` behind the scenes with ``labelText`` as its text. The ``field`` is set as the new :class:`PySide.QtGui.QLabel` 's :meth:`buddy<PySide.QtGui.QLabel.setBuddy>` .
+
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, labelText, field)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param labelText: unicode
+    :param field: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+    This overload automatically creates a :class:`PySide.QtGui.QLabel` behind the scenes with ``labelText`` as its text.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, widget)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+    Inserts the specified ``widget`` at position ``row`` in this form layout. The ``widget`` spans both columns. If ``row`` is out of bounds, the widget is added at the end.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, layout)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param layout: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+    Inserts the specified ``layout`` at position ``row`` in this form layout. The ``layout`` spans both columns. If ``row`` is out of bounds, the widget is added at the end.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, label, field)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param label: :class:`PySide.QtGui.QWidget`
+    :param field: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Inserts a new row at position ``row`` in this form layout, with the given ``label`` and ``field`` . If ``row`` is out of bounds, the new row is added at the end.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.addRow` 
+
+
+.. method:: PySide.QtGui.QFormLayout.insertRow(row, label, field)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param label: :class:`PySide.QtGui.QWidget`
+    :param field: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.itemAt(row, role)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param role: :attr:`PySide.QtGui.QFormLayout.ItemRole`
+    :rtype: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Returns the layout item in the given ``row`` with the specified ``role`` (column). Returns 0 if there is no such item.
+
+    .. seealso::  :meth:`QLayout.itemAt()<PySide.QtGui.QLayout.itemAt>`  :meth:`PySide.QtGui.QFormLayout.setItem` 
+
+
+.. method:: PySide.QtGui.QFormLayout.labelAlignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the horizontal alignment of the labels.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QCommonStyle` derived styles, except for :class:`PySide.QtGui.QPlastiqueStyle` , the default is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` ; for the other styles, the default is :attr:`Qt.AlignRight<Qt.AlignmentFlag>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.formAlignment` 
+
+
+.. method:: PySide.QtGui.QFormLayout.labelForField(field)
+
+
+    :param field: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the label associated with the given ``field`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.itemAt` 
+
+
+.. method:: PySide.QtGui.QFormLayout.labelForField(field)
+
+
+    :param field: :class:`PySide.QtGui.QLayout`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QFormLayout.resetFieldGrowthPolicy()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFormLayout.resetFormAlignment()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFormLayout.resetLabelAlignment()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFormLayout.resetRowWrapPolicy()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFormLayout.rowCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rows in the form.
+
+    .. seealso::  :meth:`QLayout.count()<PySide.QtGui.QLayout.count>` 
+
+
+.. method:: PySide.QtGui.QFormLayout.rowWrapPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QFormLayout.RowWrapPolicy`
+
+
+
+
+    This property holds the way in which the form's rows wrap.
+
+    The default value depends on the widget or application style. For Qt Extended styles and :class:`~PySide.QtGui.QS60Style` , the default is :attr:`WrapLongRows<QFormLayout.RowWrapPolicy>` ; for the other styles, the default is :attr:`DontWrapRows<QFormLayout.RowWrapPolicy>` .
+
+    If you want to display each label above its associated field (instead of next to it), set this property to :attr:`WrapAllRows<QFormLayout.RowWrapPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.fieldGrowthPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setFieldGrowthPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtGui.QFormLayout.FieldGrowthPolicy`
+
+
+
+
+    This property holds the way in which the form's fields grow.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QMacStyle` , the default is :attr:`FieldsStayAtSizeHint<QFormLayout.FieldGrowthPolicy>` ; for :class:`PySide.QtGui.QCommonStyle` derived styles (like Plastique and Windows), the default is :attr:`ExpandingFieldsGrow<QFormLayout.FieldGrowthPolicy>` ; for Qt Extended styles, the default is :attr:`AllNonFixedFieldsGrow<QFormLayout.FieldGrowthPolicy>` .
+
+    If none of the fields can grow and the form is resized, extra space is distributed according to the current :meth:`form alignment<PySide.QtGui.QFormLayout.formAlignment>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.formAlignment`  :meth:`PySide.QtGui.QFormLayout.rowWrapPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setFormAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the form layout's contents within the layout's geometry.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QMacStyle` , the default is :attr:`Qt.AlignHCenter<Qt.AlignmentFlag>` | :attr:`Qt.AlignTop<Qt.AlignmentFlag>` ; for the other styles, the default is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` | :attr:`Qt.AlignTop<Qt.AlignmentFlag>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.labelAlignment`  :meth:`PySide.QtGui.QFormLayout.rowWrapPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setHorizontalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets that are laid out side by side.
+
+    By default, if no value is explicitly set, the layout's horizontal spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.verticalSpacing`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutHorizontalSpacing<QStyle.PixelMetric>` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setItem(row, role, item)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param role: :attr:`PySide.QtGui.QFormLayout.ItemRole`
+    :param item: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Sets the item in the given ``row`` for the given ``role`` to ``item`` , extending the layout with empty rows if necessary.
+
+    If the cell is already occupied, the ``item`` is not inserted and an error message is sent to the console. The ``item`` spans both columns.
+
+    .. warning::  Do not use this function to add child layouts or child widget items. Use :meth:`PySide.QtGui.QFormLayout.setLayout` or :meth:`PySide.QtGui.QFormLayout.setWidget` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.setLayout` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setLabelAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the horizontal alignment of the labels.
+
+    The default value depends on the widget or application style. For :class:`PySide.QtGui.QCommonStyle` derived styles, except for :class:`PySide.QtGui.QPlastiqueStyle` , the default is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` ; for the other styles, the default is :attr:`Qt.AlignRight<Qt.AlignmentFlag>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.formAlignment` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setLayout(row, role, layout)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param role: :attr:`PySide.QtGui.QFormLayout.ItemRole`
+    :param layout: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    Sets the sub-layout in the given ``row`` for the given ``role`` to ``layout`` , extending the form layout with empty rows if necessary.
+
+    If the cell is already occupied, the ``layout`` is not inserted and an error message is sent to the console.
+
+    .. note::  For most applications, :meth:`PySide.QtGui.QFormLayout.addRow` or :meth:`PySide.QtGui.QFormLayout.insertRow` should be used instead of :meth:`PySide.QtGui.QFormLayout.setLayout` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.setWidget` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setRowWrapPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtGui.QFormLayout.RowWrapPolicy`
+
+
+
+
+    This property holds the way in which the form's rows wrap.
+
+    The default value depends on the widget or application style. For Qt Extended styles and :class:`~PySide.QtGui.QS60Style` , the default is :attr:`WrapLongRows<QFormLayout.RowWrapPolicy>` ; for the other styles, the default is :attr:`DontWrapRows<QFormLayout.RowWrapPolicy>` .
+
+    If you want to display each label above its associated field (instead of next to it), set this property to :attr:`WrapAllRows<QFormLayout.RowWrapPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.fieldGrowthPolicy` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setVerticalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets that are laid out vertically.
+
+    By default, if no value is explicitly set, the layout's vertical spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.horizontalSpacing`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutHorizontalSpacing<QStyle.PixelMetric>` 
+
+
+.. method:: PySide.QtGui.QFormLayout.setWidget(row, role, widget)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param role: :attr:`PySide.QtGui.QFormLayout.ItemRole`
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget in the given ``row`` for the given ``role`` to ``widget`` , extending the layout with empty rows if necessary.
+
+    If the cell is already occupied, the ``widget`` is not inserted and an error message is sent to the console.
+
+    .. note::  For most applications, :meth:`PySide.QtGui.QFormLayout.addRow` or :meth:`PySide.QtGui.QFormLayout.insertRow` should be used instead of :meth:`PySide.QtGui.QFormLayout.setWidget` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.setLayout` 
+
+
+.. method:: PySide.QtGui.QFormLayout.verticalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the spacing between widgets that are laid out vertically.
+
+    By default, if no value is explicitly set, the layout's vertical spacing is inherited from the parent layout, or from the style settings for the parent widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QFormLayout.horizontalSpacing`  :meth:`QStyle.pixelMetric()<PySide.QtGui.QStyle.pixelMetric>`  :attr:`PM_LayoutHorizontalSpacing<QStyle.PixelMetric>` 
+
+
+

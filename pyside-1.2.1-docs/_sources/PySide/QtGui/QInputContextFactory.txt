@@ -1,0 +1,136 @@
+.. module:: PySide.QtGui
+.. _QInputContextFactory:
+
+QInputContextFactory
+********************
+
+.. inheritance-diagram:: QInputContextFactory
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`create<PySide.QtGui.QInputContextFactory.create>` (key, parent)
+*    def :meth:`description<PySide.QtGui.QInputContextFactory.description>` (key)
+*    def :meth:`displayName<PySide.QtGui.QInputContextFactory.displayName>` (key)
+*    def :meth:`keys<PySide.QtGui.QInputContextFactory.keys>` ()
+*    def :meth:`languages<PySide.QtGui.QInputContextFactory.languages>` (key)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QInputContextFactory` class creates :class:`PySide.QtGui.QInputContext` objects.
+
+    The input context factory creates a :class:`PySide.QtGui.QInputContext` object for a given key with :meth:`QInputContextFactory.create()<PySide.QtGui.QInputContextFactory.create>` .
+
+    The input contexts are either built-in or dynamically loaded from an input context plugin (see :class:`~PySide.QtGui.QInputContextPlugin` ).
+
+    :meth:`PySide.QtGui.QInputContextFactory.keys` returns a list of valid keys. The keys are the names used, for example, to identify and specify input methods for the input method switching mechanism. The names have to be consistent with :meth:`QInputContext.identifierName()<PySide.QtGui.QInputContext.identifierName>` , and may only contain ASCII characters.
+
+    A key can be used to retrieve the associated input context's supported languages using :meth:`PySide.QtGui.QInputContextFactory.languages` . You can retrieve the input context's description using :meth:`PySide.QtGui.QInputContextFactory.description` and finally you can get a user friendly internationalized name of the :class:`PySide.QtGui.QInputContext` object specified by the key using :meth:`PySide.QtGui.QInputContextFactory.displayName` .
+
+    ::
+
+                
+                        
+        Copyright (C) 2003-2004 immodule for Qt Project. All rights reserved.
+
+                
+                        
+        This file is written to contribute to Nokia Corporation and/or its subsidiary(-ies) under their own license. You may use this file under your Qt license. Following description is copied from their original file headers. Contact immodule-qt@freedesktop.org if any conditions of this licensing are not clear to you.
+
+                
+                    
+
+
+    .. seealso::  :class:`PySide.QtGui.QInputContext`  :class:`~PySide.QtGui.QInputContextPlugin` 
+
+.. class:: QInputContextFactory()
+
+
+
+
+.. staticmethod:: PySide.QtGui.QInputContextFactory.create(key, parent)
+
+
+    :param key: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtGui.QInputContext`
+
+
+
+
+    Creates and returns a :class:`PySide.QtGui.QInputContext` object for the input context specified by ``key`` with the given ``parent`` . Keys are case sensitive.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputContextFactory.keys` 
+
+
+.. staticmethod:: PySide.QtGui.QInputContextFactory.description(key)
+
+
+    :param key: unicode
+    :rtype: unicode
+
+
+
+
+    Returns an internationalized brief description of the :class:`PySide.QtGui.QInputContext` object specified by ``key`` . You can, for example, use this description in a user interface.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputContextFactory.keys`  :meth:`PySide.QtGui.QInputContextFactory.displayName` 
+
+
+.. staticmethod:: PySide.QtGui.QInputContextFactory.displayName(key)
+
+
+    :param key: unicode
+    :rtype: unicode
+
+
+
+
+    Returns a user friendly internationalized name of the :class:`PySide.QtGui.QInputContext` object specified by ``key`` . You can, for example, use this name in a menu.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputContextFactory.keys`  :meth:`QInputContext.identifierName()<PySide.QtGui.QInputContext.identifierName>` 
+
+
+.. staticmethod:: PySide.QtGui.QInputContextFactory.keys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the list of keys this factory can create input contexts for.
+
+    The keys are the names used, for example, to identify and specify input methods for the input method switching mechanism. The names have to be consistent with :meth:`QInputContext.identifierName()<PySide.QtGui.QInputContext.identifierName>` , and may only contain ASCII characters.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputContextFactory.create`  :meth:`PySide.QtGui.QInputContextFactory.displayName`  :meth:`QInputContext.identifierName()<PySide.QtGui.QInputContext.identifierName>` 
+
+
+.. staticmethod:: PySide.QtGui.QInputContextFactory.languages(key)
+
+
+    :param key: unicode
+    :rtype: list of strings
+
+
+
+
+    Returns the languages supported by the :class:`PySide.QtGui.QInputContext` object specified by ``key`` .
+
+    The languages are expressed as language code (e.g. "zh\_CN", "zh\_TW", "zh\_HK", "ja", "ko", ...). An input context that supports multiple languages can return all supported languages as a :class:`PySide.QtCore.QStringList` . The name has to be consistent with :meth:`QInputContext.language()<PySide.QtGui.QInputContext.language>` .
+
+    This information may be used to optimize a user interface.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputContextFactory.keys`  :meth:`QInputContext.language()<PySide.QtGui.QInputContext.language>`  :class:`PySide.QtCore.QLocale` 
+
+
+

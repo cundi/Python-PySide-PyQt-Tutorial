@@ -1,0 +1,101 @@
+.. module:: PySide.QtWebKit
+.. _QWebHistoryInterface:
+
+QWebHistoryInterface
+********************
+
+.. inheritance-diagram:: QWebHistoryInterface
+    :parts: 2
+
+Synopsis
+--------
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addHistoryEntry<PySide.QtWebKit.QWebHistoryInterface.addHistoryEntry>` (url)
+*    def :meth:`historyContains<PySide.QtWebKit.QWebHistoryInterface.historyContains>` (url)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultInterface<PySide.QtWebKit.QWebHistoryInterface.defaultInterface>` ()
+*    def :meth:`setDefaultInterface<PySide.QtWebKit.QWebHistoryInterface.setDefaultInterface>` (defaultInterface)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebHistoryInterface` class provides an interface to implement link history.
+
+    The :class:`PySide.QtWebKit.QWebHistoryInterface` is an interface that can be used to keep track of visited links. It contains two pure virtual methods that are called by the :ref:`WebKit<webkit.html>` engine: :meth:`PySide.QtWebKit.QWebHistoryInterface.addHistoryEntry` is used to add urls that have been visited to the interface, while :meth:`PySide.QtWebKit.QWebHistoryInterface.historyContains` is used to query whether the given url has been visited by the user. By default the :class:`PySide.QtWebKit.QWebHistoryInterface` is not set, so :ref:`WebKit<webkit.html>` does not keep track of visited links.
+
+    .. note::  The history tracked by :class:`PySide.QtWebKit.QWebHistoryInterface` is not specific to an instance of :class:`PySide.QtWebKit.QWebPage` but applies to all pages.
+
+
+.. class:: QWebHistoryInterface([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new :class:`PySide.QtWebKit.QWebHistoryInterface` with parent ``parent`` .
+
+
+.. method:: PySide.QtWebKit.QWebHistoryInterface.addHistoryEntry(url)
+
+
+    :param url: unicode
+
+
+
+
+    Called by :ref:`WebKit<webkit.html>` to add another ``url`` to the list of visited pages.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebHistoryInterface.defaultInterface()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebHistoryInterface`
+
+
+
+
+    Returns the default interface that will be used by :ref:`WebKit<webkit.html>` . If no default interface has been set, :ref:`WebKit<webkit.html>` will not keep track of visited links and a null pointer will be returned.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistoryInterface.setDefaultInterface` 
+
+
+.. method:: PySide.QtWebKit.QWebHistoryInterface.historyContains(url)
+
+
+    :param url: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Called by the :ref:`WebKit<webkit.html>` engine to query whether a certain ``url`` has been visited by the user already. Returns true if the ``url`` is part of the history of visited links; otherwise returns false.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebHistoryInterface.setDefaultInterface(defaultInterface)
+
+
+    :param defaultInterface: :class:`PySide.QtWebKit.QWebHistoryInterface`
+
+
+
+
+    Sets a new default interface, ``defaultInterface`` , that will be used by all of :ref:`WebKit<webkit.html>` to keep track of visited links.
+
+    If an interface without a parent has already been set, the old interface will be deleted. When the application exists :class:`PySide.QtWebKit.QWebHistoryInterface` will automatically delete the ``defaultInterface`` if it does not have a parent.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistoryInterface.defaultInterface` 
+
+
+

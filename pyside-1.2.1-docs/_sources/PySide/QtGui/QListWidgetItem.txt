@@ -1,0 +1,614 @@
+.. module:: PySide.QtGui
+.. _QListWidgetItem:
+
+QListWidgetItem
+***************
+
+.. inheritance-diagram:: QListWidgetItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`background<PySide.QtGui.QListWidgetItem.background>` ()
+*    def :meth:`checkState<PySide.QtGui.QListWidgetItem.checkState>` ()
+*    def :meth:`flags<PySide.QtGui.QListWidgetItem.flags>` ()
+*    def :meth:`font<PySide.QtGui.QListWidgetItem.font>` ()
+*    def :meth:`foreground<PySide.QtGui.QListWidgetItem.foreground>` ()
+*    def :meth:`icon<PySide.QtGui.QListWidgetItem.icon>` ()
+*    def :meth:`isHidden<PySide.QtGui.QListWidgetItem.isHidden>` ()
+*    def :meth:`isSelected<PySide.QtGui.QListWidgetItem.isSelected>` ()
+*    def :meth:`listWidget<PySide.QtGui.QListWidgetItem.listWidget>` ()
+*    def :meth:`setBackground<PySide.QtGui.QListWidgetItem.setBackground>` (brush)
+*    def :meth:`setCheckState<PySide.QtGui.QListWidgetItem.setCheckState>` (state)
+*    def :meth:`setFlags<PySide.QtGui.QListWidgetItem.setFlags>` (flags)
+*    def :meth:`setFont<PySide.QtGui.QListWidgetItem.setFont>` (font)
+*    def :meth:`setForeground<PySide.QtGui.QListWidgetItem.setForeground>` (brush)
+*    def :meth:`setHidden<PySide.QtGui.QListWidgetItem.setHidden>` (hide)
+*    def :meth:`setIcon<PySide.QtGui.QListWidgetItem.setIcon>` (icon)
+*    def :meth:`setSelected<PySide.QtGui.QListWidgetItem.setSelected>` (select)
+*    def :meth:`setSizeHint<PySide.QtGui.QListWidgetItem.setSizeHint>` (size)
+*    def :meth:`setStatusTip<PySide.QtGui.QListWidgetItem.setStatusTip>` (statusTip)
+*    def :meth:`setText<PySide.QtGui.QListWidgetItem.setText>` (text)
+*    def :meth:`setTextAlignment<PySide.QtGui.QListWidgetItem.setTextAlignment>` (alignment)
+*    def :meth:`setToolTip<PySide.QtGui.QListWidgetItem.setToolTip>` (toolTip)
+*    def :meth:`setWhatsThis<PySide.QtGui.QListWidgetItem.setWhatsThis>` (whatsThis)
+*    def :meth:`sizeHint<PySide.QtGui.QListWidgetItem.sizeHint>` ()
+*    def :meth:`statusTip<PySide.QtGui.QListWidgetItem.statusTip>` ()
+*    def :meth:`text<PySide.QtGui.QListWidgetItem.text>` ()
+*    def :meth:`textAlignment<PySide.QtGui.QListWidgetItem.textAlignment>` ()
+*    def :meth:`toolTip<PySide.QtGui.QListWidgetItem.toolTip>` ()
+*    def :meth:`type<PySide.QtGui.QListWidgetItem.type>` ()
+*    def :meth:`whatsThis<PySide.QtGui.QListWidgetItem.whatsThis>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__lt__<PySide.QtGui.QListWidgetItem.__lt__>` (other)
+*    def :meth:`clone<PySide.QtGui.QListWidgetItem.clone>` ()
+*    def :meth:`data<PySide.QtGui.QListWidgetItem.data>` (role)
+*    def :meth:`read<PySide.QtGui.QListWidgetItem.read>` (in)
+*    def :meth:`setData<PySide.QtGui.QListWidgetItem.setData>` (role, value)
+*    def :meth:`write<PySide.QtGui.QListWidgetItem.write>` (out)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QListWidgetItem` class provides an item for use with the :class:`PySide.QtGui.QListWidget` item view class.
+
+    A :class:`PySide.QtGui.QListWidgetItem` represents a single item in a :class:`PySide.QtGui.QListWidget` . Each item can hold several pieces of information, and will display them appropriately.
+
+    The item view convenience classes use a classic item-based interface rather than a pure model/view approach. For a more flexible list view widget, consider using the :class:`PySide.QtGui.QListView` class with a standard model.
+
+    List items can be inserted automatically into a list, when they are constructed, by specifying the list widget:
+
+    ::
+
+            QListWidgetItem(tr("Hazel"), listWidget)
+
+
+    Alternatively, list items can also be created without a parent widget, and later inserted into a list using :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` .
+
+    List items are typically used to display :meth:`PySide.QtGui.QListWidgetItem.text` and an :meth:`PySide.QtGui.QListWidgetItem.icon` . These are set with the :meth:`PySide.QtGui.QListWidgetItem.setText` and :meth:`PySide.QtGui.QListWidgetItem.setIcon` functions. The appearance of the text can be customized with :meth:`PySide.QtGui.QListWidgetItem.setFont` , :meth:`PySide.QtGui.QListWidgetItem.setForeground` , and :meth:`PySide.QtGui.QListWidgetItem.setBackground` . Text in list items can be aligned using the :meth:`PySide.QtGui.QListWidgetItem.setTextAlignment` function. Tooltips, status tips and "What's This?" help can be added to list items with :meth:`PySide.QtGui.QListWidgetItem.setToolTip` , :meth:`PySide.QtGui.QListWidgetItem.setStatusTip` , and :meth:`PySide.QtGui.QListWidgetItem.setWhatsThis` .
+
+    By default, items are enabled, selectable, checkable, and can be the source of drag and drop operations.
+
+    Each item's flags can be changed by calling :meth:`PySide.QtGui.QListWidgetItem.setFlags` with the appropriate value (see :class:`Qt.ItemFlags` ). Checkable items can be checked, unchecked and partially checked with the :meth:`PySide.QtGui.QListWidgetItem.setCheckState` function. The corresponding :meth:`PySide.QtGui.QListWidgetItem.checkState` function indicates the item's current check state.
+
+    The :meth:`PySide.QtGui.QListWidgetItem.isHidden` function can be used to determine whether the item is hidden. To hide an item, use :meth:`PySide.QtGui.QListWidgetItem.setHidden` .
+
+    .. _PySide.QtGui.QListWidgetItem_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When subclassing :class:`PySide.QtGui.QListWidgetItem` to provide custom items, it is possible to define new types for them enabling them to be distinguished from standard items. For subclasses that require this feature, ensure that you call the base class constructor with a new type value equal to or greater than :attr:`UserType<QListWidgetItem.ItemType>` , within *your* constructor.
+
+    .. seealso::  :class:`PySide.QtGui.QListWidget`  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtGui.QTreeWidgetItem`  :class:`PySide.QtGui.QTableWidgetItem` 
+
+.. class:: QListWidgetItem([view=None[, type=Type]])
+           QListWidgetItem(icon, text[, view=None[, type=Type]])
+           QListWidgetItem(other)
+           QListWidgetItem(text[, view=None[, type=Type]])
+
+    :param view: :class:`PySide.QtGui.QListWidget`
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param other: :class:`PySide.QtGui.QListWidgetItem`
+    :param type: :class:`PySide.QtCore.int`
+    :param text: unicode
+
+    Constructs an empty list widget item of the specified ``type`` with the given ``parent`` . If ``parent`` is not specified, the item will need to be inserted into a list widget with :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` .
+
+    This constructor inserts the item into the model of the parent that is passed to the constructor. If the model is sorted then the behavior of the insert is undetermined since the model will call the ``'<'`` operator method on the item which, at this point, is not yet constructed. To avoid the undetermined behavior, we recommend not to specify the parent and use :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.type` 
+
+    Constructs an empty list widget item of the specified ``type`` with the given ``icon`` , ``text`` and ``parent`` . If the parent is not specified, the item will need to be inserted into a list widget with :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` .
+
+    This constructor inserts the item into the model of the parent that is passed to the constructor. If the model is sorted then the behavior of the insert is undetermined since the model will call the ``'<'`` operator method on the item which, at this point, is not yet constructed. To avoid the undetermined behavior, we recommend not to specify the parent and use :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.type` 
+
+    Constructs a copy of ``other`` . Note that :meth:`PySide.QtGui.QListWidgetItem.type` and :meth:`PySide.QtGui.QListWidgetItem.listWidget` are not copied.
+
+    This function is useful when reimplementing :meth:`PySide.QtGui.QListWidgetItem.clone` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.data`  :meth:`PySide.QtGui.QListWidgetItem.flags` 
+
+    Constructs an empty list widget item of the specified ``type`` with the given ``text`` and ``parent`` . If the parent is not specified, the item will need to be inserted into a list widget with :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` .
+
+    This constructor inserts the item into the model of the parent that is passed to the constructor. If the model is sorted then the behavior of the insert is undetermined since the model will call the ``'<'`` operator method on the item which, at this point, is not yet constructed. To avoid the undetermined behavior, we recommend not to specify the parent and use :meth:`QListWidget.insertItem()<PySide.QtGui.QListWidget.insertItem>` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.type` 
+
+.. attribute:: PySide.QtGui.QListWidgetItem.ItemType
+
+    This enum describes the types that are used to describe list widget items.
+
+    +------------------------+---------------------------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                                    |
+    +========================+===============================================================================================================+
+    |QListWidgetItem.Type    |The default type for list widget items.                                                                        |
+    +------------------------+---------------------------------------------------------------------------------------------------------------+
+    |QListWidgetItem.UserType|The minimum value for custom types. Values below :attr:`UserType<QListWidgetItem.ItemType>` are reserved by Qt.|
+    +------------------------+---------------------------------------------------------------------------------------------------------------+
+
+    You can define new user types in :class:`PySide.QtGui.QListWidgetItem` subclasses to ensure that custom items are treated specially.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.type` 
+
+.. method:: PySide.QtGui.QListWidgetItem.background()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to display the list item's background.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setBackground`  :meth:`PySide.QtGui.QListWidgetItem.foreground` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.checkState()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+    Returns the checked state of the list item (see :attr:`Qt.CheckState` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setCheckState`  :meth:`PySide.QtGui.QListWidgetItem.flags` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.clone()
+
+
+    :rtype: :class:`PySide.QtGui.QListWidgetItem`
+
+
+
+
+    Creates an exact copy of the item.
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.data(role)
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the item's data for a given ``role`` . Reimplement this function if you need extra roles or special behavior for certain roles.
+
+    .. seealso::  :attr:`Qt.ItemDataRole`  :meth:`PySide.QtGui.QListWidgetItem.setData` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.flags()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.ItemFlags`
+
+
+
+
+    Returns the item flags for this item (see :class:`Qt.ItemFlags` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setFlags` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.font()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the font used to display this list item's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setFont` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.foreground()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to display the list item's foreground (e.g. text).
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setForeground`  :meth:`PySide.QtGui.QListWidgetItem.background` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the list item's icon.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setIcon`  :meth:`PySide.QtGui.QAbstractItemView.iconSize` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.isHidden()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the item is hidden; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setHidden` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.isSelected()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the item is selected; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setSelected` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.listWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QListWidget`
+
+
+
+
+    Returns the list widget containing the item.
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.__lt__(other)
+
+
+    :param other: :class:`PySide.QtGui.QListWidgetItem`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this item's text is less then ``other`` item's text; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.read(in)
+
+
+    :param in: :class:`PySide.QtCore.QDataStream`
+
+
+
+
+    Reads the item from stream ``in`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.write` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setBackground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the background brush of the list item to the given ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.background`  :meth:`PySide.QtGui.QListWidgetItem.setForeground` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setCheckState(state)
+
+
+    :param state: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setData(role, value)
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :param value: object
+
+
+
+
+    Sets the data for a given ``role`` to the given ``value`` . Reimplement this function if you need extra roles or special behavior for certain roles.
+
+    .. seealso::  :attr:`Qt.ItemDataRole`  :meth:`PySide.QtGui.QListWidgetItem.data` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setFlags(flags)
+
+
+    :param flags: :class:`PySide.QtCore.Qt.ItemFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setFont(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Sets the font used when painting the item to the given ``font`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.font` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setForeground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the foreground brush of the list item to the given ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.foreground`  :meth:`PySide.QtGui.QListWidgetItem.setBackground` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setHidden(hide)
+
+
+    :param hide: :class:`PySide.QtCore.bool`
+
+
+
+
+    Hides the item if ``hide`` is true; otherwise shows the item.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.isHidden` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Sets the icon for the list item to the given ``icon`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.icon`  :meth:`PySide.QtGui.QListWidgetItem.text`  :meth:`PySide.QtGui.QAbstractItemView.iconSize` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setSelected(select)
+
+
+    :param select: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the selected state of the item to ``select`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.isSelected` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setSizeHint(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets the size hint for the list item to be ``size`` . If no size hint is set, the item delegate will compute the size hint based on the item data.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.sizeHint` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setStatusTip(statusTip)
+
+
+    :param statusTip: unicode
+
+
+
+
+    Sets the status tip for the list item to the text specified by ``statusTip`` . :class:`PySide.QtGui.QListWidget` mouseTracking needs to be enabled for this feature to work.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.statusTip`  :meth:`PySide.QtGui.QListWidgetItem.setToolTip`  :meth:`PySide.QtGui.QListWidgetItem.setWhatsThis`  :meth:`QWidget.setMouseTracking()<PySide.QtGui.QWidget.setMouseTracking>` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setText(text)
+
+
+    :param text: unicode
+
+
+
+
+    Sets the text for the list widget item's to the given ``text`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.text` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setTextAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the list item's text alignment to ``alignment`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.textAlignment`  :attr:`Qt.AlignmentFlag` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setToolTip(toolTip)
+
+
+    :param toolTip: unicode
+
+
+
+
+    Sets the tooltip for the list item to the text specified by ``toolTip`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.toolTip`  :meth:`PySide.QtGui.QListWidgetItem.setStatusTip`  :meth:`PySide.QtGui.QListWidgetItem.setWhatsThis` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.setWhatsThis(whatsThis)
+
+
+    :param whatsThis: unicode
+
+
+
+
+    Sets the "What's This?" help for the list item to the text specified by ``whatsThis`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.whatsThis`  :meth:`PySide.QtGui.QListWidgetItem.setStatusTip`  :meth:`PySide.QtGui.QListWidgetItem.setToolTip` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.sizeHint()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size hint set for the list item.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setSizeHint` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.statusTip()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list item's status tip.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setStatusTip` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list item's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setText` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.textAlignment()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the text alignment for the list item.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setTextAlignment`  :attr:`Qt.AlignmentFlag` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.toolTip()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list item's tooltip.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setToolTip`  :meth:`PySide.QtGui.QListWidgetItem.statusTip`  :meth:`PySide.QtGui.QListWidgetItem.whatsThis` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.type()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the type passed to the :class:`PySide.QtGui.QListWidgetItem` constructor.
+
+
+
+.. method:: PySide.QtGui.QListWidgetItem.whatsThis()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the list item's "What's This?" help text.
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.setWhatsThis`  :meth:`PySide.QtGui.QListWidgetItem.statusTip`  :meth:`PySide.QtGui.QListWidgetItem.toolTip` 
+
+
+.. method:: PySide.QtGui.QListWidgetItem.write(out)
+
+
+    :param out: :class:`PySide.QtCore.QDataStream`
+
+
+
+
+    Writes the item to stream ``out`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListWidgetItem.read` 
+
+
+

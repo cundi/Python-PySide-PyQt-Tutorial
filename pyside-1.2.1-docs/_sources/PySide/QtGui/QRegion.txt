@@ -1,0 +1,794 @@
+.. module:: PySide.QtGui
+.. _QRegion:
+
+QRegion
+*******
+
+.. inheritance-diagram:: QRegion
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__add__<PySide.QtGui.QRegion.__add__>` (r)
+*    def :meth:`__add__<PySide.QtGui.QRegion.__add__>` (r)
+*    def :meth:`__and__<PySide.QtGui.QRegion.__and__>` (r)
+*    def :meth:`__and__<PySide.QtGui.QRegion.__and__>` (r)
+*    def :meth:`__eq__<PySide.QtGui.QRegion.__eq__>` (r)
+*    def :meth:`__iadd__<PySide.QtGui.QRegion.__iadd__>` (r)
+*    def :meth:`__iadd__<PySide.QtGui.QRegion.__iadd__>` (r)
+*    def :meth:`__ior__<PySide.QtGui.QRegion.__ior__>` (r)
+*    def :meth:`__isub__<PySide.QtGui.QRegion.__isub__>` (r)
+*    def :meth:`__ixor__<PySide.QtGui.QRegion.__ixor__>` (r)
+*    def :meth:`__mul__<PySide.QtGui.QRegion.__mul__>` (, m)
+*    def :meth:`__mul__<PySide.QtGui.QRegion.__mul__>` (, m)
+*    def :meth:`__ne__<PySide.QtGui.QRegion.__ne__>` (r)
+*    def :meth:`__or__<PySide.QtGui.QRegion.__or__>` (r)
+*    def :meth:`__sub__<PySide.QtGui.QRegion.__sub__>` (r)
+*    def :meth:`__xor__<PySide.QtGui.QRegion.__xor__>` (r)
+*    def :meth:`boundingRect<PySide.QtGui.QRegion.boundingRect>` ()
+*    def :meth:`contains<PySide.QtGui.QRegion.contains>` (p)
+*    def :meth:`contains<PySide.QtGui.QRegion.contains>` (r)
+*    def :meth:`copy<PySide.QtGui.QRegion.copy>` ()
+*    def :meth:`exec<PySide.QtGui.QRegion.exec>` (ba[, ver=0[, byteOrder=QDataStream.BigEndian]])
+*    def :meth:`intersected<PySide.QtGui.QRegion.intersected>` (r)
+*    def :meth:`intersected<PySide.QtGui.QRegion.intersected>` (r)
+*    def :meth:`intersects<PySide.QtGui.QRegion.intersects>` (r)
+*    def :meth:`intersects<PySide.QtGui.QRegion.intersects>` (r)
+*    def :meth:`isEmpty<PySide.QtGui.QRegion.isEmpty>` ()
+*    def :meth:`numRects<PySide.QtGui.QRegion.numRects>` ()
+*    def :meth:`rectCount<PySide.QtGui.QRegion.rectCount>` ()
+*    def :meth:`rects<PySide.QtGui.QRegion.rects>` ()
+*    def :meth:`setRects<PySide.QtGui.QRegion.setRects>` (rect, num)
+*    def :meth:`subtracted<PySide.QtGui.QRegion.subtracted>` (r)
+*    def :meth:`swap<PySide.QtGui.QRegion.swap>` (other)
+*    def :meth:`translate<PySide.QtGui.QRegion.translate>` (dx, dy)
+*    def :meth:`translate<PySide.QtGui.QRegion.translate>` (p)
+*    def :meth:`translated<PySide.QtGui.QRegion.translated>` (dx, dy)
+*    def :meth:`translated<PySide.QtGui.QRegion.translated>` (p)
+*    def :meth:`united<PySide.QtGui.QRegion.united>` (r)
+*    def :meth:`united<PySide.QtGui.QRegion.united>` (r)
+*    def :meth:`xored<PySide.QtGui.QRegion.xored>` (r)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QRegion` class specifies a clip region for a painter.
+
+    :class:`PySide.QtGui.QRegion` is used with :meth:`QPainter.setClipRegion()<PySide.QtGui.QPainter.setClipRegion>` to limit the paint area to what needs to be painted. There is also a :meth:`QWidget.repaint()<PySide.QtGui.QWidget.repaint>` function that takes a :class:`PySide.QtGui.QRegion` parameter. :class:`PySide.QtGui.QRegion` is the best tool for minimizing the amount of screen area to be updated by a repaint.
+
+    This class is not suitable for constructing shapes for rendering, especially as outlines. Use :class:`PySide.QtGui.QPainterPath` to create paths and shapes for use with :class:`PySide.QtGui.QPainter` .
+
+    :class:`PySide.QtGui.QRegion` is an :ref:`implicitly shared<implicit-sharing.html>` class.
+
+    .. _PySide.QtGui.QRegion_creating-and-using-regions:
+
+
+
+Creating and Using Regions
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    A region can be created from a rectangle, an ellipse, a polygon or a bitmap. Complex regions may be created by combining simple regions using :meth:`PySide.QtGui.QRegion.united` , :meth:`PySide.QtGui.QRegion.intersected` , :meth:`PySide.QtGui.QRegion.subtracted` , or :meth:`PySide.QtGui.QRegion.xored` (exclusive or). You can move a region using :meth:`PySide.QtGui.QRegion.translate` .
+
+    You can test whether a region :meth:`PySide.QtGui.QRegion.isEmpty` or if it :meth:`PySide.QtGui.QRegion.contains` a :class:`PySide.QtCore.QPoint` or :class:`PySide.QtCore.QRect` . The bounding rectangle can be found with :meth:`PySide.QtGui.QRegion.boundingRect` .
+
+    The function :meth:`PySide.QtGui.QRegion.rects` gives a decomposition of the region into rectangles.
+
+    Example of using complex regions:
+
+    ::
+
+        class MyWidget (QWidget):
+            # ...
+            def paintEvent(self):
+                r1 = QRegion(QRect(100, 100, 200, 80), QRegion.Ellipse) # r1: elliptic region
+                        )
+                r2 = QRect(100, 120, 90, 30)   # r2: rectangular region
+                r3 = r1.intersected(r2)        # r3: intersection
+
+                painter = QPainter(self)
+                painter.setClipRegion(r3)
+                ...                            # paint clipped graphics
+
+
+    .. _PySide.QtGui.QRegion_additional-license-information:
+
+
+
+Additional License Information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Embedded Linux, Windows CE and X11 platforms, parts of this class rely on code obtained under the following licenses:
+
+    ::
+
+                
+                            
+        Copyright (c) 1987 X Consortium
+
+                
+                            
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+                
+                            
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+                
+                            
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+                
+                            
+        Except as contained in this notice, the name of the X Consortium shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from the X Consortium.
+
+                
+                        
+
+
+    .. raw:: html
+
+        <br />
+
+
+    ::
+
+                
+                            
+        Copyright 1987 by Digital Equipment Corporation, Maynard, Massachusetts.
+
+                
+                            
+        All Rights Reserved
+
+                
+                            
+        Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation, and that the name of Digital not be used in advertising or publicity pertaining to distribution of the software without specific, written prior permission.
+
+                
+                            
+        DIGITAL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL DIGITAL BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+                
+                        
+
+
+    .. seealso::  :meth:`QPainter.setClipRegion()<PySide.QtGui.QPainter.setClipRegion>`  :meth:`QPainter.setClipRect()<PySide.QtGui.QPainter.setClipRect>`  :class:`PySide.QtGui.QPainterPath` 
+
+.. class:: QRegion()
+           QRegion(bitmap)
+           QRegion(pa[, fillRule=Qt.OddEvenFill])
+           QRegion(r[, t=Rectangle])
+           QRegion(region)
+           QRegion(x, y, w, h[, t=Rectangle])
+
+    :param w: :class:`PySide.QtCore.int`
+    :param x: :class:`PySide.QtCore.int`
+    :param pa: :class:`PySide.QtGui.QPolygon`
+    :param y: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+    :param region: :class:`PySide.QtGui.QRegion`
+    :param fillRule: :attr:`PySide.QtCore.Qt.FillRule`
+    :param r: :class:`PySide.QtCore.QRect`
+    :param t: :attr:`PySide.QtGui.QRegion.RegionType`
+    :param bitmap: :class:`PySide.QtGui.QBitmap`
+
+    Constructs an empty region.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.isEmpty` 
+
+    Constructs a region from the bitmap ``bm`` .
+
+    The resulting region consists of the pixels in bitmap ``bm`` that are :attr:`Qt.color1<Qt.GlobalColor>` , as if each pixel was a 1 by 1 rectangle.
+
+    This constructor may create complex regions that will slow down painting when used. Note that drawing masked pixmaps can be done much faster using :meth:`QPixmap.setMask()<PySide.QtGui.QPixmap.setMask>` .
+
+
+
+
+    This is an overloaded function.
+
+    Create a region based on the rectange ``r`` with region type ``t`` .
+
+    If the rectangle is invalid a null region will be created.
+
+    .. seealso::  :attr:`QRegion.RegionType` 
+
+    Constructs a new region which is equal to region ``r`` .
+
+
+    Constructs a rectangular or elliptic region.
+
+    If ``t`` is ``Rectangle`` , the region is the filled rectangle (``x`` , ``y`` , ``w`` , ``h`` ). If ``t`` is ``Ellipse`` , the region is the filled ellipse with center at (``x`` + ``w`` / 2, ``y`` + ``h`` / 2) and size (``w`` ,``h`` ).
+
+
+.. attribute:: PySide.QtGui.QRegion.RegionType
+
+    Specifies the shape of the region to be created.
+
+    +-----------------+----------------------------------------------+
+    |Constant         |Description                                   |
+    +=================+==============================================+
+    |QRegion.Rectangle|the region covers the entire rectangle.       |
+    +-----------------+----------------------------------------------+
+    |QRegion.Ellipse  |the region is an ellipse inside the rectangle.|
+    +-----------------+----------------------------------------------+
+
+
+.. method:: PySide.QtGui.QRegion.boundingRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the bounding rectangle of this region. An empty region gives a rectangle that is :meth:`QRect.isNull()<PySide.QtCore.QRect.isNull>` .
+
+
+
+.. method:: PySide.QtGui.QRegion.contains(p)
+
+
+    :param p: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the region contains the point ``p`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.contains(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the region overlaps the rectangle ``r`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.copy()
+
+
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QRegion.exec(ba[, ver=0[, byteOrder=QDataStream.BigEndian]])
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :param ver: :class:`PySide.QtCore.int`
+    :param byteOrder: :attr:`PySide.QtCore.QDataStream.ByteOrder`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QRegion.intersected(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is the intersection of this region and ``r`` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/rintersect.png
+
+    The figure shows the intersection of two elliptical regions.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.subtracted`  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.intersected(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is the intersection of this region and the given ``rect`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.subtracted`  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.intersects(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this region intersects with ``region`` , otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.intersects(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this region intersects with ``rect`` , otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the region is empty; otherwise returns false. An empty region is a region that contains no points.
+
+    Example:
+
+    ::
+
+        r1 = QRegion(10, 10, 20, 20)
+        r1.isNull()                // false
+        r1.isEmpty()               // false
+
+        r2 = QRegion(40, 40, 20, 20)
+        r3 = QRegion()
+        r3.isNull()                // true
+        r3.isEmpty()               // true
+
+        r3 = r1.intersected(r2)    // r3: intersection of r1 and r2
+        r3.isNull()                // false
+        r3.isEmpty()               // true
+
+        r3 = r1.united(r2)         // r3: union of r1 and r2
+        r3.isNull()                // false
+        r3.isEmpty()               // false
+
+
+
+
+.. method:: PySide.QtGui.QRegion.numRects()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rectangles that will be returned in :meth:`PySide.QtGui.QRegion.rects` .
+
+
+
+.. method:: PySide.QtGui.QRegion.__ne__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this region is different from the ``other`` region; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.__and__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.intersected` function to this region and ``r`` . ``r1&r2`` is equivalent to ``r1.intersected(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected` 
+
+
+.. method:: PySide.QtGui.QRegion.__and__(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QRegion.__mul__(, m)
+
+
+    :param m: :class:`PySide.QtGui.QTransform`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QRegion.__mul__(, m)
+
+
+    :param m: :class:`PySide.QtGui.QMatrix`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QRegion.__add__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.united` function to this region and ``r`` . ``r1+r2`` is equivalent to ``r1.united(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.operator|` 
+
+
+.. method:: PySide.QtGui.QRegion.__add__(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    This is an overloaded function.
+
+
+
+.. method:: PySide.QtGui.QRegion.__iadd__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.united` function to this region and ``r`` and assigns the result to this region. ``r1+=r2`` is equivalent to ``r1 = r1.united(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected` 
+
+
+.. method:: PySide.QtGui.QRegion.__iadd__(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region that is the union of this region with the specified ``rect`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.united` 
+
+
+.. method:: PySide.QtGui.QRegion.__sub__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.subtracted` function to this region and ``r`` . ``r1-r2`` is equivalent to ``r1.subtracted(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.subtracted` 
+
+
+.. method:: PySide.QtGui.QRegion.__isub__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.subtracted` function to this region and ``r`` and assigns the result to this region. ``r1-=r2`` is equivalent to ``r1 = r1.subtracted(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.subtracted` 
+
+
+.. method:: PySide.QtGui.QRegion.__eq__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the region is equal to ``r`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QRegion.__xor__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.xored` function to this region and ``r`` . ``r1^r2`` is equivalent to ``r1.xored(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.__ixor__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.xored` function to this region and ``r`` and assigns the result to this region. ``r1^=r2`` is equivalent to ``r1 = r1.xored(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.__or__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.united` function to this region and ``r`` . ``r1|r2`` is equivalent to ``r1.united(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.operator+` 
+
+
+.. method:: PySide.QtGui.QRegion.__ior__(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Applies the :meth:`PySide.QtGui.QRegion.united` function to this region and ``r`` and assigns the result to this region. ``r1|=r2`` is equivalent to ``r1 = r1.united(r2)`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.united` 
+
+
+.. method:: PySide.QtGui.QRegion.rectCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rectangles that will be returned in :meth:`PySide.QtGui.QRegion.rects` .
+
+
+
+.. method:: PySide.QtGui.QRegion.rects()
+
+
+    :rtype: 
+
+
+
+
+    Returns an array of non-overlapping rectangles that make up the region.
+
+    The union of all the rectangles is equal to the original region.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.setRects` 
+
+
+.. method:: PySide.QtGui.QRegion.setRects(rect, num)
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param num: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the region using the array of rectangles specified by ``rects`` and ``number`` . The rectangles *must* be optimally Y-X sorted and follow these restrictions:
+
+
+    * The rectangles must not intersect.
+    * All rectangles with a given top coordinate must have the same height.
+    * No two rectangles may abut horizontally (they should be combined into a single wider rectangle in that case).
+    * The rectangles must be sorted in ascending order, with Y as the major sort key and X as the minor sort key.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.rects` 
+
+
+.. method:: PySide.QtGui.QRegion.subtracted(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is ``r`` subtracted from this region.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/rsubtract.png
+
+    The figure shows the result when the ellipse on the right is subtracted from the ellipse on the left (``left - right`` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected`  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Swaps region ``other`` with this region. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtGui.QRegion.translate(p)
+
+
+    :param p: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    This is an overloaded function.
+
+    Translates the region ``point``\ *. :meth:`~PySide.QtGui.QRegion.x` ** along the x axis and ``point``\ *. :meth:`~PySide.QtGui.QRegion.y` ** along the y axis, relative to the current position. Positive values move the region to the right and down.
+
+    Translates to the given ``point`` .
+
+
+
+.. method:: PySide.QtGui.QRegion.translate(dx, dy)
+
+
+    :param dx: :class:`PySide.QtCore.int`
+    :param dy: :class:`PySide.QtCore.int`
+
+
+
+
+    Translates (moves) the region ``dx`` along the X axis and ``dy`` along the Y axis.
+
+
+
+.. method:: PySide.QtGui.QRegion.translated(dx, dy)
+
+
+    :param dx: :class:`PySide.QtCore.int`
+    :param dy: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a copy of the region that is translated ``dx`` along the x axis and ``dy`` along the y axis, relative to the current position. Positive values move the region to the right and down.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.translate` 
+
+
+.. method:: PySide.QtGui.QRegion.translated(p)
+
+
+    :param p: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    This is an overloaded function.
+
+    Returns a copy of the regtion that is translated ``p``\ *. :meth:`~PySide.QtGui.QRegion.x` ** along the x axis and ``p``\ *. :meth:`~PySide.QtGui.QRegion.y` ** along the y axis, relative to the current position. Positive values move the rectangle to the right and down.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.translate` 
+
+
+.. method:: PySide.QtGui.QRegion.united(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is the union of this region and ``r`` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/runion.png
+
+    The figure shows the union of two elliptical regions.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected`  :meth:`PySide.QtGui.QRegion.subtracted`  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.united(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is the union of this region and the given ``rect`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected`  :meth:`PySide.QtGui.QRegion.subtracted`  :meth:`PySide.QtGui.QRegion.xored` 
+
+
+.. method:: PySide.QtGui.QRegion.xored(r)
+
+
+    :param r: :class:`PySide.QtGui.QRegion`
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns a region which is the exclusive or (XOR) of this region and ``r`` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/rxor.png
+
+    The figure shows the exclusive or of two elliptical regions.
+
+    .. seealso::  :meth:`PySide.QtGui.QRegion.intersected`  :meth:`PySide.QtGui.QRegion.united`  :meth:`PySide.QtGui.QRegion.subtracted` 
+
+
+

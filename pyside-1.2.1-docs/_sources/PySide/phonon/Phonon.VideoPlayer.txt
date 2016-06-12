@@ -1,0 +1,289 @@
+.. module:: PySide.phonon
+.. _Phonon.VideoPlayer:
+
+Phonon.VideoPlayer
+******************
+
+.. inheritance-diagram:: Phonon.VideoPlayer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`audioOutput<PySide.phonon.Phonon.VideoPlayer.audioOutput>` ()
+*    def :meth:`currentTime<PySide.phonon.Phonon.VideoPlayer.currentTime>` ()
+*    def :meth:`isPaused<PySide.phonon.Phonon.VideoPlayer.isPaused>` ()
+*    def :meth:`isPlaying<PySide.phonon.Phonon.VideoPlayer.isPlaying>` ()
+*    def :meth:`mediaObject<PySide.phonon.Phonon.VideoPlayer.mediaObject>` ()
+*    def :meth:`totalTime<PySide.phonon.Phonon.VideoPlayer.totalTime>` ()
+*    def :meth:`videoWidget<PySide.phonon.Phonon.VideoPlayer.videoWidget>` ()
+*    def :meth:`volume<PySide.phonon.Phonon.VideoPlayer.volume>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`load<PySide.phonon.Phonon.VideoPlayer.load>` (source)
+*    def :meth:`pause<PySide.phonon.Phonon.VideoPlayer.pause>` ()
+*    def :meth:`play<PySide.phonon.Phonon.VideoPlayer.play>` ()
+*    def :meth:`play<PySide.phonon.Phonon.VideoPlayer.play>` (source)
+*    def :meth:`seek<PySide.phonon.Phonon.VideoPlayer.seek>` (ms)
+*    def :meth:`setVolume<PySide.phonon.Phonon.VideoPlayer.setVolume>` (volume)
+*    def :meth:`stop<PySide.phonon.Phonon.VideoPlayer.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`finished<PySide.phonon.Phonon.VideoPlayer.finished>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.VideoPlayer` widget is used to perform playback of video.
+
+    With :class:`~PySide.phonon.Phonon.VideoPlayer` you can get results quickly and easily. You can do the standard playback tasks like :meth:`PySide.phonon.Phonon::VideoPlayer.play` , :meth:`PySide.phonon.Phonon::VideoPlayer.pause` , and :meth:`PySide.phonon.Phonon::VideoPlayer.stop` , but also set a playback volume and seek - if the media and backend supports seeking.
+
+    :class:`~PySide.phonon.Phonon.VideoPlayer` is provided for convenience and removes the need to create a media graph with a :class:`Phonon.MediaObject` , :class:`Phonon.AudioOutput` , and :class:`Phonon.VideoWidget` . If you need functionality not supported by the player, you can build this :ref:`graph<phonon-overview.html>` yourself.
+
+    Keep in mind that when the :class:`~PySide.phonon.Phonon.VideoPlayer` instance is deleted the playback will stop.
+
+    Note also that most of the functions in this class are asynchronous. For instance, a media source may not play immediately after you call the :meth:`PySide.phonon.Phonon::VideoPlayer.play` function.
+
+    A play and forget code example:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:4" not found>
+
+    .. seealso::  :ref:`Phonon Module<phonon-module.html>`  :class:`~PySide.phonon.Phonon.MediaObject` 
+
+.. class:: PySide.phonon.Phonon.VideoPlayer(category[, parent=None])
+           PySide.phonon.Phonon.VideoPlayer([parent=None])
+
+    :param category: :attr:`PySide.phonon.Phonon.Category`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+    Constructs a new video widget with a ``parent`` using :attr:`Phonon.VideoCategory<Phonon.Category>` as its category.
+
+    *parent* The :class:`PySide.QtCore.QObject` parent.
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.audioOutput()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::AudioOutput`
+
+
+
+
+    Returns the audio output object being used by the player.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.currentTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Get the current time (in milliseconds) of the file currently being played.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.isPaused()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if it is currently paused; otherwise returns false if it is currently playing or stopped.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.isPlaying()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if it is currently playing; otherwise returns false if it is currently stopped or paused
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.load(source)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.mediaObject()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaObject`
+
+
+
+
+    Returns the media object being used by the player.
+
+    The media object can be accessed directly instead of using the :class:`~PySide.phonon.Phonon.VideoPlayer` s convenience functions, e.g., :meth:`PySide.phonon.Phonon::VideoPlayer.play` and :meth:`PySide.phonon.Phonon::VideoPlayer.stop` . It is also possible to give the object to other Phonon widgets, e.g., a :class:`Phonon.SeekSlider` or a :class:`Phonon.VolumeSlider` .
+
+    .. seealso::  :class:`Phonon.SeekSlider`  :class:`Phonon.MediaObject` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.pause()
+
+
+
+
+
+
+    Pauses the playback.
+
+    .. seealso::  :meth:`MediaObject.pause()<PySide.phonon.Phonon::MediaObject.pause>` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.play(source)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaSource`
+
+
+
+
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.play()
+
+
+
+
+
+
+    Continues playback of paused media. Restarts playback of a stopped (or newly loaded) media.
+
+    .. seealso::  :meth:`MediaObject.play()<PySide.phonon.Phonon::MediaObject.play>`  :meth:`PySide.phonon.Phonon::VideoPlayer.play` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.seek(ms)
+
+
+    :param ms: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Seeks to the requested time. Note that the backend is free to ignore the seek request if the media source isn't seekable; you can check this by asking the media object of the :class:`~PySide.phonon.Phonon.VideoPlayer` .
+
+    ::
+
+            player->mediaObject()->isSeekable();
+
+
+    The ``ms`` parameter is the time in milliseconds from the start of the media.
+
+    The call is asynchronous, so :meth:`PySide.phonon.Phonon::VideoPlayer.currentTime` can still be the old value right after this method was called. If all you need is a slider that shows the current position and allows the user to seek, use the class :class:`~PySide.phonon.Phonon.SeekSlider` .
+
+    .. seealso::  :meth:`MediaObject.seek()<PySide.phonon.Phonon::MediaObject.seek>`  :meth:`MediaObject.isSeekable()<PySide.phonon.Phonon::MediaObject.isSeekable>`  :meth:`PySide.phonon.Phonon::VideoPlayer.mediaObject` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.setVolume(volume)
+
+
+    :param volume: :class:`PySide.QtCore.float`
+
+
+
+
+    Sets the ``volume`` of the output as voltage factor.
+
+    1.0 means 100%, 0.5 means 50% voltage/25% power, 0.0 means 0%
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VideoPlayer.volume` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.stop()
+
+
+
+
+
+
+    Stops the playback.
+
+    .. seealso::  :meth:`MediaObject.stop()<PySide.phonon.Phonon::MediaObject.stop>` 
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.totalTime()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Get the total time (in milliseconds) of the file currently being played.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.videoWidget()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::VideoWidget`
+
+
+
+
+    Returns the video widget being used by the player.
+
+
+
+.. method:: PySide.phonon.Phonon.VideoPlayer.volume()
+
+
+    :rtype: :class:`PySide.QtCore.float`
+
+
+
+
+    This is the current volume of the output as voltage factor.
+
+    1.0 means 100%, 0.5 means 50% voltage/25% power, 0.0 means 0%
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::VideoPlayer.setVolume` 
+
+
+

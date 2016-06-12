@@ -1,0 +1,1254 @@
+.. module:: PySide.QtGui
+.. _QWizard:
+
+QWizard
+*******
+
+.. inheritance-diagram:: QWizard
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addPage<PySide.QtGui.QWizard.addPage>` (page)
+*    def :meth:`button<PySide.QtGui.QWizard.button>` (which)
+*    def :meth:`buttonText<PySide.QtGui.QWizard.buttonText>` (which)
+*    def :meth:`currentId<PySide.QtGui.QWizard.currentId>` ()
+*    def :meth:`currentPage<PySide.QtGui.QWizard.currentPage>` ()
+*    def :meth:`field<PySide.QtGui.QWizard.field>` (name)
+*    def :meth:`hasVisitedPage<PySide.QtGui.QWizard.hasVisitedPage>` (id)
+*    def :meth:`options<PySide.QtGui.QWizard.options>` ()
+*    def :meth:`page<PySide.QtGui.QWizard.page>` (id)
+*    def :meth:`pageIds<PySide.QtGui.QWizard.pageIds>` ()
+*    def :meth:`pixmap<PySide.QtGui.QWizard.pixmap>` (which)
+*    def :meth:`removePage<PySide.QtGui.QWizard.removePage>` (id)
+*    def :meth:`setButton<PySide.QtGui.QWizard.setButton>` (which, button)
+*    def :meth:`setButtonLayout<PySide.QtGui.QWizard.setButtonLayout>` (layout)
+*    def :meth:`setButtonText<PySide.QtGui.QWizard.setButtonText>` (which, text)
+*    def :meth:`setDefaultProperty<PySide.QtGui.QWizard.setDefaultProperty>` (className, property, changedSignal)
+*    def :meth:`setField<PySide.QtGui.QWizard.setField>` (name, value)
+*    def :meth:`setOption<PySide.QtGui.QWizard.setOption>` (option[, on=true])
+*    def :meth:`setOptions<PySide.QtGui.QWizard.setOptions>` (options)
+*    def :meth:`setPage<PySide.QtGui.QWizard.setPage>` (id, page)
+*    def :meth:`setPixmap<PySide.QtGui.QWizard.setPixmap>` (which, pixmap)
+*    def :meth:`setSideWidget<PySide.QtGui.QWizard.setSideWidget>` (widget)
+*    def :meth:`setStartId<PySide.QtGui.QWizard.setStartId>` (id)
+*    def :meth:`setSubTitleFormat<PySide.QtGui.QWizard.setSubTitleFormat>` (format)
+*    def :meth:`setTitleFormat<PySide.QtGui.QWizard.setTitleFormat>` (format)
+*    def :meth:`setWizardStyle<PySide.QtGui.QWizard.setWizardStyle>` (style)
+*    def :meth:`sideWidget<PySide.QtGui.QWizard.sideWidget>` ()
+*    def :meth:`startId<PySide.QtGui.QWizard.startId>` ()
+*    def :meth:`subTitleFormat<PySide.QtGui.QWizard.subTitleFormat>` ()
+*    def :meth:`testOption<PySide.QtGui.QWizard.testOption>` (option)
+*    def :meth:`titleFormat<PySide.QtGui.QWizard.titleFormat>` ()
+*    def :meth:`visitedPages<PySide.QtGui.QWizard.visitedPages>` ()
+*    def :meth:`wizardStyle<PySide.QtGui.QWizard.wizardStyle>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cleanupPage<PySide.QtGui.QWizard.cleanupPage>` (id)
+*    def :meth:`initializePage<PySide.QtGui.QWizard.initializePage>` (id)
+*    def :meth:`nextId<PySide.QtGui.QWizard.nextId>` ()
+*    def :meth:`validateCurrentPage<PySide.QtGui.QWizard.validateCurrentPage>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`back<PySide.QtGui.QWizard.back>` ()
+*    def :meth:`next<PySide.QtGui.QWizard.next>` ()
+*    def :meth:`restart<PySide.QtGui.QWizard.restart>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentIdChanged<PySide.QtGui.QWizard.currentIdChanged>` (id)
+*    def :meth:`customButtonClicked<PySide.QtGui.QWizard.customButtonClicked>` (which)
+*    def :meth:`helpRequested<PySide.QtGui.QWizard.helpRequested>` ()
+*    def :meth:`pageAdded<PySide.QtGui.QWizard.pageAdded>` (id)
+*    def :meth:`pageRemoved<PySide.QtGui.QWizard.pageRemoved>` (id)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWizard` class provides a framework for wizards.
+
+    A wizard (also called an assistant on Mac OS X) is a special type of input dialog that consists of a sequence of pages. A wizard's purpose is to guide the user through a process step by step. Wizards are useful for complex or infrequent tasks that users may find difficult to learn.
+
+    :class:`PySide.QtGui.QWizard` inherits :class:`PySide.QtGui.QDialog` and represents a wizard. Each page is a :class:`PySide.QtGui.QWizardPage` (a :class:`PySide.QtGui.QWidget` subclass). To create your own wizards, you can use these classes directly, or you can subclass them for more control.
+
+    Topics:
+
+    .. _PySide.QtGui.QWizard_a-trivial-example:
+
+
+
+A Trivial Example
+^^^^^^^^^^^^^^^^^
+
+    The following example illustrates how to create wizard pages and add them to a wizard. For more advanced examples, see :ref:`Class Wizard<dialogs/classwizard>` and :ref:`License Wizard<dialogs/licensewizard>` .
+
+    ::
+
+        def createIntroPage(self):
+            page = QWizardPage()
+            page.setTitle("Introduction")
+
+            label = QLabel("This wizard will help you register your copy of Super Product Two.")
+            label.setWordWrap(True)
+
+            layout = QVBoxLayout()
+            layout.addWidget(label)
+            page.setLayout(layout)
+
+            return page
+
+
+
+        QWizardPage *createRegistrationPage()
+
+            ...
+
+        
+        def createConclusionPage(self):
+
+            ...
+
+        
+
+
+        def main():
+            app = QApplication(sys.argv)
+
+            translatorFileName = "qt_"
+            translatorFileName += QLocale.system().name()
+            translator = QTranslator(app)
+            if translator.load(translatorFileName, QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
+                app.installTranslator(translator)
+
+            wizard = QWizard()
+            wizard.addPage(createIntroPage())
+            wizard.addPage(createRegistrationPage())
+            wizard.addPage(createConclusionPage())
+
+            wizard.setWindowTitle("Trivial Wizard")
+            wizard.show()
+
+            return app.exec_()
+
+        if __name__ == "__main__":
+            main()
+
+
+    .. _PySide.QtGui.QWizard_wizard-look-and-feel:
+
+
+
+Wizard Look and Feel
+^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QWizard` supports four wizard looks:
+
+
+    * :attr:`ClassicStyle<QWizard.WizardStyle>`
+    * :attr:`ModernStyle<QWizard.WizardStyle>`
+    * :attr:`MacStyle<QWizard.WizardStyle>`
+    * :attr:`AeroStyle<QWizard.WizardStyle>`
+
+    You can explicitly set the look to use using :meth:`PySide.QtGui.QWizard.setWizardStyle` (e.g., if you want the same look on all platforms).
+
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |:attr:`ClassicStyle<QWizard.WizardStyle>`                                                           |:attr:`ModernStyle<QWizard.WizardStyle>`                                                           |:attr:`MacStyle<QWizard.WizardStyle>`                                                           |:attr:`AeroStyle<QWizard.WizardStyle>`                                                           |
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-classic1.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-modern1.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-mac1.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-aero1.png|
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-classic2.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-modern2.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-mac2.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-aero2.png|
+    +----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+    Note: :attr:`AeroStyle<QWizard.WizardStyle>` has effect only on a Windows Vista system with alpha compositing enabled. :attr:`ModernStyle<QWizard.WizardStyle>` is used as a fallback when this condition is not met.
+
+    In addition to the wizard style, there are several options that control the look and feel of the wizard. These can be set using :meth:`PySide.QtGui.QWizard.setOption` or :meth:`PySide.QtGui.QWizard.setOptions` . For example, :attr:`HaveHelpButton<QWizard.WizardOption>` makes :class:`PySide.QtGui.QWizard` show a **Help** button along with the other wizard buttons.
+
+    You can even change the order of the wizard buttons to any arbitrary order using :meth:`PySide.QtGui.QWizard.setButtonLayout` , and you can add up to three custom buttons (e.g., a **Print** button) to the button row. This is achieved by calling :meth:`PySide.QtGui.QWizard.setButton` or :meth:`PySide.QtGui.QWizard.setButtonText` with :attr:`CustomButton1<QWizard.WizardButton>` , :attr:`CustomButton2<QWizard.WizardButton>` , or :attr:`CustomButton3<QWizard.WizardButton>` to set up the button, and by enabling the :attr:`HaveCustomButton1<QWizard.WizardOption>` , :attr:`HaveCustomButton2<QWizard.WizardOption>` , or :attr:`HaveCustomButton3<QWizard.WizardOption>` options. Whenever the user clicks a custom button, :meth:`PySide.QtGui.QWizard.customButtonClicked` is emitted. For example:
+
+    ::
+
+                self.wizard().setButtonText(QWizard.CustomButton1, self.tr("&Print"))
+                self.wizard().setOption(QWizard.HaveCustomButton1, True)
+                self.connect(wizard(), SIGNAL("customButtonClicked(int)"), self, SLOT("printButtonClicked()"))
+
+
+    .. _PySide.QtGui.QWizard_elements-of-a-wizard-page:
+
+
+
+Elements of a Wizard Page
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Wizards consist of a sequence of :class:`PySide.QtGui.QWizardPage` s. At any time, only one page is shown. A page has the following attributes:
+
+    The diagram belows shows how :class:`PySide.QtGui.QWizard` renders these attributes, assuming they are all present and :attr:`ModernStyle<QWizard.WizardStyle>` is used:
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-nonmacpage.png
+
+    When a :meth:`PySide.QtGui.QWizardPage.subTitle` is set, :class:`PySide.QtGui.QWizard` displays it in a header, in which case it also uses the :attr:`BannerPixmap<QWizard.WizardPixmap>` and the :attr:`LogoPixmap<QWizard.WizardPixmap>` to decorate the header. The :attr:`WatermarkPixmap<QWizard.WizardPixmap>` is displayed on the left side, below the header. At the bottom, there is a row of buttons allowing the user to navigate through the pages.
+
+    The page itself (the :class:`PySide.QtGui.QWizardPage` widget) occupies the area between the header, the watermark, and the button row. Typically, the page is a :class:`PySide.QtGui.QWizardPage` on which a :class:`PySide.QtGui.QGridLayout` is installed, with standard child widgets ( :class:`PySide.QtGui.QLabel` s, :class:`PySide.QtGui.QLineEdit` s, etc.).
+
+    If the wizard's style is :attr:`MacStyle<QWizard.WizardStyle>` , the page looks radically different:
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtwizard-macpage.png
+
+    The watermark, banner, and logo pixmaps are ignored by the :attr:`MacStyle<QWizard.WizardStyle>` . If the :attr:`BackgroundPixmap<QWizard.WizardPixmap>` is set, it is used as the background for the wizard; otherwise, a default "assistant" image is used.
+
+    The title and subtitle are set by calling :meth:`QWizardPage.setTitle()<PySide.QtGui.QWizardPage.setTitle>` and :meth:`QWizardPage.setSubTitle()<PySide.QtGui.QWizardPage.setSubTitle>` on the individual pages. They may be plain text or HTML (see :meth:`PySide.QtGui.QWizard.titleFormat` and :meth:`PySide.QtGui.QWizard.subTitleFormat` ). The pixmaps can be set globally for the entire wizard using :meth:`PySide.QtGui.QWizard.setPixmap` , or on a per-page basis using :meth:`QWizardPage.setPixmap()<PySide.QtGui.QWizardPage.setPixmap>` .
+
+    .. _PySide.QtGui.QWizard_registering-and-using-fields:
+
+
+
+Registering and Using Fields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    In many wizards, the contents of a page may affect the default values of the fields of a later page. To make it easy to communicate between pages, :class:`PySide.QtGui.QWizard` supports a "field" mechanism that allows you to register a field (e.g., a :class:`PySide.QtGui.QLineEdit` ) on a page and to access its value from any page. It is also possible to specify mandatory fields (i.e., fields that must be filled before the user can advance to the next page).
+
+    To register a field, call :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>` field. For example:
+
+    ::
+
+        class ClassInfoPage(QWizardPage):
+
+            def __init__(self, parent):
+                QWizardPage.__init__(self, parent)
+            ...
+                classNameLabel = QLabel(self.tr("&Class name:"))
+                classNameLineEdit = QLineEdit()
+                classNameLabel.setBuddy(classNameLineEdit)
+
+                baseClassLabel = QLabel(self.tr("B&ase class:"))
+                baseClassLineEdit = QLineEdit()
+                baseClassLabel.setBuddy(baseClassLineEdit)
+
+                qobjectMacroCheckBox = QCheckBox(self.tr("Generate Q_OBJECT &macro"))
+
+                registerField("className*", classNameLineEdit)
+                registerField("baseClass", baseClassLineEdit)
+                registerField("qobjectMacro", qobjectMacroCheckBox)
+            ...
+
+
+
+    The above code registers three fields, ``className`` , ``baseClass`` , and ``qobjectMacro`` , which are associated with three child widgets. The asterisk (``*`` ) next to ``className`` denotes a mandatory field.
+
+    The fields of any page are accessible from any other page. For example:
+
+    ::
+
+            def initializePage(self):
+                className = field("className")
+                self.headerLineEdit.setText(className.lower() + ".h")
+                self.implementationLineEdit.setText(className.lower() + ".cpp")
+                self.outputDirLineEdit.setText(QDir.convertSeparators(QDir.tempPath()))
+
+
+    Here, we call :meth:`QWizardPage.field()<PySide.QtGui.QWizardPage.field>` to access the contents of the ``className`` field (which was defined in the ``ClassInfoPage`` ) and use it to initialize the ``OuputFilePage`` . The field's contents is returned as a :class:`PySide.QtCore.QVariant` .
+
+    When we create a field using :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>` , we pass a unique field name and a widget. We can also provide a Qt property name and a "changed" signal (a signal that is emitted when the property changes) as third and fourth arguments; however, this is not necessary for the most common Qt widgets, such as :class:`PySide.QtGui.QLineEdit` , :class:`PySide.QtGui.QCheckBox` , and :class:`PySide.QtGui.QComboBox` , because :class:`PySide.QtGui.QWizard` knows which properties to look for.
+
+    If an asterisk (``*`` ) is appended to the name when the property is registered, the field is a *mandatory field* . When a page has mandatory fields, the **Next** and/or **Finish** buttons are enabled only when all mandatory fields are filled.
+
+    To consider a field "filled", :class:`PySide.QtGui.QWizard` simply checks that the field's current value doesn't equal the original value (the value it had when :meth:`PySide.QtGui.QWizard.initializePage` was called). For :class:`PySide.QtGui.QLineEdit` and :class:`PySide.QtGui.QAbstractSpinBox` subclasses, :class:`PySide.QtGui.QWizard` also checks that :meth:`PySide.QtGui.QLineEdit.hasAcceptableInput` returns true, to honor any validator or mask.
+
+    :class:`PySide.QtGui.QWizard` 's mandatory field mechanism is provided for convenience. A more powerful (but also more cumbersome) alternative is to reimplement :meth:`QWizardPage.isComplete()<PySide.QtGui.QWizardPage.isComplete>` and to emit the :meth:`QWizardPage.completeChanged()<PySide.QtGui.QWizardPage.completeChanged>` signal whenever the page becomes complete or incomplete.
+
+    The enabled/disabled state of the **Next** and/or **Finish** buttons is one way to perform validation on the user input. Another way is to reimplement :meth:`PySide.QtGui.QWizard.validateCurrentPage` (or :meth:`QWizardPage.validatePage()<PySide.QtGui.QWizardPage.validatePage>` ) to perform some last-minute validation (and show an error message if the user has entered incomplete or invalid information). If the function returns true, the next page is shown (or the wizard finishes); otherwise, the current page stays up.
+
+    .. _PySide.QtGui.QWizard_creating-linear-wizards:
+
+
+
+Creating Linear Wizards
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    Most wizards have a linear structure, with page 1 followed by page 2 and so on until the last page. The :ref:`Class Wizard<dialogs/classwizard>` example is such a wizard. With :class:`PySide.QtGui.QWizard` , linear wizards are created by instantiating the :class:`PySide.QtGui.QWizardPage` s and inserting them using :meth:`PySide.QtGui.QWizard.addPage` . By default, the pages are shown in the order in which they were added. For example:
+
+    ::
+
+        def __init__(self, parent):
+            QWizard.__init__(self, parent):
+            self.addPage(IntroPage())
+            self.addPage(ClassInfoPage())
+            self.addPage(CodeStylePage())
+            self.addPage(OutputFilesPage())
+            self.addPage(ConclusionPage())
+            ...
+
+
+
+    When a page is about to be shown, :class:`PySide.QtGui.QWizard` calls :meth:`PySide.QtGui.QWizard.initializePage` (which in turn calls :meth:`QWizardPage.initializePage()<PySide.QtGui.QWizardPage.initializePage>` ) to fill the page with default values. By default, this function does nothing, but it can be reimplemented to initialize the page's contents based on other pages' fields (see the :class:`example above<~PySide.QtGui.initialize page>` ).
+
+    If the user presses **Back** , :meth:`PySide.QtGui.QWizard.cleanupPage` is called (which in turn calls :meth:`QWizardPage.cleanupPage()<PySide.QtGui.QWizardPage.cleanupPage>` ). The default implementation resets the page's fields to their original values (the values they had before :meth:`PySide.QtGui.QWizard.initializePage` was called). If you want the **Back** button to be non-destructive and keep the values entered by the user, simply enable the :attr:`IndependentPages<QWizard.WizardOption>` option.
+
+    .. _PySide.QtGui.QWizard_creating-non-linear-wizards:
+
+
+
+Creating Non-Linear Wizards
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Some wizards are more complex in that they allow different traversal paths based on the information provided by the user. The :ref:`License Wizard<dialogs/licensewizard>` example illustrates this. It provides five wizard pages; depending on which options are selected, the user can reach different pages.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/licensewizard-flow.png
+
+    In complex wizards, pages are identified by IDs. These IDs are typically defined using an enum. For example:
+
+    ::
+
+        class LicenseWizard (QWizard):
+            ...
+            Page_Intro = 1
+            Page_Evaluate = 2
+            Page_Register = 3
+            Page_Details = 4
+            Page_Conclusion = 5
+            ...
+
+
+
+    The pages are inserted using :meth:`PySide.QtGui.QWizard.setPage` , which takes an ID and an instance of :class:`PySide.QtGui.QWizardPage` (or of a subclass):
+
+    ::
+
+        # class LicenseWizard
+        def __init__(self, parent)
+            QWizard(self, parent)
+
+            self.setPage(self.Page_Intro, IntroPage())
+            self.setPage(self.Page_Evaluate, EvaluatePage())
+            self.setPage(self.Page_Register, RegisterPage())
+            self.setPage(self.Page_Details, DetailsPage())
+            self.setPage(self.Page_Conclusion, ConclusionPage())
+            ...
+        }
+
+
+    By default, the pages are shown in increasing ID order. To provide a dynamic order that depends on the options chosen by the user, we must reimplement :meth:`QWizardPage.nextId()<PySide.QtGui.QWizardPage.nextId>` . For example:
+
+    ::
+
+        # class IntroPage
+        def nextId(self):
+
+            if evaluateRadioButton.isChecked():
+                return LicenseWizard.Page_Evaluate
+            else:
+                return LicenseWizard.Page_Register
+        
+        # class EvaluatePage
+        def nextId(self):
+            return LicenseWizard.Page_Conclusion
+        
+        # class RegisterPage
+        def nextId(self):
+            if self.upgradeKeyLineEdit.text().isEmpty():
+                return LicenseWizard::Page_Details
+            else:
+                return LicenseWizard::Page_Conclusion
+        
+        # class DetailsPage
+        def nextId(self):
+            return LicenseWizard.Page_Conclusion
+        
+        #class ConclusionPage
+        def nextId(self):
+            return -1
+
+
+    It would also be possible to put all the logic in one place, in a :meth:`QWizard.nextId()<PySide.QtGui.QWizard.nextId>` reimplementation. For example:
+
+    ::
+
+        def nextId(self):
+            id = self.currentId()
+            if id == Page_Intro:
+                if field("intro.evaluate").toBool():
+                    return Page_Evaluate
+                else:
+                    return Page_Register
+            elif id == Page_Evaluate:
+                return Page_Conclusion
+            elif id == Page_Register:
+                if field("register.upgradeKey").toString().isEmpty():
+                    return Page_Details
+                else:
+                    return Page_Conclusion
+            elif id == Page_Details:
+                return Page_Conclusion
+            else:
+                return -1
+
+
+    To start at another page than the page with the lowest ID, call :meth:`PySide.QtGui.QWizard.setStartId` .
+
+    To test whether a page has been visited or not, call :meth:`PySide.QtGui.QWizard.hasVisitedPage` . For example:
+
+    ::
+
+        # class ConclusionPage
+        def initializePage(self):
+            if wizard().hasVisitedPage(LicenseWizard::Page_Evaluate):
+                licenseText = self.tr("<u>Evaluation License Agreement:</u> " \
+                                 "You can use this software for 30 days and make one " \
+                                 "backup, but you are not allowed to distribute it.")
+            elsif wizard().hasVisitedPage(LicenseWizard.Page_Details):
+                licenseText = self.tr("<u>First-Time License Agreement:</u> " \
+                                 "You can use this software subject to the license " \
+                                 "you will receive by email.")
+            else:
+                licenseText = self.tr("<u>Upgrade License Agreement:</u> " \
+                                 "This software is licensed under the terms of your " \
+                                 "current license.")
+            }
+            bottomLabel.setText(licenseText)
+
+
+    .. seealso::  :class:`PySide.QtGui.QWizardPage`  :ref:`Class Wizard Example<dialogs/classwizard>`  :ref:`License Wizard Example<dialogs/licensewizard>` 
+
+.. class:: QWizard([parent=None[, flags=0]])
+
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+.. attribute:: PySide.QtGui.QWizard.WizardButton
+
+    This enum specifies the buttons in a wizard.
+
+    +---------------------+------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                               |
+    +=====================+==========================================================================================+
+    |QWizard.BackButton   |The **Back** button (**Go Back** on Mac OS X)                                             |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.NextButton   |The **Next** button (**Continue** on Mac OS X)                                            |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.CommitButton |The **Commit** button                                                                     |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.FinishButton |The **Finish** button (**Done** on Mac OS X)                                              |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.CancelButton |The **Cancel** button (see also :attr:`NoCancelButton<QWizard.WizardOption>` )            |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.HelpButton   |The **Help** button (see also :attr:`HaveHelpButton<QWizard.WizardOption>` )              |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.CustomButton1|The first user-defined button (see also :attr:`HaveCustomButton1<QWizard.WizardOption>` ) |
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.CustomButton2|The second user-defined button (see also :attr:`HaveCustomButton2<QWizard.WizardOption>` )|
+    +---------------------+------------------------------------------------------------------------------------------+
+    |QWizard.CustomButton3|The third user-defined button (see also :attr:`HaveCustomButton3<QWizard.WizardOption>` ) |
+    +---------------------+------------------------------------------------------------------------------------------+
+
+    The following value is only useful when calling :meth:`PySide.QtGui.QWizard.setButtonLayout` :
+
+    +---------------+-----------------------------------------+
+    |Constant       |Description                              |
+    +===============+=========================================+
+    |QWizard.Stretch|A horizontal stretch in the button layout|
+    +---------------+-----------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setButton`  :meth:`PySide.QtGui.QWizard.setButtonText`  :meth:`PySide.QtGui.QWizard.setButtonLayout`  :meth:`PySide.QtGui.QWizard.customButtonClicked` 
+
+.. attribute:: PySide.QtGui.QWizard.WizardStyle
+
+    This enum specifies the different looks supported by :class:`PySide.QtGui.QWizard` .
+
+    +--------------------+--------------------+
+    |Constant            |Description         |
+    +====================+====================+
+    |QWizard.ClassicStyle|Classic Windows look|
+    +--------------------+--------------------+
+    |QWizard.ModernStyle |Modern Windows look |
+    +--------------------+--------------------+
+    |QWizard.MacStyle    |Mac OS X look       |
+    +--------------------+--------------------+
+    |QWizard.AeroStyle   |Windows Aero look   |
+    +--------------------+--------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setWizardStyle`  :attr:`QWizard.WizardOption`  :class:`~PySide.QtGui.Wizard Look and Feel` 
+
+.. attribute:: PySide.QtGui.QWizard.WizardPixmap
+
+    This enum specifies the pixmaps that can be associated with a page.
+
+    +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                                                              |
+    +========================+=========================================================================================================================================+
+    |QWizard.WatermarkPixmap |The tall pixmap on the left side of a :attr:`ClassicStyle<QWizard.WizardStyle>` or :attr:`ModernStyle<QWizard.WizardStyle>` page         |
+    +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QWizard.LogoPixmap      |The small pixmap on the right side of a :attr:`ClassicStyle<QWizard.WizardStyle>` or :attr:`ModernStyle<QWizard.WizardStyle>` page header|
+    +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QWizard.BannerPixmap    |The pixmap that occupies the background of a :attr:`ModernStyle<QWizard.WizardStyle>` page header                                        |
+    +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+    |QWizard.BackgroundPixmap|The pixmap that occupies the background of a :attr:`MacStyle<QWizard.WizardStyle>` wizard                                                |
+    +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setPixmap`  :meth:`QWizardPage.setPixmap()<PySide.QtGui.QWizardPage.setPixmap>`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+.. attribute:: PySide.QtGui.QWizard.WizardOption
+
+    This enum specifies various options that affect the look and feel of a wizard.
+
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |Constant                            |Description                                                                                                            |
+    +====================================+=======================================================================================================================+
+    |QWizard.IndependentPages            |The pages are independent of each other (i.e., they don't derive values from each other).                              |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.IgnoreSubTitles             |Don't show any subtitles, even if they are set.                                                                        |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.ExtendedWatermarkPixmap     |Extend any :attr:`WatermarkPixmap<QWizard.WizardPixmap>` all the way down to the window's edge.                        |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.NoDefaultButton             |Don't make the **Next** or **Finish** button the dialog's :meth:`default button<PySide.QtGui.QPushButton.setDefault>` .|
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.NoBackButtonOnStartPage     |Don't show the **Back** button on the start page.                                                                      |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.NoBackButtonOnLastPage      |Don't show the **Back** button on the last page.                                                                       |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.DisabledBackButtonOnLastPage|Disable the **Back** button on the last page.                                                                          |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveNextButtonOnLastPage    |Show the (disabled) **Next** button on the last page.                                                                  |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveFinishButtonOnEarlyPages|Show the (disabled) **Finish** button on non-final pages.                                                              |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.NoCancelButton              |Don't show the **Cancel** button.                                                                                      |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.CancelButtonOnLeft          |Put the **Cancel** button on the left of **Back** (rather than on the right of **Finish** or **Next**).                |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveHelpButton              |Show the **Help** button.                                                                                              |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HelpButtonOnRight           |Put the **Help** button on the far right of the button layout (rather than on the far left).                           |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveCustomButton1           |Show the first user-defined button ( :attr:`CustomButton1<QWizard.WizardButton>` ).                                    |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveCustomButton2           |Show the second user-defined button ( :attr:`CustomButton2<QWizard.WizardButton>` ).                                   |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QWizard.HaveCustomButton3           |Show the third user-defined button ( :attr:`CustomButton3<QWizard.WizardButton>` ).                                    |
+    +------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setOptions`  :meth:`PySide.QtGui.QWizard.setOption`  :meth:`PySide.QtGui.QWizard.testOption` 
+
+.. method:: PySide.QtGui.QWizard.addPage(page)
+
+
+    :param page: :class:`PySide.QtGui.QWizardPage`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds the given ``page`` to the wizard, and returns the page's ID.
+
+    The ID is guaranteed to be larger than any other ID in the :class:`PySide.QtGui.QWizard` so far.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setPage`  :meth:`PySide.QtGui.QWizard.page`  :meth:`PySide.QtGui.QWizard.pageAdded` 
+
+
+.. method:: PySide.QtGui.QWizard.back()
+
+
+
+
+
+
+    Goes back to the previous page.
+
+    This is equivalent to pressing the **Back** button.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.next`  :meth:`PySide.QtGui.QDialog.accept`  :meth:`PySide.QtGui.QDialog.reject`  :meth:`PySide.QtGui.QWizard.restart` 
+
+
+.. method:: PySide.QtGui.QWizard.button(which)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns the button corresponding to role ``which`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setButton`  :meth:`PySide.QtGui.QWizard.setButtonText` 
+
+
+.. method:: PySide.QtGui.QWizard.buttonText(which)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :rtype: unicode
+
+
+
+
+    Returns the text on button ``which`` .
+
+    If a text has ben set using :meth:`PySide.QtGui.QWizard.setButtonText` , this text is returned.
+
+    By default, the text on buttons depends on the :meth:`PySide.QtGui.QWizard.wizardStyle` . For example, on Mac OS X, the **Next** button is called **Continue** .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.button`  :meth:`PySide.QtGui.QWizard.setButton`  :meth:`PySide.QtGui.QWizard.setButtonText`  :meth:`QWizardPage.buttonText()<PySide.QtGui.QWizardPage.buttonText>`  :meth:`QWizardPage.setButtonText()<PySide.QtGui.QWizardPage.setButtonText>` 
+
+
+.. method:: PySide.QtGui.QWizard.cleanupPage(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtGui.QWizard` to clean up page ``id`` just before the user leaves it by clicking **Back** (unless the :attr:`QWizard.IndependentPages<QWizard.WizardOption>` option is set).
+
+    The default implementation calls :meth:`QWizardPage.cleanupPage()<PySide.QtGui.QWizardPage.cleanupPage>` on page(``id`` ).
+
+    .. seealso::  :meth:`QWizardPage.cleanupPage()<PySide.QtGui.QWizardPage.cleanupPage>`  :meth:`PySide.QtGui.QWizard.initializePage` 
+
+
+.. method:: PySide.QtGui.QWizard.currentId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the ID of the current page.
+
+    This property cannot be set directly. To change the current page, call :meth:`PySide.QtGui.QWizard.next` , :meth:`PySide.QtGui.QWizard.back` , or :meth:`PySide.QtGui.QWizard.restart` .
+
+    By default, this property has a value of -1, indicating that no page is currently shown.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.currentIdChanged`  :meth:`PySide.QtGui.QWizard.currentPage` 
+
+
+.. method:: PySide.QtGui.QWizard.currentIdChanged(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.currentPage()
+
+
+    :rtype: :class:`PySide.QtGui.QWizardPage`
+
+
+
+
+    Returns a pointer to the current page, or 0 if there is no current page (e.g., before the wizard is shown).
+
+    This is equivalent to calling page( :meth:`PySide.QtGui.QWizard.currentId` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.page`  :meth:`PySide.QtGui.QWizard.currentId`  :meth:`PySide.QtGui.QWizard.restart` 
+
+
+.. method:: PySide.QtGui.QWizard.customButtonClicked(which)
+
+
+    :param which: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.field(name)
+
+
+    :param name: unicode
+    :rtype: object
+
+
+
+
+    Returns the value of the field called ``name`` .
+
+    This function can be used to access fields on any page of the wizard.
+
+    .. seealso::  :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>`  :meth:`QWizardPage.field()<PySide.QtGui.QWizardPage.field>`  :meth:`PySide.QtGui.QWizard.setField` 
+
+
+.. method:: PySide.QtGui.QWizard.hasVisitedPage(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the page history contains page ``id`` ; otherwise, returns false.
+
+    Pressing **Back** marks the current page as "unvisited" again.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.visitedPages` 
+
+
+.. method:: PySide.QtGui.QWizard.helpRequested()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.initializePage(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtGui.QWizard` to prepare page ``id`` just before it is shown either as a result of :meth:`QWizard.restart()<PySide.QtGui.QWizard.restart>` being called, or as a result of the user clicking **Next** . (However, if the :attr:`QWizard.IndependentPages<QWizard.WizardOption>` option is set, this function is only called the first time the page is shown.)
+
+    By reimplementing this function, you can ensure that the page's fields are properly initialized based on fields from previous pages.
+
+    The default implementation calls :meth:`QWizardPage.initializePage()<PySide.QtGui.QWizardPage.initializePage>` on page(``id`` ).
+
+    .. seealso::  :meth:`QWizardPage.initializePage()<PySide.QtGui.QWizardPage.initializePage>`  :meth:`PySide.QtGui.QWizard.cleanupPage` 
+
+
+.. method:: PySide.QtGui.QWizard.next()
+
+
+
+
+
+
+    Advances to the next page.
+
+    This is equivalent to pressing the **Next** or **Commit** button.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.nextId`  :meth:`PySide.QtGui.QWizard.back`  :meth:`PySide.QtGui.QDialog.accept`  :meth:`PySide.QtGui.QDialog.reject`  :meth:`PySide.QtGui.QWizard.restart` 
+
+
+.. method:: PySide.QtGui.QWizard.nextId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtGui.QWizard` to find out which page to show when the user clicks the **Next** button.
+
+    The return value is the ID of the next page, or -1 if no page follows.
+
+    The default implementation calls :meth:`QWizardPage.nextId()<PySide.QtGui.QWizardPage.nextId>` on the :meth:`PySide.QtGui.QWizard.currentPage` .
+
+    By reimplementing this function, you can specify a dynamic page order.
+
+    .. seealso::  :meth:`QWizardPage.nextId()<PySide.QtGui.QWizardPage.nextId>`  :meth:`PySide.QtGui.QWizard.currentPage` 
+
+
+.. method:: PySide.QtGui.QWizard.options()
+
+
+    :rtype: :class:`PySide.QtGui.QWizard.WizardOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the wizard.
+
+    By default, the following options are set (depending on the platform):
+
+
+    * Windows: :attr:`HelpButtonOnRight<QWizard.WizardOption>` .
+    * Mac OS X: :attr:`NoDefaultButton<QWizard.WizardOption>` and :attr:`NoCancelButton<QWizard.WizardOption>` .
+    * X11 and QWS (Qt for Embedded Linux): none.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.wizardStyle` 
+
+
+.. method:: PySide.QtGui.QWizard.page(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QWizardPage`
+
+
+
+
+    Returns the page with the given ``id`` , or 0 if there is no such page.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.addPage`  :meth:`PySide.QtGui.QWizard.setPage` 
+
+
+.. method:: PySide.QtGui.QWizard.pageAdded(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.pageIds()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of page IDs.
+
+
+
+.. method:: PySide.QtGui.QWizard.pageRemoved(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.pixmap(which)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardPixmap`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the pixmap set for role ``which`` .
+
+    By default, the only pixmap that is set is the :attr:`BackgroundPixmap<QWizard.WizardPixmap>` on Mac OS X.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setPixmap`  :meth:`QWizardPage.pixmap()<PySide.QtGui.QWizardPage.pixmap>`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizard.removePage(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    Removes the page with the given ``id`` . :meth:`PySide.QtGui.QWizard.cleanupPage` will be called if necessary.
+
+    .. note::  Removing a page may influence the value of the :meth:`PySide.QtGui.QWizard.startId` property.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.addPage`  :meth:`PySide.QtGui.QWizard.setPage`  :meth:`PySide.QtGui.QWizard.pageRemoved`  :meth:`PySide.QtGui.QWizard.startId` 
+
+
+.. method:: PySide.QtGui.QWizard.restart()
+
+
+
+
+
+
+    Restarts the wizard at the start page. This function is called automatically when the wizard is shown.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.startId` 
+
+
+.. method:: PySide.QtGui.QWizard.setButton(which, button)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Sets the button corresponding to role ``which`` to ``button`` .
+
+    To add extra buttons to the wizard (e.g., a **Print** button), one way is to call :meth:`PySide.QtGui.QWizard.setButton` with :attr:`CustomButton1<QWizard.WizardButton>` to :attr:`CustomButton3<QWizard.WizardButton>` , and make the buttons visible using the :attr:`HaveCustomButton1<QWizard.WizardOption>` to :attr:`HaveCustomButton3<QWizard.WizardOption>` options.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.button`  :meth:`PySide.QtGui.QWizard.setButtonText`  :meth:`PySide.QtGui.QWizard.setButtonLayout`  :meth:`PySide.QtGui.QWizard.options` 
+
+
+.. method:: PySide.QtGui.QWizard.setButtonLayout(layout)
+
+
+    :param layout: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizard.setButtonText(which, text)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :param text: unicode
+
+
+
+
+    Sets the text on button ``which`` to be ``text`` .
+
+    By default, the text on buttons depends on the :meth:`PySide.QtGui.QWizard.wizardStyle` . For example, on Mac OS X, the **Next** button is called **Continue** .
+
+    To add extra buttons to the wizard (e.g., a **Print** button), one way is to call :meth:`PySide.QtGui.QWizard.setButtonText` with :attr:`CustomButton1<QWizard.WizardButton>` , :attr:`CustomButton2<QWizard.WizardButton>` , or :attr:`CustomButton3<QWizard.WizardButton>` to set their text, and make the buttons visible using the :attr:`HaveCustomButton1<QWizard.WizardOption>` , :attr:`HaveCustomButton2<QWizard.WizardOption>` , and/or :attr:`HaveCustomButton3<QWizard.WizardOption>` options.
+
+    Button texts may also be set on a per-page basis using :meth:`QWizardPage.setButtonText()<PySide.QtGui.QWizardPage.setButtonText>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.buttonText`  :meth:`PySide.QtGui.QWizard.setButton`  :meth:`PySide.QtGui.QWizard.button`  :meth:`PySide.QtGui.QWizard.setButtonLayout`  :meth:`PySide.QtGui.QWizard.setOptions`  :meth:`QWizardPage.setButtonText()<PySide.QtGui.QWizardPage.setButtonText>` 
+
+
+.. method:: PySide.QtGui.QWizard.setDefaultProperty(className, property, changedSignal)
+
+
+    :param className: str
+    :param property: str
+    :param changedSignal: str
+
+
+
+
+    Sets the default property for ``className`` to be ``property`` , and the associated change signal to be ``changedSignal`` .
+
+    The default property is used when an instance of ``className`` (or of one of its subclasses) is passed to :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>` and no property is specified.
+
+    :class:`PySide.QtGui.QWizard` knows the most common Qt widgets. For these (or their subclasses), you don't need to specify a ``property`` or a ``changedSignal`` . The table below lists these widgets:
+
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |Widget                               |Property                                                                    |Change Notification Signal                        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QAbstractButton`|bool :meth:`PySide.QtGui.QAbstractButton.checked`                           |:meth:`PySide.QtGui.QAbstractButton.toggled`      |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QAbstractSlider`|int :meth:`PySide.QtGui.QAbstractSlider.value`                              |:meth:`PySide.QtGui.QAbstractSlider.valueChanged` |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QComboBox`      |int :meth:`PySide.QtGui.QComboBox.currentIndex`                             |:meth:`PySide.QtGui.QComboBox.currentIndexChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QDateTimeEdit`  |:class:`PySide.QtCore.QDateTime` :meth:`PySide.QtGui.QDateTimeEdit.dateTime`|:meth:`PySide.QtGui.QDateTimeEdit.dateTimeChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QLineEdit`      |:class:`PySide.QtCore.QString` :meth:`PySide.QtGui.QLineEdit.text`          |:meth:`PySide.QtGui.QLineEdit.textChanged`        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QListWidget`    |int :meth:`PySide.QtGui.QListWidget.currentRow`                             |:meth:`PySide.QtGui.QListWidget.currentRowChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QSpinBox`       |int :meth:`PySide.QtGui.QSpinBox.value`                                     |:meth:`PySide.QtGui.QSpinBox.valueChanged`        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+
+    .. seealso::  :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>` 
+
+
+.. method:: PySide.QtGui.QWizard.setField(name, value)
+
+
+    :param name: unicode
+    :param value: object
+
+
+
+
+    Sets the value of the field called ``name`` to ``value`` .
+
+    This function can be used to set fields on any page of the wizard.
+
+    .. seealso::  :meth:`QWizardPage.registerField()<PySide.QtGui.QWizardPage.registerField>`  :meth:`QWizardPage.setField()<PySide.QtGui.QWizardPage.setField>`  :meth:`PySide.QtGui.QWizard.field` 
+
+
+.. method:: PySide.QtGui.QWizard.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QWizard.WizardOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the given ``option`` to be enabled if ``on`` is true; otherwise, clears the given ``option`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.options`  :meth:`PySide.QtGui.QWizard.testOption`  :meth:`PySide.QtGui.QWizard.setWizardStyle` 
+
+
+.. method:: PySide.QtGui.QWizard.setOptions(options)
+
+
+    :param options: :class:`PySide.QtGui.QWizard.WizardOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the wizard.
+
+    By default, the following options are set (depending on the platform):
+
+
+    * Windows: :attr:`HelpButtonOnRight<QWizard.WizardOption>` .
+    * Mac OS X: :attr:`NoDefaultButton<QWizard.WizardOption>` and :attr:`NoCancelButton<QWizard.WizardOption>` .
+    * X11 and QWS (Qt for Embedded Linux): none.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.wizardStyle` 
+
+
+.. method:: PySide.QtGui.QWizard.setPage(id, page)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :param page: :class:`PySide.QtGui.QWizardPage`
+
+
+
+
+    Adds the given ``page`` to the wizard with the given ``id`` .
+
+    .. note::  Adding a page may influence the value of the :meth:`PySide.QtGui.QWizard.startId` property in case it was not set explicitly.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.addPage`  :meth:`PySide.QtGui.QWizard.page`  :meth:`PySide.QtGui.QWizard.pageAdded` 
+
+
+.. method:: PySide.QtGui.QWizard.setPixmap(which, pixmap)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardPixmap`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets the pixmap for role ``which`` to ``pixmap`` .
+
+    The pixmaps are used by :class:`PySide.QtGui.QWizard` when displaying a page. Which pixmaps are actually used depend on the :class:`wizard style<~PySide.QtGui.Wizard Look and Feel>` .
+
+    Pixmaps can also be set for a specific page using :meth:`QWizardPage.setPixmap()<PySide.QtGui.QWizardPage.setPixmap>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.pixmap`  :meth:`QWizardPage.setPixmap()<PySide.QtGui.QWizardPage.setPixmap>`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizard.setSideWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the given ``widget`` to be shown on the left side of the wizard. For styles which use the :attr:`WatermarkPixmap<QWizard.WizardPixmap>` ( :attr:`ClassicStyle<QWizard.WizardStyle>` and :attr:`ModernStyle<QWizard.WizardStyle>` ) the side widget is displayed on top of the watermark, for other styles or when the watermark is not provided the side widget is displayed on the left side of the wizard.
+
+    Passing 0 shows no side widget.
+
+    When the ``widget`` is not 0 the wizard reparents it.
+
+    Any previous side widget is hidden.
+
+    You may call :meth:`PySide.QtGui.QWizard.setSideWidget` with the same widget at different times.
+
+    All widgets set here will be deleted by the wizard when it is destroyed unless you separately reparent the widget after setting some other side widget (or 0).
+
+    By default, no side widget is present.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.sideWidget` 
+
+
+.. method:: PySide.QtGui.QWizard.setStartId(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the ID of the first page.
+
+    If this property isn't explicitly set, this property defaults to the lowest page ID in this wizard, or -1 if no page has been inserted yet.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.restart`  :meth:`PySide.QtGui.QWizard.nextId` 
+
+
+.. method:: PySide.QtGui.QWizard.setSubTitleFormat(format)
+
+
+    :param format: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the text format used by page subtitles.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`QWizardPage.title<PySide.QtGui.QWizardPage.title>`  :meth:`PySide.QtGui.QWizard.titleFormat` 
+
+
+.. method:: PySide.QtGui.QWizard.setTitleFormat(format)
+
+
+    :param format: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the text format used by page titles.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`QWizardPage.title<PySide.QtGui.QWizardPage.title>`  :meth:`PySide.QtGui.QWizard.subTitleFormat` 
+
+
+.. method:: PySide.QtGui.QWizard.setWizardStyle(style)
+
+
+    :param style: :attr:`PySide.QtGui.QWizard.WizardStyle`
+
+
+
+
+    This property holds the look and feel of the wizard.
+
+    By default, :class:`PySide.QtGui.QWizard` uses the :attr:`AeroStyle<QWizard.WizardStyle>` on a Windows Vista system with alpha compositing enabled, regardless of the current widget style. If this is not the case, the default wizard style depends on the current widget style as follows: :attr:`MacStyle<QWizard.WizardStyle>` is the default if the current widget style is :class:`PySide.QtGui.QMacStyle` , :attr:`ModernStyle<QWizard.WizardStyle>` is the default if the current widget style is :class:`PySide.QtGui.QWindowsStyle` , and :attr:`ClassicStyle<QWizard.WizardStyle>` is the default in all other cases.
+
+    .. seealso::  :class:`~PySide.QtGui.Wizard Look and Feel`  :meth:`PySide.QtGui.QWizard.options` 
+
+
+.. method:: PySide.QtGui.QWizard.sideWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget on the left side of the wizard or 0.
+
+    By default, no side widget is present.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.setSideWidget` 
+
+
+.. method:: PySide.QtGui.QWizard.startId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the ID of the first page.
+
+    If this property isn't explicitly set, this property defaults to the lowest page ID in this wizard, or -1 if no page has been inserted yet.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.restart`  :meth:`PySide.QtGui.QWizard.nextId` 
+
+
+.. method:: PySide.QtGui.QWizard.subTitleFormat()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the text format used by page subtitles.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`QWizardPage.title<PySide.QtGui.QWizardPage.title>`  :meth:`PySide.QtGui.QWizard.titleFormat` 
+
+
+.. method:: PySide.QtGui.QWizard.testOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QWizard.WizardOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given ``option`` is enabled; otherwise, returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.options`  :meth:`PySide.QtGui.QWizard.setOption`  :meth:`PySide.QtGui.QWizard.setWizardStyle` 
+
+
+.. method:: PySide.QtGui.QWizard.titleFormat()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the text format used by page titles.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`QWizardPage.title<PySide.QtGui.QWizardPage.title>`  :meth:`PySide.QtGui.QWizard.subTitleFormat` 
+
+
+.. method:: PySide.QtGui.QWizard.validateCurrentPage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtGui.QWizard` when the user clicks **Next** or **Finish** to perform some last-minute validation. If it returns true, the next page is shown (or the wizard finishes); otherwise, the current page stays up.
+
+    The default implementation calls :meth:`QWizardPage.validatePage()<PySide.QtGui.QWizardPage.validatePage>` on the :meth:`PySide.QtGui.QWizard.currentPage` .
+
+    When possible, it is usually better style to disable the **Next** or **Finish** button (by specifying :class:`~PySide.QtGui.mandatory fields` or by reimplementing :meth:`QWizardPage.isComplete()<PySide.QtGui.QWizardPage.isComplete>` ) than to reimplement :meth:`PySide.QtGui.QWizard.validateCurrentPage` .
+
+    .. seealso::  :meth:`QWizardPage.validatePage()<PySide.QtGui.QWizardPage.validatePage>`  :meth:`PySide.QtGui.QWizard.currentPage` 
+
+
+.. method:: PySide.QtGui.QWizard.visitedPages()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of IDs of visited pages, in the order in which the pages were visited.
+
+    Pressing **Back** marks the current page as "unvisited" again.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizard.hasVisitedPage` 
+
+
+.. method:: PySide.QtGui.QWizard.wizardStyle()
+
+
+    :rtype: :attr:`PySide.QtGui.QWizard.WizardStyle`
+
+
+
+
+    This property holds the look and feel of the wizard.
+
+    By default, :class:`PySide.QtGui.QWizard` uses the :attr:`AeroStyle<QWizard.WizardStyle>` on a Windows Vista system with alpha compositing enabled, regardless of the current widget style. If this is not the case, the default wizard style depends on the current widget style as follows: :attr:`MacStyle<QWizard.WizardStyle>` is the default if the current widget style is :class:`PySide.QtGui.QMacStyle` , :attr:`ModernStyle<QWizard.WizardStyle>` is the default if the current widget style is :class:`PySide.QtGui.QWindowsStyle` , and :attr:`ClassicStyle<QWizard.WizardStyle>` is the default in all other cases.
+
+    .. seealso::  :class:`~PySide.QtGui.Wizard Look and Feel`  :meth:`PySide.QtGui.QWizard.options` 
+
+
+

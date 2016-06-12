@@ -1,0 +1,578 @@
+.. module:: PySide.QtGui
+.. _QMdiArea:
+
+QMdiArea
+********
+
+.. inheritance-diagram:: QMdiArea
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activationOrder<PySide.QtGui.QMdiArea.activationOrder>` ()
+*    def :meth:`activeSubWindow<PySide.QtGui.QMdiArea.activeSubWindow>` ()
+*    def :meth:`addSubWindow<PySide.QtGui.QMdiArea.addSubWindow>` (widget[, flags=0])
+*    def :meth:`background<PySide.QtGui.QMdiArea.background>` ()
+*    def :meth:`currentSubWindow<PySide.QtGui.QMdiArea.currentSubWindow>` ()
+*    def :meth:`documentMode<PySide.QtGui.QMdiArea.documentMode>` ()
+*    def :meth:`removeSubWindow<PySide.QtGui.QMdiArea.removeSubWindow>` (widget)
+*    def :meth:`setActivationOrder<PySide.QtGui.QMdiArea.setActivationOrder>` (order)
+*    def :meth:`setBackground<PySide.QtGui.QMdiArea.setBackground>` (background)
+*    def :meth:`setDocumentMode<PySide.QtGui.QMdiArea.setDocumentMode>` (enabled)
+*    def :meth:`setOption<PySide.QtGui.QMdiArea.setOption>` (option[, on=true])
+*    def :meth:`setTabPosition<PySide.QtGui.QMdiArea.setTabPosition>` (position)
+*    def :meth:`setTabShape<PySide.QtGui.QMdiArea.setTabShape>` (shape)
+*    def :meth:`setTabsClosable<PySide.QtGui.QMdiArea.setTabsClosable>` (closable)
+*    def :meth:`setTabsMovable<PySide.QtGui.QMdiArea.setTabsMovable>` (movable)
+*    def :meth:`setViewMode<PySide.QtGui.QMdiArea.setViewMode>` (mode)
+*    def :meth:`subWindowList<PySide.QtGui.QMdiArea.subWindowList>` ([order=CreationOrder])
+*    def :meth:`tabPosition<PySide.QtGui.QMdiArea.tabPosition>` ()
+*    def :meth:`tabShape<PySide.QtGui.QMdiArea.tabShape>` ()
+*    def :meth:`tabsClosable<PySide.QtGui.QMdiArea.tabsClosable>` ()
+*    def :meth:`tabsMovable<PySide.QtGui.QMdiArea.tabsMovable>` ()
+*    def :meth:`testOption<PySide.QtGui.QMdiArea.testOption>` (opton)
+*    def :meth:`viewMode<PySide.QtGui.QMdiArea.viewMode>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`activateNextSubWindow<PySide.QtGui.QMdiArea.activateNextSubWindow>` ()
+*    def :meth:`activatePreviousSubWindow<PySide.QtGui.QMdiArea.activatePreviousSubWindow>` ()
+*    def :meth:`cascadeSubWindows<PySide.QtGui.QMdiArea.cascadeSubWindows>` ()
+*    def :meth:`closeActiveSubWindow<PySide.QtGui.QMdiArea.closeActiveSubWindow>` ()
+*    def :meth:`closeAllSubWindows<PySide.QtGui.QMdiArea.closeAllSubWindows>` ()
+*    def :meth:`setActiveSubWindow<PySide.QtGui.QMdiArea.setActiveSubWindow>` (window)
+*    def :meth:`tileSubWindows<PySide.QtGui.QMdiArea.tileSubWindows>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`subWindowActivated<PySide.QtGui.QMdiArea.subWindowActivated>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMdiArea` widget provides an area in which MDI windows are displayed.
+
+    :class:`PySide.QtGui.QMdiArea` functions, essentially, like a window manager for MDI windows. For instance, it draws the windows it manages on itself and arranges them in a cascading or tile pattern. :class:`PySide.QtGui.QMdiArea` is commonly used as the center widget in a :class:`PySide.QtGui.QMainWindow` to create MDI applications, but can also be placed in any layout. The following code adds an area to a main window:
+
+    ::
+
+            mainWindow = QMainWindow()
+            mainWindow.setCentralWidget(mdiArea)
+
+
+    Unlike the window managers for top-level windows, all window flags ( :class:`Qt.WindowFlags` ) are supported by :class:`PySide.QtGui.QMdiArea` as long as the flags are supported by the current widget style. If a specific flag is not supported by the style (e.g., the :attr:`WindowShadeButtonHint<Qt.WindowType>` ), you can still shade the window with showShaded().
+
+    Subwindows in :class:`PySide.QtGui.QMdiArea` are instances of :class:`PySide.QtGui.QMdiSubWindow` . They are added to an MDI area with :meth:`PySide.QtGui.QMdiArea.addSubWindow` . It is common to pass a :class:`PySide.QtGui.QWidget` , which is set as the internal widget, to this function, but it is also possible to pass a :class:`PySide.QtGui.QMdiSubWindow` directly.The class inherits :class:`PySide.QtGui.QWidget` , and you can use the same API as with a normal top-level window when programming. :class:`PySide.QtGui.QMdiSubWindow` also has behavior that is specific to MDI windows. See the :class:`PySide.QtGui.QMdiSubWindow` class description for more details.
+
+    A subwindow becomes active when it gets the keyboard focus, or when :meth:`PySide.QtGui.QWidget.setFocus` is called. The user activates a window by moving focus in the usual ways. The MDI area emits the :meth:`PySide.QtGui.QMdiArea.subWindowActivated` signal when the active window changes, and the :meth:`PySide.QtGui.QMdiArea.activeSubWindow` function returns the active subwindow.
+
+    The convenience function :meth:`PySide.QtGui.QMdiArea.subWindowList` returns a list of all subwindows. This information could be used in a popup menu containing a list of windows, for example.
+
+    The subwindows are sorted by the current :attr:`QMdiArea.WindowOrder` . This is used for the :meth:`PySide.QtGui.QMdiArea.subWindowList` and for :meth:`PySide.QtGui.QMdiArea.activateNextSubWindow` and acivatePreviousSubWindow(). Also, it is used when cascading or tiling the windows with :meth:`PySide.QtGui.QMdiArea.cascadeSubWindows` and :meth:`PySide.QtGui.QMdiArea.tileSubWindows` .
+
+    :class:`PySide.QtGui.QMdiArea` provides two built-in layout strategies for subwindows: :meth:`PySide.QtGui.QMdiArea.cascadeSubWindows` and :meth:`PySide.QtGui.QMdiArea.tileSubWindows` . Both are slots and are easily connected to menu entries.
+
+    +----------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/mdi-cascade.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/mdi-tile.png|
+    +----------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+
+    .. note::  The default scroll bar property for :class:`PySide.QtGui.QMdiArea` is :attr:`Qt.ScrollBarAlwaysOff<Qt.ScrollBarPolicy>` .
+
+    .. seealso::  :class:`PySide.QtGui.QMdiSubWindow` 
+
+.. class:: QMdiArea([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an empty mdi area. ``parent`` is passed to :class:`PySide.QtGui.QWidget` 's constructor.
+
+
+.. attribute:: PySide.QtGui.QMdiArea.WindowOrder
+
+    Specifies the criteria to use for ordering the list of child windows returned by :meth:`PySide.QtGui.QMdiArea.subWindowList` . The functions :meth:`PySide.QtGui.QMdiArea.cascadeSubWindows` and :meth:`PySide.QtGui.QMdiArea.tileSubWindows` follow this order when arranging the windows.
+
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------+
+    |Constant                       |Description                                                                                                      |
+    +===============================+=================================================================================================================+
+    |QMdiArea.CreationOrder         |The windows are returned in the order of their creation.                                                         |
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------+
+    |QMdiArea.StackingOrder         |The windows are returned in the order in which they are stacked, with the top-most window being last in the list.|
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------+
+    |QMdiArea.ActivationHistoryOrder|The windows are returned in the order in which they were activated.                                              |
+    +-------------------------------+-----------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.subWindowList` 
+
+.. attribute:: PySide.QtGui.QMdiArea.ViewMode
+
+    This enum describes the view mode of the area; i.e. how sub-windows will be displayed.
+
+    +----------------------+-------------------------------------------------+
+    |Constant              |Description                                      |
+    +======================+=================================================+
+    |QMdiArea.SubWindowView|Display sub-windows with window frames (default).|
+    +----------------------+-------------------------------------------------+
+    |QMdiArea.TabbedView   |Display sub-windows with tabs in a tab bar.      |
+    +----------------------+-------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+.. attribute:: PySide.QtGui.QMdiArea.AreaOption
+
+    This enum describes options that customize the behavior of the :class:`PySide.QtGui.QMdiArea` .
+
+    +------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                  |Description                                                                                                                                                        |
+    +==========================================+===================================================================================================================================================================+
+    |QMdiArea.DontMaximizeSubWindowOnActivation|When the active subwindow is maximized, the default behavior is to maximize the next subwindow that is activated. Set this option if you do not want this behavior.|
+    +------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QMdiArea.activateNextSubWindow()
+
+
+
+
+
+
+    Gives the keyboard focus to another window in the list of child windows. The window activated will be the next one determined by the current :attr:`activation order<QMdiArea.WindowOrder>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.activatePreviousSubWindow`  :attr:`QMdiArea.WindowOrder` 
+
+
+.. method:: PySide.QtGui.QMdiArea.activatePreviousSubWindow()
+
+
+
+
+
+
+    Gives the keyboard focus to another window in the list of child windows. The window activated will be the previous one determined by the current :attr:`activation order<QMdiArea.WindowOrder>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.activateNextSubWindow`  :attr:`QMdiArea.WindowOrder` 
+
+
+.. method:: PySide.QtGui.QMdiArea.activationOrder()
+
+
+    :rtype: :attr:`PySide.QtGui.QMdiArea.WindowOrder`
+
+
+
+
+    This property holds the ordering criteria for subwindow lists.
+
+    This property specifies the ordering criteria for the list of subwindows returned by :meth:`PySide.QtGui.QMdiArea.subWindowList` . By default, it is the window creation order.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.subWindowList` 
+
+
+.. method:: PySide.QtGui.QMdiArea.activeSubWindow()
+
+
+    :rtype: :class:`PySide.QtGui.QMdiSubWindow`
+
+
+
+
+    Returns a pointer to the current active subwindow. If no window is currently active, 0 is returned.
+
+    Subwindows are treated as top-level windows with respect to window state, i.e., if a widget outside the MDI area is the active window, no subwindow will be active. Note that if a widget in the window in which the MDI area lives gains focus, the window will be activated.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.setActiveSubWindow`  :attr:`Qt.WindowState` 
+
+
+.. method:: PySide.QtGui.QMdiArea.addSubWindow(widget[, flags=0])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :rtype: :class:`PySide.QtGui.QMdiSubWindow`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMdiArea.background()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This property holds the background brush for the workspace.
+
+    This property sets the background brush for the workspace area itself. By default, it is a gray color, but can be any brush (e.g., colors, gradients or pixmaps).
+
+
+
+.. method:: PySide.QtGui.QMdiArea.cascadeSubWindows()
+
+
+
+
+
+
+    Arranges all the child windows in a cascade pattern.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.tileSubWindows` 
+
+
+.. method:: PySide.QtGui.QMdiArea.closeActiveSubWindow()
+
+
+
+
+
+
+    Closes the active subwindow.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.closeAllSubWindows` 
+
+
+.. method:: PySide.QtGui.QMdiArea.closeAllSubWindows()
+
+
+
+
+
+
+    Closes all subwindows by sending a :class:`PySide.QtGui.QCloseEvent` to each window. You may receive :meth:`PySide.QtGui.QMdiArea.subWindowActivated` signals from subwindows before they are closed (if the MDI area activates the subwindow when another is closing).
+
+    Subwindows that ignore the close event will remain open.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.closeActiveSubWindow` 
+
+
+.. method:: PySide.QtGui.QMdiArea.currentSubWindow()
+
+
+    :rtype: :class:`PySide.QtGui.QMdiSubWindow`
+
+
+
+
+    Returns a pointer to the current subwindow, or 0 if there is no current subwindow.
+
+    This function will return the same as :meth:`PySide.QtGui.QMdiArea.activeSubWindow` if the :class:`PySide.QtGui.QApplication` containing :class:`PySide.QtGui.QMdiArea` is active.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.activeSubWindow`  :meth:`QApplication.activeWindow()<PySide.QtGui.QApplication.activeWindow>` 
+
+
+.. method:: PySide.QtGui.QMdiArea.documentMode()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the tab bar is set to document mode in tabbed view mode..
+
+    Document mode is disabled by default.
+
+    .. seealso::  :meth:`QTabBar.documentMode<PySide.QtGui.QTabBar.documentMode>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.removeSubWindow(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes ``widget`` from the MDI area. The ``widget`` must be either a :class:`PySide.QtGui.QMdiSubWindow` or a widget that is the internal widget of a subwindow. Note ``widget`` is never actually deleted by :class:`PySide.QtGui.QMdiArea` . If a :class:`PySide.QtGui.QMdiSubWindow` is passed in its parent is set to 0 and it is removed, but if an internal widget is passed in the child widget is set to 0 but the :class:`PySide.QtGui.QMdiSubWindow` is not removed.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.addSubWindow` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setActivationOrder(order)
+
+
+    :param order: :attr:`PySide.QtGui.QMdiArea.WindowOrder`
+
+
+
+
+    This property holds the ordering criteria for subwindow lists.
+
+    This property specifies the ordering criteria for the list of subwindows returned by :meth:`PySide.QtGui.QMdiArea.subWindowList` . By default, it is the window creation order.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.subWindowList` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setActiveSubWindow(window)
+
+
+    :param window: :class:`PySide.QtGui.QMdiSubWindow`
+
+
+
+
+    Activates the subwindow ``window`` . If ``window`` is 0, any current active window is deactivated.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.activeSubWindow` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setBackground(background)
+
+
+    :param background: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This property holds the background brush for the workspace.
+
+    This property sets the background brush for the workspace area itself. By default, it is a gray color, but can be any brush (e.g., colors, gradients or pixmaps).
+
+
+
+.. method:: PySide.QtGui.QMdiArea.setDocumentMode(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the tab bar is set to document mode in tabbed view mode..
+
+    Document mode is disabled by default.
+
+    .. seealso::  :meth:`QTabBar.documentMode<PySide.QtGui.QTabBar.documentMode>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QMdiArea.AreaOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``on`` is true, ``option`` is enabled on the MDI area; otherwise it is disabled. See :attr:`QMdiArea.AreaOption` for the effect of each option.
+
+    .. seealso::  :attr:`QMdiArea.AreaOption`  :meth:`PySide.QtGui.QMdiArea.testOption` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setTabPosition(position)
+
+
+    :param position: :attr:`PySide.QtGui.QTabWidget.TabPosition`
+
+
+
+
+    This property holds the position of the tabs in tabbed view mode..
+
+    Possible values for this property are described by the :attr:`QTabWidget.TabPosition` enum.
+
+    .. seealso::  :attr:`QTabWidget.TabPosition`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setTabShape(shape)
+
+
+    :param shape: :attr:`PySide.QtGui.QTabWidget.TabShape`
+
+
+
+
+    This property holds the shape of the tabs in tabbed view mode..
+
+    Possible values for this property are :attr:`QTabWidget.Rounded<QTabWidget.TabShape>` (default) or :attr:`QTabWidget.Triangular<QTabWidget.TabShape>` .
+
+    .. seealso::  :attr:`QTabWidget.TabShape`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setTabsClosable(closable)
+
+
+    :param closable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the tab bar should place close buttons on each tab in tabbed view mode..
+
+    Tabs are not closable by default.
+
+    .. seealso::  :meth:`QTabBar.tabsClosable<PySide.QtGui.QTabBar.tabsClosable>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setTabsMovable(movable)
+
+
+    :param movable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the user can move the tabs within the tabbar area in tabbed view mode..
+
+    Tabs are not movable by default.
+
+    .. seealso::  :meth:`QTabBar.movable<PySide.QtGui.QTabBar.movable>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.setViewMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QMdiArea.ViewMode`
+
+
+
+
+    This property holds the way sub-windows are displayed in the :class:`PySide.QtGui.QMdiArea` ..
+
+    By default, the :attr:`SubWindowView<QMdiArea.ViewMode>` is used to display sub-windows.
+
+    .. seealso::  :attr:`QMdiArea.ViewMode`  :meth:`PySide.QtGui.QMdiArea.setTabShape`  :meth:`PySide.QtGui.QMdiArea.setTabPosition` 
+
+
+.. method:: PySide.QtGui.QMdiArea.subWindowActivated(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QMdiSubWindow`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMdiArea.subWindowList([order=CreationOrder])
+
+
+    :param order: :attr:`PySide.QtGui.QMdiArea.WindowOrder`
+    :rtype: 
+
+
+
+
+    Returns a list of all subwindows in the MDI area. If ``order`` is :attr:`CreationOrder<QMdiArea.WindowOrder>` (the default), the windows are sorted in the order in which they were inserted into the workspace. If ``order`` is :attr:`StackingOrder<QMdiArea.WindowOrder>` , the windows are listed in their stacking order, with the topmost window as the last item in the list. If ``order`` is :attr:`ActivationHistoryOrder<QMdiArea.WindowOrder>` , the windows are listed according to their recent activation history.
+
+    .. seealso::  :attr:`QMdiArea.WindowOrder` 
+
+
+.. method:: PySide.QtGui.QMdiArea.tabPosition()
+
+
+    :rtype: :attr:`PySide.QtGui.QTabWidget.TabPosition`
+
+
+
+
+    This property holds the position of the tabs in tabbed view mode..
+
+    Possible values for this property are described by the :attr:`QTabWidget.TabPosition` enum.
+
+    .. seealso::  :attr:`QTabWidget.TabPosition`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.tabShape()
+
+
+    :rtype: :attr:`PySide.QtGui.QTabWidget.TabShape`
+
+
+
+
+    This property holds the shape of the tabs in tabbed view mode..
+
+    Possible values for this property are :attr:`QTabWidget.Rounded<QTabWidget.TabShape>` (default) or :attr:`QTabWidget.Triangular<QTabWidget.TabShape>` .
+
+    .. seealso::  :attr:`QTabWidget.TabShape`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.tabsClosable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the tab bar should place close buttons on each tab in tabbed view mode..
+
+    Tabs are not closable by default.
+
+    .. seealso::  :meth:`QTabBar.tabsClosable<PySide.QtGui.QTabBar.tabsClosable>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.tabsMovable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the user can move the tabs within the tabbar area in tabbed view mode..
+
+    Tabs are not movable by default.
+
+    .. seealso::  :meth:`QTabBar.movable<PySide.QtGui.QTabBar.movable>`  :meth:`PySide.QtGui.QMdiArea.setViewMode` 
+
+
+.. method:: PySide.QtGui.QMdiArea.testOption(opton)
+
+
+    :param opton: :attr:`PySide.QtGui.QMdiArea.AreaOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``option`` is enabled; otherwise returns false.
+
+    .. seealso::  :attr:`QMdiArea.AreaOption`  :meth:`PySide.QtGui.QMdiArea.setOption` 
+
+
+.. method:: PySide.QtGui.QMdiArea.tileSubWindows()
+
+
+
+
+
+
+    Arranges all child windows in a tile pattern.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiArea.cascadeSubWindows` 
+
+
+.. method:: PySide.QtGui.QMdiArea.viewMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QMdiArea.ViewMode`
+
+
+
+
+    This property holds the way sub-windows are displayed in the :class:`PySide.QtGui.QMdiArea` ..
+
+    By default, the :attr:`SubWindowView<QMdiArea.ViewMode>` is used to display sub-windows.
+
+    .. seealso::  :attr:`QMdiArea.ViewMode`  :meth:`PySide.QtGui.QMdiArea.setTabShape`  :meth:`PySide.QtGui.QMdiArea.setTabPosition` 
+
+
+

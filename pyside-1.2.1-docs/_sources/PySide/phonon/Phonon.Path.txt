@@ -1,0 +1,254 @@
+.. module:: PySide.phonon
+.. _Phonon.Path:
+
+Phonon.Path
+***********
+
+.. inheritance-diagram:: Phonon.Path
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.phonon.Phonon.Path.__eq__>` (p)
+*    def :meth:`__ne__<PySide.phonon.Phonon.Path.__ne__>` (p)
+*    def :meth:`disconnectPath<PySide.phonon.Phonon.Path.disconnectPath>` ()
+*    def :meth:`effects<PySide.phonon.Phonon.Path.effects>` ()
+*    def :meth:`insertEffect<PySide.phonon.Phonon.Path.insertEffect>` (desc[, insertBefore=None])
+*    def :meth:`insertEffect<PySide.phonon.Phonon.Path.insertEffect>` (newEffect[, insertBefore=None])
+*    def :meth:`isValid<PySide.phonon.Phonon.Path.isValid>` ()
+*    def :meth:`reconnect<PySide.phonon.Phonon.Path.reconnect>` (source, sink)
+*    def :meth:`removeEffect<PySide.phonon.Phonon.Path.removeEffect>` (effect)
+*    def :meth:`sink<PySide.phonon.Phonon.Path.sink>` ()
+*    def :meth:`source<PySide.phonon.Phonon.Path.source>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The Path class describes connections between media nodes.
+
+    In a :ref:`media graph<phonon-overview.html>` , :class:`Phonon.MediaNode` s are connected by Paths. The multimedia travels in streams over these paths.
+
+    You create a path between two media nodes using the static :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>` function, which takes two nodes as arguments. The first argument will send the media stream to the second. Please refer to the class description of the individual media nodes and the Phonon :ref:`overview<phonon-overview.html>` to see which nodes can be connected to each other.
+
+    Paths are also used to insert audio :class:`Phonon.Effect` s between two media nodes. The effect will then alter the stream on the path. Notice that :class:`Phonon.Effect` s also are media nodes, but that :meth:`PySide.phonon.Phonon::Path.insertEffect` - instead of :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>` - is used to insert them into the media graph.
+
+    The following code example shows how to create a path between two media nodes and insert an effect on that path.
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:20" not found>
+
+    .. seealso::  :class:`Phonon.MediaNode`  :class:`Phonon.MediaObject`  :class:`Phonon.AudioOutput`  :class:`Phonon.VideoWidget`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.Path()
+           PySide.phonon.Phonon.Path(arg__1)
+
+    :param arg__1: :class:`PySide.phonon.Phonon::Path`
+
+    Creates an invalid path.
+
+    You can still make it a valid path by calling reconnect. It is recommended to use the :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>` function to create paths.
+
+    .. seealso::  :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>`  :meth:`PySide.phonon.Phonon::Path.isValid` 
+
+    Constructs a copy of the other ``path`` specified.
+
+    This constructor is fast thanks to explicit sharing.
+
+
+.. method:: PySide.phonon.Phonon.Path.disconnectPath()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Tries to disconnect the path from the MediaNodes it is connected to, returning true if successful or false if unsuccessful.
+
+    If successful, the path is invalidated: :meth:`PySide.phonon.Phonon::Path.isValid` will returns false.
+
+
+
+.. method:: PySide.phonon.Phonon.Path.effects()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of Effect objects that are currently used as effects. The order in the list determines the order the signal is sent through the effects.
+
+    Returns A list with all current effects.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Path.insertEffect`  :meth:`PySide.phonon.Phonon::Path.removeEffect` 
+
+
+.. method:: PySide.phonon.Phonon.Path.insertEffect(newEffect[, insertBefore=None])
+
+
+    :param newEffect: :class:`PySide.phonon.Phonon::Effect`
+    :param insertBefore: :class:`PySide.phonon.Phonon::Effect`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Inserts the given ``effect`` into the path before the effect specified by ``insertBefore`` and returns true if successful; otherwise returns false.
+
+    If ``insertBefore`` is zero, the effect is appended to the processing list.
+
+    You may insert effects of the same class as often as you like, but if you insert the same object, the call will fail.
+
+    ``effect`` will be inserted right before ``insertBefore`` . If ``insertBefore`` is ``0`` , the effect is appended at the end of the processing list. If the effect has not been inserted before the method will do nothing and return ``false`` .
+
+    Returns whether the effect could be inserted at the specified position. If ``false`` is returned the effect was not inserted.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Path.removeEffect`  :meth:`PySide.phonon.Phonon::Path.effects` 
+
+
+.. method:: PySide.phonon.Phonon.Path.insertEffect(desc[, insertBefore=None])
+
+
+    :param desc: :class:`PySide.phonon.Phonon::EffectDescription`
+    :param insertBefore: :class:`PySide.phonon.Phonon::Effect`
+    :rtype: :class:`PySide.phonon.Phonon::Effect`
+
+
+
+
+    Creates and inserts an effect into the path.
+
+    You may insert effects of the same class as often as you like, but if you insert the same object, the call will fail.
+
+    ``desc`` is the :class:`~PySide.phonon.Phonon.EffectDescription` object for the effect to be inserted.
+
+    If you already inserted an effect you can tell with ``insertBefore`` in which order the data gets processed. If this is ``0`` the effect is appended at the end of the processing list. If the effect has not been inserted before the method will do nothing and return ``false`` .
+
+    Returns a pointer to the effect object if it could be inserted at the specified position. If ``0`` is returned, the effect was not inserted.
+
+    Below is a code example for inserting an effect into a path:
+
+    ::
+
+            QList<Phonon::EffectDescription> effectDescriptions =
+                    Phonon::BackendCapabilities::availableAudioEffects();
+            Phonon::EffectDescription effectDescription = effectDescriptions.at(4);
+
+            Phonon::Path path = Phonon::createPath(mediaObject, audioOutput);
+
+
+            Phonon::Effect *effect = new Phonon::Effect(effectDescription);
+            path.insertEffect(effect);
+
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Path.removeEffect`  :meth:`PySide.phonon.Phonon::Path.effects` 
+
+
+.. method:: PySide.phonon.Phonon.Path.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    A path is considered valid if it is connected to two media nodes, in which case this function returns true. If it is connected to one or no media nodes, it is consider invalid, and this function will then return false.
+
+
+
+.. method:: PySide.phonon.Phonon.Path.__ne__(p)
+
+
+    :param p: :class:`PySide.phonon.Phonon::Path`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this Path is not equal to ``p`` ; otherwise returns false.
+
+
+
+.. method:: PySide.phonon.Phonon.Path.__eq__(p)
+
+
+    :param p: :class:`PySide.phonon.Phonon::Path`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this Path is equal to ``p`` ; otherwise returns false;
+
+
+
+.. method:: PySide.phonon.Phonon.Path.reconnect(source, sink)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaNode`
+    :param sink: :class:`PySide.phonon.Phonon::MediaNode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Changes the media nodes the path is connected to by connecting the path to the ``source`` and ``sink`` nodes specified. Returns true if successful; otherwise returns false.
+
+    If unsuccessful, the path remains connected to the same nodes as before.
+
+    .. seealso::  :meth:`Phonon.createPath()<PySide.phonon.Phonon.createPath>`  :ref:`Phonon Overview<phonon-overview.html>` 
+
+
+.. method:: PySide.phonon.Phonon.Path.removeEffect(effect)
+
+
+    :param effect: :class:`PySide.phonon.Phonon::Effect`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the given ``effect`` from the path and returns true; otherwise returns false.
+
+    Removes an ``effect`` from the path.
+
+    If the effect is deleted while it is still connected, the effect will be removed automatically.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::Path.insertEffect`  :meth:`PySide.phonon.Phonon::Path.effects` 
+
+
+.. method:: PySide.phonon.Phonon.Path.sink()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaNode`
+
+
+
+
+    Returns the sink :class:`~PySide.phonon.Phonon.MediaNode` used by the path.
+
+
+
+.. method:: PySide.phonon.Phonon.Path.source()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::MediaNode`
+
+
+
+
+    Returns the source :class:`~PySide.phonon.Phonon.MediaNode` used by the path.
+
+
+
+

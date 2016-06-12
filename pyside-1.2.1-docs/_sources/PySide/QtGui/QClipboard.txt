@@ -1,0 +1,469 @@
+.. module:: PySide.QtGui
+.. _QClipboard:
+
+QClipboard
+**********
+
+.. inheritance-diagram:: QClipboard
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QClipboard.clear>` ([mode=Clipboard])
+*    def :meth:`emitChanged<PySide.QtGui.QClipboard.emitChanged>` (mode)
+*    def :meth:`image<PySide.QtGui.QClipboard.image>` ([mode=Clipboard])
+*    def :meth:`mimeData<PySide.QtGui.QClipboard.mimeData>` ([mode=Clipboard])
+*    def :meth:`ownsClipboard<PySide.QtGui.QClipboard.ownsClipboard>` ()
+*    def :meth:`ownsFindBuffer<PySide.QtGui.QClipboard.ownsFindBuffer>` ()
+*    def :meth:`ownsMode<PySide.QtGui.QClipboard.ownsMode>` (mode)
+*    def :meth:`ownsSelection<PySide.QtGui.QClipboard.ownsSelection>` ()
+*    def :meth:`pixmap<PySide.QtGui.QClipboard.pixmap>` ([mode=Clipboard])
+*    def :meth:`setImage<PySide.QtGui.QClipboard.setImage>` (arg__1[, mode=Clipboard])
+*    def :meth:`setMimeData<PySide.QtGui.QClipboard.setMimeData>` (data[, mode=Clipboard])
+*    def :meth:`setPixmap<PySide.QtGui.QClipboard.setPixmap>` (arg__1[, mode=Clipboard])
+*    def :meth:`setText<PySide.QtGui.QClipboard.setText>` (arg__1[, mode=Clipboard])
+*    def :meth:`supportsFindBuffer<PySide.QtGui.QClipboard.supportsFindBuffer>` ()
+*    def :meth:`supportsMode<PySide.QtGui.QClipboard.supportsMode>` (mode)
+*    def :meth:`supportsSelection<PySide.QtGui.QClipboard.supportsSelection>` ()
+*    def :meth:`text<PySide.QtGui.QClipboard.text>` ([mode=Clipboard])
+*    def :meth:`text<PySide.QtGui.QClipboard.text>` (subtype[, mode=QClipboard.Clipboard])
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`ownerDestroyed<PySide.QtGui.QClipboard.ownerDestroyed>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`changed<PySide.QtGui.QClipboard.changed>` (mode)
+*    def :meth:`dataChanged<PySide.QtGui.QClipboard.dataChanged>` ()
+*    def :meth:`findBufferChanged<PySide.QtGui.QClipboard.findBufferChanged>` ()
+*    def :meth:`selectionChanged<PySide.QtGui.QClipboard.selectionChanged>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QClipboard` class provides access to the window system clipboard.
+
+    The clipboard offers a simple mechanism to copy and paste data between applications.
+
+    :class:`PySide.QtGui.QClipboard` supports the same data types that :class:`PySide.QtGui.QDrag` does, and uses similar mechanisms. For advanced clipboard usage read :ref:`Drag and Drop<dnd.html>` .
+
+    There is a single :class:`PySide.QtGui.QClipboard` object in an application, accessible as :meth:`QApplication.clipboard()<PySide.QtGui.QApplication.clipboard>` .
+
+    Example:
+
+    ::
+
+        clipboard = QApplication.clipboard()
+        originalText = clipboard.text()
+        ...
+        clipboard.setText(newText)
+
+
+    :class:`PySide.QtGui.QClipboard` features some convenience functions to access common data types: :meth:`PySide.QtGui.QClipboard.setText` allows the exchange of Unicode text and :meth:`PySide.QtGui.QClipboard.setPixmap` and :meth:`PySide.QtGui.QClipboard.setImage` allows the exchange of QPixmaps and QImages between applications. The :meth:`PySide.QtGui.QClipboard.setMimeData` function is the ultimate in flexibility: it allows you to add any :class:`PySide.QtCore.QMimeData` into the clipboard. There are corresponding getters for each of these, e.g. :meth:`PySide.QtGui.QClipboard.text` , :meth:`PySide.QtGui.QClipboard.image` and :meth:`PySide.QtGui.QClipboard.pixmap` . You can clear the clipboard by calling :meth:`PySide.QtGui.QClipboard.clear` .
+
+    A typical example of the use of these functions follows:
+
+    ::
+
+        def paste(self):
+            clipboard = QApplication.clipboard()
+            mimeData = clipboard.mimeData()
+
+            if mimeData.hasImage():
+                setPixmap(mimeData.imageData())
+            elif mimeData.hasHtml():
+                setText(mimeData.html())
+                setTextFormat(Qt.RichText)
+            elif (mimeData.hasText():
+                setText(mimeData.text())
+                setTextFormat(Qt.PlainText)
+            else:
+                setText(tr("Cannot display data"))
+
+
+    .. _PySide.QtGui.QClipboard_notes-for-x11-users:
+
+
+
+Notes for X11 Users
+^^^^^^^^^^^^^^^^^^^
+
+
+    * The X11 Window System has the concept of a separate selection and clipboard. When text is selected, it is immediately available as the global mouse selection. The global mouse selection may later be copied to the clipboard. By convention, the middle mouse button is used to paste the global mouse selection.
+    * X11 also has the concept of ownership; if you change the selection within a window, X11 will only notify the owner and the previous owner of the change, i.e. it will not notify all applications that the selection or clipboard data changed.
+    * Lastly, the X11 clipboard is event driven, i.e. the clipboard will not function properly if the event loop is not running. Similarly, it is recommended that the contents of the clipboard are stored or retrieved in direct response to user-input events, e.g. mouse button or key presses and releases. You should not store or retrieve the clipboard contents in response to timer or non-user-input events.
+    * Since there is no standard way to copy and paste files between applications on X11, various MIME types and conventions are currently in use. For instance, Nautilus expects files to be supplied with a ``x-special/gnome-copied-files`` MIME type with data beginning with the cut/copy action, a newline character, and the URL of the file.
+
+    .. _PySide.QtGui.QClipboard_notes-for-mac-os-x-users:
+
+
+
+Notes for Mac OS X Users
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Mac OS X supports a separate find buffer that holds the current search string in Find operations. This find clipboard can be accessed by specifying the :attr:`FindBuffer<QClipboard.Mode>` mode.
+
+    .. _PySide.QtGui.QClipboard_notes-for-windows-and-mac-os-x-users:
+
+
+
+Notes for Windows and Mac OS X Users
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+    * Windows and Mac OS X do not support the global mouse selection; they only supports the global clipboard, i.e. they only add text to the clipboard when an explicit copy or cut is made.
+    * Windows and Mac OS X does not have the concept of ownership; the clipboard is a fully global resource so all applications are notified of changes.
+
+    .. seealso::  :class:`PySide.QtGui.QApplication` 
+
+
+
+.. attribute:: PySide.QtGui.QClipboard.Mode
+
+    This enum type is used to control which part of the system clipboard is used by :meth:`QClipboard.mimeData()<PySide.QtGui.QClipboard.mimeData>` , :meth:`QClipboard.setMimeData()<PySide.QtGui.QClipboard.setMimeData>` and related functions.
+
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                                                                                        |
+    +=====================+===================================================================================================================================================================================+
+    |QClipboard.Clipboard |indicates that data should be stored and retrieved from the global clipboard.                                                                                                      |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QClipboard.Selection |indicates that data should be stored and retrieved from the global mouse selection. Support for ``Selection`` is provided only on systems with a global mouse selection (e.g. X11).|
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QClipboard.FindBuffer|indicates that data should be stored and retrieved from the Find buffer. This mode is used for holding search strings on Mac OS X.                                                 |
+    +---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QClipboard.supportsSelection()<PySide.QtGui.QClipboard.supportsSelection>` 
+
+.. method:: PySide.QtGui.QClipboard.changed(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.clear([mode=Clipboard])
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+    Clear the clipboard contents.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , this function clears the global clipboard contents. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , this function clears the global mouse selection contents. If ``mode`` is :attr:`QClipboard.FindBuffer<QClipboard.Mode>` , this function clears the search string buffer.
+
+    .. seealso::  :attr:`QClipboard.Mode`  :meth:`PySide.QtGui.QClipboard.supportsSelection` 
+
+
+.. method:: PySide.QtGui.QClipboard.dataChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.emitChanged(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.findBufferChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.image([mode=Clipboard])
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns the clipboard image, or returns a null image if the clipboard does not contain an image or if it contains an image in an unsupported image format.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the image is retrieved from the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the image is retrieved from the global mouse selection.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.setImage`  :meth:`PySide.QtGui.QClipboard.pixmap`  :meth:`PySide.QtGui.QClipboard.mimeData`  :meth:`QImage.isNull()<PySide.QtGui.QImage.isNull>` 
+
+
+.. method:: PySide.QtGui.QClipboard.mimeData([mode=Clipboard])
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: :class:`PySide.QtCore.QMimeData`
+
+
+
+
+    Returns a reference to a :class:`PySide.QtCore.QMimeData` representation of the current clipboard data.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the data is retrieved from the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the data is retrieved from the global mouse selection. If ``mode`` is :attr:`QClipboard.FindBuffer<QClipboard.Mode>` , the data is retrieved from the search string buffer.
+
+    The :meth:`PySide.QtGui.QClipboard.text` , :meth:`PySide.QtGui.QClipboard.image` , and :meth:`PySide.QtGui.QClipboard.pixmap` functions are simpler wrappers for retrieving text, image, and pixmap data.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.setMimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.ownerDestroyed()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.ownsClipboard()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this clipboard object owns the clipboard data; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QClipboard.ownsFindBuffer()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this clipboard object owns the find buffer data; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QClipboard.ownsMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.ownsSelection()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this clipboard object owns the mouse selection data; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QClipboard.pixmap([mode=Clipboard])
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the clipboard pixmap, or null if the clipboard does not contain a pixmap. Note that this can lose information. For example, if the image is 24-bit and the display is 8-bit, the result is converted to 8 bits, and if the image has an alpha channel, the result just has a mask.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the pixmap is retrieved from the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the pixmap is retrieved from the global mouse selection.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.setPixmap`  :meth:`PySide.QtGui.QClipboard.image`  :meth:`PySide.QtGui.QClipboard.mimeData`  :meth:`QPixmap.convertFromImage()<PySide.QtGui.QPixmap.convertFromImage>` 
+
+
+.. method:: PySide.QtGui.QClipboard.selectionChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.setImage(arg__1[, mode=Clipboard])
+
+
+    :param arg__1: :class:`PySide.QtGui.QImage`
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+    Copies the ``image`` into the clipboard.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the image is stored in the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the data is stored in the global mouse selection.
+
+    This is shorthand for:
+
+    ::
+
+        data = QMimeData()
+        data.setImageData(image)
+        clipboard.setMimeData(data, mode)
+
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.image`  :meth:`PySide.QtGui.QClipboard.setPixmap`  :meth:`PySide.QtGui.QClipboard.setMimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.setMimeData(data[, mode=Clipboard])
+
+
+    :param data: :class:`PySide.QtCore.QMimeData`
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+    Sets the clipboard data to ``src`` . Ownership of the data is transferred to the clipboard. If you want to remove the data either call :meth:`PySide.QtGui.QClipboard.clear` or call :meth:`PySide.QtGui.QClipboard.setMimeData` again with new data.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the data is stored in the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the data is stored in the global mouse selection. If ``mode`` is :attr:`QClipboard.FindBuffer<QClipboard.Mode>` , the data is stored in the search string buffer.
+
+    The :meth:`PySide.QtGui.QClipboard.setText` , :meth:`PySide.QtGui.QClipboard.setImage` and :meth:`PySide.QtGui.QClipboard.setPixmap` functions are simpler wrappers for setting text, image and pixmap data respectively.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.mimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.setPixmap(arg__1[, mode=Clipboard])
+
+
+    :param arg__1: :class:`PySide.QtGui.QPixmap`
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+    Copies ``pixmap`` into the clipboard. Note that this is slower than :meth:`PySide.QtGui.QClipboard.setImage` because it needs to convert the :class:`PySide.QtGui.QPixmap` to a :class:`PySide.QtGui.QImage` first.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the pixmap is stored in the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the pixmap is stored in the global mouse selection.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.pixmap`  :meth:`PySide.QtGui.QClipboard.setImage`  :meth:`PySide.QtGui.QClipboard.setMimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.setText(arg__1[, mode=Clipboard])
+
+
+    :param arg__1: unicode
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+
+
+
+
+    Copies ``text`` into the clipboard as plain text.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the text is stored in the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the text is stored in the global mouse selection. If ``mode`` is :attr:`QClipboard.FindBuffer<QClipboard.Mode>` , the text is stored in the search string buffer.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.text`  :meth:`PySide.QtGui.QClipboard.setMimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.supportsFindBuffer()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the clipboard supports a separate search buffer; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QClipboard.supportsMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QClipboard.supportsSelection()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the clipboard supports mouse selection; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QClipboard.text(subtype[, mode=QClipboard.Clipboard])
+
+
+    :param subtype: unicode
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: (retval, subtype)
+
+
+
+
+    This is an overloaded function.
+
+    Returns the clipboard text in subtype ``subtype`` , or an empty string if the clipboard does not contain any text. If ``subtype`` is null, any subtype is acceptable, and ``subtype`` is set to the chosen subtype.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the text is retrieved from the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the text is retrieved from the global mouse selection.
+
+    Common values for ``subtype`` are "plain" and "html".
+
+    Note that calling this function repeatedly, for instance from a key event handler, may be slow. In such cases, you should use the ``dataChanged()`` signal instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.setText`  :meth:`PySide.QtGui.QClipboard.mimeData` 
+
+
+.. method:: PySide.QtGui.QClipboard.text([mode=Clipboard])
+
+
+    :param mode: :attr:`PySide.QtGui.QClipboard.Mode`
+    :rtype: unicode
+
+
+
+
+    Returns the clipboard text as plain text, or an empty string if the clipboard does not contain any text.
+
+    The ``mode`` argument is used to control which part of the system clipboard is used. If ``mode`` is :attr:`QClipboard.Clipboard<QClipboard.Mode>` , the text is retrieved from the global clipboard. If ``mode`` is :attr:`QClipboard.Selection<QClipboard.Mode>` , the text is retrieved from the global mouse selection. If ``mode`` is :attr:`QClipboard.FindBuffer<QClipboard.Mode>` , the text is retrieved from the search string buffer.
+
+    .. seealso::  :meth:`PySide.QtGui.QClipboard.setText`  :meth:`PySide.QtGui.QClipboard.mimeData` 
+
+
+

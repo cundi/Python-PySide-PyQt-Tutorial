@@ -1,0 +1,561 @@
+.. module:: PySide.QtGui
+.. _QToolBar:
+
+QToolBar
+********
+
+.. inheritance-diagram:: QToolBar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionAt<PySide.QtGui.QToolBar.actionAt>` (p)
+*    def :meth:`actionAt<PySide.QtGui.QToolBar.actionAt>` (x, y)
+*    def :meth:`actionGeometry<PySide.QtGui.QToolBar.actionGeometry>` (action)
+*    def :meth:`addAction<PySide.QtGui.QToolBar.addAction>` (icon, text)
+*    def :meth:`addAction<PySide.QtGui.QToolBar.addAction>` (icon, text, receiver)
+*    def :meth:`addAction<PySide.QtGui.QToolBar.addAction>` (text)
+*    def :meth:`addAction<PySide.QtGui.QToolBar.addAction>` (text, receiver)
+*    def :meth:`addSeparator<PySide.QtGui.QToolBar.addSeparator>` ()
+*    def :meth:`addWidget<PySide.QtGui.QToolBar.addWidget>` (widget)
+*    def :meth:`allowedAreas<PySide.QtGui.QToolBar.allowedAreas>` ()
+*    def :meth:`clear<PySide.QtGui.QToolBar.clear>` ()
+*    def :meth:`iconSize<PySide.QtGui.QToolBar.iconSize>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QToolBar.initStyleOption>` (option)
+*    def :meth:`insertSeparator<PySide.QtGui.QToolBar.insertSeparator>` (before)
+*    def :meth:`insertWidget<PySide.QtGui.QToolBar.insertWidget>` (before, widget)
+*    def :meth:`isAreaAllowed<PySide.QtGui.QToolBar.isAreaAllowed>` (area)
+*    def :meth:`isFloatable<PySide.QtGui.QToolBar.isFloatable>` ()
+*    def :meth:`isFloating<PySide.QtGui.QToolBar.isFloating>` ()
+*    def :meth:`isMovable<PySide.QtGui.QToolBar.isMovable>` ()
+*    def :meth:`orientation<PySide.QtGui.QToolBar.orientation>` ()
+*    def :meth:`setAllowedAreas<PySide.QtGui.QToolBar.setAllowedAreas>` (areas)
+*    def :meth:`setFloatable<PySide.QtGui.QToolBar.setFloatable>` (floatable)
+*    def :meth:`setMovable<PySide.QtGui.QToolBar.setMovable>` (movable)
+*    def :meth:`setOrientation<PySide.QtGui.QToolBar.setOrientation>` (orientation)
+*    def :meth:`toggleViewAction<PySide.QtGui.QToolBar.toggleViewAction>` ()
+*    def :meth:`toolButtonStyle<PySide.QtGui.QToolBar.toolButtonStyle>` ()
+*    def :meth:`widgetForAction<PySide.QtGui.QToolBar.widgetForAction>` (action)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setIconSize<PySide.QtGui.QToolBar.setIconSize>` (iconSize)
+*    def :meth:`setToolButtonStyle<PySide.QtGui.QToolBar.setToolButtonStyle>` (toolButtonStyle)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionTriggered<PySide.QtGui.QToolBar.actionTriggered>` (action)
+*    def :meth:`allowedAreasChanged<PySide.QtGui.QToolBar.allowedAreasChanged>` (allowedAreas)
+*    def :meth:`iconSizeChanged<PySide.QtGui.QToolBar.iconSizeChanged>` (iconSize)
+*    def :meth:`movableChanged<PySide.QtGui.QToolBar.movableChanged>` (movable)
+*    def :meth:`orientationChanged<PySide.QtGui.QToolBar.orientationChanged>` (orientation)
+*    def :meth:`toolButtonStyleChanged<PySide.QtGui.QToolBar.toolButtonStyleChanged>` (toolButtonStyle)
+*    def :meth:`topLevelChanged<PySide.QtGui.QToolBar.topLevelChanged>` (topLevel)
+*    def :meth:`visibilityChanged<PySide.QtGui.QToolBar.visibilityChanged>` (visible)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QToolBar` class provides a movable panel that contains a set of controls.
+
+    Toolbar buttons are added by adding *actions* , using :meth:`PySide.QtGui.QToolBar.addAction` or :meth:`PySide.QtGui.QWidget.insertAction` . Groups of buttons can be separated using :meth:`PySide.QtGui.QToolBar.addSeparator` or :meth:`PySide.QtGui.QToolBar.insertSeparator` . If a toolbar button is not appropriate, a widget can be inserted instead using :meth:`PySide.QtGui.QToolBar.addWidget` or :meth:`PySide.QtGui.QToolBar.insertWidget` ; examples of suitable widgets are :class:`PySide.QtGui.QSpinBox` , :class:`PySide.QtGui.QDoubleSpinBox` , and :class:`PySide.QtGui.QComboBox` . When a toolbar button is pressed it emits the :meth:`PySide.QtGui.QToolBar.actionTriggered` signal.
+
+    A toolbar can be fixed in place in a particular area (e.g. at the top of the window), or it can be movable ( :meth:`PySide.QtGui.QToolBar.isMovable` ) between toolbar areas; see :meth:`PySide.QtGui.QToolBar.allowedAreas` and :meth:`PySide.QtGui.QToolBar.isAreaAllowed` .
+
+    When a toolbar is resized in such a way that it is too small to show all the items it contains, an extension button will appear as the last item in the toolbar. Pressing the extension button will pop up a menu containing the items that does not currently fit in the toolbar.
+
+    When a :class:`PySide.QtGui.QToolBar` is not a child of a :class:`PySide.QtGui.QMainWindow` , it loses the ability to populate the extension pop up with widgets added to the toolbar using :meth:`PySide.QtGui.QToolBar.addWidget` . Please use widget actions created by inheriting :class:`PySide.QtGui.QWidgetAction` and implementing :meth:`QWidgetAction.createWidget()<PySide.QtGui.QWidgetAction.createWidget>` instead.
+
+    .. seealso::  :class:`PySide.QtGui.QToolButton`  :class:`PySide.QtGui.QMenu`  :class:`PySide.QtGui.QAction`  :ref:`Application Example<mainwindows/application>` 
+
+.. class:: QToolBar([parent=None])
+           QToolBar(title[, parent=None])
+
+    :param title: unicode
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a :class:`PySide.QtGui.QToolBar` with the given ``parent`` .
+
+
+    Constructs a :class:`PySide.QtGui.QToolBar` with the given ``parent`` .
+
+    The given window ``title`` identifies the toolbar and is shown in the context menu provided by :class:`PySide.QtGui.QMainWindow` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.setWindowTitle` 
+
+.. method:: PySide.QtGui.QToolBar.actionAt(p)
+
+
+    :param p: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the action at point ``p`` . This function returns zero if no action was found.
+
+    .. seealso::  :meth:`QWidget.childAt()<PySide.QtGui.QWidget.childAt>` 
+
+
+.. method:: PySide.QtGui.QToolBar.actionAt(x, y)
+
+
+    :param x: :class:`PySide.QtCore.int`
+    :param y: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the action at the point ``x`` , ``y`` . This function returns zero if no action was found.
+
+
+
+.. method:: PySide.QtGui.QToolBar.actionGeometry(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of the toolbar item associated with the given ``action`` , or an invalid :class:`PySide.QtCore.QRect` if no matching item is found.
+
+
+
+.. method:: PySide.QtGui.QToolBar.actionTriggered(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.addAction(text, receiver)
+
+
+    :param text: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a new action with the given ``text`` . This action is added to the end of the toolbar. The action's :meth:`PySide.QtGui.QAction.triggered` signal is connected to ``member`` in ``receiver`` .
+
+
+
+.. method:: PySide.QtGui.QToolBar.addAction(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a new action with the given ``text`` . This action is added to the end of the toolbar.
+
+
+
+.. method:: PySide.QtGui.QToolBar.addAction(icon, text, receiver)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param text: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a new action with the icon ``icon`` and text ``text`` . This action is added to the end of the toolbar. The action's :meth:`PySide.QtGui.QAction.triggered` signal is connected to ``member`` in ``receiver`` .
+
+
+
+.. method:: PySide.QtGui.QToolBar.addAction(icon, text)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a new action with the given ``icon`` and ``text`` . This action is added to the end of the toolbar.
+
+
+
+.. method:: PySide.QtGui.QToolBar.addSeparator()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Adds a separator to the end of the toolbar.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.insertSeparator` 
+
+
+.. method:: PySide.QtGui.QToolBar.addWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Adds the given ``widget`` to the toolbar as the toolbar's last item.
+
+    The toolbar takes ownership of ``widget`` .
+
+    If you add a :class:`PySide.QtGui.QToolButton` with this method, the tools bar's :attr:`Qt.ToolButtonStyle` will not be respected.
+
+    .. note::  You should use :meth:`QAction.setVisible()<PySide.QtGui.QAction.setVisible>` to change the visibility of the widget. Using :meth:`QWidget.setVisible()<PySide.QtGui.QWidget.setVisible>` , :meth:`QWidget.show()<PySide.QtGui.QWidget.show>` and :meth:`QWidget.hide()<PySide.QtGui.QWidget.hide>` does not work.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.insertWidget` 
+
+
+.. method:: PySide.QtGui.QToolBar.allowedAreas()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.ToolBarAreas`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.setAllowedAreas` 
+
+
+.. method:: PySide.QtGui.QToolBar.allowedAreasChanged(allowedAreas)
+
+
+    :param allowedAreas: :class:`PySide.QtCore.Qt.ToolBarAreas`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.clear()
+
+
+
+
+
+
+    Removes all actions from the toolbar.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.removeAction` 
+
+
+.. method:: PySide.QtGui.QToolBar.iconSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.setIconSize` 
+
+
+.. method:: PySide.QtGui.QToolBar.iconSizeChanged(iconSize)
+
+
+    :param iconSize: :class:`PySide.QtCore.QSize`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionToolBar`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.insertSeparator(before)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Inserts a separator into the toolbar in front of the toolbar item associated with the ``before`` action.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.addSeparator` 
+
+
+.. method:: PySide.QtGui.QToolBar.insertWidget(before, widget)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Inserts the given ``widget`` in front of the toolbar item associated with the ``before`` action.
+
+    Note: You should use :meth:`QAction.setVisible()<PySide.QtGui.QAction.setVisible>` to change the visibility of the widget. Using :meth:`QWidget.setVisible()<PySide.QtGui.QWidget.setVisible>` , :meth:`QWidget.show()<PySide.QtGui.QWidget.show>` and :meth:`QWidget.hide()<PySide.QtGui.QWidget.hide>` does not work.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.addWidget` 
+
+
+.. method:: PySide.QtGui.QToolBar.isAreaAllowed(area)
+
+
+    :param area: :attr:`PySide.QtCore.Qt.ToolBarArea`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.isFloatable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.isFloating()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.isMovable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the user can move the toolbar within the toolbar area, or between toolbar areas.
+
+    By default, this property is true.
+
+    This property only makes sense if the toolbar is in a :class:`PySide.QtGui.QMainWindow` .
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.allowedAreas` 
+
+
+.. method:: PySide.QtGui.QToolBar.movableChanged(movable)
+
+
+    :param movable: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.setOrientation` 
+
+
+.. method:: PySide.QtGui.QToolBar.orientationChanged(orientation)
+
+
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.setAllowedAreas(areas)
+
+
+    :param areas: :class:`PySide.QtCore.Qt.ToolBarAreas`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.setFloatable(floatable)
+
+
+    :param floatable: :class:`PySide.QtCore.bool`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.isFloatable` 
+
+
+.. method:: PySide.QtGui.QToolBar.setIconSize(iconSize)
+
+
+    :param iconSize: :class:`PySide.QtCore.QSize`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.iconSize` 
+
+
+.. method:: PySide.QtGui.QToolBar.setMovable(movable)
+
+
+    :param movable: :class:`PySide.QtCore.bool`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.isMovable` 
+
+
+.. method:: PySide.QtGui.QToolBar.setOrientation(orientation)
+
+
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.setToolButtonStyle(toolButtonStyle)
+
+
+    :param toolButtonStyle: :attr:`PySide.QtCore.Qt.ToolButtonStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.toggleViewAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns a checkable action that can be used to show or hide this toolbar.
+
+    The action's text is set to the toolbar's window title.
+
+    .. seealso::  :meth:`QAction.text<PySide.QtGui.QAction.text>`  :meth:`QWidget.windowTitle<PySide.QtGui.QWidget.windowTitle>` 
+
+
+.. method:: PySide.QtGui.QToolBar.toolButtonStyle()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ToolButtonStyle`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.setToolButtonStyle` 
+
+
+.. method:: PySide.QtGui.QToolBar.toolButtonStyleChanged(toolButtonStyle)
+
+
+    :param toolButtonStyle: :attr:`PySide.QtCore.Qt.ToolButtonStyle`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.topLevelChanged(topLevel)
+
+
+    :param topLevel: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.visibilityChanged(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QToolBar.widgetForAction(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget associated with the specified ``action`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QToolBar.addWidget` 
+
+
+

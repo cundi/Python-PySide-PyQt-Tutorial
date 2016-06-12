@@ -1,0 +1,296 @@
+.. module:: PySide.QtGui
+.. _QActionGroup:
+
+QActionGroup
+************
+
+.. inheritance-diagram:: QActionGroup
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actions<PySide.QtGui.QActionGroup.actions>` ()
+*    def :meth:`addAction<PySide.QtGui.QActionGroup.addAction>` (a)
+*    def :meth:`addAction<PySide.QtGui.QActionGroup.addAction>` (icon, text)
+*    def :meth:`addAction<PySide.QtGui.QActionGroup.addAction>` (text)
+*    def :meth:`checkedAction<PySide.QtGui.QActionGroup.checkedAction>` ()
+*    def :meth:`isEnabled<PySide.QtGui.QActionGroup.isEnabled>` ()
+*    def :meth:`isExclusive<PySide.QtGui.QActionGroup.isExclusive>` ()
+*    def :meth:`isVisible<PySide.QtGui.QActionGroup.isVisible>` ()
+*    def :meth:`removeAction<PySide.QtGui.QActionGroup.removeAction>` (a)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setDisabled<PySide.QtGui.QActionGroup.setDisabled>` (b)
+*    def :meth:`setEnabled<PySide.QtGui.QActionGroup.setEnabled>` (arg__1)
+*    def :meth:`setExclusive<PySide.QtGui.QActionGroup.setExclusive>` (arg__1)
+*    def :meth:`setVisible<PySide.QtGui.QActionGroup.setVisible>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hovered<PySide.QtGui.QActionGroup.hovered>` (arg__1)
+*    def :meth:`triggered<PySide.QtGui.QActionGroup.triggered>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QActionGroup` class groups actions together.
+
+    In some situations it is useful to group :class:`PySide.QtGui.QAction` objects together. For example, if you have a **Left Align** action, a **Right Align** action, a **Justify** action, and a **Center** action, only one of these actions should be active at any one time. One simple way of achieving this is to group the actions together in an action group.
+
+    Here's a example (from the :ref:`Menus<mainwindows/menus>` example):
+
+    ::
+
+            alignmentGroup =  QActionGroup(self)
+            alignmentGroup.addAction(leftAlignAct)
+            alignmentGroup.addAction(rightAlignAct)
+            alignmentGroup.addAction(justifyAct)
+            alignmentGroup.addAction(centerAct)
+            leftAlignAct.setChecked(True)
+
+
+    Here we create a new action group. Since the action group is exclusive by default, only one of the actions in the group is checked at any one time.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qactiongroup-align.png
+
+    A :class:`PySide.QtGui.QActionGroup` emits an :meth:`PySide.QtGui.QActionGroup.triggered` signal when one of its actions is chosen. Each action in an action group emits its :meth:`PySide.QtGui.QActionGroup.triggered` signal as usual.
+
+    As stated above, an action group is :meth:`~PySide.QtGui.QActionGroup.exclusive` by default; it ensures that only one checkable action is active at any one time. If you want to group checkable actions without making them exclusive, you can turn of exclusiveness by calling setExclusive(false).
+
+    Actions can be added to an action group using :meth:`PySide.QtGui.QActionGroup.addAction` , but it is usually more convenient to specify a group when creating actions; this ensures that actions are automatically created with a parent. Actions can be visually separated from each other by adding a separator action to the group; create an action and use :class:`PySide.QtGui.QAction` 's :meth:`PySide.QtGui.QAction.setSeparator` function to make it considered a separator. Action groups are added to widgets with the :meth:`QWidget.addActions()<PySide.QtGui.QWidget.addActions>` function.
+
+    .. seealso::  :class:`PySide.QtGui.QAction` 
+
+.. class:: QActionGroup(parent)
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an action group for the ``parent`` object.
+
+    The action group is exclusive by default. Call setExclusive(false) to make the action group non-exclusive.
+
+
+.. method:: PySide.QtGui.QActionGroup.actions()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of this groups's actions. This may be empty.
+
+
+
+.. method:: PySide.QtGui.QActionGroup.addAction(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates and returns an action with ``text`` . The newly created action is a child of this action group.
+
+    Normally an action is added to a group by creating it with the group as parent, so this function is not usually used.
+
+    .. seealso::  :meth:`QAction.setActionGroup()<PySide.QtGui.QAction.setActionGroup>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.addAction(a)
+
+
+    :param a: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Adds the ``action`` to this group, and returns it.
+
+    Normally an action is added to a group by creating it with the group as its parent, so this function is not usually used.
+
+    .. seealso::  :meth:`QAction.setActionGroup()<PySide.QtGui.QAction.setActionGroup>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.addAction(icon, text)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates and returns an action with ``text`` and an ``icon`` . The newly created action is a child of this action group.
+
+    Normally an action is added to a group by creating it with the group as its parent, so this function is not usually used.
+
+    .. seealso::  :meth:`QAction.setActionGroup()<PySide.QtGui.QAction.setActionGroup>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.checkedAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the currently checked action in the group, or 0 if none are checked.
+
+
+
+.. method:: PySide.QtGui.QActionGroup.hovered(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QActionGroup.isEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group is enabled.
+
+    Each action in the group will be enabled or disabled unless it has been explicitly disabled.
+
+    .. seealso::  :meth:`QAction.setEnabled()<PySide.QtGui.QAction.setEnabled>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.isExclusive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group does exclusive checking.
+
+    If exclusive is true, only one checkable action in the action group can ever be active at any time. If the user chooses another checkable action in the group, the one they chose becomes active and the one that was active becomes inactive.
+
+    .. seealso::  :meth:`QAction.checkable<PySide.QtGui.QAction.checkable>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.isVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group is visible.
+
+    Each action in the action group will match the visible state of this group unless it has been explicitly hidden.
+
+    .. seealso::  :meth:`QAction.setEnabled()<PySide.QtGui.QAction.setEnabled>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.removeAction(a)
+
+
+    :param a: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Removes the ``action`` from this group. The action will have no parent as a result.
+
+    .. seealso::  :meth:`QAction.setActionGroup()<PySide.QtGui.QAction.setActionGroup>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.setDisabled(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is a convenience function for the :meth:`~PySide.QtGui.QActionGroup.enabled` property, that is useful for signals--slots connections. If ``b`` is true the action group is disabled; otherwise it is enabled.
+
+
+
+.. method:: PySide.QtGui.QActionGroup.setEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group is enabled.
+
+    Each action in the group will be enabled or disabled unless it has been explicitly disabled.
+
+    .. seealso::  :meth:`QAction.setEnabled()<PySide.QtGui.QAction.setEnabled>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.setExclusive(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group does exclusive checking.
+
+    If exclusive is true, only one checkable action in the action group can ever be active at any time. If the user chooses another checkable action in the group, the one they chose becomes active and the one that was active becomes inactive.
+
+    .. seealso::  :meth:`QAction.checkable<PySide.QtGui.QAction.checkable>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.setVisible(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the action group is visible.
+
+    Each action in the action group will match the visible state of this group unless it has been explicitly hidden.
+
+    .. seealso::  :meth:`QAction.setEnabled()<PySide.QtGui.QAction.setEnabled>` 
+
+
+.. method:: PySide.QtGui.QActionGroup.triggered(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+

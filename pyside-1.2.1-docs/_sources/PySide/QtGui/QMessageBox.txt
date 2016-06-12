@@ -1,0 +1,1043 @@
+.. module:: PySide.QtGui
+.. _QMessageBox:
+
+QMessageBox
+***********
+
+.. inheritance-diagram:: QMessageBox
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addButton<PySide.QtGui.QMessageBox.addButton>` (button)
+*    def :meth:`addButton<PySide.QtGui.QMessageBox.addButton>` (button, role)
+*    def :meth:`addButton<PySide.QtGui.QMessageBox.addButton>` (text, role)
+*    def :meth:`button<PySide.QtGui.QMessageBox.button>` (which)
+*    def :meth:`buttonRole<PySide.QtGui.QMessageBox.buttonRole>` (button)
+*    def :meth:`buttons<PySide.QtGui.QMessageBox.buttons>` ()
+*    def :meth:`clickedButton<PySide.QtGui.QMessageBox.clickedButton>` ()
+*    def :meth:`defaultButton<PySide.QtGui.QMessageBox.defaultButton>` ()
+*    def :meth:`detailedText<PySide.QtGui.QMessageBox.detailedText>` ()
+*    def :meth:`escapeButton<PySide.QtGui.QMessageBox.escapeButton>` ()
+*    def :meth:`icon<PySide.QtGui.QMessageBox.icon>` ()
+*    def :meth:`iconPixmap<PySide.QtGui.QMessageBox.iconPixmap>` ()
+*    def :meth:`informativeText<PySide.QtGui.QMessageBox.informativeText>` ()
+*    def :meth:`open<PySide.QtGui.QMessageBox.open>` (receiver, member)
+*    def :meth:`removeButton<PySide.QtGui.QMessageBox.removeButton>` (button)
+*    def :meth:`setDefaultButton<PySide.QtGui.QMessageBox.setDefaultButton>` (button)
+*    def :meth:`setDefaultButton<PySide.QtGui.QMessageBox.setDefaultButton>` (button)
+*    def :meth:`setDetailedText<PySide.QtGui.QMessageBox.setDetailedText>` (text)
+*    def :meth:`setEscapeButton<PySide.QtGui.QMessageBox.setEscapeButton>` (button)
+*    def :meth:`setEscapeButton<PySide.QtGui.QMessageBox.setEscapeButton>` (button)
+*    def :meth:`setIcon<PySide.QtGui.QMessageBox.setIcon>` (arg__1)
+*    def :meth:`setIconPixmap<PySide.QtGui.QMessageBox.setIconPixmap>` (pixmap)
+*    def :meth:`setInformativeText<PySide.QtGui.QMessageBox.setInformativeText>` (text)
+*    def :meth:`setStandardButtons<PySide.QtGui.QMessageBox.setStandardButtons>` (buttons)
+*    def :meth:`setText<PySide.QtGui.QMessageBox.setText>` (text)
+*    def :meth:`setTextFormat<PySide.QtGui.QMessageBox.setTextFormat>` (format)
+*    def :meth:`standardButton<PySide.QtGui.QMessageBox.standardButton>` (button)
+*    def :meth:`standardButtons<PySide.QtGui.QMessageBox.standardButtons>` ()
+*    def :meth:`text<PySide.QtGui.QMessageBox.text>` ()
+*    def :meth:`textFormat<PySide.QtGui.QMessageBox.textFormat>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`buttonClicked<PySide.QtGui.QMessageBox.buttonClicked>` (button)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`about<PySide.QtGui.QMessageBox.about>` (parent, title, text)
+*    def :meth:`aboutQt<PySide.QtGui.QMessageBox.aboutQt>` (parent[, title=""])
+*    def :meth:`critical<PySide.QtGui.QMessageBox.critical>` (parent, title, text, button0, button1)
+*    def :meth:`critical<PySide.QtGui.QMessageBox.critical>` (parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+*    def :meth:`information<PySide.QtGui.QMessageBox.information>` (parent, title, text, button0[, button1=NoButton])
+*    def :meth:`information<PySide.QtGui.QMessageBox.information>` (parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+*    def :meth:`question<PySide.QtGui.QMessageBox.question>` (parent, title, text, button0, button1)
+*    def :meth:`question<PySide.QtGui.QMessageBox.question>` (parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+*    def :meth:`warning<PySide.QtGui.QMessageBox.warning>` (parent, title, text, button0, button1)
+*    def :meth:`warning<PySide.QtGui.QMessageBox.warning>` (parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMessageBox` class provides a modal dialog for informing the user or for asking the user a question and receiving an answer.
+
+    A message box displays a primary :meth:`PySide.QtGui.QMessageBox.text` to alert the user to a situation, an :meth:`informative text<PySide.QtGui.QMessageBox.informativeText>` to further explain the alert or to ask the user a question, and an optional :meth:`detailed text<PySide.QtGui.QMessageBox.detailedText>` to provide even more data if the user requests it. A message box can also display an :meth:`PySide.QtGui.QMessageBox.icon` and :meth:`standard buttons<PySide.QtGui.QMessageBox.standardButtons>` for accepting a user response.
+
+    Two APIs for using :class:`PySide.QtGui.QMessageBox` are provided, the property-based API, and the static functions. Calling one of the static functions is the simpler approach, but it is less flexible than using the property-based API, and the result is less informative. Using the property-based API is recommended.
+
+    .. _PySide.QtGui.QMessageBox_the-property-based-api:
+
+
+
+The Property-based API
+^^^^^^^^^^^^^^^^^^^^^^
+
+    To use the property-based API, construct an instance of :class:`PySide.QtGui.QMessageBox` , set the desired properties, and call :meth:`~PySide.QtGui.QMessageBox.exec` to show the message. The simplest configuration is to set only the :meth:`message text<PySide.QtGui.QMessageBox.text>` property.
+
+    ::
+
+        msgBox = QMessageBox()
+        msgBox.setText("The document has been modified.")
+        msgBox.exec_()
+
+
+    The user must click the **OK** button to dismiss the message box. The rest of the GUI is blocked until the message box is dismissed.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/msgbox1.png
+
+    A better approach than just alerting the user to an event is to also ask the user what to do about it. Store the question in the :meth:`informative text<PySide.QtGui.QMessageBox.informativeText>` property, and set the :meth:`standard buttons<PySide.QtGui.QMessageBox.standardButtons>` property to the set of buttons you want as the set of user responses. The buttons are specified by combining values from :class:`~PySide.QtGui.StandardButtons` using the bitwise OR operator. The display order for the buttons is platform-dependent. For example, on Windows, **Save** is displayed to the left of **Cancel** , whereas on Mac OS, the order is reversed.
+
+    Mark one of your standard buttons to be your :meth:`default button<PySide.QtGui.QMessageBox.defaultButton>` .
+
+    ::
+
+        msgBox = QMessageBox()
+        msgBox.setText("The document has been modified.")
+        msgBox.setInformativeText("Do you want to save your changes?")
+        msgBox.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+        msgBox.setDefaultButton(QMessageBox.Save)
+        ret = msgBox.exec_()
+
+
+    This is the approach recommended in the Mac OS X Guidelines. Similar guidelines apply for the other platforms, but note the different ways the :meth:`informative text<PySide.QtGui.QMessageBox.informativeText>` is handled for different platforms.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/msgbox2.png
+
+    The :meth:`~PySide.QtGui.QMessageBox.exec` slot returns the :class:`~PySide.QtGui.StandardButtons` value of the button that was clicked.
+
+    ::
+
+
+        if ret == QMessageBox.Save:
+            # Save was clicked
+        elif ret == QMessageBox.Discard:
+            # Don't save was clicked
+        elif ret == QMessageBox.Cancel:
+            # cancel was clicked
+        else:
+            # should never be reached
+
+
+
+    To give the user more information to help him answer the question, set the :meth:`detailed text<PySide.QtGui.QMessageBox.detailedText>` property. If the :meth:`detailed text<PySide.QtGui.QMessageBox.detailedText>` property is set, the **Show Details...** button will be shown.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/msgbox3.png
+
+    Clicking the **Show Details...** button displays the detailed text.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/msgbox4.png
+
+    .. _PySide.QtGui.QMessageBox_rich-text-and-the-text-format-property:
+
+
+
+Rich Text and the Text Format Property
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The :meth:`detailed text<PySide.QtGui.QMessageBox.detailedText>` property is always interpreted as plain text. The :meth:`main text<PySide.QtGui.QMessageBox.text>` and :meth:`informative text<PySide.QtGui.QMessageBox.informativeText>` properties can be either plain text or rich text. These strings are interpreted according to the setting of the :meth:`text format<PySide.QtGui.QMessageBox.textFormat>` property. The default setting is :attr:`auto-text<Qt.TextFormat>` .
+
+    Note that for some plain text strings containing XML meta-characters, the auto-text :meth:`rich text detection test<PySide.QtCore.Qt.mightBeRichText>` may fail causing your plain text string to be interpreted incorrectly as rich text. In these rare cases, use :meth:`Qt.convertFromPlainText()<PySide.QtCore.Qt.convertFromPlainText>` to convert your plain text string to a visually equivalent rich text string, or set the :meth:`text format<PySide.QtGui.QMessageBox.textFormat>` property explicitly with :meth:`PySide.QtGui.QMessageBox.setTextFormat` .
+
+    .. _PySide.QtGui.QMessageBox_severity-levels-and-the-icon-and-pixmap-properties:
+
+
+
+Severity Levels and the Icon and Pixmap Properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QMessageBox` supports four predefined message severity levels, or message types, which really only differ in the predefined icon they each show. Specify one of the four predefined message types by setting the :meth:`PySide.QtGui.QMessageBox.icon` property to one of the :attr:`predefined icons<QMessageBox.Icon>` . The following rules are guidelines:
+
+    +----------------------------------------------------------------------------------------------------+-------------------------------------+--------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmessagebox-quest.png|:attr:`Question<QMessageBox.Icon>`   |For asking a question during normal operations.   |
+    +----------------------------------------------------------------------------------------------------+-------------------------------------+--------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmessagebox-info.png |:attr:`Information<QMessageBox.Icon>`|For reporting information about normal operations.|
+    +----------------------------------------------------------------------------------------------------+-------------------------------------+--------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmessagebox-warn.png |:attr:`Warning<QMessageBox.Icon>`    |For reporting non-critical errors.                |
+    +----------------------------------------------------------------------------------------------------+-------------------------------------+--------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmessagebox-crit.png |:attr:`Critical<QMessageBox.Icon>`   |For reporting critical errors.                    |
+    +----------------------------------------------------------------------------------------------------+-------------------------------------+--------------------------------------------------+
+
+    :attr:`Predefined icons<QMessageBox.Icon>` are not defined by :class:`PySide.QtGui.QMessageBox` , but provided by the style. The default value is :attr:`No Icon<QMessageBox.Icon>` . The message boxes are otherwise the same for all cases. When using a standard icon, use the one recommended in the table, or use the one recommended by the style guidelines for your platform. If none of the standard icons is right for your message box, you can use a custom icon by setting the :meth:`icon pixmap<PySide.QtGui.QMessageBox.iconPixmap>` property instead of setting the :meth:`PySide.QtGui.QMessageBox.icon` property.
+
+    In summary, to set an icon, use *either*\ :meth:`PySide.QtGui.QMessageBox.setIcon` for one of the standard icons, *or*\ :meth:`PySide.QtGui.QMessageBox.setIconPixmap` for a custom icon.
+
+    .. _PySide.QtGui.QMessageBox_the-static-functions-api:
+
+
+
+The Static Functions API
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Building message boxes with the static functions API, although convenient, is less flexible than using the property-based API, because the static function signatures lack parameters for setting the :meth:`informative text<PySide.QtGui.QMessageBox.informativeText>` and :meth:`detailed text<PySide.QtGui.QMessageBox.detailedText>` properties. One work-around for this has been to use the ``title`` parameter as the message box main text and the ``text`` parameter as the message box informative text. Because this has the obvious drawback of making a less readable message box, platform guidelines do not recommend it. The *Microsoft Windows User Interface Guidelines* recommend using the :meth:`application name<PySide.QtCore.QCoreApplication.applicationName>` as the :meth:`window's title<PySide.QtGui.QMessageBox.setWindowTitle>` , which means that if you have an informative text in addition to your main text, you must concatenate it to the ``text`` parameter.
+
+    Note that the static function signatures have changed with respect to their button parameters, which are now used to set the :meth:`standard buttons<PySide.QtGui.QMessageBox.standardButtons>` and the :meth:`default button<PySide.QtGui.QMessageBox.defaultButton>` .
+
+    Static functions are available for creating :meth:`PySide.QtGui.QMessageBox.information` , :meth:`PySide.QtGui.QMessageBox.question` , :meth:`PySide.QtGui.QMessageBox.warning` , and :meth:`PySide.QtGui.QMessageBox.critical` message boxes.
+
+    ::
+
+        ret = QMessageBox.warning(self, self.tr("My Application"),
+                                       self.tr("The document has been modified.\n" + \
+                                          "Do you want to save your changes?"),
+                                       QMessageBox.Save | QMessageBox.Discard
+                                       | QMessageBox.Cancel,
+                                       QMessageBox.Save)
+
+
+    The :ref:`Standard Dialogs<dialogs/standarddialogs>` example shows how to use :class:`PySide.QtGui.QMessageBox` and the other built-in Qt dialogs.
+
+    .. _PySide.QtGui.QMessageBox_advanced-usage:
+
+
+
+Advanced Usage
+^^^^^^^^^^^^^^
+
+    If the :class:`standard buttons<~PySide.QtGui.QMessageBox.StandardButtons>` are not flexible enough for your message box, you can use the :meth:`PySide.QtGui.QMessageBox.addButton` overload that takes a text and a ButtonRoleto to add custom buttons. The :attr:`QMessageBox.ButtonRole` is used by :class:`PySide.QtGui.QMessageBox` to determine the ordering of the buttons on screen (which varies according to the platform). You can test the value of :meth:`PySide.QtGui.QMessageBox.clickedButton` after calling :meth:`~PySide.QtGui.QMessageBox.exec` . For example,
+
+    ::
+
+        msgBox = QMessageBox()
+        connectButton = msgBox.addButton(self.tr("Connect"), QMessageBox.ActionRole)
+        abortButton = msgBox.addButton(QMessageBox.Abort)
+
+        msgBox.exec_()
+
+        if msgBox.clickedButton() == connectButton:
+            # connect
+        elif msgBox.clickedButton() == abortButton:
+            # abort
+        }
+
+
+    .. _PySide.QtGui.QMessageBox_default-and-escape-keys:
+
+
+
+Default and Escape Keys
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    The default button (i.e., the button activated when **Enter** is pressed) can be specified using :meth:`PySide.QtGui.QMessageBox.setDefaultButton` . If a default button is not specified, :class:`PySide.QtGui.QMessageBox` tries to find one based on the :attr:`button roles<QMessageBox.ButtonRole>` of the buttons used in the message box.
+
+    The escape button (the button activated when **Esc** is pressed) can be specified using :meth:`PySide.QtGui.QMessageBox.setEscapeButton` . If an escape button is not specified, :class:`PySide.QtGui.QMessageBox` tries to find one using these rules:
+
+    When an escape button can't be determined using these rules, pressing **Esc** has no effect.
+
+    .. seealso::  :class:`PySide.QtGui.QDialogButtonBox`  :ref:`GUI Design Handbook: Message Box<guibooks.html>`  :ref:`Standard Dialogs Example<dialogs/standarddialogs>`  :ref:`Application Example<mainwindows/application>` 
+
+.. class:: QMessageBox(icon, title, text[, buttons=QMessageBox.NoButton[, parent=None[, flags=Qt.Dialog | Qt.MSWindowsFixedSizeDialogHint]]])
+           QMessageBox([parent=None])
+
+    :param title: unicode
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param icon: :attr:`PySide.QtGui.QMessageBox.Icon`
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+    :param text: unicode
+
+
+
+    Constructs a message box with no text and no buttons. ``parent`` is passed to the :class:`PySide.QtGui.QDialog` constructor.
+
+    On Mac OS X, if you want your message box to appear as a :attr:`Qt.Sheet<Qt.WindowType>` of its ``parent`` , set the message box's :meth:`window modality<PySide.QtGui.QMessageBox.setWindowModality>` to :attr:`Qt.WindowModal<Qt.WindowModality>` or use :meth:`PySide.QtGui.QMessageBox.open` . Otherwise, the message box will be a standard dialog.
+
+
+
+.. attribute:: PySide.QtGui.QMessageBox.ButtonRole
+
+    This enum describes the roles that can be used to describe buttons in the button box. Combinations of these roles are as flags used to describe different aspects of their behavior.
+
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                         |
+    +===========================+====================================================================================================+
+    |QMessageBox.InvalidRole    |The button is invalid.                                                                              |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.AcceptRole     |Clicking the button causes the dialog to be accepted (e.g. OK).                                     |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.RejectRole     |Clicking the button causes the dialog to be rejected (e.g. Cancel).                                 |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.DestructiveRole|Clicking the button causes a destructive change (e.g. for Discarding Changes) and closes the dialog.|
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.ActionRole     |Clicking the button causes changes to the elements within the dialog.                               |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.HelpRole       |The button can be clicked to request help.                                                          |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.YesRole        |The button is a "Yes"-like button.                                                                  |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.NoRole         |The button is a "No"-like button.                                                                   |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.ApplyRole      |The button applies current changes.                                                                 |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QMessageBox.ResetRole      |The button resets the dialog's fields to default values.                                            |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QMessageBox.StandardButton` 
+
+.. attribute:: PySide.QtGui.QMessageBox.StandardButton
+
+    These enums describe flags for standard buttons. Each button has a defined :attr:`QMessageBox.ButtonRole` .
+
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                                                      |
+    +===========================+=================================================================================================================================+
+    |QMessageBox.Ok             |An "OK" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                     |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Open           |A "Open" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                    |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Save           |A "Save" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                    |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Cancel         |A "Cancel" button defined with the :attr:`RejectRole<QMessageBox.ButtonRole>` .                                                  |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Close          |A "Close" button defined with the :attr:`RejectRole<QMessageBox.ButtonRole>` .                                                   |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Discard        |A "Discard" or "Don't Save" button, depending on the platform, defined with the :attr:`DestructiveRole<QMessageBox.ButtonRole>` .|
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Apply          |An "Apply" button defined with the :attr:`ApplyRole<QMessageBox.ButtonRole>` .                                                   |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Reset          |A "Reset" button defined with the :attr:`ResetRole<QMessageBox.ButtonRole>` .                                                    |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.RestoreDefaults|A "Restore Defaults" button defined with the :attr:`ResetRole<QMessageBox.ButtonRole>` .                                         |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Help           |A "Help" button defined with the :attr:`HelpRole<QMessageBox.ButtonRole>` .                                                      |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.SaveAll        |A "Save All" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Yes            |A "Yes" button defined with the :attr:`YesRole<QMessageBox.ButtonRole>` .                                                        |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.YesToAll       |A "Yes to All" button defined with the :attr:`YesRole<QMessageBox.ButtonRole>` .                                                 |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.No             |A "No" button defined with the :attr:`NoRole<QMessageBox.ButtonRole>` .                                                          |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.NoToAll        |A "No to All" button defined with the :attr:`NoRole<QMessageBox.ButtonRole>` .                                                   |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Abort          |An "Abort" button defined with the :attr:`RejectRole<QMessageBox.ButtonRole>` .                                                  |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Retry          |A "Retry" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                   |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Ignore         |An "Ignore" button defined with the :attr:`AcceptRole<QMessageBox.ButtonRole>` .                                                 |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.NoButton       |An invalid button.                                                                                                               |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+
+    The following values are obsolete:
+
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant              |Description                                                                                                                                                                                              |
+    +======================+=========================================================================================================================================================================================================+
+    |QMessageBox.YesAll    |Use :attr:`YesToAll<QMessageBox.StandardButton>` instead.                                                                                                                                                |
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.NoAll     |Use :attr:`NoToAll<QMessageBox.StandardButton>` instead.                                                                                                                                                 |
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Default   |Use the ``defaultButton`` argument of :meth:`PySide.QtGui.QMessageBox.information` , :meth:`PySide.QtGui.QMessageBox.warning` , etc. instead, or call :meth:`PySide.QtGui.QMessageBox.setDefaultButton` .|
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.Escape    |Call :meth:`PySide.QtGui.QMessageBox.setEscapeButton` instead.                                                                                                                                           |
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.FlagMask  |                                                                                                                                                                                                         |
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMessageBox.ButtonMask|                                                                                                                                                                                                         |
+    +----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QMessageBox.ButtonRole`  :meth:`PySide.QtGui.QMessageBox.standardButtons` 
+
+.. attribute:: PySide.QtGui.QMessageBox.Icon
+
+    This enum has the following values:
+
+    +-----------------------+------------------------------------------------------------------------+
+    |Constant               |Description                                                             |
+    +=======================+========================================================================+
+    |QMessageBox.NoIcon     |the message box does not have any icon.                                 |
+    +-----------------------+------------------------------------------------------------------------+
+    |QMessageBox.Question   |an icon indicating that the message is asking a question.               |
+    +-----------------------+------------------------------------------------------------------------+
+    |QMessageBox.Information|an icon indicating that the message is nothing out of the ordinary.     |
+    +-----------------------+------------------------------------------------------------------------+
+    |QMessageBox.Warning    |an icon indicating that the message is a warning, but can be dealt with.|
+    +-----------------------+------------------------------------------------------------------------+
+    |QMessageBox.Critical   |an icon indicating that the message represents a critical problem.      |
+    +-----------------------+------------------------------------------------------------------------+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.about(parent, title, text)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+
+
+
+
+    Displays a simple about box with title ``title`` and text ``text`` . The about box's parent is ``parent`` .
+
+    :meth:`PySide.QtGui.QMessageBox.about` looks for a suitable icon in four locations:
+
+    The about box has a single button labelled "OK". On Mac OS X, the about box is popped up as a modeless window; on other platforms, it is currently application modal.
+
+    .. seealso::  :meth:`QWidget.windowIcon()<PySide.QtGui.QWidget.windowIcon>`  :meth:`QApplication.activeWindow()<PySide.QtGui.QApplication.activeWindow>` 
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.aboutQt(parent[, title=""])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+
+
+
+
+    Displays a simple message box about Qt, with the given ``title`` and centered over ``parent`` (if ``parent`` is not 0). The message includes the version number of Qt being used by the application.
+
+    This is useful for inclusion in the **Help** menu of an application, as shown in the :ref:`Menus<mainwindows/menus>` example.
+
+    :class:`PySide.QtGui.QApplication` provides this functionality as a slot.
+
+    On Mac OS X, the about box is popped up as a modeless window; on other platforms, it is currently application modal.
+
+    .. seealso::  :meth:`QApplication.aboutQt()<PySide.QtGui.QApplication.aboutQt>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.addButton(text, role)
+
+
+    :param text: unicode
+    :param role: :attr:`PySide.QtGui.QMessageBox.ButtonRole`
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    This is an overloaded function.
+
+    Creates a button with the given ``text`` , adds it to the message box for the specified ``role`` , and returns it.
+
+
+
+.. method:: PySide.QtGui.QMessageBox.addButton(button)
+
+
+    :param button: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    This is an overloaded function.
+
+    Adds a standard ``button`` to the message box if it is valid to do so, and returns the push button.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setStandardButtons` 
+
+
+.. method:: PySide.QtGui.QMessageBox.addButton(button, role)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :param role: :attr:`PySide.QtGui.QMessageBox.ButtonRole`
+
+
+
+
+    Adds the given ``button`` to the message box with the specified ``role`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.removeButton`  :meth:`PySide.QtGui.QMessageBox.button`  :meth:`PySide.QtGui.QMessageBox.setStandardButtons` 
+
+
+.. method:: PySide.QtGui.QMessageBox.button(which)
+
+
+    :param which: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns a pointer corresponding to the standard button ``which`` , or 0 if the standard button doesn't exist in this message box.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.standardButtons`  :meth:`PySide.QtGui.QMessageBox.standardButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.buttonClicked(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMessageBox.buttonRole(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.ButtonRole`
+
+
+
+
+    Returns the button role for the specified ``button`` . This function returns :attr:`InvalidRole<QMessageBox.ButtonRole>` if ``button`` is 0 or has not been added to the message box.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.buttons`  :meth:`PySide.QtGui.QMessageBox.addButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.buttons()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all the buttons that have been added to the message box.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.buttonRole`  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`PySide.QtGui.QMessageBox.removeButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.clickedButton()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns the button that was clicked by the user, or 0 if the user hit the **Esc** key and no :meth:`escape button<PySide.QtGui.QMessageBox.setEscapeButton>` was set.
+
+    If :meth:`~PySide.QtGui.QMessageBox.exec` hasn't been called yet, returns 0.
+
+    Example:
+
+    ::
+
+        messageBox = QMessageBox(self)
+        disconnectButton = messageBox.addButton(self.tr("Disconnect"),
+                                                QMessageBox.ActionRole)
+        ...
+        messageBox.exec_()
+        if messageBox.clickedButton() == disconnectButton:
+            ...
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.standardButton`  :meth:`PySide.QtGui.QMessageBox.button` 
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.critical(parent, title, text, button0, button1)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param button0: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :param button1: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    ### Needed for Qt 4 source compatibility
+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.critical(parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+    :param defaultButton: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMessageBox.defaultButton()
+
+
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    Returns the button that should be the message box's :meth:`default button<PySide.QtGui.QPushButton.setDefault>` . Returns 0 if no default button was set.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setDefaultButton`  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.detailedText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the text to be displayed in the details area..
+
+    The text will be interpreted as a plain text.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QMessageBox.text<PySide.QtGui.QMessageBox.text>`  :meth:`QMessageBox.informativeText<PySide.QtGui.QMessageBox.informativeText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.escapeButton()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns the button that is activated when escape is pressed.
+
+    By default, :class:`PySide.QtGui.QMessageBox` attempts to automatically detect an escape button as follows:
+
+    When an escape button could not be automatically detected, pressing **Esc** has no effect.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setEscapeButton`  :meth:`PySide.QtGui.QMessageBox.addButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.icon()
+
+
+    :rtype: :attr:`PySide.QtGui.QMessageBox.Icon`
+
+
+
+
+    This property holds the message box's icon.
+
+    The icon of the message box can be specified with one of the values:
+
+
+    * :attr:`QMessageBox.NoIcon<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Question<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Information<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Warning<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Critical<QMessageBox.Icon>`
+
+    The default is :attr:`QMessageBox.NoIcon<QMessageBox.Icon>` .
+
+    The pixmap used to display the actual icon depends on the current :meth:`GUI style<PySide.QtGui.QWidget.style>` . You can also set a custom pixmap for the icon by setting the :meth:`icon pixmap<PySide.QtGui.QMessageBox.iconPixmap>` property.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.iconPixmap` 
+
+
+.. method:: PySide.QtGui.QMessageBox.iconPixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This property holds the current icon.
+
+    The icon currently used by the message box. Note that it's often hard to draw one pixmap that looks appropriate in all GUI styles; you may want to supply a different pixmap for each platform.
+
+    By default, this property is undefined.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.icon` 
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.information(parent, title, text, button0[, button1=NoButton])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param button0: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :param button1: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+    ### Needed for Qt 4 source compatibility
+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.information(parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+    :param defaultButton: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMessageBox.informativeText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the informative text that provides a fuller description for the message.
+
+    Infromative text can be used to expand upon the :meth:`PySide.QtGui.QMessageBox.text` to give more information to the user. On the Mac, this text appears in small system font below the :meth:`PySide.QtGui.QMessageBox.text` . On other platforms, it is simply appended to the existing text.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QMessageBox.text<PySide.QtGui.QMessageBox.text>`  :meth:`QMessageBox.detailedText<PySide.QtGui.QMessageBox.detailedText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.open(receiver, member)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+
+
+
+
+    This is an overloaded function.
+
+    Opens the dialog and connects its :meth:`PySide.QtGui.QDialog.finished` or :meth:`PySide.QtGui.QMessageBox.buttonClicked` signal to the slot specified by ``receiver`` and ``member`` . If the slot in ``member`` has a pointer for its first parameter the connection is to :meth:`PySide.QtGui.QMessageBox.buttonClicked` , otherwise the connection is to :meth:`PySide.QtGui.QDialog.finished` .
+
+    The signal will be disconnected from the slot when the dialog is closed.
+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.question(parent, title, text, button0, button1)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param button0: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :param button1: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    ### Needed for Qt 4 source compatibility
+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.question(parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+    :param defaultButton: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMessageBox.removeButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Removes ``button`` from the button box without deleting it.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`PySide.QtGui.QMessageBox.setStandardButtons` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setDefaultButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    Sets the message box's :meth:`default button<PySide.QtGui.QPushButton.setDefault>` to ``button`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.defaultButton`  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setDefaultButton(button)
+
+
+    :param button: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+    Sets the message box's :meth:`default button<PySide.QtGui.QPushButton.setDefault>` to ``button`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setDetailedText(text)
+
+
+    :param text: unicode
+
+
+
+
+    This property holds the text to be displayed in the details area..
+
+    The text will be interpreted as a plain text.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QMessageBox.text<PySide.QtGui.QMessageBox.text>`  :meth:`QMessageBox.informativeText<PySide.QtGui.QMessageBox.informativeText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setEscapeButton(button)
+
+
+    :param button: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+    Sets the buttons that gets activated when the **Escape** key is pressed to ``button`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`PySide.QtGui.QMessageBox.clickedButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setEscapeButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Sets the button that gets activated when the **Escape** key is pressed to ``button`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.escapeButton`  :meth:`PySide.QtGui.QMessageBox.addButton`  :meth:`PySide.QtGui.QMessageBox.clickedButton` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setIcon(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QMessageBox.Icon`
+
+
+
+
+    This property holds the message box's icon.
+
+    The icon of the message box can be specified with one of the values:
+
+
+    * :attr:`QMessageBox.NoIcon<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Question<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Information<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Warning<QMessageBox.Icon>`
+    * :attr:`QMessageBox.Critical<QMessageBox.Icon>`
+
+    The default is :attr:`QMessageBox.NoIcon<QMessageBox.Icon>` .
+
+    The pixmap used to display the actual icon depends on the current :meth:`GUI style<PySide.QtGui.QWidget.style>` . You can also set a custom pixmap for the icon by setting the :meth:`icon pixmap<PySide.QtGui.QMessageBox.iconPixmap>` property.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.iconPixmap` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setIconPixmap(pixmap)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    This property holds the current icon.
+
+    The icon currently used by the message box. Note that it's often hard to draw one pixmap that looks appropriate in all GUI styles; you may want to supply a different pixmap for each platform.
+
+    By default, this property is undefined.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.icon` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setInformativeText(text)
+
+
+    :param text: unicode
+
+
+
+
+    This property holds the informative text that provides a fuller description for the message.
+
+    Infromative text can be used to expand upon the :meth:`PySide.QtGui.QMessageBox.text` to give more information to the user. On the Mac, this text appears in small system font below the :meth:`PySide.QtGui.QMessageBox.text` . On other platforms, it is simply appended to the existing text.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`QMessageBox.text<PySide.QtGui.QMessageBox.text>`  :meth:`QMessageBox.detailedText<PySide.QtGui.QMessageBox.detailedText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setStandardButtons(buttons)
+
+
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMessageBox.setText(text)
+
+
+    :param text: unicode
+
+
+
+
+    This property holds the message box text to be displayed..
+
+    The text will be interpreted either as a plain text or as rich text, depending on the text format setting ( :meth:`QMessageBox.textFormat<PySide.QtGui.QMessageBox.textFormat>` ). The default setting is :attr:`Qt.AutoText<Qt.TextFormat>` , i.e., the message box will try to auto-detect the format of the text.
+
+    The default value of this property is an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.textFormat`  :meth:`QMessageBox.informativeText<PySide.QtGui.QMessageBox.informativeText>`  :meth:`QMessageBox.detailedText<PySide.QtGui.QMessageBox.detailedText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.setTextFormat(format)
+
+
+    :param format: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the format of the text displayed by the message box.
+
+    The current text format used by the message box. See the :attr:`Qt.TextFormat` enum for an explanation of the possible options.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setText` 
+
+
+.. method:: PySide.QtGui.QMessageBox.standardButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+    Returns the standard button enum value corresponding to the given ``button`` , or :attr:`NoButton<QMessageBox.StandardButton>` if the given ``button`` isn't a standard button.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.button`  :meth:`PySide.QtGui.QMessageBox.standardButtons` 
+
+
+.. method:: PySide.QtGui.QMessageBox.standardButtons()
+
+
+    :rtype: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setStandardButtons` 
+
+
+.. method:: PySide.QtGui.QMessageBox.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the message box text to be displayed..
+
+    The text will be interpreted either as a plain text or as rich text, depending on the text format setting ( :meth:`QMessageBox.textFormat<PySide.QtGui.QMessageBox.textFormat>` ). The default setting is :attr:`Qt.AutoText<Qt.TextFormat>` , i.e., the message box will try to auto-detect the format of the text.
+
+    The default value of this property is an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.textFormat`  :meth:`QMessageBox.informativeText<PySide.QtGui.QMessageBox.informativeText>`  :meth:`QMessageBox.detailedText<PySide.QtGui.QMessageBox.detailedText>` 
+
+
+.. method:: PySide.QtGui.QMessageBox.textFormat()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TextFormat`
+
+
+
+
+    This property holds the format of the text displayed by the message box.
+
+    The current text format used by the message box. See the :attr:`Qt.TextFormat` enum for an explanation of the possible options.
+
+    The default format is :attr:`Qt.AutoText<Qt.TextFormat>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMessageBox.setText` 
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.warning(parent, title, text[, buttons=QMessageBox.Ok[, defaultButton=NoButton]])
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param buttons: :class:`PySide.QtGui.QMessageBox.StandardButtons`
+    :param defaultButton: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QMessageBox.warning(parent, title, text, button0, button1)
+
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param title: unicode
+    :param text: unicode
+    :param button0: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :param button1: :attr:`PySide.QtGui.QMessageBox.StandardButton`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    ### Needed for Qt 4 source compatibility
+
+
+
+

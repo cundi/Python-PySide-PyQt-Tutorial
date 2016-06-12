@@ -1,0 +1,262 @@
+.. module:: PySide.QtGui
+.. _QGestureEvent:
+
+QGestureEvent
+*************
+
+.. inheritance-diagram:: QGestureEvent
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accept<PySide.QtGui.QGestureEvent.accept>` (arg__1)
+*    def :meth:`accept<PySide.QtGui.QGestureEvent.accept>` (arg__1)
+*    def :meth:`activeGestures<PySide.QtGui.QGestureEvent.activeGestures>` ()
+*    def :meth:`canceledGestures<PySide.QtGui.QGestureEvent.canceledGestures>` ()
+*    def :meth:`gesture<PySide.QtGui.QGestureEvent.gesture>` (type)
+*    def :meth:`gestures<PySide.QtGui.QGestureEvent.gestures>` ()
+*    def :meth:`ignore<PySide.QtGui.QGestureEvent.ignore>` (arg__1)
+*    def :meth:`ignore<PySide.QtGui.QGestureEvent.ignore>` (arg__1)
+*    def :meth:`isAccepted<PySide.QtGui.QGestureEvent.isAccepted>` (arg__1)
+*    def :meth:`isAccepted<PySide.QtGui.QGestureEvent.isAccepted>` (arg__1)
+*    def :meth:`mapToGraphicsScene<PySide.QtGui.QGestureEvent.mapToGraphicsScene>` (gesturePoint)
+*    def :meth:`setAccepted<PySide.QtGui.QGestureEvent.setAccepted>` (arg__1, arg__2)
+*    def :meth:`setAccepted<PySide.QtGui.QGestureEvent.setAccepted>` (arg__1, arg__2)
+*    def :meth:`setWidget<PySide.QtGui.QGestureEvent.setWidget>` (widget)
+*    def :meth:`widget<PySide.QtGui.QGestureEvent.widget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGestureEvent` class provides the description of triggered gestures.
+
+    The :class:`PySide.QtGui.QGestureEvent` class contains a list of gestures, which can be obtained using the :meth:`PySide.QtGui.QGestureEvent.gestures` function.
+
+    The gestures are either active or canceled. A list of those that are currently being executed can be obtained using the :meth:`PySide.QtGui.QGestureEvent.activeGestures` function. A list of those which were previously active and have been canceled can be accessed using the :meth:`PySide.QtGui.QGestureEvent.canceledGestures` function. A gesture might be canceled if the current window loses focus, for example, or because of a timeout, or for other reasons.
+
+    If the event handler does not accept the event by calling the generic :meth:`QEvent.accept()<PySide.QtCore.QEvent.accept>` function, all individual :class:`PySide.QtGui.QGesture` object that were not accepted and in the :attr:`Qt.GestureStarted<Qt.GestureState>` state will be propagated up the parent widget chain until a widget accepts them individually, by calling :meth:`QGestureEvent.accept()<PySide.QtGui.QGestureEvent.accept>` for each of them, or an event filter consumes the event.
+
+    .. _PySide.QtGui.QGestureEvent_further-reading:
+
+
+
+Further Reading
+^^^^^^^^^^^^^^^
+
+    For an overview of gesture handling in Qt and information on using gestures in your applications, see the :ref:`Gestures Programming<gestures-overview.html>` document.
+
+    .. seealso::  :class:`PySide.QtGui.QGesture`  :class:`PySide.QtGui.QGestureRecognizer`  :meth:`QWidget.grabGesture()<PySide.QtGui.QWidget.grabGesture>`  :meth:`QGraphicsObject.grabGesture()<PySide.QtGui.QGraphicsObject.grabGesture>` 
+
+.. class:: QGestureEvent(gestures)
+
+    :param gestures: 
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.accept(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QGesture`
+
+
+
+
+    Sets the accept flag of the given ``gesture`` object, the equivalent of calling :meth:`setAccepted(gesture, true)<PySide.QtGui.QGestureEvent.setAccepted>` .
+
+    Setting the accept flag indicates that the event receiver wants the gesture. Unwanted gestures may be propagated to the parent widget.
+
+    .. seealso::  :meth:`QGestureEvent.ignore()<PySide.QtGui.QGestureEvent.ignore>` 
+
+
+.. method:: PySide.QtGui.QGestureEvent.accept(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.GestureType`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.activeGestures()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of active (not canceled) gestures.
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.canceledGestures()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of canceled gestures.
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.gesture(type)
+
+
+    :param type: :attr:`PySide.QtCore.Qt.GestureType`
+    :rtype: :class:`PySide.QtGui.QGesture`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.gestures()
+
+
+    :rtype: 
+
+
+
+
+    Returns all gestures that are delivered in the event.
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.ignore(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.GestureType`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.ignore(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QGesture`
+
+
+
+
+    Clears the accept flag parameter of the given ``gesture`` object, the equivalent of calling :meth:`setAccepted(gesture, false)<PySide.QtGui.QGestureEvent.setAccepted>` .
+
+    Clearing the accept flag indicates that the event receiver does not want the gesture. Unwanted gestures may be propagated to the parent widget.
+
+    .. seealso::  :meth:`QGestureEvent.accept()<PySide.QtGui.QGestureEvent.accept>` 
+
+
+.. method:: PySide.QtGui.QGestureEvent.isAccepted(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.GestureType`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.isAccepted(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QGesture`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the ``gesture`` is accepted; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.mapToGraphicsScene(gesturePoint)
+
+
+    :param gesturePoint: :class:`PySide.QtCore.QPointF`
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the scene-local coordinates if the ``gesturePoint`` is inside a graphics view.
+
+    This functional might be useful when the gesture event is delivered to a :class:`PySide.QtGui.QGraphicsObject` to translate a point in screen coordinates to scene-local coordinates.
+
+    .. seealso::  :meth:`QPointF.isNull()<PySide.QtCore.QPointF.isNull>`  :ref:`.<index.html>` 
+
+
+.. method:: PySide.QtGui.QGestureEvent.setAccepted(arg__1, arg__2)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.GestureType`
+    :param arg__2: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.setAccepted(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtGui.QGesture`
+    :param arg__2: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the accept flag of the given ``gesture`` object to the specified ``value`` .
+
+    Setting the accept flag indicates that the event receiver wants the ``gesture`` . Unwanted gestures may be propagated to the parent widget.
+
+    By default, gestures in events of type :attr:`QEvent.Gesture<QEvent.Type>` are accepted, and gestures in :attr:`QEvent.GestureOverride<QEvent.Type>` events are ignored.
+
+    For convenience, the accept flag can also be set with :meth:`accept(gesture)<PySide.QtGui.QGestureEvent.accept>` , and cleared with :meth:`ignore(gesture)<PySide.QtGui.QGestureEvent.ignore>` .
+
+
+
+.. method:: PySide.QtGui.QGestureEvent.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget for this event to the ``widget`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QGestureEvent.widget` 
+
+
+.. method:: PySide.QtGui.QGestureEvent.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget on which the event occurred.
+
+
+
+

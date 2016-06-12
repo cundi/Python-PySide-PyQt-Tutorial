@@ -1,0 +1,262 @@
+.. module:: PySide.QtXml
+.. _QDomNamedNodeMap:
+
+QDomNamedNodeMap
+****************
+
+.. inheritance-diagram:: QDomNamedNodeMap
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtXml.QDomNamedNodeMap.__eq__>` (arg__1)
+*    def :meth:`__ne__<PySide.QtXml.QDomNamedNodeMap.__ne__>` (arg__1)
+*    def :meth:`contains<PySide.QtXml.QDomNamedNodeMap.contains>` (name)
+*    def :meth:`count<PySide.QtXml.QDomNamedNodeMap.count>` ()
+*    def :meth:`isEmpty<PySide.QtXml.QDomNamedNodeMap.isEmpty>` ()
+*    def :meth:`item<PySide.QtXml.QDomNamedNodeMap.item>` (index)
+*    def :meth:`length<PySide.QtXml.QDomNamedNodeMap.length>` ()
+*    def :meth:`namedItem<PySide.QtXml.QDomNamedNodeMap.namedItem>` (name)
+*    def :meth:`namedItemNS<PySide.QtXml.QDomNamedNodeMap.namedItemNS>` (nsURI, localName)
+*    def :meth:`removeNamedItem<PySide.QtXml.QDomNamedNodeMap.removeNamedItem>` (name)
+*    def :meth:`removeNamedItemNS<PySide.QtXml.QDomNamedNodeMap.removeNamedItemNS>` (nsURI, localName)
+*    def :meth:`setNamedItem<PySide.QtXml.QDomNamedNodeMap.setNamedItem>` (newNode)
+*    def :meth:`setNamedItemNS<PySide.QtXml.QDomNamedNodeMap.setNamedItemNS>` (newNode)
+*    def :meth:`size<PySide.QtXml.QDomNamedNodeMap.size>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QDomNamedNodeMap` class contains a collection of nodes that can be accessed by name.
+
+    Note that :class:`PySide.QtXml.QDomNamedNodeMap` does not inherit from :class:`PySide.QtXml.QDomNodeList` . QDomNamedNodeMaps do not provide any specific node ordering. Although nodes in a :class:`PySide.QtXml.QDomNamedNodeMap` may be accessed by an ordinal index, this is simply to allow a convenient enumeration of the contents of a :class:`PySide.QtXml.QDomNamedNodeMap` , and does not imply that the DOM specifies an ordering of the nodes.
+
+    The :class:`PySide.QtXml.QDomNamedNodeMap` is used in three places:
+
+    Items in the map are identified by the name which QDomNode::name() returns. Nodes are retrieved using :meth:`PySide.QtXml.QDomNamedNodeMap.namedItem` , :meth:`PySide.QtXml.QDomNamedNodeMap.namedItemNS` or :meth:`PySide.QtXml.QDomNamedNodeMap.item` . New nodes are inserted with :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItem` or :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItemNS` and removed with :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItem` or :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItemNS` . Use :meth:`PySide.QtXml.QDomNamedNodeMap.contains` to see if an item with the given name is in the named node map. The number of items is returned by :meth:`PySide.QtXml.QDomNamedNodeMap.length` .
+
+    Terminology: in this class we use "item" and "node" interchangeably.
+
+
+.. class:: QDomNamedNodeMap()
+           QDomNamedNodeMap(arg__1)
+
+    :param arg__1: :class:`PySide.QtXml.QDomNamedNodeMap`
+
+    Constructs an empty named node map.
+
+
+    Constructs a copy of ``n`` .
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.contains(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the map contains a node called ``name`` ; otherwise returns false.
+
+    .. note::  This function does not take the presence of namespaces into account. Use :meth:`PySide.QtXml.QDomNamedNodeMap.namedItemNS` to test whether the map contains a node with a specific namespace URI and name.
+
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This function is provided for Qt API consistency. It is equivalent to :meth:`PySide.QtXml.QDomNamedNodeMap.length` .
+
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the map is empty; otherwise returns false. This function is provided for Qt API consistency.
+
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.item(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Retrieves the node at position ``index`` .
+
+    This can be used to iterate over the map. Note that the nodes in the map are ordered arbitrarily.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.length` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.length()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the number of nodes in the map.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.item` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.namedItem(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Returns the node called ``name`` .
+
+    If the named node map does not contain such a node, a :meth:`null node<PySide.QtXml.QDomNode.isNull>` is returned. A node's name is the name returned by :meth:`QDomNode.nodeName()<PySide.QtXml.QDomNode.nodeName>` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItem`  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItemNS` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.namedItemNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Returns the node associated with the local name ``localName`` and the namespace URI ``nsURI`` .
+
+    If the map does not contain such a node, a :meth:`null node<PySide.QtXml.QDomNode.isNull>` is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItemNS`  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItem` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.__ne__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtXml.QDomNamedNodeMap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``n`` and this named node map are not equal; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.__eq__(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtXml.QDomNamedNodeMap`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``n`` and this named node map are equal; otherwise returns false.
+
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.removeNamedItem(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Removes the node called ``name`` from the map.
+
+    The function returns the removed node or a :meth:`null node<PySide.QtXml.QDomNode.isNull>` if the map did not contain a node called ``name`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItem`  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItem`  :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItemNS` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.removeNamedItemNS(nsURI, localName)
+
+
+    :param nsURI: unicode
+    :param localName: unicode
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Removes the node with the local name ``localName`` and the namespace URI ``nsURI`` from the map.
+
+    The function returns the removed node or a :meth:`null node<PySide.QtXml.QDomNode.isNull>` if the map did not contain a node with the local name ``localName`` and the namespace URI ``nsURI`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItemNS`  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItemNS`  :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItem` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.setNamedItem(newNode)
+
+
+    :param newNode: :class:`PySide.QtXml.QDomNode`
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Inserts the node ``newNode`` into the named node map. The name used by the map is the node name of ``newNode`` as returned by :meth:`QDomNode.nodeName()<PySide.QtXml.QDomNode.nodeName>` .
+
+    If the new node replaces an existing node, i.e. the map contains a node with the same name, the replaced node is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItem`  :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItem`  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItemNS` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.setNamedItemNS(newNode)
+
+
+    :param newNode: :class:`PySide.QtXml.QDomNode`
+    :rtype: :class:`PySide.QtXml.QDomNode`
+
+
+
+
+    Inserts the node ``newNode`` in the map. If a node with the same namespace URI and the same local name already exists in the map, it is replaced by ``newNode`` . If the new node replaces an existing node, the replaced node is returned.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomNamedNodeMap.namedItemNS`  :meth:`PySide.QtXml.QDomNamedNodeMap.removeNamedItemNS`  :meth:`PySide.QtXml.QDomNamedNodeMap.setNamedItem` 
+
+
+.. method:: PySide.QtXml.QDomNamedNodeMap.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This function is provided for Qt API consistency. It is equivalent to :meth:`PySide.QtXml.QDomNamedNodeMap.length` .
+
+
+
+

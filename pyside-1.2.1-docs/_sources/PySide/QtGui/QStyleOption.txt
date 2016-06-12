@@ -1,0 +1,241 @@
+.. module:: PySide.QtGui
+.. _QStyleOption:
+
+QStyleOption
+************
+
+.. inheritance-diagram:: QStyleOption
+    :parts: 2
+
+**Inherited by:** :ref:`QStyleOptionToolBox`, :ref:`QStyleOptionToolBoxV2`, :ref:`QStyleOptionTabBarBase`, :ref:`QStyleOptionTabBarBaseV2`, :ref:`QStyleOptionTabWidgetFrame`, :ref:`QStyleOptionViewItem`, :ref:`QStyleOptionViewItemV2`, :ref:`QStyleOptionViewItemV3`, :ref:`QStyleOptionViewItemV4`, :ref:`QStyleOptionFrame`, :ref:`QStyleOptionFrameV2`, :ref:`QStyleOptionFrameV3`, :ref:`QStyleOptionFocusRect`, :ref:`QStyleOptionGraphicsItem`, :ref:`QStyleOptionDockWidget`, :ref:`QStyleOptionDockWidgetV2`, :ref:`QStyleOptionMenuItem`, :ref:`QStyleOptionProgressBar`, :ref:`QStyleOptionProgressBarV2`, :ref:`QStyleOptionToolBar`, :ref:`QStyleOptionTab`, :ref:`QStyleOptionTabV2`, :ref:`QStyleOptionTabV3`, :ref:`QStyleOptionComplex`, :ref:`QStyleOptionSizeGrip`, :ref:`QStyleOptionGroupBox`, :ref:`QStyleOptionTitleBar`, :ref:`QStyleOptionComboBox`, :ref:`QStyleOptionToolButton`, :ref:`QStyleOptionSpinBox`, :ref:`QStyleOptionSlider`, :ref:`QStyleOptionButton`, :ref:`QStyleOptionRubberBand`, :ref:`QStyleOptionHeader`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initFrom<PySide.QtGui.QStyleOption.initFrom>` (w)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QStyleOption` class stores the parameters used by :class:`PySide.QtGui.QStyle` functions.
+
+    :class:`PySide.QtGui.QStyleOption` and its subclasses contain all the information that :class:`PySide.QtGui.QStyle` functions need to draw a graphical element.
+
+    For performance reasons, there are few member functions and the access to the member variables is direct (i.e., using the ``.`` or ``->`` operator). This low-level feel makes the structures straightforward to use and emphasizes that these are simply parameters used by the style functions.
+
+    The caller of a :class:`PySide.QtGui.QStyle` function usually creates :class:`PySide.QtGui.QStyleOption` objects on the stack. This combined with Qt's extensive use of :ref:`implicit sharing<implicit-sharing.html>` for types such as :class:`PySide.QtCore.QString` , :class:`PySide.QtGui.QPalette` , and :class:`PySide.QtGui.QColor` ensures that no memory allocation needlessly takes place.
+
+    The following code snippet shows how to use a specific :class:`PySide.QtGui.QStyleOption` subclass to paint a push button:
+
+    ::
+
+        def paintEvent(self, qpaintevent):
+            option = QStyleOptionButton()
+            option.initFrom(self)
+            if isDown():
+                option.state = QStyle.State_Sunken
+            else:
+                option.state = QStyle.State_Raised
+
+            if self.isDefault():
+                option.features = option.features or QStyleOptionButton.DefaultButton
+            option.text = self.text()
+            option.icon = self.icon()
+
+            painter = QPainter(self)
+            self.style().drawControl(QStyle.CE_PushButton, option, painter, self)
+
+
+    In our example, the control is a :attr:`QStyle.CE_PushButton<QStyle.ControlElement>` , and according to the :meth:`QStyle.drawControl()<PySide.QtGui.QStyle.drawControl>` documentation the corresponding class is :class:`PySide.QtGui.QStyleOptionButton` .
+
+    When reimplementing :class:`PySide.QtGui.QStyle` functions that take a :class:`PySide.QtGui.QStyleOption` parameter, you often need to cast the :class:`PySide.QtGui.QStyleOption` to a subclass. For safety, you can use :meth:`~PySide.QtGui.QStyleOption.qstyleoption\_cast` to ensure that the pointer type is correct. For example:
+
+    ::
+
+        def drawPrimitive(self, element, option, painter, widget):
+            if element == self.PE_FrameFocusRect:
+                focusRectOption =  QStyleOptionFocusRect(option)
+                if focusRectOption:
+                    # ...
+
+
+            # ...
+
+
+
+    The :meth:`~PySide.QtGui.QStyleOption.qstyleoption\_cast` function will return 0 if the object to which ``option`` points is not of the correct type.
+
+    For an example demonstrating how style options can be used, see the :ref:`Styles<widgets/styles>` example.
+
+    .. seealso::  :class:`PySide.QtGui.QStyle`  :class:`PySide.QtGui.QStylePainter` 
+
+.. class:: QStyleOption(other)
+           QStyleOption([version=QStyleOption.Version[, type=SO_Default]])
+
+    :param version: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtGui.QStyleOption`
+    :param type: :class:`PySide.QtCore.int`
+
+    Constructs a copy of ``other`` .
+
+
+    Constructs a :class:`PySide.QtGui.QStyleOption` with the specified ``version`` and ``type`` .
+
+    The version has no special meaning for :class:`PySide.QtGui.QStyleOption` ; it can be used by subclasses to distinguish between different version of the same option type.
+
+    The :ref:`state<qstyleoption.html#state-var>` member variable is initialized to :attr:`QStyle.State_None<QStyle.StateFlag>` .
+
+    .. seealso::  :ref:`version<qstyleoption.html#version-var>`  :ref:`type<qstyleoption.html#type-var>` 
+
+.. attribute:: PySide.QtGui.QStyleOption.StyleOptionVersion
+
+    This enum is used to hold information about the version of the style option, and is defined for each :class:`PySide.QtGui.QStyleOption` subclass.
+
+    +--------------------+-----------+
+    |Constant            |Description|
+    +====================+===========+
+    |QStyleOption.Version|1          |
+    +--------------------+-----------+
+
+    The version is used by :class:`PySide.QtGui.QStyleOption` subclasses to implement extensions without breaking compatibility. If you use :meth:`~PySide.QtGui.QStyleOption.qstyleoption\_cast` , you normally do not need to check it.
+
+    .. seealso::  :attr:`QStyleOption.StyleOptionType` 
+
+.. attribute:: PySide.QtGui.QStyleOption.StyleOptionType
+
+    This enum is used to hold information about the type of the style option, and is defined for each :class:`PySide.QtGui.QStyleOption` subclass.
+
+    +-----------------+------------------------------------------------------------------------------------------------+
+    |Constant         |Description                                                                                     |
+    +=================+================================================================================================+
+    |QStyleOption.Type|The type of style option provided ( :attr:`SO_Default<QStyleOption.OptionType>` for this class).|
+    +-----------------+------------------------------------------------------------------------------------------------+
+
+    The type is used internally by :class:`PySide.QtGui.QStyleOption` , its subclasses, and :meth:`~PySide.QtGui.QStyleOption.qstyleoption\_cast` to determine the type of style option. In general you do not need to worry about this unless you want to create your own :class:`PySide.QtGui.QStyleOption` subclass and your own styles.
+
+    .. seealso::  :attr:`QStyleOption.StyleOptionVersion` 
+
+.. attribute:: PySide.QtGui.QStyleOption.OptionType
+
+    This enum is used internally by :class:`PySide.QtGui.QStyleOption` , its subclasses, and :meth:`~PySide.QtGui.QStyleOption.qstyleoption\_cast` to determine the type of style option. In general you do not need to worry about this unless you want to create your own :class:`PySide.QtGui.QStyleOption` subclass and your own styles.
+
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                                  |
+    +==============================+=============================================================================================+
+    |QStyleOption.SO_Button        |:class:`PySide.QtGui.QStyleOptionButton`                                                     |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ComboBox      |:class:`PySide.QtGui.QStyleOptionComboBox`                                                   |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Complex       |:class:`PySide.QtGui.QStyleOptionComplex`                                                    |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Default       |:class:`PySide.QtGui.QStyleOption`                                                           |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_DockWidget    |:class:`PySide.QtGui.QStyleOptionDockWidget`                                                 |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_FocusRect     |:class:`PySide.QtGui.QStyleOptionFocusRect`                                                  |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Frame         |:class:`PySide.QtGui.QStyleOptionFrame` :class:`PySide.QtGui.QStyleOptionFrameV2`            |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_GraphicsItem  |:class:`PySide.QtGui.QStyleOptionGraphicsItem`                                               |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_GroupBox      |:class:`PySide.QtGui.QStyleOptionGroupBox`                                                   |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Header        |:class:`PySide.QtGui.QStyleOptionHeader`                                                     |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_MenuItem      |:class:`PySide.QtGui.QStyleOptionMenuItem`                                                   |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ProgressBar   |:class:`PySide.QtGui.QStyleOptionProgressBar` :class:`PySide.QtGui.QStyleOptionProgressBarV2`|
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_RubberBand    |:class:`PySide.QtGui.QStyleOptionRubberBand`                                                 |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_SizeGrip      |:class:`PySide.QtGui.QStyleOptionSizeGrip`                                                   |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Slider        |:class:`PySide.QtGui.QStyleOptionSlider`                                                     |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_SpinBox       |:class:`PySide.QtGui.QStyleOptionSpinBox`                                                    |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_Tab           |:class:`PySide.QtGui.QStyleOptionTab`                                                        |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_TabBarBase    |:class:`PySide.QtGui.QStyleOptionTabBarBase`                                                 |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_TabWidgetFrame|:class:`PySide.QtGui.QStyleOptionTabWidgetFrame`                                             |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_TitleBar      |:class:`PySide.QtGui.QStyleOptionTitleBar`                                                   |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ToolBar       |:class:`PySide.QtGui.QStyleOptionToolBar`                                                    |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ToolBox       |:class:`PySide.QtGui.QStyleOptionToolBox`                                                    |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ToolButton    |:class:`PySide.QtGui.QStyleOptionToolButton`                                                 |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ViewItem      |:class:`PySide.QtGui.QStyleOptionViewItem` (used in Interviews)                              |
+    +------------------------------+---------------------------------------------------------------------------------------------+
+
+    The following values are used for custom controls:
+
+    +---------------------------------+----------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                   |
+    +=================================+==============================================================================================+
+    |QStyleOption.SO_CustomBase       |Reserved for custom QStyleOptions; all custom controls values must be above this value        |
+    +---------------------------------+----------------------------------------------------------------------------------------------+
+    |QStyleOption.SO_ComplexCustomBase|Reserved for custom QStyleOptions; all custom complex controls values must be above this value|
+    +---------------------------------+----------------------------------------------------------------------------------------------+
+
+    Some style options are defined for various :ref:`Qt3Support` controls:
+
+    +------------------------------+-------------------------------------------------+
+    |Constant                      |Description                                      |
+    +==============================+=================================================+
+    |QStyleOption.SO_Q3DockWindow  |:class:`~PySide.QtGui.QStyleOptionQ3DockWindow`  |
+    +------------------------------+-------------------------------------------------+
+    |QStyleOption.SO_Q3ListView    |:class:`~PySide.QtGui.QStyleOptionQ3ListView`    |
+    +------------------------------+-------------------------------------------------+
+    |QStyleOption.SO_Q3ListViewItem|:class:`~PySide.QtGui.QStyleOptionQ3ListViewItem`|
+    +------------------------------+-------------------------------------------------+
+
+    .. seealso::  :ref:`type<qstyleoption.html#type-var>` 
+
+.. attribute:: PySide.QtGui.QStyleOption.palette
+
+
+.. attribute:: PySide.QtGui.QStyleOption.version
+
+
+.. attribute:: PySide.QtGui.QStyleOption.direction
+
+
+.. attribute:: PySide.QtGui.QStyleOption.rect
+
+
+.. attribute:: PySide.QtGui.QStyleOption.type
+
+
+.. attribute:: PySide.QtGui.QStyleOption.state
+
+
+.. attribute:: PySide.QtGui.QStyleOption.fontMetrics
+
+
+.. method:: PySide.QtGui.QStyleOption.initFrom(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Initializes the :ref:`state<qstyleoption.html#state-var>` , :ref:`direction<qstyleoption.html#direction-var>` , :ref:`rect<qstyleoption.html#rect-var>` , :ref:`palette<qstyleoption.html#palette-var>` , and :ref:`fontMetrics<qstyleoption.html#fontMetrics-var>` member variables based on the specified ``widget`` .
+
+    This is a convenience function; the member variables can also be initialized manually.
+
+    .. seealso::  :meth:`QWidget.layoutDirection()<PySide.QtGui.QWidget.layoutDirection>`  :meth:`QWidget.rect()<PySide.QtGui.QWidget.rect>`  :meth:`QWidget.palette()<PySide.QtGui.QWidget.palette>`  :meth:`QWidget.fontMetrics()<PySide.QtGui.QWidget.fontMetrics>` 
+
+
+

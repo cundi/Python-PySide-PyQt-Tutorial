@@ -1,0 +1,210 @@
+.. module:: PySide.QtCore
+.. _QMetaEnum:
+
+QMetaEnum
+*********
+
+.. inheritance-diagram:: QMetaEnum
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isFlag<PySide.QtCore.QMetaEnum.isFlag>` ()
+*    def :meth:`isValid<PySide.QtCore.QMetaEnum.isValid>` ()
+*    def :meth:`key<PySide.QtCore.QMetaEnum.key>` (index)
+*    def :meth:`keyCount<PySide.QtCore.QMetaEnum.keyCount>` ()
+*    def :meth:`keyToValue<PySide.QtCore.QMetaEnum.keyToValue>` (key)
+*    def :meth:`keysToValue<PySide.QtCore.QMetaEnum.keysToValue>` (keys)
+*    def :meth:`name<PySide.QtCore.QMetaEnum.name>` ()
+*    def :meth:`scope<PySide.QtCore.QMetaEnum.scope>` ()
+*    def :meth:`value<PySide.QtCore.QMetaEnum.value>` (index)
+*    def :meth:`valueToKey<PySide.QtCore.QMetaEnum.valueToKey>` (value)
+*    def :meth:`valueToKeys<PySide.QtCore.QMetaEnum.valueToKeys>` (value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QMetaEnum` class provides meta-data about an enumerator.
+
+    Use :meth:`PySide.QtCore.QMetaEnum.name` for the enumerator's name. The enumerator's keys (names of each enumerated item) are returned by :meth:`PySide.QtCore.QMetaEnum.key` ; use :meth:`PySide.QtCore.QMetaEnum.keyCount` to find the number of keys. :meth:`PySide.QtCore.QMetaEnum.isFlag` returns whether the enumerator is meant to be used as a flag, meaning that its values can be combined using the OR operator.
+
+    The conversion functions :meth:`PySide.QtCore.QMetaEnum.keyToValue` , :meth:`PySide.QtCore.QMetaEnum.valueToKey` , :meth:`PySide.QtCore.QMetaEnum.keysToValue` , and :meth:`PySide.QtCore.QMetaEnum.valueToKeys` allow conversion between the integer representation of an enumeration or set value and its literal representation. The :meth:`PySide.QtCore.QMetaEnum.scope` function returns the class scope this enumerator was declared in.
+
+    .. seealso::  :class:`PySide.QtCore.QMetaObject`  :class:`PySide.QtCore.QMetaMethod`  :class:`PySide.QtCore.QMetaProperty` 
+
+.. class:: QMetaEnum()
+           QMetaEnum(QMetaEnum)
+
+    :param QMetaEnum: :class:`PySide.QtCore.QMetaEnum`
+
+
+
+
+.. method:: PySide.QtCore.QMetaEnum.isFlag()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this enumerator is used as a flag; otherwise returns false.
+
+    When used as flags, enumerators can be combined using the OR operator.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.keysToValue`  :meth:`PySide.QtCore.QMetaEnum.valueToKeys` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this enum is valid (has a name); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.name` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.key(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: str
+
+
+
+
+    Returns the key with the given ``index`` , or 0 if no such key exists.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.keyCount`  :meth:`PySide.QtCore.QMetaEnum.value`  :meth:`PySide.QtCore.QMetaEnum.valueToKey` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.keyCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of keys.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.key` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.keyToValue(key)
+
+
+    :param key: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the integer value of the given enumeration ``key`` , or -1 if ``key`` is not defined.
+
+    For flag types, use :meth:`PySide.QtCore.QMetaEnum.keysToValue` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.valueToKey`  :meth:`PySide.QtCore.QMetaEnum.isFlag`  :meth:`PySide.QtCore.QMetaEnum.keysToValue` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.keysToValue(keys)
+
+
+    :param keys: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the value derived from combining together the values of the ``keys`` using the OR operator, or -1 if ``keys`` is not defined. Note that the strings in ``keys`` must be '|'-separated.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.isFlag`  :meth:`PySide.QtCore.QMetaEnum.valueToKey`  :meth:`PySide.QtCore.QMetaEnum.valueToKeys` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.name()
+
+
+    :rtype: str
+
+
+
+
+    Returns the name of the enumerator (without the scope).
+
+    For example, the :attr:`Qt.AlignmentFlag` enumeration has ``AlignmentFlag`` as the name and :ref:`Qt<qt.html>` as the scope.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.isValid`  :meth:`PySide.QtCore.QMetaEnum.scope` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.scope()
+
+
+    :rtype: str
+
+
+
+
+    Returns the scope this enumerator was declared in.
+
+    For example, the :attr:`Qt.AlignmentFlag` enumeration has ``Qt`` as the scope and ``AlignmentFlag`` as the name.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.name` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.value(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the value with the given ``index`` ; or returns -1 if there is no such value.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.keyCount`  :meth:`PySide.QtCore.QMetaEnum.key`  :meth:`PySide.QtCore.QMetaEnum.keyToValue` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.valueToKey(value)
+
+
+    :param value: :class:`PySide.QtCore.int`
+    :rtype: str
+
+
+
+
+    Returns the string that is used as the name of the given enumeration ``value`` , or 0 if ``value`` is not defined.
+
+    For flag types, use :meth:`PySide.QtCore.QMetaEnum.valueToKeys` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.isFlag`  :meth:`PySide.QtCore.QMetaEnum.valueToKeys` 
+
+
+.. method:: PySide.QtCore.QMetaEnum.valueToKeys(value)
+
+
+    :param value: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns a byte array of '|'-separated keys that represents the given ``value`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaEnum.isFlag`  :meth:`PySide.QtCore.QMetaEnum.valueToKey`  :meth:`PySide.QtCore.QMetaEnum.keysToValue` 
+
+
+

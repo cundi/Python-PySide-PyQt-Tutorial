@@ -1,0 +1,818 @@
+.. module:: PySide.QtNetwork
+.. _QAbstractSocket:
+
+QAbstractSocket
+***************
+
+.. inheritance-diagram:: QAbstractSocket
+    :parts: 2
+
+**Inherited by:** :ref:`QUdpSocket`, :ref:`QTcpSocket`, :ref:`QSslSocket`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`abort<PySide.QtNetwork.QAbstractSocket.abort>` ()
+*    def :meth:`connectToHost<PySide.QtNetwork.QAbstractSocket.connectToHost>` (address, port[, mode=QIODevice.ReadWrite])
+*    def :meth:`connectToHost<PySide.QtNetwork.QAbstractSocket.connectToHost>` (hostName, port[, mode=QIODevice.ReadWrite])
+*    def :meth:`disconnectFromHost<PySide.QtNetwork.QAbstractSocket.disconnectFromHost>` ()
+*    def :meth:`error<PySide.QtNetwork.QAbstractSocket.error>` ()
+*    def :meth:`flush<PySide.QtNetwork.QAbstractSocket.flush>` ()
+*    def :meth:`isValid<PySide.QtNetwork.QAbstractSocket.isValid>` ()
+*    def :meth:`localAddress<PySide.QtNetwork.QAbstractSocket.localAddress>` ()
+*    def :meth:`localPort<PySide.QtNetwork.QAbstractSocket.localPort>` ()
+*    def :meth:`peerAddress<PySide.QtNetwork.QAbstractSocket.peerAddress>` ()
+*    def :meth:`peerName<PySide.QtNetwork.QAbstractSocket.peerName>` ()
+*    def :meth:`peerPort<PySide.QtNetwork.QAbstractSocket.peerPort>` ()
+*    def :meth:`proxy<PySide.QtNetwork.QAbstractSocket.proxy>` ()
+*    def :meth:`readBufferSize<PySide.QtNetwork.QAbstractSocket.readBufferSize>` ()
+*    def :meth:`setLocalAddress<PySide.QtNetwork.QAbstractSocket.setLocalAddress>` (address)
+*    def :meth:`setLocalPort<PySide.QtNetwork.QAbstractSocket.setLocalPort>` (port)
+*    def :meth:`setPeerAddress<PySide.QtNetwork.QAbstractSocket.setPeerAddress>` (address)
+*    def :meth:`setPeerName<PySide.QtNetwork.QAbstractSocket.setPeerName>` (name)
+*    def :meth:`setPeerPort<PySide.QtNetwork.QAbstractSocket.setPeerPort>` (port)
+*    def :meth:`setProxy<PySide.QtNetwork.QAbstractSocket.setProxy>` (networkProxy)
+*    def :meth:`setReadBufferSize<PySide.QtNetwork.QAbstractSocket.setReadBufferSize>` (size)
+*    def :meth:`setSocketDescriptor<PySide.QtNetwork.QAbstractSocket.setSocketDescriptor>` (socketDescriptor[, state=ConnectedState[, openMode=QIODevice.ReadWrite]])
+*    def :meth:`setSocketError<PySide.QtNetwork.QAbstractSocket.setSocketError>` (socketError)
+*    def :meth:`setSocketOption<PySide.QtNetwork.QAbstractSocket.setSocketOption>` (option, value)
+*    def :meth:`setSocketState<PySide.QtNetwork.QAbstractSocket.setSocketState>` (state)
+*    def :meth:`socketDescriptor<PySide.QtNetwork.QAbstractSocket.socketDescriptor>` ()
+*    def :meth:`socketOption<PySide.QtNetwork.QAbstractSocket.socketOption>` (option)
+*    def :meth:`socketType<PySide.QtNetwork.QAbstractSocket.socketType>` ()
+*    def :meth:`state<PySide.QtNetwork.QAbstractSocket.state>` ()
+*    def :meth:`waitForConnected<PySide.QtNetwork.QAbstractSocket.waitForConnected>` ([msecs=30000])
+*    def :meth:`waitForDisconnected<PySide.QtNetwork.QAbstractSocket.waitForDisconnected>` ([msecs=30000])
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`connectToHostImplementation<PySide.QtNetwork.QAbstractSocket.connectToHostImplementation>` (hostName, port[, mode=QIODevice.ReadWrite])
+*    def :meth:`disconnectFromHostImplementation<PySide.QtNetwork.QAbstractSocket.disconnectFromHostImplementation>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`connected<PySide.QtNetwork.QAbstractSocket.connected>` ()
+*    def :meth:`disconnected<PySide.QtNetwork.QAbstractSocket.disconnected>` ()
+*    def :meth:`error<PySide.QtNetwork.QAbstractSocket.error>` (arg__1)
+*    def :meth:`hostFound<PySide.QtNetwork.QAbstractSocket.hostFound>` ()
+*    def :meth:`proxyAuthenticationRequired<PySide.QtNetwork.QAbstractSocket.proxyAuthenticationRequired>` (proxy, authenticator)
+*    def :meth:`stateChanged<PySide.QtNetwork.QAbstractSocket.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QAbstractSocket` class provides the base functionality common to all socket types.
+
+    :class:`PySide.QtNetwork.QAbstractSocket` is the base class for :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtNetwork.QUdpSocket` and contains all common functionality of these two classes. If you need a socket, you have two options:
+
+
+    * Instantiate :class:`PySide.QtNetwork.QTcpSocket` or :class:`PySide.QtNetwork.QUdpSocket` .
+    * Create a native socket descriptor, instantiate :class:`PySide.QtNetwork.QAbstractSocket` , and call :meth:`PySide.QtNetwork.QAbstractSocket.setSocketDescriptor` to wrap the native socket.
+
+    TCP (Transmission Control Protocol) is a reliable, stream-oriented, connection-oriented transport protocol. UDP (User Datagram Protocol) is an unreliable, datagram-oriented, connectionless protocol. In practice, this means that TCP is better suited for continuous transmission of data, whereas the more lightweight UDP can be used when reliability isn't important.
+
+    :class:`PySide.QtNetwork.QAbstractSocket` 's API unifies most of the differences between the two protocols. For example, although UDP is connectionless, :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` establishes a virtual connection for UDP sockets, enabling you to use :class:`PySide.QtNetwork.QAbstractSocket` in more or less the same way regardless of the underlying protocol. Internally, :class:`PySide.QtNetwork.QAbstractSocket` remembers the address and port passed to :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` , and functions like :meth:`PySide.QtCore.QIODevice.read` and :meth:`PySide.QtCore.QIODevice.write` use these values.
+
+    At any time, :class:`PySide.QtNetwork.QAbstractSocket` has a state (returned by :meth:`PySide.QtNetwork.QAbstractSocket.state` ). The initial state is :attr:`UnconnectedState<QAbstractSocket.SocketState>` . After calling :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` , the socket first enters :attr:`HostLookupState<QAbstractSocket.SocketState>` . If the host is found, :class:`PySide.QtNetwork.QAbstractSocket` enters :attr:`ConnectingState<QAbstractSocket.SocketState>` and emits the :meth:`PySide.QtNetwork.QAbstractSocket.hostFound` signal. When the connection has been established, it enters :attr:`ConnectedState<QAbstractSocket.SocketState>` and emits :meth:`PySide.QtNetwork.QAbstractSocket.connected` . If an error occurs at any stage, :meth:`PySide.QtNetwork.QAbstractSocket.error` is emitted. Whenever the state changes, :meth:`PySide.QtNetwork.QAbstractSocket.stateChanged` is emitted. For convenience, :meth:`PySide.QtNetwork.QAbstractSocket.isValid` returns true if the socket is ready for reading and writing, but note that the socket's state must be :attr:`ConnectedState<QAbstractSocket.SocketState>` before reading and writing can occur.
+
+    Read or write data by calling :meth:`PySide.QtCore.QIODevice.read` or :meth:`PySide.QtCore.QIODevice.write` , or use the convenience functions :meth:`PySide.QtCore.QIODevice.readLine` and :meth:`PySide.QtCore.QIODevice.readAll` . :class:`PySide.QtNetwork.QAbstractSocket` also inherits :meth:`PySide.QtCore.QIODevice.getChar` , :meth:`PySide.QtCore.QIODevice.putChar` , and :meth:`PySide.QtCore.QIODevice.ungetChar` from :class:`PySide.QtCore.QIODevice` , which work on single bytes. The :meth:`PySide.QtCore.QIODevice.bytesWritten` signal is emitted when data has been written to the socket (i.e., when the client has read the data). Note that Qt does not limit the write buffer size. You can monitor its size by listening to this signal.
+
+    The :meth:`PySide.QtCore.QIODevice.readyRead` signal is emitted every time a new chunk of data has arrived. :meth:`PySide.QtNetwork.QAbstractSocket.bytesAvailable` then returns the number of bytes that are available for reading. Typically, you would connect the :meth:`PySide.QtCore.QIODevice.readyRead` signal to a slot and read all available data there. If you don't read all the data at once, the remaining data will still be available later, and any new incoming data will be appended to :class:`PySide.QtNetwork.QAbstractSocket` 's internal read buffer. To limit the size of the read buffer, call :meth:`PySide.QtNetwork.QAbstractSocket.setReadBufferSize` .
+
+    To close the socket, call :meth:`PySide.QtNetwork.QAbstractSocket.disconnectFromHost` . :class:`PySide.QtNetwork.QAbstractSocket` enters :attr:`QAbstractSocket.ClosingState<QAbstractSocket.SocketState>` . After all pending data has been written to the socket, :class:`PySide.QtNetwork.QAbstractSocket` actually closes the socket, enters QAbstractSocket::ClosedState, and emits :meth:`PySide.QtNetwork.QAbstractSocket.disconnected` . If you want to abort a connection immediately, discarding all pending data, call :meth:`PySide.QtNetwork.QAbstractSocket.abort` instead. If the remote host closes the connection, :class:`PySide.QtNetwork.QAbstractSocket` will emit error( :attr:`QAbstractSocket.RemoteHostClosedError<QAbstractSocket.SocketError>` ), during which the socket state will still be :attr:`ConnectedState<QAbstractSocket.SocketState>` , and then the :meth:`PySide.QtNetwork.QAbstractSocket.disconnected` signal will be emitted.
+
+    The port and address of the connected peer is fetched by calling :meth:`PySide.QtNetwork.QAbstractSocket.peerPort` and :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress` . :meth:`PySide.QtNetwork.QAbstractSocket.peerName` returns the host name of the peer, as passed to :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` . :meth:`PySide.QtNetwork.QAbstractSocket.localPort` and :meth:`PySide.QtNetwork.QAbstractSocket.localAddress` return the port and address of the local socket.
+
+    :class:`PySide.QtNetwork.QAbstractSocket` provides a set of functions that suspend the calling thread until certain signals are emitted. These functions can be used to implement blocking sockets:
+
+
+    * :meth:`PySide.QtNetwork.QAbstractSocket.waitForConnected` blocks until a connection has been established.
+    * :meth:`PySide.QtNetwork.QAbstractSocket.waitForReadyRead` blocks until new data is available for reading.
+    * :meth:`PySide.QtNetwork.QAbstractSocket.waitForBytesWritten` blocks until one payload of data has been written to the socket.
+    * :meth:`PySide.QtNetwork.QAbstractSocket.waitForDisconnected` blocks until the connection has closed.
+
+    We show an example:
+
+    ::
+
+            numRead = 0
+            numReadTotal = 0
+
+            while(True):
+                buffer  = socket.read(50)
+                # do whatever with array
+                numReadTotal += buffer.size()
+                if (buffer.size() == 0 && !socket.waitForReadyRead()):
+                    break
+
+
+    If :meth:`PySide.QtCore.QIODevice.waitForReadyRead` returns false, the connection has been closed or an error has occurred.
+
+    Programming with a blocking socket is radically different from programming with a non-blocking socket. A blocking socket doesn't require an event loop and typically leads to simpler code. However, in a GUI application, blocking sockets should only be used in non-GUI threads, to avoid freezing the user interface. See the :ref:`network/fortuneclient` and :ref:`network/blockingfortuneclient` examples for an overview of both approaches.
+
+    .. note::  We discourage the use of the blocking functions together with signals. One of the two possibilities should be used.
+
+    :class:`PySide.QtNetwork.QAbstractSocket` can be used with :class:`PySide.QtCore.QTextStream` and :class:`PySide.QtCore.QDataStream` 's stream operators (operator<<() and operator>>()). There is one issue to be aware of, though: You must make sure that enough data is available before attempting to read it using operator>>().
+
+    .. seealso::  :class:`PySide.QtNetwork.QFtp`  :class:`PySide.QtNetwork.QNetworkAccessManager`  :class:`PySide.QtNetwork.QTcpServer` 
+
+.. class:: QAbstractSocket(socketType, parent)
+
+    :param socketType: :attr:`PySide.QtNetwork.QAbstractSocket.SocketType`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a new abstract socket of type ``socketType`` . The ``parent`` argument is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.socketType`  :class:`PySide.QtNetwork.QTcpSocket`  :class:`PySide.QtNetwork.QUdpSocket` 
+
+.. attribute:: PySide.QtNetwork.QAbstractSocket.SocketType
+
+    This enum describes the transport layer protocol.
+
+    +---------------------------------+----------------------+
+    |Constant                         |Description           |
+    +=================================+======================+
+    |QAbstractSocket.TcpSocket        |TCP                   |
+    +---------------------------------+----------------------+
+    |QAbstractSocket.UdpSocket        |UDP                   |
+    +---------------------------------+----------------------+
+    |QAbstractSocket.UnknownSocketType|Other than TCP and UDP|
+    +---------------------------------+----------------------+
+
+    .. seealso::  :meth:`QAbstractSocket.socketType()<PySide.QtNetwork.QAbstractSocket.socketType>` 
+
+.. attribute:: PySide.QtNetwork.QAbstractSocket.SocketError
+
+    This enum describes the socket errors that can occur.
+
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                        |Description                                                                                                                                                                                |
+    +================================================+===========================================================================================================================================================================================+
+    |QAbstractSocket.ConnectionRefusedError          |The connection was refused by the peer (or timed out).                                                                                                                                     |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.RemoteHostClosedError           |The remote host closed the connection. Note that the client socket (i.e., this socket) will be closed after the remote close notification has been sent.                                   |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.HostNotFoundError               |The host address was not found.                                                                                                                                                            |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.SocketAccessError               |The socket operation failed because the application lacked the required privileges.                                                                                                        |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.SocketResourceError             |The local system ran out of resources (e.g., too many sockets).                                                                                                                            |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.SocketTimeoutError              |The socket operation timed out.                                                                                                                                                            |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.DatagramTooLargeError           |The datagram was larger than the operating system's limit (which can be as low as 8192 bytes).                                                                                             |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.NetworkError                    |An error occurred with the network (e.g., the network cable was accidentally plugged out).                                                                                                 |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.AddressInUseError               |The address specified to :meth:`QUdpSocket.bind()<PySide.QtNetwork.QUdpSocket.bind>` is already in use and was set to be exclusive.                                                        |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.SocketAddressNotAvailableError  |The address specified to :meth:`QUdpSocket.bind()<PySide.QtNetwork.QUdpSocket.bind>` does not belong to the host.                                                                          |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.UnsupportedSocketOperationError |The requested socket operation is not supported by the local operating system (e.g., lack of IPv6 support).                                                                                |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyAuthenticationRequiredError|The socket is using a proxy, and the proxy requires authentication.                                                                                                                        |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.SslHandshakeFailedError         |The SSL/TLS handshake failed, so the connection was closed (only used in :class:`PySide.QtNetwork.QSslSocket` ) (This value was introduced in 4.4.)                                        |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.UnfinishedSocketOperationError  |Used by :class:`~PySide.QtNetwork.QAbstractSocketEngine` only, The last operation attempted has not finished yet (still in progress in the background). (This value was introduced in 4.4.)|
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyConnectionRefusedError     |Could not contact the proxy server because the connection to that server was denied (This value was introduced in 4.5.)                                                                    |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyConnectionClosedError      |The connection to the proxy server was closed unexpectedly (before the connection to the final peer was established) (This value was introduced in 4.5.)                                   |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyConnectionTimeoutError     |The connection to the proxy server timed out or the proxy server stopped responding in the authentication phase. (This value was introduced in 4.5.)                                       |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyNotFoundError              |The proxy address set with :meth:`PySide.QtNetwork.QAbstractSocket.setProxy` (or the application proxy) was not found. (This value was introduced in 4.5.)                                 |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.ProxyProtocolError              |The connection negotiation with the proxy server because the response from the proxy server could not be understood. (This value was introduced in 4.5.)                                   |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.UnknownSocketError              |An unidentified error occurred.                                                                                                                                                            |
+    +------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QAbstractSocket.error()<PySide.QtNetwork.QAbstractSocket.error>` 
+
+.. attribute:: PySide.QtNetwork.QAbstractSocket.NetworkLayerProtocol
+
+    This enum describes the network layer protocol values used in Qt.
+
+    +-------------------------------------------+------------------------+
+    |Constant                                   |Description             |
+    +===========================================+========================+
+    |QAbstractSocket.IPv4Protocol               |IPv4                    |
+    +-------------------------------------------+------------------------+
+    |QAbstractSocket.IPv6Protocol               |IPv6                    |
+    +-------------------------------------------+------------------------+
+    |QAbstractSocket.UnknownNetworkLayerProtocol|Other than IPv4 and IPv6|
+    +-------------------------------------------+------------------------+
+
+    .. seealso::  :meth:`QHostAddress.protocol()<PySide.QtNetwork.QHostAddress.protocol>` 
+
+.. attribute:: PySide.QtNetwork.QAbstractSocket.SocketOption
+
+    This enum represents the options that can be set on a socket. If desired, they can be set after having received the :meth:`PySide.QtNetwork.QAbstractSocket.connected` signal from the socket or after having received a new socket from a :class:`PySide.QtNetwork.QTcpServer` .
+
+    +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                               |Description                                                                                                                                                                          |
+    +=======================================+=====================================================================================================================================================================================+
+    |QAbstractSocket.LowDelayOption         |Try to optimize the socket for low latency. For a :class:`PySide.QtNetwork.QTcpSocket` this would set the TCP\_NODELAY option and disable Nagle's algorithm. Set this to 1 to enable.|
+    +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.KeepAliveOption        |Set this to 1 to enable the SO\_KEEPALIVE socket option                                                                                                                              |
+    +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.MulticastTtlOption     |Set this to an integer value to set IP\_MULTICAST\_TTL (TTL for multicast datagrams) socket option.                                                                                  |
+    +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractSocket.MulticastLoopbackOption|Set this to 1 to enable the IP\_MULTICAST\_LOOP (multicast loopback) socket option.                                                                                                  |
+    +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QAbstractSocket.setSocketOption()<PySide.QtNetwork.QAbstractSocket.setSocketOption>`  :meth:`QAbstractSocket.socketOption()<PySide.QtNetwork.QAbstractSocket.socketOption>` 
+
+.. note:: This enum was introduced or modified in Qt 4.6
+.. attribute:: PySide.QtNetwork.QAbstractSocket.SocketState
+
+    This enum describes the different states in which a socket can be.
+
+    +--------------------------------+-----------------------------------------------------------------------+
+    |Constant                        |Description                                                            |
+    +================================+=======================================================================+
+    |QAbstractSocket.UnconnectedState|The socket is not connected.                                           |
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.HostLookupState |The socket is performing a host name lookup.                           |
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.ConnectingState |The socket has started establishing a connection.                      |
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.ConnectedState  |A connection is established.                                           |
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.BoundState      |The socket is bound to an address and port (for servers).              |
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.ClosingState    |The socket is about to close (data may still be waiting to be written).|
+    +--------------------------------+-----------------------------------------------------------------------+
+    |QAbstractSocket.ListeningState  |For internal use only.                                                 |
+    +--------------------------------+-----------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QAbstractSocket.state()<PySide.QtNetwork.QAbstractSocket.state>` 
+
+.. method:: PySide.QtNetwork.QAbstractSocket.abort()
+
+
+
+
+
+
+    Aborts the current connection and resets the socket. Unlike :meth:`PySide.QtNetwork.QAbstractSocket.disconnectFromHost` , this function immediately closes the socket, discarding any pending data in the write buffer.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.disconnectFromHost`  :meth:`PySide.QtNetwork.QAbstractSocket.close` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.connectToHost(hostName, port[, mode=QIODevice.ReadWrite])
+
+
+    :param hostName: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.connectToHost(address, port[, mode=QIODevice.ReadWrite])
+
+
+    :param address: :class:`PySide.QtNetwork.QHostAddress`
+    :param port: :class:`PySide.QtCore.quint16`
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.connectToHostImplementation(hostName, port[, mode=QIODevice.ReadWrite])
+
+
+    :param hostName: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :param mode: :class:`PySide.QtCore.QIODevice.OpenMode`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.connected()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.disconnectFromHost()
+
+
+
+
+
+
+    Attempts to close the socket. If there is pending data waiting to be written, :class:`PySide.QtNetwork.QAbstractSocket` will enter :attr:`ClosingState<QAbstractSocket.SocketState>` and wait until all data has been written. Eventually, it will enter :attr:`UnconnectedState<QAbstractSocket.SocketState>` and emit the :meth:`PySide.QtNetwork.QAbstractSocket.disconnected` signal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.disconnectFromHostImplementation()
+
+
+
+
+
+
+    Contains the implementation of :meth:`PySide.QtNetwork.QAbstractSocket.disconnectFromHost` .
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.disconnected()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QAbstractSocket.SocketError`
+
+
+
+
+    Returns the type of error that last occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.state`  :meth:`PySide.QtCore.QIODevice.errorString` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.error(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtNetwork.QAbstractSocket.SocketError`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.flush()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function writes as much as possible from the internal write buffer to the underlying network socket, without blocking. If any data was written, this function returns true; otherwise false is returned.
+
+    Call this function if you need :class:`PySide.QtNetwork.QAbstractSocket` to start sending buffered data immediately. The number of bytes successfully written depends on the operating system. In most cases, you do not need to call this function, because :class:`PySide.QtNetwork.QAbstractSocket` will start sending data automatically once control goes back to the event loop. In the absence of an event loop, call :meth:`PySide.QtNetwork.QAbstractSocket.waitForBytesWritten` instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QIODevice.write`  :meth:`PySide.QtNetwork.QAbstractSocket.waitForBytesWritten` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.hostFound()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the socket is valid and ready for use; otherwise returns false.
+
+    .. note::  The socket's state must be :attr:`ConnectedState<QAbstractSocket.SocketState>` before reading and writing can occur.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.state` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.localAddress()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Returns the host address of the local socket if available; otherwise returns :attr:`QHostAddress.Null<QHostAddress.SpecialAddress>` .
+
+    This is normally the main IP address of the host, but can be :attr:`QHostAddress.LocalHost<QHostAddress.SpecialAddress>` (127.0.0.1) for connections to the local host.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.localPort`  :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalAddress` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.localPort()
+
+
+    :rtype: :class:`PySide.QtCore.quint16`
+
+
+
+
+    Returns the host port number (in native byte order) of the local socket if available; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.localAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.peerPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalPort` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.peerAddress()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Returns the address of the connected peer if the socket is in :attr:`ConnectedState<QAbstractSocket.SocketState>` ; otherwise returns :attr:`QHostAddress.Null<QHostAddress.SpecialAddress>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerName`  :meth:`PySide.QtNetwork.QAbstractSocket.peerPort`  :meth:`PySide.QtNetwork.QAbstractSocket.localAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerAddress` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.peerName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the peer as specified by :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` , or an empty :class:`PySide.QtCore.QString` if :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost` has not been called.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.peerPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerName` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.peerPort()
+
+
+    :rtype: :class:`PySide.QtCore.quint16`
+
+
+
+
+    Returns the port of the connected peer if the socket is in :attr:`ConnectedState<QAbstractSocket.SocketState>` ; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.localPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerPort` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.proxy()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Returns the network proxy for this socket. By default :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` is used, which means this socket will query the default proxy settings for the application.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.setProxy`  :class:`PySide.QtNetwork.QNetworkProxy`  :class:`PySide.QtNetwork.QNetworkProxyFactory` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.proxyAuthenticationRequired(proxy, authenticator)
+
+
+    :param proxy: :class:`PySide.QtNetwork.QNetworkProxy`
+    :param authenticator: :class:`PySide.QtNetwork.QAuthenticator`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.readBufferSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the size of the internal read buffer. This limits the amount of data that the client can receive before you call :meth:`PySide.QtCore.QIODevice.read` or :meth:`PySide.QtCore.QIODevice.readAll` .
+
+    A read buffer size of 0 (the default) means that the buffer has no size limit, ensuring that no data is lost.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.setReadBufferSize`  :meth:`PySide.QtCore.QIODevice.read` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setLocalAddress(address)
+
+
+    :param address: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Sets the address on the local side of a connection to ``address`` .
+
+    You can call this function in a subclass of :class:`PySide.QtNetwork.QAbstractSocket` to change the return value of the :meth:`PySide.QtNetwork.QAbstractSocket.localAddress` function after a connection has been established. This feature is commonly used by proxy connections for virtual connection settings.
+
+    Note that this function does not bind the local address of the socket prior to a connection (e.g., :meth:`QUdpSocket.bind()<PySide.QtNetwork.QUdpSocket.bind>` ).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.localAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerAddress` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setLocalPort(port)
+
+
+    :param port: :class:`PySide.QtCore.quint16`
+
+
+
+
+    Sets the port on the local side of a connection to ``port`` .
+
+    You can call this function in a subclass of :class:`PySide.QtNetwork.QAbstractSocket` to change the return value of the :meth:`PySide.QtNetwork.QAbstractSocket.localPort` function after a connection has been established. This feature is commonly used by proxy connections for virtual connection settings.
+
+    Note that this function does not bind the local port of the socket prior to a connection (e.g., :meth:`QUdpSocket.bind()<PySide.QtNetwork.QUdpSocket.bind>` ).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.localPort`  :meth:`PySide.QtNetwork.QAbstractSocket.localAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerPort` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setPeerAddress(address)
+
+
+    :param address: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Sets the address of the remote side of the connection to ``address`` .
+
+    You can call this function in a subclass of :class:`PySide.QtNetwork.QAbstractSocket` to change the return value of the :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress` function after a connection has been established. This feature is commonly used by proxy connections for virtual connection settings.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalAddress` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setPeerName(name)
+
+
+    :param name: unicode
+
+
+
+
+    Sets the host name of the remote peer to ``name`` .
+
+    You can call this function in a subclass of :class:`PySide.QtNetwork.QAbstractSocket` to change the return value of the :meth:`PySide.QtNetwork.QAbstractSocket.peerName` function after a connection has been established. This feature is commonly used by proxy connections for virtual connection settings.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerName` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setPeerPort(port)
+
+
+    :param port: :class:`PySide.QtCore.quint16`
+
+
+
+
+    Sets the port of the remote side of the connection to ``port`` .
+
+    You can call this function in a subclass of :class:`PySide.QtNetwork.QAbstractSocket` to change the return value of the :meth:`PySide.QtNetwork.QAbstractSocket.peerPort` function after a connection has been established. This feature is commonly used by proxy connections for virtual connection settings.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.peerPort`  :meth:`PySide.QtNetwork.QAbstractSocket.setPeerAddress`  :meth:`PySide.QtNetwork.QAbstractSocket.setLocalPort` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setProxy(networkProxy)
+
+
+    :param networkProxy: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Sets the explicit network proxy for this socket to ``networkProxy`` .
+
+    To disable the use of a proxy for this socket, use the :attr:`QNetworkProxy.NoProxy<QNetworkProxy.ProxyType>` proxy type:
+
+    ::
+
+        socket.setProxy(QNetworkProxy.NoProxy)
+
+
+    The default value for the proxy is :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` , which means the socket will use the application settings: if a proxy is set with QNetworkProxy::setApplicationProxy, it will use that; otherwise, if a factory is set with QNetworkProxyFactory::setApplicationProxyFactory, it will query that factory with type :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.proxy`  :class:`PySide.QtNetwork.QNetworkProxy`  :meth:`QNetworkProxyFactory.queryProxy()<PySide.QtNetwork.QNetworkProxyFactory.queryProxy>` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setReadBufferSize(size)
+
+
+    :param size: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the size of :class:`PySide.QtNetwork.QAbstractSocket` 's internal read buffer to be ``size`` bytes.
+
+    If the buffer size is limited to a certain size, :class:`PySide.QtNetwork.QAbstractSocket` won't buffer more than this size of data. Exceptionally, a buffer size of 0 means that the read buffer is unlimited and all incoming data is buffered. This is the default.
+
+    This option is useful if you only read the data at certain points in time (e.g., in a real-time streaming application) or if you want to protect your socket against receiving too much data, which may eventually cause your application to run out of memory.
+
+    Only :class:`PySide.QtNetwork.QTcpSocket` uses :class:`PySide.QtNetwork.QAbstractSocket` 's internal buffer; :class:`PySide.QtNetwork.QUdpSocket` does not use any buffering at all, but rather relies on the implicit buffering provided by the operating system. Because of this, calling this function on :class:`PySide.QtNetwork.QUdpSocket` has no effect.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.readBufferSize`  :meth:`PySide.QtCore.QIODevice.read` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setSocketDescriptor(socketDescriptor[, state=ConnectedState[, openMode=QIODevice.ReadWrite]])
+
+
+    :param socketDescriptor: :class:`PySide.QtCore.int`
+    :param state: :attr:`PySide.QtNetwork.QAbstractSocket.SocketState`
+    :param openMode: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setSocketError(socketError)
+
+
+    :param socketError: :attr:`PySide.QtNetwork.QAbstractSocket.SocketError`
+
+
+
+
+    Sets the type of error that last occurred to ``socketError`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.setSocketState`  :meth:`PySide.QtCore.QIODevice.setErrorString` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setSocketOption(option, value)
+
+
+    :param option: :attr:`PySide.QtNetwork.QAbstractSocket.SocketOption`
+    :param value: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.setSocketState(state)
+
+
+    :param state: :attr:`PySide.QtNetwork.QAbstractSocket.SocketState`
+
+
+
+
+    Sets the state of the socket to ``state`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.state` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.socketDescriptor()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the native socket descriptor of the :class:`PySide.QtNetwork.QAbstractSocket` object if this is available; otherwise returns -1.
+
+    If the socket is using :class:`PySide.QtNetwork.QNetworkProxy` , the returned descriptor may not be usable with native socket functions.
+
+    The socket descriptor is not available when :class:`PySide.QtNetwork.QAbstractSocket` is in :attr:`UnconnectedState<QAbstractSocket.SocketState>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.setSocketDescriptor` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.socketOption(option)
+
+
+    :param option: :attr:`PySide.QtNetwork.QAbstractSocket.SocketOption`
+    :rtype: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.socketType()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QAbstractSocket.SocketType`
+
+
+
+
+    Returns the socket type (TCP, UDP, or other).
+
+    .. seealso::  :class:`PySide.QtNetwork.QTcpSocket`  :class:`PySide.QtNetwork.QUdpSocket` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.state()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QAbstractSocket.SocketState`
+
+
+
+
+    Returns the state of the socket.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.error` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.stateChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtNetwork.QAbstractSocket.SocketState`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.waitForConnected([msecs=30000])
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Waits until the socket is connected, up to ``msecs`` milliseconds. If the connection has been established, this function returns true; otherwise it returns false. In the case where it returns false, you can call :meth:`PySide.QtNetwork.QAbstractSocket.error` to determine the cause of the error.
+
+    The following example waits up to one second for a connection to be established:
+
+    ::
+
+        socket.connectToHost("imap", 143)
+        if socket.waitForConnected(1000):
+            print "Connected!"
+
+
+    If msecs is -1, this function will not time out.
+
+    .. note::  This function may wait slightly longer than ``msecs`` , depending on the time it takes to complete the host lookup.
+
+    .. note::  Multiple calls to this functions do not accumulate the time. If the function times out, the connecting process will be aborted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.connectToHost`  :meth:`PySide.QtNetwork.QAbstractSocket.connected` 
+
+
+.. method:: PySide.QtNetwork.QAbstractSocket.waitForDisconnected([msecs=30000])
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Waits until the socket has disconnected, up to ``msecs`` milliseconds. If the connection has been disconnected, this function returns true; otherwise it returns false. In the case where it returns false, you can call :meth:`PySide.QtNetwork.QAbstractSocket.error` to determine the cause of the error.
+
+    The following example waits up to one second for a connection to be closed:
+
+    ::
+
+        socket.disconnectFromHost()
+            if socket.state() == QAbstractSocket.UnconnectedState or \
+                socket.waitForDisconnected(1000):
+                print "Disconnected!"
+
+
+    If msecs is -1, this function will not time out.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QAbstractSocket.disconnectFromHost`  :meth:`PySide.QtNetwork.QAbstractSocket.close` 
+
+
+

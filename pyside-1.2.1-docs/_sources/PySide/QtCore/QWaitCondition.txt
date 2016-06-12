@@ -1,0 +1,169 @@
+.. module:: PySide.QtCore
+.. _QWaitCondition:
+
+QWaitCondition
+**************
+
+.. inheritance-diagram:: QWaitCondition
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`wait<PySide.QtCore.QWaitCondition.wait>` (mutex[, time=ULONG_MAX])
+*    def :meth:`wait<PySide.QtCore.QWaitCondition.wait>` (readWriteLock[, time=ULONG_MAX])
+*    def :meth:`wakeAll<PySide.QtCore.QWaitCondition.wakeAll>` ()
+*    def :meth:`wakeOne<PySide.QtCore.QWaitCondition.wakeOne>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QWaitCondition` class provides a condition variable for synchronizing threads.
+
+    :class:`PySide.QtCore.QWaitCondition` allows a thread to tell other threads that some sort of condition has been met. One or many threads can block waiting for a :class:`PySide.QtCore.QWaitCondition` to set a condition with :meth:`PySide.QtCore.QWaitCondition.wakeOne` or :meth:`PySide.QtCore.QWaitCondition.wakeAll` . Use :meth:`PySide.QtCore.QWaitCondition.wakeOne` to wake one randomly selected condition or :meth:`PySide.QtCore.QWaitCondition.wakeAll` to wake them all.
+
+    For example, let's suppose that we have three tasks that should be performed whenever the user presses a key. Each task could be split into a thread, each of which would have a :meth:`PySide.QtCore.QThread.run` body like this:
+
+    ::
+
+        while True:
+            mutex.lock()
+            keyPressed.wait(mutex)
+            do_something()
+            mutex.unlock()
+
+
+    Here, the ``keyPressed`` variable is a global variable of type :class:`PySide.QtCore.QWaitCondition` .
+
+    A fourth thread would read key presses and wake the other three threads up every time it receives one, like this:
+
+    ::
+
+        while True:
+            getchar()
+            keyPressed.wakeAll()
+
+
+
+    The order in which the three threads are woken up is undefined. Also, if some of the threads are still in ``do_something()`` when the key is pressed, they won't be woken up (since they're not waiting on the condition variable) and so the task will not be performed for that key press. This issue can be solved using a counter and a :class:`PySide.QtCore.QMutex` to guard it. For example, here's the new code for the worker threads:
+
+    ::
+
+        while True:
+            mutex.lock()
+            keyPressed.wait(&mutex)
+            count += 1
+            mutex.unlock()
+
+            do_something()
+
+            mutex.lock()
+            count -= 1
+            mutex.unlock()
+
+
+    Here's the code for the fourth thread:
+
+    ::
+
+        while True:
+            getchar()
+
+            mutex.lock()
+            # Sleep until there are no busy worker threads
+            while count > 0:
+                mutex.unlock()
+                sleep(1)
+                mutex.lock()
+            keyPressed.wakeAll()
+            mutex.unlock()
+
+
+    The mutex is necessary because the results of two threads attempting to change the value of the same variable simultaneously are unpredictable.
+
+    Wait conditions are a powerful thread synchronization primitive. The :ref:`Wait Conditions<threads/waitconditions>` example shows how to use :class:`PySide.QtCore.QWaitCondition` as an alternative to :class:`PySide.QtCore.QSemaphore` for controlling access to a circular buffer shared by a producer thread and a consumer thread.
+
+    .. seealso::  :class:`PySide.QtCore.QMutex`  :class:`PySide.QtCore.QSemaphore`  :class:`PySide.QtCore.QThread`  :ref:`Wait Conditions Example<threads/waitconditions>` 
+
+.. class:: QWaitCondition()
+
+
+    Constructs a new wait condition object.
+
+
+.. method:: PySide.QtCore.QWaitCondition.wait(readWriteLock[, time=ULONG_MAX])
+
+
+    :param readWriteLock: :class:`PySide.QtCore.QReadWriteLock`
+    :param time: long
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Releases the locked ``readWriteLock`` and waits on the wait condition. The ``readWriteLock`` must be initially locked by the calling thread. If ``readWriteLock`` is not in a locked state, this function returns immediately. The ``readWriteLock`` must not be locked recursively, otherwise this function will not release the lock properly. The ``readWriteLock`` will be unlocked, and the calling thread will block until either of these conditions is met:
+
+
+    * Another thread signals it using :meth:`PySide.QtCore.QWaitCondition.wakeOne` or :meth:`PySide.QtCore.QWaitCondition.wakeAll` . This function will return true in this case.
+    * ``time`` milliseconds has elapsed. If ``time`` is ``ULONG_MAX`` (the default), then the wait will never timeout (the event must be signalled). This function will return false if the wait timed out.
+
+    The ``readWriteLock`` will be returned to the same locked state. This function is provided to allow the atomic transition from the locked state to the wait state.
+
+    .. seealso::  :meth:`PySide.QtCore.QWaitCondition.wakeOne`  :meth:`PySide.QtCore.QWaitCondition.wakeAll` 
+
+
+.. method:: PySide.QtCore.QWaitCondition.wait(mutex[, time=ULONG_MAX])
+
+
+    :param mutex: :class:`PySide.QtCore.QMutex`
+    :param time: long
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Releases the locked ``mutex`` and waits on the wait condition. The ``mutex`` must be initially locked by the calling thread. If ``mutex`` is not in a locked state, this function returns immediately. If ``mutex`` is a recursive mutex, this function returns immediately. The ``mutex`` will be unlocked, and the calling thread will block until either of these conditions is met:
+
+
+    * Another thread signals it using :meth:`PySide.QtCore.QWaitCondition.wakeOne` or :meth:`PySide.QtCore.QWaitCondition.wakeAll` . This function will return true in this case.
+    * ``time`` milliseconds has elapsed. If ``time`` is ``ULONG_MAX`` (the default), then the wait will never timeout (the event must be signalled). This function will return false if the wait timed out.
+
+    The mutex will be returned to the same locked state. This function is provided to allow the atomic transition from the locked state to the wait state.
+
+    .. seealso::  :meth:`PySide.QtCore.QWaitCondition.wakeOne`  :meth:`PySide.QtCore.QWaitCondition.wakeAll` 
+
+
+.. method:: PySide.QtCore.QWaitCondition.wakeAll()
+
+
+
+
+
+
+    Wakes all threads waiting on the wait condition. The order in which the threads are woken up depends on the operating system's scheduling policies and cannot be controlled or predicted.
+
+    .. seealso::  :meth:`PySide.QtCore.QWaitCondition.wakeOne` 
+
+
+.. method:: PySide.QtCore.QWaitCondition.wakeOne()
+
+
+
+
+
+
+    Wakes one thread waiting on the wait condition. The thread that is woken up depends on the operating system's scheduling policies, and cannot be controlled or predicted.
+
+    If you want to wake up a specific thread, the solution is typically to use different wait conditions and have different threads wait on different conditions.
+
+    .. seealso::  :meth:`PySide.QtCore.QWaitCondition.wakeAll` 
+
+
+

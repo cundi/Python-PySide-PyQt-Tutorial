@@ -1,0 +1,164 @@
+.. module:: PySide.QtCore
+.. _QEventLoop:
+
+QEventLoop
+**********
+
+.. inheritance-diagram:: QEventLoop
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`exec_<PySide.QtCore.QEventLoop.exec_>` ([flags=QEventLoop.AllEvents])
+*    def :meth:`exit<PySide.QtCore.QEventLoop.exit>` ([returnCode=0])
+*    def :meth:`isRunning<PySide.QtCore.QEventLoop.isRunning>` ()
+*    def :meth:`processEvents<PySide.QtCore.QEventLoop.processEvents>` ([flags=QEventLoop.AllEvents])
+*    def :meth:`processEvents<PySide.QtCore.QEventLoop.processEvents>` (flags, maximumTime)
+*    def :meth:`wakeUp<PySide.QtCore.QEventLoop.wakeUp>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`quit<PySide.QtCore.QEventLoop.quit>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QEventLoop` class provides a means of entering and leaving an event loop.
+
+    At any time, you can create a :class:`PySide.QtCore.QEventLoop` object and call :meth:`~PySide.QtCore.QEventLoop.exec` on it to start a local event loop. From within the event loop, calling :meth:`PySide.QtCore.QEventLoop.exit` will force :meth:`~PySide.QtCore.QEventLoop.exec` to return.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractEventDispatcher` 
+
+.. class:: QEventLoop([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an event loop object with the given ``parent`` .
+
+
+.. attribute:: PySide.QtCore.QEventLoop.ProcessEventsFlag
+
+    This enum controls the types of events processed by the :meth:`PySide.QtCore.QEventLoop.processEvents` functions.
+
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                                                                                                                                                                                                             |
+    +=================================+========================================================================================================================================================================================================================================================================================+
+    |QEventLoop.AllEvents             |All events. Note that :attr:`DeferredDelete<QEvent.Type>` events are processed specially. See :meth:`QObject.deleteLater()<PySide.QtCore.QObject.deleteLater>` for more details.                                                                                                        |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEventLoop.ExcludeUserInputEvents|Do not process user input events, such as ButtonPress and KeyPress. Note that the events are not discarded; they will be delivered the next time :meth:`PySide.QtCore.QEventLoop.processEvents` is called without the :attr:`ExcludeUserInputEvents<QEventLoop.ProcessEventsFlag>` flag.|
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEventLoop.ExcludeSocketNotifiers|Do not process socket notifier events. Note that the events are not discarded; they will be delivered the next time :meth:`PySide.QtCore.QEventLoop.processEvents` is called without the :attr:`ExcludeSocketNotifiers<QEventLoop.ProcessEventsFlag>` flag.                             |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEventLoop.WaitForMoreEvents     |Wait for events if no pending events are available.                                                                                                                                                                                                                                     |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEventLoop.DeferredDeletion      |deprecated - do not use.                                                                                                                                                                                                                                                                |
+    +---------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QEventLoop.processEvents` 
+
+.. method:: PySide.QtCore.QEventLoop.exec_([flags=QEventLoop.AllEvents])
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QEventLoop.exit([returnCode=0])
+
+
+    :param returnCode: :class:`PySide.QtCore.int`
+
+
+
+
+    Tells the event loop to exit with a return code.
+
+    After this function has been called, the event loop returns from the call to :meth:`~PySide.QtCore.QEventLoop.exec` . The :meth:`~PySide.QtCore.QEventLoop.exec` function returns ``returnCode`` .
+
+    By convention, a ``returnCode`` of 0 means success, and any non-zero value indicates an error.
+
+    Note that unlike the C library function of the same name, this function *does* return to the caller -- it is event processing that stops.
+
+    .. seealso::  :meth:`QCoreApplication.quit()<PySide.QtCore.QCoreApplication.quit>`  :meth:`PySide.QtCore.QEventLoop.quit`  :meth:`~PySide.QtCore.QEventLoop.exec` 
+
+
+.. method:: PySide.QtCore.QEventLoop.isRunning()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the event loop is running; otherwise returns false. The event loop is considered running from the time when :meth:`~PySide.QtCore.QEventLoop.exec` is called until :meth:`PySide.QtCore.QEventLoop.exit` is called.
+
+    .. seealso::  :meth:`~PySide.QtCore.QEventLoop.exec`  :meth:`PySide.QtCore.QEventLoop.exit` 
+
+
+.. method:: PySide.QtCore.QEventLoop.processEvents([flags=QEventLoop.AllEvents])
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QEventLoop.processEvents(flags, maximumTime)
+
+
+    :param flags: :class:`PySide.QtCore.QEventLoop.ProcessEventsFlags`
+    :param maximumTime: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QEventLoop.quit()
+
+
+
+
+
+
+    Tells the event loop to exit normally.
+
+    Same as exit(0).
+
+    .. seealso::  :meth:`QCoreApplication.quit()<PySide.QtCore.QCoreApplication.quit>`  :meth:`PySide.QtCore.QEventLoop.exit` 
+
+
+.. method:: PySide.QtCore.QEventLoop.wakeUp()
+
+
+
+
+
+
+    Wakes up the event loop.
+
+    .. seealso::  :meth:`QAbstractEventDispatcher.wakeUp()<PySide.QtCore.QAbstractEventDispatcher.wakeUp>` 
+
+
+

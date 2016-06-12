@@ -1,0 +1,486 @@
+.. module:: PySide.QtCore
+.. _QStateMachine:
+
+QStateMachine
+*************
+
+.. inheritance-diagram:: QStateMachine
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addDefaultAnimation<PySide.QtCore.QStateMachine.addDefaultAnimation>` (animation)
+*    def :meth:`addState<PySide.QtCore.QStateMachine.addState>` (state)
+*    def :meth:`cancelDelayedEvent<PySide.QtCore.QStateMachine.cancelDelayedEvent>` (id)
+*    def :meth:`clearError<PySide.QtCore.QStateMachine.clearError>` ()
+*    def :meth:`configuration<PySide.QtCore.QStateMachine.configuration>` ()
+*    def :meth:`error<PySide.QtCore.QStateMachine.error>` ()
+*    def :meth:`errorString<PySide.QtCore.QStateMachine.errorString>` ()
+*    def :meth:`globalRestorePolicy<PySide.QtCore.QStateMachine.globalRestorePolicy>` ()
+*    def :meth:`isAnimated<PySide.QtCore.QStateMachine.isAnimated>` ()
+*    def :meth:`isRunning<PySide.QtCore.QStateMachine.isRunning>` ()
+*    def :meth:`postDelayedEvent<PySide.QtCore.QStateMachine.postDelayedEvent>` (event, delay)
+*    def :meth:`postEvent<PySide.QtCore.QStateMachine.postEvent>` (event[, priority=NormalPriority])
+*    def :meth:`removeDefaultAnimation<PySide.QtCore.QStateMachine.removeDefaultAnimation>` (animation)
+*    def :meth:`removeState<PySide.QtCore.QStateMachine.removeState>` (state)
+*    def :meth:`setAnimated<PySide.QtCore.QStateMachine.setAnimated>` (enabled)
+*    def :meth:`setGlobalRestorePolicy<PySide.QtCore.QStateMachine.setGlobalRestorePolicy>` (restorePolicy)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beginMicrostep<PySide.QtCore.QStateMachine.beginMicrostep>` (event)
+*    def :meth:`beginSelectTransitions<PySide.QtCore.QStateMachine.beginSelectTransitions>` (event)
+*    def :meth:`endMicrostep<PySide.QtCore.QStateMachine.endMicrostep>` (event)
+*    def :meth:`endSelectTransitions<PySide.QtCore.QStateMachine.endSelectTransitions>` (event)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`start<PySide.QtCore.QStateMachine.start>` ()
+*    def :meth:`stop<PySide.QtCore.QStateMachine.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`started<PySide.QtCore.QStateMachine.started>` ()
+*    def :meth:`stopped<PySide.QtCore.QStateMachine.stopped>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QStateMachine` class provides a hierarchical finite state machine.
+
+    :class:`PySide.QtCore.QStateMachine` is based on the concepts and notation of :ref:`Statecharts<http://www.wisdom.weizmann.ac.il/~dharel/SCANNED.PAPERS/Statecharts.pdf>` . :class:`PySide.QtCore.QStateMachine` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    A state machine manages a set of states (classes that inherit from :class:`PySide.QtCore.QAbstractState` ) and transitions (descendants of :class:`PySide.QtCore.QAbstractTransition` ) between those states; these states and transitions define a state graph. Once a state graph has been built, the state machine can execute it. :class:`PySide.QtCore.QStateMachine` 's execution algorithm is based on the :ref:`State Chart XML (SCXML)<http://www.w3.org/TR/scxml/>` algorithm. The framework's :ref:`overview<statemachine-api.html>` gives several state graphs and the code to build them.
+
+    Use the :meth:`PySide.QtCore.QStateMachine.addState` function to add a top-level state to the state machine. States are removed with the :meth:`PySide.QtCore.QStateMachine.removeState` function. Removing states while the machine is running is discouraged.
+
+    Before the machine can be started, the :meth:`initial state<PySide.QtCore.QState.initialState>` must be set. The initial state is the state that the machine enters when started. You can then :meth:`PySide.QtCore.QStateMachine.start` the state machine. The :meth:`PySide.QtCore.QStateMachine.started` signal is emitted when the initial state is entered.
+
+    The machine is event driven and keeps its own event loop. Events are posted to the machine through :meth:`PySide.QtCore.QStateMachine.postEvent` . Note that this means that it executes asynchronously, and that it will not progress without a running event loop. You will normally not have to post events to the machine directly as Qt's transitions, e.g., :class:`PySide.QtCore.QEventTransition` and its subclasses, handle this. But for custom transitions triggered by events, :meth:`PySide.QtCore.QStateMachine.postEvent` is useful.
+
+    The state machine processes events and takes transitions until a top-level final state is entered; the state machine then emits the :meth:`PySide.QtCore.QState.finished` signal. You can also :meth:`PySide.QtCore.QStateMachine.stop` the state machine explicitly. The :meth:`PySide.QtCore.QStateMachine.stopped` signal is emitted in this case.
+
+    The following snippet shows a state machine that will finish when a button is clicked:
+
+    ::
+
+        button = QPushButton()
+
+        machine = QStateMachine()
+        s1 = QState()
+        s1.assignProperty(button, "text", "Click me")
+
+        s2 = QFinalState()
+        s1.addTransition(button, SIGNAL('clicked()'), s2)
+
+        machine.addState(s1)
+        machine.addState(s2)
+        machine.setInitialState(s1)
+        machine.start()
+
+
+    This code example uses :class:`PySide.QtCore.QState` , which inherits :class:`PySide.QtCore.QAbstractState` . The :class:`PySide.QtCore.QState` class provides a state that you can use to set properties and invoke methods on :class:`PySide.QtCore.QObject` s when the state is entered or exited. It also contains convenience functions for adding transitions, e.g., :class:`PySide.QtCore.QSignalTransition` s as in this example. See the :class:`PySide.QtCore.QState` class description for further details.
+
+    If an error is encountered, the machine will look for an :meth:`error state<PySide.QtCore.QState.errorState>` , and if one is available, it will enter this state. The types of errors possible are described by the :attr:`QStateMachine.Error` enum. After the error state is entered, the type of the error can be retrieved with :meth:`PySide.QtCore.QStateMachine.error` . The execution of the state graph will not stop when the error state is entered. If no error state applies to the erroneous state, the machine will stop executing and an error message will be printed to the console.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractState`  :class:`PySide.QtCore.QAbstractTransition`  :class:`PySide.QtCore.QState`  :ref:`The State Machine Framework<statemachine-api.html>` 
+
+.. class:: QStateMachine([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new state machine with the given ``parent`` .
+
+
+.. attribute:: PySide.QtCore.QStateMachine.Error
+
+    This enum type defines errors that can occur in the state machine at run time. When the state machine encounters an unrecoverable error at run time, it will set the error code returned by :meth:`PySide.QtCore.QStateMachine.error` , the error message returned by :meth:`PySide.QtCore.QStateMachine.errorString` , and enter an error state based on the context of the error.
+
+    +------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                        |Description                                                                                                                                                                                                                                                                                                                      |
+    +================================================+=================================================================================================================================================================================================================================================================================================================================+
+    |QStateMachine.NoError                           |No error has occurred.                                                                                                                                                                                                                                                                                                           |
+    +------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QStateMachine.NoInitialStateError               |The machine has entered a :class:`PySide.QtCore.QState` with children which does not have an initial state set. The context of this error is the state which is missing an initial state.                                                                                                                                        |
+    +------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QStateMachine.NoDefaultStateInHistoryStateError |The machine has entered a :class:`PySide.QtCore.QHistoryState` which does not have a default state set. The context of this error is the :class:`PySide.QtCore.QHistoryState` which is missing a default state.                                                                                                                  |
+    +------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QStateMachine.NoCommonAncestorForTransitionError|The machine has selected a transition whose source and targets are not part of the same tree of states, and thus are not part of the same state machine. Commonly, this could mean that one of the states has not been given any parent or added to any machine. The context of this error is the source state of the transition.|
+    +------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QState.setErrorState` 
+
+.. attribute:: PySide.QtCore.QStateMachine.EventPriority
+
+    This enum type specifies the priority of an event posted to the state machine using :meth:`PySide.QtCore.QStateMachine.postEvent` .
+
+    Events of high priority are processed before events of normal priority.
+
+    +----------------------------+------------------------------+
+    |Constant                    |Description                   |
+    +============================+==============================+
+    |QStateMachine.NormalPriority|The event has normal priority.|
+    +----------------------------+------------------------------+
+    |QStateMachine.HighPriority  |The event has high priority.  |
+    +----------------------------+------------------------------+
+
+
+.. attribute:: PySide.QtCore.QStateMachine.RestorePolicy
+
+    This enum specifies the restore policy type. The restore policy takes effect when the machine enters a state which sets one or more properties. If the restore policy is set to :attr:`RestoreProperties<QStateMachine.RestorePolicy>` , the state machine will save the original value of the property before the new value is set.
+
+    Later, when the machine either enters a state which does not set a value for the given property, the property will automatically be restored to its initial value.
+
+    Only one initial value will be saved for any given property. If a value for a property has already been saved by the state machine, it will not be overwritten until the property has been successfully restored.
+
+    +-----------------------------------+------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                               |
+    +===================================+==========================================================================================+
+    |QStateMachine.DontRestoreProperties|The state machine should not save the initial values of properties and restore them later.|
+    +-----------------------------------+------------------------------------------------------------------------------------------+
+    |QStateMachine.RestoreProperties    |The state machine should save the initial values of properties and restore them later.    |
+    +-----------------------------------+------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QStateMachine.globalRestorePolicy<PySide.QtCore.QStateMachine.globalRestorePolicy>`  :meth:`QState.assignProperty()<PySide.QtCore.QState.assignProperty>` 
+
+.. method:: PySide.QtCore.QStateMachine.addDefaultAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Adds a default ``animation`` to be considered for any transition.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.addState(state)
+
+
+    :param state: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    Adds the given ``state`` to this state machine. The state becomes a top-level state.
+
+    If the state is already in a different machine, it will first be removed from its old machine, and then added to this machine.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.removeState`  :meth:`PySide.QtCore.QState.setInitialState` 
+
+
+.. method:: PySide.QtCore.QStateMachine.beginMicrostep(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This function is called when the state machine is about to do a microstep.
+
+    The default implementation does nothing.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.beginSelectTransitions(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This function is called when the state machine is about to select transitions based on the given ``event`` .
+
+    The default implementation does nothing.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.cancelDelayedEvent(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Cancels the delayed event identified by the given ``id`` . The id should be a value returned by a call to :meth:`PySide.QtCore.QStateMachine.postDelayedEvent` . Returns true if the event was successfully cancelled, otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.postDelayedEvent` 
+
+
+.. method:: PySide.QtCore.QStateMachine.clearError()
+
+
+
+
+
+
+    Clears the error string and error code of the state machine.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.configuration()
+
+
+    :rtype: 
+
+
+
+
+    Returns the maximal consistent set of states (including parallel and final states) that this state machine is currently in. If a state ``s`` is in the configuration, it is always the case that the parent of ``s`` is also in c. Note, however, that the machine itself is not an explicit member of the configuration.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.endMicrostep(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This function is called when the state machine has finished doing a microstep.
+
+    The default implementation does nothing.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.endSelectTransitions(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This function is called when the state machine has finished selecting transitions based on the given ``event`` .
+
+    The default implementation does nothing.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.error()
+
+
+    :rtype: :attr:`PySide.QtCore.QStateMachine.Error`
+
+
+
+
+    Returns the error code of the last error that occurred in the state machine.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the error string of this state machine.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.globalRestorePolicy()
+
+
+    :rtype: :attr:`PySide.QtCore.QStateMachine.RestorePolicy`
+
+
+
+
+    This property holds the restore policy for states of this state machine..
+
+    The default value of this property is :attr:`QStateMachine.DontRestoreProperties<QStateMachine.RestorePolicy>` .
+
+
+
+.. method:: PySide.QtCore.QStateMachine.isAnimated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether animations are enabled.
+
+    The default value of this property is true.
+
+    .. seealso::  :meth:`QAbstractTransition.addAnimation()<PySide.QtCore.QAbstractTransition.addAnimation>` 
+
+
+.. method:: PySide.QtCore.QStateMachine.isRunning()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether this state machine is running.
+
+    :meth:`PySide.QtCore.QStateMachine.start` , :meth:`PySide.QtCore.QStateMachine.stop`
+
+
+
+.. method:: PySide.QtCore.QStateMachine.postDelayedEvent(event, delay)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+    :param delay: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Posts the given ``event`` for processing by this state machine, with the given ``delay`` in milliseconds. Returns an identifier associated with the delayed event, or -1 if the event could not be posted.
+
+    This function returns immediately. When the delay has expired, the event will be added to the state machine's event queue for processing. The state machine takes ownership of the event and deletes it once it has been processed.
+
+    You can only post events when the state machine is running.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.cancelDelayedEvent`  :meth:`PySide.QtCore.QStateMachine.postEvent` 
+
+
+.. method:: PySide.QtCore.QStateMachine.postEvent(event[, priority=NormalPriority])
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+    :param priority: :attr:`PySide.QtCore.QStateMachine.EventPriority`
+
+
+
+
+    Posts the given ``event`` of the given ``priority`` for processing by this state machine.
+
+    This function returns immediately. The event is added to the state machine's event queue. Events are processed in the order posted. The state machine takes ownership of the event and deletes it once it has been processed.
+
+    You can only post events when the state machine is running.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.postDelayedEvent` 
+
+
+.. method:: PySide.QtCore.QStateMachine.removeDefaultAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Removes ``animation`` from the list of default animations.
+
+
+
+.. method:: PySide.QtCore.QStateMachine.removeState(state)
+
+
+    :param state: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    Removes the given ``state`` from this state machine. The state machine releases ownership of the state.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.addState` 
+
+
+.. method:: PySide.QtCore.QStateMachine.setAnimated(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether animations are enabled.
+
+    The default value of this property is true.
+
+    .. seealso::  :meth:`QAbstractTransition.addAnimation()<PySide.QtCore.QAbstractTransition.addAnimation>` 
+
+
+.. method:: PySide.QtCore.QStateMachine.setGlobalRestorePolicy(restorePolicy)
+
+
+    :param restorePolicy: :attr:`PySide.QtCore.QStateMachine.RestorePolicy`
+
+
+
+
+    This property holds the restore policy for states of this state machine..
+
+    The default value of this property is :attr:`QStateMachine.DontRestoreProperties<QStateMachine.RestorePolicy>` .
+
+
+
+.. method:: PySide.QtCore.QStateMachine.start()
+
+
+
+
+
+
+    Starts this state machine. The machine will reset its configuration and transition to the initial state. When a final top-level state ( :class:`PySide.QtCore.QFinalState` ) is entered, the machine will emit the :meth:`PySide.QtCore.QState.finished` signal.
+
+    .. note::  A state machine will not run without a running event loop, such as the main application event loop started with :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` or :meth:`QApplication.exec()<PySide.QtGui.QApplication.exec>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.started`  :meth:`PySide.QtCore.QState.finished`  :meth:`PySide.QtCore.QStateMachine.stop`  :meth:`PySide.QtCore.QState.initialState` 
+
+
+.. method:: PySide.QtCore.QStateMachine.started()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QStateMachine.stop()
+
+
+
+
+
+
+    Stops this state machine. The state machine will stop processing events and then emit the :meth:`PySide.QtCore.QStateMachine.stopped` signal.
+
+    .. seealso::  :meth:`PySide.QtCore.QStateMachine.stopped`  :meth:`PySide.QtCore.QStateMachine.start` 
+
+
+.. method:: PySide.QtCore.QStateMachine.stopped()
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,135 @@
+.. module:: PySide.QtScript
+.. _QScriptable:
+
+QScriptable
+***********
+
+.. inheritance-diagram:: QScriptable
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`argument<PySide.QtScript.QScriptable.argument>` (index)
+*    def :meth:`argumentCount<PySide.QtScript.QScriptable.argumentCount>` ()
+*    def :meth:`context<PySide.QtScript.QScriptable.context>` ()
+*    def :meth:`engine<PySide.QtScript.QScriptable.engine>` ()
+*    def :meth:`thisObject<PySide.QtScript.QScriptable.thisObject>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtScript.QScriptable` class provides access to the Qt Script environment from Qt C++ member functions.
+
+    With :meth:`QScriptEngine.newQObject()<PySide.QtScript.QScriptEngine.newQObject>` , you can expose the signals and slots and properties of any :class:`PySide.QtCore.QObject` (or subclass) to script code. :class:`PySide.QtScript.QScriptable` augments this functionality by giving your C++ members access to the Qt Script environment they are invoked in; conceptually, it is similar to :meth:`QObject.sender()<PySide.QtCore.QObject.sender>` .
+
+    By subclassing :class:`PySide.QtScript.QScriptable` , you get the following functions in your class: :meth:`PySide.QtScript.QScriptable.thisObject` , :meth:`PySide.QtScript.QScriptable.argumentCount` , :meth:`PySide.QtScript.QScriptable.argument` , :meth:`PySide.QtScript.QScriptable.context` and :meth:`PySide.QtScript.QScriptable.engine` . With these functions, you have full access to the Qt Script environment from the slots and property access functions of your class, when they are invoked from script code.
+
+    For example, you can throw a Qt Script exception from a slot; manipulate the `this' object associated with the function call; inspect the arguments stored in the :class:`PySide.QtScript.QScriptContext` to know the "real" arguments passed to the function from script code; and call script functions from your slot.
+
+    A typical use case of :class:`PySide.QtScript.QScriptable` is to implement prototype objects for custom C++ types. You define the scriptable interface of your custom type in a :class:`PySide.QtScript.QScriptable` subclass using properties and slots; then you wrap an instance of your class using :meth:`QScriptEngine.newQObject()<PySide.QtScript.QScriptEngine.newQObject>` , and finally pass the result to :meth:`QScriptEngine.setDefaultPrototype()<PySide.QtScript.QScriptEngine.setDefaultPrototype>` . See the :ref:`Default Prototypes Example<script/defaultprototypes>` to see how this can be done.
+
+    The following is what subclassing :class:`PySide.QtScript.QScriptable` typically looks like:
+
+    ::
+
+        class MyScriptableObject(QObject, QScriptable):
+        ...
+            def doSomething(self):
+                ...
+            def doSomethingElse(self):
+                ...
+
+
+    The only difference from regular :class:`PySide.QtCore.QObject` subclassing is that you also inherit from :class:`PySide.QtScript.QScriptable` .
+
+    In the implementation of your slots, you can then use the functions inherited from :class:`PySide.QtScript.QScriptable` :
+
+    ::
+
+
+        def doSomething(self):
+            self.context().throwError('Threw an error from a slot')
+
+        def doSomethingElse(self):
+            return self.thisObject()
+
+
+
+    .. seealso::  :ref:`Default Prototypes Example<script/defaultprototypes>`  :meth:`QScriptEngine.newFunction()<PySide.QtScript.QScriptEngine.newFunction>` 
+
+.. class:: QScriptable()
+
+
+
+.. method:: PySide.QtScript.QScriptable.argument(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the function argument at the given ``index`` , or an invalid :class:`PySide.QtScript.QScriptValue` if the Qt function was not invoked from script code.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptable.argumentCount` 
+
+
+.. method:: PySide.QtScript.QScriptable.argumentCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of arguments passed to the function in this invocation, or -1 if the Qt function was not invoked from script code.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptable.argument` 
+
+
+.. method:: PySide.QtScript.QScriptable.context()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptContext`
+
+
+
+
+    Returns a pointer to the :class:`PySide.QtScript.QScriptContext` associated with the current Qt function call, or 0 if the Qt function was not invoked from script code.
+
+
+
+.. method:: PySide.QtScript.QScriptable.engine()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptEngine`
+
+
+
+
+    Returns a pointer to the :class:`PySide.QtScript.QScriptEngine` associated with the current Qt function call, or 0 if the Qt function was not invoked from script code.
+
+
+
+.. method:: PySide.QtScript.QScriptable.thisObject()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the `this' object associated with the current Qt function call, or an invalid :class:`PySide.QtScript.QScriptValue` if the Qt function was not invoked from script code.
+
+
+
+

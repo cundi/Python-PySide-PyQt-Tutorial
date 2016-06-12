@@ -1,0 +1,190 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkAddressEntry:
+
+QNetworkAddressEntry
+********************
+
+.. inheritance-diagram:: QNetworkAddressEntry
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QNetworkAddressEntry.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QNetworkAddressEntry.__ne__>` (other)
+*    def :meth:`broadcast<PySide.QtNetwork.QNetworkAddressEntry.broadcast>` ()
+*    def :meth:`ip<PySide.QtNetwork.QNetworkAddressEntry.ip>` ()
+*    def :meth:`netmask<PySide.QtNetwork.QNetworkAddressEntry.netmask>` ()
+*    def :meth:`prefixLength<PySide.QtNetwork.QNetworkAddressEntry.prefixLength>` ()
+*    def :meth:`setBroadcast<PySide.QtNetwork.QNetworkAddressEntry.setBroadcast>` (newBroadcast)
+*    def :meth:`setIp<PySide.QtNetwork.QNetworkAddressEntry.setIp>` (newIp)
+*    def :meth:`setNetmask<PySide.QtNetwork.QNetworkAddressEntry.setNetmask>` (newNetmask)
+*    def :meth:`setPrefixLength<PySide.QtNetwork.QNetworkAddressEntry.setPrefixLength>` (length)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkAddressEntry` class stores one IP address supported by a network interface, along with its associated netmask and broadcast address.
+
+    Each network interface can contain zero or more IP addresses, which in turn can be associated with a netmask and/or a broadcast address (depending on support from the operating system).
+
+    This class represents one such group.
+
+
+.. class:: QNetworkAddressEntry()
+           QNetworkAddressEntry(other)
+
+    :param other: :class:`PySide.QtNetwork.QNetworkAddressEntry`
+
+    Constructs an empty :class:`PySide.QtNetwork.QNetworkAddressEntry` object.
+
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkAddressEntry` object that is a copy of the object ``other`` .
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.broadcast()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Returns the broadcast address associated with the IPv4 address and netmask. It can usually be derived from those two by setting to 1 the bits of the IP address where the netmask contains a 0. (In other words, by bitwise-OR'ing the IP address with the inverse of the netmask)
+
+    This member is always empty for IPv6 addresses, since the concept of broadcast has been abandoned in that system in favor of multicast. In particular, the group of hosts corresponding to all the nodes in the local network can be reached by the "all-nodes" special multicast group (address FF02::1).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setBroadcast` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.ip()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    This function returns one IPv4 or IPv6 address found, that was found in a network interface.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setIp` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.netmask()
+
+
+    :rtype: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Returns the netmask associated with the IP address. The netmask is expressed in the form of an IP address, such as 255.255.0.0.
+
+    For IPv6 addresses, the prefix length is converted to an address where the number of bits set to 1 is equal to the prefix length. For a prefix length of 64 bits (the most common value), the netmask will be expressed as a :class:`PySide.QtNetwork.QHostAddress` holding the address FFFF:FFFF:FFFF:FFFF::
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setNetmask`  :meth:`PySide.QtNetwork.QNetworkAddressEntry.prefixLength` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkAddressEntry`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this network address entry is different from ``other`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkAddressEntry`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this network address entry is the same as ``other`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.prefixLength()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the prefix length of this IP address. The prefix length matches the number of bits set to 1 in the netmask (see :meth:`PySide.QtNetwork.QNetworkAddressEntry.netmask` ). For IPv4 addresses, the value is between 0 and 32. For IPv6 addresses, it's contained between 0 and 128 and is the preferred form of representing addresses.
+
+    This function returns -1 if the prefix length could not be determined (i.e., :meth:`PySide.QtNetwork.QNetworkAddressEntry.netmask` returns a null QHostAddress()).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setPrefixLength`  :meth:`PySide.QtNetwork.QNetworkAddressEntry.netmask` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.setBroadcast(newBroadcast)
+
+
+    :param newBroadcast: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Sets the broadcast IP address of this :class:`PySide.QtNetwork.QNetworkAddressEntry` object to ``newBroadcast`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.broadcast` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.setIp(newIp)
+
+
+    :param newIp: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Sets the IP address the :class:`PySide.QtNetwork.QNetworkAddressEntry` object contains to ``newIp`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.ip` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.setNetmask(newNetmask)
+
+
+    :param newNetmask: :class:`PySide.QtNetwork.QHostAddress`
+
+
+
+
+    Sets the netmask that this :class:`PySide.QtNetwork.QNetworkAddressEntry` object contains to ``newNetmask`` . Setting the netmask also sets the prefix length to match the new netmask.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.netmask`  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setPrefixLength` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAddressEntry.setPrefixLength(length)
+
+
+    :param length: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the prefix length of this IP address to ``length`` . The value of ``length`` must be valid for this type of IP address: between 0 and 32 for IPv4 addresses, between 0 and 128 for IPv6 addresses. Setting to any invalid value is equivalent to setting to -1, which means "no prefix length".
+
+    Setting the prefix length also sets the netmask (see :meth:`PySide.QtNetwork.QNetworkAddressEntry.netmask` ).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAddressEntry.prefixLength`  :meth:`PySide.QtNetwork.QNetworkAddressEntry.setNetmask` 
+
+
+

@@ -1,0 +1,264 @@
+.. module:: PySide.QtScript
+.. _QScriptContextInfo:
+
+QScriptContextInfo
+******************
+
+.. inheritance-diagram:: QScriptContextInfo
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtScript.QScriptContextInfo.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtScript.QScriptContextInfo.__ne__>` (other)
+*    def :meth:`columnNumber<PySide.QtScript.QScriptContextInfo.columnNumber>` ()
+*    def :meth:`fileName<PySide.QtScript.QScriptContextInfo.fileName>` ()
+*    def :meth:`functionEndLineNumber<PySide.QtScript.QScriptContextInfo.functionEndLineNumber>` ()
+*    def :meth:`functionMetaIndex<PySide.QtScript.QScriptContextInfo.functionMetaIndex>` ()
+*    def :meth:`functionName<PySide.QtScript.QScriptContextInfo.functionName>` ()
+*    def :meth:`functionParameterNames<PySide.QtScript.QScriptContextInfo.functionParameterNames>` ()
+*    def :meth:`functionStartLineNumber<PySide.QtScript.QScriptContextInfo.functionStartLineNumber>` ()
+*    def :meth:`functionType<PySide.QtScript.QScriptContextInfo.functionType>` ()
+*    def :meth:`isNull<PySide.QtScript.QScriptContextInfo.isNull>` ()
+*    def :meth:`lineNumber<PySide.QtScript.QScriptContextInfo.lineNumber>` ()
+*    def :meth:`scriptId<PySide.QtScript.QScriptContextInfo.scriptId>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtScript.QScriptContextInfo` class provides additional information about a :class:`PySide.QtScript.QScriptContext` .
+
+    :class:`PySide.QtScript.QScriptContextInfo` is typically used for debugging purposes. It can provide information about the code being executed, such as the type of the called function, and the original source code location of the current statement.
+
+    If the called function is executing Qt Script code, you can obtain the script location with the functions :meth:`PySide.QtScript.QScriptContextInfo.fileName` and :meth:`PySide.QtScript.QScriptContextInfo.lineNumber` .
+
+    You can obtain the starting line number and ending line number of a Qt Script function definition with :meth:`PySide.QtScript.QScriptContextInfo.functionStartLineNumber` and :meth:`PySide.QtScript.QScriptContextInfo.functionEndLineNumber` , respectively.
+
+    For Qt Script functions and Qt methods (e.g. slots), you can call :meth:`PySide.QtScript.QScriptContextInfo.functionParameterNames` to get the names of the formal parameters of the function.
+
+    For Qt methods and Qt property accessors, you can obtain the index of the underlying :class:`PySide.QtCore.QMetaMethod` or :class:`PySide.QtCore.QMetaProperty` by calling :meth:`PySide.QtScript.QScriptContextInfo.functionMetaIndex` .
+
+    .. seealso::  :class:`PySide.QtScript.QScriptContext`  :class:`PySide.QtScript.QScriptEngineAgent` 
+
+.. class:: QScriptContextInfo()
+           QScriptContextInfo(context)
+           QScriptContextInfo(other)
+
+    :param other: :class:`PySide.QtScript.QScriptContextInfo`
+    :param context: :class:`PySide.QtScript.QScriptContext`
+
+    Constructs a null :class:`PySide.QtScript.QScriptContextInfo` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.isNull` 
+
+    Constructs a new :class:`PySide.QtScript.QScriptContextInfo` from the given ``context`` .
+
+    The relevant information is extracted from the ``context`` at construction time; i.e. if you continue script execution in the ``context`` , the new state of the context will not be reflected in a previously created :class:`PySide.QtScript.QScriptContextInfo` .
+
+
+    Constructs a new :class:`PySide.QtScript.QScriptContextInfo` from the ``other`` info.
+
+
+.. attribute:: PySide.QtScript.QScriptContextInfo.FunctionType
+
+    This enum specifies the type of function being called.
+
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                                                                                                        |
+    +=====================================+===================================================================================================================================================================+
+    |QScriptContextInfo.ScriptFunction    |The function is a Qt Script function, i.e. it was defined through a call to :meth:`QScriptEngine.evaluate()<PySide.QtScript.QScriptEngine.evaluate>` .             |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QScriptContextInfo.QtFunction        |The function is a Qt function (a signal, slot or method).                                                                                                          |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QScriptContextInfo.QtPropertyFunction|The function is a Qt property getter or setter.                                                                                                                    |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QScriptContextInfo.NativeFunction    |The function is a built-in Qt Script function, or it was defined through a call to :meth:`QScriptEngine.newFunction()<PySide.QtScript.QScriptEngine.newFunction>` .|
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.columnNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the file where the code being executed was defined, if available; otherwise returns an empty string.
+
+    For Qt Script code, this function returns the fileName argument that was passed to :meth:`QScriptEngine.evaluate()<PySide.QtScript.QScriptEngine.evaluate>` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.lineNumber`  :meth:`PySide.QtScript.QScriptContextInfo.functionName` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionEndLineNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the line number where the definition of the called function ends, or -1 if the line number is not available.
+
+    The ending line number is only available if the :meth:`PySide.QtScript.QScriptContextInfo.functionType` is :attr:`ScriptFunction<QScriptContextInfo.FunctionType>` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.functionStartLineNumber` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionMetaIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the meta index of the called function, or -1 if the meta index is not available.
+
+    The meta index is only available if the :meth:`PySide.QtScript.QScriptContextInfo.functionType` is :attr:`QtFunction<QScriptContextInfo.FunctionType>` or :attr:`QtPropertyFunction<QScriptContextInfo.FunctionType>` . For :attr:`QtFunction<QScriptContextInfo.FunctionType>` , the meta index can be passed to :meth:`QMetaObject.method()<PySide.QtCore.QMetaObject.method>` to obtain the corresponding method definition; for :attr:`QtPropertyFunction<QScriptContextInfo.FunctionType>` , the meta index can be passed to :meth:`QMetaObject.property()<PySide.QtCore.QMetaObject.property>` to obtain the corresponding property definition.
+
+    .. seealso::  :meth:`QScriptContext.thisObject()<PySide.QtScript.QScriptContext.thisObject>` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the name of the called function, or an empty string if the name is not available.
+
+    For script functions of type :attr:`QtPropertyFunction<QScriptContextInfo.FunctionType>` , this function always returns the name of the property; you can use :meth:`QScriptContext.argumentCount()<PySide.QtScript.QScriptContext.argumentCount>` to differentiate between reads and writes.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.fileName`  :meth:`PySide.QtScript.QScriptContextInfo.functionType` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionParameterNames()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the names of the formal parameters of the called function, or an empty :class:`PySide.QtCore.QStringList` if the parameter names are not available.
+
+    .. seealso::  :meth:`QScriptContext.argument()<PySide.QtScript.QScriptContext.argument>` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionStartLineNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the line number where the definition of the called function starts, or -1 if the line number is not available.
+
+    The starting line number is only available if the :meth:`PySide.QtScript.QScriptContextInfo.functionType` is :attr:`ScriptFunction<QScriptContextInfo.FunctionType>` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.functionEndLineNumber`  :meth:`PySide.QtScript.QScriptContextInfo.fileName` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.functionType()
+
+
+    :rtype: :attr:`PySide.QtScript.QScriptContextInfo.FunctionType`
+
+
+
+
+    Returns the type of the called function.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.functionName`  :meth:`QScriptContext.callee()<PySide.QtScript.QScriptContext.callee>` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtScript.QScriptContextInfo` is null, i.e. does not contain any information.
+
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.lineNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the line number corresponding to the statement being executed, or -1 if the line number is not available.
+
+    The line number is only available if Qt Script code is being executed.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContextInfo.columnNumber`  :meth:`PySide.QtScript.QScriptContextInfo.fileName` 
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.__ne__(other)
+
+
+    :param other: :class:`PySide.QtScript.QScriptContextInfo`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtScript.QScriptContextInfo` is not equal to the ``other`` info, otherwise returns false.
+
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.__eq__(other)
+
+
+    :param other: :class:`PySide.QtScript.QScriptContextInfo`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtScript.QScriptContextInfo` is equal to the ``other`` info, otherwise returns false.
+
+
+
+.. method:: PySide.QtScript.QScriptContextInfo.scriptId()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the ID of the script where the code being executed was defined, or -1 if the ID is not available (i.e. a native function is being executed).
+
+    .. seealso::  :meth:`QScriptEngineAgent.scriptLoad()<PySide.QtScript.QScriptEngineAgent.scriptLoad>` 
+
+
+

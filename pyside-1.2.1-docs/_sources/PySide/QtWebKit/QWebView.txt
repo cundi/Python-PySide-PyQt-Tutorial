@@ -1,0 +1,724 @@
+.. module:: PySide.QtWebKit
+.. _QWebView:
+
+QWebView
+********
+
+.. inheritance-diagram:: QWebView
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`findText<PySide.QtWebKit.QWebView.findText>` (subString[, options=0])
+*    def :meth:`hasSelection<PySide.QtWebKit.QWebView.hasSelection>` ()
+*    def :meth:`history<PySide.QtWebKit.QWebView.history>` ()
+*    def :meth:`icon<PySide.QtWebKit.QWebView.icon>` ()
+*    def :meth:`isModified<PySide.QtWebKit.QWebView.isModified>` ()
+*    def :meth:`load<PySide.QtWebKit.QWebView.load>` (request[, operation=QNetworkAccessManager.GetOperation[, body=QByteArray()]])
+*    def :meth:`load<PySide.QtWebKit.QWebView.load>` (url)
+*    def :meth:`page<PySide.QtWebKit.QWebView.page>` ()
+*    def :meth:`pageAction<PySide.QtWebKit.QWebView.pageAction>` (action)
+*    def :meth:`renderHints<PySide.QtWebKit.QWebView.renderHints>` ()
+*    def :meth:`selectedHtml<PySide.QtWebKit.QWebView.selectedHtml>` ()
+*    def :meth:`selectedText<PySide.QtWebKit.QWebView.selectedText>` ()
+*    def :meth:`setContent<PySide.QtWebKit.QWebView.setContent>` (data[, mimeType=""[, baseUrl=QUrl()]])
+*    def :meth:`setHtml<PySide.QtWebKit.QWebView.setHtml>` (html[, baseUrl=QUrl()])
+*    def :meth:`setPage<PySide.QtWebKit.QWebView.setPage>` (page)
+*    def :meth:`setRenderHint<PySide.QtWebKit.QWebView.setRenderHint>` (hint[, enabled=true])
+*    def :meth:`setRenderHints<PySide.QtWebKit.QWebView.setRenderHints>` (hints)
+*    def :meth:`setTextSizeMultiplier<PySide.QtWebKit.QWebView.setTextSizeMultiplier>` (factor)
+*    def :meth:`setUrl<PySide.QtWebKit.QWebView.setUrl>` (url)
+*    def :meth:`setZoomFactor<PySide.QtWebKit.QWebView.setZoomFactor>` (factor)
+*    def :meth:`settings<PySide.QtWebKit.QWebView.settings>` ()
+*    def :meth:`textSizeMultiplier<PySide.QtWebKit.QWebView.textSizeMultiplier>` ()
+*    def :meth:`title<PySide.QtWebKit.QWebView.title>` ()
+*    def :meth:`triggerPageAction<PySide.QtWebKit.QWebView.triggerPageAction>` (action[, checked=false])
+*    def :meth:`url<PySide.QtWebKit.QWebView.url>` ()
+*    def :meth:`zoomFactor<PySide.QtWebKit.QWebView.zoomFactor>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createWindow<PySide.QtWebKit.QWebView.createWindow>` (type)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`back<PySide.QtWebKit.QWebView.back>` ()
+*    def :meth:`forward<PySide.QtWebKit.QWebView.forward>` ()
+*    def :meth:`print_<PySide.QtWebKit.QWebView.print_>` (arg__1)
+*    def :meth:`reload<PySide.QtWebKit.QWebView.reload>` ()
+*    def :meth:`stop<PySide.QtWebKit.QWebView.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`iconChanged<PySide.QtWebKit.QWebView.iconChanged>` ()
+*    def :meth:`linkClicked<PySide.QtWebKit.QWebView.linkClicked>` (arg__1)
+*    def :meth:`loadFinished<PySide.QtWebKit.QWebView.loadFinished>` (arg__1)
+*    def :meth:`loadProgress<PySide.QtWebKit.QWebView.loadProgress>` (progress)
+*    def :meth:`loadStarted<PySide.QtWebKit.QWebView.loadStarted>` ()
+*    def :meth:`selectionChanged<PySide.QtWebKit.QWebView.selectionChanged>` ()
+*    def :meth:`statusBarMessage<PySide.QtWebKit.QWebView.statusBarMessage>` (text)
+*    def :meth:`titleChanged<PySide.QtWebKit.QWebView.titleChanged>` (title)
+*    def :meth:`urlChanged<PySide.QtWebKit.QWebView.urlChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebView` class provides a widget that is used to view and edit web documents.
+
+    :class:`PySide.QtWebKit.QWebView` is the main widget component of the :ref:`QtWebKit` web browsing module. It can be used in various applications to display web content live from the Internet.
+
+    A web site can be loaded onto :class:`PySide.QtWebKit.QWebView` with the :meth:`PySide.QtWebKit.QWebView.load` function. Like all Qt widgets, the :meth:`PySide.QtGui.QWidget.show` function must be invoked in order to display :class:`PySide.QtWebKit.QWebView` . The snippet below illustrates this:
+
+    ::
+
+        view = QWebView(parent)
+        view.load(QUrl("http://qt.nokia.com/"))
+        view.show()
+
+
+    Alternatively, :meth:`PySide.QtWebKit.QWebView.setUrl` can also be used to load a web site. If you have the HTML content readily available, you can use :meth:`PySide.QtWebKit.QWebView.setHtml` instead.
+
+    The :meth:`PySide.QtWebKit.QWebView.loadStarted` signal is emitted when the view begins loading. The :meth:`PySide.QtWebKit.QWebView.loadProgress` signal, on the other hand, is emitted whenever an element of the web view completes loading, such as an embedded image, a script, etc. Finally, the :meth:`PySide.QtWebKit.QWebView.loadFinished` signal is emitted when the view has loaded completely. It's argument - either ``true`` or ``false`` - indicates load success or failure.
+
+    The :meth:`PySide.QtWebKit.QWebView.page` function returns a pointer to the web page object. See :class:`~PySide.QtWebKit.Elements of QWebView` for an explanation of how the web page is related to the view. To modify your web view's settings, you can access the :class:`PySide.QtWebKit.QWebSettings` object with the :meth:`PySide.QtWebKit.QWebView.settings` function. With :class:`PySide.QtWebKit.QWebSettings` , you can change the default fonts, enable or disable features such as JavaScript and plugins.
+
+    The title of an HTML document can be accessed with the :meth:`PySide.QtWebKit.QWebView.title` property. Additionally, a web site may also specify an icon, which can be accessed using the :meth:`PySide.QtWebKit.QWebView.icon` property. If the title or the icon changes, the corresponding :meth:`PySide.QtWebKit.QWebView.titleChanged` and :meth:`PySide.QtWebKit.QWebView.iconChanged` signals will be emitted. The :meth:`PySide.QtWebKit.QWebView.textSizeMultiplier` property can be used to change the overall size of the text displayed in the web view.
+
+    If you require a custom context menu, you can implement it by reimplementing :meth:`PySide.QtGui.QWidget.contextMenuEvent` and populating your :class:`PySide.QtGui.QMenu` with the actions obtained from :meth:`PySide.QtWebKit.QWebView.pageAction` . More functionality such as reloading the view, copying selected text to the clipboard, or pasting into the view, is also encapsulated within the :class:`PySide.QtGui.QAction` objects returned by :meth:`PySide.QtWebKit.QWebView.pageAction` . These actions can be programmatically triggered using :meth:`PySide.QtWebKit.QWebView.triggerPageAction` . Alternatively, the actions can be added to a toolbar or a menu directly. :class:`PySide.QtWebKit.QWebView` maintains the state of the returned actions but allows modification of action properties such as :meth:`PySide.QtGui.QAction.text` or :meth:`PySide.QtGui.QAction.icon` .
+
+    A :class:`PySide.QtWebKit.QWebView` can be printed onto a :class:`PySide.QtGui.QPrinter` using the :meth:`~PySide.QtWebKit.QWebView.print` function. This function is marked as a slot and can be conveniently connected to :class:`PySide.QtGui.QPrintPreviewDialog` 's :meth:`PySide.QtGui.QPrintPreviewDialog.paintRequested` signal.
+
+    If you want to provide support for web sites that allow the user to open new windows, such as pop-up windows, you can subclass :class:`PySide.QtWebKit.QWebView` and reimplement the :meth:`PySide.QtWebKit.QWebView.createWindow` function.
+
+    .. _PySide.QtWebKit.QWebView_elements-of-qwebview:
+
+
+
+Elements of QWebView
+^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtWebKit.QWebView` consists of other objects such as :class:`PySide.QtWebKit.QWebFrame` and :class:`PySide.QtWebKit.QWebPage` . The flowchart below shows these elements are related.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qwebview-diagram.png
+
+    .. note::  It is possible to use :class:`PySide.QtWebKit.QWebPage` and :class:`PySide.QtWebKit.QWebFrame` , without using :class:`PySide.QtWebKit.QWebView` , if you do not require :class:`PySide.QtGui.QWidget` attributes. Nevertheless, :ref:`QtWebKit` depends on :ref:`QtGui` , so you should use a :class:`PySide.QtGui.QApplication` instead of :class:`PySide.QtCore.QCoreApplication` .
+
+    .. seealso::  :ref:`Previewer Example<webkit/previewer>`  :ref:`Web Browser<demos-browser.html>`  :ref:`Form Extractor Example<webkit/formextractor>`  :ref:`Google Chat Example<webkit/googlechat>`  :ref:`Fancy Browser Example<webkit/fancybrowser>` 
+
+.. class:: QWebView([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an empty :class:`PySide.QtWebKit.QWebView` with parent ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.load` 
+
+.. method:: PySide.QtWebKit.QWebView.back()
+
+
+
+
+
+
+    Convenience slot that loads the previous document in the list of documents built by navigating links. Does nothing if there is no previous document.
+
+    It is equivalent to
+
+    ::
+
+            view.page().triggerPageAction(QWebPage.GoBack)
+
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.forward`  :meth:`PySide.QtWebKit.QWebView.pageAction` 
+
+
+.. method:: PySide.QtWebKit.QWebView.createWindow(type)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebPage.WebWindowType`
+    :rtype: :class:`PySide.QtWebKit.QWebView`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.findText(subString[, options=0])
+
+
+    :param subString: unicode
+    :param options: :class:`PySide.QtWebKit.QWebPage.FindFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.forward()
+
+
+
+
+
+
+    Convenience slot that loads the next document in the list of documents built by navigating links. Does nothing if there is no next document.
+
+    It is equivalent to
+
+    ::
+
+            view.page().triggerPageAction(QWebPage.GoForward)
+
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.back`  :meth:`PySide.QtWebKit.QWebView.pageAction` 
+
+
+.. method:: PySide.QtWebKit.QWebView.hasSelection()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether this page contains selected content or not..
+
+    By default, this property is false.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.selectionChanged` 
+
+
+.. method:: PySide.QtWebKit.QWebView.history()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebHistory`
+
+
+
+
+    Returns a pointer to the view's history of navigated web pages.
+
+    It is equivalent to
+
+    ::
+
+            view.page().history()
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the icon associated with the web page currently viewed.
+
+    By default, this property contains a null icon.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.iconChanged`  :meth:`QWebSettings.iconForUrl()<PySide.QtWebKit.QWebSettings.iconForUrl>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.iconChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.isModified()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the document was modified by the user.
+
+    Parts of HTML documents can be editable for example through the ``contenteditable`` attribute on HTML elements.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtWebKit.QWebView.linkClicked(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.load(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Loads the specified ``url`` and displays it.
+
+    .. note::  The view remains the same until enough data has arrived to display the new ``url`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.setUrl`  :meth:`PySide.QtWebKit.QWebView.url`  :meth:`PySide.QtWebKit.QWebView.urlChanged`  :meth:`QUrl.fromUserInput()<PySide.QtCore.QUrl.fromUserInput>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.load(request[, operation=QNetworkAccessManager.GetOperation[, body=QByteArray()]])
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param operation: :attr:`PySide.QtNetwork.QNetworkAccessManager.Operation`
+    :param body: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.loadFinished(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.loadProgress(progress)
+
+
+    :param progress: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.loadStarted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.page()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebPage`
+
+
+
+
+    Returns a pointer to the underlying web page.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.setPage` 
+
+
+.. method:: PySide.QtWebKit.QWebView.pageAction(action)
+
+
+    :param action: :attr:`PySide.QtWebKit.QWebPage.WebAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.print_(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPrinter`
+
+
+
+
+    Prints the main frame to the given ``printer`` .
+
+    .. seealso::  :meth:`QWebFrame.print()<PySide.QtWebKit.QWebFrame.print>`  :class:`PySide.QtGui.QPrintPreviewDialog` 
+
+
+.. method:: PySide.QtWebKit.QWebView.reload()
+
+
+
+
+
+
+    Reloads the current document.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.stop`  :meth:`PySide.QtWebKit.QWebView.pageAction`  :meth:`PySide.QtWebKit.QWebView.loadStarted` 
+
+
+.. method:: PySide.QtWebKit.QWebView.renderHints()
+
+
+    :rtype: :class:`PySide.QtGui.QPainter.RenderHints`
+
+
+
+
+    This property holds the default render hints for the view.
+
+    These hints are used to initialize :class:`PySide.QtGui.QPainter` before painting the Web page.
+
+    :attr:`QPainter.TextAntialiasing<QPainter.RenderHint>` and :attr:`QPainter.SmoothPixmapTransform<QPainter.RenderHint>` are enabled by default.
+
+    .. note::  This property is not available on Symbian. However, the getter and setter functions can still be used directly.
+
+    .. seealso::  :meth:`QPainter.renderHints()<PySide.QtGui.QPainter.renderHints>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.selectedHtml()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the HTML currently selected.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.findText`  :meth:`PySide.QtWebKit.QWebView.selectionChanged`  :meth:`PySide.QtWebKit.QWebView.selectedText` 
+
+
+.. method:: PySide.QtWebKit.QWebView.selectedText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the text currently selected.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.findText`  :meth:`PySide.QtWebKit.QWebView.selectionChanged`  :meth:`PySide.QtWebKit.QWebView.selectedHtml` 
+
+
+.. method:: PySide.QtWebKit.QWebView.selectionChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.setContent(data[, mimeType=""[, baseUrl=QUrl()]])
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param mimeType: unicode
+    :param baseUrl: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets the content of the web view to the specified content ``data`` . If the ``mimeType`` argument is empty it is currently assumed that the content is HTML but in future versions we may introduce auto-detection.
+
+    External objects referenced in the content are located relative to ``baseUrl`` .
+
+    The ``data`` is loaded immediately; external objects are loaded asynchronously.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.load`  :meth:`PySide.QtWebKit.QWebView.setHtml`  :meth:`QWebFrame.toHtml()<PySide.QtWebKit.QWebFrame.toHtml>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.setHtml(html[, baseUrl=QUrl()])
+
+
+    :param html: unicode
+    :param baseUrl: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets the content of the web view to the specified ``html`` .
+
+    External objects such as stylesheets or images referenced in the HTML document are located relative to ``baseUrl`` .
+
+    The ``html`` is loaded immediately; external objects are loaded asynchronously.
+
+    When using this method, :ref:`WebKit<webkit.html>` assumes that external resources such as JavaScript programs or style sheets are encoded in UTF-8 unless otherwise specified. For example, the encoding of an external script can be specified through the charset attribute of the HTML script tag. Alternatively, the encoding can also be specified by the web server.
+
+    This is a convenience function equivalent to setContent(html, "text/html", baseUrl).
+
+    .. warning::  This function works only for HTML, for other mime types (i.e. XHTML, SVG) :meth:`PySide.QtWebKit.QWebView.setContent` should be used instead.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.load`  :meth:`PySide.QtWebKit.QWebView.setContent`  :meth:`QWebFrame.toHtml()<PySide.QtWebKit.QWebFrame.toHtml>`  :meth:`QWebFrame.setContent()<PySide.QtWebKit.QWebFrame.setContent>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.setPage(page)
+
+
+    :param page: :class:`PySide.QtWebKit.QWebPage`
+
+
+
+
+    Makes ``page`` the new web page of the web view.
+
+    The parent :class:`PySide.QtCore.QObject` of the provided page remains the owner of the object. If the current page is a child of the web view, it will be deleted.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.page` 
+
+
+.. method:: PySide.QtWebKit.QWebView.setRenderHint(hint[, enabled=true])
+
+
+    :param hint: :attr:`PySide.QtGui.QPainter.RenderHint`
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.setRenderHints(hints)
+
+
+    :param hints: :class:`PySide.QtGui.QPainter.RenderHints`
+
+
+
+
+    This property holds the default render hints for the view.
+
+    These hints are used to initialize :class:`PySide.QtGui.QPainter` before painting the Web page.
+
+    :attr:`QPainter.TextAntialiasing<QPainter.RenderHint>` and :attr:`QPainter.SmoothPixmapTransform<QPainter.RenderHint>` are enabled by default.
+
+    .. note::  This property is not available on Symbian. However, the getter and setter functions can still be used directly.
+
+    .. seealso::  :meth:`QPainter.renderHints()<PySide.QtGui.QPainter.renderHints>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.setTextSizeMultiplier(factor)
+
+
+    :param factor: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the scaling factor for all text in the frame.
+
+    Use setZoomFactor instead, in combination with the ZoomTextOnly attribute in :class:`PySide.QtWebKit.QWebSettings` .
+
+    .. note::  Setting this property also enables the ZoomTextOnly attribute in :class:`PySide.QtWebKit.QWebSettings` .
+
+    By default, this property contains a value of 1.0.
+
+
+
+.. method:: PySide.QtWebKit.QWebView.setUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds the url of the web page currently viewed.
+
+    Setting this property clears the view and loads the URL.
+
+    By default, this property contains an empty, invalid URL.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.load`  :meth:`PySide.QtWebKit.QWebView.urlChanged` 
+
+
+.. method:: PySide.QtWebKit.QWebView.setZoomFactor(factor)
+
+
+    :param factor: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the zoom factor for the view.
+
+
+
+.. method:: PySide.QtWebKit.QWebView.settings()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebSettings`
+
+
+
+
+    Returns a pointer to the view/page specific settings object.
+
+    It is equivalent to
+
+    ::
+
+            view.page().settings()
+
+
+    .. seealso::  :meth:`QWebSettings.globalSettings()<PySide.QtWebKit.QWebSettings.globalSettings>` 
+
+
+.. method:: PySide.QtWebKit.QWebView.statusBarMessage(text)
+
+
+    :param text: unicode
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.stop()
+
+
+
+
+
+
+    Convenience slot that stops loading the document.
+
+    It is equivalent to
+
+    ::
+
+            view.page().triggerPageAction(QWebPage.Stop)
+
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.reload`  :meth:`PySide.QtWebKit.QWebView.pageAction`  :meth:`PySide.QtWebKit.QWebView.loadFinished` 
+
+
+.. method:: PySide.QtWebKit.QWebView.textSizeMultiplier()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the scaling factor for all text in the frame.
+
+    Use setZoomFactor instead, in combination with the ZoomTextOnly attribute in :class:`PySide.QtWebKit.QWebSettings` .
+
+    .. note::  Setting this property also enables the ZoomTextOnly attribute in :class:`PySide.QtWebKit.QWebSettings` .
+
+    By default, this property contains a value of 1.0.
+
+
+
+.. method:: PySide.QtWebKit.QWebView.title()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the title of the web page currently viewed.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.titleChanged` 
+
+
+.. method:: PySide.QtWebKit.QWebView.titleChanged(title)
+
+
+    :param title: unicode
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.triggerPageAction(action[, checked=false])
+
+
+    :param action: :attr:`PySide.QtWebKit.QWebPage.WebAction`
+    :param checked: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds the url of the web page currently viewed.
+
+    Setting this property clears the view and loads the URL.
+
+    By default, this property contains an empty, invalid URL.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebView.load`  :meth:`PySide.QtWebKit.QWebView.urlChanged` 
+
+
+.. method:: PySide.QtWebKit.QWebView.urlChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+.. method:: PySide.QtWebKit.QWebView.zoomFactor()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This property holds the zoom factor for the view.
+
+
+
+

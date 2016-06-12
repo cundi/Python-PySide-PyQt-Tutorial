@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QXmlContentHandler &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtXml" href="index.html" />
+    <link rel="next" title="QXmlDefaultHandler" href="QXmlDefaultHandler.html" />
+    <link rel="prev" title="QXmlErrorHandler" href="QXmlErrorHandler.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtXml</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QXmlContentHandler</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QXmlErrorHandler.html"
+                        title="previous chapter">QXmlErrorHandler</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QXmlDefaultHandler.html"
+                        title="next chapter">QXmlDefaultHandler</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtXml"></span><div class="section" id="qxmlcontenthandler">
+<span id="id1"></span><h1>QXmlContentHandler<a class="headerlink" href="#qxmlcontenthandler" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtXml.QXmlContentHandler" title="PySide.QtXml.QXmlContentHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler</span></tt></a> class provides an interface to report the logical content of XML data.</p>
+<p>If the application needs to be informed of basic parsing events, it can implement this interface and activate it using <a class="reference internal" href="QXmlReader.html#PySide.QtXml.PySide.QtXml.QXmlReader.setContentHandler" title="PySide.QtXml.PySide.QtXml.QXmlReader.setContentHandler"><tt class="xref py py-meth docutils literal"><span class="pre">QXmlReader.setContentHandler()</span></tt></a> . The reader can then report basic document-related events like the start and end of elements and character data through this interface.</p>
+<p>The order of events in this interface is very important, and mirrors the order of information in the document itself. For example, all of an element&#8217;s content (character data, processing instructions, and sub-elements) appears, in order, between the <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a> event and the corresponding <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> event.</p>
+<p>The class <a class="reference internal" href="QXmlDefaultHandler.html#PySide.QtXml.QXmlDefaultHandler" title="PySide.QtXml.QXmlDefaultHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDefaultHandler</span></tt></a> provides a default implementation for this interface; subclassing from the <a class="reference internal" href="QXmlDefaultHandler.html#PySide.QtXml.QXmlDefaultHandler" title="PySide.QtXml.QXmlDefaultHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDefaultHandler</span></tt></a> class is very convenient if you only want to be informed of some parsing events.</p>
+<p>The <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startDocument()</span></tt></a> function is called at the start of the document, and <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endDocument()</span></tt></a> is called at the end. Before parsing begins <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.setDocumentLocator()</span></tt></a> is called. For each element <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a> is called, with <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> being called at the end of each element. The <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.characters()</span></tt></a> function is called with chunks of character data; <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.ignorableWhitespace()</span></tt></a> is called with chunks of whitespace and <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.processingInstruction" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.processingInstruction"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.processingInstruction()</span></tt></a> is called with processing instructions. If an entity is skipped <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.skippedEntity" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.skippedEntity"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.skippedEntity()</span></tt></a> is called. At the beginning of prefix-URI scopes <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startPrefixMapping()</span></tt></a> is called.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QXmlDTDHandler.html#PySide.QtXml.QXmlDTDHandler" title="PySide.QtXml.QXmlDTDHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDTDHandler</span></tt></a>  <a class="reference internal" href="QXmlDeclHandler.html#PySide.QtXml.QXmlDeclHandler" title="PySide.QtXml.QXmlDeclHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDeclHandler</span></tt></a>  <a class="reference internal" href="QXmlEntityResolver.html#PySide.QtXml.QXmlEntityResolver" title="PySide.QtXml.QXmlEntityResolver"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlEntityResolver</span></tt></a>  <a class="reference internal" href="QXmlErrorHandler.html#PySide.QtXml.QXmlErrorHandler" title="PySide.QtXml.QXmlErrorHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlErrorHandler</span></tt></a>  <a class="reference internal" href="QXmlLexicalHandler.html#PySide.QtXml.QXmlLexicalHandler" title="PySide.QtXml.QXmlLexicalHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlLexicalHandler</span></tt></a>  <em class="xref std std-ref">Introduction to SAX2</em></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtXml.QXmlContentHandler">
+<em class="property">class </em><tt class="descclassname">PySide.QtXml.</tt><tt class="descname">QXmlContentHandler</tt><a class="headerlink" href="#PySide.QtXml.QXmlContentHandler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">characters</tt><big>(</big><em>ch</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ch</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function when it has parsed a chunk of character data (either normal character data or character data inside a CDATA section; if you need to distinguish between those two types you must use <a class="reference internal" href="QXmlLexicalHandler.html#PySide.QtXml.PySide.QtXml.QXmlLexicalHandler.startCDATA" title="PySide.QtXml.PySide.QtXml.QXmlLexicalHandler.startCDATA"><tt class="xref py py-meth docutils literal"><span class="pre">QXmlLexicalHandler.startCDATA()</span></tt></a> and <a class="reference internal" href="QXmlLexicalHandler.html#PySide.QtXml.PySide.QtXml.QXmlLexicalHandler.endCDATA" title="PySide.QtXml.PySide.QtXml.QXmlLexicalHandler.endCDATA"><tt class="xref py py-meth docutils literal"><span class="pre">QXmlLexicalHandler.endCDATA()</span></tt></a> ). The character data is reported in <tt class="docutils literal"><span class="pre">ch</span></tt> .</p>
+<p>Some readers report whitespace in element content using the <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.ignorableWhitespace()</span></tt></a> function rather than using this one.</p>
+<p>A reader may report the character data of an element in more than one chunk; e.g. a reader might want to report &#8220;a&lt;b&#8221; in three <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.characters"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.characters()</span></tt></a> events (&#8220;a &#8221;, &#8220;&lt;&#8221; and &#8221; b&#8221;).</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">endDocument</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function after it has finished parsing. It is called just once, and is the last handler function called. It is called after the reader has read all input or has abandoned parsing because of a fatal error.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startDocument()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">endElement</tt><big>(</big><em>namespaceURI</em>, <em>localName</em>, <em>qName</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>namespaceURI</strong> &#8211; unicode</li>
+<li><strong>localName</strong> &#8211; unicode</li>
+<li><strong>qName</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function when it has parsed an end element tag with the qualified name <tt class="docutils literal"><span class="pre">qName</span></tt> , the local name <tt class="docutils literal"><span class="pre">localName</span></tt> and the namespace URI <tt class="docutils literal"><span class="pre">namespaceURI</span></tt> .</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a>  <em class="xref std std-ref">Namespace Support via Features</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">endPrefixMapping</tt><big>(</big><em>prefix</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function to signal the end of a prefix mapping for the prefix <tt class="docutils literal"><span class="pre">prefix</span></tt> .</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startPrefixMapping()</span></tt></a>  <em class="xref std std-ref">Namespace Support via Features</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">errorString</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function to get an error string, e.g. if any of the handler functions returns false.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">ignorableWhitespace</tt><big>(</big><em>ch</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.ignorableWhitespace" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ch</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Some readers may use this function to report each chunk of whitespace in element content. The whitespace is reported in <tt class="docutils literal"><span class="pre">ch</span></tt> .</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.processingInstruction">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">processingInstruction</tt><big>(</big><em>target</em>, <em>data</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.processingInstruction" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>target</strong> &#8211; unicode</li>
+<li><strong>data</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function when it has parsed a processing instruction.</p>
+<p><tt class="docutils literal"><span class="pre">target</span></tt> is the target name of the processing instruction and <tt class="docutils literal"><span class="pre">data</span></tt> is the data in the processing instruction.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">setDocumentLocator</tt><big>(</big><em>locator</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locator</strong> &#8211; <a class="reference internal" href="QXmlLocator.html#PySide.QtXml.QXmlLocator" title="PySide.QtXml.QXmlLocator"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlLocator</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function before it starts parsing the document. The argument <tt class="docutils literal"><span class="pre">locator</span></tt> is a pointer to a <a class="reference internal" href="QXmlLocator.html#PySide.QtXml.QXmlLocator" title="PySide.QtXml.QXmlLocator"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlLocator</span></tt></a> which allows the application to get the parsing position within the document.</p>
+<p>Do not destroy the <tt class="docutils literal"><span class="pre">locator</span></tt> ; it is destroyed when the reader is destroyed. (Do not use the <tt class="docutils literal"><span class="pre">locator</span></tt> after the reader is destroyed).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.skippedEntity">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">skippedEntity</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.skippedEntity" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; unicode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Some readers may skip entities if they have not seen the declarations (e.g. because they are in an external DTD). If they do so they report that they skipped the entity called <tt class="docutils literal"><span class="pre">name</span></tt> by calling this function.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">startDocument</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startDocument" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function when it starts parsing the document. The reader calls this function just once, after the call to <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.setDocumentLocator"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.setDocumentLocator()</span></tt></a> , and before any other functions in this class or in the <a class="reference internal" href="QXmlDTDHandler.html#PySide.QtXml.QXmlDTDHandler" title="PySide.QtXml.QXmlDTDHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDTDHandler</span></tt></a> class are called.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endDocument"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endDocument()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">startElement</tt><big>(</big><em>namespaceURI</em>, <em>localName</em>, <em>qName</em>, <em>atts</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>namespaceURI</strong> &#8211; unicode</li>
+<li><strong>localName</strong> &#8211; unicode</li>
+<li><strong>qName</strong> &#8211; unicode</li>
+<li><strong>atts</strong> &#8211; <a class="reference internal" href="QXmlAttributes.html#PySide.QtXml.QXmlAttributes" title="PySide.QtXml.QXmlAttributes"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlAttributes</span></tt></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function when it has parsed a start element tag.</p>
+<p>There is a corresponding <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> call when the corresponding end element tag is read. The <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a> and <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> calls are always nested correctly. Empty element tags (e.g. <tt class="docutils literal"><span class="pre">&lt;x/&gt;</span></tt> ) cause a <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a> call to be immediately followed by an <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> call.</p>
+<p>The attribute list provided only contains attributes with explicit values. The attribute list contains attributes used for namespace declaration (i.e. attributes starting with xmlns) only if the namespace-prefix property of the reader is true.</p>
+<p>The argument <tt class="docutils literal"><span class="pre">namespaceURI</span></tt> is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done. <tt class="docutils literal"><span class="pre">localName</span></tt> is the local name (without prefix), or an empty string if no namespace processing is done, <tt class="docutils literal"><span class="pre">qName</span></tt> is the qualified name (with prefix) and <tt class="docutils literal"><span class="pre">atts</span></tt> are the attributes attached to the element. If there are no attributes, <tt class="docutils literal"><span class="pre">atts</span></tt> is an empty attributes object.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a>  <em class="xref std std-ref">Namespace Support via Features</em></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping">
+<tt class="descclassname">PySide.QtXml.QXmlContentHandler.</tt><tt class="descname">startPrefixMapping</tt><big>(</big><em>prefix</em>, <em>uri</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prefix</strong> &#8211; unicode</li>
+<li><strong>uri</strong> &#8211; unicode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The reader calls this function to signal the begin of a prefix-URI namespace mapping scope. This information is not necessary for normal namespace processing since the reader automatically replaces prefixes for element and attribute names.</p>
+<p>Note that <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startPrefixMapping()</span></tt></a> and <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endPrefixMapping()</span></tt></a> calls are not guaranteed to be properly nested relative to each other: all <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startPrefixMapping()</span></tt></a> events occur before the corresponding <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.startElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.startElement()</span></tt></a> event, and all <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endPrefixMapping()</span></tt></a> events occur after the corresponding <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endElement"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endElement()</span></tt></a> event, but their order is not otherwise guaranteed.</p>
+<p>The argument <tt class="docutils literal"><span class="pre">prefix</span></tt> is the namespace prefix being declared and the argument <tt class="docutils literal"><span class="pre">uri</span></tt> is the namespace URI the prefix is mapped to.</p>
+<p>If this function returns false the reader stops parsing and reports an error. The reader uses the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.errorString"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.errorString()</span></tt></a> to get the error message.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping" title="PySide.QtXml.PySide.QtXml.QXmlContentHandler.endPrefixMapping"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlContentHandler.endPrefixMapping()</span></tt></a>  <em class="xref std std-ref">Namespace Support via Features</em></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

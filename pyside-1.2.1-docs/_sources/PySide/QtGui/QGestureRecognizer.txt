@@ -1,0 +1,182 @@
+.. module:: PySide.QtGui
+.. _QGestureRecognizer:
+
+QGestureRecognizer
+******************
+
+.. inheritance-diagram:: QGestureRecognizer
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`create<PySide.QtGui.QGestureRecognizer.create>` (target)
+*    def :meth:`recognize<PySide.QtGui.QGestureRecognizer.recognize>` (state, watched, event)
+*    def :meth:`reset<PySide.QtGui.QGestureRecognizer.reset>` (state)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`registerRecognizer<PySide.QtGui.QGestureRecognizer.registerRecognizer>` (recognizer)
+*    def :meth:`unregisterRecognizer<PySide.QtGui.QGestureRecognizer.unregisterRecognizer>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGestureRecognizer` class provides the infrastructure for gesture recognition.
+
+    Gesture recognizers are responsible for creating and managing :class:`PySide.QtGui.QGesture` objects and monitoring input events sent to :class:`PySide.QtGui.QWidget` and :class:`PySide.QtGui.QGraphicsObject` subclasses. :class:`PySide.QtGui.QGestureRecognizer` is the base class for implementing custom gestures.
+
+    Developers that only need to provide gesture recognition for standard gestures do not need to use this class directly. Instances will be created behind the scenes by the framework.
+
+    For an overview of gesture handling in Qt and information on using gestures in your applications, see the :ref:`Gestures Programming<gestures-overview.html>` document.
+
+    .. _PySide.QtGui.QGestureRecognizer_recognizing-gestures:
+
+
+
+Recognizing Gestures
+^^^^^^^^^^^^^^^^^^^^
+
+    The process of recognizing gestures involves filtering input events sent to specific objects, and modifying the associated :class:`PySide.QtGui.QGesture` objects to include relevant information about the user's input.
+
+    Gestures are created when the framework calls :meth:`PySide.QtGui.QGestureRecognizer.create` to handle user input for a particular instance of a :class:`PySide.QtGui.QWidget` or :class:`PySide.QtGui.QGraphicsObject` subclass. A :class:`PySide.QtGui.QGesture` object is created for each widget or item that is configured to use gestures.
+
+    Once a :class:`PySide.QtGui.QGesture` has been created for a target object, the gesture recognizer will receive events for it in its :meth:`PySide.QtGui.QGestureRecognizer.recognize` handler function.
+
+    When a gesture is canceled, the :meth:`PySide.QtGui.QGestureRecognizer.reset` function is called, giving the recognizer the chance to update the appropriate properties in the corresponding :class:`PySide.QtGui.QGesture` object.
+
+    .. _PySide.QtGui.QGestureRecognizer_supporting-new-gestures:
+
+
+
+Supporting New Gestures
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    To add support for new gestures, you need to derive from :class:`PySide.QtGui.QGestureRecognizer` to create a custom recognizer class, construct an instance of this class, and register it with the application by calling :meth:`QGestureRecognizer.registerRecognizer()<PySide.QtGui.QGestureRecognizer.registerRecognizer>` . You can also subclass :class:`PySide.QtGui.QGesture` to create a custom gesture class, or rely on dynamic properties to express specific details of the gesture you want to handle.
+
+    Your custom :class:`PySide.QtGui.QGestureRecognizer` subclass needs to reimplement the :meth:`PySide.QtGui.QGestureRecognizer.recognize` function to handle and filter the incoming input events for :class:`PySide.QtGui.QWidget` and :class:`PySide.QtGui.QGraphicsObject` subclasses. Although the logic for gesture recognition is implemented in this function, you can store persistent information about the state of the recognition process in the :class:`PySide.QtGui.QGesture` object supplied. The :meth:`PySide.QtGui.QGestureRecognizer.recognize` function must return a value of :class:`QGestureRecognizer.Result<~PySide.QtGui.QGestureRecognizer.Result>` that indicates the state of recognition for a given gesture and target object. This determines whether or not a gesture event will be delivered to a target object.
+
+    If you choose to represent a gesture by a custom :class:`PySide.QtGui.QGesture` subclass, you will need to reimplement the :meth:`PySide.QtGui.QGestureRecognizer.create` function to construct instances of your gesture class. Similarly, you may need to reimplement the :meth:`PySide.QtGui.QGestureRecognizer.reset` function if your custom gesture objects need to be specially handled when a gesture is canceled.
+
+    .. seealso::  :class:`PySide.QtGui.QGesture` 
+
+.. class:: QGestureRecognizer()
+
+
+    Constructs a new gesture recognizer object.
+
+
+.. attribute:: PySide.QtGui.QGestureRecognizer.ResultFlag
+
+    This enum describes the result of the current event filtering step in a gesture recognizer state machine.
+
+    The result consists of a state value (one of Ignore, :attr:`MayBeGesture<QGestureRecognizer.ResultFlag>` , :attr:`TriggerGesture<QGestureRecognizer.ResultFlag>` , :attr:`FinishGesture<QGestureRecognizer.ResultFlag>` , :attr:`CancelGesture<QGestureRecognizer.ResultFlag>` ) and an optional hint ( :attr:`ConsumeEventHint<QGestureRecognizer.ResultFlag>` ).
+
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                                                                                                                                                                                 |
+    +===================================+============================================================================================================================================================================================================================================================================================================================+
+    |QGestureRecognizer.Ignore          |The event does not change the state of the recognizer.                                                                                                                                                                                                                                                                      |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGestureRecognizer.MayBeGesture    |The event changed the internal state of the recognizer, but it isn't clear yet if it is a gesture or not. The recognizer needs to filter more events to decide. Gesture recognizers in the :attr:`MayBeGesture<QGestureRecognizer.ResultFlag>` state may be reset automatically if they take too long to recognize gestures.|
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGestureRecognizer.TriggerGesture  |The gesture has been triggered and the appropriate :class:`PySide.QtGui.QGesture` object will be delivered to the target as a part of a :class:`PySide.QtGui.QGestureEvent` .                                                                                                                                               |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGestureRecognizer.FinishGesture   |The gesture has been finished successfully and the appropriate :class:`PySide.QtGui.QGesture` object will be delivered to the target as a part of a :class:`PySide.QtGui.QGestureEvent` .                                                                                                                                   |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGestureRecognizer.CancelGesture   |The event made it clear that it is not a gesture. If the gesture recognizer was in GestureTriggered state before, then the gesture is canceled and the appropriate :class:`PySide.QtGui.QGesture` object will be delivered to the target as a part of a :class:`PySide.QtGui.QGestureEvent` .                               |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGestureRecognizer.ConsumeEventHint|This hint specifies that the gesture framework should consume the filtered event and not deliver it to the receiver.                                                                                                                                                                                                        |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QGestureRecognizer.recognize()<PySide.QtGui.QGestureRecognizer.recognize>` 
+
+.. method:: PySide.QtGui.QGestureRecognizer.create(target)
+
+
+    :param target: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtGui.QGesture`
+
+
+
+
+    This function is called by Qt to create a new :class:`PySide.QtGui.QGesture` object for the given ``target`` ( :class:`PySide.QtGui.QWidget` or :class:`PySide.QtGui.QGraphicsObject` ).
+
+    Reimplement this function to create a custom :class:`PySide.QtGui.QGesture` -derived gesture object if necessary.
+
+    The application takes ownership of the created gesture object.
+
+
+
+.. method:: PySide.QtGui.QGestureRecognizer.recognize(state, watched, event)
+
+
+    :param state: :class:`PySide.QtGui.QGesture`
+    :param watched: :class:`PySide.QtCore.QObject`
+    :param event: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtGui.QGestureRecognizer.Result`
+
+
+
+
+    Handles the given ``event`` for the ``watched`` object, updating the state of the ``gesture`` object as required, and returns a suitable result for the current recognition step.
+
+    This function is called by the framework to allow the recognizer to filter input events dispatched to :class:`PySide.QtGui.QWidget` or :class:`PySide.QtGui.QGraphicsObject` instances that it is monitoring.
+
+    The result reflects how much of the gesture has been recognized. The state of the ``gesture`` object is set depending on the result.
+
+    .. seealso::  :class:`QGestureRecognizer.Result<~PySide.QtGui.QGestureRecognizer.Result>` 
+
+
+.. staticmethod:: PySide.QtGui.QGestureRecognizer.registerRecognizer(recognizer)
+
+
+    :param recognizer: :class:`PySide.QtGui.QGestureRecognizer`
+    :rtype: :attr:`PySide.QtCore.Qt.GestureType`
+
+
+
+
+    Registers the given ``recognizer`` in the gesture framework and returns a gesture ID for it.
+
+    The application takes ownership of the ``recognizer`` and returns the gesture type ID associated with it. For gesture recognizers which handle custom :class:`PySide.QtGui.QGesture` objects (i.e., those which return :attr:`Qt.CustomGesture<Qt.GestureType>` in a :meth:`QGesture.gestureType()<PySide.QtGui.QGesture.gestureType>` function) the return value is a generated gesture ID with the :attr:`Qt.CustomGesture<Qt.GestureType>` flag set.
+
+    .. seealso::  :meth:`PySide.QtGui.QGestureRecognizer.unregisterRecognizer`  :meth:`QGestureRecognizer.create()<PySide.QtGui.QGestureRecognizer.create>`  :class:`PySide.QtGui.QGesture` 
+
+
+.. method:: PySide.QtGui.QGestureRecognizer.reset(state)
+
+
+    :param state: :class:`PySide.QtGui.QGesture`
+
+
+
+
+    This function is called by the framework to reset a given ``gesture`` .
+
+    Reimplement this function to implement additional requirements for custom :class:`PySide.QtGui.QGesture` objects. This may be necessary if you implement a custom :class:`PySide.QtGui.QGesture` whose properties need special handling when the gesture is reset.
+
+
+
+.. staticmethod:: PySide.QtGui.QGestureRecognizer.unregisterRecognizer(type)
+
+
+    :param type: :attr:`PySide.QtCore.Qt.GestureType`
+
+
+
+
+
+
+
+

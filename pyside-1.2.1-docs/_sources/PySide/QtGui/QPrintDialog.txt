@@ -1,0 +1,166 @@
+.. module:: PySide.QtGui
+.. _QPrintDialog:
+
+QPrintDialog
+************
+
+.. inheritance-diagram:: QPrintDialog
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`open<PySide.QtGui.QPrintDialog.open>` (receiver, member)
+*    def :meth:`options<PySide.QtGui.QPrintDialog.options>` ()
+*    def :meth:`setOption<PySide.QtGui.QPrintDialog.setOption>` (option[, on=true])
+*    def :meth:`setOptions<PySide.QtGui.QPrintDialog.setOptions>` (options)
+*    def :meth:`testOption<PySide.QtGui.QPrintDialog.testOption>` (option)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accepted<PySide.QtGui.QPrintDialog.accepted>` (printer)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPrintDialog` class provides a dialog for specifying the printer's configuration.
+
+    The dialog allows users to change document-related settings, such as the paper size and orientation, type of print (color or grayscale), range of pages, and number of copies to print.
+
+    Controls are also provided to enable users to choose from the printers available, including any configured network printers.
+
+    Typically, :class:`PySide.QtGui.QPrintDialog` objects are constructed with a :class:`PySide.QtGui.QPrinter` object, and executed using the :meth:`~PySide.QtGui.QPrintDialog.exec` function.
+
+    ::
+
+        printDialog = QPrintDialog(printer, parent)
+        if printDialog.exec_() == QDialog.Accepted:
+            # print ...
+
+
+    If the dialog is accepted by the user, the :class:`PySide.QtGui.QPrinter` object is correctly configured for printing.
+
+    +--------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-printdialog.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-printdialog-properties.png|
+    +--------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+
+    The printer dialog (shown above in Plastique style) enables access to common printing properties. On X11 platforms that use the CUPS printing system, the settings for each available printer can be modified via the dialog's **Properties** push button.
+
+    On Windows and Mac OS X, the native print dialog is used, which means that some :class:`PySide.QtGui.QWidget` and :class:`PySide.QtGui.QDialog` properties set on the dialog won't be respected. The native print dialog on Mac OS X does not support setting printer options, i.e. :meth:`PySide.QtGui.QPrintDialog.setOptions` and :meth:`PySide.QtGui.QPrintDialog.setOption` have no effect.
+
+    In Qt 4.4, it was possible to use the static functions to show a sheet on Mac OS X. This is no longer supported in Qt 4.5. If you want this functionality, use :meth:`QPrintDialog.open()<PySide.QtGui.QPrintDialog.open>` .
+
+    .. seealso::  :class:`PySide.QtGui.QPageSetupDialog`  :class:`PySide.QtGui.QPrinter`  :ref:`Pixelator Example<itemviews/pixelator>`  :ref:`Order Form Example<richtext/orderform>`  :ref:`Image Viewer Example<widgets/imageviewer>`  :ref:`Scribble Example<widgets/scribble>` 
+
+.. class:: QPrintDialog(printer[, parent=None])
+           QPrintDialog([parent=None])
+
+    :param printer: :class:`PySide.QtGui.QPrinter`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new modal printer dialog for the given ``printer`` with the given ``parent`` .
+
+
+    Constructs a print dialog with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QPrintDialog.accepted(printer)
+
+
+    :param printer: :class:`PySide.QtGui.QPrinter`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPrintDialog.open(receiver, member)
+
+
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+
+
+
+
+    This is an overloaded function.
+
+    Opens the dialog and connects its :meth:`PySide.QtGui.QPrintDialog.accepted` signal to the slot specified by ``receiver`` and ``member`` .
+
+    The signal will be disconnected from the slot when the dialog is closed.
+
+
+
+.. method:: PySide.QtGui.QPrintDialog.options()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractPrintDialog.PrintDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintDialog.setOption`  :meth:`PySide.QtGui.QPrintDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QPrintDialog.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QAbstractPrintDialog.PrintDialogOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the given ``option`` to be enabled if ``on`` is true; otherwise, clears the given ``option`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintDialog.options`  :meth:`PySide.QtGui.QPrintDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QPrintDialog.setOptions(options)
+
+
+    :param options: :class:`PySide.QtGui.QAbstractPrintDialog.PrintDialogOptions`
+
+
+
+
+    This property holds the various options that affect the look and feel of the dialog.
+
+    By default, all options are disabled.
+
+    Options should be set before showing the dialog. Setting them while the dialog is visible is not guaranteed to have an immediate effect on the dialog (depending on the option and on the platform).
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintDialog.setOption`  :meth:`PySide.QtGui.QPrintDialog.testOption` 
+
+
+.. method:: PySide.QtGui.QPrintDialog.testOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QAbstractPrintDialog.PrintDialogOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given ``option`` is enabled; otherwise, returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintDialog.options`  :meth:`PySide.QtGui.QPrintDialog.setOption` 
+
+
+

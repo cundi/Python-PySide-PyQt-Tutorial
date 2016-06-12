@@ -1,0 +1,715 @@
+.. module:: PySide.QtGui
+.. _QPaintEngine:
+
+QPaintEngine
+************
+
+.. inheritance-diagram:: QPaintEngine
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoDestruct<PySide.QtGui.QPaintEngine.autoDestruct>` ()
+*    def :meth:`clearDirty<PySide.QtGui.QPaintEngine.clearDirty>` (df)
+*    def :meth:`hasFeature<PySide.QtGui.QPaintEngine.hasFeature>` (feature)
+*    def :meth:`isActive<PySide.QtGui.QPaintEngine.isActive>` ()
+*    def :meth:`isExtended<PySide.QtGui.QPaintEngine.isExtended>` ()
+*    def :meth:`paintDevice<PySide.QtGui.QPaintEngine.paintDevice>` ()
+*    def :meth:`painter<PySide.QtGui.QPaintEngine.painter>` ()
+*    def :meth:`setActive<PySide.QtGui.QPaintEngine.setActive>` (newState)
+*    def :meth:`setAutoDestruct<PySide.QtGui.QPaintEngine.setAutoDestruct>` (autoDestr)
+*    def :meth:`setDirty<PySide.QtGui.QPaintEngine.setDirty>` (df)
+*    def :meth:`setSystemClip<PySide.QtGui.QPaintEngine.setSystemClip>` (baseClip)
+*    def :meth:`setSystemRect<PySide.QtGui.QPaintEngine.setSystemRect>` (rect)
+*    def :meth:`syncState<PySide.QtGui.QPaintEngine.syncState>` ()
+*    def :meth:`systemClip<PySide.QtGui.QPaintEngine.systemClip>` ()
+*    def :meth:`systemRect<PySide.QtGui.QPaintEngine.systemRect>` ()
+*    def :meth:`testDirty<PySide.QtGui.QPaintEngine.testDirty>` (df)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`begin<PySide.QtGui.QPaintEngine.begin>` (pdev)
+*    def :meth:`coordinateOffset<PySide.QtGui.QPaintEngine.coordinateOffset>` ()
+*    def :meth:`drawEllipse<PySide.QtGui.QPaintEngine.drawEllipse>` (r)
+*    def :meth:`drawEllipse<PySide.QtGui.QPaintEngine.drawEllipse>` (r)
+*    def :meth:`drawImage<PySide.QtGui.QPaintEngine.drawImage>` (r, pm, sr[, flags=Qt.AutoColor])
+*    def :meth:`drawLines<PySide.QtGui.QPaintEngine.drawLines>` (lines, lineCount)
+*    def :meth:`drawLines<PySide.QtGui.QPaintEngine.drawLines>` (lines, lineCount)
+*    def :meth:`drawPath<PySide.QtGui.QPaintEngine.drawPath>` (path)
+*    def :meth:`drawPixmap<PySide.QtGui.QPaintEngine.drawPixmap>` (r, pm, sr)
+*    def :meth:`drawPoints<PySide.QtGui.QPaintEngine.drawPoints>` (points, pointCount)
+*    def :meth:`drawPoints<PySide.QtGui.QPaintEngine.drawPoints>` (points, pointCount)
+*    def :meth:`drawPolygon<PySide.QtGui.QPaintEngine.drawPolygon>` (points, pointCount, mode)
+*    def :meth:`drawPolygon<PySide.QtGui.QPaintEngine.drawPolygon>` (points, pointCount, mode)
+*    def :meth:`drawRects<PySide.QtGui.QPaintEngine.drawRects>` (rects, rectCount)
+*    def :meth:`drawRects<PySide.QtGui.QPaintEngine.drawRects>` (rects, rectCount)
+*    def :meth:`drawTextItem<PySide.QtGui.QPaintEngine.drawTextItem>` (p, textItem)
+*    def :meth:`drawTiledPixmap<PySide.QtGui.QPaintEngine.drawTiledPixmap>` (r, pixmap, s)
+*    def :meth:`end<PySide.QtGui.QPaintEngine.end>` ()
+*    def :meth:`type<PySide.QtGui.QPaintEngine.type>` ()
+*    def :meth:`updateState<PySide.QtGui.QPaintEngine.updateState>` (state)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPaintEngine` class provides an abstract definition of how :class:`PySide.QtGui.QPainter` draws to a given device on a given platform.
+
+    Qt 4.0 provides several premade implementations of :class:`PySide.QtGui.QPaintEngine` for the different painter backends we support. We provide one paint engine for each window system and painting framework we support. This includes X11 on Unix/Linux and :attr:`CoreGraphics<QPaintEngine.Type>` on Mac OS X. In addition we provide :class:`PySide.QtGui.QPaintEngine` implementations for :attr:`OpenGL<QPaintEngine.Type>` (accessible through :class:`PySide.QtOpenGL.QGLWidget` ) and :attr:`PostScript<QPaintEngine.Type>` (accessible through QPSPrinter on X11). Additionally there is a raster-based paint engine that is a fallback for when an engine does not support a certain capability.
+
+    If one wants to use :class:`PySide.QtGui.QPainter` to draw to a different backend, one must subclass :class:`PySide.QtGui.QPaintEngine` and reimplement all its virtual functions. The :class:`PySide.QtGui.QPaintEngine` implementation is then made available by subclassing :class:`PySide.QtGui.QPaintDevice` and reimplementing the virtual function :meth:`QPaintDevice.paintEngine()<PySide.QtGui.QPaintDevice.paintEngine>` .
+
+    :class:`PySide.QtGui.QPaintEngine` is created and owned by the :class:`PySide.QtGui.QPaintDevice` that created it.
+
+    The big advantage of the :class:`PySide.QtGui.QPaintEngine` approach opposed to Qt 3's :class:`PySide.QtGui.QPainter` /QPaintDevice::cmd() approach is that it is now possible to adapt to multiple technologies on each platform and take advantage of each to the fullest.
+
+    .. seealso::  :class:`PySide.QtGui.QPainter`  :meth:`QPaintDevice.paintEngine()<PySide.QtGui.QPaintDevice.paintEngine>`  :ref:`Paint System<paintsystem.html>` 
+
+.. class:: QPaintEngine([features=0])
+
+    :param features: :class:`PySide.QtGui.QPaintEngine.PaintEngineFeatures`
+
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.PolygonDrawMode
+
+    +-------------------------+----------------------------------------------------------------------------------------------+
+    |Constant                 |Description                                                                                   |
+    +=========================+==============================================================================================+
+    |QPaintEngine.OddEvenMode |The polygon should be drawn using OddEven fill rule.                                          |
+    +-------------------------+----------------------------------------------------------------------------------------------+
+    |QPaintEngine.WindingMode |The polygon should be drawn using Winding fill rule.                                          |
+    +-------------------------+----------------------------------------------------------------------------------------------+
+    |QPaintEngine.ConvexMode  |The polygon is a convex polygon and can be drawn using specialized algorithms where available.|
+    +-------------------------+----------------------------------------------------------------------------------------------+
+    |QPaintEngine.PolylineMode|Only the outline of the polygon should be drawn.                                              |
+    +-------------------------+----------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.Type
+
+    +--------------------------+---------------------------------------------------------------+
+    |Constant                  |Description                                                    |
+    +==========================+===============================================================+
+    |QPaintEngine.X11          |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Windows      |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.MacPrinter   |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.CoreGraphics |Mac OS X's Quartz2D ( :attr:`CoreGraphics<QPaintEngine.Type>` )|
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.QuickDraw    |Mac OS X's :attr:`QuickDraw<QPaintEngine.Type>`                |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.QWindowSystem|Qt for Embedded Linux                                          |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.PostScript   |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.OpenGL       |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Picture      |:class:`PySide.QtGui.QPicture` format                          |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.SVG          |Scalable Vector Graphics XML format                            |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Raster       |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Direct3D     |Windows only, :attr:`Direct3D<QPaintEngine.Type>` based engine |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Pdf          |Portable Document Format                                       |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.OpenVG       |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.User         |First user type ID                                             |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.MaxUser      |Last user type ID                                              |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.OpenGL2      |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.PaintBuffer  |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+    |QPaintEngine.Blitter      |                                                               |
+    +--------------------------+---------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.PaintEngineFeature
+
+    This enum is used to describe the features or capabilities that the paint engine has. If a feature is not supported by the engine, :class:`PySide.QtGui.QPainter` will do a best effort to emulate that feature through other means and pass on an alpha blended :class:`PySide.QtGui.QImage` to the engine with the emulated results. Some features cannot be emulated: :attr:`AlphaBlend<QPaintEngine.PaintEngineFeature>` and :attr:`PorterDuff<QPaintEngine.PaintEngineFeature>` .
+
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                |Description                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    +========================================+=============================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QPaintEngine.AlphaBlend                 |The engine can alpha blend primitives.                                                                                                                                                                                                                                                                                                                                                                                       |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.Antialiasing               |The engine can use antialising to improve the appearance of rendered primitives.                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.BlendModes                 |The engine supports blending modes.                                                                                                                                                                                                                                                                                                                                                                                          |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.BrushStroke                |The engine supports drawing strokes that contain brushes as fills, not just solid colors (e.g. a dashed gradient line of width 2).                                                                                                                                                                                                                                                                                           |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.ConicalGradientFill        |The engine supports conical gradient fills.                                                                                                                                                                                                                                                                                                                                                                                  |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.ConstantOpacity            |The engine supports the feature provided by :meth:`QPainter.setOpacity()<PySide.QtGui.QPainter.setOpacity>` .                                                                                                                                                                                                                                                                                                                |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.LinearGradientFill         |The engine supports linear gradient fills.                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.MaskedBrush                |The engine is capable of rendering brushes that has a texture with an alpha channel or a mask.                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.ObjectBoundingModeGradients|The engine has native support for gradients with coordinate mode :attr:`QGradient.ObjectBoundingMode<QGradient.CoordinateMode>` . Otherwise, if :attr:`QPaintEngine.PatternTransform<QPaintEngine.PaintEngineFeature>` is supported, object bounding mode gradients are converted to gradients with coordinate mode :attr:`QGradient.LogicalMode<QGradient.CoordinateMode>` and a brush transform for the coordinate mapping.|
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PainterPaths               |The engine has path support.                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PaintOutsidePaintEvent     |The engine is capable of painting outside of paint events.                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PatternBrush               |The engine is capable of rendering brushes with the brush patterns specified in :attr:`Qt.BrushStyle` .                                                                                                                                                                                                                                                                                                                      |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PatternTransform           |The engine has support for transforming brush patterns.                                                                                                                                                                                                                                                                                                                                                                      |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PerspectiveTransform       |The engine has support for performing perspective transformations on primitives.                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PixmapTransform            |The engine can transform pixmaps, including rotation and shearing.                                                                                                                                                                                                                                                                                                                                                           |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PorterDuff                 |The engine supports Porter-Duff operations                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.PrimitiveTransform         |The engine has support for transforming drawing primitives.                                                                                                                                                                                                                                                                                                                                                                  |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.RadialGradientFill         |The engine supports radial gradient fills.                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.RasterOpModes              |The engine supports bitwise raster operations.                                                                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.AllFeatures                |All of the above features. This enum value is usually used as a bit mask.                                                                                                                                                                                                                                                                                                                                                    |
+    +----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.DirtyFlag
+
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                                                                                                        |
+    +=================================+===================================================================================================================================================================+
+    |QPaintEngine.DirtyPen            |The pen is dirty and needs to be updated.                                                                                                                          |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyBrush          |The brush is dirty and needs to be updated.                                                                                                                        |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyBrushOrigin    |The brush origin is dirty and needs to updated.                                                                                                                    |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyFont           |The font is dirty and needs to be updated.                                                                                                                         |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyBackground     |The background is dirty and needs to be updated.                                                                                                                   |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyBackgroundMode |The background mode is dirty and needs to be updated.                                                                                                              |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyTransform      |The transform is dirty and needs to be updated.                                                                                                                    |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyClipRegion     |The clip region is dirty and needs to be updated.                                                                                                                  |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyClipPath       |The clip path is dirty and needs to be updated.                                                                                                                    |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyHints          |The render hints is dirty and needs to be updated.                                                                                                                 |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyCompositionMode|The composition mode is dirty and needs to be updated.                                                                                                             |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyClipEnabled    |Whether clipping is enabled or not is dirty and needs to be updated.                                                                                               |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.DirtyOpacity        |The constant opacity has changed and needs to be updated as part of the state change in :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` .|
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPaintEngine.AllDirty            |Convenience enum used internally.                                                                                                                                  |
+    +---------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    These types are used by :class:`PySide.QtGui.QPainter` to trigger lazy updates of the various states in the :class:`PySide.QtGui.QPaintEngine` using :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` .
+
+    A paint engine must update every dirty state.
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.extended
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.selfDestruct
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.active
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.state
+
+
+.. attribute:: PySide.QtGui.QPaintEngine.gccaps
+
+
+.. method:: PySide.QtGui.QPaintEngine.autoDestruct()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.begin(pdev)
+
+
+    :param pdev: :class:`PySide.QtGui.QPaintDevice`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reimplement this function to initialise your paint engine when painting is to start on the paint device ``pdev`` . Return true if the initialization was successful; otherwise return false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngine.end`  :meth:`PySide.QtGui.QPaintEngine.isActive` 
+
+
+.. method:: PySide.QtGui.QPaintEngine.clearDirty(df)
+
+
+    :param df: :class:`PySide.QtGui.QPaintEngine.DirtyFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.coordinateOffset()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the offset from the painters origo to the engines origo. This value is used by :class:`PySide.QtGui.QPainter` for engines who have internal double buffering.
+
+    This function only makes sense when the engine is active.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawEllipse(r)
+
+
+    :param r: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Reimplement this function to draw the largest ellipse that can be contained within rectangle ``rect`` .
+
+    The default implementation calls :meth:`PySide.QtGui.QPaintEngine.drawPolygon` .
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawEllipse(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+
+
+
+
+    The default implementation of this function calls the floating point version of this function
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawImage(r, pm, sr[, flags=Qt.AutoColor])
+
+
+    :param r: :class:`PySide.QtCore.QRectF`
+    :param pm: :class:`PySide.QtGui.QImage`
+    :param sr: :class:`PySide.QtCore.QRectF`
+    :param flags: :class:`PySide.QtCore.Qt.ImageConversionFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawLines(lines, lineCount)
+
+
+    :param lines: :class:`PySide.QtCore.QLineF`
+    :param lineCount: :class:`PySide.QtCore.int`
+
+
+
+
+    The default implementation splits the list of lines in ``lines`` into ``lineCount`` separate calls to :meth:`PySide.QtGui.QPaintEngine.drawPath` or :meth:`PySide.QtGui.QPaintEngine.drawPolygon` depending on the feature set of the paint engine.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawLines(lines, lineCount)
+
+
+    :param lines: :class:`PySide.QtCore.QLine`
+    :param lineCount: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    The default implementation converts the first ``lineCount`` lines in ``lines`` to a :class:`PySide.QtCore.QLineF` and calls the floating point version of this function.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPath(path)
+
+
+    :param path: :class:`PySide.QtGui.QPainterPath`
+
+
+
+
+    The default implementation ignores the ``path`` and does nothing.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPixmap(r, pm, sr)
+
+
+    :param r: :class:`PySide.QtCore.QRectF`
+    :param pm: :class:`PySide.QtGui.QPixmap`
+    :param sr: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Reimplement this function to draw the part of the ``pm`` specified by the ``sr`` rectangle in the given ``r`` .
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPoints(points, pointCount)
+
+
+    :param points: :class:`PySide.QtCore.QPointF`
+    :param pointCount: :class:`PySide.QtCore.int`
+
+
+
+
+    Draws the first ``pointCount`` points in the buffer ``points``\
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPoints(points, pointCount)
+
+
+    :param points: :class:`PySide.QtCore.QPoint`
+    :param pointCount: :class:`PySide.QtCore.int`
+
+
+
+
+    Draws the first ``pointCount`` points in the buffer ``points``\
+
+    The default implementation converts the first ``pointCount`` QPoints in ``points`` to QPointFs and calls the floating point version of drawPoints.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPolygon(points, pointCount, mode)
+
+
+    :param points: :class:`PySide.QtCore.QPointF`
+    :param pointCount: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QPaintEngine.PolygonDrawMode`
+
+
+
+
+    Reimplement this virtual function to draw the polygon defined by the ``pointCount`` first points in ``points`` , using mode ``mode`` .
+
+    .. note::  At least one of the :meth:`PySide.QtGui.QPaintEngine.drawPolygon` functions must be reimplemented.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawPolygon(points, pointCount, mode)
+
+
+    :param points: :class:`PySide.QtCore.QPoint`
+    :param pointCount: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QPaintEngine.PolygonDrawMode`
+
+
+
+
+    This is an overloaded function.
+
+    Reimplement this virtual function to draw the polygon defined by the ``pointCount`` first points in ``points`` , using mode ``mode`` .
+
+    .. note::  At least one of the :meth:`PySide.QtGui.QPaintEngine.drawPolygon` functions must be reimplemented.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawRects(rects, rectCount)
+
+
+    :param rects: :class:`PySide.QtCore.QRect`
+    :param rectCount: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    The default implementation converts the first ``rectCount`` rectangles in the buffer ``rects`` to a :class:`PySide.QtCore.QRectF` and calls the floating point version of this function.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawRects(rects, rectCount)
+
+
+    :param rects: :class:`PySide.QtCore.QRectF`
+    :param rectCount: :class:`PySide.QtCore.int`
+
+
+
+
+    Draws the first ``rectCount`` rectangles in the buffer ``rects`` . The default implementation of this function calls :meth:`PySide.QtGui.QPaintEngine.drawPath` or :meth:`PySide.QtGui.QPaintEngine.drawPolygon` depending on the feature set of the paint engine.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawTextItem(p, textItem)
+
+
+    :param p: :class:`PySide.QtCore.QPointF`
+    :param textItem: :class:`PySide.QtGui.QTextItem`
+
+
+
+
+    This function draws the text item ``textItem`` at position ``p`` . The default implementation of this function converts the text to a :class:`PySide.QtGui.QPainterPath` and paints the resulting path.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.drawTiledPixmap(r, pixmap, s)
+
+
+    :param r: :class:`PySide.QtCore.QRectF`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :param s: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Reimplement this function to draw the ``pixmap`` in the given ``rect`` , starting at the given ``p`` . The pixmap will be drawn repeatedly until the ``rect`` is filled.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.end()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Reimplement this function to finish painting on the current paint device. Return true if painting was finished successfully; otherwise return false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngine.begin`  :meth:`PySide.QtGui.QPaintEngine.isActive` 
+
+
+.. method:: PySide.QtGui.QPaintEngine.hasFeature(feature)
+
+
+    :param feature: :class:`PySide.QtGui.QPaintEngine.PaintEngineFeatures`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.isActive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the paint engine is actively drawing; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngine.setActive` 
+
+
+.. method:: PySide.QtGui.QPaintEngine.isExtended()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the paint engine is a :class:`~PySide.QtGui.QPaintEngineEx` derivative.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.paintDevice()
+
+
+    :rtype: :class:`PySide.QtGui.QPaintDevice`
+
+
+
+
+    Returns the device that this engine is painting on, if painting is active; otherwise returns 0.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.painter()
+
+
+    :rtype: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Returns the paint engine's painter.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.setActive(newState)
+
+
+    :param newState: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the active state of the paint engine to ``state`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngine.isActive` 
+
+
+.. method:: PySide.QtGui.QPaintEngine.setAutoDestruct(autoDestr)
+
+
+    :param autoDestr: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.setDirty(df)
+
+
+    :param df: :class:`PySide.QtGui.QPaintEngine.DirtyFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.setSystemClip(baseClip)
+
+
+    :param baseClip: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Sets the system clip for this engine. The system clip defines the basis area that the engine has to draw in. All clips that are set will be be an intersection with the system clip.
+
+    Reset the systemclip to no clip by setting an empty region.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.setSystemRect(rect)
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Sets the target rect for drawing within the backing store. This function should ONLY be used by the backing store.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.syncState()
+
+
+
+
+
+
+    Updates all dirty states in this engine. This function should ONLY be used when drawing with native handles directly and immediate sync from QPainters state to the native state is required.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.systemClip()
+
+
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns the system clip. The system clip is read only while the painter is active. An empty region indicates that system clip is not in use.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.systemRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Retrieves the rect for drawing within the backing store. This function should ONLY be used by the backing store.
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.testDirty(df)
+
+
+    :param df: :class:`PySide.QtGui.QPaintEngine.DirtyFlags`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.type()
+
+
+    :rtype: :attr:`PySide.QtGui.QPaintEngine.Type`
+
+
+
+
+    Reimplement this function to return the paint engine :attr:`QPaintEngine.Type` .
+
+
+
+.. method:: PySide.QtGui.QPaintEngine.updateState(state)
+
+
+    :param state: :class:`PySide.QtGui.QPaintEngineState`
+
+
+
+
+    Reimplement this function to update the state of a paint engine.
+
+    When implemented, this function is responsible for checking the paint engine's current ``state`` and update the properties that are changed. Use the :meth:`QPaintEngineState.state()<PySide.QtGui.QPaintEngineState.state>` function to find out which properties that must be updated, then use the corresponding :class:`get function<~PySide.QtGui.GetFunction>` to retrieve the current values for the given properties.
+
+    .. seealso::  :class:`PySide.QtGui.QPaintEngineState` 
+
+
+

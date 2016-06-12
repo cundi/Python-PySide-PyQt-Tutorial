@@ -1,0 +1,144 @@
+.. module:: PySide.QtSql
+.. _QSqlRelationalTableModel:
+
+QSqlRelationalTableModel
+************************
+
+.. inheritance-diagram:: QSqlRelationalTableModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`relation<PySide.QtSql.QSqlRelationalTableModel.relation>` (column)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`relationModel<PySide.QtSql.QSqlRelationalTableModel.relationModel>` (column)
+*    def :meth:`setRelation<PySide.QtSql.QSqlRelationalTableModel.setRelation>` (column, relation)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlRelationalTableModel` class provides an editable data model for a single database table, with foreign key support.
+
+    :class:`PySide.QtSql.QSqlRelationalTableModel` acts like :class:`PySide.QtSql.QSqlTableModel` , but allows columns to be set as foreign keys into other database tables.
+
+    +------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/noforeignkeys.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/foreignkeys.png|
+    +------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------+
+
+    The screenshot on the left shows a plain :class:`PySide.QtSql.QSqlTableModel` in a :class:`PySide.QtGui.QTableView` . Foreign keys (``city`` and ``country`` ) aren't resolved to human-readable values. The screenshot on the right shows a :class:`PySide.QtSql.QSqlRelationalTableModel` , with foreign keys resolved into human-readable text strings.
+
+    The following code snippet shows how the :class:`PySide.QtSql.QSqlRelationalTableModel` was set up:
+
+    ::
+
+            model.setTable("employee")
+        
+            model.setRelation(2, QSqlRelation("city", "id", "name"))
+            model.setRelation(3, QSqlRelation("country", "id", "name"))
+
+
+    The :meth:`PySide.QtSql.QSqlRelationalTableModel.setRelation` function calls establish a relationship between two tables. The first call specifies that column 2 in table ``employee`` is a foreign key that maps with field ``id`` of table ``city`` , and that the view should present the ``city`` 's ``name`` field to the user. The second call does something similar with column 3.
+
+    If you use a read-write :class:`PySide.QtSql.QSqlRelationalTableModel` , you probably want to use :class:`PySide.QtSql.QSqlRelationalDelegate` on the view. Unlike the default delegate, :class:`PySide.QtSql.QSqlRelationalDelegate` provides a combobox for fields that are foreign keys into other tables. To use the class, simply call :meth:`QAbstractItemView.setItemDelegate()<PySide.QtGui.QAbstractItemView.setItemDelegate>` on the view with an instance of :class:`PySide.QtSql.QSqlRelationalDelegate` :
+
+    ::
+
+            view =  QTableView()
+            view.setModel(model)
+            view.setItemDelegate(QSqlRelationalDelegate(view))
+
+
+    The :ref:`sql/relationaltablemodel` example illustrates how to use :class:`PySide.QtSql.QSqlRelationalTableModel` in conjunction with :class:`PySide.QtSql.QSqlRelationalDelegate` to provide tables with foreign key support.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/relationaltable.png
+
+    Notes:
+
+
+    * The table must have a primary key declared.
+    * The table's primary key may not contain a relation to another table.
+    * If a relational table contains keys that refer to non-existent rows in the referenced table, the rows containing the invalid keys will not be exposed through the model. The user or the database is responsible for keeping referential integrity.
+    * If a relation's display column name is also used as a column name in the main table, or if it is used as display column name in more than one relation it will be aliased. The alias is is the relation's table name and display column name joined by an underscore (e.g. tablename\_columnname). All occurrences of the duplicate display column name are aliased when duplication is detected, but no aliasing is done to the column names in the main table. The aliasing doesn't affect :class:`PySide.QtSql.QSqlRelation` , so :meth:`QSqlRelation.displayColumn()<PySide.QtSql.QSqlRelation.displayColumn>` will return the original display column name, but :meth:`QSqlRecord.fieldName()<PySide.QtSql.QSqlRecord.fieldName>` will return aliases.
+    * When using :meth:`PySide.QtSql.QSqlRelationalTableModel.setData` the role should always be :attr:`Qt.EditRole<Qt.ItemDataRole>` , and when using :meth:`PySide.QtSql.QSqlRelationalTableModel.data` the role should always be :attr:`Qt.DisplayRole<Qt.ItemDataRole>` .
+
+    .. seealso::  :class:`PySide.QtSql.QSqlRelation`  :class:`PySide.QtSql.QSqlRelationalDelegate`  :ref:`Relational Table Model Example<sql/relationaltablemodel>` 
+
+.. class:: QSqlRelationalTableModel([parent=None[, db=QSqlDatabase()]])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param db: :class:`PySide.QtSql.QSqlDatabase`
+
+    Creates an empty :class:`PySide.QtSql.QSqlRelationalTableModel` and sets the parent to ``parent`` and the database connection to ``db`` . If ``db`` is not valid, the default database connection will be used.
+
+
+.. method:: PySide.QtSql.QSqlRelationalTableModel.relation(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtSql.QSqlRelation`
+
+
+
+
+    Returns the relation for the column ``column`` , or an invalid relation if no relation is set.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRelationalTableModel.setRelation`  :meth:`QSqlRelation.isValid()<PySide.QtSql.QSqlRelation.isValid>` 
+
+
+.. method:: PySide.QtSql.QSqlRelationalTableModel.relationModel(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtSql.QSqlTableModel`
+
+
+
+
+    Returns a :class:`PySide.QtSql.QSqlTableModel` object for accessing the table for which ``column`` is a foreign key, or 0 if there is no relation for the given ``column`` .
+
+    The returned object is owned by the :class:`PySide.QtSql.QSqlRelationalTableModel` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRelationalTableModel.setRelation`  :meth:`PySide.QtSql.QSqlRelationalTableModel.relation` 
+
+
+.. method:: PySide.QtSql.QSqlRelationalTableModel.setRelation(column, relation)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param relation: :class:`PySide.QtSql.QSqlRelation`
+
+
+
+
+    Lets the specified ``column`` be a foreign index specified by ``relation`` .
+
+    Example:
+
+    ::
+
+            model.setTable("employee")
+        
+            model.setRelation(2, QSqlRelation("city", "id", "name"))
+
+
+    The :meth:`PySide.QtSql.QSqlRelationalTableModel.setRelation` call specifies that column 2 in table ``employee`` is a foreign key that maps with field ``id`` of table ``city`` , and that the view should present the ``city`` 's ``name`` field to the user.
+
+    Note: The table's primary key may not contain a relation to another table.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRelationalTableModel.relation` 
+
+
+

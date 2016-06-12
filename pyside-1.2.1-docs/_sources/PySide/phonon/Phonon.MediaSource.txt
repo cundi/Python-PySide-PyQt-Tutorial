@@ -1,0 +1,258 @@
+.. module:: PySide.phonon
+.. _Phonon.MediaSource:
+
+Phonon.MediaSource
+******************
+
+.. inheritance-diagram:: Phonon.MediaSource
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.phonon.Phonon.MediaSource.__eq__>` (rhs)
+*    def :meth:`autoDelete<PySide.phonon.Phonon.MediaSource.autoDelete>` ()
+*    def :meth:`deviceName<PySide.phonon.Phonon.MediaSource.deviceName>` ()
+*    def :meth:`discType<PySide.phonon.Phonon.MediaSource.discType>` ()
+*    def :meth:`fileName<PySide.phonon.Phonon.MediaSource.fileName>` ()
+*    def :meth:`setAutoDelete<PySide.phonon.Phonon.MediaSource.setAutoDelete>` (enable)
+*    def :meth:`stream<PySide.phonon.Phonon.MediaSource.stream>` ()
+*    def :meth:`type<PySide.phonon.Phonon.MediaSource.type>` ()
+*    def :meth:`url<PySide.phonon.Phonon.MediaSource.url>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`~PySide.phonon.Phonon.MediaSource` class provides multimedia data for media objects.
+
+    The :class:`~PySide.phonon.Phonon.MediaSource` class manages a source of multimedia content, such as a music or video file, of which data is given to a :class:`Phonon.MediaObject` .
+
+    The media source knows how fetch its data from several sources, e.g., from files, a :class:`PySide.QtCore.QIODevice` , or a CD. The possible source types are described by the :attr:`Phonon.MediaSource.Type` enum. The type of the source is set by the media source itself, and is dependent on the constructor used to create it. Note that it is possible to provide data from any source by implementing a :class:`PySide.QtCore.QIODevice` .
+
+    The class has several functions to acquire information about the source it manages, e.g., :meth:`PySide.phonon.Phonon::MediaSource.fileName` and :meth:`PySide.phonon.Phonon::MediaSource.url` . The return from these functions are dependent on the :meth:`PySide.phonon.Phonon::MediaSource.type` of the media source.
+
+    Normally, a programmer does not need to be concerned with media sources. It's constructors are implicit, so one can, for instance, send an URL or filename directly to the constructors of the :class:`Phonon.MediaObject` .
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/doc_src_phonon-api.cpp:3" not found>
+
+    A :class:`~PySide.phonon.Phonon.MediaSource` object cannot be reused for another multimedia source. It is possible to play the same source again, and also stop and start a non-seekable media source, such as a radio stream, with the same :class:`~PySide.phonon.Phonon.MediaSource` object.
+
+    .. _PySide.phonon.Phonon.MediaSource_qt-backends:
+
+
+
+Qt Backends
+^^^^^^^^^^^
+
+    Currently, Qt's backends support files in local and remote locations. Support for other sources, such as CD/DVD, are planned for the future.
+
+    .. seealso::  :class:`~PySide.phonon.Phonon.MediaObject`  :ref:`Phonon Module<phonon-module.html>` 
+
+.. class:: PySide.phonon.Phonon.MediaSource()
+           PySide.phonon.Phonon.MediaSource(stream)
+           PySide.phonon.Phonon.MediaSource(discType[, deviceName=""])
+           PySide.phonon.Phonon.MediaSource(ioDevice)
+           PySide.phonon.Phonon.MediaSource(rhs)
+           PySide.phonon.Phonon.MediaSource(fileName)
+           PySide.phonon.Phonon.MediaSource(url)
+
+    :param stream: :class:`PySide.phonon.Phonon::AbstractMediaStream`
+    :param discType: :attr:`PySide.phonon.Phonon.DiscType`
+    :param deviceName: unicode
+    :param rhs: :class:`PySide.phonon.Phonon::MediaSource`
+    :param ioDevice: :class:`PySide.QtCore.QIODevice`
+    :param url: :class:`PySide.QtCore.QUrl`
+    :param fileName: unicode
+
+    Creates an invalid :class:`~PySide.phonon.Phonon.MediaSource` object.
+
+    .. seealso::  :attr:`Invalid<Phonon.MediaSource.Type>` 
+
+    Creates a :class:`~PySide.phonon.Phonon.MediaSource` object for a data stream.
+
+    Your application can provide the media data by subclassing :class:`~PySide.phonon.Phonon.AbstractMediaStream` and passing a pointer to that object. Phonon will never delete the ``stream`` .
+
+    *stream* The :class:`~PySide.phonon.Phonon.AbstractMediaStream` subclass to provide the media data.
+
+    .. seealso:: 
+
+
+
+    Creates a :class:`~PySide.phonon.Phonon.MediaSource` object for the :class:`PySide.QtCore.QIODevice` specified by ``ioDevice`` .
+
+    This constructor can be very handy in the combination of :class:`PySide.QtCore.QByteArray` and :class:`PySide.QtCore.QBuffer` .
+
+    If you need to fetch multimedia data from a source that is not supported by :class:`~PySide.phonon.Phonon.MediaSource` , you should subclass :class:`PySide.QtCore.QIODevice` and use this :class:`~PySide.phonon.Phonon.MediaSource` constructor. It is important that you reimplement :meth:`QIODevice.isSequential()<PySide.QtCore.QIODevice.isSequential>` , as it is used by :class:`~PySide.phonon.Phonon.MediaSource` to determine if the media source is seekable.
+
+    ``ioDevice`` is an arbitrary readable :class:`PySide.QtCore.QIODevice` subclass. If the device is not opened :class:`~PySide.phonon.Phonon.MediaSource` will open it as :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` .
+
+    .. note::  Sequential devices can also be used, but :meth:`MediaObject.isSeekable()<PySide.phonon.Phonon::MediaObject.isSeekable>` will return false as a result.
+
+    .. warning::  On Windows, we only support :class:`PySide.QtCore.QIODevice` s containing the ``avi`` , ``mp3`` , or ``mpg`` formats. Use the constructor that takes a file name to open files (the Qt backend does not use a :class:`PySide.QtCore.QFile` internally).
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.setAutoDelete` 
+
+    Constructs a copy of the ``other`` media source.
+
+    This constructor is fast thanks to explicit sharing.
+
+
+    Creates a :class:`~PySide.phonon.Phonon.MediaSource` object for the file specified by ``fileName`` . You can also use this constructor with :ref:`Qt resources<resources.html>`
+
+
+    Creates a :class:`~PySide.phonon.Phonon.MediaSource` object for a the URL specified by ``url`` .
+
+    If the multimedia content you would like to play back is on a remote network location, you should use this constructor; though, it also possible to specify an URL to a local file.
+
+    .. seealso::  :class:`PySide.QtCore.QUrl` 
+
+.. attribute:: PySide.phonon.Phonon.MediaSource.Type
+
+    Identifies the type of media described by the :class:`~PySide.phonon.Phonon.MediaSource` object.
+
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                               |
+    +============================+==========================================================================================================================================================================================================================================+
+    |Phonon.MediaSource.Invalid  |The :class:`~PySide.phonon.Phonon.MediaSource` object does not describe any valid source.                                                                                                                                                 |
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaSource.LocalFile|The :class:`~PySide.phonon.Phonon.MediaSource` object describes a local file.                                                                                                                                                             |
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaSource.Url      |The :class:`~PySide.phonon.Phonon.MediaSource` object describes an URL, which can be either a local file or a file on the network.                                                                                                        |
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaSource.Disc     |The :class:`~PySide.phonon.Phonon.MediaSource` object describes a disc, e.g., a CD.                                                                                                                                                       |
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaSource.Stream   |The :class:`~PySide.phonon.Phonon.MediaSource` object describes a data stream. This is the type used for :class:`PySide.QtCore.QIODevice` s. Note that a stream opened with a :class:`PySide.QtCore.QUrl` , will still be of the Url type.|
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.MediaSource.Empty    |The media source doesn't have a source.                                                                                                                                                                                                   |
+    +----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`MediaSource.type()<PySide.phonon.Phonon::MediaSource.type>` 
+
+.. method:: PySide.phonon.Phonon.MediaSource.autoDelete()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the setting of the auto-delete option. The default is false.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.setAutoDelete` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.deviceName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the device name of the :class:`~PySide.phonon.Phonon.MediaSource` if :meth:`PySide.phonon.Phonon::MediaSource.type` == Disc; otherwise returns :meth:`~PySide.phonon.Phonon.MediaSource.QString` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.type` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.discType()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon.DiscType`
+
+
+
+
+    Returns the disc type of the :class:`~PySide.phonon.Phonon.MediaSource` if :meth:`PySide.phonon.Phonon::MediaSource.type` == Disc; otherwise returns :attr:`NoDisc<Phonon.DiscType>` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.type` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file name of the :class:`~PySide.phonon.Phonon.MediaSource` if :meth:`PySide.phonon.Phonon::MediaSource.type` == :attr:`LocalFile<Phonon.MediaSource.Type>` ; otherwise, returns :meth:`~PySide.phonon.Phonon.MediaSource.QString` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.type` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.__eq__(rhs)
+
+
+    :param rhs: :class:`PySide.phonon.Phonon::MediaSource`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this media source is equal to the ``other`` media source; otherwise returns false.
+
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.setAutoDelete(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enable`` is true, the media source will take ownership of the object passed in the :class:`Phonon.MediaSource` 's constructor object that was passed in the constructor; otherwise, the programmer is responsible for deletion of this object.
+
+    This setting is false by default. If you enable it, you should only access the stream or device as long as you keep the media source object around. As long as you keep the media source wrapping the stream or device, the object will not get deleted.
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.autoDelete` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.stream()
+
+
+    :rtype: :class:`PySide.phonon.Phonon::AbstractMediaStream`
+
+
+
+
+    Returns the media stream of the :class:`~PySide.phonon.Phonon.MediaSource` if :meth:`PySide.phonon.Phonon::MediaSource.type` == Stream; otherwise returns 0. QIODevices are handled as streams, too.
+
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.type()
+
+
+    :rtype: :attr:`PySide.phonon.Phonon::MediaSource.Type`
+
+
+
+
+    Returns the type of the :class:`~PySide.phonon.Phonon.MediaSource` (depends on the constructor that was used).
+
+    .. seealso::  :attr:`Phonon.MediaSource.Type` 
+
+
+.. method:: PySide.phonon.Phonon.MediaSource.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the URL of the :class:`~PySide.phonon.Phonon.MediaSource` if :meth:`PySide.phonon.Phonon::MediaSource.type` == URL or :meth:`PySide.phonon.Phonon::MediaSource.type` == :attr:`LocalFile<Phonon.MediaSource.Type>` ; otherwise returns :ref:`QUrl()<porting4.html>` .
+
+    .. seealso::  :meth:`PySide.phonon.Phonon::MediaSource.type` 
+
+
+

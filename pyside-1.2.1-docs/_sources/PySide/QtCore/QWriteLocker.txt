@@ -1,0 +1,127 @@
+.. module:: PySide.QtCore
+.. _QWriteLocker:
+
+QWriteLocker
+************
+
+.. inheritance-diagram:: QWriteLocker
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__enter__<PySide.QtCore.QWriteLocker.__enter__>` ()
+*    def :meth:`__exit__<PySide.QtCore.QWriteLocker.__exit__>` (arg__1, arg__2, arg__3)
+*    def :meth:`readWriteLock<PySide.QtCore.QWriteLocker.readWriteLock>` ()
+*    def :meth:`relock<PySide.QtCore.QWriteLocker.relock>` ()
+*    def :meth:`unlock<PySide.QtCore.QWriteLocker.unlock>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QWriteLocker` class is a convenience class that simplifies locking and unlocking read-write locks for write access.
+
+    The purpose of :class:`PySide.QtCore.QWriteLocker` (and :class:`PySide.QtCore.QReadLocker` is to simplify :class:`PySide.QtCore.QReadWriteLock` locking and unlocking. Locking and unlocking statements or in exception handling code is error-prone and difficult to debug. :class:`PySide.QtCore.QWriteLocker` can be used in such situations to ensure that the state of the lock is always well-defined.
+
+    Here's an example that uses :class:`PySide.QtCore.QWriteLocker` to lock and unlock a read-write lock for writing:
+
+    ::
+
+        lock = QReadWriteLock()
+
+        def writeData(data):
+            locker = QWriteLocker(lock)
+            # ...
+
+
+    It is equivalent to the following code:
+
+    ::
+
+        lock = QReadWriteLock()
+
+        def writeData(data):
+            locker.lockForWrite()
+            # ...
+            locker.unlock()
+
+
+    The :class:`PySide.QtCore.QMutexLocker` documentation shows examples where the use of a locker object greatly simplifies programming.
+
+    .. seealso::  :class:`PySide.QtCore.QReadLocker`  :class:`PySide.QtCore.QReadWriteLock` 
+
+.. class:: QWriteLocker(readWriteLock)
+
+    :param readWriteLock: :class:`PySide.QtCore.QReadWriteLock`
+
+    Constructs a :class:`PySide.QtCore.QWriteLocker` and locks ``lock`` for writing. The lock will be unlocked when the :class:`PySide.QtCore.QWriteLocker` is destroyed. If ``lock`` is zero, :class:`PySide.QtCore.QWriteLocker` does nothing.
+
+    .. seealso::  :meth:`QReadWriteLock.lockForWrite()<PySide.QtCore.QReadWriteLock.lockForWrite>` 
+
+.. method:: PySide.QtCore.QWriteLocker.__enter__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QWriteLocker.__exit__(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: :class:`PyObject`
+    :param arg__2: :class:`PyObject`
+    :param arg__3: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QWriteLocker.readWriteLock()
+
+
+    :rtype: :class:`PySide.QtCore.QReadWriteLock`
+
+
+
+
+    Returns a pointer to the read-write lock that was passed to the constructor.
+
+
+
+.. method:: PySide.QtCore.QWriteLocker.relock()
+
+
+
+
+
+
+    Relocks an unlocked lock.
+
+    .. seealso::  :meth:`PySide.QtCore.QWriteLocker.unlock` 
+
+
+.. method:: PySide.QtCore.QWriteLocker.unlock()
+
+
+
+
+
+
+    Unlocks the lock associated with this locker.
+
+    .. seealso::  :meth:`QReadWriteLock.unlock()<PySide.QtCore.QReadWriteLock.unlock>` 
+
+
+

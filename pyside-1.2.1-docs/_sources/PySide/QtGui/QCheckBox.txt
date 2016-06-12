@@ -1,0 +1,162 @@
+.. module:: PySide.QtGui
+.. _QCheckBox:
+
+QCheckBox
+*********
+
+.. inheritance-diagram:: QCheckBox
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`checkState<PySide.QtGui.QCheckBox.checkState>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QCheckBox.initStyleOption>` (option)
+*    def :meth:`isTristate<PySide.QtGui.QCheckBox.isTristate>` ()
+*    def :meth:`setCheckState<PySide.QtGui.QCheckBox.setCheckState>` (state)
+*    def :meth:`setTristate<PySide.QtGui.QCheckBox.setTristate>` ([y=true])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`stateChanged<PySide.QtGui.QCheckBox.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QCheckBox` widget provides a checkbox with a text label.
+
+    A :class:`PySide.QtGui.QCheckBox` is an option button that can be switched on (checked) or off (unchecked). Checkboxes are typically used to represent features in an application that can be enabled or disabled without affecting others, but different types of behavior can be implemented. For example, a :class:`PySide.QtGui.QButtonGroup` can be used to group check buttons logically, allowing exclusive checkboxes. However, :class:`PySide.QtGui.QButtonGroup` does not provide any visual representation.
+
+    The image below further illustrates the differences between exclusive and non-exclusive checkboxes.
+
+    +-------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/checkboxes-exclusive.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/checkboxes-non-exclusive.png|
+    +-------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
+
+    Whenever a checkbox is checked or cleared it emits the signal :meth:`PySide.QtGui.QCheckBox.stateChanged` . Connect to this signal if you want to trigger an action each time the checkbox changes state. You can use :meth:`PySide.QtGui.QAbstractButton.isChecked` to query whether or not a checkbox is checked.
+
+    In addition to the usual checked and unchecked states, :class:`PySide.QtGui.QCheckBox` optionally provides a third state to indicate "no change". This is useful whenever you need to give the user the option of neither checking nor unchecking a checkbox. If you need this third state, enable it with :meth:`PySide.QtGui.QCheckBox.setTristate` , and use :meth:`PySide.QtGui.QCheckBox.checkState` to query the current toggle state.
+
+    Just like :class:`PySide.QtGui.QPushButton` , a checkbox displays text, and optionally a small icon. The icon is set with :meth:`PySide.QtGui.QAbstractButton.setIcon` . The text can be set in the constructor or with :meth:`PySide.QtGui.QAbstractButton.setText` . A shortcut key can be specified by preceding the preferred character with an ampersand. For example:
+
+    ::
+
+        checkbox = QCheckBox("C&ase sensitive", self)
+
+
+    In this example the shortcut is *Alt+A* . See the :class:`QShortcut<~PySide.QtGui.QShortcut#mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    Important inherited functions: :meth:`PySide.QtGui.QAbstractButton.text` , :meth:`PySide.QtGui.QAbstractButton.setText` , :meth:`PySide.QtGui.QAbstractButton.text` , :meth:`~PySide.QtGui.QCheckBox.pixmap` , :meth:`~PySide.QtGui.QCheckBox.setPixmap` , :meth:`~PySide.QtGui.QCheckBox.accel` , :meth:`~PySide.QtGui.QCheckBox.setAccel` , :meth:`~PySide.QtGui.QCheckBox.isToggleButton` , :meth:`PySide.QtGui.QAbstractButton.setDown` , :meth:`PySide.QtGui.QAbstractButton.isDown` , :meth:`~PySide.QtGui.QCheckBox.isOn` , :meth:`PySide.QtGui.QCheckBox.checkState` , :meth:`PySide.QtGui.QAbstractButton.autoRepeat` , isExclusiveToggle(), :meth:`PySide.QtGui.QAbstractButton.group` , :meth:`PySide.QtGui.QAbstractButton.setAutoRepeat` , :meth:`PySide.QtGui.QAbstractButton.toggle` , :meth:`PySide.QtGui.QAbstractButton.pressed` , :meth:`PySide.QtGui.QAbstractButton.released` , :meth:`PySide.QtGui.QAbstractButton.clicked` , :meth:`PySide.QtGui.QAbstractButton.toggled` , :meth:`PySide.QtGui.QCheckBox.checkState` , and :meth:`PySide.QtGui.QCheckBox.stateChanged` .
+
+    +-----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-checkbox.png|A checkbox shown in the :ref:`Macintosh widget style<gallery-macintosh.html>` . |
+    +-----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windows-checkbox.png  |A checkbox shown in the :ref:`Windows XP widget style<gallery-windowsxp.html>` .|
+    +-----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-checkbox.png|A checkbox shown in the :ref:`Plastique widget style<gallery-plastique.html>` . |
+    +-----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QAbstractButton`  :class:`PySide.QtGui.QRadioButton`  :ref:`GUI Design Handbook: Check Box<guibooks.html>` 
+
+.. class:: QCheckBox([parent=None])
+           QCheckBox(text[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param text: unicode
+
+    Constructs a checkbox with the given ``parent`` , but with no text.
+
+    ``parent`` is passed on to the :class:`PySide.QtGui.QAbstractButton` constructor.
+
+
+    Constructs a checkbox with the given ``parent`` and ``text`` .
+
+    ``parent`` is passed on to the :class:`PySide.QtGui.QAbstractButton` constructor.
+
+
+.. method:: PySide.QtGui.QCheckBox.checkState()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+    Returns the check box's check state. If you do not need tristate support, you can also use :meth:`QAbstractButton.isChecked()<PySide.QtGui.QAbstractButton.isChecked>` which returns a boolean.
+
+    .. seealso::  :meth:`PySide.QtGui.QCheckBox.setCheckState`  :attr:`Qt.CheckState` 
+
+
+.. method:: PySide.QtGui.QCheckBox.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionButton`
+
+
+
+
+    Initializes ``option`` with the values from this :class:`PySide.QtGui.QCheckBox` . This method is useful for subclasses that require a :class:`PySide.QtGui.QStyleOptionButton` , but do not want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QCheckBox.isTristate()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the checkbox is a tri-state checkbox.
+
+    The default is false; i.e. the checkbox has only two states.
+
+
+
+.. method:: PySide.QtGui.QCheckBox.setCheckState(state)
+
+
+    :param state: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCheckBox.setTristate([y=true])
+
+
+    :param y: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the checkbox is a tri-state checkbox.
+
+    The default is false; i.e. the checkbox has only two states.
+
+
+
+.. method:: PySide.QtGui.QCheckBox.stateChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

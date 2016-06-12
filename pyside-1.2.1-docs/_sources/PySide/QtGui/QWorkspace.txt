@@ -1,0 +1,311 @@
+.. module:: PySide.QtGui
+.. _QWorkspace:
+
+QWorkspace
+**********
+
+.. inheritance-diagram:: QWorkspace
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeWindow<PySide.QtGui.QWorkspace.activeWindow>` ()
+*    def :meth:`addWindow<PySide.QtGui.QWorkspace.addWindow>` (w[, flags=0])
+*    def :meth:`background<PySide.QtGui.QWorkspace.background>` ()
+*    def :meth:`scrollBarsEnabled<PySide.QtGui.QWorkspace.scrollBarsEnabled>` ()
+*    def :meth:`setBackground<PySide.QtGui.QWorkspace.setBackground>` (background)
+*    def :meth:`setScrollBarsEnabled<PySide.QtGui.QWorkspace.setScrollBarsEnabled>` (enable)
+*    def :meth:`windowList<PySide.QtGui.QWorkspace.windowList>` ([order=CreationOrder])
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`activateNextWindow<PySide.QtGui.QWorkspace.activateNextWindow>` ()
+*    def :meth:`activatePreviousWindow<PySide.QtGui.QWorkspace.activatePreviousWindow>` ()
+*    def :meth:`arrangeIcons<PySide.QtGui.QWorkspace.arrangeIcons>` ()
+*    def :meth:`cascade<PySide.QtGui.QWorkspace.cascade>` ()
+*    def :meth:`closeActiveWindow<PySide.QtGui.QWorkspace.closeActiveWindow>` ()
+*    def :meth:`closeAllWindows<PySide.QtGui.QWorkspace.closeAllWindows>` ()
+*    def :meth:`setActiveWindow<PySide.QtGui.QWorkspace.setActiveWindow>` (w)
+*    def :meth:`tile<PySide.QtGui.QWorkspace.tile>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`windowActivated<PySide.QtGui.QWorkspace.windowActivated>` (w)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWorkspace` widget provides a workspace window that can be used in an MDI application.
+
+    This class is deprecated. Use :class:`PySide.QtGui.QMdiArea` instead.
+
+    Multiple Document Interface (MDI) applications are typically composed of a main window containing a menu bar, a toolbar, and a central :class:`PySide.QtGui.QWorkspace` widget. The workspace itself is used to display a number of child windows, each of which is a widget.
+
+    The workspace itself is an ordinary Qt widget. It has a standard constructor that takes a parent widget. Workspaces can be placed in any layout, but are typically given as the central widget in a :class:`PySide.QtGui.QMainWindow` :
+
+    ::
+
+        class MainWindow(...):
+            def __init__(self):
+                self.workspace = QWorkspace()
+                self.setCentralWidget(workspace)
+                ...
+
+
+    Child windows (MDI windows) are standard Qt widgets that are inserted into the workspace with :meth:`PySide.QtGui.QWorkspace.addWindow` . As with top-level widgets, you can call functions such as :meth:`PySide.QtGui.QWidget.show` , :meth:`PySide.QtGui.QWidget.hide` , :meth:`PySide.QtGui.QWidget.showMaximized` , and :meth:`PySide.QtGui.QWidget.setWindowTitle` on a child window to change its appearance within the workspace. You can also provide widget flags to determine the layout of the decoration or the behavior of the widget itself.
+
+    To change or retrieve the geometry of a child window, you must operate on its :meth:`PySide.QtGui.QWidget.parentWidget` . The :meth:`PySide.QtGui.QWidget.parentWidget` provides access to the decorated frame that contains the child window widget. When a child window is maximised, its decorated frame is hidden. If the top-level widget contains a menu bar, it will display the maximised window's operations menu to the left of the menu entries, and the window's controls to the right.
+
+    A child window becomes active when it gets the keyboard focus, or when :meth:`PySide.QtGui.QWidget.setFocus` is called. The user can activate a window by moving focus in the usual ways, for example by clicking a window or by pressing Tab. The workspace emits a signal :meth:`PySide.QtGui.QWorkspace.windowActivated` when the active window changes, and the function :meth:`PySide.QtGui.QWorkspace.activeWindow` returns a pointer to the active child window, or 0 if no window is active.
+
+    The convenience function :meth:`PySide.QtGui.QWorkspace.windowList` returns a list of all child windows. This information could be used in a popup menu containing a list of windows, for example. This feature is also available as part of the :ref:`Window Menu<http://doc.qt.digia.com/qq/qq09-qt-solutions.html>` Solution.
+
+    :class:`PySide.QtGui.QWorkspace` provides two built-in layout strategies for child windows: :meth:`PySide.QtGui.QWorkspace.cascade` and :meth:`PySide.QtGui.QWorkspace.tile` . Both are slots so you can easily connect menu entries to them.
+
+    +----------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/mdi-cascade.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/mdi-tile.png|
+    +----------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+
+    If you want your users to be able to work with child windows larger than the visible workspace area, set the :meth:`PySide.QtGui.QWorkspace.scrollBarsEnabled` property to true.
+
+    .. seealso::  :class:`PySide.QtGui.QDockWidget`  :ref:`MDI Example<mainwindows/mdi>` 
+
+.. class:: QWorkspace([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a workspace with the given ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QWorkspace.WindowOrder
+
+    Specifies the order in which child windows are returned from :meth:`PySide.QtGui.QWorkspace.windowList` .
+
+    +------------------------+-------------------------------------------------------+
+    |Constant                |Description                                            |
+    +========================+=======================================================+
+    |QWorkspace.CreationOrder|The windows are returned in the order of their creation|
+    +------------------------+-------------------------------------------------------+
+    |QWorkspace.StackingOrder|The windows are returned in the order of their stacking|
+    +------------------------+-------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QWorkspace.activateNextWindow()
+
+
+
+
+
+
+    Gives the input focus to the next window in the list of child windows.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.activatePreviousWindow` 
+
+
+.. method:: PySide.QtGui.QWorkspace.activatePreviousWindow()
+
+
+
+
+
+
+    Gives the input focus to the previous window in the list of child windows.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.activateNextWindow` 
+
+
+.. method:: PySide.QtGui.QWorkspace.activeWindow()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns a pointer to the widget corresponding to the active child window, or 0 if no window is active.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.setActiveWindow` 
+
+
+.. method:: PySide.QtGui.QWorkspace.addWindow(w[, flags=0])
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWorkspace.arrangeIcons()
+
+
+
+
+
+
+    Arranges all iconified windows at the bottom of the workspace.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.cascade`  :meth:`PySide.QtGui.QWorkspace.tile` 
+
+
+.. method:: PySide.QtGui.QWorkspace.background()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This property holds the workspace's background.
+
+
+
+.. method:: PySide.QtGui.QWorkspace.cascade()
+
+
+
+
+
+
+    Arranges all the child windows in a cascade pattern.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.tile`  :meth:`PySide.QtGui.QWorkspace.arrangeIcons` 
+
+
+.. method:: PySide.QtGui.QWorkspace.closeActiveWindow()
+
+
+
+
+
+
+    Closes the child window that is currently active.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.closeAllWindows` 
+
+
+.. method:: PySide.QtGui.QWorkspace.closeAllWindows()
+
+
+
+
+
+
+    Closes all child windows.
+
+    If any child window fails to accept the close event, the remaining windows will remain open.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.closeActiveWindow` 
+
+
+.. method:: PySide.QtGui.QWorkspace.scrollBarsEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the workspace provides scroll bars.
+
+    If this property is true, the workspace will provide scroll bars if any of the child windows extend beyond the edges of the visible workspace. The workspace area will automatically increase to contain child windows if they are resized beyond the right or bottom edges of the visible area.
+
+    If this property is false (the default), resizing child windows out of the visible area of the workspace is not permitted, although it is still possible to position them partially outside the visible area.
+
+
+
+.. method:: PySide.QtGui.QWorkspace.setActiveWindow(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Makes the child window that contains ``w`` the active child window.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.activeWindow` 
+
+
+.. method:: PySide.QtGui.QWorkspace.setBackground(background)
+
+
+    :param background: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    This property holds the workspace's background.
+
+
+
+.. method:: PySide.QtGui.QWorkspace.setScrollBarsEnabled(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the workspace provides scroll bars.
+
+    If this property is true, the workspace will provide scroll bars if any of the child windows extend beyond the edges of the visible workspace. The workspace area will automatically increase to contain child windows if they are resized beyond the right or bottom edges of the visible area.
+
+    If this property is false (the default), resizing child windows out of the visible area of the workspace is not permitted, although it is still possible to position them partially outside the visible area.
+
+
+
+.. method:: PySide.QtGui.QWorkspace.tile()
+
+
+
+
+
+
+    Arranges all child windows in a tile pattern.
+
+    .. seealso::  :meth:`PySide.QtGui.QWorkspace.cascade`  :meth:`PySide.QtGui.QWorkspace.arrangeIcons` 
+
+
+.. method:: PySide.QtGui.QWorkspace.windowActivated(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWorkspace.windowList([order=CreationOrder])
+
+
+    :param order: :attr:`PySide.QtGui.QWorkspace.WindowOrder`
+    :rtype: 
+
+
+
+
+    Returns a list of all visible or minimized child windows. If ``order`` is :attr:`CreationOrder<QWorkspace.WindowOrder>` (the default), the windows are listed in the order in which they were inserted into the workspace. If ``order`` is :attr:`StackingOrder<QWorkspace.WindowOrder>` , the windows are listed in their stacking order, with the topmost window as the last item in the list.
+
+
+
+

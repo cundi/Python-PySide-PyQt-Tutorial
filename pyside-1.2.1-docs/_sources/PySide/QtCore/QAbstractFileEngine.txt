@@ -1,0 +1,754 @@
+.. module:: PySide.QtCore
+.. _QAbstractFileEngine:
+
+QAbstractFileEngine
+*******************
+
+.. inheritance-diagram:: QAbstractFileEngine
+    :parts: 2
+
+**Inherited by:** :ref:`QFSFileEngine`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`atEnd<PySide.QtCore.QAbstractFileEngine.atEnd>` ()
+*    def :meth:`error<PySide.QtCore.QAbstractFileEngine.error>` ()
+*    def :meth:`errorString<PySide.QtCore.QAbstractFileEngine.errorString>` ()
+*    def :meth:`map<PySide.QtCore.QAbstractFileEngine.map>` (offset, size, flags)
+*    def :meth:`setError<PySide.QtCore.QAbstractFileEngine.setError>` (error, str)
+*    def :meth:`unmap<PySide.QtCore.QAbstractFileEngine.unmap>` (ptr)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beginEntryList<PySide.QtCore.QAbstractFileEngine.beginEntryList>` (filters, filterNames)
+*    def :meth:`caseSensitive<PySide.QtCore.QAbstractFileEngine.caseSensitive>` ()
+*    def :meth:`close<PySide.QtCore.QAbstractFileEngine.close>` ()
+*    def :meth:`copy<PySide.QtCore.QAbstractFileEngine.copy>` (newName)
+*    def :meth:`entryList<PySide.QtCore.QAbstractFileEngine.entryList>` (filters, filterNames)
+*    def :meth:`fileFlags<PySide.QtCore.QAbstractFileEngine.fileFlags>` ([type=QAbstractFileEngine.FileInfoAll])
+*    def :meth:`fileName<PySide.QtCore.QAbstractFileEngine.fileName>` ([file=DefaultName])
+*    def :meth:`fileTime<PySide.QtCore.QAbstractFileEngine.fileTime>` (time)
+*    def :meth:`flush<PySide.QtCore.QAbstractFileEngine.flush>` ()
+*    def :meth:`handle<PySide.QtCore.QAbstractFileEngine.handle>` ()
+*    def :meth:`isRelativePath<PySide.QtCore.QAbstractFileEngine.isRelativePath>` ()
+*    def :meth:`isSequential<PySide.QtCore.QAbstractFileEngine.isSequential>` ()
+*    def :meth:`link<PySide.QtCore.QAbstractFileEngine.link>` (newName)
+*    def :meth:`mkdir<PySide.QtCore.QAbstractFileEngine.mkdir>` (dirName, createParentDirectories)
+*    def :meth:`open<PySide.QtCore.QAbstractFileEngine.open>` (openMode)
+*    def :meth:`owner<PySide.QtCore.QAbstractFileEngine.owner>` (arg__1)
+*    def :meth:`ownerId<PySide.QtCore.QAbstractFileEngine.ownerId>` (arg__1)
+*    def :meth:`pos<PySide.QtCore.QAbstractFileEngine.pos>` ()
+*    def :meth:`read<PySide.QtCore.QAbstractFileEngine.read>` (, maxlen)
+*    def :meth:`readLine<PySide.QtCore.QAbstractFileEngine.readLine>` (, maxlen)
+*    def :meth:`remove<PySide.QtCore.QAbstractFileEngine.remove>` ()
+*    def :meth:`rename<PySide.QtCore.QAbstractFileEngine.rename>` (newName)
+*    def :meth:`rmdir<PySide.QtCore.QAbstractFileEngine.rmdir>` (dirName, recurseParentDirectories)
+*    def :meth:`seek<PySide.QtCore.QAbstractFileEngine.seek>` (pos)
+*    def :meth:`setFileName<PySide.QtCore.QAbstractFileEngine.setFileName>` (file)
+*    def :meth:`setPermissions<PySide.QtCore.QAbstractFileEngine.setPermissions>` (perms)
+*    def :meth:`setSize<PySide.QtCore.QAbstractFileEngine.setSize>` (size)
+*    def :meth:`size<PySide.QtCore.QAbstractFileEngine.size>` ()
+*    def :meth:`supportsExtension<PySide.QtCore.QAbstractFileEngine.supportsExtension>` (extension)
+*    def :meth:`write<PySide.QtCore.QAbstractFileEngine.write>` (data, len)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`create<PySide.QtCore.QAbstractFileEngine.create>` (fileName)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractFileEngine` class provides an abstraction for accessing the filesystem.
+
+    The :class:`PySide.QtCore.QDir` , :class:`PySide.QtCore.QFile` , and :class:`PySide.QtCore.QFileInfo` classes all make use of a :class:`PySide.QtCore.QAbstractFileEngine` internally. If you create your own :class:`PySide.QtCore.QAbstractFileEngine` subclass (and register it with Qt by creating a :class:`PySide.QtCore.QAbstractFileEngineHandler` subclass), your file engine will be used when the path is one that your file engine handles.
+
+    A :class:`PySide.QtCore.QAbstractFileEngine` refers to one file or one directory. If the referent is a file, the :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` , :meth:`PySide.QtCore.QAbstractFileEngine.rename` , and :meth:`PySide.QtCore.QAbstractFileEngine.remove` functions are applicable. If the referent is a directory the :meth:`PySide.QtCore.QAbstractFileEngine.mkdir` , :meth:`PySide.QtCore.QAbstractFileEngine.rmdir` , and :meth:`PySide.QtCore.QAbstractFileEngine.entryList` functions are applicable. In all cases the :meth:`PySide.QtCore.QAbstractFileEngine.caseSensitive` , :meth:`PySide.QtCore.QAbstractFileEngine.isRelativePath` , :meth:`PySide.QtCore.QAbstractFileEngine.fileFlags` , :meth:`PySide.QtCore.QAbstractFileEngine.ownerId` , :meth:`PySide.QtCore.QAbstractFileEngine.owner` , and :meth:`PySide.QtCore.QAbstractFileEngine.fileTime` functions are applicable.
+
+    A :class:`PySide.QtCore.QAbstractFileEngine` subclass can be created to do synchronous network I/O based file system operations, local file system operations, or to operate as a resource system to access file based resources.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractFileEngineHandler` 
+
+.. class:: QAbstractFileEngine()
+
+
+    Constructs a new :class:`PySide.QtCore.QAbstractFileEngine` that does not refer to any file or directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+.. attribute:: PySide.QtCore.QAbstractFileEngine.FileName
+
+    These values are used to request a file name in a particular format.
+
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                                                  |
+    +=====================================+=============================================================================================================+
+    |QAbstractFileEngine.DefaultName      |The same filename that was passed to the :class:`PySide.QtCore.QAbstractFileEngine` .                        |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.BaseName         |The name of the file excluding the path.                                                                     |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.PathName         |The path to the file excluding the base name.                                                                |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.AbsoluteName     |The absolute path to the file (including the base name).                                                     |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.AbsolutePathName |The absolute path to the file (excluding the base name).                                                     |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.LinkName         |The full file name of the file that this file is a link to. (This will be empty if this file is not a link.) |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.CanonicalName    |Often very similar to :attr:`LinkName<QAbstractFileEngine.FileName>` . Will return the true path to the file.|
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.CanonicalPathName|Same as :attr:`CanonicalName<QAbstractFileEngine.FileName>` , excluding the base name.                       |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.BundleName       |Returns the name of the bundle implies :attr:`BundleType<QAbstractFileEngine.FileFlag>` is set.              |
+    +-------------------------------------+-------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.fileName`  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+.. attribute:: PySide.QtCore.QAbstractFileEngine.FileTime
+
+    These are used by the :meth:`PySide.QtCore.QAbstractFileEngine.fileTime` function.
+
+    +------------------------------------+-------------------------------------------------------------------+
+    |Constant                            |Description                                                        |
+    +====================================+===================================================================+
+    |QAbstractFileEngine.CreationTime    |When the file was created.                                         |
+    +------------------------------------+-------------------------------------------------------------------+
+    |QAbstractFileEngine.ModificationTime|When the file was most recently modified.                          |
+    +------------------------------------+-------------------------------------------------------------------+
+    |QAbstractFileEngine.AccessTime      |When the file was most recently accessed (e.g. read or written to).|
+    +------------------------------------+-------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+.. attribute:: PySide.QtCore.QAbstractFileEngine.FileOwner
+
+    +------------------------------+----------------------------+
+    |Constant                      |Description                 |
+    +==============================+============================+
+    |QAbstractFileEngine.OwnerUser |The user who owns the file. |
+    +------------------------------+----------------------------+
+    |QAbstractFileEngine.OwnerGroup|The group who owns the file.|
+    +------------------------------+----------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.owner`  :meth:`PySide.QtCore.QAbstractFileEngine.ownerId`  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+.. attribute:: PySide.QtCore.QAbstractFileEngine.Extension
+
+    This enum describes the types of extensions that the file engine can support. Before using these extensions, you must verify that the extension is supported (i.e., call :meth:`PySide.QtCore.QAbstractFileEngine.supportsExtension` ).
+
+    +-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                 |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +=========================================+============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QAbstractFileEngine.AtEndExtension       |Whether the current file position is at the end of the file or not. This extension allows file engines that implement local buffering to report end-of-file status without having to check the size of the file. It is also useful for sequential files, where the size of the file cannot be used to determine whether or not you have reached the end. This extension returns true if the file is at the end; otherwise it returns false. The input and output arguments to :meth:`~PySide.QtCore.QAbstractFileEngine.extension` are ignored.                                                                                                                                                                                                                                                                             |
+    +-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.FastReadLineExtension|Whether the file engine provides a fast implementation for :meth:`PySide.QtCore.QAbstractFileEngine.readLine` or not. If :meth:`PySide.QtCore.QAbstractFileEngine.readLine` remains unimplemented in the file engine, :class:`PySide.QtCore.QAbstractFileEngine` will provide an implementation based on calling :meth:`PySide.QtCore.QAbstractFileEngine.read` repeatedly. If :meth:`PySide.QtCore.QAbstractFileEngine.supportsExtension` returns false for this extension, however, :class:`PySide.QtCore.QIODevice` can provide a faster implementation by making use of its internal buffer. For engines that already provide a fast :meth:`PySide.QtCore.QAbstractFileEngine.readLine` implementation, returning false for this extension can avoid unnnecessary double-buffering in :class:`PySide.QtCore.QIODevice` .|
+    +-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.MapExtension         |Whether the file engine provides the ability to map a file to memory.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+    +-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.UnMapExtension       |Whether the file engine provides the ability to unmap memory that was previously mapped.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+    +-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtCore.QAbstractFileEngine.FileFlag
+
+    The permissions and types of a file, suitable for OR'ing together.
+
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |Constant                          |Description                                                                                    |
+    +==================================+===============================================================================================+
+    |QAbstractFileEngine.ReadOwnerPerm |The owner of the file has permission to read it.                                               |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.WriteOwnerPerm|The owner of the file has permission to write to it.                                           |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ExeOwnerPerm  |The owner of the file has permission to execute it.                                            |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ReadUserPerm  |The current user has permission to read the file.                                              |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.WriteUserPerm |The current user has permission to write to the file.                                          |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ExeUserPerm   |The current user has permission to execute the file.                                           |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ReadGroupPerm |Members of the current user's group have permission to read the file.                          |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.WriteGroupPerm|Members of the current user's group have permission to write to the file.                      |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ExeGroupPerm  |Members of the current user's group have permission to execute the file.                       |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ReadOtherPerm |All users have permission to read the file.                                                    |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.WriteOtherPerm|All users have permission to write to the file.                                                |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ExeOtherPerm  |All users have permission to execute the file.                                                 |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.LinkType      |The file is a link to another file (or link) in the file system (i.e. not a file or directory).|
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.FileType      |The file is a regular file to the file system (i.e. not a link or directory)                   |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.BundleType    |The file is a Mac OS X bundle implies :attr:`DirectoryType<QAbstractFileEngine.FileFlag>`      |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.DirectoryType |The file is a directory in the file system (i.e. not a link or file).                          |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.HiddenFlag    |The file is hidden.                                                                            |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.ExistsFlag    |The file actually exists in the file system.                                                   |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.RootFlag      |The file or the file pointed to is the root of the filesystem.                                 |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.LocalDiskFlag |The file resides on the local disk and can be passed to standard file functions.               |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+    |QAbstractFileEngine.Refresh       |Passing this flag will force the file engine to refresh all flags.                             |
+    +----------------------------------+-----------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.fileFlags`  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+.. method:: PySide.QtCore.QAbstractFileEngine.atEnd()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the current position is at the end of the file; otherwise, returns false.
+
+    This function bases its behavior on calling :meth:`~PySide.QtCore.QAbstractFileEngine.extension` with :attr:`AtEndExtension<QAbstractFileEngine.Extension>` . If the engine does not support this extension, false is returned.
+
+    .. seealso::  :meth:`~PySide.QtCore.QAbstractFileEngine.extension`  :meth:`PySide.QtCore.QAbstractFileEngine.supportsExtension`  :meth:`QFile.atEnd()<PySide.QtCore.QFile.atEnd>` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.beginEntryList(filters, filterNames)
+
+
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+    :param filterNames: list of strings
+    :rtype: :class:`PySide.QtCore.QAbstractFileEngineIterator`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.caseSensitive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Should return true if the underlying file system is case-sensitive; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.close()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Closes the file, returning true if successful; otherwise returns false.
+
+    The default implementation always returns false.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.copy(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Copies the contents of this file to a file with the name ``newName`` . Returns true on success; otherwise, false is returned.
+
+
+
+.. staticmethod:: PySide.QtCore.QAbstractFileEngine.create(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.QAbstractFileEngine`
+
+
+
+
+    Creates and returns a :class:`PySide.QtCore.QAbstractFileEngine` suitable for processing ``fileName`` .
+
+    You should not need to call this function; use :class:`PySide.QtCore.QFile` , :class:`PySide.QtCore.QFileInfo` or :class:`PySide.QtCore.QDir` directly instead.
+
+    If you reimplemnt this function, it should only return file engines that knows how to handle ``fileName`` ; otherwise, it should return 0.
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractFileEngineHandler` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.entryList(filters, filterNames)
+
+
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+    :param filterNames: list of strings
+    :rtype: list of strings
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.error()
+
+
+    :rtype: :attr:`PySide.QtCore.QFile.FileError`
+
+
+
+
+    Returns the :attr:`QFile.FileError` that resulted from the last failed operation. If :attr:`QFile.UnspecifiedError<QFile.FileError>` is returned, :class:`PySide.QtCore.QFile` will use its own idea of the error status.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setError`  :attr:`QFile.FileError`  :meth:`PySide.QtCore.QAbstractFileEngine.errorString` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the human-readable message appropriate to the current error reported by :meth:`PySide.QtCore.QAbstractFileEngine.error` . If no suitable string is available, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.error` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.fileFlags([type=QAbstractFileEngine.FileInfoAll])
+
+
+    :param type: :class:`PySide.QtCore.QAbstractFileEngine.FileFlags`
+    :rtype: :class:`PySide.QtCore.QAbstractFileEngine.FileFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.fileName([file=DefaultName])
+
+
+    :param file: :attr:`PySide.QtCore.QAbstractFileEngine.FileName`
+    :rtype: unicode
+
+
+
+
+    Return the file engine's current file name in the format specified by ``file`` .
+
+    If you don't handle some ``FileName`` possibilities, return the file name set in :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` when an unhandled format is requested.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :attr:`QAbstractFileEngine.FileName` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.fileTime(time)
+
+
+    :param time: :attr:`PySide.QtCore.QAbstractFileEngine.FileTime`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    If ``time`` is ``CreationTime`` , return when the file was created. If ``time`` is ``ModificationTime`` , return when the file was most recently modified. If ``time`` is ``AccessTime`` , return when the file was most recently accessed (e.g. read or written). If the time cannot be determined return QDateTime() (an invalid date time).
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :class:`PySide.QtCore.QDateTime`  :meth:`QDateTime.isValid()<PySide.QtCore.QDateTime.isValid>`  :attr:`QAbstractFileEngine.FileTime` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.flush()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Flushes the open file, returning true if successful; otherwise returns false.
+
+    The default implementation always returns false.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.handle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the native file handle for this file engine. This handle must be used with care; its value and type are platform specific, and using it will most likely lead to non-portable code.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.isRelativePath()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Return true if the file referred to by this file engine has a relative path; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.isSequential()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the file is a sequential access device; returns false if the file is a direct access device.
+
+    Operations involving :meth:`PySide.QtCore.QAbstractFileEngine.size` and seek(int) are not valid on sequential devices.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.link(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Creates a link from the file currently specified by :meth:`PySide.QtCore.QAbstractFileEngine.fileName` to ``newName`` . What a link is depends on the underlying filesystem (be it a shortcut on Windows or a symbolic link on Unix). Returns true if successful; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.map(offset, size, flags)
+
+
+    :param offset: :class:`PySide.QtCore.qint64`
+    :param size: :class:`PySide.QtCore.qint64`
+    :param flags: :attr:`PySide.QtCore.QFile.MemoryMapFlags`
+    :rtype: PyObject
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.mkdir(dirName, createParentDirectories)
+
+
+    :param dirName: unicode
+    :param createParentDirectories: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the directory ``dirName`` be created. If ``createParentDirectories`` is true, then any sub-directories in ``dirName`` that don't exist must be created. If ``createParentDirectories`` is false then any sub-directories in ``dirName`` must already exist for the function to succeed. If the operation succeeds return true; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :meth:`PySide.QtCore.QAbstractFileEngine.rmdir`  :meth:`PySide.QtCore.QAbstractFileEngine.isRelativePath` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.open(openMode)
+
+
+    :param openMode: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.owner(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.QAbstractFileEngine.FileOwner`
+    :rtype: unicode
+
+
+
+
+    If ``owner`` is ``OwnerUser`` return the name of the user who owns the file. If ``owner`` is ``OwnerGroup`` return the name of the group that own the file. If you can't determine the owner return :meth:`~PySide.QtCore.QAbstractFileEngine.QString` .
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.ownerId`  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :attr:`QAbstractFileEngine.FileOwner` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.ownerId(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.QAbstractFileEngine.FileOwner`
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    If ``owner`` is ``OwnerUser`` return the ID of the user who owns the file. If ``owner`` is ``OwnerGroup`` return the ID of the group that own the file. If you can't determine the owner return -2.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.owner`  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :attr:`QAbstractFileEngine.FileOwner` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.pos()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the current file position.
+
+    This is the position of the data read/write head of the file.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.read(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: PyObject
+
+
+
+
+    Reads a number of characters from the file into ``data`` . At most ``maxlen`` characters will be read.
+
+    Returns -1 if a fatal error occurs, or 0 if there are no bytes to read.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.readLine(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: PyObject
+
+
+
+
+    This function reads one line, terminated by a '\n' character, from the file info ``data`` . At most ``maxlen`` characters will be read. The end-of-line character is included.
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.remove()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the file is deleted from the file system. If the operation succeeds return true; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :meth:`PySide.QtCore.QAbstractFileEngine.rmdir` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.rename(newName)
+
+
+    :param newName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the file be renamed to ``newName`` in the file system. If the operation succeeds return true; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.rmdir(dirName, recurseParentDirectories)
+
+
+    :param dirName: unicode
+    :param recurseParentDirectories: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the directory ``dirName`` is deleted from the file system. When ``recurseParentDirectories`` is true, then any empty parent-directories in ``dirName`` must also be deleted. If ``recurseParentDirectories`` is false, only the ``dirName`` leaf-node should be deleted. In most file systems a directory cannot be deleted using this function if it is non-empty. If the operation succeeds return true; otherwise return false.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setFileName`  :meth:`PySide.QtCore.QAbstractFileEngine.remove`  :meth:`PySide.QtCore.QAbstractFileEngine.mkdir`  :meth:`PySide.QtCore.QAbstractFileEngine.isRelativePath` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.seek(pos)
+
+
+    :param pos: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the file position to the given ``offset`` . Returns true if the position was successfully set; otherwise returns false.
+
+    The offset is from the beginning of the file, unless the file is sequential.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.isSequential` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.setError(error, str)
+
+
+    :param error: :attr:`PySide.QtCore.QFile.FileError`
+    :param str: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.setFileName(file)
+
+
+    :param file: unicode
+
+
+
+
+    Sets the file engine's file name to ``file`` . This file name is the file that the rest of the virtual functions will operate on.
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.fileName`  :meth:`PySide.QtCore.QAbstractFileEngine.rename` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.setPermissions(perms)
+
+
+    :param perms: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the file's permissions be set to ``perms`` . The argument perms will be set to the OR-ed together combination of QAbstractFileEngine::FileInfo, with only the :attr:`QAbstractFileEngine.PermsMask<QAbstractFileEngine.FileFlag>` being honored. If the operations succceeds return true; otherwise return false;
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.size` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.setSize(size)
+
+
+    :param size: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Requests that the file be set to size ``size`` . If ``size`` is larger than the current file then it is filled with 0's, if smaller it is simply truncated. If the operations succceeds return true; otherwise return false;
+
+    This virtual function must be reimplemented by all subclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.size` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.size()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the size of the file.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.setSize` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.supportsExtension(extension)
+
+
+    :param extension: :attr:`PySide.QtCore.QAbstractFileEngine.Extension`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This virtual function returns true if the file engine supports ``extension`` ; otherwise, false is returned. By default, no extensions are supported.
+
+    .. seealso::  :meth:`~PySide.QtCore.QAbstractFileEngine.extension` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.unmap(ptr)
+
+
+    :param ptr: :class:`PySide.QtCore.uchar`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unmaps the memory ``address`` . Returns true if the unmap succeeds; otherwise returns false.
+
+    This function bases its behavior on calling :meth:`~PySide.QtCore.QAbstractFileEngine.extension` with :class:`~PySide.QtCore.UnMapExtensionOption` . If the engine does not support this extension, false is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractFileEngine.map`  :meth:`PySide.QtCore.QAbstractFileEngine.supportsExtension` 
+
+
+.. method:: PySide.QtCore.QAbstractFileEngine.write(data, len)
+
+
+    :param data: str
+    :param len: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Writes ``len`` bytes from ``data`` to the file. Returns the number of characters written on success; otherwise returns -1.
+
+
+
+

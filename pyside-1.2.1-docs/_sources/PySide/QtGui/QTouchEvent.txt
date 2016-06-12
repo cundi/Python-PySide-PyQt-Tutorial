@@ -1,0 +1,200 @@
+.. module:: PySide.QtGui
+.. _QTouchEvent:
+
+QTouchEvent
+***********
+
+.. inheritance-diagram:: QTouchEvent
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`deviceType<PySide.QtGui.QTouchEvent.deviceType>` ()
+*    def :meth:`setDeviceType<PySide.QtGui.QTouchEvent.setDeviceType>` (adeviceType)
+*    def :meth:`setTouchPoints<PySide.QtGui.QTouchEvent.setTouchPoints>` (atouchPoints)
+*    def :meth:`setWidget<PySide.QtGui.QTouchEvent.setWidget>` (awidget)
+*    def :meth:`touchPoints<PySide.QtGui.QTouchEvent.touchPoints>` ()
+*    def :meth:`widget<PySide.QtGui.QTouchEvent.widget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTouchEvent` class contains parameters that describe a touch event.
+
+    .. _PySide.QtGui.QTouchEvent_enabling-touch-events:
+
+
+
+Enabling Touch Events
+^^^^^^^^^^^^^^^^^^^^^
+
+    Touch events occur when pressing, releasing, or moving one or more touch points on a touch device (such as a touch-screen or track-pad). To receive touch events, widgets have to have the :attr:`Qt.WA_AcceptTouchEvents<Qt.WidgetAttribute>` attribute set and graphics items need to have the :meth:`acceptTouchEvents<PySide.QtGui.QGraphicsItem.setAcceptTouchEvents>` attribute set to true.
+
+    When using :class:`PySide.QtGui.QAbstractScrollArea` based widgets, you should enable the :attr:`Qt.WA_AcceptTouchEvents<Qt.WidgetAttribute>` attribute on the scroll area's :meth:`PySide.QtGui.QAbstractScrollArea.viewport` .
+
+    Similarly to :class:`PySide.QtGui.QMouseEvent` , Qt automatically grabs each touch point on the first press inside a widget, and the widget will receive all updates for the touch point until it is released. Note that it is possible for a widget to receive events for numerous touch points, and that multiple widgets may be receiving touch events at the same time.
+
+    .. _PySide.QtGui.QTouchEvent_event-handling:
+
+
+
+Event Handling
+^^^^^^^^^^^^^^
+
+    All touch events are of type :attr:`QEvent.TouchBegin<QEvent.Type>` , :attr:`QEvent.TouchUpdate<QEvent.Type>` , or :attr:`QEvent.TouchEnd<QEvent.Type>` . Reimplement :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` or :meth:`QAbstractScrollArea.viewportEvent()<PySide.QtGui.QAbstractScrollArea.viewportEvent>` for widgets and :meth:`QGraphicsItem.sceneEvent()<PySide.QtGui.QGraphicsItem.sceneEvent>` for items in a graphics view to receive touch events.
+
+    The :attr:`QEvent.TouchUpdate<QEvent.Type>` and :attr:`QEvent.TouchEnd<QEvent.Type>` events are sent to the widget or item that accepted the :attr:`QEvent.TouchBegin<QEvent.Type>` event. If the :attr:`QEvent.TouchBegin<QEvent.Type>` event is not accepted and not filtered by an event filter, then no further touch events are sent until the next :attr:`QEvent.TouchBegin<QEvent.Type>` .
+
+    The :meth:`PySide.QtGui.QTouchEvent.touchPoints` function returns a list of all touch points contained in the event. Information about each touch point can be retrieved using the :class:`QTouchEvent.TouchPoint<~PySide.QtGui.QTouchEvent.TouchPoint>` class. The :attr:`Qt.TouchPointState` enum describes the different states that a touch point may have.
+
+    .. _PySide.QtGui.QTouchEvent_event-delivery-and-propagation:
+
+
+
+Event Delivery and Propagation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    By default, :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` translates the first non-primary touch point in a :class:`PySide.QtGui.QTouchEvent` into a :class:`PySide.QtGui.QMouseEvent` . This makes it possible to enable touch events on existing widgets that do not normally handle :class:`PySide.QtGui.QTouchEvent` . See below for information on some special considerations needed when doing this.
+
+    :attr:`QEvent.TouchBegin<QEvent.Type>` is the first touch event sent to a widget. The :attr:`QEvent.TouchBegin<QEvent.Type>` event contains a special accept flag that indicates whether the receiver wants the event. By default, the event is accepted. You should call :meth:`PySide.QtCore.QEvent.ignore` if the touch event is not handled by your widget. The :attr:`QEvent.TouchBegin<QEvent.Type>` event is propagated up the parent widget chain until a widget accepts it with :meth:`PySide.QtCore.QEvent.accept` , or an event filter consumes it. For QGraphicsItems, the :attr:`QEvent.TouchBegin<QEvent.Type>` event is propagated to items under the mouse (similar to mouse event propagation for QGraphicsItems).
+
+    .. _PySide.QtGui.QTouchEvent_touch-point-grouping:
+
+
+
+Touch Point Grouping
+^^^^^^^^^^^^^^^^^^^^
+
+    As mentioned above, it is possible that several widgets can be receiving QTouchEvents at the same time. However, Qt makes sure to never send duplicate :attr:`QEvent.TouchBegin<QEvent.Type>` events to the same widget, which could theoretically happen during propagation if, for example, the user touched 2 separate widgets in a :class:`PySide.QtGui.QGroupBox` and both widgets ignored the :attr:`QEvent.TouchBegin<QEvent.Type>` event.
+
+    To avoid this, Qt will group new touch points together using the following rules:
+
+
+    * When the first touch point is detected, the destination widget is determined firstly by the location on screen and secondly by the propagation rules.
+    * When additional touch points are detected, Qt first looks to see if there are any active touch points on any ancestor or descendent of the widget under the new touch point. If there are, the new touch point is grouped with the first, and the new touch point will be sent in a single :class:`PySide.QtGui.QTouchEvent` to the widget that handled the first touch point. (The widget under the new touch point will not receive an event).
+
+    This makes it possible for sibling widgets to handle touch events independently while making sure that the sequence of QTouchEvents is always correct.
+
+    .. _PySide.QtGui.QTouchEvent_mouse-events-and-the-primary-touch-point:
+
+
+
+Mouse Events and the Primary Touch Point
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QTouchEvent` delivery is independent from that of :class:`PySide.QtGui.QMouseEvent` . On some windowing systems, mouse events are also sent for the :meth:`primary touch point<PySide.QtGui.QTouchEvent.TouchPoint.isPrimary>` . This means it is possible for your widget to receive both :class:`PySide.QtGui.QTouchEvent` and :class:`PySide.QtGui.QMouseEvent` for the same user interaction point. You can use the :meth:`QTouchEvent.TouchPoint.isPrimary()<PySide.QtGui.QTouchEvent.TouchPoint.isPrimary>` function to identify the primary touch point.
+
+    Note that on some systems, it is possible to receive touch events without a primary touch point. All this means is that there will be no mouse event generated for the touch points in the :class:`PySide.QtGui.QTouchEvent` .
+
+    .. _PySide.QtGui.QTouchEvent_caveats:
+
+
+
+Caveats
+^^^^^^^
+
+
+    * As mentioned above, enabling touch events means multiple widgets can be receiving touch events simultaneously. Combined with the default :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` handling for QTouchEvents, this gives you great flexibility in designing touch user interfaces. Be aware of the implications. For example, it is possible that the user is moving a :class:`PySide.QtGui.QSlider` with one finger and pressing a :class:`PySide.QtGui.QPushButton` with another. The signals emitted by these widgets will be interleaved.
+    * Recursion into the event loop using one of the exec() methods (e.g., :meth:`QDialog.exec()<PySide.QtGui.QDialog.exec>` or :meth:`QMenu.exec()<PySide.QtGui.QMenu.exec>` ) in a :class:`PySide.QtGui.QTouchEvent` event handler is not supported. Since there are multiple event recipients, recursion may cause problems, including but not limited to lost events and unexpected infinite recursion.
+    * QTouchEvents are not affected by a :meth:`mouse grab<PySide.QtGui.QWidget.grabMouse>` or an :meth:`active pop-up widget<PySide.QtGui.QApplication.activePopupWidget>` . The behavior of QTouchEvents is undefined when opening a pop-up or grabbing the mouse while there are more than one active touch points.
+
+    .. seealso::  :class:`QTouchEvent.TouchPoint<~PySide.QtGui.QTouchEvent.TouchPoint>`  :attr:`Qt.TouchPointState`  :attr:`Qt.WA_AcceptTouchEvents<Qt.WidgetAttribute>`  :meth:`QGraphicsItem.acceptTouchEvents()<PySide.QtGui.QGraphicsItem.acceptTouchEvents>` 
+
+
+
+.. attribute:: PySide.QtGui.QTouchEvent.DeviceType
+
+    This enum represents the type of device that generated a :class:`PySide.QtGui.QTouchEvent` .
+
+    +-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +=======================+=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QTouchEvent.TouchScreen|In this type of device, the touch surface and display are integrated. This means the surface and display typically have the same size, such that there is a direct relationship between the touch points' physical positions and the coordinate reported by :class:`QTouchEvent.TouchPoint<~PySide.QtGui.QTouchEvent.TouchPoint>` . As a result, Qt allows the user to interact directly with multiple QWidgets and QGraphicsItems at the same time.                     |
+    +-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTouchEvent.TouchPad   |In this type of device, the touch surface is separate from the display. There is not a direct relationship between the physical touch location and the on-screen coordinates. Instead, they are calculated relative to the current mouse position, and the user must use the touch-pad to move this reference point. Unlike touch-screens, Qt allows users to only interact with a single :class:`PySide.QtGui.QWidget` or :class:`PySide.QtGui.QGraphicsItem` at a time.|
+    +-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QTouchEvent.deviceType()
+
+
+    :rtype: :attr:`PySide.QtGui.QTouchEvent.DeviceType`
+
+
+
+
+    Returns the touch device Type, which is of type :attr:`QTouchEvent.DeviceType` .
+
+
+
+.. method:: PySide.QtGui.QTouchEvent.setDeviceType(adeviceType)
+
+
+    :param adeviceType: :attr:`PySide.QtGui.QTouchEvent.DeviceType`
+
+
+
+
+    Sets the device type to ``deviceType`` , which is of type :attr:`QTouchEvent.DeviceType` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTouchEvent.deviceType` 
+
+
+.. method:: PySide.QtGui.QTouchEvent.setTouchPoints(atouchPoints)
+
+
+    :param atouchPoints: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTouchEvent.setWidget(awidget)
+
+
+    :param awidget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget for this event.
+
+    .. seealso::  :meth:`PySide.QtGui.QTouchEvent.widget` 
+
+
+.. method:: PySide.QtGui.QTouchEvent.touchPoints()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of touch points contained in the touch event.
+
+
+
+.. method:: PySide.QtGui.QTouchEvent.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget on which the event occurred.
+
+
+
+

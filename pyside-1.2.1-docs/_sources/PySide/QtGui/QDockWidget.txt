@@ -1,0 +1,353 @@
+.. module:: PySide.QtGui
+.. _QDockWidget:
+
+QDockWidget
+***********
+
+.. inheritance-diagram:: QDockWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allowedAreas<PySide.QtGui.QDockWidget.allowedAreas>` ()
+*    def :meth:`features<PySide.QtGui.QDockWidget.features>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QDockWidget.initStyleOption>` (option)
+*    def :meth:`isAreaAllowed<PySide.QtGui.QDockWidget.isAreaAllowed>` (area)
+*    def :meth:`isFloating<PySide.QtGui.QDockWidget.isFloating>` ()
+*    def :meth:`setAllowedAreas<PySide.QtGui.QDockWidget.setAllowedAreas>` (areas)
+*    def :meth:`setFeatures<PySide.QtGui.QDockWidget.setFeatures>` (features)
+*    def :meth:`setFloating<PySide.QtGui.QDockWidget.setFloating>` (floating)
+*    def :meth:`setTitleBarWidget<PySide.QtGui.QDockWidget.setTitleBarWidget>` (widget)
+*    def :meth:`setWidget<PySide.QtGui.QDockWidget.setWidget>` (widget)
+*    def :meth:`titleBarWidget<PySide.QtGui.QDockWidget.titleBarWidget>` ()
+*    def :meth:`toggleViewAction<PySide.QtGui.QDockWidget.toggleViewAction>` ()
+*    def :meth:`widget<PySide.QtGui.QDockWidget.widget>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allowedAreasChanged<PySide.QtGui.QDockWidget.allowedAreasChanged>` (allowedAreas)
+*    def :meth:`dockLocationChanged<PySide.QtGui.QDockWidget.dockLocationChanged>` (area)
+*    def :meth:`featuresChanged<PySide.QtGui.QDockWidget.featuresChanged>` (features)
+*    def :meth:`topLevelChanged<PySide.QtGui.QDockWidget.topLevelChanged>` (topLevel)
+*    def :meth:`visibilityChanged<PySide.QtGui.QDockWidget.visibilityChanged>` (visible)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDockWidget` class provides a widget that can be docked inside a :class:`PySide.QtGui.QMainWindow` or floated as a top-level window on the desktop.
+
+    :class:`PySide.QtGui.QDockWidget` provides the concept of dock widgets, also know as tool palettes or utility windows. Dock windows are secondary windows placed in the *dock widget area* around the :meth:`central widget<PySide.QtGui.QMainWindow.centralWidget>` in a :class:`PySide.QtGui.QMainWindow` .
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/mainwindow-docks.png
+
+    Dock windows can be moved inside their current area, moved into new areas and floated (e.g., undocked) by the end-user. The :class:`PySide.QtGui.QDockWidget` API allows the programmer to restrict the dock widgets ability to move, float and close, as well as the areas in which they can be placed.
+
+    .. _PySide.QtGui.QDockWidget_appearance:
+
+
+
+Appearance
+^^^^^^^^^^
+
+    A :class:`PySide.QtGui.QDockWidget` consists of a title bar and the content area. The title bar displays the dock widgets :meth:`window title<PySide.QtGui.QWidget.windowTitle>` , a *float* button and a *close* button. Depending on the state of the :class:`PySide.QtGui.QDockWidget` , the *float* and *close* buttons may be either disabled or not shown at all.
+
+    The visual appearance of the title bar and buttons is dependent on the :class:`style<PySide.QtGui.QStyle>` in use.
+
+    A :class:`PySide.QtGui.QDockWidget` acts as a wrapper for its child widget, set with :meth:`PySide.QtGui.QDockWidget.setWidget` . Custom size hints, minimum and maximum sizes and size policies should be implemented in the child widget. :class:`PySide.QtGui.QDockWidget` will respect them, adjusting its own constraints to include the frame and title. Size constraints should not be set on the :class:`PySide.QtGui.QDockWidget` itself, because they change depending on whether it is docked; a docked :class:`PySide.QtGui.QDockWidget` has no frame and a smaller title bar.
+
+    .. seealso::  :class:`PySide.QtGui.QMainWindow`  :ref:`Dock Widgets Example<mainwindows/dockwidgets>` 
+
+.. class:: QDockWidget([parent=None[, flags=0]])
+           QDockWidget(title[, parent=None[, flags=0]])
+
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param title: unicode
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+.. attribute:: PySide.QtGui.QDockWidget.DockWidgetFeature
+
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                                                                                                                                            |
+    +======================================+=======================================================================================================================================================================================================================================+
+    |QDockWidget.DockWidgetClosable        |The dock widget can be closed. On some systems the dock widget always has a close button when it's floating (for example on MacOS 10.5).                                                                                               |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDockWidget.DockWidgetMovable         |The dock widget can be moved between docks by the user.                                                                                                                                                                                |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDockWidget.DockWidgetFloatable       |The dock widget can be detached from the main window, and floated as an independent window.                                                                                                                                            |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDockWidget.DockWidgetVerticalTitleBar|The dock widget displays a vertical title bar on its left side. This can be used to increase the amount of vertical space in a :class:`PySide.QtGui.QMainWindow` .                                                                     |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDockWidget.AllDockWidgetFeatures     |(Deprecated) The dock widget can be closed, moved, and floated. Since new features might be added in future releases, the look and behavior of dock widgets might change if you use this flag. Please specify individual flags instead.|
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDockWidget.NoDockWidgetFeatures      |The dock widget cannot be closed, moved, or floated.                                                                                                                                                                                   |
+    +--------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QDockWidget.allowedAreas()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.DockWidgetAreas`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QDockWidget.setAllowedAreas` 
+
+
+.. method:: PySide.QtGui.QDockWidget.allowedAreasChanged(allowedAreas)
+
+
+    :param allowedAreas: :class:`PySide.QtCore.Qt.DockWidgetAreas`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.dockLocationChanged(area)
+
+
+    :param area: :attr:`PySide.QtCore.Qt.DockWidgetArea`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.features()
+
+
+    :rtype: :class:`PySide.QtGui.QDockWidget.DockWidgetFeatures`
+
+
+
+
+    This property holds whether the dock widget is movable, closable, and floatable.
+
+    By default, this property is set to a combination of :attr:`DockWidgetClosable<QDockWidget.DockWidgetFeature>` , :attr:`DockWidgetMovable<QDockWidget.DockWidgetFeature>` and :attr:`DockWidgetFloatable<QDockWidget.DockWidgetFeature>` .
+
+    .. seealso::  :attr:`QDockWidget.DockWidgetFeature` 
+
+
+.. method:: PySide.QtGui.QDockWidget.featuresChanged(features)
+
+
+    :param features: :class:`PySide.QtGui.QDockWidget.DockWidgetFeatures`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionDockWidget`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QDockWidget` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionDockWidget` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QDockWidget.isAreaAllowed(area)
+
+
+    :param area: :attr:`PySide.QtCore.Qt.DockWidgetArea`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.isFloating()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the dock widget is floating.
+
+    A floating dock widget is presented to the user as an independent window "on top" of its parent :class:`PySide.QtGui.QMainWindow` , instead of being docked in the :class:`PySide.QtGui.QMainWindow` .
+
+    By default, this property is true.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.isWindow` 
+
+
+.. method:: PySide.QtGui.QDockWidget.setAllowedAreas(areas)
+
+
+    :param areas: :class:`PySide.QtCore.Qt.DockWidgetAreas`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.setFeatures(features)
+
+
+    :param features: :class:`PySide.QtGui.QDockWidget.DockWidgetFeatures`
+
+
+
+
+    This property holds whether the dock widget is movable, closable, and floatable.
+
+    By default, this property is set to a combination of :attr:`DockWidgetClosable<QDockWidget.DockWidgetFeature>` , :attr:`DockWidgetMovable<QDockWidget.DockWidgetFeature>` and :attr:`DockWidgetFloatable<QDockWidget.DockWidgetFeature>` .
+
+    .. seealso::  :attr:`QDockWidget.DockWidgetFeature` 
+
+
+.. method:: PySide.QtGui.QDockWidget.setFloating(floating)
+
+
+    :param floating: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the dock widget is floating.
+
+    A floating dock widget is presented to the user as an independent window "on top" of its parent :class:`PySide.QtGui.QMainWindow` , instead of being docked in the :class:`PySide.QtGui.QMainWindow` .
+
+    By default, this property is true.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.isWindow` 
+
+
+.. method:: PySide.QtGui.QDockWidget.setTitleBarWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets an arbitrary ``widget`` as the dock widget's title bar. If ``widget`` is 0, any custom title bar widget previously set on the dock widget is removed, but not deleted, and the default title bar will be used instead.
+
+    If a title bar widget is set, :class:`PySide.QtGui.QDockWidget` will not use native window decorations when it is floated.
+
+    Here are some tips for implementing custom title bars:
+
+
+    * Mouse events that are not explicitly handled by the title bar widget must be ignored by calling :meth:`QMouseEvent.ignore()<PySide.QtGui.QMouseEvent.ignore>` . These events then propagate to the :class:`PySide.QtGui.QDockWidget` parent, which handles them in the usual manner, moving when the title bar is dragged, docking and undocking when it is double-clicked, etc.
+    * When :attr:`DockWidgetVerticalTitleBar<QDockWidget.DockWidgetFeature>` is set on :class:`PySide.QtGui.QDockWidget` , the title bar widget is repositioned accordingly. In :meth:`PySide.QtGui.QWidget.resizeEvent` , the title bar should check what orientation it should assume:
+      
+      ::
+      
+          dockWidget = parentWidget()
+          if dockWidget.features() & QDockWidget.DockWidgetVerticalTitleBar:
+              # I need to be vertical
+          else:
+              # I need to be horizontal
+    * The title bar widget must have a valid :meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>` and :meth:`QWidget.minimumSizeHint()<PySide.QtGui.QWidget.minimumSizeHint>` . These functions should take into account the current orientation of the title bar.
+    * It is not possible to remove a title bar from a dock widget. However, a similar effect can be achieved by setting a default constructed :class:`PySide.QtGui.QWidget` as the title bar widget.
+
+    Using :meth:`~PySide.QtGui.QDockWidget.qobject\_cast` as shown above, the title bar widget has full access to its parent :class:`PySide.QtGui.QDockWidget` . Hence it can perform such operations as docking and hiding in response to user actions.
+
+    .. seealso::  :meth:`PySide.QtGui.QDockWidget.titleBarWidget`  :attr:`DockWidgetVerticalTitleBar<QDockWidget.DockWidgetFeature>` 
+
+
+.. method:: PySide.QtGui.QDockWidget.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget for the dock widget to ``widget`` .
+
+    If the dock widget is visible when ``widget`` is added, you must :meth:`PySide.QtGui.QWidget.show` it explicitly.
+
+    Note that you must add the layout of the ``widget`` before you call this function; if not, the ``widget`` will not be visible.
+
+    .. seealso::  :meth:`PySide.QtGui.QDockWidget.widget` 
+
+
+.. method:: PySide.QtGui.QDockWidget.titleBarWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the custom title bar widget set on the :class:`PySide.QtGui.QDockWidget` , or 0 if no custom title bar has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QDockWidget.setTitleBarWidget` 
+
+
+.. method:: PySide.QtGui.QDockWidget.toggleViewAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns a checkable action that can be used to show or close this dock widget.
+
+    The action's text is set to the dock widget's window title.
+
+    .. seealso::  :meth:`QAction.text<PySide.QtGui.QAction.text>`  :meth:`QWidget.windowTitle<PySide.QtGui.QWidget.windowTitle>` 
+
+
+.. method:: PySide.QtGui.QDockWidget.topLevelChanged(topLevel)
+
+
+    :param topLevel: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.visibilityChanged(visible)
+
+
+    :param visible: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDockWidget.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget for the dock widget. This function returns zero if the widget has not been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QDockWidget.setWidget` 
+
+
+

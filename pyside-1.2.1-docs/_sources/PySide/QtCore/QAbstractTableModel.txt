@@ -1,0 +1,57 @@
+.. module:: PySide.QtCore
+.. _QAbstractTableModel:
+
+QAbstractTableModel
+*******************
+
+.. inheritance-diagram:: QAbstractTableModel
+    :parts: 2
+
+**Inherited by:** :ref:`QSqlQueryModel`, :ref:`QSqlTableModel`, :ref:`QSqlRelationalTableModel`
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractTableModel` class provides an abstract model that can be subclassed to create table models.
+
+    :class:`PySide.QtCore.QAbstractTableModel` provides a standard interface for models that represent their data as a two-dimensional array of items. It is not used directly, but must be subclassed.
+
+    Since the model provides a more specialized interface than :class:`PySide.QtCore.QAbstractItemModel` , it is not suitable for use with tree views, although it can be used to provide data to a :class:`PySide.QtGui.QListView` . If you need to represent a simple list of items, and only need a model to contain a single column of data, subclassing the :class:`PySide.QtCore.QAbstractListModel` may be more appropriate.
+
+    The :meth:`PySide.QtCore.QAbstractItemModel.rowCount` and :meth:`PySide.QtCore.QAbstractItemModel.columnCount` functions return the dimensions of the table. To retrieve a model index corresponding to an item in the model, use :meth:`PySide.QtCore.QAbstractTableModel.index` and provide only the row and column numbers.
+
+    .. _PySide.QtCore.QAbstractTableModel_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When subclassing :class:`PySide.QtCore.QAbstractTableModel` , you must implement :meth:`PySide.QtCore.QAbstractItemModel.rowCount` , :meth:`PySide.QtCore.QAbstractItemModel.columnCount` , and :meth:`PySide.QtCore.QAbstractItemModel.data` . Default implementations of the :meth:`PySide.QtCore.QAbstractTableModel.index` and :meth:`PySide.QtCore.QAbstractTableModel.parent` functions are provided by :class:`PySide.QtCore.QAbstractTableModel` . Well behaved models will also implement :meth:`PySide.QtCore.QAbstractItemModel.headerData` .
+
+    Editable models need to implement :meth:`PySide.QtCore.QAbstractItemModel.setData` , and implement :meth:`PySide.QtCore.QAbstractItemModel.flags` to return a value containing :class:`Qt.ItemIsEditable<Qt.ItemFlags>` .
+
+    Models that provide interfaces to resizable data structures can provide implementations of :meth:`PySide.QtCore.QAbstractItemModel.insertRows` , :meth:`PySide.QtCore.QAbstractItemModel.removeRows` , :meth:`PySide.QtCore.QAbstractItemModel.insertColumns` , and :meth:`PySide.QtCore.QAbstractItemModel.removeColumns` . When implementing these functions, it is important to call the appropriate functions so that all connected views are aware of any changes:
+
+
+    * An :meth:`PySide.QtCore.QAbstractItemModel.insertRows` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginInsertRows` *before* inserting new rows into the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endInsertRows` *immediately afterwards*.
+    * An :meth:`PySide.QtCore.QAbstractItemModel.insertColumns` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginInsertColumns` *before* inserting new columns into the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endInsertColumns` *immediately afterwards*.
+    * A :meth:`PySide.QtCore.QAbstractItemModel.removeRows` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginRemoveRows` *before* the rows are removed from the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endRemoveRows` *immediately afterwards*.
+    * A :meth:`PySide.QtCore.QAbstractItemModel.removeColumns` implementation must call :meth:`PySide.QtCore.QAbstractItemModel.beginRemoveColumns` *before* the columns are removed from the data structure, and it must call :meth:`PySide.QtCore.QAbstractItemModel.endRemoveColumns` *immediately afterwards*.
+
+    .. note::  Some general guidelines for subclassing models are available in the :ref:`Model Subclassing Reference<model-view-programming.html>` .
+
+    .. note:: \
+
+    .. seealso::  :ref:`Model Classes<model-view-programming.html>`  :class:`PySide.QtCore.QAbstractItemModel`  :class:`PySide.QtCore.QAbstractListModel`  :ref:`Pixelator Example<itemviews/pixelator>` 
+
+.. class:: QAbstractTableModel([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an abstract table model for the given ``parent`` .
+
+
+

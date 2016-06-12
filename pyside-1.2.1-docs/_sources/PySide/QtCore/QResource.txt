@@ -1,0 +1,330 @@
+.. module:: PySide.QtCore
+.. _QResource:
+
+QResource
+*********
+
+.. inheritance-diagram:: QResource
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`absoluteFilePath<PySide.QtCore.QResource.absoluteFilePath>` ()
+*    def :meth:`children<PySide.QtCore.QResource.children>` ()
+*    def :meth:`data<PySide.QtCore.QResource.data>` ()
+*    def :meth:`fileName<PySide.QtCore.QResource.fileName>` ()
+*    def :meth:`isCompressed<PySide.QtCore.QResource.isCompressed>` ()
+*    def :meth:`isDir<PySide.QtCore.QResource.isDir>` ()
+*    def :meth:`isFile<PySide.QtCore.QResource.isFile>` ()
+*    def :meth:`isValid<PySide.QtCore.QResource.isValid>` ()
+*    def :meth:`locale<PySide.QtCore.QResource.locale>` ()
+*    def :meth:`setFileName<PySide.QtCore.QResource.setFileName>` (file)
+*    def :meth:`setLocale<PySide.QtCore.QResource.setLocale>` (locale)
+*    def :meth:`size<PySide.QtCore.QResource.size>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addSearchPath<PySide.QtCore.QResource.addSearchPath>` (path)
+*    def :meth:`registerResource<PySide.QtCore.QResource.registerResource>` (rccFilename[, resourceRoot=""])
+*    def :meth:`registerResourceData<PySide.QtCore.QResource.registerResourceData>` (rccData[, resourceRoot=""])
+*    def :meth:`searchPaths<PySide.QtCore.QResource.searchPaths>` ()
+*    def :meth:`unregisterResource<PySide.QtCore.QResource.unregisterResource>` (rccFilename[, resourceRoot=""])
+*    def :meth:`unregisterResourceData<PySide.QtCore.QResource.unregisterResourceData>` (rccData[, resourceRoot=""])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QResource` class provides an interface for reading directly from resources.
+
+    :class:`PySide.QtCore.QResource` is an object that represents a set of data (and possibly children) relating to a single resource entity. :class:`PySide.QtCore.QResource` gives direct access to the bytes in their raw format. In this way direct access allows reading data without buffer copying or indirection. Indirection is often useful when interacting with the resource entity as if it is a file, this can be achieved with :class:`PySide.QtCore.QFile` . The data and children behind a :class:`PySide.QtCore.QResource` are normally compiled into an application/library, but it is also possible to load a resource at runtime. When loaded at run time the resource file will be loaded as one big set of data and then given out in pieces via references into the resource tree.
+
+    A :class:`PySide.QtCore.QResource` can either be loaded with an absolute path, either treated as a file system rooted with a ``/`` character, or in resource notation rooted with a ``:`` character. A relative resource can also be opened which will be found in the list of paths returned by :meth:`QDir.searchPaths()<PySide.QtCore.QDir.searchPaths>` .
+
+    A :class:`PySide.QtCore.QResource` that is representing a file will have data backing it, this data can possibly be compressed, in which case :meth:`~PySide.QtCore.QResource.qUncompress` must be used to access the real data; this happens implicitly when accessed through a :class:`PySide.QtCore.QFile` . A :class:`PySide.QtCore.QResource` that is representing a directory will have only children and no data.
+
+    .. _PySide.QtCore.QResource_dynamic-resource-loading:
+
+
+
+Dynamic Resource Loading
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    A resource can be left out of an application's binary and loaded when it is needed at run-time by using the :meth:`PySide.QtCore.QResource.registerResource` function. The resource file passed into :meth:`PySide.QtCore.QResource.registerResource` must be a binary resource as created by rcc. Further information about binary resources can be found in :ref:`The Qt Resource System<resources.html>` documentation.
+
+    This can often be useful when loading a large set of application icons that may change based on a setting, or that can be edited by a user and later recreated. The resource is immediately loaded into memory, either as a result of a single file read operation, or as a memory mapped file.
+
+    This approach can prove to be a significant performance gain as only a single file will be loaded, and pieces of data will be given out via the path requested in :meth:`PySide.QtCore.QResource.setFileName` .
+
+    The :meth:`PySide.QtCore.QResource.unregisterResource` function removes a reference to a particular file. If there are QResources that currently reference resources related to the unregistered file, they will continue to be valid but the resource file itself will be removed from the resource roots, and thus no further :class:`PySide.QtCore.QResource` can be created pointing into this resource data. The resource itself will be unmapped from memory when the last :class:`PySide.QtCore.QResource` that points to it is destroyed.
+
+    .. seealso::  :ref:`The Qt Resource System<resources.html>`  :class:`PySide.QtCore.QFile`  :class:`PySide.QtCore.QDir`  :class:`PySide.QtCore.QFileInfo` 
+
+.. class:: QResource([file=""[, locale=QLocale()]])
+
+    :param locale: :class:`PySide.QtCore.QLocale`
+    :param file: unicode
+
+    Constructs a :class:`PySide.QtCore.QResource` pointing to ``file`` . ``locale`` is used to load a specific localization of a resource data.
+
+    .. seealso::  :class:`PySide.QtCore.QFileInfo`  :meth:`QDir.searchPaths()<PySide.QtCore.QDir.searchPaths>`  :meth:`PySide.QtCore.QResource.setFileName`  :meth:`PySide.QtCore.QResource.setLocale` 
+
+.. method:: PySide.QtCore.QResource.absoluteFilePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the real path that this :class:`PySide.QtCore.QResource` represents, if the resource was found via the :meth:`QDir.searchPaths()<PySide.QtCore.QDir.searchPaths>` it will be indicated in the path.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.fileName` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.addSearchPath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Use :meth:`QDir.addSearchPath()<PySide.QtCore.QDir.addSearchPath>` with a prefix instead.
+
+    Adds ``path`` to the search paths searched in to find resources that are not specified with an absolute path. The ``path`` must be an absolute path (start with ``/`` ).
+
+    The default search path is to search only in the root (``:/`` ). The last path added will be consulted first upon next :class:`PySide.QtCore.QResource` creation.
+
+
+
+.. method:: PySide.QtCore.QResource.children()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all resources in this directory, if the resource represents a file the list will be empty.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.isDir` 
+
+
+.. method:: PySide.QtCore.QResource.data()
+
+
+    :rtype: PyObject
+
+
+
+    
+    Returns a read only buffer object pointing to the segment of data that this resource represents. If the resource is compressed the data returns is compressed and qUncompress() must be used to access the data. If the resource is a directory None is returned.
+    
+
+
+
+.. method:: PySide.QtCore.QResource.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the full path to the file that this :class:`PySide.QtCore.QResource` represents as it was passed.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.setFileName`  :meth:`PySide.QtCore.QResource.absoluteFilePath` 
+
+
+.. method:: PySide.QtCore.QResource.isCompressed()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the resource represents a file and the data backing it is in a compressed format, false otherwise.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.data`  :meth:`PySide.QtCore.QResource.isFile` 
+
+
+.. method:: PySide.QtCore.QResource.isDir()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the resource represents a directory and thus may have :meth:`PySide.QtCore.QResource.children` in it, false if it represents a file.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.isFile` 
+
+
+.. method:: PySide.QtCore.QResource.isFile()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the resource represents a file and thus has data backing it, false if it represents a directory.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.isDir` 
+
+
+.. method:: PySide.QtCore.QResource.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the resource really exists in the resource hierarchy, false otherwise.
+
+
+
+.. method:: PySide.QtCore.QResource.locale()
+
+
+    :rtype: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Returns the locale used to locate the data for the :class:`PySide.QtCore.QResource` .
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.setLocale` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.registerResource(rccFilename[, resourceRoot=""])
+
+
+    :param rccFilename: unicode
+    :param resourceRoot: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Registers the resource with the given ``rccFileName`` at the location in the resource tree specified by ``mapRoot`` , and returns true if the file is successfully opened; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.unregisterResource` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.registerResourceData(rccData[, resourceRoot=""])
+
+
+    :param rccData: :class:`PySide.QtCore.uchar`
+    :param resourceRoot: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Registers the resource with the given ``rccData`` at the location in the resource tree specified by ``mapRoot`` , and returns true if the file is successfully opened; otherwise returns false.
+
+    .. warning::  The data must remain valid throughout the life of any :class:`PySide.QtCore.QFile` that may reference the resource data.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.unregisterResource` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.searchPaths()
+
+
+    :rtype: list of strings
+
+
+
+
+    Use :meth:`QDir.searchPaths()<PySide.QtCore.QDir.searchPaths>` instead.
+
+    Returns the current search path list. This list is consulted when creating a relative resource.
+
+    .. seealso::  :meth:`QDir.addSearchPath()<PySide.QtCore.QDir.addSearchPath>`  :meth:`QDir.setSearchPaths()<PySide.QtCore.QDir.setSearchPaths>` 
+
+
+.. method:: PySide.QtCore.QResource.setFileName(file)
+
+
+    :param file: unicode
+
+
+
+
+    Sets a :class:`PySide.QtCore.QResource` to point to ``file`` . ``file`` can either be absolute, in which case it is opened directly, if relative then the file will be tried to be found in :meth:`QDir.searchPaths()<PySide.QtCore.QDir.searchPaths>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.fileName`  :meth:`PySide.QtCore.QResource.absoluteFilePath` 
+
+
+.. method:: PySide.QtCore.QResource.setLocale(locale)
+
+
+    :param locale: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Sets a :class:`PySide.QtCore.QResource` to only load the localization of resource to for ``locale`` . If a resource for the specific locale is not found then the C locale is used.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.locale`  :meth:`PySide.QtCore.QResource.setFileName` 
+
+
+.. method:: PySide.QtCore.QResource.size()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the size of the data backing the resource.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.data`  :meth:`PySide.QtCore.QResource.isFile` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.unregisterResource(rccFilename[, resourceRoot=""])
+
+
+    :param rccFilename: unicode
+    :param resourceRoot: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unregisters the resource with the given ``rccFileName`` at the location in the resource tree specified by ``mapRoot`` , and returns true if the resource is successfully unloaded and no references exist for the resource; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.registerResource` 
+
+
+.. staticmethod:: PySide.QtCore.QResource.unregisterResourceData(rccData[, resourceRoot=""])
+
+
+    :param rccData: :class:`PySide.QtCore.uchar`
+    :param resourceRoot: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Unregisters the resource with the given ``rccData`` at the location in the resource tree specified by ``mapRoot`` , and returns true if the resource is successfully unloaded and no references exist into the resource; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QResource.registerResource` 
+
+
+

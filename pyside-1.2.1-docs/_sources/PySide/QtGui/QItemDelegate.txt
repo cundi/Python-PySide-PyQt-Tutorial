@@ -1,0 +1,334 @@
+.. module:: PySide.QtGui
+.. _QItemDelegate:
+
+QItemDelegate
+*************
+
+.. inheritance-diagram:: QItemDelegate
+    :parts: 2
+
+**Inherited by:** :ref:`QSqlRelationalDelegate`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`check<PySide.QtGui.QItemDelegate.check>` (option, bounding, variant)
+*    def :meth:`decoration<PySide.QtGui.QItemDelegate.decoration>` (option, variant)
+*    def :meth:`drawBackground<PySide.QtGui.QItemDelegate.drawBackground>` (painter, option, index)
+*    def :meth:`hasClipping<PySide.QtGui.QItemDelegate.hasClipping>` ()
+*    def :meth:`itemEditorFactory<PySide.QtGui.QItemDelegate.itemEditorFactory>` ()
+*    def :meth:`rect<PySide.QtGui.QItemDelegate.rect>` (option, index, role)
+*    def :meth:`setClipping<PySide.QtGui.QItemDelegate.setClipping>` (clip)
+*    def :meth:`setItemEditorFactory<PySide.QtGui.QItemDelegate.setItemEditorFactory>` (factory)
+*    def :meth:`setOptions<PySide.QtGui.QItemDelegate.setOptions>` (index, option)
+*    def :meth:`textRectangle<PySide.QtGui.QItemDelegate.textRectangle>` (painter, rect, font, text)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`drawCheck<PySide.QtGui.QItemDelegate.drawCheck>` (painter, option, rect, state)
+*    def :meth:`drawDecoration<PySide.QtGui.QItemDelegate.drawDecoration>` (painter, option, rect, pixmap)
+*    def :meth:`drawDisplay<PySide.QtGui.QItemDelegate.drawDisplay>` (painter, option, rect, text)
+*    def :meth:`drawFocus<PySide.QtGui.QItemDelegate.drawFocus>` (painter, option, rect)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QItemDelegate` class provides display and editing facilities for data items from a model.
+
+    :class:`PySide.QtGui.QItemDelegate` can be used to provide custom display features and editor widgets for item views based on :class:`PySide.QtGui.QAbstractItemView` subclasses. Using a delegate for this purpose allows the display and editing mechanisms to be customized and developed independently from the model and view.
+
+    The :class:`PySide.QtGui.QItemDelegate` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` . Note that :class:`PySide.QtGui.QStyledItemDelegate` has taken over the job of drawing Qt's item views. We recommend the use of :class:`PySide.QtGui.QStyledItemDelegate` when creating new delegates.
+
+    When displaying items from a custom model in a standard view, it is often sufficient to simply ensure that the model returns appropriate data for each of the :attr:`roles<Qt.ItemDataRole>` that determine the appearance of items in views. The default delegate used by Qt's standard views uses this role information to display items in most of the common forms expected by users. However, it is sometimes necessary to have even more control over the appearance of items than the default delegate can provide.
+
+    This class provides default implementations of the functions for painting item data in a view and editing data from item models. Default implementations of the :meth:`PySide.QtGui.QItemDelegate.paint` and :meth:`PySide.QtGui.QItemDelegate.sizeHint` virtual functions, defined in :class:`PySide.QtGui.QAbstractItemDelegate` , are provided to ensure that the delegate implements the correct basic behavior expected by views. You can reimplement these functions in subclasses to customize the appearance of items.
+
+    When editing data in an item view, :class:`PySide.QtGui.QItemDelegate` provides an editor widget, which is a widget that is placed on top of the view while editing takes place. Editors are created with a :class:`PySide.QtGui.QItemEditorFactory` ; a default static instance provided by :class:`PySide.QtGui.QItemEditorFactory` is installed on all item delegates. You can set a custom factory using :meth:`PySide.QtGui.QItemDelegate.setItemEditorFactory` or set a new default factory with :meth:`QItemEditorFactory.setDefaultFactory()<PySide.QtGui.QItemEditorFactory.setDefaultFactory>` . It is the data stored in the item model with the :attr:`Qt.EditRole<Qt.ItemDataRole>` that is edited.
+
+    Only the standard editing functions for widget-based delegates are reimplemented here:
+
+
+    * :meth:`PySide.QtGui.QItemDelegate.createEditor` returns the widget used to change data from the model and can be reimplemented to customize editing behavior.
+    * :meth:`PySide.QtGui.QItemDelegate.setEditorData` provides the widget with data to manipulate.
+    * :meth:`PySide.QtGui.QItemDelegate.updateEditorGeometry` ensures that the editor is displayed correctly with respect to the item view.
+    * :meth:`PySide.QtGui.QItemDelegate.setModelData` returns updated data to the model.
+
+    The :meth:`PySide.QtGui.QAbstractItemDelegate.closeEditor` signal indicates that the user has completed editing the data, and that the editor widget can be destroyed.
+
+    .. _PySide.QtGui.QItemDelegate_standard-roles-and-data-types:
+
+
+
+Standard Roles and Data Types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The default delegate used by the standard views supplied with Qt associates each standard role (defined by :attr:`Qt.ItemDataRole` ) with certain data types. Models that return data in these types can influence the appearance of the delegate as described in the following table.
+
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |Role                                           |Accepted Types                                                                                 |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.BackgroundRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QBrush`                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.BackgroundColorRole<Qt.ItemDataRole>`|:class:`PySide.QtGui.QColor` (obsolete; use :attr:`Qt.BackgroundRole<Qt.ItemDataRole>` instead)|
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.CheckStateRole<Qt.ItemDataRole>`     |:attr:`Qt.CheckState`                                                                          |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.DecorationRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QIcon` , :class:`PySide.QtGui.QPixmap` and :class:`PySide.QtGui.QColor`   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.DisplayRole<Qt.ItemDataRole>`        |:class:`PySide.QtCore.QString` and types with a string representation                          |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.EditRole<Qt.ItemDataRole>`           |See :class:`PySide.QtGui.QItemEditorFactory` for details                                       |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.FontRole<Qt.ItemDataRole>`           |:class:`PySide.QtGui.QFont`                                                                    |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.SizeHintRole<Qt.ItemDataRole>`       |:class:`PySide.QtCore.QSize`                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.TextAlignmentRole<Qt.ItemDataRole>`  |:class:`Qt.Alignment`                                                                          |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.ForegroundRole<Qt.ItemDataRole>`     |:class:`PySide.QtGui.QBrush`                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+    |:attr:`Qt.TextColorRole<Qt.ItemDataRole>`      |:class:`PySide.QtGui.QColor` (obsolete; use :attr:`Qt.ForegroundRole<Qt.ItemDataRole>` instead)|
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------+
+
+    If the default delegate does not allow the level of customization that you need, either for display purposes or for editing data, it is possible to subclass :class:`PySide.QtGui.QItemDelegate` to implement the desired behavior.
+
+    .. _PySide.QtGui.QItemDelegate_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When subclassing :class:`PySide.QtGui.QItemDelegate` to create a delegate that displays items using a custom renderer, it is important to ensure that the delegate can render items suitably for all the required states; e.g. selected, disabled, checked. The documentation for the :meth:`PySide.QtGui.QItemDelegate.paint` function contains some hints to show how this can be achieved.
+
+    You can provide custom editors by using a :class:`PySide.QtGui.QItemEditorFactory` . The :ref:`Color Editor Factory Example<itemviews/coloreditorfactory>` shows how a custom editor can be made available to delegates with the default item editor factory. This way, there is no need to subclass :class:`PySide.QtGui.QItemDelegate` . An alternative is to reimplement :meth:`PySide.QtGui.QItemDelegate.createEditor` , :meth:`PySide.QtGui.QItemDelegate.setEditorData` , :meth:`PySide.QtGui.QItemDelegate.setModelData` , and :meth:`PySide.QtGui.QItemDelegate.updateEditorGeometry` . This process is described in the :ref:`Spin Box Delegate Example<itemviews/spinboxdelegate>` .
+
+    .. _PySide.QtGui.QItemDelegate_qstyleditemdelegate-vs-qitemdelegate:
+
+
+
+QStyledItemDelegate vs. QItemDelegate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Since Qt 4.4, there are two delegate classes: :class:`PySide.QtGui.QItemDelegate` and :class:`PySide.QtGui.QStyledItemDelegate` . However, the default delegate is :class:`PySide.QtGui.QStyledItemDelegate` . These two classes are independent alternatives to painting and providing editors for items in views. The difference between them is that :class:`PySide.QtGui.QStyledItemDelegate` uses the current style to paint its items. We therefore recommend using :class:`PySide.QtGui.QStyledItemDelegate` as the base class when implementing custom delegates or when working with Qt style sheets. The code required for either class should be equal unless the custom delegate needs to use the style for drawing.
+
+    .. seealso::  :ref:`Delegate Classes<model-view-programming.html>`  :class:`PySide.QtGui.QStyledItemDelegate`  :class:`PySide.QtGui.QAbstractItemDelegate`  :ref:`Spin Box Delegate Example<itemviews/spinboxdelegate>`  :ref:`Settings Editor Example<tools/settingseditor>`  :ref:`Icons Example<widgets/icons>` 
+
+.. class:: QItemDelegate([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an item delegate with the given ``parent`` .
+
+
+.. method:: PySide.QtGui.QItemDelegate.check(option, bounding, variant)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param bounding: :class:`PySide.QtCore.QRect`
+    :param variant: object
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Note that on Mac, if /usr/include/AssertMacros.h is included prior to :class:`PySide.QtGui.QItemDelegate` , and the application is building in debug mode, the check(assertion) will conflict with QItemDelegate::check.
+
+    To avoid this problem, add
+
+    #ifdef check #undef check #endif
+
+    after including AssertMacros.h
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.decoration(option, variant)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param variant: object
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the pixmap used to decorate the root of the item view. The style ``option`` controls the appearance of the root; the ``variant`` refers to the data associated with an item.
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.drawBackground(painter, option, index)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Renders the item background for the given ``index`` , using the given ``painter`` and style ``option`` .
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.drawCheck(painter, option, rect, state)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param state: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.drawDecoration(painter, option, rect, pixmap)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Renders the decoration ``pixmap`` within the rectangle specified by ``rect`` using the given ``painter`` and style ``option`` .
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.drawDisplay(painter, option, rect, text)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param text: unicode
+
+
+
+
+    Renders the item view ``text`` within the rectangle specified by ``rect`` using the given ``painter`` and style ``option`` .
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.drawFocus(painter, option, rect)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Renders the region within the rectangle specified by ``rect`` , indicating that it has the focus, using the given ``painter`` and style ``option`` .
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.hasClipping()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds if the delegate should clip the paint events.
+
+    This property will set the paint clip to the size of the item. The default value is on. It is useful for cases such as when images are larger than the size of the item.
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.itemEditorFactory()
+
+
+    :rtype: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Returns the editor factory used by the item delegate. If no editor factory is set, the function will return null.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemDelegate.setItemEditorFactory` 
+
+
+.. method:: PySide.QtGui.QItemDelegate.rect(option, index, role)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :param role: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.setClipping(clip)
+
+
+    :param clip: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds if the delegate should clip the paint events.
+
+    This property will set the paint clip to the size of the item. The default value is on. It is useful for cases such as when images are larger than the size of the item.
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.setItemEditorFactory(factory)
+
+
+    :param factory: :class:`PySide.QtGui.QItemEditorFactory`
+
+
+
+
+    Sets the editor factory to be used by the item delegate to be the ``factory`` specified. If no editor factory is set, the item delegate will use the default editor factory.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemDelegate.itemEditorFactory` 
+
+
+.. method:: PySide.QtGui.QItemDelegate.setOptions(index, option)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :param option: :class:`PySide.QtGui.QStyleOptionViewItem`
+    :rtype: :class:`PySide.QtGui.QStyleOptionViewItem`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemDelegate.textRectangle(painter, rect, font, text)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param rect: :class:`PySide.QtCore.QRect`
+    :param font: :class:`PySide.QtGui.QFont`
+    :param text: unicode
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+
+
+

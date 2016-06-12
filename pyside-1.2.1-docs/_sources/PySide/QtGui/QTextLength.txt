@@ -1,0 +1,134 @@
+.. module:: PySide.QtGui
+.. _QTextLength:
+
+QTextLength
+***********
+
+.. inheritance-diagram:: QTextLength
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QTextLength.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtGui.QTextLength.__ne__>` (other)
+*    def :meth:`rawValue<PySide.QtGui.QTextLength.rawValue>` ()
+*    def :meth:`type<PySide.QtGui.QTextLength.type>` ()
+*    def :meth:`value<PySide.QtGui.QTextLength.value>` (maximumLength)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextLength` class encapsulates the different types of length used in a :class:`PySide.QtGui.QTextDocument` .
+
+    When we specify a value for the length of an element in a text document, we often need to provide some other information so that the length is used in the way we expect. For example, when we specify a table width, the value can represent a fixed number of pixels, or it can be a percentage value. This information changes both the meaning of the value and the way it is used.
+
+    Generally, this class is used to specify table widths. These can be specified either as a fixed amount of pixels, as a percentage of the containing frame's width, or by a variable width that allows it to take up just the space it requires.
+
+    .. seealso::  :class:`PySide.QtGui.QTextTable` 
+
+.. class:: QTextLength()
+           QTextLength(type, value)
+           QTextLength(QTextLength)
+
+    :param QTextLength: :class:`PySide.QtGui.QTextLength`
+    :param type: :attr:`PySide.QtGui.QTextLength.Type`
+    :param value: :class:`PySide.QtCore.qreal`
+
+    Constructs a new length object which represents a variable size.
+
+
+    Constructs a new length object of the given ``type`` and ``value`` .
+
+
+
+
+.. attribute:: PySide.QtGui.QTextLength.Type
+
+    This enum describes the different types a length object can have.
+
+    +----------------------------+-------------------------------------------------------------+
+    |Constant                    |Description                                                  |
+    +============================+=============================================================+
+    |QTextLength.VariableLength  |The width of the object is variable                          |
+    +----------------------------+-------------------------------------------------------------+
+    |QTextLength.FixedLength     |The width of the object is fixed                             |
+    +----------------------------+-------------------------------------------------------------+
+    |QTextLength.PercentageLength|The width of the object is in percentage of the maximum width|
+    +----------------------------+-------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLength.type` 
+
+.. method:: PySide.QtGui.QTextLength.__ne__(other)
+
+
+    :param other: :class:`PySide.QtGui.QTextLength`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text length is different from the ``other`` text length.
+
+
+
+.. method:: PySide.QtGui.QTextLength.__eq__(other)
+
+
+    :param other: :class:`PySide.QtGui.QTextLength`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text length is the same as the ``other`` text length.
+
+
+
+.. method:: PySide.QtGui.QTextLength.rawValue()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the constraint value that is specific for the type of the length. If the length is :attr:`QTextLength.PercentageLength<QTextLength.Type>` then the raw value is in percent, in the range of 0 to 100. If the length is :attr:`QTextLength.FixedLength<QTextLength.Type>` then that fixed amount is returned. For variable lengths, zero is returned.
+
+
+
+.. method:: PySide.QtGui.QTextLength.type()
+
+
+    :rtype: :attr:`PySide.QtGui.QTextLength.Type`
+
+
+
+
+    Returns the type of this length object.
+
+    .. seealso::  :attr:`QTextLength.Type` 
+
+
+.. method:: PySide.QtGui.QTextLength.value(maximumLength)
+
+
+    :param maximumLength: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the effective length, constrained by the type of the length object and the specified ``maximumLength`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLength.type` 
+
+
+

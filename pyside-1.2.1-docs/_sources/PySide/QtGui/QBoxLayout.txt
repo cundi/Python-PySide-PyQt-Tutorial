@@ -1,0 +1,363 @@
+.. module:: PySide.QtGui
+.. _QBoxLayout:
+
+QBoxLayout
+**********
+
+.. inheritance-diagram:: QBoxLayout
+    :parts: 2
+
+**Inherited by:** :ref:`QVBoxLayout`, :ref:`QHBoxLayout`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addLayout<PySide.QtGui.QBoxLayout.addLayout>` (layout[, stretch=0])
+*    def :meth:`addSpacerItem<PySide.QtGui.QBoxLayout.addSpacerItem>` (spacerItem)
+*    def :meth:`addSpacing<PySide.QtGui.QBoxLayout.addSpacing>` (size)
+*    def :meth:`addStretch<PySide.QtGui.QBoxLayout.addStretch>` ([stretch=0])
+*    def :meth:`addStrut<PySide.QtGui.QBoxLayout.addStrut>` (arg__1)
+*    def :meth:`addWidget<PySide.QtGui.QBoxLayout.addWidget>` (arg__1[, stretch=0[, alignment=0]])
+*    def :meth:`direction<PySide.QtGui.QBoxLayout.direction>` ()
+*    def :meth:`insertItem<PySide.QtGui.QBoxLayout.insertItem>` (index, arg__2)
+*    def :meth:`insertLayout<PySide.QtGui.QBoxLayout.insertLayout>` (index, layout[, stretch=0])
+*    def :meth:`insertSpacerItem<PySide.QtGui.QBoxLayout.insertSpacerItem>` (index, spacerItem)
+*    def :meth:`insertSpacing<PySide.QtGui.QBoxLayout.insertSpacing>` (index, size)
+*    def :meth:`insertStretch<PySide.QtGui.QBoxLayout.insertStretch>` (index[, stretch=0])
+*    def :meth:`insertWidget<PySide.QtGui.QBoxLayout.insertWidget>` (index, widget[, stretch=0[, alignment=0]])
+*    def :meth:`setDirection<PySide.QtGui.QBoxLayout.setDirection>` (arg__1)
+*    def :meth:`setStretch<PySide.QtGui.QBoxLayout.setStretch>` (index, stretch)
+*    def :meth:`setStretchFactor<PySide.QtGui.QBoxLayout.setStretchFactor>` (l, stretch)
+*    def :meth:`setStretchFactor<PySide.QtGui.QBoxLayout.setStretchFactor>` (w, stretch)
+*    def :meth:`stretch<PySide.QtGui.QBoxLayout.stretch>` (index)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QBoxLayout` class lines up child widgets horizontally or vertically.
+
+    :class:`PySide.QtGui.QBoxLayout` takes the space it gets (from its parent layout or from the :meth:`PySide.QtGui.QLayout.parentWidget` ), divides it up into a row of boxes, and makes each managed widget fill one box.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qhboxlayout-with-5-children.png
+
+    If the :class:`PySide.QtGui.QBoxLayout` 's orientation is :attr:`Qt.Horizontal<Qt.Orientation>` the boxes are placed in a row, with suitable sizes. Each widget (or other box) will get at least its minimum size and at most its maximum size. Any excess space is shared according to the stretch factors (more about that below).
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qvboxlayout-with-5-children.png
+
+    If the :class:`PySide.QtGui.QBoxLayout` 's orientation is :attr:`Qt.Vertical<Qt.Orientation>` , the boxes are placed in a column, again with suitable sizes.
+
+    The easiest way to create a :class:`PySide.QtGui.QBoxLayout` is to use one of the convenience classes, e.g. :class:`PySide.QtGui.QHBoxLayout` (for :attr:`Qt.Horizontal<Qt.Orientation>` boxes) or :class:`PySide.QtGui.QVBoxLayout` (for :attr:`Qt.Vertical<Qt.Orientation>` boxes). You can also use the :class:`PySide.QtGui.QBoxLayout` constructor directly, specifying its direction as :attr:`LeftToRight<QBoxLayout.Direction>` , :attr:`RightToLeft<QBoxLayout.Direction>` , :attr:`TopToBottom<QBoxLayout.Direction>` , or :attr:`BottomToTop<QBoxLayout.Direction>` .
+
+    If the :class:`PySide.QtGui.QBoxLayout` is not the top-level layout (i.e. it is not managing all of the widget's area and children), you must add it to its parent layout before you can do anything with it. The normal way to add a layout is by calling parentLayout-> :meth:`PySide.QtGui.QBoxLayout.addLayout` .
+
+    Once you have done this, you can add boxes to the :class:`PySide.QtGui.QBoxLayout` using one of four functions:
+
+
+    * :meth:`PySide.QtGui.QBoxLayout.addWidget` to add a widget to the :class:`PySide.QtGui.QBoxLayout` and set the widget's stretch factor. (The stretch factor is along the row of boxes.)
+    * :meth:`PySide.QtGui.QBoxLayout.addSpacing` to create an empty box; this is one of the functions you use to create nice and spacious dialogs. See below for ways to set margins.
+    * :meth:`PySide.QtGui.QBoxLayout.addStretch` to create an empty, stretchable box.
+    * :meth:`PySide.QtGui.QBoxLayout.addLayout` to add a box containing another :class:`PySide.QtGui.QLayout` to the row and set that layout's stretch factor.
+
+    Use :meth:`PySide.QtGui.QBoxLayout.insertWidget` , :meth:`PySide.QtGui.QBoxLayout.insertSpacing` , :meth:`PySide.QtGui.QBoxLayout.insertStretch` or :meth:`PySide.QtGui.QBoxLayout.insertLayout` to insert a box at a specified position in the layout.
+
+    :class:`PySide.QtGui.QBoxLayout` also includes two margin widths:
+
+
+    * :meth:`PySide.QtGui.QLayout.setContentsMargins` sets the width of the outer border on each side of the widget. This is the width of the reserved space along each of the :class:`PySide.QtGui.QBoxLayout` 's four sides.
+    * :meth:`PySide.QtGui.QBoxLayout.setSpacing` sets the width between neighboring boxes. (You can use :meth:`PySide.QtGui.QBoxLayout.addSpacing` to get more space at a particular spot.)
+
+    The margin default is provided by the style. The default margin most Qt styles specify is 9 for child widgets and 11 for windows. The spacing defaults to the same as the margin width for a top-level layout, or to the same as the parent layout.
+
+    To remove a widget from a layout, call :meth:`PySide.QtGui.QLayout.removeWidget` . Calling :meth:`QWidget.hide()<PySide.QtGui.QWidget.hide>` on a widget also effectively removes the widget from the layout until :meth:`QWidget.show()<PySide.QtGui.QWidget.show>` is called.
+
+    You will almost always want to use :class:`PySide.QtGui.QVBoxLayout` and :class:`PySide.QtGui.QHBoxLayout` rather than :class:`PySide.QtGui.QBoxLayout` because of their convenient constructors.
+
+    .. seealso::  :class:`PySide.QtGui.QGridLayout`  :class:`PySide.QtGui.QStackedLayout`  :ref:`Layout Management<layout.html>` 
+
+.. class:: QBoxLayout(arg__1[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param arg__1: :attr:`PySide.QtGui.QBoxLayout.Direction`
+
+    Constructs a new :class:`PySide.QtGui.QBoxLayout` with direction ``dir`` and parent widget ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.direction` 
+
+.. attribute:: PySide.QtGui.QBoxLayout.Direction
+
+    This type is used to determine the direction of a box layout.
+
+    +----------------------+------------------------------+
+    |Constant              |Description                   |
+    +======================+==============================+
+    |QBoxLayout.LeftToRight|Horizontal from left to right.|
+    +----------------------+------------------------------+
+    |QBoxLayout.RightToLeft|Horizontal from right to left.|
+    +----------------------+------------------------------+
+    |QBoxLayout.TopToBottom|Vertical from top to bottom.  |
+    +----------------------+------------------------------+
+    |QBoxLayout.BottomToTop|Vertical from bottom to top.  |
+    +----------------------+------------------------------+
+
+
+.. method:: PySide.QtGui.QBoxLayout.addLayout(layout[, stretch=0])
+
+
+    :param layout: :class:`PySide.QtGui.QLayout`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds ``layout`` to the end of the box, with serial stretch factor ``stretch`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.insertLayout`  :meth:`PySide.QtGui.QBoxLayout.addItem`  :meth:`PySide.QtGui.QBoxLayout.addWidget` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.addSpacerItem(spacerItem)
+
+
+    :param spacerItem: :class:`PySide.QtGui.QSpacerItem`
+
+
+
+
+    Adds ``spacerItem`` to the end of this box layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addSpacing`  :meth:`PySide.QtGui.QBoxLayout.addStretch` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.addSpacing(size)
+
+
+    :param size: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds a non-stretchable space (a :class:`PySide.QtGui.QSpacerItem` ) with size ``size`` to the end of this box layout. :class:`PySide.QtGui.QBoxLayout` provides default margin and spacing. This function adds additional space.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.insertSpacing`  :meth:`PySide.QtGui.QBoxLayout.addItem`  :class:`PySide.QtGui.QSpacerItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.addStretch([stretch=0])
+
+
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds a stretchable space (a :class:`PySide.QtGui.QSpacerItem` ) with zero minimum size and stretch factor ``stretch`` to the end of this box layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.insertStretch`  :meth:`PySide.QtGui.QBoxLayout.addItem`  :class:`PySide.QtGui.QSpacerItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.addStrut(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Limits the perpendicular dimension of the box (e.g. height if the box is :attr:`LeftToRight<QBoxLayout.Direction>` ) to a minimum of ``size`` . Other constraints may increase the limit.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.addWidget(arg__1[, stretch=0[, alignment=0]])
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBoxLayout.direction()
+
+
+    :rtype: :attr:`PySide.QtGui.QBoxLayout.Direction`
+
+
+
+
+    Returns the direction of the box. :meth:`PySide.QtGui.QBoxLayout.addWidget` and :meth:`PySide.QtGui.QBoxLayout.addSpacing` work in this direction; the stretch stretches in this direction.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.setDirection`  :attr:`QBoxLayout.Direction`  :meth:`PySide.QtGui.QBoxLayout.addWidget`  :meth:`PySide.QtGui.QBoxLayout.addSpacing` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertItem(index, arg__2)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Inserts ``item`` into this box layout at position ``index`` . If ``index`` is negative, the item is added at the end.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addItem`  :meth:`PySide.QtGui.QBoxLayout.insertWidget`  :meth:`PySide.QtGui.QBoxLayout.insertLayout`  :meth:`PySide.QtGui.QBoxLayout.insertStretch`  :meth:`PySide.QtGui.QBoxLayout.insertSpacing` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertLayout(index, layout[, stretch=0])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param layout: :class:`PySide.QtGui.QLayout`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts ``layout`` at position ``index`` , with stretch factor ``stretch`` . If ``index`` is negative, the layout is added at the end.
+
+    ``layout`` becomes a child of the box layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addLayout`  :meth:`PySide.QtGui.QBoxLayout.insertItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertSpacerItem(index, spacerItem)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param spacerItem: :class:`PySide.QtGui.QSpacerItem`
+
+
+
+
+    Inserts ``spacerItem`` at position ``index`` , with zero minimum size and stretch factor. If ``index`` is negative the space is added at the end.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addSpacerItem`  :meth:`PySide.QtGui.QBoxLayout.insertStretch`  :meth:`PySide.QtGui.QBoxLayout.insertSpacing` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertSpacing(index, size)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param size: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts a non-stretchable space (a :class:`PySide.QtGui.QSpacerItem` ) at position ``index`` , with size ``size`` . If ``index`` is negative the space is added at the end.
+
+    The box layout has default margin and spacing. This function adds additional space.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addSpacing`  :meth:`PySide.QtGui.QBoxLayout.insertItem`  :class:`PySide.QtGui.QSpacerItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertStretch(index[, stretch=0])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Inserts a stretchable space (a :class:`PySide.QtGui.QSpacerItem` ) at position ``index`` , with zero minimum size and stretch factor ``stretch`` . If ``index`` is negative the space is added at the end.
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.addStretch`  :meth:`PySide.QtGui.QBoxLayout.insertItem`  :class:`PySide.QtGui.QSpacerItem` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.insertWidget(index, widget[, stretch=0[, alignment=0]])
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBoxLayout.setDirection(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QBoxLayout.Direction`
+
+
+
+
+    Sets the direction of this layout to ``direction`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.direction` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.setStretch(index, stretch)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor at position ``index`` . to ``stretch`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.stretch` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.setStretchFactor(w, stretch)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param stretch: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the stretch factor for ``widget`` to ``stretch`` and returns true if ``widget`` is found in this layout (not including child layouts); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayout.setAlignment` 
+
+
+.. method:: PySide.QtGui.QBoxLayout.setStretchFactor(l, stretch)
+
+
+    :param l: :class:`PySide.QtGui.QLayout`
+    :param stretch: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the stretch factor for the layout ``layout`` to ``stretch`` and returns true if ``layout`` is found in this layout (not including child layouts); otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QBoxLayout.stretch(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor at position ``index`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBoxLayout.setStretch` 
+
+
+

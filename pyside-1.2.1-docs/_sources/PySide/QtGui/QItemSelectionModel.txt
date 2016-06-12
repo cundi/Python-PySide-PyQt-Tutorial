@@ -1,0 +1,410 @@
+.. module:: PySide.QtGui
+.. _QItemSelectionModel:
+
+QItemSelectionModel
+*******************
+
+.. inheritance-diagram:: QItemSelectionModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`columnIntersectsSelection<PySide.QtGui.QItemSelectionModel.columnIntersectsSelection>` (column, parent)
+*    def :meth:`currentIndex<PySide.QtGui.QItemSelectionModel.currentIndex>` ()
+*    def :meth:`emitSelectionChanged<PySide.QtGui.QItemSelectionModel.emitSelectionChanged>` (newSelection, oldSelection)
+*    def :meth:`hasSelection<PySide.QtGui.QItemSelectionModel.hasSelection>` ()
+*    def :meth:`isColumnSelected<PySide.QtGui.QItemSelectionModel.isColumnSelected>` (column, parent)
+*    def :meth:`isRowSelected<PySide.QtGui.QItemSelectionModel.isRowSelected>` (row, parent)
+*    def :meth:`isSelected<PySide.QtGui.QItemSelectionModel.isSelected>` (index)
+*    def :meth:`model<PySide.QtGui.QItemSelectionModel.model>` ()
+*    def :meth:`rowIntersectsSelection<PySide.QtGui.QItemSelectionModel.rowIntersectsSelection>` (row, parent)
+*    def :meth:`selectedColumns<PySide.QtGui.QItemSelectionModel.selectedColumns>` ([row=0])
+*    def :meth:`selectedIndexes<PySide.QtGui.QItemSelectionModel.selectedIndexes>` ()
+*    def :meth:`selectedRows<PySide.QtGui.QItemSelectionModel.selectedRows>` ([column=0])
+*    def :meth:`selection<PySide.QtGui.QItemSelectionModel.selection>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QItemSelectionModel.clear>` ()
+*    def :meth:`reset<PySide.QtGui.QItemSelectionModel.reset>` ()
+*    def :meth:`select<PySide.QtGui.QItemSelectionModel.select>` (index, command)
+*    def :meth:`select<PySide.QtGui.QItemSelectionModel.select>` (selection, command)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`clearSelection<PySide.QtGui.QItemSelectionModel.clearSelection>` ()
+*    def :meth:`setCurrentIndex<PySide.QtGui.QItemSelectionModel.setCurrentIndex>` (index, command)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentChanged<PySide.QtGui.QItemSelectionModel.currentChanged>` (current, previous)
+*    def :meth:`currentColumnChanged<PySide.QtGui.QItemSelectionModel.currentColumnChanged>` (current, previous)
+*    def :meth:`currentRowChanged<PySide.QtGui.QItemSelectionModel.currentRowChanged>` (current, previous)
+*    def :meth:`selectionChanged<PySide.QtGui.QItemSelectionModel.selectionChanged>` (selected, deselected)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QItemSelectionModel` class keeps track of a view's selected items.
+
+    A :class:`PySide.QtGui.QItemSelectionModel` keeps track of the selected items in a view, or in several views onto the same model. It also keeps track of the currently selected item in a view.
+
+    The :class:`PySide.QtGui.QItemSelectionModel` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` .
+
+    The selected items are stored using ranges. Whenever you want to modify the selected items use :meth:`PySide.QtGui.QItemSelectionModel.select` and provide either a :class:`PySide.QtGui.QItemSelection` , or a :class:`PySide.QtCore.QModelIndex` and a :attr:`QItemSelectionModel.SelectionFlag` .
+
+    The :class:`PySide.QtGui.QItemSelectionModel` takes a two layer approach to selection management, dealing with both selected items that have been committed and items that are part of the current selection. The current selected items are part of the current interactive selection (for example with rubber-band selection or keyboard-shift selections).
+
+    To update the currently selected items, use the bitwise OR of :attr:`QItemSelectionModel.Current<QItemSelectionModel.SelectionFlag>` and any of the other :class:`~PySide.QtGui.SelectionFlags` . If you omit the :attr:`QItemSelectionModel.Current<QItemSelectionModel.SelectionFlag>` command, a new current selection will be created, and the previous one added to the whole selection. All functions operate on both layers; for example, selectedItems() will return items from both layers.
+
+    .. seealso::  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtCore.QAbstractItemModel`  :ref:`Chart Example<itemviews/chart>` 
+
+.. class:: QItemSelectionModel(model)
+           QItemSelectionModel(model, parent)
+
+    :param model: :class:`PySide.QtCore.QAbstractItemModel`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a selection model that operates on the specified item ``model`` .
+
+
+    Constructs a selection model that operates on the specified item ``model`` with ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QItemSelectionModel.SelectionFlag
+
+    This enum describes the way the selection model will be updated.
+
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |Constant                          |Description                                                                           |
+    +==================================+======================================================================================+
+    |QItemSelectionModel.NoUpdate      |No selection will be made.                                                            |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Clear         |The complete selection will be cleared.                                               |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Select        |All specified indexes will be selected.                                               |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Deselect      |All specified indexes will be deselected.                                             |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Toggle        |All specified indexes will be selected or deselected depending on their current state.|
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Current       |The current selection will be updated.                                                |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Rows          |All indexes will be expanded to span rows.                                            |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.Columns       |All indexes will be expanded to span columns.                                         |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.SelectCurrent |A combination of Select and Current, provided for convenience.                        |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.ToggleCurrent |A combination of Toggle and Current, provided for convenience.                        |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+    |QItemSelectionModel.ClearAndSelect|A combination of Clear and Select, provided for convenience.                          |
+    +----------------------------------+--------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.clear()
+
+
+
+
+
+
+    Clears the selection model. Emits :meth:`PySide.QtGui.QItemSelectionModel.selectionChanged` and :meth:`PySide.QtGui.QItemSelectionModel.currentChanged` .
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.clearSelection()
+
+
+
+
+
+
+    Clears the selection in the selection model. Emits :meth:`PySide.QtGui.QItemSelectionModel.selectionChanged` .
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.columnIntersectsSelection(column, parent)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are any items selected in the ``column`` with the given ``parent`` .
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.currentChanged(current, previous)
+
+
+    :param current: :class:`PySide.QtCore.QModelIndex`
+    :param previous: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.currentColumnChanged(current, previous)
+
+
+    :param current: :class:`PySide.QtCore.QModelIndex`
+    :param previous: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.currentIndex()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the model item index for the current item, or an invalid index if there is no current item.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemSelectionModel.setCurrentIndex` 
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.currentRowChanged(current, previous)
+
+
+    :param current: :class:`PySide.QtCore.QModelIndex`
+    :param previous: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.emitSelectionChanged(newSelection, oldSelection)
+
+
+    :param newSelection: :class:`PySide.QtGui.QItemSelection`
+    :param oldSelection: :class:`PySide.QtGui.QItemSelection`
+
+
+
+
+    Compares the two selections ``newSelection`` and ``oldSelection`` and emits :meth:`PySide.QtGui.QItemSelectionModel.selectionChanged` with the deselected and selected items.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.hasSelection()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the selection model contains any selection ranges; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.isColumnSelected(column, parent)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if all items are selected in the ``column`` with the given ``parent`` .
+
+    Note that this function is usually faster than calling :meth:`PySide.QtGui.QItemSelectionModel.isSelected` on all items in the same column and that unselectable items are ignored.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.isRowSelected(row, parent)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if all items are selected in the ``row`` with the given ``parent`` .
+
+    Note that this function is usually faster than calling :meth:`PySide.QtGui.QItemSelectionModel.isSelected` on all items in the same row and that unselectable items are ignored.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.isSelected(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the given model item ``index`` is selected.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.model()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the item model operated on by the selection model.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.reset()
+
+
+
+
+
+
+    Clears the selection model. Does not emit any signals.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.rowIntersectsSelection(row, parent)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are any items selected in the ``row`` with the given ``parent`` .
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.select(index, command)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :param command: :class:`PySide.QtGui.QItemSelectionModel.SelectionFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.select(selection, command)
+
+
+    :param selection: :class:`PySide.QtGui.QItemSelection`
+    :param command: :class:`PySide.QtGui.QItemSelectionModel.SelectionFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.selectedColumns([row=0])
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndexList`
+
+
+
+
+    Returns the indexes in the given ``row`` for columns where all rows are selected.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemSelectionModel.selectedIndexes`  :meth:`PySide.QtGui.QItemSelectionModel.selectedRows` 
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.selectedIndexes()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndexList`
+
+
+
+
+    Returns a list of all selected model item indexes. The list contains no duplicates, and is not sorted.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.selectedRows([column=0])
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndexList`
+
+
+
+
+    Returns the indexes in the given ``column`` for the rows where all columns are selected.
+
+    .. seealso::  :meth:`PySide.QtGui.QItemSelectionModel.selectedIndexes`  :meth:`PySide.QtGui.QItemSelectionModel.selectedColumns` 
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.selection()
+
+
+    :rtype: :class:`PySide.QtGui.QItemSelection`
+
+
+
+
+    Returns the selection ranges stored in the selection model.
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.selectionChanged(selected, deselected)
+
+
+    :param selected: :class:`PySide.QtGui.QItemSelection`
+    :param deselected: :class:`PySide.QtGui.QItemSelection`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QItemSelectionModel.setCurrentIndex(index, command)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :param command: :class:`PySide.QtGui.QItemSelectionModel.SelectionFlags`
+
+
+
+
+
+
+
+

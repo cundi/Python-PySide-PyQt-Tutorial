@@ -1,0 +1,229 @@
+.. module:: PySide.phonon
+.. _Phonon:
+
+Phonon
+******
+
+.. inheritance-diagram:: Phonon
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`categoryToString<PySide.phonon.Phonon.categoryToString>` (c)
+*    def :meth:`createPath<PySide.phonon.Phonon.createPath>` (source, sink)
+*    def :meth:`createPlayer<PySide.phonon.Phonon.createPlayer>` (category[, source=Phonon.MediaSource()])
+*    def :meth:`phononVersion<PySide.phonon.Phonon.phononVersion>` ()
+*    def :meth:`qHash<PySide.phonon.Phonon.qHash>` (param)
+
+
+Detailed Description
+--------------------
+
+
+
+    The Phonon namespace contains classes and functions for multimedia applications.
+
+    This namespace contains classes to access multimedia functions for audio and video playback. Those classes are not dependent on any specific framework, but rather use exchangeable backends to do the work.
+
+    See the :ref:`Phonon Module<phonon-module.html>` page for general information about the framework and the :ref:`Phonon Overview<phonon-overview.html>` for an introductory tour of its features.
+
+
+.. attribute:: PySide.phonon.Phonon.DiscType
+
+    Enum to identify the media discs supported by :class:`~PySide.phonon.MediaObject` .
+
+    +-------------+-----------------------------------------------------------------------------------------+
+    |Constant     |Description                                                                              |
+    +=============+=========================================================================================+
+    |Phonon.NoDisc|No disc was selected. This is only useful as a return value from MediaSource::diskType().|
+    +-------------+-----------------------------------------------------------------------------------------+
+    |Phonon.Cd    |Identifies Audio CDs.                                                                    |
+    +-------------+-----------------------------------------------------------------------------------------+
+    |Phonon.Dvd   |Identifies DVDs (not arbitrary data DVDs, only movie DVDs).                              |
+    +-------------+-----------------------------------------------------------------------------------------+
+    |Phonon.Vcd   |Identifies Video CDs.                                                                    |
+    +-------------+-----------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`~PySide.phonon.MediaSource`  :class:`~PySide.phonon.MediaObject` 
+
+.. attribute:: PySide.phonon.Phonon.MetaData
+
+    Provided as keys for :meth:`Phonon.MediaObject.metaData()<PySide.phonon.Phonon.MediaObject.metaData>` . The enum values matches strings defined in the Ogg Vorbis specification
+
+    +--------------------------------+-----------+
+    |Constant                        |Description|
+    +================================+===========+
+    |Phonon.ArtistMetaData           |           |
+    +--------------------------------+-----------+
+    |Phonon.AlbumMetaData            |           |
+    +--------------------------------+-----------+
+    |Phonon.TitleMetaData            |           |
+    +--------------------------------+-----------+
+    |Phonon.DateMetaData             |           |
+    +--------------------------------+-----------+
+    |Phonon.GenreMetaData            |           |
+    +--------------------------------+-----------+
+    |Phonon.TracknumberMetaData      |           |
+    +--------------------------------+-----------+
+    |Phonon.DescriptionMetaData      |           |
+    +--------------------------------+-----------+
+    |Phonon.MusicBrainzDiscIdMetaData|           |
+    +--------------------------------+-----------+
+
+
+.. attribute:: PySide.phonon.Phonon.Category
+
+    Sets the category your program should be listed in in the mixer.
+
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                    |
+    +============================+===============================================================================================+
+    |Phonon.NoCategory           |Will make use of the default device.                                                           |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.NotificationCategory |If the sounds produced are notifications (ping, beep and such) you should use this category.   |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.MusicCategory        |If your application is a music player (like a jukebox or media player playing an audio file).  |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.VideoCategory        |If the sound is the audio channel of a video.                                                  |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.CommunicationCategory|If your applications produces sounds from communication with somebody else (VoIP, voice chat). |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.GameCategory         |Sound produced by a computer game should go into this category.                                |
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+    |Phonon.AccessibilityCategory|Sounds produced for accessibility (e.g., Text-To-Speech) Holds the largest value of categories.|
+    +----------------------------+-----------------------------------------------------------------------------------------------+
+
+    A Jukebox will set this to Music, a VoIP program to Communication, a DVD player to video, and so on.
+
+    .. note::  These categories can also become useful for an application that controls the volumes automatically, like turning down the music when a call comes in, or turning down the notifications when the media player knows it's playing classical music.
+
+
+.. attribute:: PySide.phonon.Phonon.ObjectDescriptionType
+
+    This enum defines the type of information that is contained in a :class:`~PySide.phonon.Phonon.ObjectDescription` object.
+
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                |
+    +============================+===========================================================================================================================================================================================================================+
+    |Phonon.AudioOutputDeviceType|An audio output device ( :class:`~PySide.phonon.Phonon.AudioOutputDevice` ). This can be soundcards (with different drivers), sound servers, or other virtual outputs like playback on a different computer on the network.|
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.EffectType           |An audio effect ( :class:`~PySide.phonon.Phonon.EffectDescription` ).                                                                                                                                                      |
+    +----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.phonon.Phonon.State
+
+    The state enum describes the different states a media object can take. Several functions of :class:`~PySide.phonon.Phonon.MediaObject` are asynchronous, so even if a you have requested a state change through a function call, e.g., through :meth:`PySide.phonon.Phonon.MediaObject.play` , you cannot be sure that the change has taken place before you receive the :meth:`PySide.phonon.Phonon.MediaObject.stateChanged` signal.
+
+    A media object can at any time change into any state, regardless of the state it previously had.
+
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+    +=====================+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |Phonon.LoadingState  |After construction it might take a while before the media object is ready to :meth:`PySide.phonon.Phonon.MediaObject.play` . This state is commonly used by backends to initialize the :ref:`media graph<phonon-overview.html>` and loading the source. When the object leaves the loading state, it will enter the :attr:`StoppedState<Phonon.State>` unless an error occurred or another state is requested through a function call, e.g., :meth:`MediaObject.play()<PySide.phonon.Phonon.MediaObject.play>` .                                                                  |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.StoppedState  |In the stopped state, the media object is ready to play its current media source. The current :meth:`position<PySide.phonon.Phonon::MediaObject.seek>` in the media stream is then 0.                                                                                                                                                                                                                                                                                                                                                                                             |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.PlayingState  |The media object is playing back its media source.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.BufferingState|The Player is waiting for data to be able to start or continue playing. This state is commonly used to wait for media data over a network connection.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.PausedState   |The media player has currently paused its playback, i.e., it stops playing but keeps the current playback position in the stream.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.ErrorState    |When a media object enters the error state a problem with the playback has occurred. The possible errors are grouped into two categories by :attr:`Phonon.ErrorType` , and the type can be queried through :meth:`PySide.phonon.Phonon.MediaObject.errorType` . A :attr:`FatalError<Phonon.ErrorType>` implies that the playback cannot continue, but one can still try with a new media source. With a :attr:`NormalError<Phonon.ErrorType>` it might be possible to continue playback, and a media object may therefore change state from the :attr:`ErrorState<Phonon.State>` .|
+    +---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`~PySide.phonon.MediaObject` 
+
+.. attribute:: PySide.phonon.Phonon.ErrorType
+
+    This enum describes the severity when an error has occurred during playback.
+
+    After a media object has entered the :attr:`ErrorState<Phonon.State>` , one can query the type of error from :meth:`MediaObject.errorType()<PySide.phonon.Phonon.MediaObject.errorType>` . Note that you should query the error when receiving the :meth:`MediaObject.stateChanged()<PySide.phonon.Phonon.MediaObject.stateChanged>` signal, because the error type will be lost if the media object leaves the error state.
+
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant          |Description                                                                                                                                                                                                                               |
+    +==================+==========================================================================================================================================================================================================================================+
+    |Phonon.NoError    |No error. :meth:`MediaObject.errorType()<PySide.phonon.Phonon::MediaObject.errorType>` returns this if :meth:`MediaObject.state()<PySide.phonon.Phonon::MediaObject.state>` != :attr:`Phonon.ErrorState<Phonon.State>` .                  |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.NormalError|An error has occurred with the playback of the current source. It might be possible to continue playback, for instance, if only the audio stream in a video cannot be played back. The media object will then leave the error state again.|
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Phonon.FatalError |. Something important does not work. Your program cannot continue the playback of the current source, but it might be possible to try another.                                                                                            |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`MediaObject.errorType()<PySide.phonon.Phonon::MediaObject.errorType>` 
+
+.. staticmethod:: PySide.phonon.Phonon.categoryToString(c)
+
+
+    :param c: :attr:`PySide.phonon.Phonon.Category`
+    :rtype: unicode
+
+
+
+
+    Returns a (translated) string to show to the user identifying the given Category (``c`` ).
+
+
+
+.. staticmethod:: PySide.phonon.Phonon.createPath(source, sink)
+
+
+    :param source: :class:`PySide.phonon.Phonon::MediaNode`
+    :param sink: :class:`PySide.phonon.Phonon::MediaNode`
+    :rtype: :class:`PySide.phonon.Phonon::Path`
+
+
+
+
+    Creates a new Path connecting the two MediaNodes ``source`` and ``sink`` .
+
+    The implementation will automatically select the right format and media type. E.g. connecting a :class:`~PySide.phonon.MediaObject` and :class:`~PySide.phonon.AudioOutput` will create a Path object connecting the audio. This might be represented as PCM or perhaps even AC3 depending on the :class:`~PySide.phonon.AudioOutput` object.
+
+    *source* The :class:`~PySide.phonon.MediaNode` to connect an output from *sink* The :class:`~PySide.phonon.MediaNode` to connect to.
+
+
+
+.. staticmethod:: PySide.phonon.Phonon.createPlayer(category[, source=Phonon.MediaSource()])
+
+
+    :param category: :attr:`PySide.phonon.Phonon.Category`
+    :param source: :class:`PySide.phonon.Phonon::MediaSource`
+    :rtype: :class:`PySide.phonon.Phonon::MediaObject`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.phonon.Phonon.phononVersion()
+
+
+    :rtype: str
+
+
+
+
+    Returns the Phonon version.
+
+
+
+.. staticmethod:: PySide.phonon.Phonon.qHash(param)
+
+
+    :param param: :class:`PySide.phonon.Phonon::EffectParameter`
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+
+
+
+

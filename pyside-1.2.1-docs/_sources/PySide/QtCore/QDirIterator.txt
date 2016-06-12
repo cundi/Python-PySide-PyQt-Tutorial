@@ -1,0 +1,174 @@
+.. module:: PySide.QtCore
+.. _QDirIterator:
+
+QDirIterator
+************
+
+.. inheritance-diagram:: QDirIterator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fileInfo<PySide.QtCore.QDirIterator.fileInfo>` ()
+*    def :meth:`fileName<PySide.QtCore.QDirIterator.fileName>` ()
+*    def :meth:`filePath<PySide.QtCore.QDirIterator.filePath>` ()
+*    def :meth:`hasNext<PySide.QtCore.QDirIterator.hasNext>` ()
+*    def :meth:`next<PySide.QtCore.QDirIterator.next>` ()
+*    def :meth:`path<PySide.QtCore.QDirIterator.path>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QDirIterator` class provides an iterator for directory entrylists.
+
+    You can use :class:`PySide.QtCore.QDirIterator` to navigate entries of a directory one at a time. It is similar to :meth:`QDir.entryList()<PySide.QtCore.QDir.entryList>` and :meth:`QDir.entryInfoList()<PySide.QtCore.QDir.entryInfoList>` , but because it lists entries one at a time instead of all at once, it scales better and is more suitable for large directories. It also supports listing directory contents recursively, and following symbolic links. Unlike :meth:`QDir.entryList()<PySide.QtCore.QDir.entryList>` , :class:`PySide.QtCore.QDirIterator` does not support sorting.
+
+    The :class:`PySide.QtCore.QDirIterator` constructor takes a :class:`PySide.QtCore.QDir` or a directory as argument. After construction, the iterator is located before the first directory entry. Here's how to iterate over all the entries sequentially:
+
+    ::
+
+        it = QDirIterator("/etc", QDirIterator.Subdirectories)
+        while it.hasNext():
+            print it.next()
+
+            # /etc/.
+            # /etc/..
+            # /etc/X11
+            # /etc/X11/fs
+            # ...
+
+
+
+    The :meth:`PySide.QtCore.QDirIterator.next` function returns the path to the next directory entry and advances the iterator. You can also call :meth:`PySide.QtCore.QDirIterator.filePath` to get the current file path without advancing the iterator. The :meth:`PySide.QtCore.QDirIterator.fileName` function returns only the name of the file, similar to how :meth:`QDir.entryList()<PySide.QtCore.QDir.entryList>` works. You can also call :meth:`PySide.QtCore.QDirIterator.fileInfo` to get a :class:`PySide.QtCore.QFileInfo` for the current entry.
+
+    Unlike Qt's container iterators, :class:`PySide.QtCore.QDirIterator` is uni-directional (i.e., you cannot iterate directories in reverse order) and does not allow random access.
+
+    :class:`PySide.QtCore.QDirIterator` works with all supported file engines, and is implemented using :class:`PySide.QtCore.QAbstractFileEngineIterator` .
+
+    .. seealso::  :class:`PySide.QtCore.QDir`  :meth:`QDir.entryList()<PySide.QtCore.QDir.entryList>`  :class:`PySide.QtCore.QAbstractFileEngineIterator` 
+
+.. class:: QDirIterator(dir[, flags=QDirIterator.NoIteratorFlags])
+           QDirIterator(path, filter[, flags=QDirIterator.NoIteratorFlags])
+           QDirIterator(path[, flags=QDirIterator.NoIteratorFlags])
+           QDirIterator(path, nameFilters[, filters=QDir.NoFilter[, flags=QDirIterator.NoIteratorFlags]])
+
+    :param flags: :class:`PySide.QtCore.QDirIterator.IteratorFlags`
+    :param dir: :class:`PySide.QtCore.QDir`
+    :param path: unicode
+    :param filter: :class:`PySide.QtCore.QDir.Filters`
+    :param nameFilters: list of strings
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+
+
+
+
+
+.. attribute:: PySide.QtCore.QDirIterator.IteratorFlag
+
+    This enum describes flags that you can combine to configure the behavior of :class:`PySide.QtCore.QDirIterator` .
+
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                                      |
+    +============================+=================================================================================================================================================================================================================================================+
+    |QDirIterator.NoIteratorFlags|The default value, representing no flags. The iterator will return entries for the assigned path.                                                                                                                                                |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDirIterator.Subdirectories |List entries inside all subdirectories as well.                                                                                                                                                                                                  |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDirIterator.FollowSymlinks |When combined with Subdirectories, this flag enables iterating through all subdirectories of the assigned path, following all symbolic links. Symbolic link loops (e.g., "link" => "." or "link" => "..") are automatically detected and ignored.|
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QDirIterator.fileInfo()
+
+
+    :rtype: :class:`PySide.QtCore.QFileInfo`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QFileInfo` for the current directory entry.
+
+    .. seealso::  :meth:`PySide.QtCore.QDirIterator.filePath`  :meth:`PySide.QtCore.QDirIterator.fileName` 
+
+
+.. method:: PySide.QtCore.QDirIterator.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the file name for the current directory entry, without the path prepended.
+
+    This function is convenient when iterating a single directory. When using the :attr:`QDirIterator.Subdirectories<QDirIterator.IteratorFlag>` flag, you can use :meth:`PySide.QtCore.QDirIterator.filePath` to get the full path.
+
+    .. seealso::  :meth:`PySide.QtCore.QDirIterator.filePath`  :meth:`PySide.QtCore.QDirIterator.fileInfo` 
+
+
+.. method:: PySide.QtCore.QDirIterator.filePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the full file path for the current directory entry.
+
+    .. seealso::  :meth:`PySide.QtCore.QDirIterator.fileInfo`  :meth:`PySide.QtCore.QDirIterator.fileName` 
+
+
+.. method:: PySide.QtCore.QDirIterator.hasNext()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is at least one more entry in the directory; otherwise, false is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QDirIterator.next`  :meth:`PySide.QtCore.QDirIterator.fileName`  :meth:`PySide.QtCore.QDirIterator.filePath`  :meth:`PySide.QtCore.QDirIterator.fileInfo` 
+
+
+.. method:: PySide.QtCore.QDirIterator.next()
+
+
+    :rtype: unicode
+
+
+
+
+    Advances the iterator to the next entry, and returns the file path of this new entry. If :meth:`PySide.QtCore.QDirIterator.hasNext` returns false, this function does nothing, and returns a null :class:`PySide.QtCore.QString` .
+
+    You can call :meth:`PySide.QtCore.QDirIterator.fileName` or :meth:`PySide.QtCore.QDirIterator.filePath` to get the current entry file name or path, or :meth:`PySide.QtCore.QDirIterator.fileInfo` to get a :class:`PySide.QtCore.QFileInfo` for the current entry.
+
+    .. seealso::  :meth:`PySide.QtCore.QDirIterator.hasNext`  :meth:`PySide.QtCore.QDirIterator.fileName`  :meth:`PySide.QtCore.QDirIterator.filePath`  :meth:`PySide.QtCore.QDirIterator.fileInfo` 
+
+
+.. method:: PySide.QtCore.QDirIterator.path()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the base directory of the iterator.
+
+
+
+

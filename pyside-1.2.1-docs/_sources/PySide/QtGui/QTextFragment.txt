@@ -1,0 +1,185 @@
+.. module:: PySide.QtGui
+.. _QTextFragment:
+
+QTextFragment
+*************
+
+.. inheritance-diagram:: QTextFragment
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QTextFragment.__eq__>` (o)
+*    def :meth:`__lt__<PySide.QtGui.QTextFragment.__lt__>` (o)
+*    def :meth:`__ne__<PySide.QtGui.QTextFragment.__ne__>` (o)
+*    def :meth:`charFormat<PySide.QtGui.QTextFragment.charFormat>` ()
+*    def :meth:`charFormatIndex<PySide.QtGui.QTextFragment.charFormatIndex>` ()
+*    def :meth:`contains<PySide.QtGui.QTextFragment.contains>` (position)
+*    def :meth:`isValid<PySide.QtGui.QTextFragment.isValid>` ()
+*    def :meth:`length<PySide.QtGui.QTextFragment.length>` ()
+*    def :meth:`position<PySide.QtGui.QTextFragment.position>` ()
+*    def :meth:`text<PySide.QtGui.QTextFragment.text>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextFragment` class holds a piece of text in a :class:`PySide.QtGui.QTextDocument` with a single :class:`PySide.QtGui.QTextCharFormat` .
+
+    A text fragment describes a piece of text that is stored with a single character format. Text in which the character format changes can be represented by sequences of text fragments with different formats.
+
+    If the user edits the text in a fragment and introduces a different character format, the fragment's text will be split at each point where the format changes, and new fragments will be created. For example, changing the style of some text in the middle of a sentence will cause the fragment to be broken into three separate fragments: the first and third with the same format as before, and the second with the new style. The first fragment will contain the text from the beginning of the sentence, the second will contain the text from the middle, and the third takes the text from the end of the sentence.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qtextfragment-split.png
+
+    A fragment's text and character format can be obtained with the :meth:`PySide.QtGui.QTextFragment.text` and :meth:`PySide.QtGui.QTextFragment.charFormat` functions. The :meth:`PySide.QtGui.QTextFragment.length` function gives the length of the text in the fragment. :meth:`PySide.QtGui.QTextFragment.position` gives the position in the document of the start of the fragment. To determine whether the fragment contains a particular position within the document, use the :meth:`PySide.QtGui.QTextFragment.contains` function.
+
+    .. seealso::  :class:`PySide.QtGui.QTextDocument`  :ref:`Rich Text Document Structure<richtext-structure.html>` 
+
+.. class:: QTextFragment()
+           QTextFragment(o)
+
+    :param o: :class:`PySide.QtGui.QTextFragment`
+
+    Creates a new empty text fragment.
+
+
+    Copies the content (text and format) of the ``other`` text fragment to this text fragment.
+
+
+.. method:: PySide.QtGui.QTextFragment.charFormat()
+
+
+    :rtype: :class:`PySide.QtGui.QTextCharFormat`
+
+
+
+
+    Returns the text fragment's character format.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFragment.text` 
+
+
+.. method:: PySide.QtGui.QTextFragment.charFormatIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns an index into the document's internal list of character formats for the text fragment's character format.
+
+    .. seealso::  :meth:`QTextDocument.allFormats()<PySide.QtGui.QTextDocument.allFormats>` 
+
+
+.. method:: PySide.QtGui.QTextFragment.contains(position)
+
+
+    :param position: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the text fragment contains the text at the given ``position`` in the document; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this is a valid text fragment (i.e. has a valid position in a document); otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.length()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of characters in the text fragment.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFragment.text` 
+
+
+.. method:: PySide.QtGui.QTextFragment.__ne__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextFragment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text fragment is different (at a different position) from the ``other`` text fragment; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.__lt__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextFragment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text fragment appears earlier in the document than the ``other`` text fragment; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.__eq__(o)
+
+
+    :param o: :class:`PySide.QtGui.QTextFragment`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this text fragment is the same (at the same position) as the ``other`` text fragment; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.position()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the position of this text fragment in the document.
+
+
+
+.. method:: PySide.QtGui.QTextFragment.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text fragment's as plain text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextFragment.length`  :meth:`PySide.QtGui.QTextFragment.charFormat` 
+
+
+

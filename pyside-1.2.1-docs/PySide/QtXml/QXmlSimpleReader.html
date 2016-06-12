@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QXmlSimpleReader &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtXml" href="index.html" />
+    <link rel="next" title="QXmlParseException" href="QXmlParseException.html" />
+    <link rel="prev" title="QXmlReader" href="QXmlReader.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtXml</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QXmlSimpleReader</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QXmlReader.html"
+                        title="previous chapter">QXmlReader</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QXmlParseException.html"
+                        title="next chapter">QXmlParseException</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtXml"></span><div class="section" id="qxmlsimplereader">
+<span id="id1"></span><h1>QXmlSimpleReader<a class="headerlink" href="#qxmlsimplereader" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtXml.QXmlSimpleReader" title="PySide.QtXml.QXmlSimpleReader"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader</span></tt></a> class provides an implementation of a simple XML parser.</p>
+<p>This XML reader is suitable for a wide range of applications. It is able to parse well-formed XML and can report the namespaces of elements to a content handler; however, it does not parse any external entities. For historical reasons, Attribute Value Normalization and End-of-Line Handling as described in the XML 1.0 specification is not performed.</p>
+<p>The easiest pattern of use for this class is to create a reader instance, define an input source, specify the handlers to be used by the reader, and parse the data.</p>
+<p>For example, we could use a <a class="reference internal" href="../QtCore/QFile.html#PySide.QtCore.QFile" title="PySide.QtCore.QFile"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QFile</span></tt></a> to supply the input. Here, we create a reader, and define an input source to be used by the reader:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xmlReader</span> <span class="o">=</span> <span class="n">QXmlSimpleReader</span><span class="p">()</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">QXmlInputSource</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A handler lets us perform actions when the reader encounters certain types of content, or if errors in the input are found. The reader must be told which handler to use for each type of event. For many common applications, we can create a custom handler by subclassing <a class="reference internal" href="QXmlDefaultHandler.html#PySide.QtXml.QXmlDefaultHandler" title="PySide.QtXml.QXmlDefaultHandler"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlDefaultHandler</span></tt></a> , and use this to handle both error and content events:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">handler</span> <span class="o">=</span> <span class="n">Handler</span><span class="p">()</span>
+<span class="n">xmlReader</span><span class="o">.</span><span class="n">setContentHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+<span class="n">xmlReader</span><span class="o">.</span><span class="n">setErrorHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you don&#8217;t set at least the content and error handlers, the parser will fall back on its default behavior&#8212;and will do nothing.</p>
+<p>The most convenient way to handle the input is to read it in a single pass using the <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parse()</span></tt></a> function with an argument that specifies the input source:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ok</span> <span class="o">=</span> <span class="n">xmlReader</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Parsing failed.&quot;</span>
+</pre></div>
+</div>
+<p>If you can&#8217;t parse the entire input in one go (for example, it is huge, or is being delivered over a network connection), data can be fed to the parser in pieces. This is achieved by telling <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parse()</span></tt></a> to work incrementally, and making subsequent calls to the <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parseContinue()</span></tt></a> function, until all the data has been processed.</p>
+<p>A common way to perform incremental parsing is to connect the <tt class="docutils literal"><span class="pre">readyRead()</span></tt> signal of a <a class="reference internal" href="../QtNetwork/QNetworkReply.html#PySide.QtNetwork.QNetworkReply" title="PySide.QtNetwork.QNetworkReply"><tt class="xref py py-class docutils literal"><span class="pre">network</span> <span class="pre">reply</span></tt></a> a slot, and handle the incoming data there. See <a class="reference internal" href="../QtNetwork/QNetworkAccessManager.html#PySide.QtNetwork.QNetworkAccessManager" title="PySide.QtNetwork.QNetworkAccessManager"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtNetwork.QNetworkAccessManager</span></tt></a> .</p>
+<p>Aspects of the parsing behavior can be adapted using <tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.setFeature()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.setProperty()</span></tt> .</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xmlReader</span><span class="o">.</span><span class="n">setFeature</span><span class="p">(</span><span class="s">&quot;http://xml.org/sax/features/namespace-prefixes&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#PySide.QtXml.QXmlSimpleReader" title="PySide.QtXml.QXmlSimpleReader"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader</span></tt></a> is not reentrant. If you want to use the class in threaded code, lock the code using <a class="reference internal" href="#PySide.QtXml.QXmlSimpleReader" title="PySide.QtXml.QXmlSimpleReader"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader</span></tt></a> with a locking mechanism, such as a <a class="reference internal" href="../QtCore/QMutex.html#PySide.QtCore.QMutex" title="PySide.QtCore.QMutex"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QMutex</span></tt></a> .</p>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtXml.QXmlSimpleReader">
+<em class="property">class </em><tt class="descclassname">PySide.QtXml.</tt><tt class="descname">QXmlSimpleReader</tt><a class="headerlink" href="#PySide.QtXml.QXmlSimpleReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a simple XML reader.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse">
+<tt class="descclassname">PySide.QtXml.QXmlSimpleReader.</tt><tt class="descname">parse</tt><big>(</big><em>input</em>, <em>incremental</em><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> &#8211; <a class="reference internal" href="QXmlInputSource.html#PySide.QtXml.QXmlInputSource" title="PySide.QtXml.QXmlInputSource"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlInputSource</span></tt></a></li>
+<li><strong>incremental</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Reads an XML document from <tt class="docutils literal"><span class="pre">input</span></tt> and parses it. Returns true if the parsing is completed successfully; otherwise returns false, indicating that an error occurred.</p>
+<p>If <tt class="docutils literal"><span class="pre">incremental</span></tt> is false, this function will return false if the XML file is not read completely. The parsing cannot be continued in this case.</p>
+<p>If <tt class="docutils literal"><span class="pre">incremental</span></tt> is true, the parser does not return false if it reaches the end of the <tt class="docutils literal"><span class="pre">input</span></tt> before reaching the end of the XML file. Instead, it stores the state of the parser so that parsing can be continued later when more data is available. In such a case, you can use the function <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parseContinue()</span></tt></a> to continue with parsing. This class stores a pointer to the input source <tt class="docutils literal"><span class="pre">input</span></tt> and the <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parseContinue()</span></tt></a> function tries to read from that input source. Therefore, you should not delete the input source <tt class="docutils literal"><span class="pre">input</span></tt> until you no longer need to call <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parseContinue()</span></tt></a> .</p>
+<p>If this function is called with <tt class="docutils literal"><span class="pre">incremental</span></tt> set to true while an incremental parse is in progress, a new parsing session will be started, and the previous session will be lost.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parseContinue()</span></tt></a>  <a class="reference internal" href="../QtNetwork/QTcpSocket.html#PySide.QtNetwork.QTcpSocket" title="PySide.QtNetwork.QTcpSocket"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtNetwork.QTcpSocket</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue">
+<tt class="descclassname">PySide.QtXml.QXmlSimpleReader.</tt><tt class="descname">parseContinue</tt><big>(</big><big>)</big><a class="headerlink" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parseContinue" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.bool</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Continues incremental parsing, taking input from the <a class="reference internal" href="QXmlInputSource.html#PySide.QtXml.QXmlInputSource" title="PySide.QtXml.QXmlInputSource"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtXml.QXmlInputSource</span></tt></a> that was specified with the most recent call to <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parse()</span></tt></a> . To use this function, you <em>must</em> have called <a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parse()</span></tt></a> with the incremental argument set to true.</p>
+<p>Returns false if a parsing error occurs; otherwise returns true, even if the end of the XML file has not been reached. You can continue parsing at a later stage by calling this function again when there is more data available to parse.</p>
+<p>Calling this function when there is no data available in the input source indicates to the reader that the end of the XML file has been reached. If the input supplied up to this point was not well-formed then a parsing error occurs, and false is returned. If the input supplied was well-formed, true is returned. It is important to end the input in this way because it allows you to reuse the reader to parse other XML files.</p>
+<p>Calling this function after the end of file has been reached, but without available data will cause false to be returned whether the previous input was well-formed or not.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse" title="PySide.QtXml.PySide.QtXml.QXmlSimpleReader.parse"><tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtXml.QXmlSimpleReader.parse()</span></tt></a>  <a class="reference internal" href="QXmlInputSource.html#PySide.QtXml.PySide.QtXml.QXmlInputSource.data" title="PySide.QtXml.PySide.QtXml.QXmlInputSource.data"><tt class="xref py py-meth docutils literal"><span class="pre">QXmlInputSource.data()</span></tt></a>  <a class="reference internal" href="QXmlInputSource.html#PySide.QtXml.PySide.QtXml.QXmlInputSource.next" title="PySide.QtXml.PySide.QtXml.QXmlInputSource.next"><tt class="xref py py-meth docutils literal"><span class="pre">QXmlInputSource.next()</span></tt></a></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

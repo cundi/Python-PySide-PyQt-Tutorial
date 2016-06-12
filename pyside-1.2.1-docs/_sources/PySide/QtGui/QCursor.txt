@@ -1,0 +1,280 @@
+.. module:: PySide.QtGui
+.. _QCursor:
+
+QCursor
+*******
+
+.. inheritance-diagram:: QCursor
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bitmap<PySide.QtGui.QCursor.bitmap>` ()
+*    def :meth:`handle<PySide.QtGui.QCursor.handle>` ()
+*    def :meth:`hotSpot<PySide.QtGui.QCursor.hotSpot>` ()
+*    def :meth:`mask<PySide.QtGui.QCursor.mask>` ()
+*    def :meth:`pixmap<PySide.QtGui.QCursor.pixmap>` ()
+*    def :meth:`setShape<PySide.QtGui.QCursor.setShape>` (newShape)
+*    def :meth:`shape<PySide.QtGui.QCursor.shape>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`pos<PySide.QtGui.QCursor.pos>` ()
+*    def :meth:`setPos<PySide.QtGui.QCursor.setPos>` (p)
+*    def :meth:`setPos<PySide.QtGui.QCursor.setPos>` (x, y)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QCursor` class provides a mouse cursor with an arbitrary shape.
+
+    This class is mainly used to create mouse cursors that are associated with particular widgets and to get and set the position of the mouse cursor.
+
+    Qt has a number of standard cursor shapes, but you can also make custom cursor shapes based on a :class:`PySide.QtGui.QBitmap` , a mask and a hotspot.
+
+    To associate a cursor with a widget, use :meth:`QWidget.setCursor()<PySide.QtGui.QWidget.setCursor>` . To associate a cursor with all widgets (normally for a short period of time), use :meth:`QApplication.setOverrideCursor()<PySide.QtGui.QApplication.setOverrideCursor>` .
+
+    To set a cursor shape use :meth:`QCursor.setShape()<PySide.QtGui.QCursor.setShape>` or use the :class:`PySide.QtGui.QCursor` constructor which takes the shape as argument, or you can use one of the predefined cursors defined in the :attr:`Qt.CursorShape` enum.
+
+    If you want to create a cursor with your own bitmap, either use the :class:`PySide.QtGui.QCursor` constructor which takes a bitmap and a mask or the constructor which takes a pixmap as arguments.
+
+    To set or get the position of the mouse cursor use the static methods :meth:`QCursor.pos()<PySide.QtGui.QCursor.pos>` and :meth:`QCursor.setPos()<PySide.QtGui.QCursor.setPos>` .
+
+    .. note::  It is possible to create a :class:`PySide.QtGui.QCursor` before :class:`PySide.QtGui.QApplication` , but it is not useful except as a place-holder for a real :class:`PySide.QtGui.QCursor` created after :class:`PySide.QtGui.QApplication` . Attempting to use a :class:`PySide.QtGui.QCursor` that was created before :class:`PySide.QtGui.QApplication` will result in a crash.
+
+    .. _PySide.QtGui.QCursor_a-note-for-x11-users:
+
+
+
+A Note for X11 Users
+^^^^^^^^^^^^^^^^^^^^
+
+    On X11, Qt supports the Xcursor library, which allows for full color icon themes. The table below shows the cursor name used for each :attr:`Qt.CursorShape` value. If a cursor cannot be found using the name shown below, a standard X11 cursor will be used instead. Note: X11 does not provide appropriate cursors for all possible :attr:`Qt.CursorShape` values. It is possible that some cursors will be taken from the Xcursor theme, while others will use an internal bitmap cursor.
+
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |Shape                                                                                              |:attr:`Qt.CursorShape` Value                 |Cursor Name              |Shape                                                                                               |:attr:`Qt.CursorShape` Value               |Cursor Name              |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-arrow.png    |:attr:`Qt.ArrowCursor<Qt.CursorShape>`       |``left_ptr``\            |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-sizev.png     |:attr:`Qt.SizeVerCursor<Qt.CursorShape>`   |``size_ver``\            |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-uparrow.png  |:attr:`Qt.UpArrowCursor<Qt.CursorShape>`     |``up_arrow``\            |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-sizeh.png     |:attr:`Qt.SizeHorCursor<Qt.CursorShape>`   |``size_hor``\            |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-cross.png    |:attr:`Qt.CrossCursor<Qt.CursorShape>`       |``cross``\               |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-sizeb.png     |:attr:`Qt.SizeBDiagCursor<Qt.CursorShape>` |``size_bdiag``\          |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-ibeam.png    |:attr:`Qt.IBeamCursor<Qt.CursorShape>`       |``ibeam``\               |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-sizef.png     |:attr:`Qt.SizeFDiagCursor<Qt.CursorShape>` |``size_fdiag``\          |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-wait.png     |:attr:`Qt.WaitCursor<Qt.CursorShape>`        |``wait``\                |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-sizeall.png   |:attr:`Qt.SizeAllCursor<Qt.CursorShape>`   |``size_all``\            |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-busy.png     |:attr:`Qt.BusyCursor<Qt.CursorShape>`        |``left_ptr_watch``\      |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-vsplit.png    |:attr:`Qt.SplitVCursor<Qt.CursorShape>`    |``split_v``\             |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-forbidden.png|:attr:`Qt.ForbiddenCursor<Qt.CursorShape>`   |``forbidden``\           |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-hsplit.png    |:attr:`Qt.SplitHCursor<Qt.CursorShape>`    |``split_h``\             |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-hand.png     |:attr:`Qt.PointingHandCursor<Qt.CursorShape>`|``pointing_hand``\       |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-openhand.png  |:attr:`Qt.OpenHandCursor<Qt.CursorShape>`  |``openhand``\            |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-whatsthis.png|:attr:`Qt.WhatsThisCursor<Qt.CursorShape>`   |``whats_this``\          |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/cursor-closedhand.png|:attr:`Qt.ClosedHandCursor<Qt.CursorShape>`|``closedhand``\          |
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+    |                                                                                                   |:attr:`Qt.DragMoveCursor<Qt.CursorShape>`    |``dnd-move`` or ``move``\|                                                                                                    |:attr:`Qt.DragCopyCursor<Qt.CursorShape>`  |``dnd-copy`` or ``copy``\|
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+                                                                                                    +                                           +                         +
+    |                                                                                                   |:attr:`Qt.DragLinkCursor<Qt.CursorShape>`    |``dnd-link`` or ``link``\|
+    +---------------------------------------------------------------------------------------------------+---------------------------------------------+-------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+-------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QWidget`  :ref:`GUI Design Handbook: Cursors<guibooks.html>` 
+
+.. class:: QCursor()
+           QCursor(shape)
+           QCursor(bitmap, mask[, hotX=-1[, hotY=-1]])
+           QCursor(cursor)
+           QCursor(pixmap[, hotX=-1[, hotY=-1]])
+
+    :param cursor: :class:`PySide.QtGui.QCursor`
+    :param shape: :attr:`PySide.QtCore.Qt.CursorShape`
+    :param hotX: :class:`PySide.QtCore.int`
+    :param mask: :class:`PySide.QtGui.QBitmap`
+    :param hotY: :class:`PySide.QtCore.int`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :param bitmap: :class:`PySide.QtGui.QBitmap`
+
+    Constructs a cursor with the default arrow shape.
+
+
+
+
+    Constructs a custom bitmap cursor.
+
+    ``bitmap`` and ``mask`` make up the bitmap. ``hotX`` and ``hotY`` define the cursor's hot spot.
+
+    If ``hotX`` is negative, it is set to the ``bitmap().width()/2`` . If ``hotY`` is negative, it is set to the ``bitmap().height()/2`` .
+
+    The cursor ``bitmap`` (B) and ``mask`` (M) bits are combined like this:
+
+
+    * B=1 and M=1 gives black.
+    * B=0 and M=1 gives white.
+    * B=0 and M=0 gives transparent.
+    * B=1 and M=0 gives an XOR'd result under Windows, undefined results on all other platforms.
+
+    Use the global Qt color :attr:`Qt.color0<Qt.GlobalColor>` to draw 0-pixels and :attr:`Qt.color1<Qt.GlobalColor>` to draw 1-pixels in the bitmaps.
+
+    Valid cursor sizes depend on the display hardware (or the underlying window system). We recommend using 32 x 32 cursors, because this size is supported on all platforms. Some platforms also support 16 x 16, 48 x 48, and 64 x 64 cursors.
+
+    .. note::  On Windows CE, the cursor size is fixed. If the pixmap is bigger than the system size, it will be scaled.
+
+    .. seealso::  :meth:`QBitmap.QBitmap()<PySide.QtGui.QBitmap.QBitmap>`  :meth:`QBitmap.setMask()<PySide.QtGui.QBitmap.setMask>` 
+
+    Constructs a copy of the cursor ``c`` .
+
+
+    Constructs a custom pixmap cursor.
+
+    ``pixmap`` is the image. It is usual to give it a mask (set using :meth:`QPixmap.setMask()<PySide.QtGui.QPixmap.setMask>` ). ``hotX`` and ``hotY`` define the cursor's hot spot.
+
+    If ``hotX`` is negative, it is set to the ``pixmap().width()/2`` . If ``hotY`` is negative, it is set to the ``pixmap().height()/2`` .
+
+    Valid cursor sizes depend on the display hardware (or the underlying window system). We recommend using 32 x 32 cursors, because this size is supported on all platforms. Some platforms also support 16 x 16, 48 x 48, and 64 x 64 cursors.
+
+    .. note::  On Windows CE, the cursor size is fixed. If the pixmap is bigger than the system size, it will be scaled.
+
+    .. seealso::  :meth:`QPixmap.QPixmap()<PySide.QtGui.QPixmap.QPixmap>`  :meth:`QPixmap.setMask()<PySide.QtGui.QPixmap.setMask>` 
+
+.. method:: PySide.QtGui.QCursor.bitmap()
+
+
+    :rtype: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+    Returns the cursor bitmap, or 0 if it is one of the standard cursors.
+
+
+
+.. method:: PySide.QtGui.QCursor.handle()
+
+
+    :rtype: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+    Returns a platform-specific cursor handle. The ``HCURSOR_or_HANDLE`` type is ``HCURSOR`` on Windows and :class:`Qt.HANDLE` on X11 and Mac OS X. On :ref:`Qt for Embedded Linux<qt-embedded-linux>` it is an integer.
+
+    .. warning::  Using the value returned by this function is not portable.
+
+
+
+.. method:: PySide.QtGui.QCursor.hotSpot()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the cursor hot spot, or (0, 0) if it is one of the standard cursors.
+
+
+
+.. method:: PySide.QtGui.QCursor.mask()
+
+
+    :rtype: :class:`PySide.QtGui.QBitmap`
+
+
+
+
+    Returns the cursor bitmap mask, or 0 if it is one of the standard cursors.
+
+
+
+.. method:: PySide.QtGui.QCursor.pixmap()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the cursor pixmap. This is only valid if the cursor is a pixmap cursor.
+
+
+
+.. staticmethod:: PySide.QtGui.QCursor.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the cursor (hot spot) in global screen coordinates.
+
+    You can call :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>` to translate it to widget coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QCursor.setPos`  :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>`  :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` 
+
+
+.. staticmethod:: PySide.QtGui.QCursor.setPos(x, y)
+
+
+    :param x: :class:`PySide.QtCore.int`
+    :param y: :class:`PySide.QtCore.int`
+
+
+
+
+    Moves the cursor (hot spot) to the global screen position (``x`` , ``y`` ).
+
+    You can call :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` to translate widget coordinates to global screen coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QCursor.pos`  :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>`  :meth:`QWidget.mapToGlobal()<PySide.QtGui.QWidget.mapToGlobal>` 
+
+
+.. staticmethod:: PySide.QtGui.QCursor.setPos(p)
+
+
+    :param p: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    This is an overloaded function.
+
+    Moves the cursor (hot spot) to the global screen position at point ``p`` .
+
+
+
+.. method:: PySide.QtGui.QCursor.setShape(newShape)
+
+
+    :param newShape: :attr:`PySide.QtCore.Qt.CursorShape`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCursor.shape()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CursorShape`
+
+
+
+
+    Returns the cursor shape identifier. The return value is one of the :attr:`Qt.CursorShape` enum values (cast to an int).
+
+    .. seealso::  :meth:`PySide.QtGui.QCursor.setShape` 
+
+
+

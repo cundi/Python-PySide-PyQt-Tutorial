@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QSqlRelationalDelegate &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtSql" href="index.html" />
+    <link rel="next" title="PySide.QtSvg" href="../QtSvg/index.html" />
+    <link rel="prev" title="QSqlRelationalTableModel" href="QSqlRelationalTableModel.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtSql</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QSqlRelationalDelegate</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QSqlRelationalTableModel.html"
+                        title="previous chapter">QSqlRelationalTableModel</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../QtSvg/index.html"
+                        title="next chapter">PySide.QtSvg</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtSql"></span><div class="section" id="qsqlrelationaldelegate">
+<span id="id1"></span><h1>QSqlRelationalDelegate<a class="headerlink" href="#qsqlrelationaldelegate" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtSql.QSqlRelationalDelegate" title="PySide.QtSql.QSqlRelationalDelegate"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalDelegate</span></tt></a> class provides a delegate that is used to display and edit data from a <a class="reference internal" href="QSqlRelationalTableModel.html#PySide.QtSql.QSqlRelationalTableModel" title="PySide.QtSql.QSqlRelationalTableModel"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalTableModel</span></tt></a> .</p>
+<p>Unlike the default delegate, <a class="reference internal" href="#PySide.QtSql.QSqlRelationalDelegate" title="PySide.QtSql.QSqlRelationalDelegate"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalDelegate</span></tt></a> provides a combobox for fields that are foreign keys into other tables. To use the class, simply call <tt class="xref py py-meth docutils literal"><span class="pre">QAbstractItemView.setItemDelegate()</span></tt> on the view with an instance of <a class="reference internal" href="#PySide.QtSql.QSqlRelationalDelegate" title="PySide.QtSql.QSqlRelationalDelegate"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalDelegate</span></tt></a> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">view</span> <span class="o">=</span>  <span class="n">QTableView</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setItemDelegate</span><span class="p">(</span><span class="n">QSqlRelationalDelegate</span><span class="p">(</span><span class="n">view</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <em class="xref std std-ref">Relational Table Model</em> example (shown below) illustrates how to use <a class="reference internal" href="#PySide.QtSql.QSqlRelationalDelegate" title="PySide.QtSql.QSqlRelationalDelegate"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalDelegate</span></tt></a> in conjunction with <a class="reference internal" href="QSqlRelationalTableModel.html#PySide.QtSql.QSqlRelationalTableModel" title="PySide.QtSql.QSqlRelationalTableModel"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalTableModel</span></tt></a> to provide tables with foreign key support.</p>
+<img alt="../../_images/relationaltable.png" src="../../_images/relationaltable.png" />
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QSqlRelationalTableModel.html#PySide.QtSql.QSqlRelationalTableModel" title="PySide.QtSql.QSqlRelationalTableModel"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalTableModel</span></tt></a>  <em class="xref std std-ref">Model/View Programming</em></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtSql.QSqlRelationalDelegate">
+<em class="property">class </em><tt class="descclassname">PySide.QtSql.</tt><tt class="descname">QSqlRelationalDelegate</tt><big>(</big><span class="optional">[</span><em>aParent=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtSql.QSqlRelationalDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>aParent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Constructs a <a class="reference internal" href="#PySide.QtSql.QSqlRelationalDelegate" title="PySide.QtSql.QSqlRelationalDelegate"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtSql.QSqlRelationalDelegate</span></tt></a> object with the given <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

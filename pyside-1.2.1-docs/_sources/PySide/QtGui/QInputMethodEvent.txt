@@ -1,0 +1,171 @@
+.. module:: PySide.QtGui
+.. _QInputMethodEvent:
+
+QInputMethodEvent
+*****************
+
+.. inheritance-diagram:: QInputMethodEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`attributes<PySide.QtGui.QInputMethodEvent.attributes>` ()
+*    def :meth:`commitString<PySide.QtGui.QInputMethodEvent.commitString>` ()
+*    def :meth:`preeditString<PySide.QtGui.QInputMethodEvent.preeditString>` ()
+*    def :meth:`replacementLength<PySide.QtGui.QInputMethodEvent.replacementLength>` ()
+*    def :meth:`replacementStart<PySide.QtGui.QInputMethodEvent.replacementStart>` ()
+*    def :meth:`setCommitString<PySide.QtGui.QInputMethodEvent.setCommitString>` (commitString[, replaceFrom=0[, replaceLength=0]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QInputMethodEvent` class provides parameters for input method events.
+
+    Input method events are sent to widgets when an input method is used to enter text into a widget. Input methods are widely used to enter text for languages with non-Latin alphabets.
+
+    Note that when creating custom text editing widgets, the :attr:`Qt.WA_InputMethodEnabled<Qt.WidgetAttribute>` window attribute must be set explicitly (using the :meth:`QWidget.setAttribute()<PySide.QtGui.QWidget.setAttribute>` function) in order to receive input method events.
+
+    The events are of interest to authors of keyboard entry widgets who want to be able to correctly handle languages with complex character input. Text input in such languages is usually a three step process:
+
+    :class:`PySide.QtGui.QInputMethodEvent` models these three stages, and transfers the information needed to correctly render the intermediate result. A :class:`PySide.QtGui.QInputMethodEvent` has two main parameters: :meth:`PySide.QtGui.QInputMethodEvent.preeditString` and :meth:`PySide.QtGui.QInputMethodEvent.commitString` . The :meth:`PySide.QtGui.QInputMethodEvent.preeditString` parameter gives the currently active preedit string. The :meth:`PySide.QtGui.QInputMethodEvent.commitString` parameter gives a text that should get added to (or replace parts of) the text of the editor widget. It usually is a result of the input operations and has to be inserted to the widgets text directly before the preedit string.
+
+    If the :meth:`PySide.QtGui.QInputMethodEvent.commitString` should replace parts of the of the text in the editor, :meth:`PySide.QtGui.QInputMethodEvent.replacementLength` will contain the number of characters to be replaced. :meth:`PySide.QtGui.QInputMethodEvent.replacementStart` contains the position at which characters are to be replaced relative from the start of the preedit string.
+
+    A number of attributes control the visual appearance of the preedit string (the visual appearance of text outside the preedit string is controlled by the widget only). The :attr:`QInputMethodEvent.AttributeType` enum describes the different attributes that can be set.
+
+    A class implementing :meth:`QWidget.inputMethodEvent()<PySide.QtGui.QWidget.inputMethodEvent>` or :meth:`QGraphicsItem.inputMethodEvent()<PySide.QtGui.QGraphicsItem.inputMethodEvent>` should at least understand and honor the :attr:`TextFormat<QInputMethodEvent.AttributeType>` and :attr:`Cursor<QInputMethodEvent.AttributeType>` attributes.
+
+    Since input methods need to be able to query certain properties from the widget or graphics item, subclasses must also implement :meth:`QWidget.inputMethodQuery()<PySide.QtGui.QWidget.inputMethodQuery>` and :meth:`QGraphicsItem.inputMethodQuery()<PySide.QtGui.QGraphicsItem.inputMethodQuery>` , respectively.
+
+    When receiving an input method event, the text widget has to performs the following steps:
+
+    .. seealso::  :class:`PySide.QtGui.QInputContext` 
+
+.. class:: QInputMethodEvent()
+           QInputMethodEvent(other)
+           QInputMethodEvent(preeditText, attributes)
+
+    :param attributes: 
+    :param other: :class:`PySide.QtGui.QInputMethodEvent`
+    :param preeditText: unicode
+
+    Constructs an event of type :attr:`QEvent.InputMethod<QEvent.Type>` . The :meth:`PySide.QtGui.QInputMethodEvent.attributes` , :meth:`PySide.QtGui.QInputMethodEvent.preeditString` , :meth:`PySide.QtGui.QInputMethodEvent.commitString` , :meth:`PySide.QtGui.QInputMethodEvent.replacementStart` , and :meth:`PySide.QtGui.QInputMethodEvent.replacementLength` are initialized to default values.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.setCommitString` 
+
+    Constructs a copy of ``other`` .
+
+
+
+
+.. attribute:: PySide.QtGui.QInputMethodEvent.AttributeType
+
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    +============================+========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QInputMethodEvent.TextFormat|A :class:`PySide.QtGui.QTextCharFormat` for the part of the preedit string specified by start and length. value contains a :class:`PySide.QtCore.QVariant` of type :class:`PySide.QtGui.QTextFormat` specifying rendering of this part of the preedit string. There should be at most one format for every part of the preedit string. If several are specified for any character in the string the behaviour is undefined. A conforming implementation has to at least honor the backgroundColor, textColor and fontUnderline properties of the format.|
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QInputMethodEvent.Cursor    |If set, a cursor should be shown inside the preedit string at position start. The length variable determines whether the cursor is visible or not. If the length is 0 the cursor is invisible. If value is a :class:`PySide.QtCore.QVariant` of type :class:`PySide.QtGui.QColor` this color will be used for rendering the cursor, otherwise the color of the surrounding text will be used. There should be at most one Cursor attribute per event. If several are specified the behaviour is undefined.                                              |
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QInputMethodEvent.Language  |The variant contains a :class:`PySide.QtCore.QLocale` object specifying the language of a certain part of the preedit string. There should be at most one language set for every part of the preedit string. If several are specified for any character in the string the behavior is undefined.                                                                                                                                                                                                                                                        |
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QInputMethodEvent.Ruby      |The ruby text for a part of the preedit string. There should be at most one ruby text set for every part of the preedit string. If several are specified for any character in the string the behaviour is undefined.                                                                                                                                                                                                                                                                                                                                    |
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QInputMethodEvent.Selection |If set, the edit cursor should be moved to the specified position in the editor text contents. In contrast with ``Cursor``, this attribute does not work on the preedit text, but on the surrounding text. The cursor will be moved after the commit string has been committed, and the preedit string will be located at the new edit position. The start position specifies the new position and the length variable can be used to set a selection starting from that point. The value is unused.                                                    |
+    +----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`~PySide.QtGui.Attribute` 
+
+.. method:: PySide.QtGui.QInputMethodEvent.attributes()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of attributes passed to the :class:`PySide.QtGui.QInputMethodEvent` constructor. The attributes control the visual appearance of the preedit string (the visual appearance of text outside the preedit string is controlled by the widget only).
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.preeditString`  :class:`~PySide.QtGui.Attribute` 
+
+
+.. method:: PySide.QtGui.QInputMethodEvent.commitString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text that should get added to (or replace parts of) the text of the editor widget. It usually is a result of the input operations and has to be inserted to the widgets text directly before the preedit string.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.setCommitString`  :meth:`PySide.QtGui.QInputMethodEvent.preeditString`  :meth:`PySide.QtGui.QInputMethodEvent.replacementStart`  :meth:`PySide.QtGui.QInputMethodEvent.replacementLength` 
+
+
+.. method:: PySide.QtGui.QInputMethodEvent.preeditString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the preedit text, i.e. the text before the user started editing it.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.commitString`  :meth:`PySide.QtGui.QInputMethodEvent.attributes` 
+
+
+.. method:: PySide.QtGui.QInputMethodEvent.replacementLength()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of characters to be replaced in the preedit string.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.replacementStart`  :meth:`PySide.QtGui.QInputMethodEvent.setCommitString` 
+
+
+.. method:: PySide.QtGui.QInputMethodEvent.replacementStart()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the position at which characters are to be replaced relative from the start of the preedit string.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.replacementLength`  :meth:`PySide.QtGui.QInputMethodEvent.setCommitString` 
+
+
+.. method:: PySide.QtGui.QInputMethodEvent.setCommitString(commitString[, replaceFrom=0[, replaceLength=0]])
+
+
+    :param commitString: unicode
+    :param replaceFrom: :class:`PySide.QtCore.int`
+    :param replaceLength: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the commit string to ``commitString`` .
+
+    The commit string is the text that should get added to (or replace parts of) the text of the editor widget. It usually is a result of the input operations and has to be inserted to the widgets text directly before the preedit string.
+
+    If the commit string should replace parts of the of the text in the editor, ``replaceLength`` specifies the number of characters to be replaced. ``replaceFrom`` specifies the position at which characters are to be replaced relative from the start of the preedit string.
+
+    .. seealso::  :meth:`PySide.QtGui.QInputMethodEvent.commitString`  :meth:`PySide.QtGui.QInputMethodEvent.replacementStart`  :meth:`PySide.QtGui.QInputMethodEvent.replacementLength` 
+
+
+

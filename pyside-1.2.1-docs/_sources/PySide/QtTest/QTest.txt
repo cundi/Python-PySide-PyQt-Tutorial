@@ -1,0 +1,752 @@
+.. module:: PySide.QtTest
+.. _QTest:
+
+QTest
+*****
+
+.. inheritance-diagram:: QTest
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addColumnInternal<PySide.QtTest.QTest.addColumnInternal>` (id, name)
+*    def :meth:`asciiToKey<PySide.QtTest.QTest.asciiToKey>` (ascii)
+*    def :meth:`compare_ptr_helper<PySide.QtTest.QTest.compare_ptr_helper>` (t1, t2, actual, expected, file, line)
+*    def :meth:`compare_string_helper<PySide.QtTest.QTest.compare_string_helper>` (t1, t2, actual, expected, file, line)
+*    def :meth:`currentDataTag<PySide.QtTest.QTest.currentDataTag>` ()
+*    def :meth:`currentTestFailed<PySide.QtTest.QTest.currentTestFailed>` ()
+*    def :meth:`currentTestFunction<PySide.QtTest.QTest.currentTestFunction>` ()
+*    def :meth:`ignoreMessage<PySide.QtTest.QTest.ignoreMessage>` (type, message)
+*    def :meth:`keyClick<PySide.QtTest.QTest.keyClick>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyClick<PySide.QtTest.QTest.keyClick>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyClicks<PySide.QtTest.QTest.keyClicks>` (widget, sequence[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyEvent<PySide.QtTest.QTest.keyEvent>` (action, widget, ascii[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyEvent<PySide.QtTest.QTest.keyEvent>` (action, widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyPress<PySide.QtTest.QTest.keyPress>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyPress<PySide.QtTest.QTest.keyPress>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyRelease<PySide.QtTest.QTest.keyRelease>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyRelease<PySide.QtTest.QTest.keyRelease>` (widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+*    def :meth:`keyToAscii<PySide.QtTest.QTest.keyToAscii>` (key)
+*    def :meth:`mouseClick<PySide.QtTest.QTest.mouseClick>` (widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+*    def :meth:`mouseDClick<PySide.QtTest.QTest.mouseDClick>` (widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+*    def :meth:`mouseEvent<PySide.QtTest.QTest.mouseEvent>` (action, widget, button, stateKey, pos[, delay=-1])
+*    def :meth:`mouseMove<PySide.QtTest.QTest.mouseMove>` (widget[, pos=QPoint()[, delay=-1]])
+*    def :meth:`mousePress<PySide.QtTest.QTest.mousePress>` (widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+*    def :meth:`mouseRelease<PySide.QtTest.QTest.mouseRelease>` (widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+*    def :meth:`qElementData<PySide.QtTest.QTest.qElementData>` (elementName, metaTypeId)
+*    def :meth:`qExpectFail<PySide.QtTest.QTest.qExpectFail>` (dataIndex, comment, mode, file, line)
+*    def :meth:`qGlobalData<PySide.QtTest.QTest.qGlobalData>` (tagName, typeId)
+*    def :meth:`qSkip<PySide.QtTest.QTest.qSkip>` (message, mode, file, line)
+*    def :meth:`qWaitForWindowShown<PySide.QtTest.QTest.qWaitForWindowShown>` (window)
+*    def :meth:`sendKeyEvent<PySide.QtTest.QTest.sendKeyEvent>` (action, widget, code, ascii, modifier[, delay=-1])
+*    def :meth:`sendKeyEvent<PySide.QtTest.QTest.sendKeyEvent>` (action, widget, code, text, modifier[, delay=-1])
+*    def :meth:`setBenchmarkResult<PySide.QtTest.QTest.setBenchmarkResult>` (result, metric)
+*    def :meth:`simulateEvent<PySide.QtTest.QTest.simulateEvent>` (widget, press, code, modifier, text, repeat[, delay=-1])
+*    def :meth:`testObject<PySide.QtTest.QTest.testObject>` ()
+*    def :meth:`touchEvent<PySide.QtTest.QTest.touchEvent>` ([widget=None[, deviceType=QTouchEvent.TouchScreen]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :ref:`QTest<qtest.html>` namespace contains all the functions and declarations that are related to the :ref:`QTestLib<qtestlib-manual.html>` tool.
+
+    Please refer to the :ref:`QTestLib Manual<qtestlib-manual.html>` documentation for information on how to write unit tests.
+
+
+.. attribute:: PySide.QtTest.QTest.LogElementType
+
+    The enum specifies the kinds of test log messages.
+
+    +---------------------+-----------+
+    |Constant             |Description|
+    +=====================+===========+
+    |QTest.LET_Undefined  |           |
+    +---------------------+-----------+
+    |QTest.LET_Property   |           |
+    +---------------------+-----------+
+    |QTest.LET_Properties |           |
+    +---------------------+-----------+
+    |QTest.LET_Failure    |           |
+    +---------------------+-----------+
+    |QTest.LET_Error      |           |
+    +---------------------+-----------+
+    |QTest.LET_TestCase   |           |
+    +---------------------+-----------+
+    |QTest.LET_TestSuite  |           |
+    +---------------------+-----------+
+    |QTest.LET_Benchmark  |           |
+    +---------------------+-----------+
+    |QTest.LET_SystemError|           |
+    +---------------------+-----------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.6
+.. attribute:: PySide.QtTest.QTest.AttributeIndex
+
+    This enum numbers the different tests.
+
+    +----------------------+-----------+
+    |Constant              |Description|
+    +======================+===========+
+    |QTest.AI_Undefined    |           |
+    +----------------------+-----------+
+    |QTest.AI_Name         |           |
+    +----------------------+-----------+
+    |QTest.AI_Result       |           |
+    +----------------------+-----------+
+    |QTest.AI_Tests        |           |
+    +----------------------+-----------+
+    |QTest.AI_Failures     |           |
+    +----------------------+-----------+
+    |QTest.AI_Errors       |           |
+    +----------------------+-----------+
+    |QTest.AI_Type         |           |
+    +----------------------+-----------+
+    |QTest.AI_Description  |           |
+    +----------------------+-----------+
+    |QTest.AI_PropertyValue|           |
+    +----------------------+-----------+
+    |QTest.AI_QTestVersion |           |
+    +----------------------+-----------+
+    |QTest.AI_QtVersion    |           |
+    +----------------------+-----------+
+    |QTest.AI_File         |           |
+    +----------------------+-----------+
+    |QTest.AI_Line         |           |
+    +----------------------+-----------+
+    |QTest.AI_Metric       |           |
+    +----------------------+-----------+
+    |QTest.AI_Tag          |           |
+    +----------------------+-----------+
+    |QTest.AI_Value        |           |
+    +----------------------+-----------+
+    |QTest.AI_Iterations   |           |
+    +----------------------+-----------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.6
+.. attribute:: PySide.QtTest.QTest.QBenchmarkMetric
+
+    This enum lists all the things that can be benchmarked.
+
+    +--------------------------+--------------------------+
+    |Constant                  |Description               |
+    +==========================+==========================+
+    |QTest.FramesPerSecond     |Frames per second         |
+    +--------------------------+--------------------------+
+    |QTest.BitsPerSecond       |Bits per second           |
+    +--------------------------+--------------------------+
+    |QTest.BytesPerSecond      |Bytes per second          |
+    +--------------------------+--------------------------+
+    |QTest.WalltimeMilliseconds|Clock time in milliseconds|
+    +--------------------------+--------------------------+
+    |QTest.CPUTicks            |CPU time                  |
+    +--------------------------+--------------------------+
+    |QTest.InstructionReads    |Instruction reads         |
+    +--------------------------+--------------------------+
+    |QTest.Events              |Event count               |
+    +--------------------------+--------------------------+
+
+    .. seealso::  :meth:`QTest.benchmarkMetricName()<PySide.QtTest.QTest.benchmarkMetricName>`  :meth:`QTest.benchmarkMetricUnit()<PySide.QtTest.QTest.benchmarkMetricUnit>` 
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtTest.QTest.TestFailMode
+
+    This enum describes the modes for handling an expected failure of the :meth:`~PySide.QtTest.QTest.QVERIFY` or :meth:`~PySide.QtTest.QTest.QCOMPARE` macros.
+
+    +--------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant      |Description                                                                                                                           |
+    +==============+======================================================================================================================================+
+    |QTest.Abort   |Aborts the execution of the test. Use this mode when it doesn't make sense to execute the test any further after the expected failure.|
+    +--------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QTest.Continue|Continues execution of the test after the expected failure.                                                                           |
+    +--------------+--------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`~PySide.QtTest.QTest.QEXPECT\_FAIL` 
+
+.. attribute:: PySide.QtTest.QTest.MouseAction
+
+    This enum describes possible actions for mouse handling.
+
+    +------------------+--------------------------------------------------------------+
+    |Constant          |Description                                                   |
+    +==================+==============================================================+
+    |QTest.MousePress  |A mouse button is pressed.                                    |
+    +------------------+--------------------------------------------------------------+
+    |QTest.MouseRelease|A mouse button is released.                                   |
+    +------------------+--------------------------------------------------------------+
+    |QTest.MouseClick  |A mouse button is clicked (pressed and released).             |
+    +------------------+--------------------------------------------------------------+
+    |QTest.MouseDClick |A mouse button is double clicked (pressed and released twice).|
+    +------------------+--------------------------------------------------------------+
+    |QTest.MouseMove   |The mouse pointer has moved.                                  |
+    +------------------+--------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtTest.QTest.SkipMode
+
+    This enum describes the modes for skipping tests during execution of the test data.
+
+    +----------------+-----------------------------------------------------------------------------------------------------+
+    |Constant        |Description                                                                                          |
+    +================+=====================================================================================================+
+    |QTest.SkipSingle|Skips the current entry in the test table; continues execution of all the other entries in the table.|
+    +----------------+-----------------------------------------------------------------------------------------------------+
+    |QTest.SkipAll   |Skips all the entries in the test table; the test won't be executed further.                         |
+    +----------------+-----------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`~PySide.QtTest.QTest.QSKIP` 
+
+.. attribute:: PySide.QtTest.QTest.KeyAction
+
+    This enum describes possible actions for key handling.
+
+    +-------------+------------------------------------------+
+    |Constant     |Description                               |
+    +=============+==========================================+
+    |QTest.Press  |The key is pressed.                       |
+    +-------------+------------------------------------------+
+    |QTest.Release|The key is released.                      |
+    +-------------+------------------------------------------+
+    |QTest.Click  |The key is clicked (pressed and released).|
+    +-------------+------------------------------------------+
+
+
+.. staticmethod:: PySide.QtTest.QTest.addColumnInternal(id, name)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :param name: str
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.asciiToKey(ascii)
+
+
+    :param ascii: :class:`PySide.QtCore.char`
+    :rtype: :attr:`PySide.QtCore.Qt.Key`
+
+
+
+
+    Convert an ascii char key value to a Qt Key value. If the key is unknown a 0 is returned.
+
+    Note: this may happen more than you like since not all known ascii keys \_are\_ converted already. So feel free to add all the keys you need.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.compare_ptr_helper(t1, t2, actual, expected, file, line)
+
+
+    :param t1: :class:`void`
+    :param t2: :class:`void`
+    :param actual: str
+    :param expected: str
+    :param file: str
+    :param line: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.compare_string_helper(t1, t2, actual, expected, file, line)
+
+
+    :param t1: str
+    :param t2: str
+    :param actual: str
+    :param expected: str
+    :param file: str
+    :param line: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.currentDataTag()
+
+
+    :rtype: str
+
+
+
+
+    Returns the name of the current test data. If the test doesn't have any assigned testdata, the function returns 0.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.currentTestFailed()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the current test function failed, otherwise false.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.currentTestFunction()
+
+
+    :rtype: str
+
+
+
+
+    Returns the name of the test function that is currently executed.
+
+    Example:
+
+    ::
+
+        void MyTestClass.cleanup()
+        {
+            if (qstrcmp(currentTestFunction(), "myDatabaseTest") == 0) {
+                // clean up all database connections
+                closeAllDatabases()
+            }
+        }
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.ignoreMessage(type, message)
+
+
+    :param type: :attr:`PySide.QtCore.QtMsgType`
+    :param message: str
+
+
+
+
+    Ignores messages created by :meth:`~PySide.QtTest.QTest.qDebug` or :meth:`~PySide.QtTest.QTest.qWarning` . If the ``message`` with the corresponding ``type`` is outputted, it will be removed from the test log. If the test finished and the ``message`` was not outputted, a test failure is appended to the test log.
+
+    .. note::  Invoking this function will only ignore one message. If the message you want to ignore is outputted twice, you have to call :meth:`PySide.QtTest.QTest.ignoreMessage` twice, too.
+
+    Example:
+
+    ::
+
+        QDir dir
+
+        QTest.ignoreMessage(QtWarningMsg, "QDir.mkdir: Empty or null file name(s)")
+        dir.mkdir("")
+
+
+    The example above tests that :meth:`QDir.mkdir()<PySide.QtCore.QDir.mkdir>` outputs the right warning when invoked with an invalid file name.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyClick(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :class:`PySide.QtCore.char`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyClick(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :attr:`PySide.QtCore.Qt.Key`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyClicks(widget, sequence[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param sequence: unicode
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyEvent(action, widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param action: :attr:`PySide.QtTest.QTest.KeyAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :attr:`PySide.QtCore.Qt.Key`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyEvent(action, widget, ascii[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param action: :attr:`PySide.QtTest.QTest.KeyAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param ascii: :class:`PySide.QtCore.char`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyPress(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :attr:`PySide.QtCore.Qt.Key`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyPress(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :class:`PySide.QtCore.char`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyRelease(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :attr:`PySide.QtCore.Qt.Key`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyRelease(widget, key[, modifier=Qt.NoModifier[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param key: :class:`PySide.QtCore.char`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.keyToAscii(key)
+
+
+    :param key: :attr:`PySide.QtCore.Qt.Key`
+    :rtype: :class:`PySide.QtCore.char`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mouseClick(widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param button: :attr:`PySide.QtCore.Qt.MouseButton`
+    :param stateKey: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mouseDClick(widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param button: :attr:`PySide.QtCore.Qt.MouseButton`
+    :param stateKey: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mouseEvent(action, widget, button, stateKey, pos[, delay=-1])
+
+
+    :param action: :attr:`PySide.QtTest.QTest.MouseAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param button: :attr:`PySide.QtCore.Qt.MouseButton`
+    :param stateKey: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mouseMove(widget[, pos=QPoint()[, delay=-1]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+    Moves the mouse pointer to a ``widget`` . If ``pos`` is not specified, the mouse pointer moves to the center of the widget. If a ``delay`` (in milliseconds) is given, the test will wait before moving the mouse pointer.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mousePress(widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param button: :attr:`PySide.QtCore.Qt.MouseButton`
+    :param stateKey: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.mouseRelease(widget, button[, stateKey=0[, pos=QPoint()[, delay=-1]]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param button: :attr:`PySide.QtCore.Qt.MouseButton`
+    :param stateKey: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.qElementData(elementName, metaTypeId)
+
+
+    :param elementName: str
+    :param metaTypeId: :class:`PySide.QtCore.int`
+    :rtype: :class:`void`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.qExpectFail(dataIndex, comment, mode, file, line)
+
+
+    :param dataIndex: str
+    :param comment: str
+    :param mode: :attr:`PySide.QtTest.QTest.TestFailMode`
+    :param file: str
+    :param line: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.qGlobalData(tagName, typeId)
+
+
+    :param tagName: str
+    :param typeId: :class:`PySide.QtCore.int`
+    :rtype: :class:`void`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.qSkip(message, mode, file, line)
+
+
+    :param message: str
+    :param mode: :attr:`PySide.QtTest.QTest.SkipMode`
+    :param file: str
+    :param line: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.qWaitForWindowShown(window)
+
+
+    :param window: :class:`PySide.QtGui.QWidget`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Waits until the ``window`` is shown in the screen. This is mainly useful for asynchronous systems like X11, where a window will be mapped to screen some time after being asked to show itself on the screen. Returns true.
+
+    Example:
+
+    ::
+
+        widget = QWidget()
+        widget.show()
+        QTest.qWaitForWindowShown(widget)
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.sendKeyEvent(action, widget, code, ascii, modifier[, delay=-1])
+
+
+    :param action: :attr:`PySide.QtTest.QTest.KeyAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param code: :attr:`PySide.QtCore.Qt.Key`
+    :param ascii: :class:`PySide.QtCore.char`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.sendKeyEvent(action, widget, code, text, modifier[, delay=-1])
+
+
+    :param action: :attr:`PySide.QtTest.QTest.KeyAction`
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param code: :attr:`PySide.QtCore.Qt.Key`
+    :param text: unicode
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.setBenchmarkResult(result, metric)
+
+
+    :param result: :class:`PySide.QtCore.qreal`
+    :param metric: :attr:`PySide.QtTest.QTest.QBenchmarkMetric`
+
+
+
+
+    Sets the benchmark result for this test function to ``result`` .
+
+    Use this function if you want to report benchmark results without using the QBENCHMARK macro. Use ``metric`` to specify how :ref:`QTestLib<qtestlib-manual.html>` should interpret the results.
+
+    The context for the result will be the test function name and any data tag from the \_data function. This function can only be called once in each test function, subsequent calls will replace the earlier reported results.
+
+    Note that the -iterations command line argument has no effect on test functions without the QBENCHMARK macro.
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.simulateEvent(widget, press, code, modifier, text, repeat[, delay=-1])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param press: :class:`PySide.QtCore.bool`
+    :param code: :class:`PySide.QtCore.int`
+    :param modifier: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param text: unicode
+    :param repeat: :class:`PySide.QtCore.bool`
+    :param delay: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.testObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtTest.QTest.touchEvent([widget=None[, deviceType=QTouchEvent.TouchScreen]])
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param deviceType: :attr:`PySide.QtGui.QTouchEvent.DeviceType`
+    :rtype: :class:`PySide.QtTest.QTouchEventSequence`
+
+
+
+
+
+
+
+

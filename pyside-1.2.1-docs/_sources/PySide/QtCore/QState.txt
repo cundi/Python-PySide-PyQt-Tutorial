@@ -1,0 +1,285 @@
+.. module:: PySide.QtCore
+.. _QState:
+
+QState
+******
+
+.. inheritance-diagram:: QState
+    :parts: 2
+
+**Inherited by:** :ref:`QStateMachine`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addTransition<PySide.QtCore.QState.addTransition>` (arg__1, arg__2)
+*    def :meth:`addTransition<PySide.QtCore.QState.addTransition>` (sender, signal, target)
+*    def :meth:`addTransition<PySide.QtCore.QState.addTransition>` (target)
+*    def :meth:`addTransition<PySide.QtCore.QState.addTransition>` (transition)
+*    def :meth:`assignProperty<PySide.QtCore.QState.assignProperty>` (object, name, value)
+*    def :meth:`childMode<PySide.QtCore.QState.childMode>` ()
+*    def :meth:`errorState<PySide.QtCore.QState.errorState>` ()
+*    def :meth:`initialState<PySide.QtCore.QState.initialState>` ()
+*    def :meth:`removeTransition<PySide.QtCore.QState.removeTransition>` (transition)
+*    def :meth:`setChildMode<PySide.QtCore.QState.setChildMode>` (mode)
+*    def :meth:`setErrorState<PySide.QtCore.QState.setErrorState>` (state)
+*    def :meth:`setInitialState<PySide.QtCore.QState.setInitialState>` (state)
+*    def :meth:`transitions<PySide.QtCore.QState.transitions>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`finished<PySide.QtCore.QState.finished>` ()
+*    def :meth:`propertiesAssigned<PySide.QtCore.QState.propertiesAssigned>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QState` class provides a general-purpose state for :class:`PySide.QtCore.QStateMachine` .
+
+    :class:`PySide.QtCore.QState` objects can have child states, and can have transitions to other states. :class:`PySide.QtCore.QState` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    The :meth:`PySide.QtCore.QState.addTransition` function adds a transition. The :meth:`PySide.QtCore.QState.removeTransition` function removes a transition. The :meth:`PySide.QtCore.QState.transitions` function returns the state's outgoing transitions.
+
+    The :meth:`PySide.QtCore.QState.assignProperty` function is used for defining property assignments that should be performed when a state is entered.
+
+    Top-level states must be passed a :class:`PySide.QtCore.QStateMachine` object as their parent state, or added to a state machine using :meth:`QStateMachine.addState()<PySide.QtCore.QStateMachine.addState>` .
+
+    .. _PySide.QtCore.QState_states-with-child-states:
+
+
+
+States with Child States
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The :meth:`PySide.QtCore.QState.childMode` property determines how child states are treated. For non-parallel state groups, the :meth:`PySide.QtCore.QState.setInitialState` function must be called to set the initial state. The child states are mutually exclusive states, and the state machine needs to know which child state to enter when the parent state is the target of a transition.
+
+    The state emits the :meth:`QState.finished()<PySide.QtCore.QState.finished>` signal when a final child state ( :class:`PySide.QtCore.QFinalState` ) is entered.
+
+    The :meth:`PySide.QtCore.QState.setErrorState` sets the state's error state. The error state is the state that the state machine will transition to if an error is detected when attempting to enter the state (e.g. because no initial state has been set).
+
+
+.. class:: QState([parent=None])
+           QState(childMode[, parent=None])
+
+    :param parent: :class:`PySide.QtCore.QState`
+    :param childMode: :attr:`PySide.QtCore.QState.ChildMode`
+
+    Constructs a new state with the given ``parent`` state.
+
+
+    Constructs a new state with the given ``childMode`` and the given ``parent`` state.
+
+
+.. attribute:: PySide.QtCore.QState.ChildMode
+
+    This enum specifies how a state's child states are treated.
+
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant              |Description                                                                                                                                                 |
+    +======================+============================================================================================================================================================+
+    |QState.ExclusiveStates|The child states are mutually exclusive and an initial state must be set by calling :meth:`QState.setInitialState()<PySide.QtCore.QState.setInitialState>` .|
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QState.ParallelStates |The child states are parallel. When the parent state is entered, all its child states are entered in parallel.                                              |
+    +----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QState.addTransition(sender, signal, target)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param signal: str
+    :param target: :class:`PySide.QtCore.QAbstractState`
+    :rtype: :class:`PySide.QtCore.QSignalTransition`
+
+
+
+
+    Adds a transition associated with the given ``signal`` of the given ``sender`` object, and returns the new :class:`PySide.QtCore.QSignalTransition` object. The transition has this state as the source, and the given ``target`` as the target state.
+
+
+
+.. method:: PySide.QtCore.QState.addTransition(transition)
+
+
+    :param transition: :class:`PySide.QtCore.QAbstractTransition`
+
+
+
+
+    Adds the given ``transition`` . The transition has this state as the source. This state takes ownership of the transition.
+
+
+
+.. method:: PySide.QtCore.QState.addTransition(target)
+
+
+    :param target: :class:`PySide.QtCore.QAbstractState`
+    :rtype: :class:`PySide.QtCore.QAbstractTransition`
+
+
+
+
+    Adds an unconditional transition from this state to the given ``target`` state, and returns then new transition object.
+
+
+
+.. method:: PySide.QtCore.QState.addTransition(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PyObject`
+    :param arg__2: :class:`PySide.QtCore.QAbstractState`
+    :rtype: :class:`PySide.QtCore.QSignalTransition`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QState.assignProperty(object, name, value)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+    :param name: str
+    :param value: object
+
+
+
+
+    Instructs this state to set the property with the given ``name`` of the given ``object`` to the given ``value`` when the state is entered.
+
+    .. seealso::  :meth:`PySide.QtCore.QState.propertiesAssigned` 
+
+
+.. method:: PySide.QtCore.QState.childMode()
+
+
+    :rtype: :attr:`PySide.QtCore.QState.ChildMode`
+
+
+
+
+    This property holds the child mode of this state.
+
+    The default value of this property is :attr:`QState.ExclusiveStates<QState.ChildMode>` .
+
+
+
+.. method:: PySide.QtCore.QState.errorState()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the error state of this state.
+
+
+
+.. method:: PySide.QtCore.QState.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QState.initialState()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the initial state of this state (one of its child states).
+
+
+
+.. method:: PySide.QtCore.QState.propertiesAssigned()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QState.removeTransition(transition)
+
+
+    :param transition: :class:`PySide.QtCore.QAbstractTransition`
+
+
+
+
+    Removes the given ``transition`` from this state. The state releases ownership of the transition.
+
+    .. seealso::  :meth:`PySide.QtCore.QState.addTransition` 
+
+
+.. method:: PySide.QtCore.QState.setChildMode(mode)
+
+
+    :param mode: :attr:`PySide.QtCore.QState.ChildMode`
+
+
+
+
+    This property holds the child mode of this state.
+
+    The default value of this property is :attr:`QState.ExclusiveStates<QState.ChildMode>` .
+
+
+
+.. method:: PySide.QtCore.QState.setErrorState(state)
+
+
+    :param state: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the error state of this state.
+
+
+
+.. method:: PySide.QtCore.QState.setInitialState(state)
+
+
+    :param state: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the initial state of this state (one of its child states).
+
+
+
+.. method:: PySide.QtCore.QState.transitions()
+
+
+    :rtype: 
+
+
+
+
+    Returns this state's outgoing transitions (i.e. transitions where this state is the :meth:`source state<PySide.QtCore.QAbstractTransition.sourceState>` ), or an empty list if this state has no outgoing transitions.
+
+    .. seealso::  :meth:`PySide.QtCore.QState.addTransition` 
+
+
+

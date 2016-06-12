@@ -1,0 +1,237 @@
+.. module:: PySide.QtOpenGL
+.. _QGLColormap:
+
+QGLColormap
+***********
+
+.. inheritance-diagram:: QGLColormap
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`detach_helper<PySide.QtOpenGL.QGLColormap.detach_helper>` ()
+*    def :meth:`entryColor<PySide.QtOpenGL.QGLColormap.entryColor>` (idx)
+*    def :meth:`entryRgb<PySide.QtOpenGL.QGLColormap.entryRgb>` (idx)
+*    def :meth:`find<PySide.QtOpenGL.QGLColormap.find>` (color)
+*    def :meth:`findNearest<PySide.QtOpenGL.QGLColormap.findNearest>` (color)
+*    def :meth:`handle<PySide.QtOpenGL.QGLColormap.handle>` ()
+*    def :meth:`isEmpty<PySide.QtOpenGL.QGLColormap.isEmpty>` ()
+*    def :meth:`setEntries<PySide.QtOpenGL.QGLColormap.setEntries>` (count, colors[, base=0])
+*    def :meth:`setEntry<PySide.QtOpenGL.QGLColormap.setEntry>` (idx, color)
+*    def :meth:`setEntry<PySide.QtOpenGL.QGLColormap.setEntry>` (idx, color)
+*    def :meth:`setHandle<PySide.QtOpenGL.QGLColormap.setHandle>` (ahandle)
+*    def :meth:`size<PySide.QtOpenGL.QGLColormap.size>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtOpenGL.QGLColormap` class is used for installing custom colormaps into a :class:`PySide.QtOpenGL.QGLWidget` .
+
+    :class:`PySide.QtOpenGL.QGLColormap` provides a platform independent way of specifying and installing indexed colormaps for a :class:`PySide.QtOpenGL.QGLWidget` . :class:`PySide.QtOpenGL.QGLColormap` is especially useful when using the OpenGL color-index mode.
+
+    Under X11 you must use an X server that supports either a ``PseudoColor`` or ``DirectColor`` visual class. If your X server currently only provides a ``GrayScale`` , ``TrueColor`` , ``StaticColor`` or ``StaticGray`` visual, you will not be able to allocate colorcells for writing. If this is the case, try setting your X server to 8 bit mode. It should then provide you with at least a ``PseudoColor`` visual. Note that you may experience colormap flashing if your X server is running in 8 bit mode.
+
+    The :meth:`PySide.QtOpenGL.QGLColormap.size` of the colormap is always set to 256 colors. Note that under Windows you can also install colormaps in child widgets.
+
+    This class uses :ref:`implicit sharing<implicit-sharing.html>` as a memory and speed optimization.
+
+    Example of use:
+
+    ::
+
+        import sys
+
+        from PySide.QtGui import QApplication, qRgb
+        from PySide.QtOpenGL import QGLColormap
+
+        def main(argv):
+            app = QApplication(argv)
+
+            widget = MySuperGLWidget()     # a QGLWidget in color-index mode
+            colormap = QGLColormap()
+
+            # This will fill the colormap with colors ranging from
+            # black to white.
+            for i in range(0, colormap.size()):
+                colormap.setEntry(i, qRgb(i, i, i))
+
+            widget.setColormap(colormap)
+            widget.show()
+            return app.exec_()
+
+        if __name__ == "__main__":
+            main(sys.argv)
+
+
+    .. seealso::  :meth:`QGLWidget.setColormap()<PySide.QtOpenGL.QGLWidget.setColormap>`  :meth:`QGLWidget.colormap()<PySide.QtOpenGL.QGLWidget.colormap>` 
+
+.. class:: QGLColormap()
+           QGLColormap(arg__1)
+
+    :param arg__1: :class:`PySide.QtOpenGL.QGLColormap`
+
+    Construct a :class:`PySide.QtOpenGL.QGLColormap` .
+
+
+    Construct a shallow copy of ``map`` .
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.detach_helper()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.entryColor(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the :class:`~PySide.QtOpenGL.QRgb` value in the colorcell with index ``idx`` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.entryRgb(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+    :rtype: long
+
+
+
+
+    Returns the :class:`~PySide.QtOpenGL.QRgb` value in the colorcell with index ``idx`` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.find(color)
+
+
+    :param color: long
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.findNearest(color)
+
+
+    :param color: long
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.handle()
+
+
+    :rtype: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+    Returns the handle for this color map.
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the colormap is empty or it is not in use by a :class:`PySide.QtOpenGL.QGLWidget` ; otherwise returns false.
+
+    A colormap with no color values set is considered to be empty. For historical reasons, a colormap that has color values set but which is not in use by a :class:`PySide.QtOpenGL.QGLWidget` is also considered empty.
+
+    Compare :meth:`PySide.QtOpenGL.QGLColormap.size` with zero to determine if the colormap is empty regardless of whether it is in use by a :class:`PySide.QtOpenGL.QGLWidget` or not.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLColormap.size` 
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.setEntries(count, colors[, base=0])
+
+
+    :param count: :class:`PySide.QtCore.int`
+    :param colors: long
+    :param base: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.setEntry(idx, color)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+    :param color: long
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.setEntry(idx, color)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    This is an overloaded function.
+
+    Set the cell with index ``idx`` in the colormap to color ``color`` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.setHandle(ahandle)
+
+
+    :param ahandle: :class:`PySide.QtCore.Qt::HANDLE`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLColormap.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of colorcells in the colormap.
+
+
+
+

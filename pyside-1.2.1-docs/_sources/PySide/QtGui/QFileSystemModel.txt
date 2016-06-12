@@ -1,0 +1,579 @@
+.. module:: PySide.QtGui
+.. _QFileSystemModel:
+
+QFileSystemModel
+****************
+
+.. inheritance-diagram:: QFileSystemModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fileIcon<PySide.QtGui.QFileSystemModel.fileIcon>` (index)
+*    def :meth:`fileInfo<PySide.QtGui.QFileSystemModel.fileInfo>` (index)
+*    def :meth:`fileName<PySide.QtGui.QFileSystemModel.fileName>` (index)
+*    def :meth:`filePath<PySide.QtGui.QFileSystemModel.filePath>` (index)
+*    def :meth:`filter<PySide.QtGui.QFileSystemModel.filter>` ()
+*    def :meth:`iconProvider<PySide.QtGui.QFileSystemModel.iconProvider>` ()
+*    def :meth:`index<PySide.QtGui.QFileSystemModel.index>` (path[, column=0])
+*    def :meth:`isDir<PySide.QtGui.QFileSystemModel.isDir>` (index)
+*    def :meth:`isReadOnly<PySide.QtGui.QFileSystemModel.isReadOnly>` ()
+*    def :meth:`lastModified<PySide.QtGui.QFileSystemModel.lastModified>` (index)
+*    def :meth:`mkdir<PySide.QtGui.QFileSystemModel.mkdir>` (parent, name)
+*    def :meth:`myComputer<PySide.QtGui.QFileSystemModel.myComputer>` ([role=Qt.DisplayRole])
+*    def :meth:`nameFilterDisables<PySide.QtGui.QFileSystemModel.nameFilterDisables>` ()
+*    def :meth:`nameFilters<PySide.QtGui.QFileSystemModel.nameFilters>` ()
+*    def :meth:`permissions<PySide.QtGui.QFileSystemModel.permissions>` (index)
+*    def :meth:`remove<PySide.QtGui.QFileSystemModel.remove>` (index)
+*    def :meth:`resolveSymlinks<PySide.QtGui.QFileSystemModel.resolveSymlinks>` ()
+*    def :meth:`rmdir<PySide.QtGui.QFileSystemModel.rmdir>` (index)
+*    def :meth:`rootDirectory<PySide.QtGui.QFileSystemModel.rootDirectory>` ()
+*    def :meth:`rootPath<PySide.QtGui.QFileSystemModel.rootPath>` ()
+*    def :meth:`setFilter<PySide.QtGui.QFileSystemModel.setFilter>` (filters)
+*    def :meth:`setIconProvider<PySide.QtGui.QFileSystemModel.setIconProvider>` (provider)
+*    def :meth:`setNameFilterDisables<PySide.QtGui.QFileSystemModel.setNameFilterDisables>` (enable)
+*    def :meth:`setNameFilters<PySide.QtGui.QFileSystemModel.setNameFilters>` (filters)
+*    def :meth:`setReadOnly<PySide.QtGui.QFileSystemModel.setReadOnly>` (enable)
+*    def :meth:`setResolveSymlinks<PySide.QtGui.QFileSystemModel.setResolveSymlinks>` (enable)
+*    def :meth:`setRootPath<PySide.QtGui.QFileSystemModel.setRootPath>` (path)
+*    def :meth:`size<PySide.QtGui.QFileSystemModel.size>` (index)
+*    def :meth:`type<PySide.QtGui.QFileSystemModel.type>` (index)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`directoryLoaded<PySide.QtGui.QFileSystemModel.directoryLoaded>` (path)
+*    def :meth:`fileRenamed<PySide.QtGui.QFileSystemModel.fileRenamed>` (path, oldName, newName)
+*    def :meth:`rootPathChanged<PySide.QtGui.QFileSystemModel.rootPathChanged>` (newPath)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFileSystemModel` class provides a data model for the local filesystem.
+
+    This class provides access to the local filesystem, providing functions for renaming and removing files and directories, and for creating new directories. In the simplest case, it can be used with a suitable display widget as part of a browser or filter.
+
+    :class:`PySide.QtGui.QFileSystemModel` can be accessed using the standard interface provided by :class:`PySide.QtCore.QAbstractItemModel` , but it also provides some convenience functions that are specific to a directory model. The :meth:`PySide.QtGui.QFileSystemModel.fileInfo` , :meth:`PySide.QtGui.QFileSystemModel.isDir` , :meth:`~PySide.QtGui.QFileSystemModel.name` , and path() functions provide information about the underlying files and directories related to items in the model. Directories can be created and removed using :meth:`PySide.QtGui.QFileSystemModel.mkdir` , :meth:`PySide.QtGui.QFileSystemModel.rmdir` .
+
+    .. note:: \ :class:`PySide.QtGui.QFileSystemModel` requires an instance of a GUI application.
+
+    .. _PySide.QtGui.QFileSystemModel_example-usage:
+
+
+
+Example Usage
+^^^^^^^^^^^^^
+
+    A directory model that displays the contents of a default directory is usually constructed with a parent object:
+
+    ::
+
+            model = QFileSystemModel()
+            model.setRootPath(QDir.currentPath())
+
+
+    A tree view can be used to display the contents of the model
+
+    ::
+
+            tree =  QTreeView()
+
+            tree.setModel(model)
+
+
+    and the contents of a particular directory can be displayed by setting the tree view's root index:
+
+    ::
+
+            tree.setRootIndex(model.index(QDir.currentPath()))
+
+
+    The view's root index can be used to control how much of a hierarchical model is displayed. :class:`PySide.QtGui.QDirModel` provides a convenience function that returns a suitable model index for a path to a directory within the model.
+
+    .. _PySide.QtGui.QFileSystemModel_caching-and-performance:
+
+
+
+Caching and Performance
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QFileSystemModel` will not fetch any files or directories until :meth:`PySide.QtGui.QFileSystemModel.setRootPath` is called. This will prevent any unnecessary querying on the file system until that point such as listing the drives on Windows.
+
+    Unlike :class:`PySide.QtGui.QDirModel` , :class:`PySide.QtGui.QFileSystemModel` uses a separate thread to populate itself so it will not cause the main thread to hang as the file system is being queried. Calls to :meth:`PySide.QtGui.QFileSystemModel.rowCount` will return 0 until the model populates a directory.
+
+    :class:`PySide.QtGui.QFileSystemModel` keeps a cache with file information. The cache is automatically kept up to date using the :class:`PySide.QtCore.QFileSystemWatcher` .
+
+    .. seealso::  :ref:`Model Classes<model-view-programming.html>` 
+
+.. class:: QFileSystemModel([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a file system model with the given ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QFileSystemModel.Roles
+
+    +--------------------------------+-----------+
+    |Constant                        |Description|
+    +================================+===========+
+    |QFileSystemModel.FileIconRole   |           |
+    +--------------------------------+-----------+
+    |QFileSystemModel.FilePathRole   |           |
+    +--------------------------------+-----------+
+    |QFileSystemModel.FileNameRole   |           |
+    +--------------------------------+-----------+
+    |QFileSystemModel.FilePermissions|           |
+    +--------------------------------+-----------+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.directoryLoaded(path)
+
+
+    :param path: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.fileIcon(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the icon for the item stored in the model under the given ``index`` .
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.fileInfo(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QFileInfo`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QFileInfo` for the item stored in the model under the given ``index`` .
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.fileName(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the file name for the item stored in the model under the given ``index`` .
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.filePath(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the path of the item stored in the model under the ``index`` given.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.fileRenamed(path, oldName, newName)
+
+
+    :param path: unicode
+    :param oldName: unicode
+    :param newName: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.filter()
+
+
+    :rtype: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+    Returns the filter specified for the directory model.
+
+    If a filter has not been set, the default filter is :attr:`QDir.AllEntries<QDir.Filter>` | :attr:`QDir.NoDotAndDotDot<QDir.Filter>` | :attr:`QDir.AllDirs<QDir.Filter>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.setFilter`  :class:`QDir.Filters` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.iconProvider()
+
+
+    :rtype: :class:`PySide.QtGui.QFileIconProvider`
+
+
+
+
+    Returns the file icon provider for this directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.setIconProvider` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.index(path[, column=0])
+
+
+    :param path: unicode
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the model item index for the given ``path`` and ``column`` .
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.isDir(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the model item ``index`` represents a directory; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.isReadOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model allows writing to the file system.
+
+    If this property is set to false, the directory model will allow renaming, copying and deleting of files and directories.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.lastModified(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the date and time when ``index`` was last modified.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.mkdir(parent, name)
+
+
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Create a directory with the ``name`` in the ``parent`` model index.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.myComputer([role=Qt.DisplayRole])
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the data stored under the given ``role`` for the item "My Computer".
+
+    .. seealso::  :attr:`Qt.ItemDataRole` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.nameFilterDisables()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether files that don't pass the name filter are hidden or disabled.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.nameFilters()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of filters applied to the names in the model.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.setNameFilters` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.permissions(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QFile.Permissions`
+
+
+
+
+    Returns the complete OR-ed together combination of :attr:`QFile.Permission` for the ``index`` .
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.remove(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the model item ``index`` from the file system model and **deletes the corresponding file from the file system** , returning true if successful. If the item cannot be removed, false is returned.
+
+    .. warning::  This function deletes files from the file system; it does **not** move them to a location where they can be recovered.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.rmdir` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.resolveSymlinks()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model should resolve symbolic links.
+
+    This is only relevant on operating systems that support symbolic links.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.rmdir(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the directory corresponding to the model item ``index`` in the file system model and **deletes the corresponding directory from the file system** , returning true if successful. If the directory cannot be removed, false is returned.
+
+    .. warning::  This function deletes directories from the file system; it does **not** move them to a location where they can be recovered.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.remove` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.rootDirectory()
+
+
+    :rtype: :class:`PySide.QtCore.QDir`
+
+
+
+
+    The currently set directory
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.rootPath` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.rootPath()
+
+
+    :rtype: unicode
+
+
+
+
+    The currently set root path
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.setRootPath`  :meth:`PySide.QtGui.QFileSystemModel.rootDirectory` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.rootPathChanged(newPath)
+
+
+    :param newPath: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setFilter(filters)
+
+
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setIconProvider(provider)
+
+
+    :param provider: :class:`PySide.QtGui.QFileIconProvider`
+
+
+
+
+    Sets the ``provider`` of file icons for the directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.iconProvider` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setNameFilterDisables(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether files that don't pass the name filter are hidden or disabled.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setNameFilters(filters)
+
+
+    :param filters: list of strings
+
+
+
+
+    Sets the name ``filters`` to apply against the existing files.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.nameFilters` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setReadOnly(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model allows writing to the file system.
+
+    If this property is set to false, the directory model will allow renaming, copying and deleting of files and directories.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setResolveSymlinks(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model should resolve symbolic links.
+
+    This is only relevant on operating systems that support symbolic links.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.setRootPath(path)
+
+
+    :param path: unicode
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the directory that is being watched by the model to ``newPath`` by installing a :class:`file system watcher<PySide.QtCore.QFileSystemWatcher>` on it. Any changes to files and directories within this directory will be reflected in the model.
+
+    If the path is changed, the :meth:`PySide.QtGui.QFileSystemModel.rootPathChanged` signal will be emitted.
+
+    .. note::  This function does not change the structure of the model or modify the data available to views. In other words, the "root" of the model is *not* changed to include only files and directories within the directory specified by ``newPath`` in the file system.
+
+    .. seealso::  :meth:`PySide.QtGui.QFileSystemModel.rootPath` 
+
+
+.. method:: PySide.QtGui.QFileSystemModel.size(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the size in bytes of ``index`` . If the file does not exist, 0 is returned.
+
+
+
+.. method:: PySide.QtGui.QFileSystemModel.type(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the type of file ``index`` such as "Directory" or "JPEG file".
+
+
+
+

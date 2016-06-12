@@ -1,0 +1,255 @@
+.. module:: PySide.QtCore
+.. _QThreadPool:
+
+QThreadPool
+***********
+
+.. inheritance-diagram:: QThreadPool
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeThreadCount<PySide.QtCore.QThreadPool.activeThreadCount>` ()
+*    def :meth:`expiryTimeout<PySide.QtCore.QThreadPool.expiryTimeout>` ()
+*    def :meth:`maxThreadCount<PySide.QtCore.QThreadPool.maxThreadCount>` ()
+*    def :meth:`releaseThread<PySide.QtCore.QThreadPool.releaseThread>` ()
+*    def :meth:`reserveThread<PySide.QtCore.QThreadPool.reserveThread>` ()
+*    def :meth:`setExpiryTimeout<PySide.QtCore.QThreadPool.setExpiryTimeout>` (expiryTimeout)
+*    def :meth:`setMaxThreadCount<PySide.QtCore.QThreadPool.setMaxThreadCount>` (maxThreadCount)
+*    def :meth:`start<PySide.QtCore.QThreadPool.start>` (runnable[, priority=0])
+*    def :meth:`tryStart<PySide.QtCore.QThreadPool.tryStart>` (runnable)
+*    def :meth:`waitForDone<PySide.QtCore.QThreadPool.waitForDone>` ()
+*    def :meth:`waitForDone<PySide.QtCore.QThreadPool.waitForDone>` (msecs)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`globalInstance<PySide.QtCore.QThreadPool.globalInstance>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QThreadPool` class manages a collection of QThreads.
+
+    :class:`PySide.QtCore.QThreadPool` manages and recyles individual :class:`PySide.QtCore.QThread` objects to help reduce thread creation costs in programs that use threads. Each Qt application has one global :class:`PySide.QtCore.QThreadPool` object, which can be accessed by calling :meth:`PySide.QtCore.QThreadPool.globalInstance` .
+
+    To use one of the :class:`PySide.QtCore.QThreadPool` threads, subclass :class:`PySide.QtCore.QRunnable` and implement the run() virtual function. Then create an object of that class and pass it to :meth:`QThreadPool.start()<PySide.QtCore.QThreadPool.start>` .
+
+    ::
+
+        class HelloWorldTask(QRunnable):
+            def run(self):
+                print "Hello world from thread", QThread.currentThread()
+
+        hello = HelloWorldTask()
+        # QThreadPool takes ownership and deletes 'hello' automatically
+        QThreadPool.globalInstance().start(hello)
+
+
+    :class:`PySide.QtCore.QThreadPool` deletes the :class:`PySide.QtCore.QRunnable` automatically by default. Use :meth:`QRunnable.setAutoDelete()<PySide.QtCore.QRunnable.setAutoDelete>` to change the auto-deletion flag.
+
+    :class:`PySide.QtCore.QThreadPool` supports executing the same :class:`PySide.QtCore.QRunnable` more than once by calling tryStart(this) from within :meth:`QRunnable.run()<PySide.QtCore.QRunnable.run>` . If autoDelete is enabled the :class:`PySide.QtCore.QRunnable` will be deleted when the last thread exits the run function. Calling :meth:`PySide.QtCore.QThreadPool.start` multiple times with the same :class:`PySide.QtCore.QRunnable` when autoDelete is enabled creates a race condition and is not recommended.
+
+    Threads that are unused for a certain amount of time will expire. The default expiry timeout is 30000 milliseconds (30 seconds). This can be changed using :meth:`PySide.QtCore.QThreadPool.setExpiryTimeout` . Setting a negative expiry timeout disables the expiry mechanism.
+
+    Call :meth:`PySide.QtCore.QThreadPool.maxThreadCount` to query the maximum number of threads to be used. If needed, you can change the limit with :meth:`PySide.QtCore.QThreadPool.setMaxThreadCount` . The default :meth:`PySide.QtCore.QThreadPool.maxThreadCount` is :meth:`QThread.idealThreadCount()<PySide.QtCore.QThread.idealThreadCount>` . The :meth:`PySide.QtCore.QThreadPool.activeThreadCount` function returns the number of threads currently doing work.
+
+    The :meth:`PySide.QtCore.QThreadPool.reserveThread` function reserves a thread for external use. Use :meth:`PySide.QtCore.QThreadPool.releaseThread` when your are done with the thread, so that it may be reused. Essentially, these functions temporarily increase or reduce the active thread count and are useful when implementing time-consuming operations that are not visible to the :class:`PySide.QtCore.QThreadPool` .
+
+    Note that :class:`PySide.QtCore.QThreadPool` is a low-level class for managing threads, see :meth:`QtConcurrent.run()<PySide.QtCore.QtConcurrent.run>` or the other :ref:`Qt Concurrent<threads-qtconcurrent.html>` APIs for higher level alternatives.
+
+    .. seealso::  :class:`PySide.QtCore.QRunnable` 
+
+.. class:: QThreadPool([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a thread pool with the given ``parent`` .
+
+
+.. method:: PySide.QtCore.QThreadPool.activeThreadCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property represents the number of active threads in the thread pool.
+
+    .. note::  It is possible for this function to return a value that is greater than :meth:`PySide.QtCore.QThreadPool.maxThreadCount` . See :meth:`PySide.QtCore.QThreadPool.reserveThread` for more details.
+
+    .. seealso::  :meth:`PySide.QtCore.QThreadPool.reserveThread`  :meth:`PySide.QtCore.QThreadPool.releaseThread` 
+
+
+.. method:: PySide.QtCore.QThreadPool.expiryTimeout()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Threads that are unused for ``expiryTimeout`` milliseconds are considered to have expired and will exit. Such threads will be restarted as needed. The default ``expiryTimeout`` is 30000 milliseconds (30 seconds). If ``expiryTimeout`` is negative, newly created threads will not expire, e.g., they will not exit until the thread pool is destroyed.
+
+    Note that setting ``expiryTimeout`` has no effect on already running threads. Only newly created threads will use the new ``expiryTimeout`` . We recommend setting the ``expiryTimeout`` immediately after creating the thread pool, but before calling :meth:`PySide.QtCore.QThreadPool.start` .
+
+
+
+.. staticmethod:: PySide.QtCore.QThreadPool.globalInstance()
+
+
+    :rtype: :class:`PySide.QtCore.QThreadPool`
+
+
+
+
+    Returns the global :class:`PySide.QtCore.QThreadPool` instance.
+
+
+
+.. method:: PySide.QtCore.QThreadPool.maxThreadCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property represents the maximum number of threads used by the thread pool.
+
+    .. note::  The thread pool will always use at least 1 thread, even if ``maxThreadCount`` limit is zero or negative.
+
+    The default ``maxThreadCount`` is :meth:`QThread.idealThreadCount()<PySide.QtCore.QThread.idealThreadCount>` .
+
+
+
+.. method:: PySide.QtCore.QThreadPool.releaseThread()
+
+
+
+
+
+
+    Releases a thread previously reserved by a call to :meth:`PySide.QtCore.QThreadPool.reserveThread` .
+
+    .. note::  Calling this function without previously reserving a thread temporarily increases :meth:`PySide.QtCore.QThreadPool.maxThreadCount` . This is useful when a thread goes to sleep waiting for more work, allowing other threads to continue. Be sure to call :meth:`PySide.QtCore.QThreadPool.reserveThread` when done waiting, so that the thread pool can correctly maintain the :meth:`PySide.QtCore.QThreadPool.activeThreadCount` .
+
+    .. seealso::  :meth:`PySide.QtCore.QThreadPool.reserveThread` 
+
+
+.. method:: PySide.QtCore.QThreadPool.reserveThread()
+
+
+
+
+
+
+    Reserves one thread, disregarding :meth:`PySide.QtCore.QThreadPool.activeThreadCount` and :meth:`PySide.QtCore.QThreadPool.maxThreadCount` .
+
+    Once you are done with the thread, call :meth:`PySide.QtCore.QThreadPool.releaseThread` to allow it to be reused.
+
+    .. note::  This function will always increase the number of active threads. This means that by using this function, it is possible for :meth:`PySide.QtCore.QThreadPool.activeThreadCount` to return a value greater than :meth:`PySide.QtCore.QThreadPool.maxThreadCount` .
+
+    .. seealso::  :meth:`PySide.QtCore.QThreadPool.releaseThread` 
+
+
+.. method:: PySide.QtCore.QThreadPool.setExpiryTimeout(expiryTimeout)
+
+
+    :param expiryTimeout: :class:`PySide.QtCore.int`
+
+
+
+
+    Threads that are unused for ``expiryTimeout`` milliseconds are considered to have expired and will exit. Such threads will be restarted as needed. The default ``expiryTimeout`` is 30000 milliseconds (30 seconds). If ``expiryTimeout`` is negative, newly created threads will not expire, e.g., they will not exit until the thread pool is destroyed.
+
+    Note that setting ``expiryTimeout`` has no effect on already running threads. Only newly created threads will use the new ``expiryTimeout`` . We recommend setting the ``expiryTimeout`` immediately after creating the thread pool, but before calling :meth:`PySide.QtCore.QThreadPool.start` .
+
+
+
+.. method:: PySide.QtCore.QThreadPool.setMaxThreadCount(maxThreadCount)
+
+
+    :param maxThreadCount: :class:`PySide.QtCore.int`
+
+
+
+
+    This property represents the maximum number of threads used by the thread pool.
+
+    .. note::  The thread pool will always use at least 1 thread, even if ``maxThreadCount`` limit is zero or negative.
+
+    The default ``maxThreadCount`` is :meth:`QThread.idealThreadCount()<PySide.QtCore.QThread.idealThreadCount>` .
+
+
+
+.. method:: PySide.QtCore.QThreadPool.start(runnable[, priority=0])
+
+
+    :param runnable: :class:`PySide.QtCore.QRunnable`
+    :param priority: :class:`PySide.QtCore.int`
+
+
+
+
+    Reserves a thread and uses it to run ``runnable`` , unless this thread will make the current thread count exceed :meth:`PySide.QtCore.QThreadPool.maxThreadCount` . In that case, ``runnable`` is added to a run queue instead. The ``priority`` argument can be used to control the run queue's order of execution.
+
+    Note that the thread pool takes ownership of the ``runnable`` if :meth:`runnable->autoDelete()<PySide.QtCore.QRunnable.autoDelete>` returns true, and the ``runnable`` will be deleted automatically by the thread pool after the :meth:`runnable->run()<PySide.QtCore.QRunnable.run>` returns. If :meth:`runnable->autoDelete()<PySide.QtCore.QRunnable.autoDelete>` returns false, ownership of ``runnable`` remains with the caller. Note that changing the auto-deletion on ``runnable`` after calling this functions results in undefined behavior.
+
+
+
+.. method:: PySide.QtCore.QThreadPool.tryStart(runnable)
+
+
+    :param runnable: :class:`PySide.QtCore.QRunnable`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Attempts to reserve a thread to run ``runnable`` .
+
+    If no threads are available at the time of calling, then this function does nothing and returns false. Otherwise, ``runnable`` is run immediately using one available thread and this function returns true.
+
+    Note that the thread pool takes ownership of the ``runnable`` if :meth:`runnable->autoDelete()<PySide.QtCore.QRunnable.autoDelete>` returns true, and the ``runnable`` will be deleted automatically by the thread pool after the :meth:`runnable->run()<PySide.QtCore.QRunnable.run>` returns. If :meth:`runnable->autoDelete()<PySide.QtCore.QRunnable.autoDelete>` returns false, ownership of ``runnable`` remains with the caller. Note that changing the auto-deletion on ``runnable`` after calling this function results in undefined behavior.
+
+
+
+.. method:: PySide.QtCore.QThreadPool.waitForDone()
+
+
+
+
+
+
+    Waits for each thread to exit and removes all threads from the thread pool.
+
+
+
+.. method:: PySide.QtCore.QThreadPool.waitForDone(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QThreadPool.waitForDone` .
+
+    Waits up to ``msecs`` milliseconds for all threads to exit and removes all threads from the thread pool. Returns true if all threads were removed; otherwise it returns false.
+
+
+
+

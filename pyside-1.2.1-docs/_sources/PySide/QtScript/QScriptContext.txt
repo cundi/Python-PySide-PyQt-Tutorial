@@ -1,0 +1,442 @@
+.. module:: PySide.QtScript
+.. _QScriptContext:
+
+QScriptContext
+**************
+
+.. inheritance-diagram:: QScriptContext
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activationObject<PySide.QtScript.QScriptContext.activationObject>` ()
+*    def :meth:`argument<PySide.QtScript.QScriptContext.argument>` (index)
+*    def :meth:`argumentCount<PySide.QtScript.QScriptContext.argumentCount>` ()
+*    def :meth:`argumentsObject<PySide.QtScript.QScriptContext.argumentsObject>` ()
+*    def :meth:`backtrace<PySide.QtScript.QScriptContext.backtrace>` ()
+*    def :meth:`callee<PySide.QtScript.QScriptContext.callee>` ()
+*    def :meth:`engine<PySide.QtScript.QScriptContext.engine>` ()
+*    def :meth:`isCalledAsConstructor<PySide.QtScript.QScriptContext.isCalledAsConstructor>` ()
+*    def :meth:`parentContext<PySide.QtScript.QScriptContext.parentContext>` ()
+*    def :meth:`popScope<PySide.QtScript.QScriptContext.popScope>` ()
+*    def :meth:`pushScope<PySide.QtScript.QScriptContext.pushScope>` (object)
+*    def :meth:`returnValue<PySide.QtScript.QScriptContext.returnValue>` ()
+*    def :meth:`scopeChain<PySide.QtScript.QScriptContext.scopeChain>` ()
+*    def :meth:`setActivationObject<PySide.QtScript.QScriptContext.setActivationObject>` (activation)
+*    def :meth:`setReturnValue<PySide.QtScript.QScriptContext.setReturnValue>` (result)
+*    def :meth:`setThisObject<PySide.QtScript.QScriptContext.setThisObject>` (thisObject)
+*    def :meth:`state<PySide.QtScript.QScriptContext.state>` ()
+*    def :meth:`thisObject<PySide.QtScript.QScriptContext.thisObject>` ()
+*    def :meth:`throwError<PySide.QtScript.QScriptContext.throwError>` (error, text)
+*    def :meth:`throwError<PySide.QtScript.QScriptContext.throwError>` (text)
+*    def :meth:`throwValue<PySide.QtScript.QScriptContext.throwValue>` (value)
+*    def :meth:`toString<PySide.QtScript.QScriptContext.toString>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtScript.QScriptContext` class represents a Qt Script function invocation.
+
+    A :class:`PySide.QtScript.QScriptContext` provides access to the `this' object and arguments passed to a script function. You typically want to access this information when you're writing a native (C++) function (see :meth:`QScriptEngine.newFunction()<PySide.QtScript.QScriptEngine.newFunction>` ) that will be called from script code. For example, when the script code
+
+    ::
+
+        foo(20.5, "hello",  Object())
+
+
+    is evaluated, a :class:`PySide.QtScript.QScriptContext` will be created, and the context will carry the arguments as QScriptValues; in this particular case, the arguments will be one :class:`PySide.QtScript.QScriptValue` containing the number 20.5, a second :class:`PySide.QtScript.QScriptValue` containing the string ``"hello"`` , and a third :class:`PySide.QtScript.QScriptValue` containing a Qt Script object.
+
+    Use :meth:`PySide.QtScript.QScriptContext.argumentCount` to get the number of arguments passed to the function, and :meth:`PySide.QtScript.QScriptContext.argument` to get an argument at a certain index. The :meth:`PySide.QtScript.QScriptContext.argumentsObject` function returns a Qt Script array object containing all the arguments; you can use the :class:`PySide.QtScript.QScriptValueIterator` to iterate over its elements, or pass the array on as arguments to another script function using :meth:`QScriptValue.call()<PySide.QtScript.QScriptValue.call>` .
+
+    Use :meth:`PySide.QtScript.QScriptContext.thisObject` to get the `this' object associated with the function call, and :meth:`PySide.QtScript.QScriptContext.setThisObject` to set the `this' object. If you are implementing a native "instance method", you typically fetch the :meth:`PySide.QtScript.QScriptContext.thisObject` and access one or more of its properties:
+
+    ::
+
+        def Person_prototype_fullName(context, engine):
+            self = context.selfObject()
+            result = self.property("firstName").toString()
+            result += QLatin1String(" ")
+            result += self.property("lastName").toString()
+            return result
+
+
+    Use :meth:`PySide.QtScript.QScriptContext.isCalledAsConstructor` to determine if the function was called as a constructor (e.g. ``"new foo()"`` (as constructor) or just ``"foo()"`` ). When a function is called as a constructor, the :meth:`PySide.QtScript.QScriptContext.thisObject` contains the newly constructed object that the function is expected to initialize.
+
+    Use :meth:`PySide.QtScript.QScriptContext.throwValue` or :meth:`PySide.QtScript.QScriptContext.throwError` to throw an exception.
+
+    Use :meth:`PySide.QtScript.QScriptContext.callee` to obtain the :class:`PySide.QtScript.QScriptValue` that represents the function being called. This can for example be used to call the function recursively.
+
+    Use :meth:`PySide.QtScript.QScriptContext.parentContext` to get a pointer to the context that precedes this context in the activation stack. This is mostly useful for debugging purposes (e.g. when constructing some form of backtrace).
+
+    The :meth:`PySide.QtScript.QScriptContext.activationObject` function returns the object that is used to hold the local variables associated with this function call. You can replace the activation object by calling :meth:`PySide.QtScript.QScriptContext.setActivationObject` . A typical usage of these functions is when you want script code to be evaluated in the context of the parent context, e.g. to implement an include() function:
+
+    ::
+
+        def myInclude(ctx, eng):
+            fileName = ctx.argument(0).toString()
+            contents = readTheFile(fileName)
+            ctx.setActivationObject(ctx.parentContext().activationObject())
+            ctx.setThisObject(ctx.parentContext().selfObject())
+            return eng.evaluate(contents, fileName)
+
+
+    Use :meth:`PySide.QtScript.QScriptContext.backtrace` to get a human-readable backtrace associated with this context. This can be useful for debugging purposes when implementing native functions. The :meth:`PySide.QtScript.QScriptContext.toString` function provides a string representation of the context. ( :class:`PySide.QtScript.QScriptContextInfo` provides more detailed debugging-related information about the :class:`PySide.QtScript.QScriptContext` .)
+
+    Use :meth:`PySide.QtScript.QScriptContext.engine` to obtain a pointer to the :class:`PySide.QtScript.QScriptEngine` that this context resides in.
+
+    .. seealso::  :class:`PySide.QtScript.QScriptContextInfo`  :meth:`QScriptEngine.newFunction()<PySide.QtScript.QScriptEngine.newFunction>`  :class:`PySide.QtScript.QScriptable` 
+
+
+
+.. attribute:: PySide.QtScript.QScriptContext.Error
+
+    This enum specifies types of error.
+
+    +-----------------------------+------------------+
+    |Constant                     |Description       |
+    +=============================+==================+
+    |QScriptContext.ReferenceError|A reference error.|
+    +-----------------------------+------------------+
+    |QScriptContext.SyntaxError   |A syntax error.   |
+    +-----------------------------+------------------+
+    |QScriptContext.TypeError     |A type error.     |
+    +-----------------------------+------------------+
+    |QScriptContext.RangeError    |A range error.    |
+    +-----------------------------+------------------+
+    |QScriptContext.URIError      |A URI error.      |
+    +-----------------------------+------------------+
+    |QScriptContext.UnknownError  |An unknown error. |
+    +-----------------------------+------------------+
+
+
+.. attribute:: PySide.QtScript.QScriptContext.ExecutionState
+
+    This enum specifies the frameution state of the context.
+
+    +-----------------------------+---------------------------------------+
+    |Constant                     |Description                            |
+    +=============================+=======================================+
+    |QScriptContext.NormalState   |The context is in a normal state.      |
+    +-----------------------------+---------------------------------------+
+    |QScriptContext.ExceptionState|The context is in an exceptional state.|
+    +-----------------------------+---------------------------------------+
+
+
+.. method:: PySide.QtScript.QScriptContext.activationObject()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the activation object of this :class:`PySide.QtScript.QScriptContext` . The activation object provides access to the local variables associated with this context.
+
+    .. note::  The activation object might not be available if there is no active :class:`PySide.QtScript.QScriptEngineAgent` , as it might be optimized.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.setActivationObject`  :meth:`PySide.QtScript.QScriptContext.argument`  :meth:`PySide.QtScript.QScriptContext.argumentsObject` 
+
+
+.. method:: PySide.QtScript.QScriptContext.argument(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the function argument at the given ``index`` .
+
+    If ``index`` >= :meth:`PySide.QtScript.QScriptContext.argumentCount` , a :class:`PySide.QtScript.QScriptValue` of the primitive type Undefined is returned.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.argumentCount` 
+
+
+.. method:: PySide.QtScript.QScriptContext.argumentCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of arguments passed to the function in this invocation.
+
+    Note that the argument count can be different from the formal number of arguments (the ``length`` property of :meth:`PySide.QtScript.QScriptContext.callee` ).
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.argument` 
+
+
+.. method:: PySide.QtScript.QScriptContext.argumentsObject()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the arguments object of this :class:`PySide.QtScript.QScriptContext` .
+
+    The arguments object has properties ``callee`` (equal to :meth:`PySide.QtScript.QScriptContext.callee` ) and ``length`` (equal to :meth:`PySide.QtScript.QScriptContext.argumentCount` ), and properties ``0`` , ``1`` , ..., :meth:`PySide.QtScript.QScriptContext.argumentCount` - 1 that provide access to the argument values. Initially, property ``P`` (0 <= ``P`` < :meth:`PySide.QtScript.QScriptContext.argumentCount` ) has the same value as argument(``P`` ). In the case when ``P`` is less than the number of formal parameters of the function, ``P`` shares its value with the corresponding property of the activation object ( :meth:`PySide.QtScript.QScriptContext.activationObject` ). This means that changing this property changes the corresponding property of the activation object and vice versa.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.argument`  :meth:`PySide.QtScript.QScriptContext.activationObject` 
+
+
+.. method:: PySide.QtScript.QScriptContext.backtrace()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a human-readable backtrace of this :class:`PySide.QtScript.QScriptContext` .
+
+    Each line is of the form ``<function-name>(<arguments>)@<file-name>:<line-number>`` .
+
+    To access individual pieces of debugging-related information (for example, to construct your own backtrace representation), use :class:`PySide.QtScript.QScriptContextInfo` .
+
+    .. seealso::  :meth:`QScriptEngine.uncaughtExceptionBacktrace()<PySide.QtScript.QScriptEngine.uncaughtExceptionBacktrace>`  :class:`PySide.QtScript.QScriptContextInfo`  :meth:`PySide.QtScript.QScriptContext.toString` 
+
+
+.. method:: PySide.QtScript.QScriptContext.callee()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the callee. The callee is the function object that this :class:`PySide.QtScript.QScriptContext` represents an invocation of.
+
+
+
+.. method:: PySide.QtScript.QScriptContext.engine()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptEngine`
+
+
+
+
+    Returns the :class:`PySide.QtScript.QScriptEngine` that this :class:`PySide.QtScript.QScriptContext` belongs to.
+
+
+
+.. method:: PySide.QtScript.QScriptContext.isCalledAsConstructor()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the function was called as a constructor (e.g. ``"new foo()"`` ); otherwise returns false.
+
+    When a function is called as constructor, the :meth:`PySide.QtScript.QScriptContext.thisObject` contains the newly constructed object to be initialized.
+
+    .. note::  This function is only guaranteed to work for a context corresponding to native functions.
+
+
+
+.. method:: PySide.QtScript.QScriptContext.parentContext()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptContext`
+
+
+
+
+    Returns the parent context of this :class:`PySide.QtScript.QScriptContext` .
+
+
+
+.. method:: PySide.QtScript.QScriptContext.popScope()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Removes the front object from this context's scope chain, and returns the removed object.
+
+    If the scope chain is already empty, this function returns an invalid :class:`PySide.QtScript.QScriptValue` .
+
+
+
+.. method:: PySide.QtScript.QScriptContext.pushScope(object)
+
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Adds the given ``object`` to the front of this context's scope chain.
+
+    If ``object`` is not an object, this function does nothing.
+
+
+
+.. method:: PySide.QtScript.QScriptContext.returnValue()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+
+
+.. method:: PySide.QtScript.QScriptContext.scopeChain()
+
+
+    :rtype: 
+
+
+
+
+    Returns the scope chain of this :class:`PySide.QtScript.QScriptContext` .
+
+
+
+.. method:: PySide.QtScript.QScriptContext.setActivationObject(activation)
+
+
+    :param activation: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Sets the activation object of this :class:`PySide.QtScript.QScriptContext` to be the given ``activation`` .
+
+    If ``activation`` is not an object, this function does nothing.
+
+    .. note::  For a context corresponding to a JavaScript function, this is only guaranteed to work if there was an :class:`PySide.QtScript.QScriptEngineAgent` active on the engine while the function was evaluated.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.activationObject` 
+
+
+.. method:: PySide.QtScript.QScriptContext.setReturnValue(result)
+
+
+    :param result: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+
+
+.. method:: PySide.QtScript.QScriptContext.setThisObject(thisObject)
+
+
+    :param thisObject: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Sets the `this' object associated with this :class:`PySide.QtScript.QScriptContext` to be ``thisObject`` .
+
+    If ``thisObject`` is not an object, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.thisObject` 
+
+
+.. method:: PySide.QtScript.QScriptContext.state()
+
+
+    :rtype: :attr:`PySide.QtScript.QScriptContext.ExecutionState`
+
+
+
+
+    Returns the frameution state of this :class:`PySide.QtScript.QScriptContext` .
+
+
+
+.. method:: PySide.QtScript.QScriptContext.thisObject()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the `this' object associated with this :class:`PySide.QtScript.QScriptContext` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.setThisObject` 
+
+
+.. method:: PySide.QtScript.QScriptContext.throwError(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    This is an overloaded function.
+
+    Throws an error with the given ``text`` . Returns the created error object.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.throwValue`  :meth:`PySide.QtScript.QScriptContext.state` 
+
+
+.. method:: PySide.QtScript.QScriptContext.throwError(error, text)
+
+
+    :param error: :attr:`PySide.QtScript.QScriptContext.Error`
+    :param text: unicode
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Throws an ``error`` with the given ``text`` . Returns the created error object.
+
+    The ``text`` will be stored in the ``message`` property of the error object.
+
+    The error object will be initialized to contain information about the location where the error occurred; specifically, it will have properties ``lineNumber`` , ``fileName`` and ``stack`` . These properties are described in :ref:`QtScript Extensions to ECMAScript<scripting.html>` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.throwValue`  :meth:`PySide.QtScript.QScriptContext.state` 
+
+
+.. method:: PySide.QtScript.QScriptContext.throwValue(value)
+
+
+    :param value: :class:`PySide.QtScript.QScriptValue`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Throws an exception with the given ``value`` . Returns the value thrown (the same as the argument).
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.throwError`  :meth:`PySide.QtScript.QScriptContext.state` 
+
+
+.. method:: PySide.QtScript.QScriptContext.toString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a string representation of this context. This is useful for debugging.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptContext.backtrace` 
+
+
+

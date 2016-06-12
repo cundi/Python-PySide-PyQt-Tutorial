@@ -1,0 +1,313 @@
+.. module:: PySide.QtCore
+.. _QTimer:
+
+QTimer
+******
+
+.. inheritance-diagram:: QTimer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`interval<PySide.QtCore.QTimer.interval>` ()
+*    def :meth:`isActive<PySide.QtCore.QTimer.isActive>` ()
+*    def :meth:`isSingleShot<PySide.QtCore.QTimer.isSingleShot>` ()
+*    def :meth:`setInterval<PySide.QtCore.QTimer.setInterval>` (msec)
+*    def :meth:`setSingleShot<PySide.QtCore.QTimer.setSingleShot>` (singleShot)
+*    def :meth:`timerId<PySide.QtCore.QTimer.timerId>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`start<PySide.QtCore.QTimer.start>` ()
+*    def :meth:`start<PySide.QtCore.QTimer.start>` (msec)
+*    def :meth:`stop<PySide.QtCore.QTimer.stop>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`timeout<PySide.QtCore.QTimer.timeout>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`singleShot<PySide.QtCore.QTimer.singleShot>` (arg__1, arg__2)
+*    def :meth:`singleShot<PySide.QtCore.QTimer.singleShot>` (msec, receiver, member)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTimer` class provides repetitive and single-shot timers.
+
+    The :class:`PySide.QtCore.QTimer` class provides a high-level programming interface for timers. To use it, create a :class:`PySide.QtCore.QTimer` , connect its :meth:`PySide.QtCore.QTimer.timeout` signal to the appropriate slots, and call :meth:`PySide.QtCore.QTimer.start` . From then on it will emit the :meth:`PySide.QtCore.QTimer.timeout` signal at constant intervals.
+
+    Example for a one second (1000 millisecond) timer (from the :ref:`Analog Clock<widgets/analogclock>` example):
+
+    ::
+
+            timer = QTimer(self)
+            self.connect(timer, SIGNAL("timeout()"), self.update)
+            timer.start(1000)
+
+
+    From then on, the ``update()`` slot is called every second.
+
+    You can set a timer to time out only once by calling setSingleShot(true). You can also use the static :meth:`QTimer.singleShot()<PySide.QtCore.QTimer.singleShot>` function to call a slot after a specified interval:
+
+    ::
+
+            QTimer.singleShot(200, self.updateCaption)
+
+
+    In multithreaded applications, you can use :class:`PySide.QtCore.QTimer` in any thread that has an event loop. To start an event loop from a non-GUI thread, use :meth:`QThread.exec()<PySide.QtCore.QThread.exec>` . Qt uses the timer's :meth:`thread affinity<PySide.QtCore.QObject.thread>` to determine which thread will emit the :meth:`PySide.QtCore.QTimer.timeout` signal. Because of this, you must start and stop the timer in its thread; it is not possible to start a timer from another thread.
+
+    As a special case, a :class:`PySide.QtCore.QTimer` with a timeout of 0 will time out as soon as all the events in the window system's event queue have been processed. This can be used to do heavy work while providing a snappy user interface:
+
+    ::
+
+            timer = QTimer(self)
+            timer.timeout.connect(self.processOneThing)
+            timer.start()
+
+
+    ``processOneThing()`` will from then on be called repeatedly. It should be written in such a way that it always returns quickly (typically after processing one data item) so that Qt can deliver events to widgets and stop the timer as soon as it has done all its work. This is the traditional way of implementing heavy work in GUI applications; multithreading is now becoming available on more and more platforms, and we expect that zero-millisecond QTimers will gradually be replaced by :class:`PySide.QtCore.QThread` s.
+
+    .. _PySide.QtCore.QTimer_accuracy-and-timer-resolution:
+
+
+
+Accuracy and Timer Resolution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Timers will never time out earlier than the specified timeout value and they are not guaranteed to time out at the exact value specified. In many situations, they may time out late by a period of time that depends on the accuracy of the system timers.
+
+    The accuracy of timers depends on the underlying operating system and hardware. Most platforms support a resolution of 1 millisecond, though the accuracy of the timer will not equal this resolution in many real-world situations.
+
+    If Qt is unable to deliver the requested number of timer clicks, it will silently discard some.
+
+    .. _PySide.QtCore.QTimer_alternatives-to-qtimer:
+
+
+
+Alternatives to QTimer
+^^^^^^^^^^^^^^^^^^^^^^
+
+    An alternative to using :class:`PySide.QtCore.QTimer` is to call :meth:`QObject.startTimer()<PySide.QtCore.QObject.startTimer>` for your object and reimplement the :meth:`QObject.timerEvent()<PySide.QtCore.QObject.timerEvent>` event handler in your class (which must inherit :class:`PySide.QtCore.QObject` ). The disadvantage is that :meth:`PySide.QtCore.QTimer.timerEvent` does not support such high-level features as single-shot timers or signals.
+
+    Another alternative to using :class:`PySide.QtCore.QTimer` is to use :class:`PySide.QtCore.QBasicTimer` . It is typically less cumbersome than using :meth:`QObject.startTimer()<PySide.QtCore.QObject.startTimer>` directly. See :ref:`Timers<timers.html>` for an overview of all three approaches.
+
+    Some operating systems limit the number of timers that may be used; Qt tries to work around these limitations.
+
+    .. seealso::  :class:`PySide.QtCore.QBasicTimer`  :class:`PySide.QtCore.QTimerEvent`  :meth:`QObject.timerEvent()<PySide.QtCore.QObject.timerEvent>`  :ref:`Timers<timers.html>`  :ref:`Analog Clock Example<widgets/analogclock>`  :ref:`Wiggly Example<widgets/wiggly>` 
+
+.. class:: QTimer([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a timer with the given ``parent`` .
+
+
+.. method:: PySide.QtCore.QTimer.interval()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the timeout interval in milliseconds.
+
+    The default value for this property is 0. A :class:`PySide.QtCore.QTimer` with a timeout interval of 0 will time out as soon as all the events in the window system's event queue have been processed.
+
+    Setting the interval of an active timer changes its :meth:`PySide.QtCore.QTimer.timerId` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.singleShot` 
+
+
+.. method:: PySide.QtCore.QTimer.isActive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This boolean property is true if the timer is running; otherwise false.
+
+
+
+.. method:: PySide.QtCore.QTimer.isSingleShot()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the timer is a single-shot timer.
+
+    A single-shot timer fires only once, non-single-shot timers fire every :meth:`PySide.QtCore.QTimer.interval` milliseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.interval`  :meth:`PySide.QtCore.QTimer.singleShot` 
+
+
+.. method:: PySide.QtCore.QTimer.setInterval(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the timeout interval in milliseconds.
+
+    The default value for this property is 0. A :class:`PySide.QtCore.QTimer` with a timeout interval of 0 will time out as soon as all the events in the window system's event queue have been processed.
+
+    Setting the interval of an active timer changes its :meth:`PySide.QtCore.QTimer.timerId` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.singleShot` 
+
+
+.. method:: PySide.QtCore.QTimer.setSingleShot(singleShot)
+
+
+    :param singleShot: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the timer is a single-shot timer.
+
+    A single-shot timer fires only once, non-single-shot timers fire every :meth:`PySide.QtCore.QTimer.interval` milliseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.interval`  :meth:`PySide.QtCore.QTimer.singleShot` 
+
+
+.. staticmethod:: PySide.QtCore.QTimer.singleShot(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PyCallable`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QTimer.singleShot(msec, receiver, member)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+
+
+
+
+    This static function calls a slot after a given time interval.
+
+    It is very convenient to use this function because you do not need to bother with a :meth:`PySide.QtCore.QObject.timerEvent` or create a local :class:`PySide.QtCore.QTimer` object.
+
+    Example:
+
+    ::
+
+        from PySide.QtCore import QApplication, QTimer
+
+        def main():
+
+            app = QApplication([])
+            QTimer.singleShot(600000, app, SLOT('quit()'))
+            ...
+            return app.exec_()
+
+
+    This sample program automatically terminates after 10 minutes (600,000 milliseconds).
+
+    The ``receiver`` is the receiving object and the ``member`` is the slot. The time interval is ``msec`` milliseconds.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.setSingleShot`  :meth:`PySide.QtCore.QTimer.start` 
+
+
+.. method:: PySide.QtCore.QTimer.start(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+
+
+
+
+    Starts or restarts the timer with a timeout interval of ``msec`` milliseconds.
+
+    If the timer is already running, it will be :meth:`stopped<PySide.QtCore.QTimer.stop>` and restarted.
+
+    If :meth:`PySide.QtCore.QTimer.singleShot` is true, the timer will be activated only once.
+
+
+
+.. method:: PySide.QtCore.QTimer.start()
+
+
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QTimer.start` .
+
+    Starts or restarts the timer with the timeout specified in :meth:`PySide.QtCore.QTimer.interval` .
+
+    If the timer is already running, it will be :meth:`stopped<PySide.QtCore.QTimer.stop>` and restarted.
+
+    If :meth:`PySide.QtCore.QTimer.singleShot` is true, the timer will be activated only once.
+
+
+
+.. method:: PySide.QtCore.QTimer.stop()
+
+
+
+
+
+
+    Stops the timer.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimer.start` 
+
+
+.. method:: PySide.QtCore.QTimer.timeout()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTimer.timerId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the ID of the timer if the timer is running; otherwise returns -1.
+
+
+
+

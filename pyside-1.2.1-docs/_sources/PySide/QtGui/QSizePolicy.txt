@@ -1,0 +1,414 @@
+.. module:: PySide.QtGui
+.. _QSizePolicy:
+
+QSizePolicy
+***********
+
+.. inheritance-diagram:: QSizePolicy
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QSizePolicy.__eq__>` (s)
+*    def :meth:`__ne__<PySide.QtGui.QSizePolicy.__ne__>` (s)
+*    def :meth:`controlType<PySide.QtGui.QSizePolicy.controlType>` ()
+*    def :meth:`expandingDirections<PySide.QtGui.QSizePolicy.expandingDirections>` ()
+*    def :meth:`hasHeightForWidth<PySide.QtGui.QSizePolicy.hasHeightForWidth>` ()
+*    def :meth:`hasWidthForHeight<PySide.QtGui.QSizePolicy.hasWidthForHeight>` ()
+*    def :meth:`horizontalPolicy<PySide.QtGui.QSizePolicy.horizontalPolicy>` ()
+*    def :meth:`horizontalStretch<PySide.QtGui.QSizePolicy.horizontalStretch>` ()
+*    def :meth:`setControlType<PySide.QtGui.QSizePolicy.setControlType>` (type)
+*    def :meth:`setHeightForWidth<PySide.QtGui.QSizePolicy.setHeightForWidth>` (b)
+*    def :meth:`setHorizontalPolicy<PySide.QtGui.QSizePolicy.setHorizontalPolicy>` (d)
+*    def :meth:`setHorizontalStretch<PySide.QtGui.QSizePolicy.setHorizontalStretch>` (stretchFactor)
+*    def :meth:`setVerticalPolicy<PySide.QtGui.QSizePolicy.setVerticalPolicy>` (d)
+*    def :meth:`setVerticalStretch<PySide.QtGui.QSizePolicy.setVerticalStretch>` (stretchFactor)
+*    def :meth:`setWidthForHeight<PySide.QtGui.QSizePolicy.setWidthForHeight>` (b)
+*    def :meth:`transpose<PySide.QtGui.QSizePolicy.transpose>` ()
+*    def :meth:`verticalPolicy<PySide.QtGui.QSizePolicy.verticalPolicy>` ()
+*    def :meth:`verticalStretch<PySide.QtGui.QSizePolicy.verticalStretch>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QSizePolicy` class is a layout attribute describing horizontal and vertical resizing policy.
+
+    The size policy of a widget is an expression of its willingness to be resized in various ways, and affects how the widget is treated by the :ref:`layout engine<layout.html>` . Each widget returns a :class:`PySide.QtGui.QSizePolicy` that describes the horizontal and vertical resizing policy it prefers when being laid out. You can change this for a specific widget by changing its :meth:`QWidget.sizePolicy<PySide.QtGui.QWidget.sizePolicy>` property.
+
+    :class:`PySide.QtGui.QSizePolicy` contains two independent :attr:`QSizePolicy.Policy` values and two stretch factors; one describes the widgets's horizontal size policy, and the other describes its vertical size policy. It also contains a flag to indicate whether the height and width of its preferred size are related.
+
+    The horizontal and vertical policies can be set in the constructor, and altered using the :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy` and :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy` functions. The stretch factors can be set using the :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch` and :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch` functions. The flag indicating whether the widget's :meth:`PySide.QtGui.QWidget.sizeHint` is width-dependent (such as a menu bar or a word-wrapping label) can be set using the :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` function.
+
+    The current size policies and stretch factors be retrieved using the :meth:`PySide.QtGui.QSizePolicy.horizontalPolicy` , :meth:`PySide.QtGui.QSizePolicy.verticalPolicy` , :meth:`PySide.QtGui.QSizePolicy.horizontalStretch` and :meth:`PySide.QtGui.QSizePolicy.verticalStretch` functions. Alternatively, use the :meth:`PySide.QtGui.QSizePolicy.transpose` function to swap the horizontal and vertical policies and stretches. The :meth:`PySide.QtGui.QSizePolicy.hasHeightForWidth` function returns the current status of the flag indicating the size hint dependencies.
+
+    Use the :meth:`PySide.QtGui.QSizePolicy.expandingDirections` function to determine whether the associated widget can make use of more space than its :meth:`PySide.QtGui.QWidget.sizeHint` function indicates, as well as find out in which directions it can expand.
+
+    Finally, the :class:`PySide.QtGui.QSizePolicy` class provides operators comparing this size policy to a given policy, as well as a :class:`PySide.QtCore.QVariant` operator storing this :class:`PySide.QtGui.QSizePolicy` as a :class:`PySide.QtCore.QVariant` object.
+
+    .. seealso::  :class:`PySide.QtCore.QSize`  :meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>`  :meth:`QWidget.sizePolicy<PySide.QtGui.QWidget.sizePolicy>`  :meth:`QLayoutItem.sizeHint()<PySide.QtGui.QLayoutItem.sizeHint>` 
+
+.. class:: QSizePolicy()
+           QSizePolicy(horizontal, vertical)
+           QSizePolicy(horizontal, vertical, type)
+           QSizePolicy(QSizePolicy)
+
+    :param vertical: :attr:`PySide.QtGui.QSizePolicy.Policy`
+    :param type: :attr:`PySide.QtGui.QSizePolicy.ControlType`
+    :param horizontal: :attr:`PySide.QtGui.QSizePolicy.Policy`
+    :param QSizePolicy: :class:`PySide.QtGui.QSizePolicy`
+
+    Constructs a :class:`PySide.QtGui.QSizePolicy` object with :attr:`Fixed<QSizePolicy.Policy>` as its horizontal and vertical policies.
+
+    The policies can be altered using the :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy` and :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy` functions. Use the :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` function if the preferred height of the widget is dependent on the width of the widget (for example, a :class:`PySide.QtGui.QLabel` with line wrapping).
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch` 
+
+    Constructs a :class:`PySide.QtGui.QSizePolicy` object with the given ``horizontal`` and ``vertical`` policies, and :attr:`DefaultType<QSizePolicy.ControlType>` as the control type.
+
+    Use :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` if the preferred height of the widget is dependent on the width of the widget (for example, a :class:`PySide.QtGui.QLabel` with line wrapping).
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch` 
+
+    Constructs a :class:`PySide.QtGui.QSizePolicy` object with the given ``horizontal`` and ``vertical`` policies, and the specified control ``type`` .
+
+    Use :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` if the preferred height of the widget is dependent on the width of the widget (for example, a :class:`PySide.QtGui.QLabel` with line wrapping).
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch`  :meth:`PySide.QtGui.QSizePolicy.controlType` 
+
+
+
+.. attribute:: PySide.QtGui.QSizePolicy.ControlType
+
+    This enum specifies the different types of widgets in terms of layout interaction:
+
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                                                            |
+    +=======================+=======================================================================================================================+
+    |QSizePolicy.DefaultType|The default type, when none is specified.                                                                              |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.ButtonBox  |A :class:`PySide.QtGui.QDialogButtonBox` instance.                                                                     |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.CheckBox   |A :class:`PySide.QtGui.QCheckBox` instance.                                                                            |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.ComboBox   |A :class:`PySide.QtGui.QComboBox` instance.                                                                            |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Frame      |A :class:`PySide.QtGui.QFrame` instance.                                                                               |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.GroupBox   |A :class:`PySide.QtGui.QGroupBox` instance.                                                                            |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Label      |A :class:`PySide.QtGui.QLabel` instance.                                                                               |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Line       |A :class:`PySide.QtGui.QFrame` instance with :attr:`QFrame.HLine<QFrame.Shape>` or :attr:`QFrame.VLine<QFrame.Shape>` .|
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.LineEdit   |A :class:`PySide.QtGui.QLineEdit` instance.                                                                            |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.PushButton |A :class:`PySide.QtGui.QPushButton` instance.                                                                          |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.RadioButton|A :class:`PySide.QtGui.QRadioButton` instance.                                                                         |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Slider     |A :class:`PySide.QtGui.QAbstractSlider` instance.                                                                      |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.SpinBox    |A :class:`PySide.QtGui.QAbstractSpinBox` instance.                                                                     |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.TabWidget  |A :class:`PySide.QtGui.QTabWidget` instance.                                                                           |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.ToolButton |A :class:`PySide.QtGui.QToolButton` instance.                                                                          |
+    +-----------------------+-----------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setControlType`  :meth:`PySide.QtGui.QSizePolicy.controlType` 
+
+.. attribute:: PySide.QtGui.QSizePolicy.PolicyFlag
+
+    These flags are combined together to form the various :attr:`QSizePolicy.Policy` values:
+
+    +----------------------+---------------------------------------------------------------------------------+
+    |Constant              |Description                                                                      |
+    +======================+=================================================================================+
+    |QSizePolicy.GrowFlag  |The widget can grow beyond its size hint if necessary.                           |
+    +----------------------+---------------------------------------------------------------------------------+
+    |QSizePolicy.ExpandFlag|The widget should get as much space as possible.                                 |
+    +----------------------+---------------------------------------------------------------------------------+
+    |QSizePolicy.ShrinkFlag|The widget can shrink below its size hint if necessary.                          |
+    +----------------------+---------------------------------------------------------------------------------+
+    |QSizePolicy.IgnoreFlag|The widget's size hint is ignored. The widget will get as much space as possible.|
+    +----------------------+---------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QSizePolicy.Policy` 
+
+.. attribute:: PySide.QtGui.QSizePolicy.SizePolicyMasks
+
+
+
+.. attribute:: PySide.QtGui.QSizePolicy.Policy
+
+    This enum describes the various per-dimension sizing types used when constructing a :class:`PySide.QtGui.QSizePolicy` .
+
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                    |Description                                                                                                                                                                                                                                                                                      |
+    +============================+=================================================================================================================================================================================================================================================================================================+
+    |QSizePolicy.Fixed           |The :meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>` is the only acceptable alternative, so the widget can never grow or shrink (e.g. the vertical direction of a push button).                                                                                                         |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Minimum         |The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is minimal, and sufficient. The widget can be expanded, but there is no advantage to it being larger (e.g. the horizontal direction of a push button). It cannot be smaller than the size provided by :meth:`~PySide.QtGui.QSizePolicy.sizeHint` .|
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Maximum         |The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is a maximum. The widget can be shrunk any amount without detriment if other widgets need the space (e.g. a separator line). It cannot be larger than the size provided by :meth:`~PySide.QtGui.QSizePolicy.sizeHint` .                           |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Preferred       |The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is best, but the widget can be shrunk and still be useful. The widget can be expanded, but there is no advantage to it being larger than :meth:`~PySide.QtGui.QSizePolicy.sizeHint` (the default :class:`PySide.QtGui.QWidget` policy).           |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Expanding       |The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is a sensible size, but the widget can be shrunk and still be useful. The widget can make use of extra space, so it should get as much space as possible (e.g. the horizontal direction of a horizontal slider).                                  |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.MinimumExpanding|The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is minimal, and sufficient. The widget can make use of extra space, so it should get as much space as possible (e.g. the horizontal direction of a horizontal slider).                                                                            |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSizePolicy.Ignored         |The :meth:`~PySide.QtGui.QSizePolicy.sizeHint` is ignored. The widget will get as much space as possible.                                                                                                                                                                                        |
+    +----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QSizePolicy.PolicyFlag`  :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy` 
+
+.. method:: PySide.QtGui.QSizePolicy.controlType()
+
+
+    :rtype: :attr:`PySide.QtGui.QSizePolicy.ControlType`
+
+
+
+
+    Returns the control type associated with the widget for which this size policy applies.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setControlType` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.expandingDirections()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Orientations`
+
+
+
+
+    Returns whether a widget can make use of more space than the :meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>` function indicates.
+
+    A value of :attr:`Qt.Horizontal<Qt.Orientation>` or :attr:`Qt.Vertical<Qt.Orientation>` means that the widget can grow horizontally or vertically (i.e., the horizontal or vertical policy is :attr:`Expanding<QSizePolicy.Policy>` or :attr:`MinimumExpanding<QSizePolicy.Policy>` ), whereas :attr:`Qt.Horizontal<Qt.Orientation>` | :attr:`Qt.Vertical<Qt.Orientation>` means that it can grow in both dimensions.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.horizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.verticalPolicy` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.hasHeightForWidth()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the widget's preferred height depends on its width; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.hasWidthForHeight()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the widget's width depends on its height; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setWidthForHeight` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.horizontalPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QSizePolicy.Policy`
+
+
+
+
+    Returns the horizontal component of the size policy.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.verticalPolicy`  :meth:`PySide.QtGui.QSizePolicy.horizontalStretch` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.horizontalStretch()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the horizontal stretch factor of the size policy.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.verticalStretch`  :meth:`PySide.QtGui.QSizePolicy.horizontalPolicy` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.__ne__(s)
+
+
+    :param s: :class:`PySide.QtGui.QSizePolicy`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this policy is different from ``other`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.operator==` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.__eq__(s)
+
+
+    :param s: :class:`PySide.QtGui.QSizePolicy`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this policy is equal to ``other`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.operator!=` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setControlType(type)
+
+
+    :param type: :attr:`PySide.QtGui.QSizePolicy.ControlType`
+
+
+
+
+    Sets the control type associated with the widget for which this size policy applies to ``type`` .
+
+    The control type specifies the type of the widget for which this size policy applies. It is used by some styles, notably :class:`PySide.QtGui.QMacStyle` , to insert proper spacing between widgets. For example, the Mac OS X Aqua guidelines specify that push buttons should be separated by 12 pixels, whereas vertically stacked radio buttons only require 6 pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.controlType`  :meth:`QStyle.layoutSpacing()<PySide.QtGui.QStyle.layoutSpacing>` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setHeightForWidth(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the flag determining whether the widget's preferred height depends on its width, to ``dependent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.hasHeightForWidth`  :meth:`PySide.QtGui.QSizePolicy.setWidthForHeight` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setHorizontalPolicy(d)
+
+
+    :param d: :attr:`PySide.QtGui.QSizePolicy.Policy`
+
+
+
+
+    Sets the horizontal component to the given ``policy`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.horizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy`  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setHorizontalStretch(stretchFactor)
+
+
+    :param stretchFactor: :class:`PySide.QtCore.uchar`
+
+
+
+
+    Sets the horizontal stretch factor of the size policy to the given ``stretchFactor`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.horizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch`  :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setVerticalPolicy(d)
+
+
+    :param d: :attr:`PySide.QtGui.QSizePolicy.Policy`
+
+
+
+
+    Sets the vertical component to the given ``policy`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.verticalPolicy`  :meth:`PySide.QtGui.QSizePolicy.setHorizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setVerticalStretch(stretchFactor)
+
+
+    :param stretchFactor: :class:`PySide.QtCore.uchar`
+
+
+
+
+    Sets the vertical stretch factor of the size policy to the given ``stretchFactor`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.verticalStretch`  :meth:`PySide.QtGui.QSizePolicy.setHorizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.setWidthForHeight(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the flag determining whether the widget's width depends on its height, to ``dependent`` .
+
+    This is only supported for :class:`PySide.QtGui.QGraphicsLayout` 's subclasses. It is not possible to have a layout with both height-for-width and width-for-height constraints at the same time.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.hasWidthForHeight`  :meth:`PySide.QtGui.QSizePolicy.setHeightForWidth` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.transpose()
+
+
+
+
+
+
+    Swaps the horizontal and vertical policies and stretches.
+
+
+
+.. method:: PySide.QtGui.QSizePolicy.verticalPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QSizePolicy.Policy`
+
+
+
+
+    Returns the vertical component of the size policy.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setVerticalPolicy`  :meth:`PySide.QtGui.QSizePolicy.horizontalPolicy`  :meth:`PySide.QtGui.QSizePolicy.verticalStretch` 
+
+
+.. method:: PySide.QtGui.QSizePolicy.verticalStretch()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the vertical stretch factor of the size policy.
+
+    .. seealso::  :meth:`PySide.QtGui.QSizePolicy.setVerticalStretch`  :meth:`PySide.QtGui.QSizePolicy.horizontalStretch`  :meth:`PySide.QtGui.QSizePolicy.verticalPolicy` 
+
+
+

@@ -1,0 +1,358 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkConfiguration:
+
+QNetworkConfiguration
+*********************
+
+.. inheritance-diagram:: QNetworkConfiguration
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.7
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QNetworkConfiguration.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QNetworkConfiguration.__ne__>` (other)
+*    def :meth:`bearerName<PySide.QtNetwork.QNetworkConfiguration.bearerName>` ()
+*    def :meth:`bearerType<PySide.QtNetwork.QNetworkConfiguration.bearerType>` ()
+*    def :meth:`bearerTypeName<PySide.QtNetwork.QNetworkConfiguration.bearerTypeName>` ()
+*    def :meth:`children<PySide.QtNetwork.QNetworkConfiguration.children>` ()
+*    def :meth:`identifier<PySide.QtNetwork.QNetworkConfiguration.identifier>` ()
+*    def :meth:`isRoamingAvailable<PySide.QtNetwork.QNetworkConfiguration.isRoamingAvailable>` ()
+*    def :meth:`isValid<PySide.QtNetwork.QNetworkConfiguration.isValid>` ()
+*    def :meth:`name<PySide.QtNetwork.QNetworkConfiguration.name>` ()
+*    def :meth:`purpose<PySide.QtNetwork.QNetworkConfiguration.purpose>` ()
+*    def :meth:`state<PySide.QtNetwork.QNetworkConfiguration.state>` ()
+*    def :meth:`type<PySide.QtNetwork.QNetworkConfiguration.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkConfiguration` class provides an abstraction of one or more access point configurations.
+
+    :class:`PySide.QtNetwork.QNetworkConfiguration` encapsulates a single access point or service network. In most cases a single access point configuration can be mapped to one network interface. However a single network interface may not always map to only one access point configuration. Multiple configurations for the same network device may enable multiple access points. An example device that could exhibit such a configuration might be a Smartphone which allows the user to manage multiple WLAN configurations while the device itself has only one WLAN network device.
+
+    The :class:`PySide.QtNetwork.QNetworkConfiguration` also supports the concept of service networks. This concept allows the grouping of multiple access point configurations into one entity. Such a group is called service network and can be beneficial in cases whereby a network session to a particular destination network is required (e.g. a company network). When using a service network the user doesn't usually care which one of the connectivity options is chosen (e.g. corporate WLAN or VPN via GPRS) as long as he can reach the company's target server. Depending on the current position and time some of the access points that make up the service network may not even be available. Furthermore automated access point roaming can be enabled which enables the device to change the network interface configuration dynamically while maintaining the applications connection to the target network. It allows adaption to the changing environment and may enable optimization with regards to cost, speed or other network parameters.
+
+    Special configurations of type :attr:`UserChoice<QNetworkConfiguration.Type>` provide a placeholder configuration which is resolved to an actual network configuration by the platform when a :class:`session<PySide.QtNetwork.QNetworkSession>` is :meth:`opened<PySide.QtNetwork.QNetworkSession.open>` . Not all platforms support the concept of a user choice configuration.
+
+    .. _PySide.QtNetwork.QNetworkConfiguration_configuration-states:
+
+
+
+Configuration states
+^^^^^^^^^^^^^^^^^^^^
+
+    The list of available configurations can be obtained via :meth:`QNetworkConfigurationManager.allConfigurations()<PySide.QtNetwork.QNetworkConfigurationManager.allConfigurations>` . A configuration can have multiple states. The :attr:`Defined<QNetworkConfiguration.StateFlag>` configuration state indicates that the configuration is stored on the device. However the configuration is not yet ready to be activated as e.g. a WLAN may not be available at the current time.
+
+    The :attr:`Discovered<QNetworkConfiguration.StateFlag>` state implies that the configuration is :attr:`Defined<QNetworkConfiguration.StateFlag>` and the outside conditions are such that the configuration can be used immediately to open a new network session. An example of such an outside condition may be that the Ethernet cable is actually connected to the device or that the WLAN with the specified SSID is in range.
+
+    The :attr:`Active<QNetworkConfiguration.StateFlag>` state implies that the configuration is :attr:`Discovered<QNetworkConfiguration.StateFlag>` . A configuration in this state is currently being used by an application. The underlying network interface has a valid IP configuration and can transfer IP packets between the device and the target network.
+
+    The :attr:`Undefined<QNetworkConfiguration.StateFlag>` state indicates that the system has knowledge of possible target networks but cannot actually use that knowledge to connect to it. An example for such a state could be an encrypted WLAN that has been discovered but the user hasn't actually saved a configuration including the required password which would allow the device to connect to it.
+
+    Depending on the type of configuration some states are transient in nature. A GPRS/UMTS connection may almost always be :attr:`Discovered<QNetworkConfiguration.StateFlag>` if the GSM/UMTS network is available. However if the GSM/UMTS network looses the connection the associated configuration may change its state from :attr:`Discovered<QNetworkConfiguration.StateFlag>` to :attr:`Defined<QNetworkConfiguration.StateFlag>` as well. A similar use case might be triggered by WLAN availability. :meth:`QNetworkConfigurationManager.updateConfigurations()<PySide.QtNetwork.QNetworkConfigurationManager.updateConfigurations>` can be used to manually trigger updates of states. Note that some platforms do not require such updates as they implicitly change the state once it has been discovered. If the state of a configuration changes all related :class:`PySide.QtNetwork.QNetworkConfiguration` instances change their state automatically.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkSession`  :class:`PySide.QtNetwork.QNetworkConfigurationManager` 
+
+.. class:: QNetworkConfiguration()
+           QNetworkConfiguration(other)
+
+    :param other: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+    Constructs an invalid configuration object.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkConfiguration.isValid` 
+
+    Creates a copy of the :class:`PySide.QtNetwork.QNetworkConfiguration` object contained in ``other`` .
+
+
+.. attribute:: PySide.QtNetwork.QNetworkConfiguration.BearerType
+
+    Specifies the type of bearer used by a configuration.
+
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                                                                                                |
+    +=====================================+===========================================================================================================================================================+
+    |QNetworkConfiguration.BearerUnknown  |The type of bearer is unknown or unspecified. The :meth:`PySide.QtNetwork.QNetworkConfiguration.bearerTypeName` function may return additional information.|
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerEthernet |The configuration is for an Ethernet interfaces.                                                                                                           |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerWLAN     |The configuration is for a Wireless LAN interface.                                                                                                         |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.Bearer2G       |The configuration is for a CSD, GPRS, HSCSD, EDGE or cdmaOne interface.                                                                                    |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerCDMA2000 |The configuration is for CDMA interface.                                                                                                                   |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerWCDMA    |The configuration is for W-CDMA/UMTS interface.                                                                                                            |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerHSPA     |The configuration is for High Speed Packet Access (HSPA) interface.                                                                                        |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerBluetooth|The configuration is for a Bluetooth interface.                                                                                                            |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.BearerWiMAX    |The configuration is for a WiMAX interface.                                                                                                                |
+    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtNetwork.QNetworkConfiguration.Purpose
+
+    Specifies the purpose of the configuration.
+
+    +--------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |Constant                                    |Description                                                                                                     |
+    +============================================+================================================================================================================+
+    |QNetworkConfiguration.UnknownPurpose        |The configuration doesn't specify any purpose. This is the default value.                                       |
+    +--------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.PublicPurpose         |The configuration can be used for general purpose internet access.                                              |
+    +--------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.PrivatePurpose        |The configuration is suitable to access a private network such as an office Intranet.                           |
+    +--------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.ServiceSpecificPurpose|The configuration can be used for operator specific services (e.g. receiving MMS messages or content streaming).|
+    +--------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtNetwork.QNetworkConfiguration.Type
+
+    This enum describes the type of configuration.
+
+    +-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                 |Description                                                                                                                                                                                                                                                                                                                                                                            |
+    +=========================================+=======================================================================================================================================================================================================================================================================================================================================================================================+
+    |QNetworkConfiguration.InternetAccessPoint|The configuration specifies the details for a single access point. Note that configurations of type :attr:`InternetAccessPoint<QNetworkConfiguration.Type>` may be part of other QNetworkConfigurations of type :attr:`ServiceNetwork<QNetworkConfiguration.Type>` .                                                                                                                   |
+    +-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.ServiceNetwork     |The configuration is based on a group of QNetworkConfigurations of type :attr:`InternetAccessPoint<QNetworkConfiguration.Type>` . All group members can reach the same target network. This type of configuration is a mandatory requirement for roaming enabled network sessions. On some platforms this form of configuration may also be called Service Network Access Point (SNAP).|
+    +-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.UserChoice         |The configuration is a placeholder which will be resolved to an actual configuration by the platform when a session is opened. Depending on the platform the selection may generate a popup dialog asking the user for his preferred choice.                                                                                                                                           |
+    +-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.Invalid            |The configuration is invalid.                                                                                                                                                                                                                                                                                                                                                          |
+    +-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtNetwork.QNetworkConfiguration.StateFlag
+
+    Specifies the configuration states.
+
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +================================+================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QNetworkConfiguration.Undefined |This state is used for transient configurations such as newly discovered WLANs for which the user has not actually created a configuration yet.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.Defined   |Defined configurations are known to the system but are not immediately usable (e.g. a configured WLAN is not within range or the Ethernet cable is currently not plugged into the machine).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.Discovered|A discovered configuration can be immediately used to create a new :class:`PySide.QtNetwork.QNetworkSession` . An example of a discovered configuration could be a WLAN which is within in range. If the device moves out of range the discovered flag is dropped. A second example is a GPRS configuration which generally remains discovered for as long as the device has network coverage. A configuration that has this state is also in state :attr:`QNetworkConfiguration.Defined<QNetworkConfiguration.StateFlag>` . If the configuration is a service network this flag is set if at least one of the underlying access points configurations has the Discovered state.|
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkConfiguration.Active    |The configuration is currently used by an open network session (see :meth:`QNetworkSession.isOpen()<PySide.QtNetwork.QNetworkSession.isOpen>` ). However this does not mean that the current process is the entity that created the open session. It merely indicates that if a new :class:`PySide.QtNetwork.QNetworkSession` were to be constructed based on this configuration :meth:`QNetworkSession.state()<PySide.QtNetwork.QNetworkSession.state>` would return :attr:`QNetworkSession.Connected<QNetworkSession.State>` . This state implies the :attr:`QNetworkConfiguration.Discovered<QNetworkConfiguration.StateFlag>` state.                                        |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. method:: PySide.QtNetwork.QNetworkConfiguration.bearerName()
+
+
+    :rtype: unicode
+
+
+
+
+    This function is deprecated. It is equivalent to calling :meth:`PySide.QtNetwork.QNetworkConfiguration.bearerTypeName` , however :meth:`PySide.QtNetwork.QNetworkConfiguration.bearerType` should be used in preference.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.bearerType()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkConfiguration.BearerType`
+
+
+
+
+    Returns the type of bearer used by this network configuration.
+
+    If the bearer type is :attr:`unknown<QNetworkConfiguration.BearerType>` the :meth:`PySide.QtNetwork.QNetworkConfiguration.bearerTypeName` function can be used to retrieve a textural type name for the bearer.
+
+    An invalid network configuration always returns the :attr:`BearerUnknown<QNetworkConfiguration.BearerType>` value.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.bearerTypeName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the type of bearer used by this network configuration as a string.
+
+    The string is not translated and therefore can not be shown to the user. The subsequent table shows the fixed mappings between :attr:`QNetworkConfiguration.BearerType` and the bearer type name for known types. If the :attr:`QNetworkConfiguration.BearerType` is unknown this function may return additional information if it is available; otherwise an empty string will be returned.
+
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`QNetworkConfiguration.BearerType`                 |Value                                                                                                                      |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerUnknown<QNetworkConfiguration.BearerType>`  | The session is based on an unknown or unspecified bearer type. The value of the string returned describes the bearer type.|
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerEthernet<QNetworkConfiguration.BearerType>` |Ethernet                                                                                                                   |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerWLAN<QNetworkConfiguration.BearerType>`     |WLAN                                                                                                                       |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`Bearer2G<QNetworkConfiguration.BearerType>`       |2G                                                                                                                         |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerCDMA2000<QNetworkConfiguration.BearerType>` |CDMA2000                                                                                                                   |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerWCDMA<QNetworkConfiguration.BearerType>`    |WCDMA                                                                                                                      |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerHSPA<QNetworkConfiguration.BearerType>`     |HSPA                                                                                                                       |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerBluetooth<QNetworkConfiguration.BearerType>`|Bluetooth                                                                                                                  |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`BearerWiMAX<QNetworkConfiguration.BearerType>`    |WiMAX                                                                                                                      |
+    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+
+    This function returns an empty string if this is an invalid configuration, a network configuration of type :attr:`QNetworkConfiguration.ServiceNetwork<QNetworkConfiguration.Type>` or :attr:`QNetworkConfiguration.UserChoice<QNetworkConfiguration.Type>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkConfiguration.bearerType` 
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.children()
+
+
+    :rtype: 
+
+
+
+
+    Returns all sub configurations of this network configuration in priority order. The first sub configuration in the list has the highest priority.
+
+    Only network configurations of type :attr:`ServiceNetwork<QNetworkConfiguration.Type>` can have children. Otherwise this function returns an empty list.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.identifier()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the unique and platform specific identifier for this network configuration; otherwise an empty string.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.isRoamingAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this configuration supports roaming; otherwise false.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QNetworkConfiguration` object is valid. A configuration may become invalid if the user deletes the configuration or the configuration was default-constructed.
+
+    The addition and removal of configurations can be monitored via the :class:`PySide.QtNetwork.QNetworkConfigurationManager` .
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkConfigurationManager` 
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the user visible name of this configuration.
+
+    The name may either be the name of the underlying access point or the name for service network that this configuration represents.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkConfiguration`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this configuration is not the same as the ``other`` configuration given; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkConfiguration`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true, if this configuration is the same as the ``other`` configuration given; otherwise returns false.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.purpose()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkConfiguration.Purpose`
+
+
+
+
+    Returns the purpose of this configuration.
+
+    The purpose field may be used to programmatically determine the purpose of a configuration. Such information is usually part of the access point or service network meta data.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.state()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration.StateFlags`
+
+
+
+
+    Returns the current state of the configuration.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkConfiguration.type()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkConfiguration.Type`
+
+
+
+
+    Returns the type of the configuration.
+
+    A configuration can represent a single access point configuration or a set of access point configurations. Such a set is called service network. A configuration that is based on a service network can potentially support roaming of network sessions.
+
+
+
+

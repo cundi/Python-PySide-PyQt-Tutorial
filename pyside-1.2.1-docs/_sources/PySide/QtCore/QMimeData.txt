@@ -1,0 +1,449 @@
+.. module:: PySide.QtCore
+.. _QMimeData:
+
+QMimeData
+*********
+
+.. inheritance-diagram:: QMimeData
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtCore.QMimeData.clear>` ()
+*    def :meth:`colorData<PySide.QtCore.QMimeData.colorData>` ()
+*    def :meth:`data<PySide.QtCore.QMimeData.data>` (mimetype)
+*    def :meth:`hasColor<PySide.QtCore.QMimeData.hasColor>` ()
+*    def :meth:`hasHtml<PySide.QtCore.QMimeData.hasHtml>` ()
+*    def :meth:`hasImage<PySide.QtCore.QMimeData.hasImage>` ()
+*    def :meth:`hasText<PySide.QtCore.QMimeData.hasText>` ()
+*    def :meth:`hasUrls<PySide.QtCore.QMimeData.hasUrls>` ()
+*    def :meth:`html<PySide.QtCore.QMimeData.html>` ()
+*    def :meth:`imageData<PySide.QtCore.QMimeData.imageData>` ()
+*    def :meth:`removeFormat<PySide.QtCore.QMimeData.removeFormat>` (mimetype)
+*    def :meth:`setColorData<PySide.QtCore.QMimeData.setColorData>` (color)
+*    def :meth:`setData<PySide.QtCore.QMimeData.setData>` (mimetype, data)
+*    def :meth:`setHtml<PySide.QtCore.QMimeData.setHtml>` (html)
+*    def :meth:`setImageData<PySide.QtCore.QMimeData.setImageData>` (image)
+*    def :meth:`setText<PySide.QtCore.QMimeData.setText>` (text)
+*    def :meth:`setUrls<PySide.QtCore.QMimeData.setUrls>` (urls)
+*    def :meth:`text<PySide.QtCore.QMimeData.text>` ()
+*    def :meth:`urls<PySide.QtCore.QMimeData.urls>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`formats<PySide.QtCore.QMimeData.formats>` ()
+*    def :meth:`hasFormat<PySide.QtCore.QMimeData.hasFormat>` (mimetype)
+*    def :meth:`retrieveData<PySide.QtCore.QMimeData.retrieveData>` (mimetype, preferredType)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QMimeData` class provides a container for data that records information about its MIME type.
+
+    :class:`PySide.QtCore.QMimeData` is used to describe information that can be stored in the :class:`clipboard<PySide.QtGui.QClipboard>` , and transferred via the :ref:`drag and drop<dnd.html>` mechanism. :class:`PySide.QtCore.QMimeData` objects associate the data that they hold with the corresponding MIME types to ensure that information can be safely transferred between applications, and copied around within the same application.
+
+    :class:`PySide.QtCore.QMimeData` objects are usually created using ``new`` and supplied to :class:`PySide.QtGui.QDrag` or :class:`PySide.QtGui.QClipboard` objects. This is to enable Qt to manage the memory that they use.
+
+    A single :class:`PySide.QtCore.QMimeData` object can store the same data using several different formats at the same time. The :meth:`PySide.QtCore.QMimeData.formats` function returns a list of the available formats in order of preference. The :meth:`PySide.QtCore.QMimeData.data` function returns the raw data associated with a MIME type, and :meth:`PySide.QtCore.QMimeData.setData` allows you to set the data for a MIME type.
+
+    For the most common MIME types, :class:`PySide.QtCore.QMimeData` provides convenience functions to access the data:
+
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |Tester                                  |Getter                                   |Setter                                      |MIME Types              |
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |:meth:`PySide.QtCore.QMimeData.hasText` |:meth:`PySide.QtCore.QMimeData.text`     |:meth:`PySide.QtCore.QMimeData.setText`     |``text/plain``\         |
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |:meth:`PySide.QtCore.QMimeData.hasHtml` |:meth:`PySide.QtCore.QMimeData.html`     |:meth:`PySide.QtCore.QMimeData.setHtml`     |``text/html``\          |
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |:meth:`PySide.QtCore.QMimeData.hasUrls` |:meth:`PySide.QtCore.QMimeData.urls`     |:meth:`PySide.QtCore.QMimeData.setUrls`     |``text/uri-list``\      |
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |:meth:`PySide.QtCore.QMimeData.hasImage`|:meth:`PySide.QtCore.QMimeData.imageData`|:meth:`PySide.QtCore.QMimeData.setImageData`|``image/`` \*           |
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+    |:meth:`PySide.QtCore.QMimeData.hasColor`|:meth:`PySide.QtCore.QMimeData.colorData`|:meth:`PySide.QtCore.QMimeData.setColorData`|``application/x-color``\|
+    +----------------------------------------+-----------------------------------------+--------------------------------------------+------------------------+
+
+    For example, if your write a widget that accepts URL drags, you would end up writing code like this:
+
+    ::
+
+        def dragEnterEvent(self, event):
+            if event.mimeData().hasUrls():
+                event.acceptProposedAction()
+
+        def dropEvent(self, event):
+            if event->mimeData().hasUrls():
+                for url in event.mimeData().urls():
+                    ...
+
+
+    There are three approaches for storing custom data in a :class:`PySide.QtCore.QMimeData` object:
+
+    .. _PySide.QtCore.QMimeData_platform-specific-mime-types:
+
+
+
+Platform-Specific MIME Types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Windows, :meth:`PySide.QtCore.QMimeData.formats` will also return custom formats available in the MIME data, using the ``x-qt-windows-mime`` subtype to indicate that they represent data in non-standard formats. The formats will take the following form:
+
+    ::
+
+        application/x-qt-windows-mime;value="<custom type>"
+
+
+    The following are examples of custom MIME types:
+
+    ::
+
+        application/x-qt-windows-mime;value="FileGroupDescriptor"
+        application/x-qt-windows-mime;value="FileContents"
+
+
+    The ``value`` declaration of each format describes the way in which the data is encoded.
+
+    On Windows, the MIME format does not always map directly to the clipboard formats. Qt provides :class:`~PySide.QtCore.QWindowsMime` to map clipboard formats to open-standard MIME formats. Similarly, the :class:`~PySide.QtCore.QMacPasteboardMime` maps MIME to Mac flavors.
+
+    .. seealso::  :class:`PySide.QtGui.QClipboard`  :class:`PySide.QtGui.QDragEnterEvent`  :class:`PySide.QtGui.QDragMoveEvent`  :class:`PySide.QtGui.QDropEvent`  :class:`PySide.QtGui.QDrag`  :class:`~PySide.QtCore.QWindowsMime`  :class:`~PySide.QtCore.QMacPasteboardMime`  :ref:`Drag and Drop<dnd.html>` 
+
+.. class:: QMimeData()
+
+
+    Constructs a new MIME data object with no data in it.
+
+
+.. method:: PySide.QtCore.QMimeData.clear()
+
+
+
+
+
+
+    Removes all the MIME type and data entries in the object.
+
+
+
+.. method:: PySide.QtCore.QMimeData.colorData()
+
+
+    :rtype: object
+
+
+
+
+    Returns a color if the data stored in the object represents a color (MIME type ``application/x-color`` ); otherwise returns a null variant.
+
+    A :class:`PySide.QtCore.QVariant` is used because :class:`PySide.QtCore.QMimeData` belongs to the :ref:`QtCore` library, whereas :class:`PySide.QtGui.QColor` belongs to :ref:`QtGui` . To convert the :class:`PySide.QtCore.QVariant` to a :class:`PySide.QtGui.QColor` , simply use :meth:`~PySide.QtCore.QMimeData.qvariant\_cast` . For example:
+
+    ::
+
+        if event.mimeData().hasColor():
+            color = QColor(event.mimeData().colorData())
+            ...
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.hasColor`  :meth:`PySide.QtCore.QMimeData.setColorData`  :meth:`PySide.QtCore.QMimeData.data` 
+
+
+.. method:: PySide.QtCore.QMimeData.data(mimetype)
+
+
+    :param mimetype: unicode
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the data stored in the object in the format described by the MIME type specified by ``mimeType`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.formats()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of formats supported by the object. This is a list of MIME types for which the object can return suitable data. The formats in the list are in a priority order.
+
+    For the most common types of data, you can call the higher-level functions :meth:`PySide.QtCore.QMimeData.hasText` , :meth:`PySide.QtCore.QMimeData.hasHtml` , :meth:`PySide.QtCore.QMimeData.hasUrls` , :meth:`PySide.QtCore.QMimeData.hasImage` , and :meth:`PySide.QtCore.QMimeData.hasColor` instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.hasFormat`  :meth:`PySide.QtCore.QMimeData.setData`  :meth:`PySide.QtCore.QMimeData.data` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasColor()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return a color (MIME type ``application/x-color`` ); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setColorData`  :meth:`PySide.QtCore.QMimeData.colorData`  :meth:`PySide.QtCore.QMimeData.hasFormat` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasFormat(mimetype)
+
+
+    :param mimetype: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return data for the MIME type specified by ``mimeType`` ; otherwise returns false.
+
+    For the most common types of data, you can call the higher-level functions :meth:`PySide.QtCore.QMimeData.hasText` , :meth:`PySide.QtCore.QMimeData.hasHtml` , :meth:`PySide.QtCore.QMimeData.hasUrls` , :meth:`PySide.QtCore.QMimeData.hasImage` , and :meth:`PySide.QtCore.QMimeData.hasColor` instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.formats`  :meth:`PySide.QtCore.QMimeData.setData`  :meth:`PySide.QtCore.QMimeData.data` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasHtml()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return HTML (MIME type ``text/html`` ); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setHtml`  :meth:`PySide.QtCore.QMimeData.html`  :meth:`PySide.QtCore.QMimeData.hasFormat` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasImage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return an image; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setImageData`  :meth:`PySide.QtCore.QMimeData.imageData`  :meth:`PySide.QtCore.QMimeData.hasFormat` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasText()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return plain text (MIME type ``text/plain`` ); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setText`  :meth:`PySide.QtCore.QMimeData.text`  :meth:`PySide.QtCore.QMimeData.hasHtml`  :meth:`PySide.QtCore.QMimeData.hasFormat` 
+
+
+.. method:: PySide.QtCore.QMimeData.hasUrls()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the object can return a list of urls; otherwise returns false.
+
+    URLs correspond to the MIME type ``text/uri-list`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setUrls`  :meth:`PySide.QtCore.QMimeData.urls`  :meth:`PySide.QtCore.QMimeData.hasFormat` 
+
+
+.. method:: PySide.QtCore.QMimeData.html()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a string if the data stored in the object is HTML (MIME type ``text/html`` ); otherwise returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setHtml`  :meth:`PySide.QtCore.QMimeData.hasHtml`  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.imageData()
+
+
+    :rtype: object
+
+
+
+
+    Returns a :class:`PySide.QtCore.QVariant` storing a :class:`PySide.QtGui.QImage` if the object can return an image; otherwise returns a null variant.
+
+    A :class:`PySide.QtCore.QVariant` is used because :class:`PySide.QtCore.QMimeData` belongs to the :ref:`QtCore` library, whereas :class:`PySide.QtGui.QImage` belongs to :ref:`QtGui` . To convert the :class:`PySide.QtCore.QVariant` to a :class:`PySide.QtGui.QImage` , simply use :meth:`~PySide.QtCore.QMimeData.qvariant\_cast` . For example:
+
+    ::
+
+        if event.mimeData().hasImage():
+            image = QImage(event.mimeData().imageData())
+            ...
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setImageData`  :meth:`PySide.QtCore.QMimeData.hasImage` 
+
+
+.. method:: PySide.QtCore.QMimeData.removeFormat(mimetype)
+
+
+    :param mimetype: unicode
+
+
+
+
+    Removes the data entry for ``mimeType`` in the object.
+
+
+
+.. method:: PySide.QtCore.QMimeData.retrieveData(mimetype, preferredType)
+
+
+    :param mimetype: unicode
+    :param preferredType: :class:`PySide.QtCore.QVariant::Type`
+    :rtype: object
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMimeData.setColorData(color)
+
+
+    :param color: object
+
+
+
+
+    Sets the color data in the object to the given ``color`` .
+
+    Colors correspond to the MIME type ``application/x-color`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.colorData`  :meth:`PySide.QtCore.QMimeData.hasColor`  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.setData(mimetype, data)
+
+
+    :param mimetype: unicode
+    :param data: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the data associated with the MIME type given by ``mimeType`` to the specified ``data`` .
+
+    For the most common types of data, you can call the higher-level functions :meth:`PySide.QtCore.QMimeData.setText` , :meth:`PySide.QtCore.QMimeData.setHtml` , :meth:`PySide.QtCore.QMimeData.setUrls` , :meth:`PySide.QtCore.QMimeData.setImageData` , and :meth:`PySide.QtCore.QMimeData.setColorData` instead.
+
+    Note that if you want to use a custom data type in an item view drag and drop operation, you must register it as a Qt :class:`meta type<~PySide.QtCore.QMetaType>` , using the :meth:`~PySide.QtCore.QMimeData.Q\_DECLARE\_METATYPE` macro, and implement stream operators for it. The stream operators must then be registered with the :meth:`~PySide.QtCore.QMimeData.qRegisterMetaTypeStreamOperators` function.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.data`  :meth:`PySide.QtCore.QMimeData.hasFormat`  :class:`~PySide.QtCore.QMetaType`  :meth:`~PySide.QtCore.QMimeData.qRegisterMetaTypeStreamOperators` 
+
+
+.. method:: PySide.QtCore.QMimeData.setHtml(html)
+
+
+    :param html: unicode
+
+
+
+
+    Sets ``html`` as the HTML (MIME type ``text/html`` ) used to represent the data.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.html`  :meth:`PySide.QtCore.QMimeData.hasHtml`  :meth:`PySide.QtCore.QMimeData.setText`  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.setImageData(image)
+
+
+    :param image: object
+
+
+
+
+    Sets the data in the object to the given ``image`` .
+
+    A :class:`PySide.QtCore.QVariant` is used because :class:`PySide.QtCore.QMimeData` belongs to the :ref:`QtCore` library, whereas :class:`PySide.QtGui.QImage` belongs to :ref:`QtGui` . The conversion from :class:`PySide.QtGui.QImage` to :class:`PySide.QtCore.QVariant` is implicit. For example:
+
+    ::
+
+        mimeData.setImageData(QImage("beautifulfjord.png"))
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.imageData`  :meth:`PySide.QtCore.QMimeData.hasImage`  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.setText(text)
+
+
+    :param text: unicode
+
+
+
+
+    Sets ``text`` as the plain text (MIME type ``text/plain`` ) used to represent the data.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.text`  :meth:`PySide.QtCore.QMimeData.hasText`  :meth:`PySide.QtCore.QMimeData.setHtml`  :meth:`PySide.QtCore.QMimeData.setData` 
+
+
+.. method:: PySide.QtCore.QMimeData.setUrls(urls)
+
+
+    :param urls: 
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMimeData.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a plain text (MIME type ``text/plain`` ) representation of the data.
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setText`  :meth:`PySide.QtCore.QMimeData.hasText`  :meth:`PySide.QtCore.QMimeData.html`  :meth:`PySide.QtCore.QMimeData.data` 
+
+
+.. method:: PySide.QtCore.QMimeData.urls()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of URLs contained within the MIME data object.
+
+    URLs correspond to the MIME type ``text/uri-list`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMimeData.setUrls`  :meth:`PySide.QtCore.QMimeData.hasUrls`  :meth:`PySide.QtCore.QMimeData.data` 
+
+
+

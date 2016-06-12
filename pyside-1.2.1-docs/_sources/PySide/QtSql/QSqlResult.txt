@@ -1,0 +1,837 @@
+.. module:: PySide.QtSql
+.. _QSqlResult:
+
+QSqlResult
+**********
+
+.. inheritance-diagram:: QSqlResult
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addBindValue<PySide.QtSql.QSqlResult.addBindValue>` (val, type)
+*    def :meth:`at<PySide.QtSql.QSqlResult.at>` ()
+*    def :meth:`bindValueType<PySide.QtSql.QSqlResult.bindValueType>` (placeholder)
+*    def :meth:`bindValueType<PySide.QtSql.QSqlResult.bindValueType>` (pos)
+*    def :meth:`bindingSyntax<PySide.QtSql.QSqlResult.bindingSyntax>` ()
+*    def :meth:`boundValue<PySide.QtSql.QSqlResult.boundValue>` (placeholder)
+*    def :meth:`boundValue<PySide.QtSql.QSqlResult.boundValue>` (pos)
+*    def :meth:`boundValueCount<PySide.QtSql.QSqlResult.boundValueCount>` ()
+*    def :meth:`boundValueName<PySide.QtSql.QSqlResult.boundValueName>` (pos)
+*    def :meth:`boundValues<PySide.QtSql.QSqlResult.boundValues>` ()
+*    def :meth:`clear<PySide.QtSql.QSqlResult.clear>` ()
+*    def :meth:`detachFromResultSet<PySide.QtSql.QSqlResult.detachFromResultSet>` ()
+*    def :meth:`driver<PySide.QtSql.QSqlResult.driver>` ()
+*    def :meth:`execBatch<PySide.QtSql.QSqlResult.execBatch>` ([arrayBind=false])
+*    def :meth:`executedQuery<PySide.QtSql.QSqlResult.executedQuery>` ()
+*    def :meth:`hasOutValues<PySide.QtSql.QSqlResult.hasOutValues>` ()
+*    def :meth:`isActive<PySide.QtSql.QSqlResult.isActive>` ()
+*    def :meth:`isForwardOnly<PySide.QtSql.QSqlResult.isForwardOnly>` ()
+*    def :meth:`isSelect<PySide.QtSql.QSqlResult.isSelect>` ()
+*    def :meth:`isValid<PySide.QtSql.QSqlResult.isValid>` ()
+*    def :meth:`lastError<PySide.QtSql.QSqlResult.lastError>` ()
+*    def :meth:`lastQuery<PySide.QtSql.QSqlResult.lastQuery>` ()
+*    def :meth:`nextResult<PySide.QtSql.QSqlResult.nextResult>` ()
+*    def :meth:`numericalPrecisionPolicy<PySide.QtSql.QSqlResult.numericalPrecisionPolicy>` ()
+*    def :meth:`resetBindCount<PySide.QtSql.QSqlResult.resetBindCount>` ()
+*    def :meth:`setNumericalPrecisionPolicy<PySide.QtSql.QSqlResult.setNumericalPrecisionPolicy>` (policy)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bindValue<PySide.QtSql.QSqlResult.bindValue>` (placeholder, val, type)
+*    def :meth:`bindValue<PySide.QtSql.QSqlResult.bindValue>` (pos, val, type)
+*    def :meth:`data<PySide.QtSql.QSqlResult.data>` (i)
+*    def :meth:`exec_<PySide.QtSql.QSqlResult.exec_>` ()
+*    def :meth:`fetch<PySide.QtSql.QSqlResult.fetch>` (i)
+*    def :meth:`fetchFirst<PySide.QtSql.QSqlResult.fetchFirst>` ()
+*    def :meth:`fetchLast<PySide.QtSql.QSqlResult.fetchLast>` ()
+*    def :meth:`fetchNext<PySide.QtSql.QSqlResult.fetchNext>` ()
+*    def :meth:`fetchPrevious<PySide.QtSql.QSqlResult.fetchPrevious>` ()
+*    def :meth:`handle<PySide.QtSql.QSqlResult.handle>` ()
+*    def :meth:`isNull<PySide.QtSql.QSqlResult.isNull>` (i)
+*    def :meth:`lastInsertId<PySide.QtSql.QSqlResult.lastInsertId>` ()
+*    def :meth:`numRowsAffected<PySide.QtSql.QSqlResult.numRowsAffected>` ()
+*    def :meth:`prepare<PySide.QtSql.QSqlResult.prepare>` (query)
+*    def :meth:`record<PySide.QtSql.QSqlResult.record>` ()
+*    def :meth:`reset<PySide.QtSql.QSqlResult.reset>` (sqlquery)
+*    def :meth:`savePrepare<PySide.QtSql.QSqlResult.savePrepare>` (sqlquery)
+*    def :meth:`setActive<PySide.QtSql.QSqlResult.setActive>` (a)
+*    def :meth:`setAt<PySide.QtSql.QSqlResult.setAt>` (at)
+*    def :meth:`setForwardOnly<PySide.QtSql.QSqlResult.setForwardOnly>` (forward)
+*    def :meth:`setLastError<PySide.QtSql.QSqlResult.setLastError>` (e)
+*    def :meth:`setQuery<PySide.QtSql.QSqlResult.setQuery>` (query)
+*    def :meth:`setSelect<PySide.QtSql.QSqlResult.setSelect>` (s)
+*    def :meth:`size<PySide.QtSql.QSqlResult.size>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlResult` class provides an abstract interface for accessing data from specific SQL databases.
+
+    Normally, you would use :class:`PySide.QtSql.QSqlQuery` instead of :class:`PySide.QtSql.QSqlResult` , since :class:`PySide.QtSql.QSqlQuery` provides a generic wrapper for database-specific implementations of :class:`PySide.QtSql.QSqlResult` .
+
+    If you are implementing your own SQL driver (by subclassing :class:`PySide.QtSql.QSqlDriver` ), you will need to provide your own :class:`PySide.QtSql.QSqlResult` subclass that implements all the pure virtual functions and other virtual functions that you need.
+
+    .. seealso::  :class:`PySide.QtSql.QSqlDriver` 
+
+.. class:: QSqlResult(db)
+
+    :param db: :class:`PySide.QtSql.QSqlDriver`
+
+    Creates a :class:`PySide.QtSql.QSqlResult` using database driver ``db`` . The object is initialized to an inactive state.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isActive`  :meth:`PySide.QtSql.QSqlResult.driver` 
+
+.. attribute:: PySide.QtSql.QSqlResult.BindingSyntax
+
+    This enum type specifies the different syntaxes for specifying placeholders in prepared queries.
+
+    +----------------------------+-----------------------------------------------------------------+
+    |Constant                    |Description                                                      |
+    +============================+=================================================================+
+    |QSqlResult.PositionalBinding|Use the ODBC-style positional syntax, with "?" as placeholders.  |
+    +----------------------------+-----------------------------------------------------------------+
+    |QSqlResult.NamedBinding     |Use the Oracle-style syntax with named placeholders (e.g., ":id")|
+    +----------------------------+-----------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.bindingSyntax` 
+
+.. attribute:: PySide.QtSql.QSqlResult.VirtualHookOperation
+
+
+.. method:: PySide.QtSql.QSqlResult.addBindValue(val, type)
+
+
+    :param val: object
+    :param type: :class:`PySide.QtSql.QSql.ParamType`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.at()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current (zero-based) row position of the result. May return the special values :attr:`QSql.BeforeFirstRow<QSql.Location>` or :attr:`QSql.AfterLastRow<QSql.Location>` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setAt`  :meth:`PySide.QtSql.QSqlResult.isValid` 
+
+
+.. method:: PySide.QtSql.QSqlResult.bindValue(placeholder, val, type)
+
+
+    :param placeholder: unicode
+    :param val: object
+    :param type: :class:`PySide.QtSql.QSql.ParamType`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.bindValue(pos, val, type)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param val: object
+    :param type: :class:`PySide.QtSql.QSql.ParamType`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.bindValueType(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtSql.QSql.ParamType`
+
+
+
+
+    Returns the parameter type for the value bound at position ``index`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.boundValue` 
+
+
+.. method:: PySide.QtSql.QSqlResult.bindValueType(placeholder)
+
+
+    :param placeholder: unicode
+    :rtype: :class:`PySide.QtSql.QSql.ParamType`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the parameter type for the value bound with the given ``placeholder`` name.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.bindingSyntax()
+
+
+    :rtype: :attr:`PySide.QtSql.QSqlResult.BindingSyntax`
+
+
+
+
+    Returns the binding syntax used by prepared queries.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.boundValue(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the value bound at position ``index`` in the current record (row).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.bindValue`  :meth:`PySide.QtSql.QSqlResult.boundValues` 
+
+
+.. method:: PySide.QtSql.QSqlResult.boundValue(placeholder)
+
+
+    :param placeholder: unicode
+    :rtype: object
+
+
+
+
+    This is an overloaded function.
+
+    Returns the value bound by the given ``placeholder`` name in the current record (row).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.bindValueType` 
+
+
+.. method:: PySide.QtSql.QSqlResult.boundValueCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of bound values in the result.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.boundValues` 
+
+
+.. method:: PySide.QtSql.QSqlResult.boundValueName(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the name of the bound value at position ``index`` in the current record (row).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.boundValue` 
+
+
+.. method:: PySide.QtSql.QSqlResult.boundValues()
+
+
+    :rtype: 
+
+
+
+
+    Returns a vector of the result's bound values for the current record (row).
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.boundValueCount` 
+
+
+.. method:: PySide.QtSql.QSqlResult.clear()
+
+
+
+
+
+
+    Clears the entire result set and releases any associated resources.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.data(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the data for field ``index`` in the current row as a :class:`PySide.QtCore.QVariant` . This function is only called if the result is in an active state and is positioned on a valid record and ``index`` is non-negative. Derived classes must reimplement this function and return the value of field ``index`` , or :meth:`~PySide.QtSql.QSqlResult.QVariant` if it cannot be determined.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.detachFromResultSet()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.driver()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlDriver`
+
+
+
+
+    Returns the driver associated with the result. This is the object that was passed to the constructor.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.execBatch([arrayBind=false])
+
+
+    :param arrayBind: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Executes a prepared query in batch mode if the driver supports it, otherwise emulates a batch execution using :meth:`PySide.QtSql.QSqlResult.bindValue` and :meth:`~PySide.QtSql.QSqlResult.exec` . :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>` can be used to find out whether a driver supports batch execution.
+
+    Batch execution can be faster for large amounts of data since it reduces network roundtrips.
+
+    For batch executions, bound values have to be provided as lists of variants ( :class:`~PySide.QtSql.QVariantList` ).
+
+    Each list must contain values of the same type. All lists must contain equal amount of values (rows).
+
+    NULL values are passed in as typed :ref:`QVariants<qtwebkit-bridge.html>` , for example ``QVariant(QVariant::Int)`` for an integer NULL value.
+
+    Example:
+
+    ::
+
+        q = QSqlQuery()
+        q.prepare("insert into test (i1, i2, s) values (?, ?, ?)")
+
+        col1 = [1, 3]
+        col2 = [2, 4]
+        col3 = ["hello", "world"]
+
+        q.bindValue(0, col1)
+        q.bindValue(1, col2)
+        q.bindValue(2, col3)
+
+        if not q.execBatch():
+            print q.lastError()
+
+
+    Here, we insert two rows into a SQL table, with each row containing three values.
+
+    .. seealso::  :meth:`~PySide.QtSql.QSqlResult.exec`  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>` 
+
+
+.. method:: PySide.QtSql.QSqlResult.exec_()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Executes the query, returning true if successful; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.prepare` 
+
+
+.. method:: PySide.QtSql.QSqlResult.executedQuery()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the query that was actually executed. This may differ from the query that was passed, for example if bound values were used with a prepared query and the underlying database doesn't support prepared queries.
+
+    .. seealso::  :meth:`~PySide.QtSql.QSqlResult.exec`  :meth:`PySide.QtSql.QSqlResult.setQuery` 
+
+
+.. method:: PySide.QtSql.QSqlResult.fetch(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Positions the result to an arbitrary (zero-based) row ``index`` .
+
+    This function is only called if the result is in an active state. Derived classes must reimplement this function and position the result to the row ``index`` , and call :meth:`PySide.QtSql.QSqlResult.setAt` with an appropriate value. Return true to indicate success, or false to signify failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isActive`  :meth:`PySide.QtSql.QSqlResult.fetchFirst`  :meth:`PySide.QtSql.QSqlResult.fetchLast`  :meth:`PySide.QtSql.QSqlResult.fetchNext`  :meth:`PySide.QtSql.QSqlResult.fetchPrevious` 
+
+
+.. method:: PySide.QtSql.QSqlResult.fetchFirst()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Positions the result to the first record (row 0) in the result.
+
+    This function is only called if the result is in an active state. Derived classes must reimplement this function and position the result to the first record, and call :meth:`PySide.QtSql.QSqlResult.setAt` with an appropriate value. Return true to indicate success, or false to signify failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.fetch`  :meth:`PySide.QtSql.QSqlResult.fetchLast` 
+
+
+.. method:: PySide.QtSql.QSqlResult.fetchLast()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Positions the result to the last record (last row) in the result.
+
+    This function is only called if the result is in an active state. Derived classes must reimplement this function and position the result to the last record, and call :meth:`PySide.QtSql.QSqlResult.setAt` with an appropriate value. Return true to indicate success, or false to signify failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.fetch`  :meth:`PySide.QtSql.QSqlResult.fetchFirst` 
+
+
+.. method:: PySide.QtSql.QSqlResult.fetchNext()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Positions the result to the next available record (row) in the result.
+
+    This function is only called if the result is in an active state. The default implementation calls :meth:`PySide.QtSql.QSqlResult.fetch` with the next index. Derived classes can reimplement this function and position the result to the next record in some other way, and call :meth:`PySide.QtSql.QSqlResult.setAt` with an appropriate value. Return true to indicate success, or false to signify failure.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.fetch`  :meth:`PySide.QtSql.QSqlResult.fetchPrevious` 
+
+
+.. method:: PySide.QtSql.QSqlResult.fetchPrevious()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Positions the result to the previous record (row) in the result.
+
+    This function is only called if the result is in an active state. The default implementation calls :meth:`PySide.QtSql.QSqlResult.fetch` with the previous index. Derived classes can reimplement this function and position the result to the next record in some other way, and call :meth:`PySide.QtSql.QSqlResult.setAt` with an appropriate value. Return true to indicate success, or false to signify failure.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.handle()
+
+
+    :rtype: object
+
+
+
+
+    Returns the low-level database handle for this result set wrapped in a :class:`PySide.QtCore.QVariant` or an invalid :class:`PySide.QtCore.QVariant` if there is no handle.
+
+    .. warning::  Use this with uttermost care and only if you know what you're doing.
+
+    .. warning::  The handle returned here can become a stale pointer if the result is modified (for example, if you clear it).
+
+    .. warning::  The handle can be NULL if the result was not executed yet.
+
+    The handle returned here is database-dependent, you should query the type name of the variant before accessing it.
+
+    This example retrieves the handle for a sqlite result:
+
+    ::
+
+        query = QSqlQuery ...
+        v = query.result().handle()
+        if v.isValid() and (v.typeName() == "sqlite3_stmt*"):
+            # v.data() returns a pointer to the handle
+            handle = v.data()
+            if handle != 0: # check that it is not NULL
+                ...
+
+
+    This snippet returns the handle for PostgreSQL or MySQL:
+
+    ::
+
+        if v.typeName() == "PGresult*":
+            handle = v.data()
+            if handle != 0 ...
+
+        if v.typeName() == "MYSQL_STMT*":
+            handle = v.data()
+            if handle != 0 ...
+        }
+
+
+    .. seealso::  :meth:`QSqlDriver.handle()<PySide.QtSql.QSqlDriver.handle>` 
+
+
+.. method:: PySide.QtSql.QSqlResult.hasOutValues()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if at least one of the query's bound values is a ``QSql::Out`` or a :attr:`QSql.InOut<QSql.ParamTypeFlag>` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.bindValueType` 
+
+
+.. method:: PySide.QtSql.QSqlResult.isActive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the result has records to be retrieved; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.isForwardOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if you can only scroll forward through the result set; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setForwardOnly` 
+
+
+.. method:: PySide.QtSql.QSqlResult.isNull(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field at position ``index`` in the current row is null; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlResult.isSelect()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the current result is from a ``SELECT`` statement; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setSelect` 
+
+
+.. method:: PySide.QtSql.QSqlResult.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the result is positioned on a valid record (that is, the result is not positioned before the first or after the last record); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.at` 
+
+
+.. method:: PySide.QtSql.QSqlResult.lastError()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    Returns the last error associated with the result.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setLastError` 
+
+
+.. method:: PySide.QtSql.QSqlResult.lastInsertId()
+
+
+    :rtype: object
+
+
+
+
+    Returns the object ID of the most recent inserted row if the database supports it. An invalid :class:`PySide.QtCore.QVariant` will be returned if the query did not insert any value or if the database does not report the id back. If more than one row was touched by the insert, the behavior is undefined.
+
+    Note that for Oracle databases the row's ROWID will be returned, while for MySQL databases the row's auto-increment field will be returned.
+
+    .. seealso::  :meth:`QSqlDriver.hasFeature()<PySide.QtSql.QSqlDriver.hasFeature>` 
+
+
+.. method:: PySide.QtSql.QSqlResult.lastQuery()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the current SQL query text, or an empty string if there isn't one.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setQuery` 
+
+
+.. method:: PySide.QtSql.QSqlResult.nextResult()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.numRowsAffected()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rows affected by the last query executed, or -1 if it cannot be determined or if the query is a ``SELECT`` statement.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.size` 
+
+
+.. method:: PySide.QtSql.QSqlResult.numericalPrecisionPolicy()
+
+
+    :rtype: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.prepare(query)
+
+
+    :param query: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Prepares the given ``query`` for execution; the query will normally use placeholders so that it can be executed repeatedly. Returns true if the query is prepared successfully; otherwise returns false.
+
+    .. seealso::  :meth:`~PySide.QtSql.QSqlResult.exec` 
+
+
+.. method:: PySide.QtSql.QSqlResult.record()
+
+
+    :rtype: :class:`PySide.QtSql.QSqlRecord`
+
+
+
+
+    Returns the current record if the query is active; otherwise returns an empty :class:`PySide.QtSql.QSqlRecord` .
+
+    The default implementation always returns an empty :class:`PySide.QtSql.QSqlRecord` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isActive` 
+
+
+.. method:: PySide.QtSql.QSqlResult.reset(sqlquery)
+
+
+    :param sqlquery: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the result to use the SQL statement ``query`` for subsequent data retrieval.
+
+    Derived classes must reimplement this function and apply the ``query`` to the database. This function is only called after the result is set to an inactive state and is positioned before the first record of the new result. Derived classes should return true if the query was successful and ready to be used, or false otherwise.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.setQuery` 
+
+
+.. method:: PySide.QtSql.QSqlResult.resetBindCount()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.savePrepare(sqlquery)
+
+
+    :param sqlquery: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Prepares the given ``query`` , using the underlying database functionality where possible. Returns true if the query is prepared successfully; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.prepare` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setActive(a)
+
+
+    :param a: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is provided for derived classes to set the internal active state to ``active`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isActive` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setAt(at)
+
+
+    :param at: :class:`PySide.QtCore.int`
+
+
+
+
+    This function is provided for derived classes to set the internal (zero-based) row position to ``index`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.at` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setForwardOnly(forward)
+
+
+    :param forward: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets forward only mode to ``forward`` . If ``forward`` is true, only :meth:`PySide.QtSql.QSqlResult.fetchNext` is allowed for navigating the results. Forward only mode needs much less memory since results do not have to be cached. By default, this feature is disabled.
+
+    Setting forward only to false is a suggestion to the database engine, which has the final say on whether a result set is forward only or scrollable. :meth:`PySide.QtSql.QSqlResult.isForwardOnly` will always return the correct status of the result set.
+
+    .. note::  Calling setForwardOnly after execution of the query will result in unexpected results at best, and crashes at worst.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isForwardOnly`  :meth:`PySide.QtSql.QSqlResult.fetchNext`  :meth:`QSqlQuery.setForwardOnly()<PySide.QtSql.QSqlQuery.setForwardOnly>` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setLastError(e)
+
+
+    :param e: :class:`PySide.QtSql.QSqlError`
+
+
+
+
+    This function is provided for derived classes to set the last error to ``error`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.lastError` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setNumericalPrecisionPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtSql.QSql.NumericalPrecisionPolicy`
+
+
+
+
+
+
+
+.. method:: PySide.QtSql.QSqlResult.setQuery(query)
+
+
+    :param query: unicode
+
+
+
+
+    Sets the current query for the result to ``query`` . You must call :meth:`PySide.QtSql.QSqlResult.reset` to execute the query on the database.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.reset`  :meth:`PySide.QtSql.QSqlResult.lastQuery` 
+
+
+.. method:: PySide.QtSql.QSqlResult.setSelect(s)
+
+
+    :param s: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is provided for derived classes to indicate whether or not the current statement is a SQL ``SELECT`` statement. The ``select`` parameter should be true if the statement is a ``SELECT`` statement; otherwise it should be false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.isSelect` 
+
+
+.. method:: PySide.QtSql.QSqlResult.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the size of the ``SELECT`` result, or -1 if it cannot be determined or if the query is not a ``SELECT`` statement.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlResult.numRowsAffected` 
+
+
+

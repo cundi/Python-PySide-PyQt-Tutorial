@@ -1,0 +1,407 @@
+.. module:: PySide.QtGui
+.. _QBrush:
+
+QBrush
+******
+
+.. inheritance-diagram:: QBrush
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QBrush.__eq__>` (b)
+*    def :meth:`__ne__<PySide.QtGui.QBrush.__ne__>` (b)
+*    def :meth:`color<PySide.QtGui.QBrush.color>` ()
+*    def :meth:`gradient<PySide.QtGui.QBrush.gradient>` ()
+*    def :meth:`init<PySide.QtGui.QBrush.init>` (color, bs)
+*    def :meth:`isOpaque<PySide.QtGui.QBrush.isOpaque>` ()
+*    def :meth:`matrix<PySide.QtGui.QBrush.matrix>` ()
+*    def :meth:`setColor<PySide.QtGui.QBrush.setColor>` (color)
+*    def :meth:`setColor<PySide.QtGui.QBrush.setColor>` (color)
+*    def :meth:`setMatrix<PySide.QtGui.QBrush.setMatrix>` (mat)
+*    def :meth:`setStyle<PySide.QtGui.QBrush.setStyle>` (arg__1)
+*    def :meth:`setTexture<PySide.QtGui.QBrush.setTexture>` (pixmap)
+*    def :meth:`setTextureImage<PySide.QtGui.QBrush.setTextureImage>` (image)
+*    def :meth:`setTransform<PySide.QtGui.QBrush.setTransform>` (arg__1)
+*    def :meth:`style<PySide.QtGui.QBrush.style>` ()
+*    def :meth:`swap<PySide.QtGui.QBrush.swap>` (other)
+*    def :meth:`texture<PySide.QtGui.QBrush.texture>` ()
+*    def :meth:`textureImage<PySide.QtGui.QBrush.textureImage>` ()
+*    def :meth:`transform<PySide.QtGui.QBrush.transform>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QBrush` class defines the fill pattern of shapes drawn by :class:`PySide.QtGui.QPainter` .
+
+    A brush has a style, a color, a gradient and a texture.
+
+    The brush :meth:`PySide.QtGui.QBrush.style` defines the fill pattern using the :attr:`Qt.BrushStyle` enum. The default brush style is :attr:`Qt.NoBrush<Qt.BrushStyle>` (depending on how you construct a brush). This style tells the painter to not fill shapes. The standard style for filling is :attr:`Qt.SolidPattern<Qt.BrushStyle>` . The style can be set when the brush is created using the appropriate constructor, and in addition the :meth:`PySide.QtGui.QBrush.setStyle` function provides means for altering the style once the brush is constructed.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/brush-styles.png
+
+    The brush :meth:`PySide.QtGui.QBrush.color` defines the color of the fill pattern. The color can either be one of Qt's predefined colors, :attr:`Qt.GlobalColor` , or any other custom :class:`PySide.QtGui.QColor` . The currently set color can be retrieved and altered using the :meth:`PySide.QtGui.QBrush.color` and :meth:`PySide.QtGui.QBrush.setColor` functions, respectively.
+
+    The :meth:`PySide.QtGui.QBrush.gradient` defines the gradient fill used when the current style is either :attr:`Qt.LinearGradientPattern<Qt.BrushStyle>` , :attr:`Qt.RadialGradientPattern<Qt.BrushStyle>` or :attr:`Qt.ConicalGradientPattern<Qt.BrushStyle>` . Gradient brushes are created by giving a :class:`PySide.QtGui.QGradient` as a constructor argument when creating the :class:`PySide.QtGui.QBrush` . Qt provides three different gradients: :class:`PySide.QtGui.QLinearGradient` , :class:`PySide.QtGui.QConicalGradient` , and :class:`PySide.QtGui.QRadialGradient` - all of which inherit :class:`PySide.QtGui.QGradient` .
+
+    ::
+
+            gradient = QRadialGradient gradient(50, 50, 50, 50, 50)
+            gradient.setColorAt(0, QColor.fromRgbF(0, 1, 0, 1))
+            gradient.setColorAt(1, QColor.fromRgbF(0, 0, 0, 0))
+
+            brush = QBrush(gradient)
+
+
+    The :meth:`PySide.QtGui.QBrush.texture` defines the pixmap used when the current style is :attr:`Qt.TexturePattern<Qt.BrushStyle>` . You can create a brush with a texture by providing the pixmap when the brush is created or by using :meth:`PySide.QtGui.QBrush.setTexture` .
+
+    Note that applying :meth:`PySide.QtGui.QBrush.setTexture` makes :meth:`PySide.QtGui.QBrush.style` == :attr:`Qt.TexturePattern<Qt.BrushStyle>` , regardless of previous style settings. Also, calling :meth:`PySide.QtGui.QBrush.setColor` will not make a difference if the style is a gradient. The same is the case if the style is :attr:`Qt.TexturePattern<Qt.BrushStyle>` style unless the current texture is a :class:`PySide.QtGui.QBitmap` .
+
+    The :meth:`PySide.QtGui.QBrush.isOpaque` function returns true if the brush is fully opaque otherwise false. A brush is considered opaque if:
+
+
+    * The alpha component of the :meth:`PySide.QtGui.QBrush.color` is 255.
+    * Its :meth:`PySide.QtGui.QBrush.texture` does not have an alpha channel and is not a :class:`PySide.QtGui.QBitmap` .
+    * The colors in the :meth:`PySide.QtGui.QBrush.gradient` all have an alpha component that is 255.
+
+    +------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/brush-outline.png|To specify the style and color of lines and outlines, use the :class:`PySide.QtGui.QPainter` 's :class:`pen<PySide.QtGui.QPen>` combined with :attr:`Qt.PenStyle` and :attr:`Qt.GlobalColor` :                     |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |    ::                                                                                                                                                                                                             |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |        painter = QPainter(self)                                                                                                                                                                                   |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |        painter.setBrush(Qt.cyan)                                                                                                                                                                                  |
+    |                                                                                                |        painter.setPen(Qt.darkCyan)                                                                                                                                                                                |
+    |                                                                                                |        painter.drawRect(0, 0, 100,100)                                                                                                                                                                            |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |        painter.setBrush(Qt.NoBrush)                                                                                                                                                                               |
+    |                                                                                                |        painter.setPen(Qt.darkGreen)                                                                                                                                                                               |
+    |                                                                                                |        painter.drawRect(40, 40, 100, 100)                                                                                                                                                                         |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |                                                                                                                                                                                                                   |
+    |                                                                                                |    Note that, by default, :class:`PySide.QtGui.QPainter` renders the outline (using the currently set pen) when drawing shapes. Use ``painter.setPen(Qt::NoPen)`` :attr:` <Qt.PenStyle>` to disable this behavior.|
+    +------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    For more information about painting in general, see the :ref:`Paint System<paintsystem.html>` .
+
+    .. seealso::  :attr:`Qt.BrushStyle`  :class:`PySide.QtGui.QPainter`  :class:`PySide.QtGui.QColor` 
+
+.. class:: QBrush()
+           QBrush(bs)
+           QBrush(color[, bs=Qt.SolidPattern])
+           QBrush(color, pixmap)
+           QBrush(brush)
+           QBrush(color[, bs=Qt.SolidPattern])
+           QBrush(color, pixmap)
+           QBrush(gradient)
+           QBrush(image)
+           QBrush(pixmap)
+
+    :param bs: :attr:`PySide.QtCore.Qt.BrushStyle`
+    :param gradient: :class:`PySide.QtGui.QGradient`
+    :param brush: :class:`PySide.QtGui.QBrush`
+    :param image: :class:`PySide.QtGui.QImage`
+    :param color: :attr:`PySide.QtCore.Qt.GlobalColor`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+    Constructs a default black brush with the style :attr:`Qt.NoBrush<Qt.BrushStyle>` (i.e. this brush will not fill shapes).
+
+
+
+
+
+
+
+
+    Constructs a copy of ``other`` .
+
+
+
+
+    Constructs a brush with the given ``color`` and the custom pattern stored in ``pixmap`` .
+
+    The style is set to :attr:`Qt.TexturePattern<Qt.BrushStyle>` . The color will only have an effect for QBitmaps.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setColor`  :meth:`~PySide.QtGui.QBrush.setPixmap` 
+
+    Constructs a brush based on the given ``gradient`` .
+
+    The brush style is set to the corresponding gradient style (either :attr:`Qt.LinearGradientPattern<Qt.BrushStyle>` , :attr:`Qt.RadialGradientPattern<Qt.BrushStyle>` or :attr:`Qt.ConicalGradientPattern<Qt.BrushStyle>` ).
+
+
+    Constructs a brush with a black color and a texture set to the given ``image`` . The style is set to :attr:`Qt.TexturePattern<Qt.BrushStyle>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setTextureImage` 
+
+    Constructs a brush with a black color and a texture set to the given ``pixmap`` . The style is set to :attr:`Qt.TexturePattern<Qt.BrushStyle>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setTexture` 
+
+.. method:: PySide.QtGui.QBrush.color()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the brush color.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setColor` 
+
+
+.. method:: PySide.QtGui.QBrush.gradient()
+
+
+    :rtype: :class:`PySide.QtGui.QGradient`
+
+
+
+
+    Returns the gradient describing this brush.
+
+
+
+.. method:: PySide.QtGui.QBrush.init(color, bs)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+    :param bs: :attr:`PySide.QtCore.Qt.BrushStyle`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBrush.isOpaque()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the brush is fully opaque otherwise false. A brush is considered opaque if:
+
+
+    * The alpha component of the :meth:`PySide.QtGui.QBrush.color` is 255.
+    * Its :meth:`PySide.QtGui.QBrush.texture` does not have an alpha channel and is not a :class:`PySide.QtGui.QBitmap` .
+    * The colors in the :meth:`PySide.QtGui.QBrush.gradient` all have an alpha component that is 255.
+    * It is an extended radial gradient.
+
+
+
+.. method:: PySide.QtGui.QBrush.matrix()
+
+
+    :rtype: :class:`PySide.QtGui.QMatrix`
+
+
+
+
+    Returns the current transformation matrix for the brush.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setMatrix` 
+
+
+.. method:: PySide.QtGui.QBrush.__ne__(b)
+
+
+    :param b: :class:`PySide.QtGui.QBrush`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the brush is different from the given ``brush`` ; otherwise returns false.
+
+    Two brushes are different if they have different styles, colors or transforms or different pixmaps or gradients depending on the style.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.operator==` 
+
+
+.. method:: PySide.QtGui.QBrush.__eq__(b)
+
+
+    :param b: :class:`PySide.QtGui.QBrush`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the brush is equal to the given ``brush`` ; otherwise returns false.
+
+    Two brushes are equal if they have equal styles, colors and transforms and equal pixmaps or gradients depending on the style.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.operator!=` 
+
+
+.. method:: PySide.QtGui.QBrush.setColor(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Sets the brush color to the given ``color`` .
+
+    Note that calling :meth:`PySide.QtGui.QBrush.setColor` will not make a difference if the style is a gradient. The same is the case if the style is :attr:`Qt.TexturePattern<Qt.BrushStyle>` style unless the current texture is a :class:`PySide.QtGui.QBitmap` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.color` 
+
+
+.. method:: PySide.QtGui.QBrush.setColor(color)
+
+
+    :param color: :attr:`PySide.QtCore.Qt.GlobalColor`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBrush.setMatrix(mat)
+
+
+    :param mat: :class:`PySide.QtGui.QMatrix`
+
+
+
+
+    Sets ``matrix`` as an explicit transformation matrix on the current brush. The brush transformation matrix is merged with :class:`PySide.QtGui.QPainter` transformation matrix to produce the final result.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.matrix` 
+
+
+.. method:: PySide.QtGui.QBrush.setStyle(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.BrushStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QBrush.setTexture(pixmap)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets the brush pixmap to ``pixmap`` . The style is set to :attr:`Qt.TexturePattern<Qt.BrushStyle>` .
+
+    The current brush color will only have an effect for monochrome pixmaps, i.e. for :meth:`QPixmap.depth()<PySide.QtGui.QPixmap.depth>` == 1 ( :class:`QBitmaps<PySide.QtGui.QBitmap>` ).
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.texture` 
+
+
+.. method:: PySide.QtGui.QBrush.setTextureImage(image)
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Sets the brush image to ``image`` . The style is set to :attr:`Qt.TexturePattern<Qt.BrushStyle>` .
+
+    Note the current brush color will *not* have any affect on monochrome images, as opposed to calling :meth:`PySide.QtGui.QBrush.setTexture` with a :class:`PySide.QtGui.QBitmap` . If you want to change the color of monochrome image brushes, either convert the image to :class:`PySide.QtGui.QBitmap` with ``QBitmap::fromImage()`` and set the resulting :class:`PySide.QtGui.QBitmap` as a texture, or change the entries in the color table for the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.textureImage`  :meth:`PySide.QtGui.QBrush.setTexture` 
+
+
+.. method:: PySide.QtGui.QBrush.setTransform(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QTransform`
+
+
+
+
+    Sets ``matrix`` as an explicit transformation matrix on the current brush. The brush transformation matrix is merged with :class:`PySide.QtGui.QPainter` transformation matrix to produce the final result.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.transform` 
+
+
+.. method:: PySide.QtGui.QBrush.style()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.BrushStyle`
+
+
+
+
+    Returns the brush style.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setStyle` 
+
+
+.. method:: PySide.QtGui.QBrush.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Swaps brush ``other`` with this brush. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtGui.QBrush.texture()
+
+
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns the custom brush pattern, or a null pixmap if no custom brush pattern has been set.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setTexture` 
+
+
+.. method:: PySide.QtGui.QBrush.textureImage()
+
+
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns the custom brush pattern, or a null image if no custom brush pattern has been set.
+
+    If the texture was set as a :class:`PySide.QtGui.QPixmap` it will be converted to a :class:`PySide.QtGui.QImage` .
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setTextureImage` 
+
+
+.. method:: PySide.QtGui.QBrush.transform()
+
+
+    :rtype: :class:`PySide.QtGui.QTransform`
+
+
+
+
+    Returns the current transformation matrix for the brush.
+
+    .. seealso::  :meth:`PySide.QtGui.QBrush.setTransform` 
+
+
+

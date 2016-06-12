@@ -1,0 +1,225 @@
+.. module:: PySide.QtCore
+.. _QTranslator:
+
+QTranslator
+***********
+
+.. inheritance-diagram:: QTranslator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`load<PySide.QtCore.QTranslator.load>` (data)
+*    def :meth:`load<PySide.QtCore.QTranslator.load>` (filename[, directory=""[, search_delimiters=""[, suffix=""]]])
+*    def :meth:`load<PySide.QtCore.QTranslator.load>` (locale, filename[, prefix=""[, directory=""[, suffix=""]]])
+*    def :meth:`translate<PySide.QtCore.QTranslator.translate>` (context, sourceText, disambiguation, n)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isEmpty<PySide.QtCore.QTranslator.isEmpty>` ()
+*    def :meth:`translate<PySide.QtCore.QTranslator.translate>` (context, sourceText[, disambiguation=0])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTranslator` class provides internationalization support for text output.
+
+    An object of this class contains a set of translations from a source language to a target language. :class:`PySide.QtCore.QTranslator` provides functions to look up translations in a translation file. Translation files are created using :ref:`Qt Linguist<linguist-manual.html>` .
+
+    The most common use of :class:`PySide.QtCore.QTranslator` is to: load a translation file, install it using :meth:`QApplication.installTranslator()<PySide.QtGui.QApplication.installTranslator>` , and use it via :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` . Here's the ``main()`` function from the :ref:`Hello tr()<linguist/hellotr>` example:
+
+    ::
+
+        def main(args):
+
+            app = QApplication(args)
+
+
+
+            translator = QTranslator()
+
+            translator.load("hellotr_la")
+
+            app.installTranslator(translator)
+
+
+
+            hello = QPushButton(QPushButton.tr("Hello world!"))
+
+            hello.resize(100, 30)
+
+            hello.show()
+            return app.exec_()
+
+
+    Note that the translator must be created *before* the application's widgets.
+
+    Most applications will never need to do anything else with this class. The other functions provided by this class are useful for applications that work on translator files.
+
+    .. _PySide.QtCore.QTranslator_looking-up-translations:
+
+
+
+Looking up Translations
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    It is possible to look up a translation using :meth:`PySide.QtCore.QTranslator.translate` (as :meth:`~PySide.QtCore.QTranslator.tr` and :meth:`QApplication.translate()<PySide.QtGui.QApplication.translate>` do). The :meth:`PySide.QtCore.QTranslator.translate` function takes up to three parameters:
+
+
+    * The *context* - usually the class name for the :meth:`~PySide.QtCore.QTranslator.tr` caller.
+    * The *source text* - usually the argument to :meth:`~PySide.QtCore.QTranslator.tr` .
+    * The *disambiguation* - an optional string that helps disambiguate different uses of the same text in the same context.
+
+    For example, the "Cancel" in a dialog might have "Anuluj" when the program runs in Polish (in this case the source text would be "Cancel"). The context would (normally) be the dialog's class name; there would normally be no comment, and the translated text would be "Anuluj".
+
+    But it's not always so simple. The Spanish version of a printer dialog with settings for two-sided printing and binding would probably require both "Activado" and "Activada" as translations for "Enabled". In this case the source text would be "Enabled" in both cases, and the context would be the dialog's class name, but the two items would have disambiguations such as "two-sided printing" for one and "binding" for the other. The disambiguation enables the translator to choose the appropriate gender for the Spanish version, and enables Qt to distinguish between translations.
+
+    .. _PySide.QtCore.QTranslator_using-multiple-translations:
+
+
+
+Using Multiple Translations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Multiple translation files can be installed in an application. Translations are searched for in the reverse order in which they were installed, so the most recently installed translation file is searched for translations first and the earliest translation file is searched last. The search stops as soon as a translation containing a matching string is found.
+
+    This mechanism makes it possible for a specific translation to be "selected" or given priority over the others; simply uninstall the translator from the application by passing it to the :meth:`QApplication.removeTranslator()<PySide.QtGui.QApplication.removeTranslator>` function and reinstall it with :meth:`QApplication.installTranslator()<PySide.QtGui.QApplication.installTranslator>` . It will then be the first translation to be searched for matching strings.
+
+    .. seealso::  :meth:`QApplication.installTranslator()<PySide.QtGui.QApplication.installTranslator>`  :meth:`QApplication.removeTranslator()<PySide.QtGui.QApplication.removeTranslator>`  :meth:`QObject.tr()<PySide.QtCore.QObject.tr>`  :meth:`QApplication.translate()<PySide.QtGui.QApplication.translate>`  :ref:`I18N Example<tools/i18n>`  :ref:`Hello tr() Example<linguist/hellotr>`  :ref:`Arrow Pad Example<linguist/arrowpad>`  :ref:`Troll Print Example<linguist/trollprint>` 
+
+.. class:: QTranslator([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs an empty message file object with parent ``parent`` that is not connected to any file.
+
+
+.. method:: PySide.QtCore.QTranslator.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this translator is empty, otherwise returns false. This function works with stripped and unstripped translation files.
+
+
+
+.. method:: PySide.QtCore.QTranslator.load(filename[, directory=""[, search_delimiters=""[, suffix=""]]])
+
+
+    :param filename: unicode
+    :param directory: unicode
+    :param search_delimiters: unicode
+    :param suffix: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads ``filename`` + ``suffix`` (".qm" if the ``suffix`` is not specified), which may be an absolute file name or relative to ``directory`` . Returns true if the translation is successfully loaded; otherwise returns false.
+
+    If ``directory`` is not specified, the directory of the application's executable is used (i.e., as :meth:`PySide.QtCore.QCoreApplication.applicationDirPath` ).
+
+    The previous contents of this translator object are discarded.
+
+    If the file name does not exist, other file names are tried in the following order:
+
+    For example, an application running in the fr\_CA locale (French-speaking Canada) might call load("foo.fr\_ca", "/opt/foolib"). :meth:`PySide.QtCore.QTranslator.load` would then try to open the first existing readable file from this list:
+
+
+
+.. method:: PySide.QtCore.QTranslator.load(data)
+
+
+    :param data: :class:`PySide.QtCore.uchar`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QTranslator.load` .
+
+    Loads the QM file data ``data`` of length ``len`` into the translator.
+
+    The data is not copied. The caller must be able to guarantee that ``data`` will not be deleted or modified.
+
+
+
+.. method:: PySide.QtCore.QTranslator.load(locale, filename[, prefix=""[, directory=""[, suffix=""]]])
+
+
+    :param locale: :class:`PySide.QtCore.QLocale`
+    :param filename: unicode
+    :param prefix: unicode
+    :param directory: unicode
+    :param suffix: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Loads ``filename`` + ``prefix`` + :meth:`ui language name<PySide.QtCore.QLocale.uiLanguages>` + ``suffix`` (".qm" if the ``suffix`` is not specified), which may be an absolute file name or relative to ``directory`` . Returns true if the translation is successfully loaded; otherwise returns false.
+
+    The previous contents of this translator object are discarded.
+
+    If the file name does not exist, other file names are tried in the following order:
+
+    For example, an application running in the locale with the following :meth:`ui languages<PySide.QtCore.QLocale.uiLanguages>` - "es", "fr-CA", "de" might call load( :meth:`QLocale.system()<PySide.QtCore.QLocale.system>` , "foo", ".", "/opt/foolib", ".qm"). :meth:`PySide.QtCore.QTranslator.load` would replace '-' (dash) with ' :ref:`_<index.html>` ' (underscore) in the ui language and then try to open the first existing readable file from this list:
+
+    On operating systems where file system is case sensitive, :class:`PySide.QtCore.QTranslator` also tries to load a lower-cased version of the locale name.
+
+
+
+.. method:: PySide.QtCore.QTranslator.translate(context, sourceText[, disambiguation=0])
+
+
+    :param context: str
+    :param sourceText: str
+    :param disambiguation: str
+    :rtype: unicode
+
+
+
+
+    Returns the translation for the key (``context`` , ``sourceText`` , ``disambiguation`` ). If none is found, also tries (``context`` , ``sourceText`` , ""). If that still fails, returns an empty string.
+
+    If you need to programatically insert translations in to a :class:`PySide.QtCore.QTranslator` , this function can be reimplemented.
+
+    .. seealso::  :meth:`PySide.QtCore.QTranslator.load` 
+
+
+.. method:: PySide.QtCore.QTranslator.translate(context, sourceText, disambiguation, n)
+
+
+    :param context: str
+    :param sourceText: str
+    :param disambiguation: str
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QTranslator.translate` .
+
+    Returns the translation for the key (``context`` , ``sourceText`` , ``disambiguation`` ). If none is found, also tries (``context`` , ``sourceText`` , ""). If that still fails, returns an empty string.
+
+    If ``n`` is not -1, it is used to choose an appropriate form for the translation (e.g. "%n file found" vs. "%n files found").
+
+    .. seealso::  :meth:`PySide.QtCore.QTranslator.load` 
+
+
+

@@ -1,0 +1,341 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlName:
+
+QXmlName
+********
+
+.. inheritance-diagram:: QXmlName
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtXmlPatterns.QXmlName.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtXmlPatterns.QXmlName.__ne__>` (other)
+*    def :meth:`isNull<PySide.QtXmlPatterns.QXmlName.isNull>` ()
+*    def :meth:`localName<PySide.QtXmlPatterns.QXmlName.localName>` (query)
+*    def :meth:`namespaceUri<PySide.QtXmlPatterns.QXmlName.namespaceUri>` (query)
+*    def :meth:`prefix<PySide.QtXmlPatterns.QXmlName.prefix>` (query)
+*    def :meth:`toClarkName<PySide.QtXmlPatterns.QXmlName.toClarkName>` (query)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fromClarkName<PySide.QtXmlPatterns.QXmlName.fromClarkName>` (clarkName, namePool)
+*    def :meth:`isNCName<PySide.QtXmlPatterns.QXmlName.isNCName>` (candidate)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlName` class represents the name of an XML node, in an efficient, namespace-aware way.
+
+    :class:`PySide.QtXmlPatterns.QXmlName` represents the name of an XML node in a way that is both efficient and safe for comparing names. Normally, an XML node represents an XML element or attribute, but :class:`PySide.QtXmlPatterns.QXmlName` can also represent the names of other kinds of nodes, e.g., :meth:`QAbstractXmlReceiver.processingInstruction()<PySide.QtXmlPatterns.QAbstractXmlReceiver.processingInstruction>` and :meth:`QAbstractXmlReceiver.namespaceBinding()<PySide.QtXmlPatterns.QAbstractXmlReceiver.namespaceBinding>` .
+
+    The name of an XML node has three components: The *namespace URI* , the *local name* , and the *prefix* . To see what these refer to in XML, consider the following snippet.
+
+    ::
+
+        <book xmlns:dc='http://purl.org/dc/elements/1.1'
+              xmlns='http://example.com/MyDefault'>
+            <dc:title>Mobey Dick</dc:title> ...
+        </book>
+
+
+    For the element named *book* , :meth:`PySide.QtXmlPatterns.QXmlName.localName` returns *book* , :meth:`PySide.QtXmlPatterns.QXmlName.namespaceUri` returns *http://example.com/MyDefault* , and :meth:`PySide.QtXmlPatterns.QXmlName.prefix` returns an empty string. For the element named *title* , :meth:`PySide.QtXmlPatterns.QXmlName.localName` returns *title* , :meth:`PySide.QtXmlPatterns.QXmlName.namespaceUri` returns *http://purl.org/dc/elements/1.1* , and :meth:`PySide.QtXmlPatterns.QXmlName.prefix` returns *dc* .
+
+    To ensure that operations with :class:`PySide.QtXmlPatterns.QXmlName` are efficient, e.g., copying names and comparing them, each instance of :class:`PySide.QtXmlPatterns.QXmlName` is associated with a :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` , which must be specified at :class:`PySide.QtXmlPatterns.QXmlName` construction time. The three components of the :class:`PySide.QtXmlPatterns.QXmlName` , i.e., the namespace URI, the local name, and the prefix, are stored in the name pool mapped to identifiers so they can be shared. For this reason, the only way to create a valid instance of :class:`PySide.QtXmlPatterns.QXmlName` is to use the class constructor, where the :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` , local name, namespace URI, and prefix must all be specified.
+
+    Note that :class:`PySide.QtXmlPatterns.QXmlName` 's default constructor constructs a null instance. It is typically used for allocating unused entries in collections of :class:`PySide.QtXmlPatterns.QXmlName` .
+
+    A side effect of associating each instance of :class:`PySide.QtXmlPatterns.QXmlName` with a :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` is that each instance of :class:`PySide.QtXmlPatterns.QXmlName` is tied to the :class:`PySide.QtXmlPatterns.QXmlNamePool` with which it was created. However, the :class:`PySide.QtXmlPatterns.QXmlName` class does not keep track of the name pool, so all the accessor functions, e.g., :meth:`PySide.QtXmlPatterns.QXmlName.namespaceUri` , :meth:`PySide.QtXmlPatterns.QXmlName.prefix` , :meth:`PySide.QtXmlPatterns.QXmlName.localName` , and :meth:`PySide.QtXmlPatterns.QXmlName.toClarkName` require that the correct name pool be passed to them. Failure to provide the correct name pool to these accessor functions results in undefined behavior.
+
+    Note that a :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` is *not* an XML namespace. One :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` can represent instances of :class:`PySide.QtXmlPatterns.QXmlName` from different XML namespaces, and the instances of :class:`PySide.QtXmlPatterns.QXmlName` from one XML namespace can be distributed over multiple :class:`name pools<PySide.QtXmlPatterns.QXmlNamePool>` .
+
+    .. _PySide.QtXmlPatterns.QXmlName_comparing-qxmlnames:
+
+
+
+Comparing QXmlNames
+^^^^^^^^^^^^^^^^^^^
+
+    To determine what a :class:`PySide.QtXmlPatterns.QXmlName` refers to, the *namespace URI* and the *local name* are used. The *prefix* is not used because the prefix is simply a shorthand name for use in place of the normally much longer namespace URI. Nor is the prefix used in name comparisons. For example, the following two element nodes represent the same element and compare equal.
+
+    ::
+
+        <svg xmlns="http://www.w3.org/2000/svg"/>
+
+
+    ::
+
+        <x:svg xmlns:x="http://www.w3.org/2000/svg"/>
+
+
+    Although the second name has the prefix *x* , the two names compare equal as instances of :class:`PySide.QtXmlPatterns.QXmlName` , because the prefix is not used in the comparison.
+
+    A local name can never be an empty string, although the prefix and namespace URI can. If the prefix is not empty, the namespace URI cannot be empty. Local names and prefixes must be valid NCNames, e.g., *abc.def* or *abc123* .
+
+    :class:`PySide.QtXmlPatterns.QXmlName` represents what is sometimes called an *expanded QName* , or simply a QName.
+
+    .. seealso:: 
+
+.. class:: QXmlName()
+           QXmlName(namePool, localName[, namespaceURI=""[, prefix=""]])
+           QXmlName(QXmlName)
+
+    :param namespaceURI: unicode
+    :param prefix: unicode
+    :param namePool: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :param localName: unicode
+    :param QXmlName: :class:`PySide.QtXmlPatterns.QXmlName`
+
+    Constructs an uninitialized :class:`PySide.QtXmlPatterns.QXmlName` . To build a valid :class:`PySide.QtXmlPatterns.QXmlName` , you normally use the other constructor, which takes a :class:`name pool<PySide.QtXmlPatterns.QXmlNamePool>` , namespace URI, local name, and prefix as parameters. But you can also use this constructor to build a null :class:`PySide.QtXmlPatterns.QXmlName` and then assign an existing :class:`PySide.QtXmlPatterns.QXmlName` to it.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlName.isNull` 
+
+    Constructs a :class:`PySide.QtXmlPatterns.QXmlName` instance that inserts ``localName`` , ``namespaceURI`` and ``prefix`` into ``namePool`` if they aren't already there. The accessor functions :meth:`PySide.QtXmlPatterns.QXmlName.namespaceUri` , :meth:`PySide.QtXmlPatterns.QXmlName.prefix` , :meth:`PySide.QtXmlPatterns.QXmlName.localName` , and :meth:`PySide.QtXmlPatterns.QXmlName.toClarkName` must be passed the ``namePool`` used here, so the ``namePool`` must remain in scope while the accessor functions might be used. However, two instances can be compared with *==* or *!=* and copied without the ``namePool`` .
+
+    The user guarantees that the string components are valid for a QName. In particular, the local name, and the prefix (if present), must be valid NCNames. The function :meth:`PySide.QtXmlPatterns.QXmlName.isNCName` can be used to test validity of these names. The namespace URI should be an absolute URI. :meth:`QUrl.isRelative()<PySide.QtCore.QUrl.isRelative>` can be used to test whether the namespace URI is relative or absolute. Finally, providing a prefix is not valid when no namespace URI is provided.
+
+    ``namePool`` is not copied. Nor is the reference to it retained in this instance. This constructor inserts the three strings into ``namePool`` .
+
+
+
+
+
+.. attribute:: PySide.QtXmlPatterns.QXmlName.Constant
+
+    Various constants used in the :class:`QPatternist.NamePool` and :class:`PySide.QtXmlPatterns.QXmlName` .
+
+    Setting of the mask enums use essentially this:
+
+    ::
+
+        /****************************************************************************
+        **
+        ** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
+        ** Contact: http://www.qt-project.org/legal
+        **
+        ** This file is part of the documentation of the Qt Toolkit.
+        **
+        ** $QT_BEGIN_LICENSE:BSD$
+        ** You may use this file under the terms of the BSD license as follows:
+        **
+        ** "Redistribution and use in source and binary forms, with or without
+        ** modification, are permitted provided that the following conditions are
+        ** met:
+        **   * Redistributions of source code must retain the above copyright
+        **     notice, this list of conditions and the following disclaimer.
+        **   * Redistributions in binary form must reproduce the above copyright
+        **     notice, this list of conditions and the following disclaimer in
+        **     the documentation and/or other materials provided with the
+        **     distribution.
+        **   * Neither the name of Digia Plc and its Subsidiary(-ies) nor the names
+        **     of its contributors may be used to endorse or promote products derived
+        **     from this software without specific prior written permission.
+        **
+        **
+        ** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+        ** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+        ** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+        ** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+        ** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+        ** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+        ** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+        ** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        ** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        ** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+        **
+        ** $QT_END_LICENSE$
+        **
+        ****************************************************************************/
+
+        // Fills the bits from begin to end with 1s and leaves the rest as 0.
+
+        template<typename IntegralT>
+        inline IntegralT bitmask(IntegralT begin, IntegralT end)
+        {
+           IntegralT filled_bits = (1 << (end - begin + 1)) - 1;
+           return filled_bits << begin;
+        }
+
+
+    The masks, such as :attr:`LocalNameMask<QXmlName.Constant>` , are positive. That is, for the area which the name resides, the bits are set.
+
+
+.. staticmethod:: PySide.QtXmlPatterns.QXmlName.fromClarkName(clarkName, namePool)
+
+
+    :param clarkName: unicode
+    :param namePool: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    Converts ``clarkName`` into a :class:`PySide.QtXmlPatterns.QXmlName` , inserts into ``namePool`` , and returns it.
+
+    A clark name is a way to present a full QName with only one string, where the namespace cannot contain braces. Here are a couple of examples:
+
+    +-----------------------------------------+-------------------------------------------------------------------------+
+    |Clark Name                               |Description                                                              |
+    +-----------------------------------------+-------------------------------------------------------------------------+
+    |``html``\                                |The local name ``html`` , in no namespace                                |
+    +-----------------------------------------+-------------------------------------------------------------------------+
+    |``http://www.w3.org/1999/xhtml``\ html   |The local name ``html`` , in the XHTML namespace                         |
+    +-----------------------------------------+-------------------------------------------------------------------------+
+    |``http://www.w3.org/1999/xhtml``\ my:html|The local name ``html`` , in the XHTML namespace, with the prefix ``my``\|
+    +-----------------------------------------+-------------------------------------------------------------------------+
+
+    If the namespace contains braces, the returned value is either invalid or has undefined content.
+
+    If ``clarkName`` is an invalid name, a default constructed :class:`PySide.QtXmlPatterns.QXmlName` is returned.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlName.toClarkName` 
+
+
+.. staticmethod:: PySide.QtXmlPatterns.QXmlName.isNCName(candidate)
+
+
+    :param candidate: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``candidate`` is an ``NCName`` . An ``NCName`` is a string that can be used as a name in XML and :ref:`XQuery<xmlprocessing.html>` , e.g., the prefix or local name in an element or attribute, or the name of a variable.
+
+    .. seealso:: 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtXmlPatterns.QXmlName` is not initialized with a valid combination of *namespace URI* , *local name* , and *prefix* .
+
+    A valid local name is always required. The prefix and namespace URI can be empty, but if the prefix is not empty, the namespace URI must not be empty. Local names and prefixes must be valid NCNames, e.g., *abc.def* or *abc123* .
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.localName(query)
+
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :rtype: unicode
+
+
+
+
+    Returns the local name.
+
+    Note that for efficiency, the local name string is not stored in the :class:`PySide.QtXmlPatterns.QXmlName` but in the :class:`PySide.QtXmlPatterns.QXmlNamePool` that was passed to the constructor. Hence, that same ``namePool`` must be passed to this function, so it can be used for looking up the local name.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.namespaceUri(query)
+
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :rtype: unicode
+
+
+
+
+    Returns the namespace URI.
+
+    Note that for efficiency, the namespace URI string is not stored in the :class:`PySide.QtXmlPatterns.QXmlName` but in the :class:`PySide.QtXmlPatterns.QXmlNamePool` that was passed to the constructor. Hence, that same ``namePool`` must be passed to this function, so it can be used for looking up the namespace URI.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.__ne__(other)
+
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlName`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtXmlPatterns.QXmlName` is *not* equal to ``other`` ; otherwise false. Two QXmlNames are equal if their namespace URIs are the same *and* their local names are the same. They are not equal if either their namespace URIs differ or their local names differ. Their prefixes are ignored.
+
+    Note that it is meaningless to compare two instances of :class:`PySide.QtXmlPatterns.QXmlName` that were created with different :class:`name pools<PySide.QtXmlPatterns.QXmlNamePool>` , but the attempt is not detected and the behavior is undefined.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlName.operator==` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.__eq__(other)
+
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlName`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtXmlPatterns.QXmlName` is equal to ``other`` ; otherwise false. Two QXmlNames are equal if their namespace URIs are the same *and* their local names are the same. The prefixes are ignored.
+
+    Note that it is meaningless to compare two instances of :class:`PySide.QtXmlPatterns.QXmlName` that were created with different :class:`name pools<PySide.QtXmlPatterns.QXmlNamePool>` , but the attempt is not detected and the behavior is undefined.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlName.operator!=` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.prefix(query)
+
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :rtype: unicode
+
+
+
+
+    Returns the prefix.
+
+    Note that for efficiency, the prefix string is not stored in the :class:`PySide.QtXmlPatterns.QXmlName` but in the :class:`PySide.QtXmlPatterns.QXmlNamePool` that was passed to the constructor. Hence, that same ``namePool`` must be passed to this function, so it can be used for looking up the prefix.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlName.toClarkName(query)
+
+
+    :param query: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+    :rtype: unicode
+
+
+
+
+    Returns this :class:`PySide.QtXmlPatterns.QXmlName` formatted as a Clark Name. For example, if the local name is ``html`` , the prefix is ``x`` , and the namespace URI is ``http://www.w3.org/1999/xhtml/`` , then the Clark Name returned is:
+
+    ::
+
+                {http://www.w3.org/1999/xhtml/}x:html.
+
+
+    If the local name is *MyWidget* and the namespace is empty, the Clark Name returned is:
+
+    ::
+
+                MyWidget
+
+
+    Note that for efficiency, the namespace URI, local name, and prefix strings are not stored in the :class:`PySide.QtXmlPatterns.QXmlName` but in the :class:`PySide.QtXmlPatterns.QXmlNamePool` that was passed to the constructor. Hence, that same ``namePool`` must be passed to this function, so it can be used for looking up the three string components.
+
+    This function can be useful for debugging.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlName.fromClarkName` 
+
+
+

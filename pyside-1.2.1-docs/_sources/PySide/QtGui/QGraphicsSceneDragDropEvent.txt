@@ -1,0 +1,304 @@
+.. module:: PySide.QtGui
+.. _QGraphicsSceneDragDropEvent:
+
+QGraphicsSceneDragDropEvent
+***************************
+
+.. inheritance-diagram:: QGraphicsSceneDragDropEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`acceptProposedAction<PySide.QtGui.QGraphicsSceneDragDropEvent.acceptProposedAction>` ()
+*    def :meth:`buttons<PySide.QtGui.QGraphicsSceneDragDropEvent.buttons>` ()
+*    def :meth:`dropAction<PySide.QtGui.QGraphicsSceneDragDropEvent.dropAction>` ()
+*    def :meth:`mimeData<PySide.QtGui.QGraphicsSceneDragDropEvent.mimeData>` ()
+*    def :meth:`modifiers<PySide.QtGui.QGraphicsSceneDragDropEvent.modifiers>` ()
+*    def :meth:`pos<PySide.QtGui.QGraphicsSceneDragDropEvent.pos>` ()
+*    def :meth:`possibleActions<PySide.QtGui.QGraphicsSceneDragDropEvent.possibleActions>` ()
+*    def :meth:`proposedAction<PySide.QtGui.QGraphicsSceneDragDropEvent.proposedAction>` ()
+*    def :meth:`scenePos<PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos>` ()
+*    def :meth:`screenPos<PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos>` ()
+*    def :meth:`setButtons<PySide.QtGui.QGraphicsSceneDragDropEvent.setButtons>` (buttons)
+*    def :meth:`setDropAction<PySide.QtGui.QGraphicsSceneDragDropEvent.setDropAction>` (action)
+*    def :meth:`setModifiers<PySide.QtGui.QGraphicsSceneDragDropEvent.setModifiers>` (modifiers)
+*    def :meth:`setPos<PySide.QtGui.QGraphicsSceneDragDropEvent.setPos>` (pos)
+*    def :meth:`setPossibleActions<PySide.QtGui.QGraphicsSceneDragDropEvent.setPossibleActions>` (actions)
+*    def :meth:`setProposedAction<PySide.QtGui.QGraphicsSceneDragDropEvent.setProposedAction>` (action)
+*    def :meth:`setScenePos<PySide.QtGui.QGraphicsSceneDragDropEvent.setScenePos>` (pos)
+*    def :meth:`setScreenPos<PySide.QtGui.QGraphicsSceneDragDropEvent.setScreenPos>` (pos)
+*    def :meth:`source<PySide.QtGui.QGraphicsSceneDragDropEvent.source>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` class provides events for drag and drop in the graphics view framework.
+
+    :class:`PySide.QtGui.QGraphicsView` inherits the drag and drop functionality provided by :class:`PySide.QtGui.QWidget` . When it receives a drag and drop event, it translates it to a :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` .
+
+    :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` stores events of type :attr:`GraphicsSceneDragEnter<QEvent.Type>` , :attr:`GraphicsSceneDragLeave<QEvent.Type>` , :attr:`GraphicsSceneDragMove<QEvent.Type>` , or :attr:`GraphicsSceneDrop<QEvent.Type>` .
+
+    :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` contains the position of the mouse cursor in both item, scene, and screen coordinates; this can be retrieved with :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.pos` , :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos` , and :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos` .
+
+    The scene sends the event to the first :class:`PySide.QtGui.QGraphicsItem` under the mouse cursor that accepts drops; a graphics item is set to accept drops with :meth:`PySide.QtGui.QGraphicsItem.setAcceptDrops` .
+
+
+.. class:: QGraphicsSceneDragDropEvent([type=None])
+
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+    Constructs a new :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` of the specified ``type`` . The type can be either :attr:`QEvent.GraphicsSceneDragEnter<QEvent.Type>` , :attr:`QEvent.GraphicsSceneDragLeave<QEvent.Type>` , :attr:`QEvent.GraphicsSceneDragMove<QEvent.Type>` , or :attr:`QEvent.GraphicsSceneDrop<QEvent.Type>` .
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.acceptProposedAction()
+
+
+
+
+
+
+    Sets the proposed action as accepted, i.e, the drop action is set to the proposed action. This is equal to:
+
+    ::
+
+
+        setDropAction(proposedAction())
+
+
+
+    When using this function, one should not call ``accept()`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.dropAction`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setDropAction`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.proposedAction` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.buttons()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+
+    Returns a :class:`Qt.MouseButtons` value indicating which buttons were pressed on the mouse when this mouse event was generated.
+
+    .. seealso::  :class:`Qt.MouseButtons` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.dropAction()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+    Returns the action that was performed in this drag and drop. This should be set by the receiver of the drop and is returned by :meth:`QDrag.exec()<PySide.QtGui.QDrag.exec>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setDropAction`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.acceptProposedAction` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.mimeData()
+
+
+    :rtype: :class:`PySide.QtCore.QMimeData`
+
+
+
+
+    This function returns the MIME data of the event.
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.modifiers()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+
+
+
+
+    Returns the keyboard modifiers that were pressed when the drag and drop event was created.
+
+    .. seealso::  :class:`Qt.KeyboardModifiers` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.pos()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the mouse position of the event relative to the view that sent the event.
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsView`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.possibleActions()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.DropActions`
+
+
+
+
+    Returns the possible drop actions that the drag and drop can result in.
+
+    .. seealso::  :class:`Qt.DropActions` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.proposedAction()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+    Returns the drop action that is proposed, i.e., preferred. The action must be one of the possible actions as defined by ``possibleActions()`` .
+
+    .. seealso::  :attr:`Qt.DropAction`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.possibleActions` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the position of the mouse in scene coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.pos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos()
+
+
+    :rtype: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Returns the position of the mouse relative to the screen.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.pos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setButtons(buttons)
+
+
+    :param buttons: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setDropAction(action)
+
+
+    :param action: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setModifiers(modifiers)
+
+
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setPos(pos)
+
+
+    :param pos: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the position of the mouse to ``pos`` ; this should be relative to the widget that generated the event, which normally is a :class:`PySide.QtGui.QGraphicsView` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.pos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setScenePos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setScreenPos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setPossibleActions(actions)
+
+
+    :param actions: :class:`PySide.QtCore.Qt.DropActions`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setProposedAction(action)
+
+
+    :param action: :attr:`PySide.QtCore.Qt.DropAction`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setScenePos(pos)
+
+
+    :param pos: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Sets the scene position of the mouse to ``pos`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.scenePos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setScreenPos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setPos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.setScreenPos(pos)
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+
+
+
+
+    Sets the mouse position relative to the screen to ``pos`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.screenPos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setScenePos`  :meth:`PySide.QtGui.QGraphicsSceneDragDropEvent.setPos` 
+
+
+.. method:: PySide.QtGui.QGraphicsSceneDragDropEvent.source()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    This function returns the :class:`PySide.QtGui.QGraphicsView` that created the :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` .
+
+
+
+

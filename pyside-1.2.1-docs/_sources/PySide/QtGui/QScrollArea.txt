@@ -1,0 +1,221 @@
+.. module:: PySide.QtGui
+.. _QScrollArea:
+
+QScrollArea
+***********
+
+.. inheritance-diagram:: QScrollArea
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QScrollArea.alignment>` ()
+*    def :meth:`ensureVisible<PySide.QtGui.QScrollArea.ensureVisible>` (x, y[, xmargin=50[, ymargin=50]])
+*    def :meth:`ensureWidgetVisible<PySide.QtGui.QScrollArea.ensureWidgetVisible>` (childWidget[, xmargin=50[, ymargin=50]])
+*    def :meth:`setAlignment<PySide.QtGui.QScrollArea.setAlignment>` (arg__1)
+*    def :meth:`setWidget<PySide.QtGui.QScrollArea.setWidget>` (widget)
+*    def :meth:`setWidgetResizable<PySide.QtGui.QScrollArea.setWidgetResizable>` (resizable)
+*    def :meth:`takeWidget<PySide.QtGui.QScrollArea.takeWidget>` ()
+*    def :meth:`widget<PySide.QtGui.QScrollArea.widget>` ()
+*    def :meth:`widgetResizable<PySide.QtGui.QScrollArea.widgetResizable>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QScrollArea` class provides a scrolling view onto another widget.
+
+    A scroll area is used to display the contents of a child widget within a frame. If the widget exceeds the size of the frame, the view can provide scroll bars so that the entire area of the child widget can be viewed. The child widget must be specified with :meth:`PySide.QtGui.QScrollArea.setWidget` . For example:
+
+    ::
+
+        imageLabel = QLabel()
+        image = QImage("happyguy.png")
+        imageLabel.setPixmap(QPixmap.fromImage(image))
+
+        scrollArea = QScrollArea()
+        scrollArea.setBackgroundRole(QPalette.Dark)
+        scrollArea.setWidget(imageLabel)
+
+
+    The code above creates a scroll area (shown in the images below) containing an image label. When scaling the image, the scroll area can provide the necessary scroll bars:
+
+    +-----------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qscrollarea-noscrollbars.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qscrollarea-onescrollbar.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qscrollarea-twoscrollbars.png|
+    +-----------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+    The scroll bars appearance depends on the currently set :attr:`scroll bar policies<Qt.ScrollBarPolicy>` . You can control the appearance of the scroll bars using the inherited functionality from :class:`PySide.QtGui.QAbstractScrollArea` .
+
+    For example, you can set the :meth:`QAbstractScrollArea.horizontalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.horizontalScrollBarPolicy>` and :meth:`QAbstractScrollArea.verticalScrollBarPolicy<PySide.QtGui.QAbstractScrollArea.verticalScrollBarPolicy>` properties. Or if you want the scroll bars to adjust dynamically when the contents of the scroll area changes, you can use the :meth:`PySide.QtGui.QAbstractScrollArea.horizontalScrollBar` and :meth:`PySide.QtGui.QAbstractScrollArea.verticalScrollBar` functions (which enable you to access the scroll bars) and set the scroll bars' values whenever the scroll area's contents change, using the :meth:`QScrollBar.setValue()<PySide.QtGui.QScrollBar.setValue>` function.
+
+    You can retrieve the child widget using the :meth:`PySide.QtGui.QScrollArea.widget` function. The view can be made to be resizable with the :meth:`PySide.QtGui.QScrollArea.setWidgetResizable` function. The alignment of the widget can be specified with :meth:`PySide.QtGui.QScrollArea.setAlignment` .
+
+    Two convenience functions :meth:`PySide.QtGui.QScrollArea.ensureVisible` and :meth:`PySide.QtGui.QScrollArea.ensureWidgetVisible` ensure a certain region of the contents is visible inside the viewport, by scrolling the contents if necessary.
+
+    .. _PySide.QtGui.QScrollArea_size-hints-and-layouts:
+
+
+
+Size Hints and Layouts
+^^^^^^^^^^^^^^^^^^^^^^
+
+    When using a scroll area to display the contents of a custom widget, it is important to ensure that the :meth:`size hint<PySide.QtGui.QWidget.sizeHint>` of the child widget is set to a suitable value. If a standard :class:`PySide.QtGui.QWidget` is used for the child widget, it may be necessary to call :meth:`QWidget.setMinimumSize()<PySide.QtGui.QWidget.setMinimumSize>` to ensure that the contents of the widget are shown correctly within the scroll area.
+
+    If a scroll area is used to display the contents of a widget that contains child widgets arranged in a layout, it is important to realize that the size policy of the layout will also determine the size of the widget. This is especially useful to know if you intend to dynamically change the contents of the layout. In such cases, setting the layout's :meth:`size constraint<PySide.QtGui.QLayout.sizeConstraint>` property to one which provides constraints on the minimum and/or maximum size of the layout (e.g., :attr:`QLayout.SetMinAndMaxSize<QLayout.SizeConstraint>` ) will cause the size of the scroll area to be updated whenever the contents of the layout changes.
+
+    For a complete example using the :class:`PySide.QtGui.QScrollArea` class, see the :ref:`Image Viewer<widgets/imageviewer>` example. The example shows how to combine :class:`PySide.QtGui.QLabel` and :class:`PySide.QtGui.QScrollArea` to display an image.
+
+    .. seealso::  :class:`PySide.QtGui.QAbstractScrollArea`  :class:`PySide.QtGui.QScrollBar`  :ref:`Image Viewer Example<widgets/imageviewer>` 
+
+.. class:: QScrollArea([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an empty scroll area with the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QScrollArea.setWidget` 
+
+.. method:: PySide.QtGui.QScrollArea.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the scroll area's widget.
+
+    By default, the widget stays rooted to the top-left corner of the scroll area.
+
+
+
+.. method:: PySide.QtGui.QScrollArea.ensureVisible(x, y[, xmargin=50[, ymargin=50]])
+
+
+    :param x: :class:`PySide.QtCore.int`
+    :param y: :class:`PySide.QtCore.int`
+    :param xmargin: :class:`PySide.QtCore.int`
+    :param ymargin: :class:`PySide.QtCore.int`
+
+
+
+
+    Scrolls the contents of the scroll area so that the point (``x`` , ``y`` ) is visible inside the region of the viewport with margins specified in pixels by ``xmargin`` and ``ymargin`` . If the specified point cannot be reached, the contents are scrolled to the nearest valid position. The default value for both margins is 50 pixels.
+
+
+
+.. method:: PySide.QtGui.QScrollArea.ensureWidgetVisible(childWidget[, xmargin=50[, ymargin=50]])
+
+
+    :param childWidget: :class:`PySide.QtGui.QWidget`
+    :param xmargin: :class:`PySide.QtCore.int`
+    :param ymargin: :class:`PySide.QtCore.int`
+
+
+
+
+    Scrolls the contents of the scroll area so that the ``childWidget`` of :meth:`QScrollArea.widget()<PySide.QtGui.QScrollArea.widget>` is visible inside the viewport with margins specified in pixels by ``xmargin`` and ``ymargin`` . If the specified point cannot be reached, the contents are scrolled to the nearest valid position. The default value for both margins is 50 pixels.
+
+
+
+.. method:: PySide.QtGui.QScrollArea.setAlignment(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the scroll area's widget.
+
+    By default, the widget stays rooted to the top-left corner of the scroll area.
+
+
+
+.. method:: PySide.QtGui.QScrollArea.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the scroll area's ``widget`` .
+
+    The ``widget`` becomes a child of the scroll area, and will be destroyed when the scroll area is deleted or when a new widget is set.
+
+    The widget's :meth:`autoFillBackground<PySide.QtGui.QWidget.setAutoFillBackground>` property will be set to ``true`` .
+
+    If the scroll area is visible when the ``widget`` is added, you must :meth:`PySide.QtGui.QWidget.show` it explicitly.
+
+    Note that You must add the layout of ``widget`` before you call this function; if you add it later, the ``widget`` will not be visible - regardless of when you :meth:`PySide.QtGui.QWidget.show` the scroll area. In this case, you can also not :meth:`PySide.QtGui.QWidget.show` the ``widget`` later.
+
+    .. seealso::  :meth:`PySide.QtGui.QScrollArea.widget` 
+
+
+.. method:: PySide.QtGui.QScrollArea.setWidgetResizable(resizable)
+
+
+    :param resizable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the scroll area should resize the view widget.
+
+    If this property is set to false (the default), the scroll area honors the size of its widget. Regardless of this property, you can programmatically resize the widget using :meth:`PySide.QtGui.QScrollArea.widget` -> :meth:`PySide.QtGui.QWidget.resize` , and the scroll area will automatically adjust itself to the new size.
+
+    If this property is set to true, the scroll area will automatically resize the widget in order to avoid scroll bars where they can be avoided, or to take advantage of extra space.
+
+
+
+.. method:: PySide.QtGui.QScrollArea.takeWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Removes the scroll area's widget, and passes ownership of the widget to the caller.
+
+    .. seealso::  :meth:`PySide.QtGui.QScrollArea.widget` 
+
+
+.. method:: PySide.QtGui.QScrollArea.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the scroll area's widget, or 0 if there is none.
+
+    .. seealso::  :meth:`PySide.QtGui.QScrollArea.setWidget` 
+
+
+.. method:: PySide.QtGui.QScrollArea.widgetResizable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the scroll area should resize the view widget.
+
+    If this property is set to false (the default), the scroll area honors the size of its widget. Regardless of this property, you can programmatically resize the widget using :meth:`PySide.QtGui.QScrollArea.widget` -> :meth:`PySide.QtGui.QWidget.resize` , and the scroll area will automatically adjust itself to the new size.
+
+    If this property is set to true, the scroll area will automatically resize the widget in order to avoid scroll bars where they can be avoided, or to take advantage of extra space.
+
+
+
+

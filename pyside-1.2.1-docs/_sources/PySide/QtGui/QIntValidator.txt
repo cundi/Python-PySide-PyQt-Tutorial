@@ -1,0 +1,172 @@
+.. module:: PySide.QtGui
+.. _QIntValidator:
+
+QIntValidator
+*************
+
+.. inheritance-diagram:: QIntValidator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bottom<PySide.QtGui.QIntValidator.bottom>` ()
+*    def :meth:`setBottom<PySide.QtGui.QIntValidator.setBottom>` (arg__1)
+*    def :meth:`setTop<PySide.QtGui.QIntValidator.setTop>` (arg__1)
+*    def :meth:`top<PySide.QtGui.QIntValidator.top>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`setRange<PySide.QtGui.QIntValidator.setRange>` (bottom, top)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QIntValidator` class provides a validator that ensures a string contains a valid integer within a specified range.
+
+    Example of use:
+
+    ::
+
+        validator = QIntValidator(100, 999, self)
+        edit = QLineEdit(self)
+
+        # the edit lineedit will only accept integers between 100 and 999
+        edit.setValidator(validator)
+
+
+    Below we present some examples of validators. In practice they would normally be associated with a widget as in the example above.
+
+    ::
+
+        pos = 0
+        v = QIntValidator(100, 900, self)
+
+        str = "1"
+        v.validate(str, pos)     # returns Intermediate
+        str = "012"
+        v.validate(str, pos)     # returns Intermediate
+
+        str = "123"
+        v.validate(str, pos)     # returns Acceptable
+        str = "678"
+        v.validate(str, pos)     # returns Acceptable
+
+        str = "999"
+        v.validate(str, pos)    # returns Intermediate
+
+        str = "1234"
+        v.validate(str, pos)     # returns Invalid
+        str = "-123"
+        v.validate(str, pos)     # returns Invalid
+        str = "abc"
+        v.validate(str, pos)     # returns Invalid
+        str = "12cm"
+        v.validate(str, pos)     # returns Invalid
+
+
+    Notice that the value ``999`` returns Intermediate. Values consisting of a number of digits equal to or less than the max value are considered intermediate. This is intended because the digit that prevents a number to be in range is not necessarily the last digit typed. This also means that an intermediate number can have leading zeros.
+
+    The minimum and maximum values are set in one call with :meth:`PySide.QtGui.QIntValidator.setRange` , or individually with :meth:`PySide.QtGui.QIntValidator.setBottom` and :meth:`PySide.QtGui.QIntValidator.setTop` .
+
+    :class:`PySide.QtGui.QIntValidator` uses its :meth:`PySide.QtGui.QValidator.locale` to interpret the number. For example, in Arabic locales, :class:`PySide.QtGui.QIntValidator` will accept Arabic digits. In addition, :class:`PySide.QtGui.QIntValidator` is always guaranteed to accept a number formatted according to the "C" locale.
+
+    .. seealso::  :class:`PySide.QtGui.QDoubleValidator`  :class:`PySide.QtGui.QRegExpValidator`  :ref:`Line Edits Example<widgets/lineedits>` 
+
+.. class:: QIntValidator([parent=None])
+           QIntValidator(bottom, top[, parent=None])
+
+    :param bottom: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param top: :class:`PySide.QtCore.int`
+
+    Constructs a validator with a ``parent`` object that accepts all integers.
+
+
+    Constructs a validator with a ``parent`` , that accepts integers from ``minimum`` to ``maximum`` inclusive.
+
+
+.. method:: PySide.QtGui.QIntValidator.bottom()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the validator's lowest acceptable value.
+
+    By default, this property's value is derived from the lowest signed integer available (typically -2147483647).
+
+    .. seealso::  :meth:`PySide.QtGui.QIntValidator.setRange` 
+
+
+.. method:: PySide.QtGui.QIntValidator.setBottom(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the validator's lowest acceptable value.
+
+    By default, this property's value is derived from the lowest signed integer available (typically -2147483647).
+
+    .. seealso::  :meth:`PySide.QtGui.QIntValidator.setRange` 
+
+
+.. method:: PySide.QtGui.QIntValidator.setRange(bottom, top)
+
+
+    :param bottom: :class:`PySide.QtCore.int`
+    :param top: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the range of the validator to only accept integers between ``bottom`` and ``top`` inclusive.
+
+
+
+.. method:: PySide.QtGui.QIntValidator.setTop(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the validator's highest acceptable value.
+
+    By default, this property's value is derived from the highest signed integer available (typically 2147483647).
+
+    .. seealso::  :meth:`PySide.QtGui.QIntValidator.setRange` 
+
+
+.. method:: PySide.QtGui.QIntValidator.top()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the validator's highest acceptable value.
+
+    By default, this property's value is derived from the highest signed integer available (typically 2147483647).
+
+    .. seealso::  :meth:`PySide.QtGui.QIntValidator.setRange` 
+
+
+

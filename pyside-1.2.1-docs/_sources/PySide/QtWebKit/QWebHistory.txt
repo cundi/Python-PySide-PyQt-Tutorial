@@ -1,0 +1,272 @@
+.. module:: PySide.QtWebKit
+.. _QWebHistory:
+
+QWebHistory
+***********
+
+.. inheritance-diagram:: QWebHistory
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`back<PySide.QtWebKit.QWebHistory.back>` ()
+*    def :meth:`backItem<PySide.QtWebKit.QWebHistory.backItem>` ()
+*    def :meth:`backItems<PySide.QtWebKit.QWebHistory.backItems>` (maxItems)
+*    def :meth:`canGoBack<PySide.QtWebKit.QWebHistory.canGoBack>` ()
+*    def :meth:`canGoForward<PySide.QtWebKit.QWebHistory.canGoForward>` ()
+*    def :meth:`clear<PySide.QtWebKit.QWebHistory.clear>` ()
+*    def :meth:`count<PySide.QtWebKit.QWebHistory.count>` ()
+*    def :meth:`currentItem<PySide.QtWebKit.QWebHistory.currentItem>` ()
+*    def :meth:`currentItemIndex<PySide.QtWebKit.QWebHistory.currentItemIndex>` ()
+*    def :meth:`forward<PySide.QtWebKit.QWebHistory.forward>` ()
+*    def :meth:`forwardItem<PySide.QtWebKit.QWebHistory.forwardItem>` ()
+*    def :meth:`forwardItems<PySide.QtWebKit.QWebHistory.forwardItems>` (maxItems)
+*    def :meth:`goToItem<PySide.QtWebKit.QWebHistory.goToItem>` (item)
+*    def :meth:`itemAt<PySide.QtWebKit.QWebHistory.itemAt>` (i)
+*    def :meth:`items<PySide.QtWebKit.QWebHistory.items>` ()
+*    def :meth:`maximumItemCount<PySide.QtWebKit.QWebHistory.maximumItemCount>` ()
+*    def :meth:`setMaximumItemCount<PySide.QtWebKit.QWebHistory.setMaximumItemCount>` (count)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebHistory` class represents the history of a :class:`PySide.QtWebKit.QWebPage`
+
+    Each :class:`PySide.QtWebKit.QWebPage` instance contains a history of visited pages that can be accessed by :meth:`QWebPage.history()<PySide.QtWebKit.QWebPage.history>` . :class:`PySide.QtWebKit.QWebHistory` represents this history and makes it possible to navigate it.
+
+    The history uses the concept of a *current item* , dividing the pages visited into those that can be visited by navigating *back* and *forward* using the :meth:`PySide.QtWebKit.QWebHistory.back` and :meth:`PySide.QtWebKit.QWebHistory.forward` functions. The current item can be obtained by calling :meth:`PySide.QtWebKit.QWebHistory.currentItem` , and an arbitrary item in the history can be made the current item by passing it to :meth:`PySide.QtWebKit.QWebHistory.goToItem` .
+
+    A list of items describing the pages that can be visited by going back can be obtained by calling the :meth:`PySide.QtWebKit.QWebHistory.backItems` function; similarly, items describing the pages ahead of the current page can be obtained with the :meth:`PySide.QtWebKit.QWebHistory.forwardItems` function. The total list of items is obtained with the :meth:`PySide.QtWebKit.QWebHistory.items` function.
+
+    Just as with containers, functions are available to examine the history in terms of a list. Arbitrary items in the history can be obtained with :meth:`PySide.QtWebKit.QWebHistory.itemAt` , the total number of items is given by :meth:`PySide.QtWebKit.QWebHistory.count` , and the history can be cleared with the :meth:`PySide.QtWebKit.QWebHistory.clear` function.
+
+    :class:`PySide.QtWebKit.QWebHistory` 's state can be saved to a :class:`PySide.QtCore.QDataStream` using the >> operator and loaded by using the << operator.
+
+    .. seealso::  :class:`PySide.QtWebKit.QWebHistoryItem`  :class:`PySide.QtWebKit.QWebHistoryInterface`  :class:`PySide.QtWebKit.QWebPage` 
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.back()
+
+
+
+
+
+
+    Set the current item to be the previous item in the history and goes to the corresponding page; i.e., goes back one history item.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.forward`  :meth:`PySide.QtWebKit.QWebHistory.goToItem` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.backItem()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebHistoryItem`
+
+
+
+
+    Returns the item before the current item in the history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.backItems(maxItems)
+
+
+    :param maxItems: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Returns the list of items in the backwards history list. At most ``maxItems`` entries are returned.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.forwardItems` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.canGoBack()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is an item preceding the current item in the history; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.canGoForward` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.canGoForward()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if we have an item to go forward to; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.canGoBack` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.clear()
+
+
+
+
+
+
+    Clears the history.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.count`  :meth:`PySide.QtWebKit.QWebHistory.items` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the total number of items in the history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.currentItem()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebHistoryItem`
+
+
+
+
+    Returns the current item in the history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.currentItemIndex()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the current item in history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.forward()
+
+
+
+
+
+
+    Sets the current item to be the next item in the history and goes to the corresponding page; i.e., goes forward one history item.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.back`  :meth:`PySide.QtWebKit.QWebHistory.goToItem` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.forwardItem()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebHistoryItem`
+
+
+
+
+    Returns the item after the current item in the history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.forwardItems(maxItems)
+
+
+    :param maxItems: :class:`PySide.QtCore.int`
+    :rtype: 
+
+
+
+
+    Returns the list of items in the forward history list. At most ``maxItems`` entries are returned.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.backItems` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.goToItem(item)
+
+
+    :param item: :class:`PySide.QtWebKit.QWebHistoryItem`
+
+
+
+
+    Sets the current item to be the specified ``item`` in the history and goes to the page.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.back`  :meth:`PySide.QtWebKit.QWebHistory.forward` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.itemAt(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtWebKit.QWebHistoryItem`
+
+
+
+
+    Returns the item at index ``i`` in the history.
+
+
+
+.. method:: PySide.QtWebKit.QWebHistory.items()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all items currently in the history.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.count`  :meth:`PySide.QtWebKit.QWebHistory.clear` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.maximumItemCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the maximum number of items in the history.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.setMaximumItemCount` 
+
+
+.. method:: PySide.QtWebKit.QWebHistory.setMaximumItemCount(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the maximum number of items in the history to ``count`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebHistory.maximumItemCount` 
+
+
+

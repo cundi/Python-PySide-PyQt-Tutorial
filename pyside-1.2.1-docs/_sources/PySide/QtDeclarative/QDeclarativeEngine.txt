@@ -1,0 +1,521 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeEngine:
+
+QDeclarativeEngine
+******************
+
+.. inheritance-diagram:: QDeclarativeEngine
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addImageProvider<PySide.QtDeclarative.QDeclarativeEngine.addImageProvider>` (id, arg__2)
+*    def :meth:`addImportPath<PySide.QtDeclarative.QDeclarativeEngine.addImportPath>` (dir)
+*    def :meth:`addPluginPath<PySide.QtDeclarative.QDeclarativeEngine.addPluginPath>` (dir)
+*    def :meth:`baseUrl<PySide.QtDeclarative.QDeclarativeEngine.baseUrl>` ()
+*    def :meth:`clearComponentCache<PySide.QtDeclarative.QDeclarativeEngine.clearComponentCache>` ()
+*    def :meth:`imageProvider<PySide.QtDeclarative.QDeclarativeEngine.imageProvider>` (id)
+*    def :meth:`importPathList<PySide.QtDeclarative.QDeclarativeEngine.importPathList>` ()
+*    def :meth:`importPlugin<PySide.QtDeclarative.QDeclarativeEngine.importPlugin>` (filePath, uri)
+*    def :meth:`networkAccessManager<PySide.QtDeclarative.QDeclarativeEngine.networkAccessManager>` ()
+*    def :meth:`networkAccessManagerFactory<PySide.QtDeclarative.QDeclarativeEngine.networkAccessManagerFactory>` ()
+*    def :meth:`offlineStoragePath<PySide.QtDeclarative.QDeclarativeEngine.offlineStoragePath>` ()
+*    def :meth:`outputWarningsToStandardError<PySide.QtDeclarative.QDeclarativeEngine.outputWarningsToStandardError>` ()
+*    def :meth:`pluginPathList<PySide.QtDeclarative.QDeclarativeEngine.pluginPathList>` ()
+*    def :meth:`removeImageProvider<PySide.QtDeclarative.QDeclarativeEngine.removeImageProvider>` (id)
+*    def :meth:`rootContext<PySide.QtDeclarative.QDeclarativeEngine.rootContext>` ()
+*    def :meth:`setBaseUrl<PySide.QtDeclarative.QDeclarativeEngine.setBaseUrl>` (arg__1)
+*    def :meth:`setImportPathList<PySide.QtDeclarative.QDeclarativeEngine.setImportPathList>` (paths)
+*    def :meth:`setNetworkAccessManagerFactory<PySide.QtDeclarative.QDeclarativeEngine.setNetworkAccessManagerFactory>` (arg__1)
+*    def :meth:`setOfflineStoragePath<PySide.QtDeclarative.QDeclarativeEngine.setOfflineStoragePath>` (dir)
+*    def :meth:`setOutputWarningsToStandardError<PySide.QtDeclarative.QDeclarativeEngine.setOutputWarningsToStandardError>` (arg__1)
+*    def :meth:`setPluginPathList<PySide.QtDeclarative.QDeclarativeEngine.setPluginPathList>` (paths)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`quit<PySide.QtDeclarative.QDeclarativeEngine.quit>` ()
+*    def :meth:`warnings<PySide.QtDeclarative.QDeclarativeEngine.warnings>` (warnings)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`contextForObject<PySide.QtDeclarative.QDeclarativeEngine.contextForObject>` (arg__1)
+*    def :meth:`objectOwnership<PySide.QtDeclarative.QDeclarativeEngine.objectOwnership>` (arg__1)
+*    def :meth:`setContextForObject<PySide.QtDeclarative.QDeclarativeEngine.setContextForObject>` (arg__1, arg__2)
+*    def :meth:`setObjectOwnership<PySide.QtDeclarative.QDeclarativeEngine.setObjectOwnership>` (arg__1, arg__2)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeEngine` class provides an environment for instantiating QML components.
+
+    Each QML component is instantiated in a :class:`PySide.QtDeclarative.QDeclarativeContext` . :class:`PySide.QtDeclarative.QDeclarativeContext` 's are essential for passing data to QML components. In QML, contexts are arranged hierarchically and this hierarchy is managed by the :class:`PySide.QtDeclarative.QDeclarativeEngine` .
+
+    Prior to creating any QML components, an application must have created a :class:`PySide.QtDeclarative.QDeclarativeEngine` to gain access to a QML context. The following example shows how to create a simple Text item.
+
+    ::
+
+                QDeclarativeEngine engine;
+                QDeclarativeComponent component(&engine);
+                component.setData("import QtQuick 1.0\nText { text: \"Hello world!\" }", QUrl());
+                QDeclarativeItem *item = qobject_cast<QDeclarativeItem *>(component.create());
+                
+                //add item to view, etc
+                ...
+
+
+    In this case, the Text item will be created in the engine's :meth:`root context<PySide.QtDeclarative.QDeclarativeEngine.rootContext>` .
+
+    .. seealso::  :class:`PySide.QtDeclarative.QDeclarativeComponent`  :class:`PySide.QtDeclarative.QDeclarativeContext` 
+
+.. class:: QDeclarativeEngine([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Create a new :class:`PySide.QtDeclarative.QDeclarativeEngine` with the given ``parent`` .
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeEngine.ObjectOwnership
+
+    Ownership controls whether or not QML automatically destroys the :class:`PySide.QtCore.QObject` when the object is garbage collected by the JavaScript engine. The two ownership options are:
+
+    +--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                              |Description                                                                                                                                                                                                                                                                                                                                                                           |
+    +======================================+======================================================================================================================================================================================================================================================================================================================================================================================+
+    |QDeclarativeEngine.CppOwnership       |The object is owned by C++ code, and will never be deleted by QML. The JavaScript destroy() method cannot be used on objects with :attr:`CppOwnership<QDeclarativeEngine.ObjectOwnership>` . This option is similar to :attr:`QScriptEngine.QtOwnership<QScriptEngine.ValueOwnership>` .                                                                                              |
+    +--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QDeclarativeEngine.JavaScriptOwnership|The object is owned by JavaScript. When the object is returned to QML as the return value of a method call or property access, QML will delete the object if there are no remaining JavaScript references to it and it has no :meth:`QObject.parent()<PySide.QtCore.QObject.parent>` . This option is similar to :attr:`QScriptEngine.ScriptOwnership<QScriptEngine.ValueOwnership>` .|
+    +--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Generally an application doesn't need to set an object's ownership explicitly. QML uses a heuristic to set the default object ownership. By default, an object that is created by QML has :attr:`JavaScriptOwnership<QDeclarativeEngine.ObjectOwnership>` . The exception to this are the root objects created by calling QDeclarativeCompnent::create() or :meth:`QDeclarativeComponent.beginCreate()<PySide.QtDeclarative.QDeclarativeComponent.beginCreate>` which have :attr:`CppOwnership<QDeclarativeEngine.ObjectOwnership>` by default. The ownership of these root-level objects is considered to have been transferred to the C++ caller.
+
+    Objects not-created by QML have :attr:`CppOwnership<QDeclarativeEngine.ObjectOwnership>` by default. The exception to this is objects returned from a C++ method call. The ownership of these objects is passed to JavaScript.
+
+    Calling :meth:`PySide.QtDeclarative.QDeclarativeEngine.setObjectOwnership` overrides the default ownership heuristic used by QML.
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.addImageProvider(id, arg__2)
+
+
+    :param id: unicode
+    :param arg__2: :class:`PySide.QtDeclarative.QDeclarativeImageProvider`
+
+
+
+
+    Sets the ``provider`` to use for images requested via the *image* : url scheme, with host ``providerId`` . The :class:`PySide.QtDeclarative.QDeclarativeEngine` takes ownership of ``provider`` .
+
+    Image providers enable support for pixmap and threaded image requests. See the :class:`PySide.QtDeclarative.QDeclarativeImageProvider` documentation for details on implementing and using image providers.
+
+    All required image providers should be added to the engine before any QML sources files are loaded.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.removeImageProvider` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.addImportPath(dir)
+
+
+    :param dir: unicode
+
+
+
+
+    Adds ``path`` as a directory where the engine searches for installed modules in a URL-based directory structure. The ``path`` may be a local filesystem directory or a URL.
+
+    The newly added ``path`` will be first in the :meth:`PySide.QtDeclarative.QDeclarativeEngine.importPathList` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setImportPathList`  :ref:`QML Modules<qdeclarativemodules.html>` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.addPluginPath(dir)
+
+
+    :param dir: unicode
+
+
+
+
+    Adds ``path`` as a directory where the engine searches for native plugins for imported modules (referenced in the ``qmldir`` file).
+
+    By default, the list contains only ``.`` , i.e. the engine searches in the directory of the ``qmldir`` file itself.
+
+    The newly added ``path`` will be first in the :meth:`PySide.QtDeclarative.QDeclarativeEngine.pluginPathList` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setPluginPathList` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.baseUrl()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Return the base URL for this engine. The base URL is only used to resolve components when a relative URL is passed to the :class:`PySide.QtDeclarative.QDeclarativeComponent` constructor.
+
+    If a base URL has not been explicitly set, this method returns the application's current working directory.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setBaseUrl` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.clearComponentCache()
+
+
+
+
+
+
+    Clears the engine's internal component cache.
+
+    Normally the :class:`PySide.QtDeclarative.QDeclarativeEngine` caches components loaded from qml files. This method clears this cache and forces the component to be reloaded.
+
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeEngine.contextForObject(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Returns the :class:`PySide.QtDeclarative.QDeclarativeContext` for the ``object`` , or 0 if no context has been set.
+
+    When the :class:`PySide.QtDeclarative.QDeclarativeEngine` instantiates a :class:`PySide.QtCore.QObject` , the context is set automatically.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setContextForObject` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.imageProvider(id)
+
+
+    :param id: unicode
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeImageProvider`
+
+
+
+
+    Returns the :class:`PySide.QtDeclarative.QDeclarativeImageProvider` set for ``providerId`` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.importPathList()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the list of directories where the engine searches for installed modules in a URL-based directory structure.
+
+    For example, if ``/opt/MyApp/lib/imports`` is in the path, then QML that imports ``com.mycompany.Feature`` will cause the :class:`PySide.QtDeclarative.QDeclarativeEngine` to look in ``/opt/MyApp/lib/imports/com/mycompany/Feature/`` for the components provided by that module. A ``qmldir`` file is required for defining the type version mapping and possibly declarative extensions plugins.
+
+    By default, the list contains the directory of the application executable, paths specified in the ``QML_IMPORT_PATH`` environment variable, and the builtin ``ImportsPath`` from :class:`PySide.QtCore.QLibraryInfo` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.addImportPath`  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setImportPathList` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.importPlugin(filePath, uri)
+
+
+    :param filePath: unicode
+    :param uri: unicode
+    :rtype: (ok, errorString)
+
+
+
+
+    Imports the plugin named ``filePath`` with the ``uri`` provided. Returns true if the plugin was successfully imported; otherwise returns false.
+
+    On failure and if non-null, \*``errorString`` will be set to a message describing the failure.
+
+    The plugin has to be a Qt plugin which implements the :class:`PySide.QtDeclarative.QDeclarativeExtensionPlugin` interface.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.networkAccessManager()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Returns a common :class:`PySide.QtNetwork.QNetworkAccessManager` which can be used by any QML element instantiated by this engine.
+
+    If a :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory` has been set and a :class:`PySide.QtNetwork.QNetworkAccessManager` has not yet been created, the :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory` will be used to create the :class:`PySide.QtNetwork.QNetworkAccessManager` ; otherwise the returned :class:`PySide.QtNetwork.QNetworkAccessManager` will have no proxy or cache set.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setNetworkAccessManagerFactory` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.networkAccessManagerFactory()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory`
+
+
+
+
+    Returns the current :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setNetworkAccessManagerFactory` 
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeEngine.objectOwnership(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeEngine.ObjectOwnership`
+
+
+
+
+    Returns the ownership of ``object`` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setObjectOwnership` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.offlineStoragePath()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the directory for storing offline user data.
+
+    Returns the directory where SQL and other offline storage is placed.
+
+    :class:`~PySide.QtDeclarative.QDeclarativeWebView` and the SQL databases created with openDatabase() are stored here.
+
+    The default is QML/OfflineStorage in the platform-standard user application data directory.
+
+    Note that the path may not currently exist on the filesystem, so callers wanting to *create* new files at this location should create it first - see :meth:`QDir.mkpath()<PySide.QtCore.QDir.mkpath>` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.outputWarningsToStandardError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if warning messages will be output to stderr in addition to being emitted by the :meth:`PySide.QtDeclarative.QDeclarativeEngine.warnings` signal, otherwise false.
+
+    The default value is true.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setOutputWarningsToStandardError` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.pluginPathList()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the list of directories where the engine searches for native plugins for imported modules (referenced in the ``qmldir`` file).
+
+    By default, the list contains only ``.`` , i.e. the engine searches in the directory of the ``qmldir`` file itself.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.addPluginPath`  :meth:`PySide.QtDeclarative.QDeclarativeEngine.setPluginPathList` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.quit()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.removeImageProvider(id)
+
+
+    :param id: unicode
+
+
+
+
+    Removes the :class:`PySide.QtDeclarative.QDeclarativeImageProvider` for ``providerId`` .
+
+    Returns the provider if it was found; otherwise returns 0.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.addImageProvider` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.rootContext()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Returns the engine's root context.
+
+    The root context is automatically created by the :class:`PySide.QtDeclarative.QDeclarativeEngine` . Data that should be available to all QML component instances instantiated by the engine should be put in the root context.
+
+    Additional data that should only be available to a subset of component instances should be added to sub-contexts parented to the root context.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setBaseUrl(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Set the base URL for this engine to ``url`` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.baseUrl` 
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeEngine.setContextForObject(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+    Sets the :class:`PySide.QtDeclarative.QDeclarativeContext` for the ``object`` to ``context`` . If the ``object`` already has a context, a warning is output, but the context is not changed.
+
+    When the :class:`PySide.QtDeclarative.QDeclarativeEngine` instantiates a :class:`PySide.QtCore.QObject` , the context is set automatically.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.contextForObject` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setImportPathList(paths)
+
+
+    :param paths: list of strings
+
+
+
+
+    Sets ``paths`` as the list of directories where the engine searches for installed modules in a URL-based directory structure.
+
+    By default, the list contains the directory of the application executable, paths specified in the ``QML_IMPORT_PATH`` environment variable, and the builtin ``ImportsPath`` from :class:`PySide.QtCore.QLibraryInfo` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.importPathList`  :meth:`PySide.QtDeclarative.QDeclarativeEngine.addImportPath` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setNetworkAccessManagerFactory(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory`
+
+
+
+
+    Sets the ``factory`` to use for creating :class:`PySide.QtNetwork.QNetworkAccessManager` (s).
+
+    :class:`PySide.QtNetwork.QNetworkAccessManager` is used for all network access by QML. By implementing a factory it is possible to create custom :class:`PySide.QtNetwork.QNetworkAccessManager` with specialized caching, proxy and cookie support.
+
+    The factory must be set before executing the engine.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.networkAccessManagerFactory` 
+
+
+.. staticmethod:: PySide.QtDeclarative.QDeclarativeEngine.setObjectOwnership(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__2: :attr:`PySide.QtDeclarative.QDeclarativeEngine.ObjectOwnership`
+
+
+
+
+    Sets the ``ownership`` of ``object`` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.objectOwnership` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setOfflineStoragePath(dir)
+
+
+    :param dir: unicode
+
+
+
+
+    This property holds the directory for storing offline user data.
+
+    Returns the directory where SQL and other offline storage is placed.
+
+    :class:`~PySide.QtDeclarative.QDeclarativeWebView` and the SQL databases created with openDatabase() are stored here.
+
+    The default is QML/OfflineStorage in the platform-standard user application data directory.
+
+    Note that the path may not currently exist on the filesystem, so callers wanting to *create* new files at this location should create it first - see :meth:`QDir.mkpath()<PySide.QtCore.QDir.mkpath>` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setOutputWarningsToStandardError(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Set whether warning messages will be output to stderr to ``enabled`` .
+
+    If ``enabled`` is true, any warning messages generated by QML will be output to stderr and emitted by the :meth:`PySide.QtDeclarative.QDeclarativeEngine.warnings` signal. If ``enabled`` is false, on the :meth:`PySide.QtDeclarative.QDeclarativeEngine.warnings` signal will be emitted. This allows applications to handle warning output themselves.
+
+    The default value is true.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.outputWarningsToStandardError` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.setPluginPathList(paths)
+
+
+    :param paths: list of strings
+
+
+
+
+    Sets the list of directories where the engine searches for native plugins for imported modules (referenced in the ``qmldir`` file) to ``paths`` .
+
+    By default, the list contains only ``.`` , i.e. the engine searches in the directory of the ``qmldir`` file itself.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeEngine.pluginPathList`  :meth:`PySide.QtDeclarative.QDeclarativeEngine.addPluginPath` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeEngine.warnings(warnings)
+
+
+    :param warnings: 
+
+
+
+
+
+
+

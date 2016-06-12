@@ -1,0 +1,392 @@
+.. module:: PySide.QtGui
+.. _QAbstractTextDocumentLayout:
+
+QAbstractTextDocumentLayout
+***************************
+
+.. inheritance-diagram:: QAbstractTextDocumentLayout
+    :parts: 2
+
+**Inherited by:** :ref:`QPlainTextDocumentLayout`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`anchorAt<PySide.QtGui.QAbstractTextDocumentLayout.anchorAt>` (pos)
+*    def :meth:`document<PySide.QtGui.QAbstractTextDocumentLayout.document>` ()
+*    def :meth:`format<PySide.QtGui.QAbstractTextDocumentLayout.format>` (pos)
+*    def :meth:`formatIndex<PySide.QtGui.QAbstractTextDocumentLayout.formatIndex>` (pos)
+*    def :meth:`handlerForObject<PySide.QtGui.QAbstractTextDocumentLayout.handlerForObject>` (objectType)
+*    def :meth:`paintDevice<PySide.QtGui.QAbstractTextDocumentLayout.paintDevice>` ()
+*    def :meth:`registerHandler<PySide.QtGui.QAbstractTextDocumentLayout.registerHandler>` (objectType, component)
+*    def :meth:`setPaintDevice<PySide.QtGui.QAbstractTextDocumentLayout.setPaintDevice>` (device)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`blockBoundingRect<PySide.QtGui.QAbstractTextDocumentLayout.blockBoundingRect>` (block)
+*    def :meth:`documentChanged<PySide.QtGui.QAbstractTextDocumentLayout.documentChanged>` (from, charsRemoved, charsAdded)
+*    def :meth:`documentSize<PySide.QtGui.QAbstractTextDocumentLayout.documentSize>` ()
+*    def :meth:`draw<PySide.QtGui.QAbstractTextDocumentLayout.draw>` (painter, context)
+*    def :meth:`drawInlineObject<PySide.QtGui.QAbstractTextDocumentLayout.drawInlineObject>` (painter, rect, object, posInDocument, format)
+*    def :meth:`frameBoundingRect<PySide.QtGui.QAbstractTextDocumentLayout.frameBoundingRect>` (frame)
+*    def :meth:`hitTest<PySide.QtGui.QAbstractTextDocumentLayout.hitTest>` (point, accuracy)
+*    def :meth:`pageCount<PySide.QtGui.QAbstractTextDocumentLayout.pageCount>` ()
+*    def :meth:`positionInlineObject<PySide.QtGui.QAbstractTextDocumentLayout.positionInlineObject>` (item, posInDocument, format)
+*    def :meth:`resizeInlineObject<PySide.QtGui.QAbstractTextDocumentLayout.resizeInlineObject>` (item, posInDocument, format)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`documentSizeChanged<PySide.QtGui.QAbstractTextDocumentLayout.documentSizeChanged>` (newSize)
+*    def :meth:`pageCountChanged<PySide.QtGui.QAbstractTextDocumentLayout.pageCountChanged>` (newPages)
+*    def :meth:`update<PySide.QtGui.QAbstractTextDocumentLayout.update>` ([arg__1=QRectF(0., 0., 1000000000., 1000000000.)])
+*    def :meth:`updateBlock<PySide.QtGui.QAbstractTextDocumentLayout.updateBlock>` (block)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractTextDocumentLayout` class is an abstract base class used to implement custom layouts for QTextDocuments.
+
+    The standard layout provided by Qt can handle simple word processing including inline images, lists and tables.
+
+    Some applications, e.g., a word processor or a DTP application might need more features than the ones provided by Qt's layout engine, in which case you can subclass :class:`PySide.QtGui.QAbstractTextDocumentLayout` to provide custom layout behavior for your text documents.
+
+    An instance of the :class:`PySide.QtGui.QAbstractTextDocumentLayout` subclass can be installed on a :class:`PySide.QtGui.QTextDocument` object with the :meth:`PySide.QtGui.QTextDocument.setDocumentLayout` function.
+
+    You can insert custom objects into a :class:`PySide.QtGui.QTextDocument` ; see the :class:`PySide.QtGui.QTextObjectInterface` class description for details.
+
+    .. seealso::  :class:`PySide.QtGui.QTextObjectInterface` 
+
+.. class:: QAbstractTextDocumentLayout(doc)
+
+    :param doc: :class:`PySide.QtGui.QTextDocument`
+
+    Creates a new text document layout for the given ``document`` .
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.anchorAt(pos)
+
+
+    :param pos: :class:`PySide.QtCore.QPointF`
+    :rtype: unicode
+
+
+
+
+    Returns the reference of the anchor the given ``position`` , or an empty string if no anchor exists at that point.
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.blockBoundingRect(block)
+
+
+    :param block: :class:`PySide.QtGui.QTextBlock`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the bounding rectangle of ``block`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.document()
+
+
+    :rtype: :class:`PySide.QtGui.QTextDocument`
+
+
+
+
+    Returns the text document that this layout is operating on.
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.documentChanged(from, charsRemoved, charsAdded)
+
+
+    :param from: :class:`PySide.QtCore.int`
+    :param charsRemoved: :class:`PySide.QtCore.int`
+    :param charsAdded: :class:`PySide.QtCore.int`
+
+
+
+
+    This function is called whenever the contents of the document change. A change occurs when text is inserted, removed, or a combination of these two. The change is specified by ``position`` , ``charsRemoved`` , and ``charsAdded`` corresponding to the starting character position of the change, the number of characters removed from the document, and the number of characters added.
+
+    For example, when inserting the text "Hello" into an empty document, ``charsRemoved`` would be 0 and ``charsAdded`` would be 5 (the length of the string).
+
+    Replacing text is a combination of removing and inserting. For example, if the text "Hello" gets replaced by "Hi", ``charsRemoved`` would be 5 and ``charsAdded`` would be 2.
+
+    For subclasses of :class:`PySide.QtGui.QAbstractTextDocumentLayout` , this is the central function where a large portion of the work to lay out and position document contents is done.
+
+    For example, in a subclass that only arranges blocks of text, an implementation of this function would have to do the following:
+
+
+    * Determine the list of changed :class:`PySide.QtGui.QTextBlock` (s) using the parameters provided.
+    * Each :class:`PySide.QtGui.QTextBlock` object's corresponding :class:`PySide.QtGui.QTextLayout` object needs to be processed. You can access the :class:`PySide.QtGui.QTextBlock` 's layout using the :meth:`QTextBlock.layout()<PySide.QtGui.QTextBlock.layout>` function. This processing should take the document's page size into consideration.
+    * If the total number of pages changed, the :meth:`PySide.QtGui.QAbstractTextDocumentLayout.pageCountChanged` signal should be emitted.
+    * If the total size changed, the :meth:`PySide.QtGui.QAbstractTextDocumentLayout.documentSizeChanged` signal should be emitted.
+    * The :meth:`PySide.QtGui.QAbstractTextDocumentLayout.update` signal should be emitted to schedule a repaint of areas in the layout that require repainting.
+
+    .. seealso::  :class:`PySide.QtGui.QTextLayout` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.documentSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSizeF`
+
+
+
+
+    Returns the total size of the document's layout.
+
+    This information can be used by display widgets to update their scroll bars correctly.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.documentSizeChanged`  :meth:`QTextDocument.pageSize<PySide.QtGui.QTextDocument.pageSize>` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.documentSizeChanged(newSize)
+
+
+    :param newSize: :class:`PySide.QtCore.QSizeF`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.draw(painter, context)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param context: :class:`PySide.QtGui.QAbstractTextDocumentLayout::PaintContext`
+
+
+
+
+    Draws the layout with the given ``painter`` using the given ``context`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.drawInlineObject(painter, rect, object, posInDocument, format)
+
+
+    :param painter: :class:`PySide.QtGui.QPainter`
+    :param rect: :class:`PySide.QtCore.QRectF`
+    :param object: :class:`PySide.QtGui.QTextInlineObject`
+    :param posInDocument: :class:`PySide.QtCore.int`
+    :param format: :class:`PySide.QtGui.QTextFormat`
+
+
+
+
+    This function is called to draw the inline object, ``object`` , with the given ``painter`` within the rectangle specified by ``rect`` using the specified text ``format`` .
+
+    ``posInDocument`` specifies the position of the object within the document.
+
+    The default implementation calls drawObject() on the object handlers. This function is called only within Qt. Subclasses can reimplement this function to customize the drawing of inline objects.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.draw` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.format(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextCharFormat`
+
+
+
+
+    Returns the character format that is applicable at the given ``position`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.formatIndex(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the index of the format at position ``pos`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.frameBoundingRect(frame)
+
+
+    :param frame: :class:`PySide.QtGui.QTextFrame`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the bounding rectangle of ``frame`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.handlerForObject(objectType)
+
+
+    :param objectType: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextObjectInterface`
+
+
+
+
+    Returns a handler for objects of the given ``objectType`` .
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.hitTest(point, accuracy)
+
+
+    :param point: :class:`PySide.QtCore.QPointF`
+    :param accuracy: :attr:`PySide.QtCore.Qt.HitTestAccuracy`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.pageCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of pages contained in the layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.pageCountChanged` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.pageCountChanged(newPages)
+
+
+    :param newPages: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.paintDevice()
+
+
+    :rtype: :class:`PySide.QtGui.QPaintDevice`
+
+
+
+
+    Returns the paint device used to render the document's layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.setPaintDevice` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.positionInlineObject(item, posInDocument, format)
+
+
+    :param item: :class:`PySide.QtGui.QTextInlineObject`
+    :param posInDocument: :class:`PySide.QtCore.int`
+    :param format: :class:`PySide.QtGui.QTextFormat`
+
+
+
+
+    Lays out the inline object ``item`` using the given text ``format`` .
+
+    ``posInDocument`` specifies the position of the object within the document.
+
+    The default implementation does nothing. This function is called only within Qt. Subclasses can reimplement this function to customize the position of inline objects.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.drawInlineObject` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.registerHandler(objectType, component)
+
+
+    :param objectType: :class:`PySide.QtCore.int`
+    :param component: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Registers the given ``component`` as a handler for items of the given ``objectType`` .
+
+    .. note:: \ :meth:`PySide.QtGui.QAbstractTextDocumentLayout.registerHandler` has to be called once for each object type. This means that there is only one handler for multiple replacement characters of the same object type.
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.resizeInlineObject(item, posInDocument, format)
+
+
+    :param item: :class:`PySide.QtGui.QTextInlineObject`
+    :param posInDocument: :class:`PySide.QtCore.int`
+    :param format: :class:`PySide.QtGui.QTextFormat`
+
+
+
+
+    Sets the size of the inline object ``item`` corresponding to the text ``format`` .
+
+    ``posInDocument`` specifies the position of the object within the document.
+
+    The default implementation resizes the ``item`` to the size returned by the object handler's intrinsicSize() function. This function is called only within Qt. Subclasses can reimplement this function to customize the resizing of inline objects.
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.setPaintDevice(device)
+
+
+    :param device: :class:`PySide.QtGui.QPaintDevice`
+
+
+
+
+    Sets the paint device used for rendering the document's layout to the given ``device`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractTextDocumentLayout.paintDevice` 
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.update([arg__1=QRectF(0., 0., 1000000000., 1000000000.)])
+
+
+    :param arg__1: :class:`PySide.QtCore.QRectF`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractTextDocumentLayout.updateBlock(block)
+
+
+    :param block: :class:`PySide.QtGui.QTextBlock`
+
+
+
+
+
+
+

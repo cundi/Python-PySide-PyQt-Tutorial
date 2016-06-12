@@ -1,0 +1,449 @@
+.. module:: PySide.QtCore
+.. _QEvent:
+
+QEvent
+******
+
+.. inheritance-diagram:: QEvent
+    :parts: 2
+
+**Inherited by:** :ref:`QGestureEvent`, :ref:`QWindowStateChangeEvent`, :ref:`QClipboardEvent`, :ref:`QShortcutEvent`, :ref:`QToolBarChangeEvent`, :ref:`QFileOpenEvent`, :ref:`QActionEvent`, :ref:`QWhatsThisClickedEvent`, :ref:`QStatusTipEvent`, :ref:`QHelpEvent`, :ref:`QDragLeaveEvent`, :ref:`QAccessibleEvent`, :ref:`QDropEvent`, :ref:`QDragMoveEvent`, :ref:`QDragEnterEvent`, :ref:`QInputMethodEvent`, :ref:`QHideEvent`, :ref:`QShowEvent`, :ref:`QIconDragEvent`, :ref:`QGraphicsSceneEvent`, :ref:`QGraphicsSceneWheelEvent`, :ref:`QGraphicsSceneMouseEvent`, :ref:`QGraphicsSceneMoveEvent`, :ref:`QGraphicsSceneResizeEvent`, :ref:`QGraphicsSceneDragDropEvent`, :ref:`QGraphicsSceneHelpEvent`, :ref:`QGraphicsSceneHoverEvent`, :ref:`QGraphicsSceneContextMenuEvent`, :ref:`QCloseEvent`, :ref:`QResizeEvent`, :ref:`QDynamicPropertyChangeEvent`, :ref:`QMoveEvent`, :ref:`QChildEvent`, :ref:`QPaintEvent`, :ref:`QTimerEvent`, :ref:`QFocusEvent`, :ref:`QHoverEvent`, :ref:`QInputEvent`, :ref:`QKeyEvent`, :ref:`QTabletEvent`, :ref:`QWheelEvent`, :ref:`QMouseEvent`, :ref:`QTouchEvent`, :ref:`QContextMenuEvent`, :ref:`QStateMachine.WrappedEvent`, :ref:`QStateMachine.SignalEvent`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accept<PySide.QtCore.QEvent.accept>` ()
+*    def :meth:`ignore<PySide.QtCore.QEvent.ignore>` ()
+*    def :meth:`isAccepted<PySide.QtCore.QEvent.isAccepted>` ()
+*    def :meth:`setAccepted<PySide.QtCore.QEvent.setAccepted>` (accepted)
+*    def :meth:`spontaneous<PySide.QtCore.QEvent.spontaneous>` ()
+*    def :meth:`type<PySide.QtCore.QEvent.type>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`registerEventType<PySide.QtCore.QEvent.registerEventType>` ([hint=-1])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QEvent` class is the base class of all event classes. Event objects contain event parameters.
+
+    Qt's main event loop ( :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` ) fetches native window system events from the event queue, translates them into QEvents, and sends the translated events to :class:`PySide.QtCore.QObject` s.
+
+    In general, events come from the underlying window system ( :meth:`PySide.QtCore.QEvent.spontaneous` returns true), but it is also possible to manually send events using :meth:`QCoreApplication.sendEvent()<PySide.QtCore.QCoreApplication.sendEvent>` and :meth:`QCoreApplication.postEvent()<PySide.QtCore.QCoreApplication.postEvent>` ( :meth:`PySide.QtCore.QEvent.spontaneous` returns false).
+
+    :ref:`QObjects<qtwebkit-bridge.html>` receive events by having their :meth:`QObject.event()<PySide.QtCore.QObject.event>` function called. The function can be reimplemented in subclasses to customize event handling and add additional event types; :meth:`QWidget.event()<PySide.QtGui.QWidget.event>` is a notable example. By default, events are dispatched to event handlers like :meth:`QObject.timerEvent()<PySide.QtCore.QObject.timerEvent>` and :meth:`QWidget.mouseMoveEvent()<PySide.QtGui.QWidget.mouseMoveEvent>` . :meth:`QObject.installEventFilter()<PySide.QtCore.QObject.installEventFilter>` allows an object to intercept events destined for another object.
+
+    The basic :class:`PySide.QtCore.QEvent` contains only an event type parameter and an "accept" flag. The accept flag set with :meth:`PySide.QtCore.QEvent.accept` , and cleared with :meth:`PySide.QtCore.QEvent.ignore` . It is set by default, but don't rely on this as subclasses may choose to clear it in their constructor.
+
+    Subclasses of :class:`PySide.QtCore.QEvent` contain additional parameters that describe the particular event.
+
+    .. seealso::  :meth:`QObject.event()<PySide.QtCore.QObject.event>`  :meth:`QObject.installEventFilter()<PySide.QtCore.QObject.installEventFilter>`  :meth:`QWidget.event()<PySide.QtGui.QWidget.event>`  :meth:`QCoreApplication.sendEvent()<PySide.QtCore.QCoreApplication.sendEvent>`  :meth:`QCoreApplication.postEvent()<PySide.QtCore.QCoreApplication.postEvent>`  :meth:`QCoreApplication.processEvents()<PySide.QtCore.QCoreApplication.processEvents>` 
+
+.. class:: QEvent(type)
+
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+    Contructs an event object of type ``type`` .
+
+
+.. attribute:: PySide.QtCore.QEvent.Type
+
+    This enum type defines the valid event types in Qt. The event types and the specialized classes for each type are as follows:
+
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                               |Description                                                                                                                                                      |
+    +=======================================+=================================================================================================================================================================+
+    |QEvent.None                            |Not an event.                                                                                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.AccessibilityDescription        |Used to query accessibility description texts ( :class:`PySide.QtGui.QAccessibleEvent` ).                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.AccessibilityHelp               |Used to query accessibility help texts ( :class:`PySide.QtGui.QAccessibleEvent` ).                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.AccessibilityPrepare            |Accessibility information is requested.                                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ActionAdded                     |A new action has been added ( :class:`PySide.QtGui.QActionEvent` ).                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ActionChanged                   |An action has been changed ( :class:`PySide.QtGui.QActionEvent` ).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ActionRemoved                   |An action has been removed ( :class:`PySide.QtGui.QActionEvent` ).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ActivationChange                |A widget's top-level window activation state has changed.                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationActivate             |The application has been made available to the user.                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationActivated            |This enum has been deprecated. Use :attr:`ApplicationActivate<QEvent.Type>` instead.                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationDeactivate           |The application has been suspended, and is unavailable to the user.                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationFontChange           |The default application font has changed.                                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationLayoutDirectionChange|The default application layout direction has changed.                                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationPaletteChange        |The default application palette has changed.                                                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ApplicationWindowIconChange     |The application's icon has changed.                                                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ChildAdded                      |An object gets a child ( :class:`PySide.QtCore.QChildEvent` ).                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ChildInserted                   |An object gets a child ( :class:`PySide.QtCore.QChildEvent` ). :ref:`Qt3Support` only, use :attr:`ChildAdded<QEvent.Type>` instead.                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ChildPolished                   |A widget child gets polished ( :class:`PySide.QtCore.QChildEvent` ).                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ChildRemoved                    |An object loses a child ( :class:`PySide.QtCore.QChildEvent` ).                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Clipboard                       |The clipboard contents have changed ( :class:`PySide.QtGui.QClipboardEvent` ).                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Close                           |Widget was closed ( :class:`PySide.QtGui.QCloseEvent` ).                                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.CloseSoftwareInputPanel         |A widget wants to close the software input panel (SIP).                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ContentsRectChange              |The margins of the widget's content rect changed.                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ContextMenu                     |Context popup menu ( :class:`PySide.QtGui.QContextMenuEvent` ).                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.CursorChange                    |The widget's cursor has changed.                                                                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.DeferredDelete                  |The object will be deleted after it has cleaned up.                                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.DragEnter                       |The cursor enters a widget during a drag and drop operation ( :class:`PySide.QtGui.QDragEnterEvent` ).                                                           |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.DragLeave                       |The cursor leaves a widget during a drag and drop operation ( :class:`PySide.QtGui.QDragLeaveEvent` ).                                                           |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.DragMove                        |A drag and drop operation is in progress ( :class:`PySide.QtGui.QDragMoveEvent` ).                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Drop                            |A drag and drop operation is completed ( :class:`PySide.QtGui.QDropEvent` ).                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.EnabledChange                   |Widget's enabled state has changed.                                                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Enter                           |Mouse enters widget's boundaries.                                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.EnterEditFocus                  |An editor widget gains focus for editing.                                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.EnterWhatsThisMode              |Send to toplevel widgets when the application enters "What's This?" mode.                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.FileOpen                        |File open request ( :class:`PySide.QtGui.QFileOpenEvent` ).                                                                                                      |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.FocusIn                         |Widget gains keyboard focus ( :class:`PySide.QtGui.QFocusEvent` ).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.FocusOut                        |Widget loses keyboard focus ( :class:`PySide.QtGui.QFocusEvent` ).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.FontChange                      |Widget's font has changed.                                                                                                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GrabKeyboard                    |Item gains keyboard grab ( :class:`PySide.QtGui.QGraphicsItem` only).                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GrabMouse                       |Item gains mouse grab ( :class:`PySide.QtGui.QGraphicsItem` only).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneContextMenu        |Context popup menu over a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneContextMenuEvent` ).                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneDragEnter          |The cursor enters a graphics scene during a drag and drop operation ( :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` ).                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneDragLeave          |The cursor leaves a graphics scene during a drag and drop operation ( :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` ).                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneDragMove           |A drag and drop operation is in progress over a scene ( :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` ).                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneDrop               |A drag and drop operation is completed over a scene ( :class:`PySide.QtGui.QGraphicsSceneDragDropEvent` ).                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneHelp               |The user requests help for a graphics scene ( :class:`PySide.QtGui.QHelpEvent` ).                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneHoverEnter         |The mouse cursor enters a hover item in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneHoverEvent` ).                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneHoverLeave         |The mouse cursor leaves a hover item in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneHoverEvent` ).                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneHoverMove          |The mouse cursor moves inside a hover item in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneHoverEvent` ).                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneMouseDoubleClick   |Mouse press again (double click) in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneMouseEvent` ).                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneMouseMove          |Move mouse in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneMouseEvent` ).                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneMousePress         |Mouse press in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneMouseEvent` ).                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneMouseRelease       |Mouse release in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneMouseEvent` ).                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneMove               |Widget was moved ( :class:`PySide.QtGui.QGraphicsSceneMoveEvent` ).                                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneResize             |Widget was resized ( :class:`PySide.QtGui.QGraphicsSceneResizeEvent` ).                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GraphicsSceneWheel              |Mouse wheel rolled in a graphics scene ( :class:`PySide.QtGui.QGraphicsSceneWheelEvent` ).                                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Hide                            |Widget was hidden ( :class:`PySide.QtGui.QHideEvent` ).                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.HideToParent                    |A child widget has been hidden.                                                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.HoverEnter                      |The mouse cursor enters a hover widget ( :class:`PySide.QtGui.QHoverEvent` ).                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.HoverLeave                      |The mouse cursor leaves a hover widget ( :class:`PySide.QtGui.QHoverEvent` ).                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.HoverMove                       |The mouse cursor moves inside a hover widget ( :class:`PySide.QtGui.QHoverEvent` ).                                                                              |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.IconDrag                        |The main icon of a window has been dragged away ( :class:`PySide.QtGui.QIconDragEvent` ).                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.IconTextChange                  |Widget's icon text has been changed.                                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.InputMethod                     |An input method is being used ( :class:`PySide.QtGui.QInputMethodEvent` ).                                                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.KeyPress                        |Key press ( :class:`PySide.QtGui.QKeyEvent` ).                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.KeyRelease                      |Key release ( :class:`PySide.QtGui.QKeyEvent` ).                                                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LanguageChange                  |The application translation changed.                                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LayoutDirectionChange           |The direction of layouts changed.                                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LayoutRequest                   |Widget layout needs to be redone.                                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Leave                           |Mouse leaves widget's boundaries.                                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LeaveEditFocus                  |An editor widget loses focus for editing.                                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LeaveWhatsThisMode              |Send to toplevel widgets when the application leaves "What's This?" mode.                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.LocaleChange                    |The system locale has changed.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.NonClientAreaMouseButtonDblClick|A mouse double click occurred outside the client area.                                                                                                           |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.NonClientAreaMouseButtonPress   |A mouse button press occurred outside the client area.                                                                                                           |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.NonClientAreaMouseButtonRelease |A mouse button release occurred outside the client area.                                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.NonClientAreaMouseMove          |A mouse move occurred outside the client area.                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MacSizeChange                   |The user changed his widget sizes (Mac OS X only).                                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MenubarUpdated                  |The window's menu bar has been updated.                                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MetaCall                        |An asynchronous method invocation via :meth:`QMetaObject.invokeMethod()<PySide.QtCore.QMetaObject.invokeMethod>` .                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ModifiedChange                  |Widgets modification state has been changed.                                                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MouseButtonDblClick             |Mouse press again ( :class:`PySide.QtGui.QMouseEvent` ).                                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MouseButtonPress                |Mouse press ( :class:`PySide.QtGui.QMouseEvent` ).                                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MouseButtonRelease              |Mouse release ( :class:`PySide.QtGui.QMouseEvent` ).                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MouseMove                       |Mouse move ( :class:`PySide.QtGui.QMouseEvent` ).                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.MouseTrackingChange             |The mouse tracking state has changed.                                                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Move                            |Widget's position changed ( :class:`PySide.QtGui.QMoveEvent` ).                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Paint                           |Screen update necessary ( :class:`PySide.QtGui.QPaintEvent` ).                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.PaletteChange                   |Palette of the widget changed.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ParentAboutToChange             |The widget parent is about to change.                                                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ParentChange                    |The widget parent has changed.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.PlatformPanel                   |A platform specific panel has been requested.                                                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Polish                          |The widget is polished.                                                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.PolishRequest                   |The widget should be polished.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.QueryWhatsThis                  |The widget should accept the event if it has "What's This?" help.                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.RequestSoftwareInputPanel       |A widget wants to open a software input panel (SIP).                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Resize                          |Widget's size changed ( :class:`PySide.QtGui.QResizeEvent` ).                                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Shortcut                        |Key press in child for shortcut key handling ( :class:`PySide.QtGui.QShortcutEvent` ).                                                                           |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ShortcutOverride                |Key press in child, for overriding shortcut key handling ( :class:`PySide.QtGui.QKeyEvent` ).                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Show                            |Widget was shown on screen ( :class:`PySide.QtGui.QShowEvent` ).                                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ShowToParent                    |A child widget has been shown.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.SockAct                         |Socket activated, used to implement :class:`PySide.QtCore.QSocketNotifier` .                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.StateMachineSignal              |A signal delivered to a state machine ( :class:`QStateMachine.SignalEvent` ).                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.StateMachineWrapped             |The event is a wrapper for, i.e., contains, another event ( :class:`QStateMachine.WrappedEvent` ).                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.StatusTip                       |A status tip is requested ( :class:`PySide.QtGui.QStatusTipEvent` ).                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.StyleChange                     |Widget's style has been changed.                                                                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TabletMove                      |Wacom tablet move ( :class:`PySide.QtGui.QTabletEvent` ).                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TabletPress                     |Wacom tablet press ( :class:`PySide.QtGui.QTabletEvent` ).                                                                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TabletRelease                   |Wacom tablet release ( :class:`PySide.QtGui.QTabletEvent` ).                                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.OkRequest                       |Ok button in decoration pressed. Supported only for Windows CE.                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TabletEnterProximity            |Wacom tablet enter proximity event ( :class:`PySide.QtGui.QTabletEvent` ), sent to :class:`PySide.QtGui.QApplication` .                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TabletLeaveProximity            |Wacom tablet leave proximity event ( :class:`PySide.QtGui.QTabletEvent` ), sent to :class:`PySide.QtGui.QApplication` .                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Timer                           |Regular timer events ( :class:`PySide.QtCore.QTimerEvent` ).                                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ToolBarChange                   |The toolbar button is toggled on Mac OS X.                                                                                                                       |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ToolTip                         |A tooltip was requested ( :class:`PySide.QtGui.QHelpEvent` ).                                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ToolTipChange                   |The widget's tooltip has changed.                                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.UngrabKeyboard                  |Item loses keyboard grab ( :class:`PySide.QtGui.QGraphicsItem` only).                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.UngrabMouse                     |Item loses mouse grab ( :class:`PySide.QtGui.QGraphicsItem` only).                                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.UpdateLater                     |The widget should be queued to be repainted at a later time.                                                                                                     |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.UpdateRequest                   |The widget should be repainted.                                                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WhatsThis                       |The widget should reveal "What's This?" help ( :class:`PySide.QtGui.QHelpEvent` ).                                                                               |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WhatsThisClicked                |A link in a widget's "What's This?" help was clicked.                                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Wheel                           |Mouse wheel rolled ( :class:`PySide.QtGui.QWheelEvent` ).                                                                                                        |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WinEventAct                     |A Windows-specific activation event has occurred.                                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowActivate                  |Window was activated.                                                                                                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowBlocked                   |The window is blocked by a modal dialog.                                                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowDeactivate                |Window was deactivated.                                                                                                                                          |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowIconChange                |The window's icon has changed.                                                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowStateChange               |The :meth:`window's state<PySide.QtGui.QWidget.windowState>` (minimized, maximized or full-screen) has changed ( :class:`PySide.QtGui.QWindowStateChangeEvent` ).|
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowTitleChange               |The window title has changed.                                                                                                                                    |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WindowUnblocked                 |The window is unblocked after a modal dialog exited.                                                                                                             |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.ZOrderChange                    |The widget's z-order has changed. This event is never sent to top level windows.                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.KeyboardLayoutChange            |The keyboard layout has changed.                                                                                                                                 |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.DynamicPropertyChange           |A dynamic property was added, changed or removed from the object.                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TouchBegin                      |Beginning of a sequence of touch-screen and/or track-pad events ( :class:`PySide.QtGui.QTouchEvent` )                                                            |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TouchUpdate                     |Touch-screen event ( :class:`PySide.QtGui.QTouchEvent` )                                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.TouchEnd                        |End of touch-event sequence ( :class:`PySide.QtGui.QTouchEvent` )                                                                                                |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.WinIdChange                     |The window system identifer for this native widget has changed                                                                                                   |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.Gesture                         |A gesture was triggered ( :class:`PySide.QtGui.QGestureEvent` )                                                                                                  |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QEvent.GestureOverride                 |A gesture override was triggered ( :class:`PySide.QtGui.QGestureEvent` )                                                                                         |
+    +---------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    User events should have values between ``User`` and ``MaxUser`` :
+
+    +--------------+-------------------+
+    |Constant      |Description        |
+    +==============+===================+
+    |QEvent.User   |User-defined event.|
+    +--------------+-------------------+
+    |QEvent.MaxUser|Last user event ID.|
+    +--------------+-------------------+
+
+    For convenience, you can use the :meth:`PySide.QtCore.QEvent.registerEventType` function to register and reserve a custom event type for your application. Doing so will allow you to avoid accidentally re-using a custom event type already in use elsewhere in your application.
+
+
+.. method:: PySide.QtCore.QEvent.accept()
+
+
+
+
+
+
+    Sets the accept flag of the event object, the equivalent of calling setAccepted(true).
+
+    Setting the accept parameter indicates that the event receiver wants the event. Unwanted events might be propagated to the parent widget.
+
+    .. seealso::  :meth:`PySide.QtCore.QEvent.ignore` 
+
+
+.. method:: PySide.QtCore.QEvent.ignore()
+
+
+
+
+
+
+    Clears the accept flag parameter of the event object, the equivalent of calling setAccepted(false).
+
+    Clearing the accept parameter indicates that the event receiver does not want the event. Unwanted events might be propagated to the parent widget.
+
+    .. seealso::  :meth:`PySide.QtCore.QEvent.accept` 
+
+
+.. method:: PySide.QtCore.QEvent.isAccepted()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QEvent.registerEventType([hint=-1])
+
+
+    :param hint: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Registers and returns a custom event type. The ``hint`` provided will be used if it is available, otherwise it will return a value between :attr:`QEvent.User<QEvent.Type>` and :attr:`QEvent.MaxUser<QEvent.Type>` that has not yet been registered. The ``hint`` is ignored if its value is not between :attr:`QEvent.User<QEvent.Type>` and :attr:`QEvent.MaxUser<QEvent.Type>` .
+
+
+
+.. method:: PySide.QtCore.QEvent.setAccepted(accepted)
+
+
+    :param accepted: :class:`PySide.QtCore.bool`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtCore.QEvent.isAccepted` 
+
+
+.. method:: PySide.QtCore.QEvent.spontaneous()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the event originated outside the application (a system event); otherwise returns false.
+
+    The return value of this function is not defined for paint events.
+
+
+
+.. method:: PySide.QtCore.QEvent.type()
+
+
+    :rtype: :attr:`PySide.QtCore.QEvent.Type`
+
+
+
+
+    Returns the event type.
+
+
+
+

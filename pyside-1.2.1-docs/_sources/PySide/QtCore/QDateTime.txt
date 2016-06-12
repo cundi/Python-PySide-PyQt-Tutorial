@@ -1,0 +1,958 @@
+.. module:: PySide.QtCore
+.. _QDateTime:
+
+QDateTime
+*********
+
+.. inheritance-diagram:: QDateTime
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QDateTime.__eq__>` (other)
+*    def :meth:`__ge__<PySide.QtCore.QDateTime.__ge__>` (other)
+*    def :meth:`__gt__<PySide.QtCore.QDateTime.__gt__>` (other)
+*    def :meth:`__le__<PySide.QtCore.QDateTime.__le__>` (other)
+*    def :meth:`__lt__<PySide.QtCore.QDateTime.__lt__>` (other)
+*    def :meth:`__ne__<PySide.QtCore.QDateTime.__ne__>` (other)
+*    def :meth:`__reduce__<PySide.QtCore.QDateTime.__reduce__>` ()
+*    def :meth:`__repr__<PySide.QtCore.QDateTime.__repr__>` ()
+*    def :meth:`addDays<PySide.QtCore.QDateTime.addDays>` (days)
+*    def :meth:`addMSecs<PySide.QtCore.QDateTime.addMSecs>` (msecs)
+*    def :meth:`addMonths<PySide.QtCore.QDateTime.addMonths>` (months)
+*    def :meth:`addSecs<PySide.QtCore.QDateTime.addSecs>` (secs)
+*    def :meth:`addYears<PySide.QtCore.QDateTime.addYears>` (years)
+*    def :meth:`date<PySide.QtCore.QDateTime.date>` ()
+*    def :meth:`daysTo<PySide.QtCore.QDateTime.daysTo>` (arg__1)
+*    def :meth:`isNull<PySide.QtCore.QDateTime.isNull>` ()
+*    def :meth:`isValid<PySide.QtCore.QDateTime.isValid>` ()
+*    def :meth:`msecsTo<PySide.QtCore.QDateTime.msecsTo>` (arg__1)
+*    def :meth:`secsTo<PySide.QtCore.QDateTime.secsTo>` (arg__1)
+*    def :meth:`setDate<PySide.QtCore.QDateTime.setDate>` (date)
+*    def :meth:`setMSecsSinceEpoch<PySide.QtCore.QDateTime.setMSecsSinceEpoch>` (msecs)
+*    def :meth:`setTime<PySide.QtCore.QDateTime.setTime>` (time)
+*    def :meth:`setTimeSpec<PySide.QtCore.QDateTime.setTimeSpec>` (spec)
+*    def :meth:`setTime_t<PySide.QtCore.QDateTime.setTime_t>` (secsSince1Jan1970UTC)
+*    def :meth:`setUtcOffset<PySide.QtCore.QDateTime.setUtcOffset>` (seconds)
+*    def :meth:`time<PySide.QtCore.QDateTime.time>` ()
+*    def :meth:`timeSpec<PySide.QtCore.QDateTime.timeSpec>` ()
+*    def :meth:`toLocalTime<PySide.QtCore.QDateTime.toLocalTime>` ()
+*    def :meth:`toMSecsSinceEpoch<PySide.QtCore.QDateTime.toMSecsSinceEpoch>` ()
+*    def :meth:`toPython<PySide.QtCore.QDateTime.toPython>` ()
+*    def :meth:`toString<PySide.QtCore.QDateTime.toString>` ([f=Qt.TextDate])
+*    def :meth:`toString<PySide.QtCore.QDateTime.toString>` (format)
+*    def :meth:`toTimeSpec<PySide.QtCore.QDateTime.toTimeSpec>` (spec)
+*    def :meth:`toTime_t<PySide.QtCore.QDateTime.toTime_t>` ()
+*    def :meth:`toUTC<PySide.QtCore.QDateTime.toUTC>` ()
+*    def :meth:`utcOffset<PySide.QtCore.QDateTime.utcOffset>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentDateTime<PySide.QtCore.QDateTime.currentDateTime>` ()
+*    def :meth:`currentDateTimeUtc<PySide.QtCore.QDateTime.currentDateTimeUtc>` ()
+*    def :meth:`currentMSecsSinceEpoch<PySide.QtCore.QDateTime.currentMSecsSinceEpoch>` ()
+*    def :meth:`fromMSecsSinceEpoch<PySide.QtCore.QDateTime.fromMSecsSinceEpoch>` (msecs)
+*    def :meth:`fromString<PySide.QtCore.QDateTime.fromString>` (s, format)
+*    def :meth:`fromString<PySide.QtCore.QDateTime.fromString>` (s[, f=Qt.TextDate])
+*    def :meth:`fromTime_t<PySide.QtCore.QDateTime.fromTime_t>` (secsSince1Jan1970UTC)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QDateTime` class provides date and time functions.
+
+    A :class:`PySide.QtCore.QDateTime` object contains a calendar date and a clock time (a "datetime"). It is a combination of the :class:`PySide.QtCore.QDate` and :class:`PySide.QtCore.QTime` classes. It can read the current datetime from the system clock. It provides functions for comparing datetimes and for manipulating a datetime by adding a number of seconds, days, months, or years.
+
+    A :class:`PySide.QtCore.QDateTime` object is typically created either by giving a date and time explicitly in the constructor, or by using the static function :meth:`PySide.QtCore.QDateTime.currentDateTime` that returns a :class:`PySide.QtCore.QDateTime` object set to the system clock's time. The date and time can be changed with :meth:`PySide.QtCore.QDateTime.setDate` and :meth:`PySide.QtCore.QDateTime.setTime` . A datetime can also be set using the :meth:`PySide.QtCore.QDateTime.setTime\_t` function that takes a POSIX-standard "number of seconds since 00:00:00 on January 1, 1970" value. The :meth:`PySide.QtCore.QDateTime.fromString` function returns a :class:`PySide.QtCore.QDateTime` , given a string and a date format used to interpret the date within the string.
+
+    The :meth:`PySide.QtCore.QDateTime.date` and :meth:`PySide.QtCore.QDateTime.time` functions provide access to the date and time parts of the datetime. The same information is provided in textual format by the :meth:`PySide.QtCore.QDateTime.toString` function.
+
+    :class:`PySide.QtCore.QDateTime` provides a full set of operators to compare two :class:`PySide.QtCore.QDateTime` objects where smaller means earlier and larger means later.
+
+    You can increment (or decrement) a datetime by a given number of milliseconds using :meth:`PySide.QtCore.QDateTime.addMSecs` , seconds using :meth:`PySide.QtCore.QDateTime.addSecs` , or days using :meth:`PySide.QtCore.QDateTime.addDays` . Similarly you can use :meth:`PySide.QtCore.QDateTime.addMonths` and :meth:`PySide.QtCore.QDateTime.addYears` . The :meth:`PySide.QtCore.QDateTime.daysTo` function returns the number of days between two datetimes, :meth:`PySide.QtCore.QDateTime.secsTo` returns the number of seconds between two datetimes, and :meth:`PySide.QtCore.QDateTime.msecsTo` returns the number of milliseconds between two datetimes.
+
+    :class:`PySide.QtCore.QDateTime` can store datetimes as :attr:`local time<Qt.TimeSpec>` or as :attr:`UTC<Qt.TimeSpec>` . :meth:`QDateTime.currentDateTime()<PySide.QtCore.QDateTime.currentDateTime>` returns a :class:`PySide.QtCore.QDateTime` expressed as local time; use :meth:`PySide.QtCore.QDateTime.toUTC` to convert it to UTC. You can also use :meth:`PySide.QtCore.QDateTime.timeSpec` to find out if a :class:`PySide.QtCore.QDateTime` object stores a UTC time or a local time. Operations such as :meth:`PySide.QtCore.QDateTime.addSecs` and :meth:`PySide.QtCore.QDateTime.secsTo` are aware of daylight saving time (DST).
+
+    .. note:: \ :class:`PySide.QtCore.QDateTime` does not account for leap seconds.
+
+    .. _PySide.QtCore.QDateTime_use-of-gregorian-and-julian-calendars:
+
+
+
+Use of Gregorian and Julian Calendars
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QDate` uses the Gregorian calendar in all locales, beginning on the date 15 October 1582. For dates up to and including 4 October 1582, the Julian calendar is used. This means there is a 10-day gap in the internal calendar between the 4th and the 15th of October 1582. When you use :class:`PySide.QtCore.QDateTime` for dates in that epoch, the day after 4 October 1582 is 15 October 1582, and the dates in the gap are invalid.
+
+    The Julian to Gregorian changeover date used here is the date when the Gregorian calendar was first introduced, by Pope Gregory XIII. That change was not universally accepted and some localities only executed it at a later date (if at all). :class:`PySide.QtCore.QDateTime` doesn't take any of these historical facts into account. If an application must support a locale-specific dating system, it must do so on its own, remembering to convert the dates using the Julian day.
+
+    .. _PySide.QtCore.QDateTime_no-year-0:
+
+
+
+No Year 0
+^^^^^^^^^
+
+    There is no year 0. Dates in that year are considered invalid. The year -1 is the year "1 before Christ" or "1 before current era." The day before 0001-01-01 is December 31st, 1 BCE.
+
+    .. _PySide.QtCore.QDateTime_range-of-valid-dates:
+
+
+
+Range of Valid Dates
+^^^^^^^^^^^^^^^^^^^^
+
+    The range of valid dates is from January 2nd, 4713 BCE, to sometime in the year 11 million CE. The Julian Day returned by :meth:`QDate.toJulianDay()<PySide.QtCore.QDate.toJulianDay>` is a number in the contiguous range from 1 to *overflow* , even across :class:`PySide.QtCore.QDateTime` 's "date holes". It is suitable for use in applications that must convert a :class:`PySide.QtCore.QDateTime` to a date in another calendar system, e.g., Hebrew, Islamic or Chinese.
+
+    The Gregorian calendar was introduced in different places around the world on different dates. :class:`PySide.QtCore.QDateTime` uses :class:`PySide.QtCore.QDate` to store the date, so it uses the Gregorian calendar for all locales, beginning on the date 15 October 1582. For dates up to and including 4 October 1582, :class:`PySide.QtCore.QDateTime` uses the Julian calendar. This means there is a 10-day gap in the :class:`PySide.QtCore.QDateTime` calendar between the 4th and the 15th of October 1582. When you use :class:`PySide.QtCore.QDateTime` for dates in that epoch, the day after 4 October 1582 is 15 October 1582, and the dates in the gap are invalid.
+
+    .. _PySide.QtCore.QDateTime_use-of-system-timezone:
+
+
+
+Use of System Timezone
+^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QDateTime` uses the system's time zone information to determine the offset of local time from UTC. If the system is not configured correctly or not up-to-date, :class:`PySide.QtCore.QDateTime` will give wrong results as well.
+
+    .. _PySide.QtCore.QDateTime_daylight-savings-time-dst:
+
+
+
+Daylight Savings Time (DST)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QDateTime` takes into account the system's time zone information when dealing with DST. On modern Unix systems, this means it applies the correct historical DST data whenever possible. On Windows and Windows CE, where the system doesn't support historical DST data, historical accuracy is not maintained with respect to DST.
+
+    The range of valid dates taking DST into account is 1970-01-01 to the present, and rules are in place for handling DST correctly until 2037-12-31, but these could change. For dates falling outside that range, :class:`PySide.QtCore.QDateTime` makes a *best guess* using the rules for year 1970 or 2037, but we can't guarantee accuracy. This means :class:`PySide.QtCore.QDateTime` doesn't take into account changes in a locale's time zone before 1970, even if the system's time zone database supports that information.
+
+    .. seealso::  :class:`PySide.QtCore.QDate`  :class:`PySide.QtCore.QTime`  :class:`PySide.QtGui.QDateTimeEdit` 
+
+.. class:: QDateTime()
+           QDateTime(arg__1)
+           QDateTime(arg__1, arg__2[, spec=Qt.LocalTime])
+           QDateTime(other)
+           QDateTime(arg__1, arg__2, arg__3, arg__4, arg__5, arg__6)
+           QDateTime(arg__1, arg__2, arg__3, arg__4, arg__5, arg__6, arg__7[, arg__8=Qt.LocalTime])
+
+    :param arg__4: :class:`PySide.QtCore.int`
+    :param arg__5: :class:`PySide.QtCore.int`
+    :param arg__6: :class:`PySide.QtCore.int`
+    :param arg__7: :class:`PySide.QtCore.int`
+    :param arg__8: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :param spec: :attr:`PySide.QtCore.Qt.TimeSpec`
+    :param arg__1: :class:`PySide.QtCore.QDate`
+    :param arg__2: :class:`PySide.QtCore.QTime`
+    :param arg__3: :class:`PySide.QtCore.int`
+
+    Constructs a null datetime (i.e. null date and null time). A null datetime is invalid, since the date is invalid.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.isValid` 
+
+    Constructs a datetime with the given ``date`` , a valid time(00:00:00.000), and sets the :meth:`PySide.QtCore.QDateTime.timeSpec` to :attr:`Qt.LocalTime<Qt.TimeSpec>` .
+
+
+
+
+    Constructs a copy of the ``other`` datetime.
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.__reduce__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.__repr__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.addDays(days)
+
+
+    :param days: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QDateTime` object containing a datetime ``ndays`` days later than the datetime of this object (or earlier if ``ndays`` is negative).
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.daysTo`  :meth:`PySide.QtCore.QDateTime.addMonths`  :meth:`PySide.QtCore.QDateTime.addYears`  :meth:`PySide.QtCore.QDateTime.addSecs` 
+
+
+.. method:: PySide.QtCore.QDateTime.addMSecs(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QDateTime` object containing a datetime ``msecs`` miliseconds later than the datetime of this object (or earlier if ``msecs`` is negative).
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.addSecs`  :meth:`PySide.QtCore.QDateTime.msecsTo`  :meth:`PySide.QtCore.QDateTime.addDays`  :meth:`PySide.QtCore.QDateTime.addMonths`  :meth:`PySide.QtCore.QDateTime.addYears` 
+
+
+.. method:: PySide.QtCore.QDateTime.addMonths(months)
+
+
+    :param months: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QDateTime` object containing a datetime ``nmonths`` months later than the datetime of this object (or earlier if ``nmonths`` is negative).
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.daysTo`  :meth:`PySide.QtCore.QDateTime.addDays`  :meth:`PySide.QtCore.QDateTime.addYears`  :meth:`PySide.QtCore.QDateTime.addSecs` 
+
+
+.. method:: PySide.QtCore.QDateTime.addSecs(secs)
+
+
+    :param secs: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QDateTime` object containing a datetime ``s`` seconds later than the datetime of this object (or earlier if ``s`` is negative).
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.addMSecs`  :meth:`PySide.QtCore.QDateTime.secsTo`  :meth:`PySide.QtCore.QDateTime.addDays`  :meth:`PySide.QtCore.QDateTime.addMonths`  :meth:`PySide.QtCore.QDateTime.addYears` 
+
+
+.. method:: PySide.QtCore.QDateTime.addYears(years)
+
+
+    :param years: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a :class:`PySide.QtCore.QDateTime` object containing a datetime ``nyears`` years later than the datetime of this object (or earlier if ``nyears`` is negative).
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.daysTo`  :meth:`PySide.QtCore.QDateTime.addDays`  :meth:`PySide.QtCore.QDateTime.addMonths`  :meth:`PySide.QtCore.QDateTime.addSecs` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.currentDateTime()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the current datetime, as reported by the system clock, in the local time zone.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.currentDateTimeUtc`  :meth:`QDate.currentDate()<PySide.QtCore.QDate.currentDate>`  :meth:`QTime.currentTime()<PySide.QtCore.QTime.currentTime>`  :meth:`PySide.QtCore.QDateTime.toTimeSpec` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.currentDateTimeUtc()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the current datetime, as reported by the system clock, in UTC.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.currentDateTime`  :meth:`QDate.currentDate()<PySide.QtCore.QDate.currentDate>`  :meth:`QTime.currentTime()<PySide.QtCore.QTime.currentTime>`  :meth:`PySide.QtCore.QDateTime.toTimeSpec` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.currentMSecsSinceEpoch()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of milliseconds since 1970-01-01T00:00:00 Universal Coordinated Time. This number is like the POSIX time\_t variable, but expressed in milliseconds instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.currentDateTime`  :meth:`PySide.QtCore.QDateTime.currentDateTimeUtc`  :meth:`PySide.QtCore.QDateTime.toTime\_t`  :meth:`PySide.QtCore.QDateTime.toTimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.date()
+
+
+    :rtype: :class:`PySide.QtCore.QDate`
+
+
+
+
+    Returns the date part of the datetime.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.setDate`  :meth:`PySide.QtCore.QDateTime.time`  :meth:`PySide.QtCore.QDateTime.timeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.daysTo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of days from this datetime to the ``other`` datetime. If the ``other`` datetime is earlier than this datetime, the value returned is negative.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.addDays`  :meth:`PySide.QtCore.QDateTime.secsTo`  :meth:`PySide.QtCore.QDateTime.msecsTo` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.fromMSecsSinceEpoch(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a datetime whose date and time are the number of milliseconds, ``msecs`` , that have passed since 1970-01-01T00:00:00.000, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ). On systems that do not support time zones, the time will be set as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    Note that there are possible values for ``msecs`` that lie outside the valid range of :class:`PySide.QtCore.QDateTime` , both negative and positive. The behavior of this function is undefined for those values.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTime\_t`  :meth:`PySide.QtCore.QDateTime.setTime\_t` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.fromString(s, format)
+
+
+    :param s: unicode
+    :param format: unicode
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QDateTime` represented by the ``string`` , using the ``format`` given, or an invalid datetime if the string cannot be parsed.
+
+    These expressions may be used for the date part of the format string:
+
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |Expression|Output                                                                                                                               |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |d         |the day as number without a leading zero (1 to 31)                                                                                   |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |dd        |the day as number with a leading zero (01 to 31)                                                                                     |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |ddd       |the abbreviated localized day name (e.g. 'Mon' to 'Sun'). Uses :meth:`QDate.shortDayName()<PySide.QtCore.QDate.shortDayName>` .      |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |dddd      |the long localized day name (e.g. 'Monday' to 'Sunday'). Uses :meth:`QDate.longDayName()<PySide.QtCore.QDate.longDayName>` .         |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |M         |the month as number without a leading zero (1-12)                                                                                    |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |MM        |the month as number with a leading zero (01-12)                                                                                      |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |MMM       |the abbreviated localized month name (e.g. 'Jan' to 'Dec'). Uses :meth:`QDate.shortMonthName()<PySide.QtCore.QDate.shortMonthName>` .|
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |MMMM      |the long localized month name (e.g. 'January' to 'December'). Uses :meth:`QDate.longMonthName()<PySide.QtCore.QDate.longMonthName>` .|
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |yy        |the year as two digit number (00-99)                                                                                                 |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |yyyy      |the year as four digit number                                                                                                        |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. note::  Unlike the other version of this function, day and month names must be given in the user's local language. It is only possible to use the English names if the user's language is English.
+
+    These expressions may be used for the time part of the format string:
+
+    +----------+---------------------------------------------------------------------+
+    |Expression|Output                                                               |
+    +----------+---------------------------------------------------------------------+
+    |h         |the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)|
+    +----------+---------------------------------------------------------------------+
+    |hh        |the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display) |
+    +----------+---------------------------------------------------------------------+
+    |H         |the hour without a leading zero (0 to 23, even with AM/PM display)   |
+    +----------+---------------------------------------------------------------------+
+    |HH        |the hour with a leading zero (00 to 23, even with AM/PM display)     |
+    +----------+---------------------------------------------------------------------+
+    |m         |the minute without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |mm        |the minute with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |s         |the second without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |ss        |the second with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |z         |the milliseconds without leading zeroes (0 to 999)                   |
+    +----------+---------------------------------------------------------------------+
+    |zzz       |the milliseconds with leading zeroes (000 to 999)                    |
+    +----------+---------------------------------------------------------------------+
+    |AP or A   |interpret as an AM/PM time. *AP* must be either "AM" or "PM".        |
+    +----------+---------------------------------------------------------------------+
+    |ap or a   |Interpret as an AM/PM time. *ap* must be either "am" or "pm".        |
+    +----------+---------------------------------------------------------------------+
+
+    All other input characters will be treated as text. Any sequence of characters that are enclosed in singlequotes will also be treated as text and not be used as an expression.
+
+    ::
+
+        time1 = QTime.fromString("131", "HHh")
+        # time1 is 13:00:00
+        time1 = QTime.fromString("1apA", "1amAM")
+        # time1 is 01:00:00
+
+        dateTime2 = QDateTime.fromString("M1d1y9800:01:02",
+                                                    "'M'M'd'd'y'yyhh:mm:ss")
+        # dateTime is 1 January 1998 00:01:02
+
+
+    If the format is not satisfied an invalid :class:`PySide.QtCore.QDateTime` is returned. The expressions that don't have leading zeroes (d, M, h, m, s, z) will be greedy. This means that they will use two digits even if this will put them outside the range and/or leave too few digits for other sections.
+
+    ::
+
+        dateTime = QDateTime.fromString("130", "Mm") # invalid
+
+
+    This could have meant 1 January 00:30.00 but the M will grab two digits.
+
+    For any field that is not represented in the format the following defaults are used:
+
+    +------+-------------+
+    |Field |Default value|
+    +------+-------------+
+    |Year  |1900         |
+    +------+-------------+
+    |Month |1 (January)  |
+    +------+-------------+
+    |Day   |1            |
+    +------+-------------+
+    |Hour  |0            |
+    +------+-------------+
+    |Minute|0            |
+    +------+-------------+
+    |Second|0            |
+    +------+-------------+
+
+    For example:
+
+    ::
+
+        dateTime = QDateTime.fromString("1.30.1", "M.d.s")
+        # dateTime is January 30 in 1900 at 00:00:01.
+
+
+    :meth:`QDateTime.toString()<PySide.QtCore.QDateTime.toString>` :meth:`QTime.toString()<PySide.QtCore.QTime.toString>`
+
+    .. seealso::  :meth:`QDate.fromString()<PySide.QtCore.QDate.fromString>`  :meth:`QTime.fromString()<PySide.QtCore.QTime.fromString>`  :meth:`QDate.toString()<PySide.QtCore.QDate.toString>` 
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.fromString(s[, f=Qt.TextDate])
+
+
+    :param s: unicode
+    :param f: :attr:`PySide.QtCore.Qt.DateFormat`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QDateTime.fromTime_t(secsSince1Jan1970UTC)
+
+
+    :param secsSince1Jan1970UTC: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a datetime whose date and time are the number of ``seconds`` that have passed since 1970-01-01T00:00:00, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ). On systems that do not support time zones, the time will be set as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTime\_t`  :meth:`PySide.QtCore.QDateTime.setTime\_t` 
+
+
+.. method:: PySide.QtCore.QDateTime.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if both the date and the time are null; otherwise returns false. A null datetime is invalid.
+
+    .. seealso::  :meth:`QDate.isNull()<PySide.QtCore.QDate.isNull>`  :meth:`QTime.isNull()<PySide.QtCore.QTime.isNull>`  :meth:`PySide.QtCore.QDateTime.isValid` 
+
+
+.. method:: PySide.QtCore.QDateTime.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if both the date and the time are valid; otherwise returns false.
+
+    .. seealso::  :meth:`QDate.isValid()<PySide.QtCore.QDate.isValid>`  :meth:`QTime.isValid()<PySide.QtCore.QTime.isValid>` 
+
+
+.. method:: PySide.QtCore.QDateTime.msecsTo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of milliseconds from this datetime to the ``other`` datetime. If the ``other`` datetime is earlier than this datetime, the value returned is negative.
+
+    Before performing the comparison, the two datetimes are converted to :attr:`Qt.UTC<Qt.TimeSpec>` to ensure that the result is correct if one of the two datetimes has daylight saving time (DST) and the other doesn't.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.addMSecs`  :meth:`PySide.QtCore.QDateTime.daysTo`  :meth:`QTime.msecsTo()<PySide.QtCore.QTime.msecsTo>` 
+
+
+.. method:: PySide.QtCore.QDateTime.__ne__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is different from the ``other`` datetime; otherwise returns false.
+
+    Two datetimes are different if either the date, the time, or the time zone components are different.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.operator==` 
+
+
+.. method:: PySide.QtCore.QDateTime.__lt__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is earlier than the ``other`` datetime; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QDateTime.__le__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is earlier than or equal to the ``other`` datetime; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QDateTime.__eq__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is equal to the ``other`` datetime; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.operator!=` 
+
+
+.. method:: PySide.QtCore.QDateTime.__gt__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is later than the ``other`` datetime; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QDateTime.__ge__(other)
+
+
+    :param other: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this datetime is later than or equal to the ``other`` datetime; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QDateTime.secsTo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QDateTime`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of seconds from this datetime to the ``other`` datetime. If the ``other`` datetime is earlier than this datetime, the value returned is negative.
+
+    Before performing the comparison, the two datetimes are converted to :attr:`Qt.UTC<Qt.TimeSpec>` to ensure that the result is correct if one of the two datetimes has daylight saving time (DST) and the other doesn't.
+
+    Example:
+
+    ::
+
+        now = QDateTime.currentDateTime()
+        xmas(QDate(now.date().year(), 12, 25), QTime(0, 0))
+        print("There are %d seconds to Christmas" % now.secsTo(xmas))
+
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.addSecs`  :meth:`PySide.QtCore.QDateTime.daysTo`  :meth:`QTime.secsTo()<PySide.QtCore.QTime.secsTo>` 
+
+
+.. method:: PySide.QtCore.QDateTime.setDate(date)
+
+
+    :param date: :class:`PySide.QtCore.QDate`
+
+
+
+
+    Sets the date part of this datetime to ``date`` . If no time is set, it is set to midnight.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.date`  :meth:`PySide.QtCore.QDateTime.setTime`  :meth:`PySide.QtCore.QDateTime.setTimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.setMSecsSinceEpoch(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the date and time given the number of milliseconds,``msecs`` , that have passed since 1970-01-01T00:00:00.000, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ). On systems that do not support time zones this function will behave as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    Note that there are possible values for ``msecs`` that lie outside the valid range of :class:`PySide.QtCore.QDateTime` , both negative and positive. The behavior of this function is undefined for those values.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toMSecsSinceEpoch`  :meth:`PySide.QtCore.QDateTime.setTime\_t` 
+
+
+.. method:: PySide.QtCore.QDateTime.setTime(time)
+
+
+    :param time: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Sets the time part of this datetime to ``time`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.time`  :meth:`PySide.QtCore.QDateTime.setDate`  :meth:`PySide.QtCore.QDateTime.setTimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.setTimeSpec(spec)
+
+
+    :param spec: :attr:`PySide.QtCore.Qt.TimeSpec`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.setTime_t(secsSince1Jan1970UTC)
+
+
+    :param secsSince1Jan1970UTC: :class:`PySide.QtCore.uint`
+
+
+
+
+    Sets the date and time given the number of ``seconds`` that have passed since 1970-01-01T00:00:00, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ). On systems that do not support time zones this function will behave as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTime\_t` 
+
+
+.. method:: PySide.QtCore.QDateTime.setUtcOffset(seconds)
+
+
+    :param seconds: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the offset from UTC to ``seconds`` , and also sets :meth:`PySide.QtCore.QDateTime.timeSpec` to :attr:`Qt.OffsetFromUTC<Qt.TimeSpec>` .
+
+    The maximum and minimum offset is 14 positive or negative hours. If ``seconds`` is larger or smaller than that, the result is undefined.
+
+    0 as offset is identical to UTC. Therefore, if ``seconds`` is 0, the :meth:`PySide.QtCore.QDateTime.timeSpec` will be set to :attr:`Qt.UTC<Qt.TimeSpec>` . Hence the UTC offset always relates to UTC, and can never relate to local time.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.isValid`  :meth:`PySide.QtCore.QDateTime.utcOffset` 
+
+
+.. method:: PySide.QtCore.QDateTime.time()
+
+
+    :rtype: :class:`PySide.QtCore.QTime`
+
+
+
+
+    Returns the time part of the datetime.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.setTime`  :meth:`PySide.QtCore.QDateTime.date`  :meth:`PySide.QtCore.QDateTime.timeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.timeSpec()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.TimeSpec`
+
+
+
+
+    Returns the time specification of the datetime.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.setTimeSpec`  :meth:`PySide.QtCore.QDateTime.date`  :meth:`PySide.QtCore.QDateTime.time`  :attr:`Qt.TimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.toLocalTime()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a datetime containing the date and time information in this datetime, but specified using the :attr:`Qt.LocalTime<Qt.TimeSpec>` definition.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.toMSecsSinceEpoch()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the datetime as the number of milliseconds that have passed since 1970-01-01T00:00:00.000, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ).
+
+    On systems that do not support time zones, this function will behave as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    The behavior for this function is undefined if the datetime stored in this object is not valid. However, for all valid dates, this function returns a unique value.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTime\_t`  :meth:`PySide.QtCore.QDateTime.setMSecsSinceEpoch` 
+
+
+.. method:: PySide.QtCore.QDateTime.toPython()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.toString(format)
+
+
+    :param format: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the datetime as a string. The ``format`` parameter determines the format of the result string.
+
+    These expressions may be used for the date:
+
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Expression|Output                                                                                                                                                 |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |d         |the day as number without a leading zero (1 to 31)                                                                                                     |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dd        |the day as number with a leading zero (01 to 31)                                                                                                       |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |ddd       |the abbreviated localized day name (e.g. 'Mon' to 'Sun'). Uses :meth:`QDate.shortDayName()<PySide.QtCore.QDate.shortDayName>` .                        |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dddd      |the long localized day name (e.g. 'Monday' to ' :attr:`Qt.Sunday<Qt.DayOfWeek>` '). Uses :meth:`QDate.longDayName()<PySide.QtCore.QDate.longDayName>` .|
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |M         |the month as number without a leading zero (1-12)                                                                                                      |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |MM        |the month as number with a leading zero (01-12)                                                                                                        |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |MMM       |the abbreviated localized month name (e.g. 'Jan' to 'Dec'). Uses :meth:`QDate.shortMonthName()<PySide.QtCore.QDate.shortMonthName>` .                  |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |MMMM      |the long localized month name (e.g. 'January' to 'December'). Uses :meth:`QDate.longMonthName()<PySide.QtCore.QDate.longMonthName>` .                  |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |yy        |the year as two digit number (00-99)                                                                                                                   |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |yyyy      |the year as four digit number                                                                                                                          |
+    +----------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    These expressions may be used for the time:
+
+    +----------+---------------------------------------------------------------------+
+    |Expression|Output                                                               |
+    +----------+---------------------------------------------------------------------+
+    |h         |the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)|
+    +----------+---------------------------------------------------------------------+
+    |hh        |the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display) |
+    +----------+---------------------------------------------------------------------+
+    |m         |the minute without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |mm        |the minute with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |s         |the second without a leading zero (0 to 59)                          |
+    +----------+---------------------------------------------------------------------+
+    |ss        |the second with a leading zero (00 to 59)                            |
+    +----------+---------------------------------------------------------------------+
+    |z         |the milliseconds without leading zeroes (0 to 999)                   |
+    +----------+---------------------------------------------------------------------+
+    |zzz       |the milliseconds with leading zeroes (000 to 999)                    |
+    +----------+---------------------------------------------------------------------+
+    |AP        |use AM/PM display. *AP* will be replaced by either "AM" or "PM".     |
+    +----------+---------------------------------------------------------------------+
+    |ap        |use am/pm display. *ap* will be replaced by either "am" or "pm".     |
+    +----------+---------------------------------------------------------------------+
+
+    All other input characters will be ignored. Any sequence of characters that are enclosed in singlequotes will be treated as text and not be used as an expression. Two consecutive singlequotes ("''") are replaced by a singlequote in the output.
+
+    Example format strings (assumed that the :class:`PySide.QtCore.QDateTime` is 21 May 2001 14:13:09):
+
+    +-------------+-------------+
+    |Format       |Result       |
+    +-------------+-------------+
+    |dd.MM.yyyy   |21.05.2001   |
+    +-------------+-------------+
+    |ddd MMMM d yy|Tue May 21 01|
+    +-------------+-------------+
+    |hh:mm:ss.zzz |14:13:09.042 |
+    +-------------+-------------+
+    |h:m:s ap     |2:13:9 pm    |
+    +-------------+-------------+
+
+    If the datetime is invalid, an empty string will be returned.
+
+    .. seealso::  :meth:`QDate.toString()<PySide.QtCore.QDate.toString>`  :meth:`QTime.toString()<PySide.QtCore.QTime.toString>` 
+
+
+.. method:: PySide.QtCore.QDateTime.toString([f=Qt.TextDate])
+
+
+    :param f: :attr:`PySide.QtCore.Qt.DateFormat`
+    :rtype: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.toTimeSpec(spec)
+
+
+    :param spec: :attr:`PySide.QtCore.Qt.TimeSpec`
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QDateTime.toTime_t()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the datetime as the number of seconds that have passed since 1970-01-01T00:00:00, Coordinated Universal Time ( :attr:`Qt.UTC<Qt.TimeSpec>` ).
+
+    On systems that do not support time zones, this function will behave as if local time were :attr:`Qt.UTC<Qt.TimeSpec>` .
+
+    .. note::  This function returns a 32-bit unsigned integer, so it does not support dates before 1970, but it does support dates after 2038-01-19T03:14:06, which may not be valid time\_t values. Be careful when passing those time\_t values to system functions, which could interpret them as negative dates.
+
+    If the date is outside the range 1970-01-01T00:00:00 to 2106-02-07T06:28:14, this function returns -1 cast to an unsigned integer (i.e., 0xFFFFFFFF).
+
+    To get an extended range, use :meth:`PySide.QtCore.QDateTime.toMSecsSinceEpoch` .
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toMSecsSinceEpoch`  :meth:`PySide.QtCore.QDateTime.setTime\_t` 
+
+
+.. method:: PySide.QtCore.QDateTime.toUTC()
+
+
+    :rtype: :class:`PySide.QtCore.QDateTime`
+
+
+
+
+    Returns a datetime containing the date and time information in this datetime, but specified using the :attr:`Qt.UTC<Qt.TimeSpec>` definition.
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.toTimeSpec` 
+
+
+.. method:: PySide.QtCore.QDateTime.utcOffset()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the UTC offset in seconds. If the :meth:`PySide.QtCore.QDateTime.timeSpec` isn't :attr:`Qt.OffsetFromUTC<Qt.TimeSpec>` , 0 is returned. However, since 0 is a valid UTC offset the return value of this function cannot be used to determine whether a :meth:`PySide.QtCore.QDateTime.utcOffset` is used or is valid, :meth:`PySide.QtCore.QDateTime.timeSpec` must be checked.
+
+    Likewise, if this :meth:`PySide.QtCore.QDateTime.QDateTime` is invalid or if :meth:`PySide.QtCore.QDateTime.timeSpec` isn't :attr:`Qt.OffsetFromUTC<Qt.TimeSpec>` , 0 is returned.
+
+    The UTC offset only applies if the :meth:`PySide.QtCore.QDateTime.timeSpec` is :attr:`Qt.OffsetFromUTC<Qt.TimeSpec>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QDateTime.isValid`  :meth:`PySide.QtCore.QDateTime.setUtcOffset` 
+
+
+

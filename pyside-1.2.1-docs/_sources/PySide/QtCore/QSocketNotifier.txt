@@ -1,0 +1,172 @@
+.. module:: PySide.QtCore
+.. _QSocketNotifier:
+
+QSocketNotifier
+***************
+
+.. inheritance-diagram:: QSocketNotifier
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isEnabled<PySide.QtCore.QSocketNotifier.isEnabled>` ()
+*    def :meth:`socket<PySide.QtCore.QSocketNotifier.socket>` ()
+*    def :meth:`type<PySide.QtCore.QSocketNotifier.type>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setEnabled<PySide.QtCore.QSocketNotifier.setEnabled>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activated<PySide.QtCore.QSocketNotifier.activated>` (socket)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSocketNotifier` class provides support for monitoring activity on a file descriptor.
+
+    The :class:`PySide.QtCore.QSocketNotifier` makes it possible to integrate Qt's event loop with other event loops based on file descriptors. For example, the :ref:`CORBA Framework<http://qt.digia.com/products/add-on-products/catalog/4/Utilities/qtcorba/>` uses it to process CORBA events. File descriptor action is detected in Qt's main event loop ( :meth:`QCoreApplication.exec()<PySide.QtCore.QCoreApplication.exec>` ).
+
+    Once you have opened a device using a low-level (usually platform-specific) API, you can create a socket notifier to monitor the file descriptor. The socket notifier is enabled by default, i.e. it emits the :meth:`PySide.QtCore.QSocketNotifier.activated` signal whenever a socket event corresponding to its type occurs. Connect the :meth:`PySide.QtCore.QSocketNotifier.activated` signal to the slot you want to be called when an event corresponding to your socket notifier's type occurs.
+
+    There are three types of socket notifiers: read, write, and exception. The type is described by the :attr:`QSocketNotifier.Type` enum, and must be specified when constructing the socket notifier. After construction it can be determined using the :meth:`PySide.QtCore.QSocketNotifier.type` function. Note that if you need to monitor both reads and writes for the same file descriptor, you must create two socket notifiers. Note also that it is not possible to install two socket notifiers of the same type ( :attr:`Read<QSocketNotifier.Type>` , :attr:`Write<QSocketNotifier.Type>` , :attr:`Exception<QSocketNotifier.Type>` ) on the same socket.
+
+    The :meth:`PySide.QtCore.QSocketNotifier.setEnabled` function allows you to disable as well as enable the socket notifier. It is generally advisable to explicitly enable or disable the socket notifier, especially for write notifiers. A disabled notifier ignores socket events (the same effect as not creating the socket notifier). Use the :meth:`PySide.QtCore.QSocketNotifier.isEnabled` function to determine the notifier's current status.
+
+    Finally, you can use the :meth:`PySide.QtCore.QSocketNotifier.socket` function to retrieve the socket identifier. Although the class is called :class:`PySide.QtCore.QSocketNotifier` , it is normally used for other types of devices than sockets. :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtNetwork.QUdpSocket` provide notification through signals, so there is normally no need to use a :class:`PySide.QtCore.QSocketNotifier` on them.
+
+    .. _PySide.QtCore.QSocketNotifier_notes-for-windows-users:
+
+
+
+Notes for Windows Users
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    The socket passed to :class:`PySide.QtCore.QSocketNotifier` will become non-blocking, even if it was created as a blocking socket. The :meth:`PySide.QtCore.QSocketNotifier.activated` signal is sometimes triggered by high general activity on the host, even if there is nothing to read. A subsequent read from the socket can then fail, the error indicating that there is no data available (e.g., ``WSAEWOULDBLOCK`` ). This is an operating system limitation, and not a bug in :class:`PySide.QtCore.QSocketNotifier` .
+
+    To ensure that the socket notifier handles read notifications correctly, follow these steps when you receive a notification:
+
+    To ensure that the socket notifier handles write notifications correctly, follow these steps when you receive a notification:
+
+    **Further information:** On Windows, Qt always disables the notifier after getting a notification, and only re-enables it if more data is expected. For example, if data is read from the socket and it can be used to read more, or if reading or writing is not possible because the socket would block, in which case it is necessary to wait before attempting to read or write again.
+
+    .. seealso::  :class:`PySide.QtCore.QFile`  :class:`PySide.QtCore.QProcess`  :class:`PySide.QtNetwork.QTcpSocket`  :class:`PySide.QtNetwork.QUdpSocket` 
+
+.. class:: QSocketNotifier(arg__1, arg__2[, parent=None])
+           QSocketNotifier(socket, arg__2[, parent=None])
+
+    :param socket: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param arg__1: :class:`PyObject`
+    :param arg__2: :attr:`PySide.QtCore.QSocketNotifier.Type`
+
+
+
+    Constructs a socket notifier with the given ``parent`` . It enables the ``socket`` , and watches for events of the given ``type`` .
+
+    It is generally advisable to explicitly enable or disable the socket notifier, especially for write notifiers.
+
+    **Note for Windows users:** The socket passed to :class:`PySide.QtCore.QSocketNotifier` will become non-blocking, even if it was created as a blocking socket.
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.setEnabled`  :meth:`PySide.QtCore.QSocketNotifier.isEnabled` 
+
+.. attribute:: PySide.QtCore.QSocketNotifier.Type
+
+    This enum describes the various types of events that a socket notifier can recognize. The type must be specified when constructing the socket notifier.
+
+    Note that if you need to monitor both reads and writes for the same file descriptor, you must create two socket notifiers. Note also that it is not possible to install two socket notifiers of the same type (Read, Write, Exception) on the same socket.
+
+    +-------------------------+-----------------------------------------------------------+
+    |Constant                 |Description                                                |
+    +=========================+===========================================================+
+    |QSocketNotifier.Read     |There is data to be read.                                  |
+    +-------------------------+-----------------------------------------------------------+
+    |QSocketNotifier.Write    |Data can be written.                                       |
+    +-------------------------+-----------------------------------------------------------+
+    |QSocketNotifier.Exception|An exception has occurred. We recommend against using this.|
+    +-------------------------+-----------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.QSocketNotifier`  :meth:`PySide.QtCore.QSocketNotifier.type` 
+
+.. method:: PySide.QtCore.QSocketNotifier.activated(socket)
+
+
+    :param socket: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QSocketNotifier.isEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the notifier is enabled; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.setEnabled` 
+
+
+.. method:: PySide.QtCore.QSocketNotifier.setEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enable`` is true, the notifier is enabled; otherwise the notifier is disabled.
+
+    The notifier is enabled by default, i.e. it emits the :meth:`PySide.QtCore.QSocketNotifier.activated` signal whenever a socket event corresponding to its :meth:`PySide.QtCore.QSocketNotifier.type` occurs. If it is disabled, it ignores socket events (the same effect as not creating the socket notifier).
+
+    Write notifiers should normally be disabled immediately after the :meth:`PySide.QtCore.QSocketNotifier.activated` signal has been emitted
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.isEnabled`  :meth:`PySide.QtCore.QSocketNotifier.activated` 
+
+
+.. method:: PySide.QtCore.QSocketNotifier.socket()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the socket identifier specified to the constructor.
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.type` 
+
+
+.. method:: PySide.QtCore.QSocketNotifier.type()
+
+
+    :rtype: :attr:`PySide.QtCore.QSocketNotifier.Type`
+
+
+
+
+    Returns the socket event type specified to the constructor.
+
+    .. seealso::  :meth:`PySide.QtCore.QSocketNotifier.socket` 
+
+
+

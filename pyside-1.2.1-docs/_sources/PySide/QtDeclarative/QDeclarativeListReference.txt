@@ -1,0 +1,214 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeListReference:
+
+QDeclarativeListReference
+*************************
+
+.. inheritance-diagram:: QDeclarativeListReference
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`append<PySide.QtDeclarative.QDeclarativeListReference.append>` (arg__1)
+*    def :meth:`at<PySide.QtDeclarative.QDeclarativeListReference.at>` (arg__1)
+*    def :meth:`canAppend<PySide.QtDeclarative.QDeclarativeListReference.canAppend>` ()
+*    def :meth:`canAt<PySide.QtDeclarative.QDeclarativeListReference.canAt>` ()
+*    def :meth:`canClear<PySide.QtDeclarative.QDeclarativeListReference.canClear>` ()
+*    def :meth:`canCount<PySide.QtDeclarative.QDeclarativeListReference.canCount>` ()
+*    def :meth:`clear<PySide.QtDeclarative.QDeclarativeListReference.clear>` ()
+*    def :meth:`count<PySide.QtDeclarative.QDeclarativeListReference.count>` ()
+*    def :meth:`isValid<PySide.QtDeclarative.QDeclarativeListReference.isValid>` ()
+*    def :meth:`listElementType<PySide.QtDeclarative.QDeclarativeListReference.listElementType>` ()
+*    def :meth:`object<PySide.QtDeclarative.QDeclarativeListReference.object>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeListReference` class allows the manipulation of :class:`~PySide.QtDeclarative.QDeclarativeListProperty` properties.
+
+    :class:`PySide.QtDeclarative.QDeclarativeListReference` allows C++ programs to read from, and assign values to a QML list property in a simple and type safe way. A :class:`PySide.QtDeclarative.QDeclarativeListReference` can be created by passing an object and property name or through a :class:`PySide.QtDeclarative.QDeclarativeProperty` instance. These two are equivalant:
+
+    ::
+
+                QDeclarativeListReference ref1(object, "children");
+                
+                QDeclarativeProperty ref2(object, "children");
+                QDeclarativeListReference ref2 = qvariant_cast<QDeclarativeListReference>(ref2.read());
+
+
+    Not all QML list properties support all operations. A set of methods, :meth:`PySide.QtDeclarative.QDeclarativeListReference.canAppend` , :meth:`PySide.QtDeclarative.QDeclarativeListReference.canAt` , :meth:`PySide.QtDeclarative.QDeclarativeListReference.canClear` and :meth:`PySide.QtDeclarative.QDeclarativeListReference.canCount` allow programs to query whether an operation is supported on a given property.
+
+    QML list properties are typesafe. Only :class:`PySide.QtCore.QObject` 's that derive from the correct base class can be assigned to the list. The :meth:`PySide.QtDeclarative.QDeclarativeListReference.listElementType` method can be used to query the :class:`PySide.QtCore.QMetaObject` of the :class:`PySide.QtCore.QObject` type supported. Attempting to add objects of the incorrect type to a list property will fail.
+
+    Like with normal lists, when accessing a list element by index, it is the callers responsibility to ensure that it does not request an out of range element using the :meth:`PySide.QtDeclarative.QDeclarativeListReference.count` method before calling :meth:`PySide.QtDeclarative.QDeclarativeListReference.at` .
+
+
+.. class:: QDeclarativeListReference()
+           QDeclarativeListReference(arg__1, property[, arg__3=None])
+           QDeclarativeListReference(arg__1)
+
+    :param property: str
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :param arg__3: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+
+    Constructs an invalid instance.
+
+
+    Constructs a :class:`PySide.QtDeclarative.QDeclarativeListReference` for ``object`` 's ``property`` . If ``property`` is not a list property, an invalid :class:`PySide.QtDeclarative.QDeclarativeListReference` is created. If ``object`` is destroyed after the reference is constructed, it will automatically become invalid. That is, it is safe to hold :class:`PySide.QtDeclarative.QDeclarativeListReference` instances even after ``object`` is deleted.
+
+    Passing ``engine`` is required to access some QML created list properties. If in doubt, and an engine is available, pass it.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.append(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Appends ``object`` to the list. Returns true if the operation succeeded, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.canAppend` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.at(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the list element at ``index`` , or 0 if the operation failed.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.canAt` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.canAppend()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the list property can be appended to, otherwise false. Returns false if the reference is invalid.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.append` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.canAt()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the list property can queried by index, otherwise false. Returns false if the reference is invalid.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.at` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.canClear()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the list property can be cleared, otherwise false. Returns false if the reference is invalid.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.clear` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.canCount()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the list property can be queried for its element count, otherwise false. Returns false if the reference is invalid.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.count` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.clear()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Clears the list. Returns true if the operation succeeded, otherwise false.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativeListReference.canClear` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of objects in the list, or 0 if the operation failed.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the instance refers to a valid list property, otherwise false.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.listElementType()
+
+
+    :rtype: :class:`PySide.QtCore.QMetaObject`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QMetaObject` for the elements stored in the list property. Returns 0 if the reference is invalid.
+
+    The :class:`PySide.QtCore.QMetaObject` can be used ahead of time to determine whether a given instance can be added to a list.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeListReference.object()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns the list property's object. Returns 0 if the reference is invalid.
+
+
+
+

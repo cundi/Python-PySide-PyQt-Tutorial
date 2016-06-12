@@ -1,0 +1,727 @@
+.. module:: PySide.QtCore
+.. _QMetaObject:
+
+QMetaObject
+***********
+
+.. inheritance-diagram:: QMetaObject
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cast<PySide.QtCore.QMetaObject.cast>` (obj)
+*    def :meth:`classInfo<PySide.QtCore.QMetaObject.classInfo>` (index)
+*    def :meth:`classInfoCount<PySide.QtCore.QMetaObject.classInfoCount>` ()
+*    def :meth:`classInfoOffset<PySide.QtCore.QMetaObject.classInfoOffset>` ()
+*    def :meth:`className<PySide.QtCore.QMetaObject.className>` ()
+*    def :meth:`constructor<PySide.QtCore.QMetaObject.constructor>` (index)
+*    def :meth:`constructorCount<PySide.QtCore.QMetaObject.constructorCount>` ()
+*    def :meth:`enumerator<PySide.QtCore.QMetaObject.enumerator>` (index)
+*    def :meth:`enumeratorCount<PySide.QtCore.QMetaObject.enumeratorCount>` ()
+*    def :meth:`enumeratorOffset<PySide.QtCore.QMetaObject.enumeratorOffset>` ()
+*    def :meth:`indexOfClassInfo<PySide.QtCore.QMetaObject.indexOfClassInfo>` (name)
+*    def :meth:`indexOfConstructor<PySide.QtCore.QMetaObject.indexOfConstructor>` (constructor)
+*    def :meth:`indexOfEnumerator<PySide.QtCore.QMetaObject.indexOfEnumerator>` (name)
+*    def :meth:`indexOfMethod<PySide.QtCore.QMetaObject.indexOfMethod>` (method)
+*    def :meth:`indexOfProperty<PySide.QtCore.QMetaObject.indexOfProperty>` (name)
+*    def :meth:`indexOfSignal<PySide.QtCore.QMetaObject.indexOfSignal>` (signal)
+*    def :meth:`indexOfSlot<PySide.QtCore.QMetaObject.indexOfSlot>` (slot)
+*    def :meth:`method<PySide.QtCore.QMetaObject.method>` (index)
+*    def :meth:`methodCount<PySide.QtCore.QMetaObject.methodCount>` ()
+*    def :meth:`methodOffset<PySide.QtCore.QMetaObject.methodOffset>` ()
+*    def :meth:`newInstance<PySide.QtCore.QMetaObject.newInstance>` ([val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+*    def :meth:`property<PySide.QtCore.QMetaObject.property>` (index)
+*    def :meth:`propertyCount<PySide.QtCore.QMetaObject.propertyCount>` ()
+*    def :meth:`propertyOffset<PySide.QtCore.QMetaObject.propertyOffset>` ()
+*    def :meth:`superClass<PySide.QtCore.QMetaObject.superClass>` ()
+*    def :meth:`userProperty<PySide.QtCore.QMetaObject.userProperty>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`checkConnectArgs<PySide.QtCore.QMetaObject.checkConnectArgs>` (signal, method)
+*    def :meth:`connectSlotsByName<PySide.QtCore.QMetaObject.connectSlotsByName>` (o)
+*    def :meth:`disconnect<PySide.QtCore.QMetaObject.disconnect>` (sender, signal_index, receiver, method_index)
+*    def :meth:`invokeMethod<PySide.QtCore.QMetaObject.invokeMethod>` (obj, member, arg__3, ret[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+*    def :meth:`invokeMethod<PySide.QtCore.QMetaObject.invokeMethod>` (obj, member, ret[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+*    def :meth:`invokeMethod<PySide.QtCore.QMetaObject.invokeMethod>` (obj, member, type[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+*    def :meth:`invokeMethod<PySide.QtCore.QMetaObject.invokeMethod>` (obj, member[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+*    def :meth:`normalizedSignature<PySide.QtCore.QMetaObject.normalizedSignature>` (method)
+*    def :meth:`normalizedType<PySide.QtCore.QMetaObject.normalizedType>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QMetaObject` class contains meta-information about Qt objects.
+
+    The Qt :ref:`Meta-Object System<metaobjects.html>` in Qt is responsible for the signals and slots inter-object communication mechanism, runtime type information, and the Qt property system. A single :class:`PySide.QtCore.QMetaObject` instance is created for each :class:`PySide.QtCore.QObject` subclass that is used in an application, and this instance stores all the meta-information for the :class:`PySide.QtCore.QObject` subclass. This object is available as :meth:`QObject.metaObject()<PySide.QtCore.QObject.metaObject>` .
+
+    This class is not normally required for application programming, but it is useful if you write meta-applications, such as scripting engines or GUI builders.
+
+    The functions you are most likely to find useful are these:
+
+
+    * :meth:`PySide.QtCore.QMetaObject.className` returns the name of a class.
+    * :meth:`PySide.QtCore.QMetaObject.superClass` returns the superclass's meta-object.
+    * :meth:`PySide.QtCore.QMetaObject.method` and :meth:`PySide.QtCore.QMetaObject.methodCount` provide information about a class's meta-methods (signals, slots and other :meth:`invokable<~PySide.QtCore.QMetaObject.Q\_INVOKABLE>` member functions).
+    * :meth:`PySide.QtCore.QMetaObject.enumerator` and :meth:`PySide.QtCore.QMetaObject.enumeratorCount` and provide information about a class's enumerators.
+    * :meth:`PySide.QtCore.QMetaObject.propertyCount` and :meth:`PySide.QtCore.QMetaObject.property` provide information about a class's properties.
+    * :meth:`PySide.QtCore.QMetaObject.constructor` and :meth:`PySide.QtCore.QMetaObject.constructorCount` provide information about a class's meta-constructors.
+
+    The index functions :meth:`PySide.QtCore.QMetaObject.indexOfConstructor` , :meth:`PySide.QtCore.QMetaObject.indexOfMethod` , :meth:`PySide.QtCore.QMetaObject.indexOfEnumerator` , and :meth:`PySide.QtCore.QMetaObject.indexOfProperty` map names of constructors, member functions, enumerators, or properties to indexes in the meta-object. For example, Qt uses :meth:`PySide.QtCore.QMetaObject.indexOfMethod` internally when you connect a signal to a slot.
+
+    Classes can also have a list of *name* --*value* pairs of additional class information, stored in :class:`PySide.QtCore.QMetaClassInfo` objects. The number of pairs is returned by :meth:`PySide.QtCore.QMetaObject.classInfoCount` , single pairs are returned by :meth:`PySide.QtCore.QMetaObject.classInfo` , and you can search for pairs with :meth:`PySide.QtCore.QMetaObject.indexOfClassInfo` .
+
+    .. seealso::  :class:`PySide.QtCore.QMetaClassInfo`  :class:`PySide.QtCore.QMetaEnum`  :class:`PySide.QtCore.QMetaMethod`  :class:`PySide.QtCore.QMetaProperty`  :class:`~PySide.QtCore.QMetaType`  :ref:`Meta-Object System<metaobjects.html>` 
+
+.. class:: QMetaObject()
+
+
+
+
+.. attribute:: PySide.QtCore.QMetaObject.Call
+
+    +-----------------------------------+-----------+
+    |Constant                           |Description|
+    +===================================+===========+
+    |QMetaObject.InvokeSlot             |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.EmitSignal             |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.ReadProperty           |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.WriteProperty          |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.ResetProperty          |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.QueryPropertyDesignable|           |
+    +-----------------------------------+-----------+
+    |QMetaObject.QueryPropertyScriptable|           |
+    +-----------------------------------+-----------+
+    |QMetaObject.QueryPropertyStored    |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.QueryPropertyEditable  |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.QueryPropertyUser      |           |
+    +-----------------------------------+-----------+
+    |QMetaObject.CreateInstance         |           |
+    +-----------------------------------+-----------+
+
+
+.. method:: PySide.QtCore.QMetaObject.cast(obj)
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns ``obj`` if object ``obj`` inherits from this meta-object; otherwise returns 0.
+
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.checkConnectArgs(signal, method)
+
+
+    :param signal: str
+    :param method: str
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the ``signal`` and ``method`` arguments are compatible; otherwise returns false.
+
+    Both ``signal`` and ``method`` are expected to be normalized.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.normalizedSignature` 
+
+
+.. method:: PySide.QtCore.QMetaObject.classInfo(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QMetaClassInfo`
+
+
+
+
+    Returns the meta-data for the item of class information with the given ``index`` .
+
+    Example:
+
+    ::
+
+        class MyClass:
+
+            Q_CLASSINFO("author", "Sabrina Schweinsteiger")
+            Q_CLASSINFO("url", "http://doc.moosesoft.co.uk/1.0/")
+
+            ...
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.classInfoCount`  :meth:`PySide.QtCore.QMetaObject.classInfoOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfClassInfo` 
+
+
+.. method:: PySide.QtCore.QMetaObject.classInfoCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of items of class information in this class.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.classInfo`  :meth:`PySide.QtCore.QMetaObject.classInfoOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfClassInfo` 
+
+
+.. method:: PySide.QtCore.QMetaObject.classInfoOffset()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the class information offset for this class; i.e. the index position of this class's first class information item.
+
+    If the class has no superclasses with class information, the offset is 0; otherwise the offset is the sum of all the class information items in the class's superclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.classInfo`  :meth:`PySide.QtCore.QMetaObject.classInfoCount`  :meth:`PySide.QtCore.QMetaObject.indexOfClassInfo` 
+
+
+.. method:: PySide.QtCore.QMetaObject.className()
+
+
+    :rtype: str
+
+
+
+
+    Returns the class name.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.superClass` 
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.connectSlotsByName(o)
+
+
+    :param o: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Searches recursively for all child objects of the given ``object`` , and connects matching signals from them to slots of ``object`` that follow the following form:
+
+    ::
+
+        def on_<object name>_<signal name>(<signal parameters>)
+
+
+    Let's assume our object has a child object of type :class:`PySide.QtGui.QPushButton` with the :meth:`object name<PySide.QtCore.QObject.objectName>` ``button1`` . The slot to catch the button's ``clicked()`` signal would be:
+
+    ::
+
+        def on_button1_clicked()
+
+
+    .. seealso::  :meth:`QObject.setObjectName()<PySide.QtCore.QObject.setObjectName>` 
+
+
+.. method:: PySide.QtCore.QMetaObject.constructor(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QMetaMethod`
+
+
+
+
+    Returns the meta-data for the constructor with the given ``index`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.constructorCount`  :meth:`PySide.QtCore.QMetaObject.newInstance` 
+
+
+.. method:: PySide.QtCore.QMetaObject.constructorCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of constructors in this class.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.constructor`  :meth:`PySide.QtCore.QMetaObject.indexOfConstructor` 
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.disconnect(sender, signal_index, receiver, method_index)
+
+
+    :param sender: :class:`PySide.QtCore.QObject`
+    :param signal_index: :class:`PySide.QtCore.int`
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param method_index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMetaObject.enumerator(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QMetaEnum`
+
+
+
+
+    Returns the meta-data for the enumerator with the given ``index`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.enumeratorCount`  :meth:`PySide.QtCore.QMetaObject.enumeratorOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfEnumerator` 
+
+
+.. method:: PySide.QtCore.QMetaObject.enumeratorCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of enumerators in this class.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.enumerator`  :meth:`PySide.QtCore.QMetaObject.enumeratorOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfEnumerator` 
+
+
+.. method:: PySide.QtCore.QMetaObject.enumeratorOffset()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the enumerator offset for this class; i.e. the index position of this class's first enumerator.
+
+    If the class has no superclasses with enumerators, the offset is 0; otherwise the offset is the sum of all the enumerators in the class's superclasses.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.enumerator`  :meth:`PySide.QtCore.QMetaObject.enumeratorCount`  :meth:`PySide.QtCore.QMetaObject.indexOfEnumerator` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfClassInfo(name)
+
+
+    :param name: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds class information item ``name`` and returns its index; otherwise returns -1.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.classInfo`  :meth:`PySide.QtCore.QMetaObject.classInfoCount`  :meth:`PySide.QtCore.QMetaObject.classInfoOffset` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfConstructor(constructor)
+
+
+    :param constructor: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds ``constructor`` and returns its index; otherwise returns -1.
+
+    Note that the ``constructor`` has to be in normalized form, as returned by :meth:`PySide.QtCore.QMetaObject.normalizedSignature` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.constructor`  :meth:`PySide.QtCore.QMetaObject.constructorCount`  :meth:`PySide.QtCore.QMetaObject.normalizedSignature` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfEnumerator(name)
+
+
+    :param name: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds enumerator ``name`` and returns its index; otherwise returns -1.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.enumerator`  :meth:`PySide.QtCore.QMetaObject.enumeratorCount`  :meth:`PySide.QtCore.QMetaObject.enumeratorOffset` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfMethod(method)
+
+
+    :param method: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds ``method`` and returns its index; otherwise returns -1.
+
+    Note that the ``method`` has to be in normalized form, as returned by :meth:`PySide.QtCore.QMetaObject.normalizedSignature` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.method`  :meth:`PySide.QtCore.QMetaObject.methodCount`  :meth:`PySide.QtCore.QMetaObject.methodOffset`  :meth:`PySide.QtCore.QMetaObject.normalizedSignature` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfProperty(name)
+
+
+    :param name: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds property ``name`` and returns its index; otherwise returns -1.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.property`  :meth:`PySide.QtCore.QMetaObject.propertyCount`  :meth:`PySide.QtCore.QMetaObject.propertyOffset` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfSignal(signal)
+
+
+    :param signal: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds ``signal`` and returns its index; otherwise returns -1.
+
+    This is the same as :meth:`PySide.QtCore.QMetaObject.indexOfMethod` , except that it will return -1 if the method exists but isn't a signal.
+
+    Note that the ``signal`` has to be in normalized form, as returned by :meth:`PySide.QtCore.QMetaObject.normalizedSignature` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.indexOfMethod`  :meth:`PySide.QtCore.QMetaObject.normalizedSignature`  :meth:`PySide.QtCore.QMetaObject.method`  :meth:`PySide.QtCore.QMetaObject.methodCount`  :meth:`PySide.QtCore.QMetaObject.methodOffset` 
+
+
+.. method:: PySide.QtCore.QMetaObject.indexOfSlot(slot)
+
+
+    :param slot: str
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Finds ``slot`` and returns its index; otherwise returns -1.
+
+    This is the same as :meth:`PySide.QtCore.QMetaObject.indexOfMethod` , except that it will return -1 if the method exists but isn't a slot.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.indexOfMethod`  :meth:`PySide.QtCore.QMetaObject.method`  :meth:`PySide.QtCore.QMetaObject.methodCount`  :meth:`PySide.QtCore.QMetaObject.methodOffset` 
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.invokeMethod(obj, member, type[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param type: :attr:`PySide.QtCore.Qt.ConnectionType`
+    :param val0: :class:`PySide.QtCore.QGenericArgument`
+    :param val1: :class:`PySide.QtCore.QGenericArgument`
+    :param val2: :class:`PySide.QtCore.QGenericArgument`
+    :param val3: :class:`PySide.QtCore.QGenericArgument`
+    :param val4: :class:`PySide.QtCore.QGenericArgument`
+    :param val5: :class:`PySide.QtCore.QGenericArgument`
+    :param val6: :class:`PySide.QtCore.QGenericArgument`
+    :param val7: :class:`PySide.QtCore.QGenericArgument`
+    :param val8: :class:`PySide.QtCore.QGenericArgument`
+    :param val9: :class:`PySide.QtCore.QGenericArgument`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.invokeMethod(obj, member, arg__3, ret[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param arg__3: :attr:`PySide.QtCore.Qt.ConnectionType`
+    :param ret: :class:`PySide.QtCore.QGenericReturnArgument`
+    :param val0: :class:`PySide.QtCore.QGenericArgument`
+    :param val1: :class:`PySide.QtCore.QGenericArgument`
+    :param val2: :class:`PySide.QtCore.QGenericArgument`
+    :param val3: :class:`PySide.QtCore.QGenericArgument`
+    :param val4: :class:`PySide.QtCore.QGenericArgument`
+    :param val5: :class:`PySide.QtCore.QGenericArgument`
+    :param val6: :class:`PySide.QtCore.QGenericArgument`
+    :param val7: :class:`PySide.QtCore.QGenericArgument`
+    :param val8: :class:`PySide.QtCore.QGenericArgument`
+    :param val9: :class:`PySide.QtCore.QGenericArgument`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.invokeMethod(obj, member, ret[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param ret: :class:`PySide.QtCore.QGenericReturnArgument`
+    :param val0: :class:`PySide.QtCore.QGenericArgument`
+    :param val1: :class:`PySide.QtCore.QGenericArgument`
+    :param val2: :class:`PySide.QtCore.QGenericArgument`
+    :param val3: :class:`PySide.QtCore.QGenericArgument`
+    :param val4: :class:`PySide.QtCore.QGenericArgument`
+    :param val5: :class:`PySide.QtCore.QGenericArgument`
+    :param val6: :class:`PySide.QtCore.QGenericArgument`
+    :param val7: :class:`PySide.QtCore.QGenericArgument`
+    :param val8: :class:`PySide.QtCore.QGenericArgument`
+    :param val9: :class:`PySide.QtCore.QGenericArgument`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QMetaObject.invokeMethod` .
+
+    This overload always invokes the member using the connection type :attr:`Qt.AutoConnection<Qt.ConnectionType>` .
+
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.invokeMethod(obj, member[, val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+
+
+    :param obj: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :param val0: :class:`PySide.QtCore.QGenericArgument`
+    :param val1: :class:`PySide.QtCore.QGenericArgument`
+    :param val2: :class:`PySide.QtCore.QGenericArgument`
+    :param val3: :class:`PySide.QtCore.QGenericArgument`
+    :param val4: :class:`PySide.QtCore.QGenericArgument`
+    :param val5: :class:`PySide.QtCore.QGenericArgument`
+    :param val6: :class:`PySide.QtCore.QGenericArgument`
+    :param val7: :class:`PySide.QtCore.QGenericArgument`
+    :param val8: :class:`PySide.QtCore.QGenericArgument`
+    :param val9: :class:`PySide.QtCore.QGenericArgument`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function overloads :meth:`PySide.QtCore.QMetaObject.invokeMethod` .
+
+    This overload invokes the member using the connection type :attr:`Qt.AutoConnection<Qt.ConnectionType>` and ignores return values.
+
+
+
+.. method:: PySide.QtCore.QMetaObject.method(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QMetaMethod`
+
+
+
+
+    Returns the meta-data for the method with the given ``index`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.methodCount`  :meth:`PySide.QtCore.QMetaObject.methodOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfMethod` 
+
+
+.. method:: PySide.QtCore.QMetaObject.methodCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of methods known to the meta-object system in this class, including the number of properties provided by each base class. These include signals and slots as well as member functions declared with the :meth:`~PySide.QtCore.QMetaObject.Q\_INVOKABLE` macro.
+
+    Use code like the following to obtain a :class:`PySide.QtCore.QStringList` containing the methods specific to a given class:
+
+    ::
+
+        metaObject = obj.metaObject()
+        methods = [metaObject.method(i).signature() for i in range(metaObject.methodOffset(), metaObject.methodCount())]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.method`  :meth:`PySide.QtCore.QMetaObject.methodOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfMethod` 
+
+
+.. method:: PySide.QtCore.QMetaObject.methodOffset()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the method offset for this class; i.e. the index position of this class's first member function.
+
+    The offset is the sum of all the methods in the class's superclasses (which is always positive since :class:`PySide.QtCore.QObject` has the deleteLater() slot and a destroyed() signal).
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.method`  :meth:`PySide.QtCore.QMetaObject.methodCount`  :meth:`PySide.QtCore.QMetaObject.indexOfMethod` 
+
+
+.. method:: PySide.QtCore.QMetaObject.newInstance([val0=QGenericArgument(0)[, val1=QGenericArgument()[, val2=QGenericArgument()[, val3=QGenericArgument()[, val4=QGenericArgument()[, val5=QGenericArgument()[, val6=QGenericArgument()[, val7=QGenericArgument()[, val8=QGenericArgument()[, val9=QGenericArgument()]]]]]]]]]])
+
+
+    :param val0: :class:`PySide.QtCore.QGenericArgument`
+    :param val1: :class:`PySide.QtCore.QGenericArgument`
+    :param val2: :class:`PySide.QtCore.QGenericArgument`
+    :param val3: :class:`PySide.QtCore.QGenericArgument`
+    :param val4: :class:`PySide.QtCore.QGenericArgument`
+    :param val5: :class:`PySide.QtCore.QGenericArgument`
+    :param val6: :class:`PySide.QtCore.QGenericArgument`
+    :param val7: :class:`PySide.QtCore.QGenericArgument`
+    :param val8: :class:`PySide.QtCore.QGenericArgument`
+    :param val9: :class:`PySide.QtCore.QGenericArgument`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Constructs a new instance of this class. You can pass up to ten arguments (``val0`` , ``val1`` , ``val2`` , ``val3`` , ``val4`` , ``val5`` , ``val6`` , ``val7`` , ``val8`` , and ``val9`` ) to the constructor. Returns the new object, or 0 if no suitable constructor is available.
+
+    Note that only constructors that are declared with the :meth:`~PySide.QtCore.QMetaObject.Q\_INVOKABLE` modifier are made available through the meta-object system.
+
+    .. seealso::  :meth:`~PySide.QtCore.QMetaObject.Q\_ARG`  :meth:`PySide.QtCore.QMetaObject.constructor` 
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.normalizedSignature(method)
+
+
+    :param method: str
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Normalizes the signature of the given ``method`` .
+
+    Qt uses normalized signatures to decide whether two given signals and slots are compatible. Normalization reduces whitespace to a minimum, moves 'const' to the front where appropriate, removes 'const' from value types and replaces const references with values.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.checkConnectArgs`  :meth:`PySide.QtCore.QMetaObject.normalizedType` 
+
+
+.. staticmethod:: PySide.QtCore.QMetaObject.normalizedType(type)
+
+
+    :param type: str
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Normalizes a ``type`` .
+
+    See :meth:`QMetaObject.normalizedSignature()<PySide.QtCore.QMetaObject.normalizedSignature>` for a description on how Qt normalizes.
+
+    Example:
+
+    ::
+
+        normType = QMetaObject.normalizedType(" int    const  *")
+        # normType is now "const int*"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.normalizedSignature` 
+
+
+.. method:: PySide.QtCore.QMetaObject.property(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QMetaProperty`
+
+
+
+
+    Returns the meta-data for the property with the given ``index`` . If no such property exists, a null :class:`PySide.QtCore.QMetaProperty` is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.propertyCount`  :meth:`PySide.QtCore.QMetaObject.propertyOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfProperty` 
+
+
+.. method:: PySide.QtCore.QMetaObject.propertyCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of properties in this class, including the number of properties provided by each base class.
+
+    Use code like the following to obtain a :class:`PySide.QtCore.QStringList` containing the properties specific to a given class:
+
+    ::
+
+        metaObject = obj.metaObject()
+        properties = [metaObject.property(i).name() for i in range(metaObject.propertyOffset(), metaObject.propertyCount())]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.property`  :meth:`PySide.QtCore.QMetaObject.propertyOffset`  :meth:`PySide.QtCore.QMetaObject.indexOfProperty` 
+
+
+.. method:: PySide.QtCore.QMetaObject.propertyOffset()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the property offset for this class; i.e. the index position of this class's first property.
+
+    The offset is the sum of all the properties in the class's superclasses (which is always positive since :class:`PySide.QtCore.QObject` has the :meth:`~PySide.QtCore.QMetaObject.name` property).
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.property`  :meth:`PySide.QtCore.QMetaObject.propertyCount`  :meth:`PySide.QtCore.QMetaObject.indexOfProperty` 
+
+
+.. method:: PySide.QtCore.QMetaObject.superClass()
+
+
+    :rtype: :class:`PySide.QtCore.QMetaObject`
+
+
+
+
+    Returns the meta-object of the superclass, or 0 if there is no such object.
+
+    .. seealso::  :meth:`PySide.QtCore.QMetaObject.className` 
+
+
+.. method:: PySide.QtCore.QMetaObject.userProperty()
+
+
+    :rtype: :class:`PySide.QtCore.QMetaProperty`
+
+
+
+
+    Returns the property that has the ``USER`` flag set to true.
+
+    .. seealso::  :meth:`QMetaProperty.isUser()<PySide.QtCore.QMetaProperty.isUser>` 
+
+
+

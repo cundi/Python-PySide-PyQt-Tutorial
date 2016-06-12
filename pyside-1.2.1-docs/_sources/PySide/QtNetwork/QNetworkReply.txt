@@ -1,0 +1,584 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkReply:
+
+QNetworkReply
+*************
+
+.. inheritance-diagram:: QNetworkReply
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`attribute<PySide.QtNetwork.QNetworkReply.attribute>` (code)
+*    def :meth:`error<PySide.QtNetwork.QNetworkReply.error>` ()
+*    def :meth:`hasRawHeader<PySide.QtNetwork.QNetworkReply.hasRawHeader>` (headerName)
+*    def :meth:`header<PySide.QtNetwork.QNetworkReply.header>` (header)
+*    def :meth:`ignoreSslErrors<PySide.QtNetwork.QNetworkReply.ignoreSslErrors>` (errors)
+*    def :meth:`isFinished<PySide.QtNetwork.QNetworkReply.isFinished>` ()
+*    def :meth:`isRunning<PySide.QtNetwork.QNetworkReply.isRunning>` ()
+*    def :meth:`manager<PySide.QtNetwork.QNetworkReply.manager>` ()
+*    def :meth:`operation<PySide.QtNetwork.QNetworkReply.operation>` ()
+*    def :meth:`rawHeader<PySide.QtNetwork.QNetworkReply.rawHeader>` (headerName)
+*    def :meth:`rawHeaderList<PySide.QtNetwork.QNetworkReply.rawHeaderList>` ()
+*    def :meth:`rawHeaderPairs<PySide.QtNetwork.QNetworkReply.rawHeaderPairs>` ()
+*    def :meth:`readBufferSize<PySide.QtNetwork.QNetworkReply.readBufferSize>` ()
+*    def :meth:`request<PySide.QtNetwork.QNetworkReply.request>` ()
+*    def :meth:`setAttribute<PySide.QtNetwork.QNetworkReply.setAttribute>` (code, value)
+*    def :meth:`setError<PySide.QtNetwork.QNetworkReply.setError>` (errorCode, errorString)
+*    def :meth:`setFinished<PySide.QtNetwork.QNetworkReply.setFinished>` (arg__1)
+*    def :meth:`setHeader<PySide.QtNetwork.QNetworkReply.setHeader>` (header, value)
+*    def :meth:`setOperation<PySide.QtNetwork.QNetworkReply.setOperation>` (operation)
+*    def :meth:`setRawHeader<PySide.QtNetwork.QNetworkReply.setRawHeader>` (headerName, value)
+*    def :meth:`setRequest<PySide.QtNetwork.QNetworkReply.setRequest>` (request)
+*    def :meth:`setSslConfiguration<PySide.QtNetwork.QNetworkReply.setSslConfiguration>` (configuration)
+*    def :meth:`setUrl<PySide.QtNetwork.QNetworkReply.setUrl>` (url)
+*    def :meth:`sslConfiguration<PySide.QtNetwork.QNetworkReply.sslConfiguration>` ()
+*    def :meth:`url<PySide.QtNetwork.QNetworkReply.url>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`abort<PySide.QtNetwork.QNetworkReply.abort>` ()
+*    def :meth:`ignoreSslErrors<PySide.QtNetwork.QNetworkReply.ignoreSslErrors>` ()
+*    def :meth:`setReadBufferSize<PySide.QtNetwork.QNetworkReply.setReadBufferSize>` (size)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`downloadProgress<PySide.QtNetwork.QNetworkReply.downloadProgress>` (bytesReceived, bytesTotal)
+*    def :meth:`error<PySide.QtNetwork.QNetworkReply.error>` (arg__1)
+*    def :meth:`finished<PySide.QtNetwork.QNetworkReply.finished>` ()
+*    def :meth:`metaDataChanged<PySide.QtNetwork.QNetworkReply.metaDataChanged>` ()
+*    def :meth:`sslErrors<PySide.QtNetwork.QNetworkReply.sslErrors>` (errors)
+*    def :meth:`uploadProgress<PySide.QtNetwork.QNetworkReply.uploadProgress>` (bytesSent, bytesTotal)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkReply` class contains the data and headers for a request sent with :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+    The :class:`PySide.QtNetwork.QNetworkReply` class contains the data and meta data related to a request posted with :class:`PySide.QtNetwork.QNetworkAccessManager` . Like :class:`PySide.QtNetwork.QNetworkRequest` , it contains a URL and headers (both in parsed and raw form), some information about the reply's state and the contents of the reply itself.
+
+    :class:`PySide.QtNetwork.QNetworkReply` is a sequential-access :class:`PySide.QtCore.QIODevice` , which means that once data is read from the object, it no longer kept by the device. It is therefore the application's responsibility to keep this data if it needs to. Whenever more data is received from the network and processed, the :meth:`PySide.QtCore.QIODevice.readyRead` signal is emitted.
+
+    The :meth:`PySide.QtNetwork.QNetworkReply.downloadProgress` signal is also emitted when data is received, but the number of bytes contained in it may not represent the actual bytes received, if any transformation is done to the contents (for example, decompressing and removing the protocol overhead).
+
+    Even though :class:`PySide.QtNetwork.QNetworkReply` is a :class:`PySide.QtCore.QIODevice` connected to the contents of the reply, it also emits the :meth:`PySide.QtNetwork.QNetworkReply.uploadProgress` signal, which indicates the progress of the upload for operations that have such content.
+
+    .. note::  Do not delete the object in the slot connected to the :meth:`PySide.QtNetwork.QNetworkReply.error` or :meth:`PySide.QtNetwork.QNetworkReply.finished` signal. Use :meth:`PySide.QtCore.QObject.deleteLater` .
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkRequest`  :class:`PySide.QtNetwork.QNetworkAccessManager` 
+
+.. class:: QNetworkReply([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates a :class:`PySide.QtNetwork.QNetworkReply` object with parent ``parent`` .
+
+    You cannot directly instantiate :class:`PySide.QtNetwork.QNetworkReply` objects. Use :class:`PySide.QtNetwork.QNetworkAccessManager` functions to do that.
+
+
+.. attribute:: PySide.QtNetwork.QNetworkReply.NetworkError
+
+    Indicates all possible error conditions found during the processing of the request.
+
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                       |Description                                                                                                                                                                                                                              |
+    +===============================================+=========================================================================================================================================================================================================================================+
+    |QNetworkReply.NoError                          |no error condition. **Note:** When the HTTP protocol returns a redirect no error will be reported. You can check if there is a redirect with the :attr:`QNetworkRequest.RedirectionTargetAttribute<QNetworkRequest.Attribute>` attribute.|
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ConnectionRefusedError           |the remote server refused the connection (the server is not accepting requests)                                                                                                                                                          |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.RemoteHostClosedError            |the remote server closed the connection prematurely, before the entire reply was received and processed                                                                                                                                  |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.HostNotFoundError                |the remote host name was not found (invalid hostname)                                                                                                                                                                                    |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.TimeoutError                     |the connection to the remote server timed out                                                                                                                                                                                            |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.OperationCanceledError           |the operation was canceled via calls to :meth:`PySide.QtNetwork.QNetworkReply.abort` or :meth:`PySide.QtNetwork.QNetworkReply.close` before it was finished.                                                                             |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.SslHandshakeFailedError          |the SSL/TLS handshake failed and the encrypted channel could not be established. The :meth:`PySide.QtNetwork.QNetworkReply.sslErrors` signal should have been emitted.                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.TemporaryNetworkFailureError     |the connection was broken due to disconnection from the network, however the system has initiated roaming to another access point. The request should be resubmitted and will be processed as soon as the connection is re-established.  |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProxyConnectionRefusedError      |the connection to the proxy server was refused (the proxy server is not accepting requests)                                                                                                                                              |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProxyConnectionClosedError       |the proxy server closed the connection prematurely, before the entire reply was received and processed                                                                                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProxyNotFoundError               |the proxy host name was not found (invalid proxy hostname)                                                                                                                                                                               |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProxyTimeoutError                |the connection to the proxy timed out or the proxy did not reply in time to the request sent                                                                                                                                             |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProxyAuthenticationRequiredError |the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)                                                                                                                     |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ContentAccessDenied              |the access to the remote content was denied (similar to HTTP error 401)                                                                                                                                                                  |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ContentOperationNotPermittedError|the operation requested on the remote content is not permitted                                                                                                                                                                           |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ContentNotFoundError             |the remote content was not found at the server (similar to HTTP error 404)                                                                                                                                                               |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.AuthenticationRequiredError      |the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)                                                                                                                   |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ContentReSendError               |the request needed to be sent again, but this failed for example because the upload data could not be read a second time.                                                                                                                |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProtocolUnknownError             |the Network Access API cannot honor the request because the protocol is not known                                                                                                                                                        |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProtocolInvalidOperationError    |the requested operation is invalid for this protocol                                                                                                                                                                                     |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.UnknownNetworkError              |an unknown network-related error was detected                                                                                                                                                                                            |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.UnknownProxyError                |an unknown proxy-related error was detected                                                                                                                                                                                              |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.UnknownContentError              |an unknown error related to the remote content was detected                                                                                                                                                                              |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkReply.ProtocolFailure                  |a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)                                                                                                                                              |
+    +-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.error` 
+
+.. method:: PySide.QtNetwork.QNetworkReply.abort()
+
+
+
+
+
+
+    Aborts the operation immediately and close down any network connections still open. Uploads still in progress are also aborted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.close` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.attribute(code)
+
+
+    :param code: :attr:`PySide.QtNetwork.QNetworkRequest.Attribute`
+    :rtype: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.downloadProgress(bytesReceived, bytesTotal)
+
+
+    :param bytesReceived: :class:`PySide.QtCore.qint64`
+    :param bytesTotal: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkReply.NetworkError`
+
+
+
+
+    Returns the error that was found during the processing of this request. If no error was found, returns :attr:`NoError<QNetworkReply.NetworkError>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.setError` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.error(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtNetwork.QNetworkReply.NetworkError`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.hasRawHeader(headerName)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the raw header of name ``headerName`` was sent by the remote server
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.rawHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.header(header)
+
+
+    :param header: :attr:`PySide.QtNetwork.QNetworkRequest.KnownHeaders`
+    :rtype: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.ignoreSslErrors()
+
+
+
+
+
+
+    If this function is called, SSL errors related to network connection will be ignored, including certificate validation errors.
+
+    .. warning::  Be sure to always let the user inspect the errors reported by the :meth:`PySide.QtNetwork.QNetworkReply.sslErrors` signal, and only call this method upon confirmation from the user that proceeding is ok. If there are unexpected errors, the reply should be aborted. Calling this method without inspecting the actual errors will most likely pose a security risk for your application. Use it with great care!
+
+    This function can be called from the slot connected to the :meth:`PySide.QtNetwork.QNetworkReply.sslErrors` signal, which indicates which errors were found.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.sslConfiguration`  :meth:`PySide.QtNetwork.QNetworkReply.sslErrors`  :meth:`QSslSocket.ignoreSslErrors()<PySide.QtNetwork.QSslSocket.ignoreSslErrors>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.ignoreSslErrors(errors)
+
+
+    :param errors: 
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.isFinished()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true when the reply has finished or was aborted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.isRunning` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.isRunning()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true when the request is still processing and the reply has not finished or was aborted yet.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.isFinished` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.manager()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkAccessManager` that was used to create this :class:`PySide.QtNetwork.QNetworkReply` object. Initially, it is also the parent object.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.metaDataChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.operation()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkAccessManager.Operation`
+
+
+
+
+    Returns the operation that was posted for this reply.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.setOperation` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.rawHeader(headerName)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the raw contents of the header ``headerName`` as sent by the remote server. If there is no such header, returns an empty byte array, which may be indistinguishable from an empty header. Use :meth:`PySide.QtNetwork.QNetworkReply.hasRawHeader` to verify if the server sent such header field.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.setRawHeader`  :meth:`PySide.QtNetwork.QNetworkReply.hasRawHeader`  :meth:`PySide.QtNetwork.QNetworkReply.header` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.rawHeaderList()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of headers fields that were sent by the remote server, in the order that they were sent. Duplicate headers are merged together and take place of the latter duplicate.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.rawHeaderPairs()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of raw header pairs.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.readBufferSize()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the size of the read buffer, in bytes.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.setReadBufferSize` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.request()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkRequest`
+
+
+
+
+    Returns the request that was posted for this reply. In special, note that the URL for the request may be different than that of the reply.
+
+    .. seealso::  :meth:`QNetworkRequest.url()<PySide.QtNetwork.QNetworkRequest.url>`  :meth:`PySide.QtNetwork.QNetworkReply.url`  :meth:`PySide.QtNetwork.QNetworkReply.setRequest` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setAttribute(code, value)
+
+
+    :param code: :attr:`PySide.QtNetwork.QNetworkRequest.Attribute`
+    :param value: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setError(errorCode, errorString)
+
+
+    :param errorCode: :attr:`PySide.QtNetwork.QNetworkReply.NetworkError`
+    :param errorString: unicode
+
+
+
+
+    Sets the error condition to be ``errorCode`` . The human-readable message is set with ``errorString`` .
+
+    Calling :meth:`PySide.QtNetwork.QNetworkReply.setError` does not emit the error( :attr:`QNetworkReply.NetworkError` ) signal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.error`  :meth:`PySide.QtCore.QIODevice.errorString` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setFinished(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the reply as ``finished`` .
+
+    After having this set the replies data must not change.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.finished`  :meth:`PySide.QtNetwork.QNetworkReply.isFinished` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setHeader(header, value)
+
+
+    :param header: :attr:`PySide.QtNetwork.QNetworkRequest.KnownHeaders`
+    :param value: object
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setOperation(operation)
+
+
+    :param operation: :attr:`PySide.QtNetwork.QNetworkAccessManager.Operation`
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setRawHeader(headerName, value)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :param value: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the raw header ``headerName`` to be of value ``value`` . If ``headerName`` was previously set, it is overridden. Multiple HTTP headers of the same name are functionally equivalent to one single header with the values concatenated, separated by commas.
+
+    If ``headerName`` matches a known header, the value ``value`` will be parsed and the corresponding parsed form will also be set.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.rawHeader`  :meth:`PySide.QtNetwork.QNetworkReply.header`  :meth:`PySide.QtNetwork.QNetworkReply.setHeader`  :meth:`QNetworkRequest.setRawHeader()<PySide.QtNetwork.QNetworkRequest.setRawHeader>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setReadBufferSize(size)
+
+
+    :param size: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the size of the read buffer to be ``size`` bytes. The read buffer is the buffer that holds data that is being downloaded off the network, before it is read with :meth:`QIODevice.read()<PySide.QtCore.QIODevice.read>` . Setting the buffer size to 0 will make the buffer unlimited in size.
+
+    :class:`PySide.QtNetwork.QNetworkReply` will try to stop reading from the network once this buffer is full (i.e., :meth:`PySide.QtCore.QIODevice.bytesAvailable` returns ``size`` or more), thus causing the download to throttle down as well. If the buffer is not limited in size, :class:`PySide.QtNetwork.QNetworkReply` will try to download as fast as possible from the network.
+
+    Unlike :meth:`QAbstractSocket.setReadBufferSize()<PySide.QtNetwork.QAbstractSocket.setReadBufferSize>` , :class:`PySide.QtNetwork.QNetworkReply` cannot guarantee precision in the read buffer size. That is, :meth:`PySide.QtCore.QIODevice.bytesAvailable` can return more than ``size`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.readBufferSize` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setRequest(request)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+
+
+
+
+    Sets the associated request for this object to be ``request`` . This value will be returned by :meth:`PySide.QtNetwork.QNetworkReply.request` .
+
+    Note: the request should be set when this object is created and not changed again.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.request`  :meth:`PySide.QtNetwork.QNetworkReply.setOperation` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setSslConfiguration(configuration)
+
+
+    :param configuration: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Sets the SSL configuration for the network connection associated with this request, if possible, to be that of ``config`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.sslConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.setUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets the URL being processed to be ``url`` . Normally, the URL matches that of the request that was posted, but for a variety of reasons it can be different (for example, a file path being made absolute or canonical).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.url`  :meth:`PySide.QtNetwork.QNetworkReply.request`  :meth:`QNetworkRequest.url()<PySide.QtNetwork.QNetworkRequest.url>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.sslConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Returns the SSL configuration and state associated with this reply, if SSL was used. It will contain the remote server's certificate, its certificate chain leading to the Certificate Authority as well as the encryption ciphers in use.
+
+    The peer's certificate and its certificate chain will be known by the time :meth:`PySide.QtNetwork.QNetworkReply.sslErrors` is emitted, if it's emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.setSslConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.sslErrors(errors)
+
+
+    :param errors: 
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.uploadProgress(bytesSent, bytesTotal)
+
+
+    :param bytesSent: :class:`PySide.QtCore.qint64`
+    :param bytesTotal: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkReply.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the URL of the content downloaded or uploaded. Note that the URL may be different from that of the original request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkReply.request`  :meth:`PySide.QtNetwork.QNetworkReply.setUrl`  :meth:`QNetworkRequest.url()<PySide.QtNetwork.QNetworkRequest.url>` 
+
+
+

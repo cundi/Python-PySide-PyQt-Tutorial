@@ -1,0 +1,200 @@
+.. module:: PySide.QtGui
+.. _QGesture:
+
+QGesture
+********
+
+.. inheritance-diagram:: QGesture
+    :parts: 2
+
+**Inherited by:** :ref:`QTapAndHoldGesture`, :ref:`QTapGesture`, :ref:`QSwipeGesture`, :ref:`QPinchGesture`, :ref:`QPanGesture`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`gestureCancelPolicy<PySide.QtGui.QGesture.gestureCancelPolicy>` ()
+*    def :meth:`gestureType<PySide.QtGui.QGesture.gestureType>` ()
+*    def :meth:`hasHotSpot<PySide.QtGui.QGesture.hasHotSpot>` ()
+*    def :meth:`hotSpot<PySide.QtGui.QGesture.hotSpot>` ()
+*    def :meth:`setGestureCancelPolicy<PySide.QtGui.QGesture.setGestureCancelPolicy>` (policy)
+*    def :meth:`setHotSpot<PySide.QtGui.QGesture.setHotSpot>` (value)
+*    def :meth:`state<PySide.QtGui.QGesture.state>` ()
+*    def :meth:`unsetHotSpot<PySide.QtGui.QGesture.unsetHotSpot>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGesture` class represents a gesture, containing properties that describe the corresponding user input.
+
+    Gesture objects are not constructed directly by developers. They are created by the :class:`PySide.QtGui.QGestureRecognizer` object that is registered with the application; see :meth:`QGestureRecognizer.registerRecognizer()<PySide.QtGui.QGestureRecognizer.registerRecognizer>` .
+
+    For an overview of gesture handling in Qt and information on using gestures in your applications, see the :ref:`Gestures Programming<gestures-overview.html>` document.
+
+    .. _PySide.QtGui.QGesture_gesture-properties:
+
+
+
+Gesture Properties
+^^^^^^^^^^^^^^^^^^
+
+    The class has a list of properties that can be queried by the user to get some gesture-specific arguments. For example, the pinch gesture has a scale factor that is exposed as a property.
+
+    Developers of custom gesture recognizers can add additional properties in order to provide additional information about a gesture. This can be done by adding new dynamic properties to a :class:`PySide.QtGui.QGesture` object, or by subclassing the :class:`PySide.QtGui.QGesture` class (or one of its subclasses).
+
+    .. _PySide.QtGui.QGesture_lifecycle-of-a-gesture-object:
+
+
+
+Lifecycle of a Gesture Object
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    A :class:`PySide.QtGui.QGesture` instance is implicitly created when needed and is owned by Qt. Developers should never destroy them or store them for later use as Qt may destroy particular instances of them and create new ones to replace them.
+
+    The registered gesture recognizer monitors the input events for the target object via its :meth:`PySide.QtGui.QGestureRecognizer.recognize` function, updating the properties of the gesture object as required.
+
+    The gesture object may be delivered to the target object in a :class:`PySide.QtGui.QGestureEvent` if the corresponding gesture is active or has just been canceled. Each event that is delivered contains a list of gesture objects, since support for more than one gesture may be enabled for the target object. Due to the way events are handled in Qt, gesture events may be filtered by other objects.
+
+    .. seealso::  :class:`PySide.QtGui.QGestureEvent`  :class:`PySide.QtGui.QGestureRecognizer` 
+
+.. class:: QGesture([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new gesture object with the given ``parent`` .
+
+    :class:`PySide.QtGui.QGesture` objects are created by gesture recognizers in the :meth:`QGestureRecognizer.create()<PySide.QtGui.QGestureRecognizer.create>` function.
+
+
+.. attribute:: PySide.QtGui.QGesture.GestureCancelPolicy
+
+    This enum describes how accepting a gesture can cancel other gestures automatically.
+
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                                                                                                        |
+    +===========================+===================================================================================================================================================================================+
+    |QGesture.CancelNone        |On accepting this gesture no other gestures will be affected.                                                                                                                      |
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QGesture.CancelAllInContext|On accepting this gesture all gestures that are active in the context (respecting the :attr:`Qt.GestureFlag` that were specified when subscribed to the gesture) will be cancelled.|
+    +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QGesture.gestureCancelPolicy()
+
+
+    :rtype: :attr:`PySide.QtGui.QGesture.GestureCancelPolicy`
+
+
+
+
+    This property holds the policy for deciding what happens on accepting a gesture.
+
+    On accepting one gesture Qt can automatically cancel other gestures that belong to other targets. The policy is normally set to not cancel any other gestures and can be set to cancel all active gestures in the context. For example for all child widgets.
+
+
+
+.. method:: PySide.QtGui.QGesture.gestureType()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.GestureType`
+
+
+
+
+    This property holds the type of the gesture.
+
+
+
+.. method:: PySide.QtGui.QGesture.hasHotSpot()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the gesture has a hot-spot.
+
+
+
+.. method:: PySide.QtGui.QGesture.hotSpot()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    This property holds The point that is used to find the receiver for the gesture event..
+
+    The hot-spot is a point in the global coordinate system, use :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>` or :meth:`QGestureEvent.mapToGraphicsScene()<PySide.QtGui.QGestureEvent.mapToGraphicsScene>` to get a local hot-spot.
+
+    The hot-spot should be set by the gesture recognizer to allow gesture event delivery to a :class:`PySide.QtGui.QGraphicsObject` .
+
+
+
+.. method:: PySide.QtGui.QGesture.setGestureCancelPolicy(policy)
+
+
+    :param policy: :attr:`PySide.QtGui.QGesture.GestureCancelPolicy`
+
+
+
+
+    This property holds the policy for deciding what happens on accepting a gesture.
+
+    On accepting one gesture Qt can automatically cancel other gestures that belong to other targets. The policy is normally set to not cancel any other gestures and can be set to cancel all active gestures in the context. For example for all child widgets.
+
+
+
+.. method:: PySide.QtGui.QGesture.setHotSpot(value)
+
+
+    :param value: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    This property holds The point that is used to find the receiver for the gesture event..
+
+    The hot-spot is a point in the global coordinate system, use :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>` or :meth:`QGestureEvent.mapToGraphicsScene()<PySide.QtGui.QGestureEvent.mapToGraphicsScene>` to get a local hot-spot.
+
+    The hot-spot should be set by the gesture recognizer to allow gesture event delivery to a :class:`PySide.QtGui.QGraphicsObject` .
+
+
+
+.. method:: PySide.QtGui.QGesture.state()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.GestureState`
+
+
+
+
+    This property holds the current state of the gesture.
+
+
+
+.. method:: PySide.QtGui.QGesture.unsetHotSpot()
+
+
+
+
+
+
+    This property holds The point that is used to find the receiver for the gesture event..
+
+    The hot-spot is a point in the global coordinate system, use :meth:`QWidget.mapFromGlobal()<PySide.QtGui.QWidget.mapFromGlobal>` or :meth:`QGestureEvent.mapToGraphicsScene()<PySide.QtGui.QGestureEvent.mapToGraphicsScene>` to get a local hot-spot.
+
+    The hot-spot should be set by the gesture recognizer to allow gesture event delivery to a :class:`PySide.QtGui.QGraphicsObject` .
+
+
+
+

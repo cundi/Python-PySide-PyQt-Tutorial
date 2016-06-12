@@ -1,0 +1,214 @@
+.. module:: PySide.QtSql
+.. _QSqlError:
+
+QSqlError
+*********
+
+.. inheritance-diagram:: QSqlError
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`databaseText<PySide.QtSql.QSqlError.databaseText>` ()
+*    def :meth:`driverText<PySide.QtSql.QSqlError.driverText>` ()
+*    def :meth:`isValid<PySide.QtSql.QSqlError.isValid>` ()
+*    def :meth:`number<PySide.QtSql.QSqlError.number>` ()
+*    def :meth:`setDatabaseText<PySide.QtSql.QSqlError.setDatabaseText>` (databaseText)
+*    def :meth:`setDriverText<PySide.QtSql.QSqlError.setDriverText>` (driverText)
+*    def :meth:`setNumber<PySide.QtSql.QSqlError.setNumber>` (number)
+*    def :meth:`setType<PySide.QtSql.QSqlError.setType>` (type)
+*    def :meth:`text<PySide.QtSql.QSqlError.text>` ()
+*    def :meth:`type<PySide.QtSql.QSqlError.type>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlError` class provides SQL database error information.
+
+    A :class:`PySide.QtSql.QSqlError` object can provide database-specific error data, including the :meth:`PySide.QtSql.QSqlError.driverText` and :meth:`PySide.QtSql.QSqlError.databaseText` messages (or both concatenated together as :meth:`PySide.QtSql.QSqlError.text` ), and the error :meth:`PySide.QtSql.QSqlError.number` and :meth:`PySide.QtSql.QSqlError.type` . The functions all have setters so that you can create and return :class:`PySide.QtSql.QSqlError` objects from your own classes, for example from your own SQL drivers.
+
+    .. seealso::  :meth:`QSqlDatabase.lastError()<PySide.QtSql.QSqlDatabase.lastError>`  :meth:`QSqlQuery.lastError()<PySide.QtSql.QSqlQuery.lastError>` 
+
+.. class:: QSqlError(other)
+           QSqlError([driverText=""[, databaseText=""[, type=NoError[, number=-1]]]])
+
+    :param driverText: unicode
+    :param number: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtSql.QSqlError`
+    :param type: :attr:`PySide.QtSql.QSqlError.ErrorType`
+    :param databaseText: unicode
+
+    Creates a copy of ``other`` .
+
+
+    Constructs an error containing the driver error text ``driverText`` , the database-specific error text ``databaseText`` , the type ``type`` and the optional error number ``number`` .
+
+
+.. attribute:: PySide.QtSql.QSqlError.ErrorType
+
+    This enum type describes the context in which the error occurred, e.g., a connection error, a statement error, etc.
+
+    +--------------------------+---------------------------+
+    |Constant                  |Description                |
+    +==========================+===========================+
+    |QSqlError.NoError         |No error occurred.         |
+    +--------------------------+---------------------------+
+    |QSqlError.ConnectionError |Connection error.          |
+    +--------------------------+---------------------------+
+    |QSqlError.StatementError  |SQL statement syntax error.|
+    +--------------------------+---------------------------+
+    |QSqlError.TransactionError|Transaction failed error.  |
+    +--------------------------+---------------------------+
+    |QSqlError.UnknownError    |Unknown error.             |
+    +--------------------------+---------------------------+
+
+
+.. method:: PySide.QtSql.QSqlError.databaseText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text of the error as reported by the database. This may contain database-specific descriptions; it may be empty.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.setDatabaseText`  :meth:`PySide.QtSql.QSqlError.driverText`  :meth:`PySide.QtSql.QSqlError.text` 
+
+
+.. method:: PySide.QtSql.QSqlError.driverText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text of the error as reported by the driver. This may contain database-specific descriptions. It may also be empty.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.setDriverText`  :meth:`PySide.QtSql.QSqlError.databaseText`  :meth:`PySide.QtSql.QSqlError.text` 
+
+
+.. method:: PySide.QtSql.QSqlError.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if an error is set, otherwise false.
+
+    Example:
+
+    ::
+
+        model = QSqlQueryModel()
+        model.setQuery("select * from myTable")
+        if model.lastError().isValid():
+            print model.lastError()
+
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.type` 
+
+
+.. method:: PySide.QtSql.QSqlError.number()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the database-specific error number, or -1 if it cannot be determined.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.setNumber` 
+
+
+.. method:: PySide.QtSql.QSqlError.setDatabaseText(databaseText)
+
+
+    :param databaseText: unicode
+
+
+
+
+    Sets the database error text to the value of ``databaseText`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.databaseText`  :meth:`PySide.QtSql.QSqlError.setDriverText`  :meth:`PySide.QtSql.QSqlError.text` 
+
+
+.. method:: PySide.QtSql.QSqlError.setDriverText(driverText)
+
+
+    :param driverText: unicode
+
+
+
+
+    Sets the driver error text to the value of ``driverText`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.driverText`  :meth:`PySide.QtSql.QSqlError.setDatabaseText`  :meth:`PySide.QtSql.QSqlError.text` 
+
+
+.. method:: PySide.QtSql.QSqlError.setNumber(number)
+
+
+    :param number: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the database-specific error number to ``number`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.number` 
+
+
+.. method:: PySide.QtSql.QSqlError.setType(type)
+
+
+    :param type: :attr:`PySide.QtSql.QSqlError.ErrorType`
+
+
+
+
+    Sets the error type to the value of ``type`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.type` 
+
+
+.. method:: PySide.QtSql.QSqlError.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This is a convenience function that returns :meth:`PySide.QtSql.QSqlError.databaseText` and :meth:`PySide.QtSql.QSqlError.driverText` concatenated into a single string.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.driverText`  :meth:`PySide.QtSql.QSqlError.databaseText` 
+
+
+.. method:: PySide.QtSql.QSqlError.type()
+
+
+    :rtype: :attr:`PySide.QtSql.QSqlError.ErrorType`
+
+
+
+
+    Returns the error type, or -1 if the type cannot be determined.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlError.setType` 
+
+
+

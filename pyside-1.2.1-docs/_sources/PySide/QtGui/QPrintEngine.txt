@@ -1,0 +1,169 @@
+.. module:: PySide.QtGui
+.. _QPrintEngine:
+
+QPrintEngine
+************
+
+.. inheritance-diagram:: QPrintEngine
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPrintEngine` class defines an interface for how :class:`PySide.QtGui.QPrinter` interacts with a given printing subsystem.
+
+    The common case when creating your own print engine is to derive from both :class:`PySide.QtGui.QPaintEngine` and :class:`PySide.QtGui.QPrintEngine` . Various properties of a print engine are given with :meth:`PySide.QtGui.QPrintEngine.property` and set with :meth:`PySide.QtGui.QPrintEngine.setProperty` .
+
+    .. seealso::  :class:`PySide.QtGui.QPaintEngine` 
+
+.. class:: QPrintEngine()
+
+
+
+
+.. attribute:: PySide.QtGui.QPrintEngine.PrintEnginePropertyKey
+
+    This enum is used to communicate properties between the print engine and :class:`PySide.QtGui.QPrinter` . A property may or may not be supported by a given print engine.
+
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                  |Description                                                                                                                                        |
+    +==========================================+===================================================================================================================================================+
+    |QPrintEngine.PPK_CollateCopies            |A boolean value indicating whether the printout should be collated or not.                                                                         |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_ColorMode                |Refers to :attr:`QPrinter.ColorMode` , either color or monochrome.                                                                                 |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_Creator                  |A string describing the document's creator.                                                                                                        |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_Duplex                   |A boolean value indicating whether both sides of the printer paper should be used for the printout.                                                |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_DocumentName             |A string describing the document name in the spooler.                                                                                              |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_FontEmbedding            |A boolean value indicating whether data for the document's fonts should be embedded in the data sent to the printer.                               |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_FullPage                 |A boolean describing if the printer should be full page or not.                                                                                    |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_NumberOfCopies           |Obsolete. An integer specifying the number of copies. Use :attr:`PPK_CopyCount<QPrintEngine.PrintEnginePropertyKey>` instead.                      |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_Orientation              |Specifies a :attr:`QPrinter.Orientation` value.                                                                                                    |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_OutputFileName           |The output file name as a string. An empty file name indicates that the printer should not print to a file.                                        |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PageOrder                |Specifies a :attr:`QPrinter.PageOrder` value.                                                                                                      |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PageRect                 |A :class:`PySide.QtCore.QRect` specifying the page rectangle                                                                                       |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PageSize                 |Obsolete. Use :attr:`PPK_PaperSize<QPrintEngine.PrintEnginePropertyKey>` instead.                                                                  |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PaperRect                |A :class:`PySide.QtCore.QRect` specifying the paper rectangle.                                                                                     |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PaperSource              |Specifies a :attr:`QPrinter.PaperSource` value.                                                                                                    |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PaperSources             |Specifies more than one :attr:`QPrinter.PaperSource` value.                                                                                        |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PaperSize                |Specifies a :attr:`QPrinter.PaperSize` value.                                                                                                      |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PrinterName              |A string specifying the name of the printer.                                                                                                       |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PrinterProgram           |A string specifying the name of the printer program used for printing,                                                                             |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_Resolution               |An integer describing the dots per inch for this printer.                                                                                          |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_SelectionOption          |                                                                                                                                                   |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_SupportedResolutions     |A list of integer :ref:`QVariants<qtwebkit-bridge.html>` describing the set of supported resolutions that the printer has.                         |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_SuppressSystemPrintStatus|Suppress the built-in dialog for showing printing progress. As of 4.1 this only has effect on Mac OS X where, by default, a status dialog is shown.|
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_WindowsPageSize          |An integer specifying a DM\_PAPER entry on Windows.                                                                                                |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_CustomPaperSize          |A :class:`PySide.QtCore.QSizeF` specifying a custom paper size in the :attr:`QPrinter.Point<QPrinter.Unit>` unit.                                  |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_PageMargins              |A :class:`QList` < :class:`PySide.QtCore.QVariant` > containing the left, top, right and bottom margin values.                                     |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_CopyCount                |An integer specifying the number of copies to print.                                                                                               |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_SupportsMultipleCopies   |A boolean value indicating whether or not the printer supports printing multiple copies in one job.                                                |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QPrintEngine.PPK_CustomBase               |Basis for extension.                                                                                                                               |
+    +------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QPrintEngine.abort()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Instructs the print engine to abort the printing process. Returns true if successful; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QPrintEngine.metric(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QPaintDevice.PaintDeviceMetric`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QPrintEngine.newPage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Instructs the print engine to start a new page. Returns true if the printer was able to create the new page; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QPrintEngine.printerState()
+
+
+    :rtype: :attr:`PySide.QtGui.QPrinter.PrinterState`
+
+
+
+
+    Returns the current state of the printer being used by the print engine.
+
+
+
+.. method:: PySide.QtGui.QPrintEngine.property(key)
+
+
+    :param key: :attr:`PySide.QtGui.QPrintEngine.PrintEnginePropertyKey`
+    :rtype: object
+
+
+
+
+    Returns the print engine's property specified by ``key`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintEngine.setProperty` 
+
+
+.. method:: PySide.QtGui.QPrintEngine.setProperty(key, value)
+
+
+    :param key: :attr:`PySide.QtGui.QPrintEngine.PrintEnginePropertyKey`
+    :param value: object
+
+
+
+
+    Sets the print engine's property specified by ``key`` to the given ``value`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QPrintEngine.property` 
+
+
+

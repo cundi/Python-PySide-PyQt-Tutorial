@@ -1,0 +1,319 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlSchema:
+
+QXmlSchema
+**********
+
+.. inheritance-diagram:: QXmlSchema
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`documentUri<PySide.QtXmlPatterns.QXmlSchema.documentUri>` ()
+*    def :meth:`isValid<PySide.QtXmlPatterns.QXmlSchema.isValid>` ()
+*    def :meth:`load<PySide.QtXmlPatterns.QXmlSchema.load>` (data[, documentUri=QUrl()])
+*    def :meth:`load<PySide.QtXmlPatterns.QXmlSchema.load>` (source)
+*    def :meth:`load<PySide.QtXmlPatterns.QXmlSchema.load>` (source[, documentUri=QUrl()])
+*    def :meth:`messageHandler<PySide.QtXmlPatterns.QXmlSchema.messageHandler>` ()
+*    def :meth:`namePool<PySide.QtXmlPatterns.QXmlSchema.namePool>` ()
+*    def :meth:`networkAccessManager<PySide.QtXmlPatterns.QXmlSchema.networkAccessManager>` ()
+*    def :meth:`setMessageHandler<PySide.QtXmlPatterns.QXmlSchema.setMessageHandler>` (handler)
+*    def :meth:`setNetworkAccessManager<PySide.QtXmlPatterns.QXmlSchema.setNetworkAccessManager>` (networkmanager)
+*    def :meth:`setUriResolver<PySide.QtXmlPatterns.QXmlSchema.setUriResolver>` (resolver)
+*    def :meth:`uriResolver<PySide.QtXmlPatterns.QXmlSchema.uriResolver>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlSchema` class provides loading and validation of a W3C XML Schema.
+
+    The :class:`PySide.QtXmlPatterns.QXmlSchema` class loads, compiles and validates W3C XML Schema files that can be used further for validation of XML instance documents via :class:`PySide.QtXmlPatterns.QXmlSchemaValidator` .
+
+    The following example shows how to load a XML Schema file from the network and test whether it is a valid schema document:
+
+    ::
+
+            url = QUrl("http://www.schema-example.org/myschema.xsd")
+
+            schema = QXmlSchema()
+            if schema.load(url):
+                qDebug("schema is valid")
+            else:
+                qDebug("schema is invalid")
+
+
+    .. _PySide.QtXmlPatterns.QXmlSchema_xml-schema-version:
+
+
+
+XML Schema Version
+^^^^^^^^^^^^^^^^^^
+
+    This class is used to represent schemas that conform to the :ref:`XML Schema<http://www.w3.org/XML/Schema>` 1.0 specification.
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QXmlSchemaValidator`  :ref:`XML Schema Validation Example<xmlpatterns/schema>` 
+
+.. class:: QXmlSchema()
+           QXmlSchema(other)
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlSchema`
+
+    Constructs an invalid, empty schema that cannot be used until :meth:`PySide.QtXmlPatterns.QXmlSchema.load` is called.
+
+
+    Constructs a :class:`PySide.QtXmlPatterns.QXmlSchema` that is a copy of ``other`` . The new instance will share resources with the existing schema to the extent possible.
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.documentUri()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the document URI of the schema or an empty URI if no schema has been set.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this schema is valid. Examples of invalid schemas are ones that contain syntax errors or that do not conform the W3C XML Schema specification.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.load(source[, documentUri=QUrl()])
+
+
+    :param source: :class:`PySide.QtCore.QIODevice`
+    :param documentUri: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this :class:`PySide.QtXmlPatterns.QXmlSchema` to a schema read from the ``source`` device. The device must have been opened with at least :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` .
+
+    ``documentUri`` represents the schema obtained from the ``source`` device. It is the base URI of the schema, that is used internally to resolve relative URIs that appear in the schema, and for message reporting.
+
+    If ``source`` is ``null`` or not readable, or if ``documentUri`` is not a valid URI, behavior is undefined.
+
+    If the schema :meth:`is invalid<PySide.QtXmlPatterns.QXmlSchema.isValid>` , ``false`` is returned and the behavior is undefined.
+
+    Example:
+
+    ::
+
+            file = QFile("myschema.xsd")
+            file.open(QIODevice.ReadOnly)
+
+            schema = QXmlSchema()
+            schema.load(file, QUrl.fromLocalFile(file.fileName()))
+
+            if schema.isValid():
+                qDebug("schema is valid")
+            else:
+                qDebug("schema is invalid")
+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.load(data[, documentUri=QUrl()])
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param documentUri: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this :class:`PySide.QtXmlPatterns.QXmlSchema` to a schema read from the ``data``\
+
+    ``documentUri`` represents the schema obtained from the ``data`` . It is the base URI of the schema, that is used internally to resolve relative URIs that appear in the schema, and for message reporting.
+
+    If ``documentUri`` is not a valid URI, behavior is undefined.
+
+    If the schema :meth:`is invalid<PySide.QtXmlPatterns.QXmlSchema.isValid>` , ``false`` is returned and the behavior is undefined.
+
+    Example:
+
+    ::
+
+            data = QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                              + "<xsd:schema"
+                              + "        xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\""
+                              + "        xmlns=\"http://qt.nokia.com/xmlschematest\""
+                              + "        targetNamespace=\"http://qt.nokia.com/xmlschematest\""
+                              + "        version=\"1.0\""
+                              + "        elementFormDefault=\"qualified\">"
+                              + "</xsd:schema>" )
+
+            schema = QXmlSchema()
+            schema.load(data)
+
+            if schema.isValid():
+                qDebug("schema is valid")
+            else:
+                qDebug("schema is invalid")
+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.isValid`  :meth:`PySide.QtXmlPatterns.QXmlSchema.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.load(source)
+
+
+    :param source: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this :class:`PySide.QtXmlPatterns.QXmlSchema` to a schema loaded from the ``source`` URI.
+
+    If the schema :meth:`is invalid<PySide.QtXmlPatterns.QXmlSchema.isValid>` , ``false`` is returned and the behavior is undefined.
+
+    Example:
+
+    ::
+
+            url = QUrl("http://www.schema-example.org/myschema.xsd")
+
+            schema = QXmlSchema()
+            if schema.load(url):
+                qDebug("schema is valid")
+            else:
+                qDebug("schema is invalid")
+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.isValid` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.messageHandler()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QAbstractMessageHandler`
+
+
+
+
+    Returns the message handler that handles compile and validation messages for this :class:`PySide.QtXmlPatterns.QXmlSchema` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.setMessageHandler` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.namePool()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNamePool`
+
+
+
+
+    Returns the name pool used by this :class:`PySide.QtXmlPatterns.QXmlSchema` for constructing :class:`names<PySide.QtXmlPatterns.QXmlName>` . There is no setter for the name pool, because mixing name pools causes errors due to name confusion.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.networkAccessManager()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Returns the network manager, or 0 if it has not been set.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.setNetworkAccessManager` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.setMessageHandler(handler)
+
+
+    :param handler: :class:`PySide.QtXmlPatterns.QAbstractMessageHandler`
+
+
+
+
+    Changes the :class:`message handler<PySide.QtXmlPatterns.QAbstractMessageHandler>` for this :class:`PySide.QtXmlPatterns.QXmlSchema` to ``handler`` . The schema sends all compile and validation messages to this message handler. :class:`PySide.QtXmlPatterns.QXmlSchema` does not take ownership of ``handler`` .
+
+    Normally, the default message handler is sufficient. It writes compile and validation messages to *stderr* . The default message handler includes color codes if *stderr* can render colors.
+
+    When :class:`PySide.QtXmlPatterns.QXmlSchema` calls :meth:`QAbstractMessageHandler.message()<PySide.QtXmlPatterns.QAbstractMessageHandler.message>` , the arguments are as follows:
+
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |message() argument                                                  |Semantics                                                                                                                                              |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`QtMsgType` type                                              |Only :attr:`QtWarningMsg<QtMsgType>` and :attr:`QtFatalMsg<QtMsgType>` are used. The former identifies a warning, while the latter identifies an error.|
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtCore.QString` & description                  |An XHTML document which is the actual message. It is translated into the current language.                                                             |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtCore.QUrl` &identifier                       |Identifies the error with a URI, where the fragment is the error code, and the rest of the URI is the error namespace.                                 |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |const :class:`PySide.QtXmlPatterns.QSourceLocation` & sourceLocation|Identifies where the error occurred.                                                                                                                   |
+    +--------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.messageHandler` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.setNetworkAccessManager(networkmanager)
+
+
+    :param networkmanager: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Sets the network manager to ``manager`` . :class:`PySide.QtXmlPatterns.QXmlSchema` does not take ownership of ``manager`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.networkAccessManager` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.setUriResolver(resolver)
+
+
+    :param resolver: :class:`PySide.QtXmlPatterns.QAbstractUriResolver`
+
+
+
+
+    Sets the URI resolver to ``resolver`` . :class:`PySide.QtXmlPatterns.QXmlSchema` does not take ownership of ``resolver`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.uriResolver` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlSchema.uriResolver()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QAbstractUriResolver`
+
+
+
+
+    Returns the schema's URI resolver. If no URI resolver has been set, :ref:`QtXmlPatterns` will use the URIs in schemas as they are.
+
+    The URI resolver provides a level of abstraction, or *polymorphic URIs* . A resolver can rewrite *logical* URIs to physical ones, or it can translate obsolete or invalid URIs to valid ones.
+
+    When :ref:`QtXmlPatterns` calls :meth:`QAbstractUriResolver.resolve()<PySide.QtXmlPatterns.QAbstractUriResolver.resolve>` the absolute URI is the URI mandated by the schema specification, and the relative URI is the URI specified by the user.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlSchema.setUriResolver` 
+
+
+

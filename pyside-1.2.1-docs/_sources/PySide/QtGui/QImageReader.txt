@@ -1,0 +1,748 @@
+.. module:: PySide.QtGui
+.. _QImageReader:
+
+QImageReader
+************
+
+.. inheritance-diagram:: QImageReader
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoDetectImageFormat<PySide.QtGui.QImageReader.autoDetectImageFormat>` ()
+*    def :meth:`backgroundColor<PySide.QtGui.QImageReader.backgroundColor>` ()
+*    def :meth:`canRead<PySide.QtGui.QImageReader.canRead>` ()
+*    def :meth:`clipRect<PySide.QtGui.QImageReader.clipRect>` ()
+*    def :meth:`currentImageNumber<PySide.QtGui.QImageReader.currentImageNumber>` ()
+*    def :meth:`currentImageRect<PySide.QtGui.QImageReader.currentImageRect>` ()
+*    def :meth:`decideFormatFromContent<PySide.QtGui.QImageReader.decideFormatFromContent>` ()
+*    def :meth:`device<PySide.QtGui.QImageReader.device>` ()
+*    def :meth:`error<PySide.QtGui.QImageReader.error>` ()
+*    def :meth:`errorString<PySide.QtGui.QImageReader.errorString>` ()
+*    def :meth:`fileName<PySide.QtGui.QImageReader.fileName>` ()
+*    def :meth:`format<PySide.QtGui.QImageReader.format>` ()
+*    def :meth:`imageCount<PySide.QtGui.QImageReader.imageCount>` ()
+*    def :meth:`imageFormat<PySide.QtGui.QImageReader.imageFormat>` ()
+*    def :meth:`jumpToImage<PySide.QtGui.QImageReader.jumpToImage>` (imageNumber)
+*    def :meth:`jumpToNextImage<PySide.QtGui.QImageReader.jumpToNextImage>` ()
+*    def :meth:`loopCount<PySide.QtGui.QImageReader.loopCount>` ()
+*    def :meth:`nextImageDelay<PySide.QtGui.QImageReader.nextImageDelay>` ()
+*    def :meth:`quality<PySide.QtGui.QImageReader.quality>` ()
+*    def :meth:`read<PySide.QtGui.QImageReader.read>` ()
+*    def :meth:`scaledClipRect<PySide.QtGui.QImageReader.scaledClipRect>` ()
+*    def :meth:`scaledSize<PySide.QtGui.QImageReader.scaledSize>` ()
+*    def :meth:`setAutoDetectImageFormat<PySide.QtGui.QImageReader.setAutoDetectImageFormat>` (enabled)
+*    def :meth:`setBackgroundColor<PySide.QtGui.QImageReader.setBackgroundColor>` (color)
+*    def :meth:`setClipRect<PySide.QtGui.QImageReader.setClipRect>` (rect)
+*    def :meth:`setDecideFormatFromContent<PySide.QtGui.QImageReader.setDecideFormatFromContent>` (ignored)
+*    def :meth:`setDevice<PySide.QtGui.QImageReader.setDevice>` (device)
+*    def :meth:`setFileName<PySide.QtGui.QImageReader.setFileName>` (fileName)
+*    def :meth:`setFormat<PySide.QtGui.QImageReader.setFormat>` (format)
+*    def :meth:`setQuality<PySide.QtGui.QImageReader.setQuality>` (quality)
+*    def :meth:`setScaledClipRect<PySide.QtGui.QImageReader.setScaledClipRect>` (rect)
+*    def :meth:`setScaledSize<PySide.QtGui.QImageReader.setScaledSize>` (size)
+*    def :meth:`size<PySide.QtGui.QImageReader.size>` ()
+*    def :meth:`supportsAnimation<PySide.QtGui.QImageReader.supportsAnimation>` ()
+*    def :meth:`supportsOption<PySide.QtGui.QImageReader.supportsOption>` (option)
+*    def :meth:`text<PySide.QtGui.QImageReader.text>` (key)
+*    def :meth:`textKeys<PySide.QtGui.QImageReader.textKeys>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`imageFormat<PySide.QtGui.QImageReader.imageFormat>` (device)
+*    def :meth:`imageFormat<PySide.QtGui.QImageReader.imageFormat>` (fileName)
+*    def :meth:`supportedImageFormats<PySide.QtGui.QImageReader.supportedImageFormats>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QImageReader` class provides a format independent interface for reading images from files or other devices.
+
+    The most common way to read images is through :class:`PySide.QtGui.QImage` and :class:`PySide.QtGui.QPixmap` 's constructors, or by calling :meth:`QImage.load()<PySide.QtGui.QImage.load>` and :meth:`QPixmap.load()<PySide.QtGui.QPixmap.load>` . :class:`PySide.QtGui.QImageReader` is a specialized class which gives you more control when reading images. For example, you can read an image into a specific size by calling :meth:`PySide.QtGui.QImageReader.setScaledSize` , and you can select a clip rect, effectively loading only parts of an image, by calling :meth:`PySide.QtGui.QImageReader.setClipRect` . Depending on the underlying support in the image format, this can save memory and speed up loading of images.
+
+    To read an image, you start by constructing a :class:`PySide.QtGui.QImageReader` object. Pass either a file name or a device pointer, and the image format to :class:`PySide.QtGui.QImageReader` 's constructor. You can then set several options, such as the clip rect (by calling :meth:`PySide.QtGui.QImageReader.setClipRect` ) and scaled size (by calling :meth:`PySide.QtGui.QImageReader.setScaledSize` ). :meth:`PySide.QtGui.QImageReader.canRead` returns the image if the :class:`PySide.QtGui.QImageReader` can read the image (i.e., the image format is supported and the device is open for reading). Call :meth:`PySide.QtGui.QImageReader.read` to read the image.
+
+    If any error occurs when reading the image, :meth:`PySide.QtGui.QImageReader.read` will return a null :class:`PySide.QtGui.QImage` . You can then call :meth:`PySide.QtGui.QImageReader.error` to find the type of error that occurred, or :meth:`PySide.QtGui.QImageReader.errorString` to get a human readable description of what went wrong.
+
+    Call :meth:`PySide.QtGui.QImageReader.supportedImageFormats` for a list of formats that :class:`PySide.QtGui.QImageReader` can read. :class:`PySide.QtGui.QImageReader` supports all built-in image formats, in addition to any image format plugins that support reading.
+
+    :class:`PySide.QtGui.QImageReader` autodetects the image format by default, by looking at the provided (optional) format string, the file name suffix, and the data stream contents. You can enable or disable this feature, by calling :meth:`PySide.QtGui.QImageReader.setAutoDetectImageFormat` .
+
+    .. seealso::  :class:`PySide.QtGui.QImageWriter`  :class:`PySide.QtGui.QImageIOHandler`  :class:`~PySide.QtGui.QImageIOPlugin` 
+
+.. class:: QImageReader()
+           QImageReader(device[, format=QByteArray()])
+           QImageReader(fileName[, format=QByteArray()])
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :param fileName: unicode
+
+    Constructs an empty :class:`PySide.QtGui.QImageReader` object. Before reading an image, call :meth:`PySide.QtGui.QImageReader.setDevice` or :meth:`PySide.QtGui.QImageReader.setFileName` .
+
+
+    Constructs a :class:`PySide.QtGui.QImageReader` object with the device ``device`` and the image format ``format`` .
+
+
+    Constructs a :class:`PySide.QtGui.QImageReader` object with the file name ``fileName`` and the image format ``format`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setFileName` 
+
+.. attribute:: PySide.QtGui.QImageReader.ImageReaderError
+
+    This enum describes the different types of errors that can occur when reading images with :class:`PySide.QtGui.QImageReader` .
+
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                                                                                       |
+    +===================================+==================================================================================================================================================================================================================================+
+    |QImageReader.FileNotFoundError     |:class:`PySide.QtGui.QImageReader` was used with a file name, but not file was found with that name. This can also happen if the file name contained no extension, and the file with the correct extension is not supported by Qt.|
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageReader.DeviceError           |:class:`PySide.QtGui.QImageReader` encountered a device error when reading the image. You can consult your particular device for more details on what went wrong.                                                                 |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageReader.UnsupportedFormatError|Qt does not support the requested image format.                                                                                                                                                                                   |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageReader.InvalidDataError      |The image data was invalid, and :class:`PySide.QtGui.QImageReader` was unable to read an image from it. The can happen if the image file is damaged.                                                                              |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QImageReader.UnknownError          |An unknown error occurred. If you get this value after calling :meth:`PySide.QtGui.QImageReader.read` , it is most likely caused by a bug in :class:`PySide.QtGui.QImageReader` .                                                 |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QImageReader.autoDetectImageFormat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if image format autodetection is enabled on this image reader; otherwise returns false. By default, autodetection is enabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setAutoDetectImageFormat` 
+
+
+.. method:: PySide.QtGui.QImageReader.backgroundColor()
+
+
+    :rtype: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Returns the background color that's used when reading an image. If the image format does not support setting the background color an invalid color is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setBackgroundColor`  :meth:`PySide.QtGui.QImageReader.read` 
+
+
+.. method:: PySide.QtGui.QImageReader.canRead()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if an image can be read for the device (i.e., the image format is supported, and the device seems to contain valid data); otherwise returns false.
+
+    :meth:`PySide.QtGui.QImageReader.canRead` is a lightweight function that only does a quick test to see if the image data is valid. :meth:`PySide.QtGui.QImageReader.read` may still return false after :meth:`PySide.QtGui.QImageReader.canRead` returns true, if the image data is corrupt.
+
+    For images that support animation, :meth:`PySide.QtGui.QImageReader.canRead` returns false when all frames have been read.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.read`  :meth:`PySide.QtGui.QImageReader.supportedImageFormats` 
+
+
+.. method:: PySide.QtGui.QImageReader.clipRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the clip rect (also known as the ROI, or Region Of Interest) of the image. If no clip rect has been set, an invalid :class:`PySide.QtCore.QRect` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setClipRect` 
+
+
+.. method:: PySide.QtGui.QImageReader.currentImageNumber()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the sequence number of the current frame. If the image format doesn't support animation, 0 is returned.
+
+    This function returns -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :meth:`QImageIOHandler.currentImageNumber()<PySide.QtGui.QImageIOHandler.currentImageNumber>`  :meth:`PySide.QtGui.QImageReader.canRead` 
+
+
+.. method:: PySide.QtGui.QImageReader.currentImageRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    For image formats that support animation, this function returns the rect for the current frame. Otherwise, a null rect is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :meth:`QImageIOHandler.currentImageRect()<PySide.QtGui.QImageIOHandler.currentImageRect>` 
+
+
+.. method:: PySide.QtGui.QImageReader.decideFormatFromContent()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether the image reader should decide which plugin to use only based on the contents of the datastream rather than on the file extension.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setDecideFormatFromContent` 
+
+
+.. method:: PySide.QtGui.QImageReader.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the device currently assigned to :class:`PySide.QtGui.QImageReader` , or 0 if no device has been assigned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageReader.error()
+
+
+    :rtype: :attr:`PySide.QtGui.QImageReader.ImageReaderError`
+
+
+
+
+    Returns the type of error that occurred last.
+
+    .. seealso::  :attr:`QImageReader.ImageReaderError`  :meth:`PySide.QtGui.QImageReader.errorString` 
+
+
+.. method:: PySide.QtGui.QImageReader.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human readable description of the last error that occurred.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.error` 
+
+
+.. method:: PySide.QtGui.QImageReader.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    If the currently assigned device is a :class:`PySide.QtCore.QFile` , or if :meth:`PySide.QtGui.QImageReader.setFileName` has been called, this function returns the name of the file :class:`PySide.QtGui.QImageReader` reads from. Otherwise (i.e., if no device has been assigned or the device is not a :class:`PySide.QtCore.QFile` ), an empty :class:`PySide.QtCore.QString` is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setFileName`  :meth:`PySide.QtGui.QImageReader.setDevice` 
+
+
+.. method:: PySide.QtGui.QImageReader.format()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the format :class:`PySide.QtGui.QImageReader` uses for reading images.
+
+    You can call this function after assigning a device to the reader to determine the format of the device. For example:
+
+    ::
+
+        reader = QImageReader("image.png")
+        # reader.format() == "png"
+
+
+    If the reader cannot read any image from the device (e.g., there is no image there, or the image has already been read), or if the format is unsupported, this function returns an empty :meth:`~PySide.QtGui.QImageReader.QByteArray` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setFormat`  :meth:`PySide.QtGui.QImageReader.supportedImageFormats` 
+
+
+.. method:: PySide.QtGui.QImageReader.imageCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the total number of images in the animation. If the format does not support animation, 0 is returned.
+
+    This function returns -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :meth:`QImageIOHandler.imageCount()<PySide.QtGui.QImageIOHandler.imageCount>`  :meth:`PySide.QtGui.QImageReader.canRead` 
+
+
+.. staticmethod:: PySide.QtGui.QImageReader.imageFormat(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    If supported, this function returns the image format of the file ``fileName`` . Otherwise, an empty string is returned.
+
+
+
+.. method:: PySide.QtGui.QImageReader.imageFormat()
+
+
+    :rtype: :attr:`PySide.QtGui.QImage.Format`
+
+
+
+
+    Returns the format of the image, without actually reading the image contents. The format describes the image format :meth:`QImageReader.read()<PySide.QtGui.QImageReader.read>` returns, not the format of the actual image.
+
+    If the image format does not support this feature, this function returns an invalid format.
+
+    .. seealso::  :attr:`QImageIOHandler.ImageOption`  :meth:`QImageIOHandler.option()<PySide.QtGui.QImageIOHandler.option>`  :meth:`QImageIOHandler.supportsOption()<PySide.QtGui.QImageIOHandler.supportsOption>` 
+
+
+.. staticmethod:: PySide.QtGui.QImageReader.imageFormat(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    If supported, this function returns the image format of the device ``device`` . Otherwise, an empty string is returned.
+
+    .. seealso::  :meth:`QImageReader.autoDetectImageFormat()<PySide.QtGui.QImageReader.autoDetectImageFormat>` 
+
+
+.. method:: PySide.QtGui.QImageReader.jumpToImage(imageNumber)
+
+
+    :param imageNumber: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For image formats that support animation, this function skips to the image whose sequence number is ``imageNumber`` , returning true if successful or false if the corresponding image cannot be found.
+
+    The next call to :meth:`PySide.QtGui.QImageReader.read` will attempt to read this image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.jumpToNextImage`  :meth:`QImageIOHandler.jumpToImage()<PySide.QtGui.QImageIOHandler.jumpToImage>` 
+
+
+.. method:: PySide.QtGui.QImageReader.jumpToNextImage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    For image formats that support animation, this function steps over the current image, returning true if successful or false if there is no following image in the animation.
+
+    The default implementation calls :meth:`PySide.QtGui.QImageReader.read` , then discards the resulting image, but the image handler may have a more efficient way of implementing this operation.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.jumpToImage`  :meth:`QImageIOHandler.jumpToNextImage()<PySide.QtGui.QImageIOHandler.jumpToNextImage>` 
+
+
+.. method:: PySide.QtGui.QImageReader.loopCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the number of times the animation should loop. If this function returns -1, it can either mean the animation should loop forever, or that an error occurred. If an error occurred, :meth:`PySide.QtGui.QImageReader.canRead` will return false.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :meth:`QImageIOHandler.loopCount()<PySide.QtGui.QImageIOHandler.loopCount>`  :meth:`PySide.QtGui.QImageReader.canRead` 
+
+
+.. method:: PySide.QtGui.QImageReader.nextImageDelay()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    For image formats that support animation, this function returns the number of milliseconds to wait until displaying the next frame in the animation. If the image format doesn't support animation, 0 is returned.
+
+    This function returns -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :meth:`QImageIOHandler.nextImageDelay()<PySide.QtGui.QImageIOHandler.nextImageDelay>`  :meth:`PySide.QtGui.QImageReader.canRead` 
+
+
+.. method:: PySide.QtGui.QImageReader.quality()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the quality level of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setQuality` 
+
+
+.. method:: PySide.QtGui.QImageReader.read()
+
+
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Reads an image from the device. On success, the image that was read is returned; otherwise, a null :class:`PySide.QtGui.QImage` is returned. You can then call :meth:`PySide.QtGui.QImageReader.error` to find the type of error that occurred, or :meth:`PySide.QtGui.QImageReader.errorString` to get a human readable description of the error.
+
+    For image formats that support animation, calling :meth:`PySide.QtGui.QImageReader.read` repeatedly will return the next frame. When all frames have been read, a null image will be returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.canRead`  :meth:`PySide.QtGui.QImageReader.supportedImageFormats`  :meth:`PySide.QtGui.QImageReader.supportsAnimation`  :class:`PySide.QtGui.QMovie` 
+
+
+.. method:: PySide.QtGui.QImageReader.scaledClipRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the scaled clip rect of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setScaledClipRect` 
+
+
+.. method:: PySide.QtGui.QImageReader.scaledSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the scaled size of the image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setScaledSize` 
+
+
+.. method:: PySide.QtGui.QImageReader.setAutoDetectImageFormat(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, image format autodetection is enabled; otherwise, it is disabled. By default, autodetection is enabled.
+
+    :class:`PySide.QtGui.QImageReader` uses an extensive approach to detecting the image format; firstly, if you pass a file name to :class:`PySide.QtGui.QImageReader` , it will attempt to detect the file extension if the given file name does not point to an existing file, by appending supported default extensions to the given file name, one at a time. It then uses the following approach to detect the image format:
+
+
+    * Image plugins are queried first, based on either the optional format string, or the file name suffix (if the source device is a file). No content detection is done at this stage. :class:`PySide.QtGui.QImageReader` will choose the first plugin that supports reading for this format.
+    * If no plugin supports the image format, Qt's built-in handlers are checked based on either the optional format string, or the file name suffix.
+    * If no capable plugins or built-in handlers are found, each plugin is tested by inspecting the content of the data stream.
+    * If no plugins could detect the image format based on data contents, each built-in image handler is tested by inspecting the contents.
+    * Finally, if all above approaches fail, :class:`PySide.QtGui.QImageReader` will report failure when trying to read the image.
+
+    By disabling image format autodetection, :class:`PySide.QtGui.QImageReader` will only query the plugins and built-in handlers based on the format string (i.e., no file name extensions are tested).
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.autoDetectImageFormat`  :meth:`QImageIOHandler.canRead()<PySide.QtGui.QImageIOHandler.canRead>`  :meth:`QImageIOPlugin.capabilities` 
+
+
+.. method:: PySide.QtGui.QImageReader.setBackgroundColor(color)
+
+
+    :param color: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Sets the background color to ``color`` . Image formats that support this operation are expected to initialize the background to ``color`` before reading an image.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.backgroundColor`  :meth:`PySide.QtGui.QImageReader.read` 
+
+
+.. method:: PySide.QtGui.QImageReader.setClipRect(rect)
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Sets the image clip rect (also known as the ROI, or Region Of Interest) to ``rect`` . The coordinates of ``rect`` are relative to the untransformed image size, as returned by :meth:`PySide.QtGui.QImageReader.size` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.clipRect`  :meth:`PySide.QtGui.QImageReader.setScaledSize`  :meth:`PySide.QtGui.QImageReader.setScaledClipRect` 
+
+
+.. method:: PySide.QtGui.QImageReader.setDecideFormatFromContent(ignored)
+
+
+    :param ignored: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``ignored`` is set to true, then the image reader will ignore specified formats or file extensions and decide which plugin to use only based on the contents in the datastream.
+
+    Setting this flag means that all image plugins gets loaded. Each plugin will read the first bytes in the image data and decide if the plugin is compatible or not.
+
+    This also disables auto detecting the image format.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.decideFormatFromContent` 
+
+
+.. method:: PySide.QtGui.QImageReader.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets :class:`PySide.QtGui.QImageReader` 's device to ``device`` . If a device has already been set, the old device is removed from :class:`PySide.QtGui.QImageReader` and is otherwise left unchanged.
+
+    If the device is not already open, :class:`PySide.QtGui.QImageReader` will attempt to open the device in :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` mode by calling open(). Note that this does not work for certain devices, such as :class:`PySide.QtCore.QProcess` , :class:`PySide.QtNetwork.QTcpSocket` and :class:`PySide.QtNetwork.QUdpSocket` , where more logic is required to open the device.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.device`  :meth:`PySide.QtGui.QImageReader.setFileName` 
+
+
+.. method:: PySide.QtGui.QImageReader.setFileName(fileName)
+
+
+    :param fileName: unicode
+
+
+
+
+    Sets the file name of :class:`PySide.QtGui.QImageReader` to ``fileName`` . Internally, :class:`PySide.QtGui.QImageReader` will create a :class:`PySide.QtCore.QFile` object and open it in :attr:`QIODevice.ReadOnly<QIODevice.OpenModeFlag>` mode, and use this when reading images.
+
+    If ``fileName`` does not include a file extension (e.g., .png or .bmp), :class:`PySide.QtGui.QImageReader` will cycle through all supported extensions until it finds a matching file.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.fileName`  :meth:`PySide.QtGui.QImageReader.setDevice`  :meth:`PySide.QtGui.QImageReader.supportedImageFormats` 
+
+
+.. method:: PySide.QtGui.QImageReader.setFormat(format)
+
+
+    :param format: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the format :class:`PySide.QtGui.QImageReader` will use when reading images, to ``format`` . ``format`` is a case insensitive text string. Example:
+
+    ::
+
+        reader = QImageReader()
+        reader.setFormat("png") # same as reader.setFormat("PNG")
+
+
+    You can call :meth:`PySide.QtGui.QImageReader.supportedImageFormats` for the full list of formats :class:`PySide.QtGui.QImageReader` supports.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.format` 
+
+
+.. method:: PySide.QtGui.QImageReader.setQuality(quality)
+
+
+    :param quality: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an image format specific function that sets the quality level of the image to ``quality`` . For image formats that do not support setting the quality, this value is ignored.
+
+    The value range of ``quality`` depends on the image format. For example, the "jpeg" format supports a quality range from 0 (low quality, high compression) to 100 (high quality, low compression).
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.quality` 
+
+
+.. method:: PySide.QtGui.QImageReader.setScaledClipRect(rect)
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Sets the scaled clip rect to ``rect`` . The scaled clip rect is the clip rect (also known as ROI, or Region Of Interest) that is applied after the image has been scaled.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.scaledClipRect`  :meth:`PySide.QtGui.QImageReader.setScaledSize` 
+
+
+.. method:: PySide.QtGui.QImageReader.setScaledSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets the scaled size of the image to ``size`` . The scaling is performed after the initial clip rect, but before the scaled clip rect is applied. The algorithm used for scaling depends on the image format. By default (i.e., if the image format does not support scaling), :class:`PySide.QtGui.QImageReader` will use QImage::scale() with Qt::SmoothScaling.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.scaledSize`  :meth:`PySide.QtGui.QImageReader.setClipRect`  :meth:`PySide.QtGui.QImageReader.setScaledClipRect` 
+
+
+.. method:: PySide.QtGui.QImageReader.size()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size of the image, without actually reading the image contents.
+
+    If the image format does not support this feature, this function returns an invalid size. Qt's built-in image handlers all support this feature, but custom image format plugins are not required to do so.
+
+    .. seealso::  :attr:`QImageIOHandler.ImageOption`  :meth:`QImageIOHandler.option()<PySide.QtGui.QImageIOHandler.option>`  :meth:`QImageIOHandler.supportsOption()<PySide.QtGui.QImageIOHandler.supportsOption>` 
+
+
+.. staticmethod:: PySide.QtGui.QImageReader.supportedImageFormats()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of image formats supported by :class:`PySide.QtGui.QImageReader` .
+
+    By default, Qt can read the following formats:
+
+    +------+-------------------------------------+
+    |Format|Description                          |
+    +------+-------------------------------------+
+    |BMP   |Windows Bitmap                       |
+    +------+-------------------------------------+
+    |GIF   |Graphic Interchange Format (optional)|
+    +------+-------------------------------------+
+    |JPG   |Joint Photographic Experts Group     |
+    +------+-------------------------------------+
+    |JPEG  |Joint Photographic Experts Group     |
+    +------+-------------------------------------+
+    |MNG   |Multiple-image Network Graphics      |
+    +------+-------------------------------------+
+    |PNG   |Portable Network Graphics            |
+    +------+-------------------------------------+
+    |PBM   |Portable Bitmap                      |
+    +------+-------------------------------------+
+    |PGM   |Portable Graymap                     |
+    +------+-------------------------------------+
+    |PPM   |Portable Pixmap                      |
+    +------+-------------------------------------+
+    |TIFF  |Tagged Image File Format             |
+    +------+-------------------------------------+
+    |XBM   |X11 Bitmap                           |
+    +------+-------------------------------------+
+    |XPM   |X11 Pixmap                           |
+    +------+-------------------------------------+
+    |SVG   |Scalable Vector Graphics             |
+    +------+-------------------------------------+
+    |TGA   |Targa Image Format                   |
+    +------+-------------------------------------+
+
+    Reading and writing SVG files is supported through Qt's :ref:`SVG Module<QtSvg>` .
+
+    TGA support only extends to reading non-RLE compressed files. In particular calls to capabilities for the tga plugin returns only :attr:`QImageIOPlugin.CanRead<QImageIOPlugin.Capability>` , not :attr:`QImageIOPlugin.CanWrite<QImageIOPlugin.Capability>` .
+
+    To configure Qt with GIF support, pass ``-qt-gif`` to the ``configure`` script or check the appropriate option in the graphical installer.
+
+    Note that the :class:`PySide.QtGui.QApplication` instance must be created before this function is called.
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.setFormat`  :meth:`QImageWriter.supportedImageFormats()<PySide.QtGui.QImageWriter.supportedImageFormats>`  :class:`~PySide.QtGui.QImageIOPlugin` 
+
+
+.. method:: PySide.QtGui.QImageReader.supportsAnimation()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the image format supports animation; otherwise, false is returned.
+
+    .. seealso::  :meth:`QMovie.supportedFormats()<PySide.QtGui.QMovie.supportedFormats>` 
+
+
+.. method:: PySide.QtGui.QImageReader.supportsOption(option)
+
+
+    :param option: :attr:`PySide.QtGui.QImageIOHandler.ImageOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QImageReader.text(key)
+
+
+    :param key: unicode
+    :rtype: unicode
+
+
+
+
+    Returns the image text associated with ``key`` .
+
+    Support for this option is implemented through :attr:`QImageIOHandler.Description<QImageIOHandler.ImageOption>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.textKeys`  :meth:`QImageWriter.setText()<PySide.QtGui.QImageWriter.setText>` 
+
+
+.. method:: PySide.QtGui.QImageReader.textKeys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns the text keys for this image. You can use these keys with :meth:`PySide.QtGui.QImageReader.text` to list the image text for a certain key.
+
+    Support for this option is implemented through :attr:`QImageIOHandler.Description<QImageIOHandler.ImageOption>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QImageReader.text`  :meth:`QImageWriter.setText()<PySide.QtGui.QImageWriter.setText>`  :meth:`QImage.textKeys()<PySide.QtGui.QImage.textKeys>` 
+
+
+

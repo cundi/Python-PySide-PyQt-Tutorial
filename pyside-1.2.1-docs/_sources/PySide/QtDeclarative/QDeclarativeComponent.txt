@@ -1,0 +1,350 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeComponent:
+
+QDeclarativeComponent
+*********************
+
+.. inheritance-diagram:: QDeclarativeComponent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createObject<PySide.QtDeclarative.QDeclarativeComponent.createObject>` (parent)
+*    def :meth:`createObject<PySide.QtDeclarative.QDeclarativeComponent.createObject>` (parent, valuemap)
+*    def :meth:`creationContext<PySide.QtDeclarative.QDeclarativeComponent.creationContext>` ()
+*    def :meth:`errorString<PySide.QtDeclarative.QDeclarativeComponent.errorString>` ()
+*    def :meth:`errors<PySide.QtDeclarative.QDeclarativeComponent.errors>` ()
+*    def :meth:`isError<PySide.QtDeclarative.QDeclarativeComponent.isError>` ()
+*    def :meth:`isLoading<PySide.QtDeclarative.QDeclarativeComponent.isLoading>` ()
+*    def :meth:`isNull<PySide.QtDeclarative.QDeclarativeComponent.isNull>` ()
+*    def :meth:`isReady<PySide.QtDeclarative.QDeclarativeComponent.isReady>` ()
+*    def :meth:`loadUrl<PySide.QtDeclarative.QDeclarativeComponent.loadUrl>` (url)
+*    def :meth:`progress<PySide.QtDeclarative.QDeclarativeComponent.progress>` ()
+*    def :meth:`setData<PySide.QtDeclarative.QDeclarativeComponent.setData>` (arg__1, baseUrl)
+*    def :meth:`status<PySide.QtDeclarative.QDeclarativeComponent.status>` ()
+*    def :meth:`url<PySide.QtDeclarative.QDeclarativeComponent.url>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`beginCreate<PySide.QtDeclarative.QDeclarativeComponent.beginCreate>` (arg__1)
+*    def :meth:`completeCreate<PySide.QtDeclarative.QDeclarativeComponent.completeCreate>` ()
+*    def :meth:`create<PySide.QtDeclarative.QDeclarativeComponent.create>` ([context=None])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`progressChanged<PySide.QtDeclarative.QDeclarativeComponent.progressChanged>` (arg__1)
+*    def :meth:`statusChanged<PySide.QtDeclarative.QDeclarativeComponent.statusChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeComponent` class encapsulates a QML component definition.
+
+    Components are reusable, encapsulated QML elements with well-defined interfaces. They are often defined in :ref:`Component Files<qdeclarativedocuments.html>` .
+
+    A :class:`PySide.QtDeclarative.QDeclarativeComponent` instance can be created from a QML file. For example, if there is a ``main.qml`` file like this:
+
+    ::
+
+                import QtQuick 1.0
+                
+                Item {
+                    width: 200
+                    height: 200
+                }
+
+
+    The following code loads this QML file as a component, creates an instance of this component using :meth:`PySide.QtDeclarative.QDeclarativeComponent.create` , and then queries the :ref:`Item` 's width value:
+
+    ::
+
+                QDeclarativeEngine *engine = new QDeclarativeEngine;
+                QDeclarativeComponent component(engine, QUrl::fromLocalFile("main.qml"));
+                
+                QObject *myObject = component.create();
+                QDeclarativeItem *item = qobject_cast<QDeclarativeItem*>(myObject);
+                int width = item->width();  // width = 200
+
+
+    .. _PySide.QtDeclarative.QDeclarativeComponent_network-components:
+
+
+
+Network Components
+^^^^^^^^^^^^^^^^^^
+
+    If the URL passed to :class:`PySide.QtDeclarative.QDeclarativeComponent` is a network resource, or if the QML document references a network resource, the :class:`PySide.QtDeclarative.QDeclarativeComponent` has to fetch the network data before it is able to create objects. In this case, the :class:`PySide.QtDeclarative.QDeclarativeComponent` will have a :attr:`Loading<QDeclarativeComponent.Status>` :meth:`PySide.QtDeclarative.QDeclarativeComponent.status` . An application will have to wait until the component is :attr:`Ready<QDeclarativeComponent.Status>` before calling :meth:`QDeclarativeComponent.create()<PySide.QtDeclarative.QDeclarativeComponent.create>` .
+
+    The following example shows how to load a QML file from a network resource. After creating the :class:`PySide.QtDeclarative.QDeclarativeComponent` , it tests whether the component is loading. If it is, it connects to the :meth:`QDeclarativeComponent.statusChanged()<PySide.QtDeclarative.QDeclarativeComponent.statusChanged>` signal and otherwise calls the ``continueLoading()`` method directly. Note that :meth:`QDeclarativeComponent.isLoading()<PySide.QtDeclarative.QDeclarativeComponent.isLoading>` may be false for a network component if the component has been cached and is ready immediately.
+
+    ::
+
+                MyApplication::MyApplication()
+                {
+                    // ...
+                    component = new QDeclarativeComponent(engine, QUrl("http://www.example.com/main.qml"));
+                    if (component->isLoading())
+                        QObject::connect(component, SIGNAL(statusChanged(QDeclarativeComponent::Status)),
+                                         this, SLOT(continueLoading()));
+                    else
+                        continueLoading();
+                }
+                
+                void MyApplication::continueLoading()
+                {
+                    if (component->isError()) {
+                        qWarning() << component->errors();
+                    } else {
+                        QObject *myObject = component->create();
+                    }
+                }
+
+
+
+.. class:: QDeclarativeComponent(arg__1[, parent=None])
+           QDeclarativeComponent(arg__1, fileName[, parent=None])
+           QDeclarativeComponent(arg__1, url[, parent=None])
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param fileName: unicode
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeEngine`
+
+
+
+
+
+
+
+
+.. attribute:: PySide.QtDeclarative.QDeclarativeComponent.Status
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.beginCreate(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.completeCreate()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.create([context=None])
+
+
+    :param context: :class:`PySide.QtDeclarative.QDeclarativeContext`
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.createObject(parent, valuemap)
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param valuemap: :class:`PySide.QtScript.QScriptValue`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.createObject(parent)
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.creationContext()
+
+
+    :rtype: :class:`PySide.QtDeclarative.QDeclarativeContext`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.errors()
+
+
+    :rtype: 
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.isError()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.isLoading()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.isReady()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.loadUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.progress()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.progressChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.qreal`
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.setData(arg__1, baseUrl)
+
+
+    :param arg__1: :class:`PySide.QtCore.QByteArray`
+    :param baseUrl: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.status()
+
+
+    :rtype: :attr:`PySide.QtDeclarative.QDeclarativeComponent.Status`
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.statusChanged(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtDeclarative.QDeclarativeComponent.Status`
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeComponent.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+
+

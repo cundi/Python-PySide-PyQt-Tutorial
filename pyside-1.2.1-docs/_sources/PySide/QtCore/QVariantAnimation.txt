@@ -1,0 +1,333 @@
+.. module:: PySide.QtCore
+.. _QVariantAnimation:
+
+QVariantAnimation
+*****************
+
+.. inheritance-diagram:: QVariantAnimation
+    :parts: 2
+
+**Inherited by:** :ref:`QPropertyAnimation`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentValue<PySide.QtCore.QVariantAnimation.currentValue>` ()
+*    def :meth:`easingCurve<PySide.QtCore.QVariantAnimation.easingCurve>` ()
+*    def :meth:`endValue<PySide.QtCore.QVariantAnimation.endValue>` ()
+*    def :meth:`keyValueAt<PySide.QtCore.QVariantAnimation.keyValueAt>` (step)
+*    def :meth:`keyValues<PySide.QtCore.QVariantAnimation.keyValues>` ()
+*    def :meth:`setDuration<PySide.QtCore.QVariantAnimation.setDuration>` (msecs)
+*    def :meth:`setEasingCurve<PySide.QtCore.QVariantAnimation.setEasingCurve>` (easing)
+*    def :meth:`setEndValue<PySide.QtCore.QVariantAnimation.setEndValue>` (value)
+*    def :meth:`setKeyValueAt<PySide.QtCore.QVariantAnimation.setKeyValueAt>` (step, value)
+*    def :meth:`setKeyValues<PySide.QtCore.QVariantAnimation.setKeyValues>` (values)
+*    def :meth:`setStartValue<PySide.QtCore.QVariantAnimation.setStartValue>` (value)
+*    def :meth:`startValue<PySide.QtCore.QVariantAnimation.startValue>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`interpolated<PySide.QtCore.QVariantAnimation.interpolated>` (from, to, progress)
+*    def :meth:`updateCurrentValue<PySide.QtCore.QVariantAnimation.updateCurrentValue>` (value)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueChanged<PySide.QtCore.QVariantAnimation.valueChanged>` (value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QVariantAnimation` class provides an abstract base class for animations.
+
+    This class is part of :ref:`The Animation Framework<animation-overview.html>` . It serves as a base class for property and item animations, with functions for shared functionality.
+
+    :class:`PySide.QtCore.QVariantAnimation` cannot be used directly as it is an abstract class; it has a pure virtual method called :meth:`PySide.QtCore.QVariantAnimation.updateCurrentValue` . The class performs interpolation over :class:`PySide.QtCore.QVariant` s, but leaves using the interpolated values to its subclasses. Currently, Qt provides :class:`PySide.QtCore.QPropertyAnimation` , which animates Qt :ref:`properties<properties.html>` . See the :class:`PySide.QtCore.QPropertyAnimation` class description if you wish to animate such properties.
+
+    You can then set start and end values for the property by calling :meth:`PySide.QtCore.QVariantAnimation.setStartValue` and :meth:`PySide.QtCore.QVariantAnimation.setEndValue` , and finally call :meth:`PySide.QtCore.QAbstractAnimation.start` to start the animation. :class:`PySide.QtCore.QVariantAnimation` will interpolate the property of the target object and emit :meth:`PySide.QtCore.QVariantAnimation.valueChanged` . To react to a change in the current value you have to reimplement the :meth:`PySide.QtCore.QVariantAnimation.updateCurrentValue` virtual function.
+
+    It is also possible to set values at specified steps situated between the start and end value. The interpolation will then touch these points at the specified steps. Note that the start and end values are defined as the key values at 0.0 and 1.0.
+
+    There are two ways to affect how :class:`PySide.QtCore.QVariantAnimation` interpolates the values. You can set an easing curve by calling :meth:`PySide.QtCore.QVariantAnimation.setEasingCurve` , and configure the duration by calling :meth:`PySide.QtCore.QVariantAnimation.setDuration` . You can change how the :ref:`QVariants<qtwebkit-bridge.html>` are interpolated by creating a subclass of :class:`PySide.QtCore.QVariantAnimation` , and reimplementing the virtual :meth:`PySide.QtCore.QVariantAnimation.interpolated` function.
+
+    Subclassing :class:`PySide.QtCore.QVariantAnimation` can be an alternative if you have :class:`PySide.QtCore.QVariant` s that you do not wish to declare as Qt properties. Note, however, that you in most cases will be better off declaring your :class:`PySide.QtCore.QVariant` as a property.
+
+    Not all :class:`PySide.QtCore.QVariant` types are supported. Below is a list of currently supported :class:`PySide.QtCore.QVariant` types:
+
+
+    * :attr:`Int<QMetaType.Type>`
+    * :attr:`Double<QMetaType.Type>`
+    * :attr:`Float<QMetaType.Type>`
+    * :attr:`QLine<QMetaType.Type>`
+    * :attr:`QLineF<QMetaType.Type>`
+    * :attr:`QPoint<QMetaType.Type>`
+    * :attr:`QPointF<QMetaType.Type>`
+    * :attr:`QSize<QMetaType.Type>`
+    * :attr:`QSizeF<QMetaType.Type>`
+    * :attr:`QRect<QMetaType.Type>`
+    * :attr:`QRectF<QMetaType.Type>`
+    * :attr:`QColor<QMetaType.Type>`
+
+    If you need to interpolate other variant types, including custom types, you have to implement interpolation for these yourself. To do this, you can register an interpolator function for a given type. This function takes 3 parameters: the start value, the end value and the current progress.
+
+    Example:
+
+    ::
+
+                QVariant myColorInterpolator(const QColor &start, const QColor &end, qreal progress)
+                {
+                    ...
+                    return QColor(...);
+                }
+                ...
+                qRegisterAnimationInterpolator<QColor>(myColorInterpolator);
+
+
+    Another option is to reimplement :meth:`PySide.QtCore.QVariantAnimation.interpolated` , which returns interpolation values for the value being interpolated.
+
+    .. seealso::  :class:`PySide.QtCore.QPropertyAnimation`  :class:`PySide.QtCore.QAbstractAnimation`  :ref:`The Animation Framework<animation-overview.html>` 
+
+.. class:: QVariantAnimation([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Construct a :class:`PySide.QtCore.QVariantAnimation` object. ``parent`` is passed to :class:`PySide.QtCore.QAbstractAnimation` 's constructor.
+
+
+.. method:: PySide.QtCore.QVariantAnimation.currentValue()
+
+
+    :rtype: object
+
+
+
+
+    This property holds the current value of the animation..
+
+    This property describes the current value; an interpolated value between the :meth:`start value<PySide.QtCore.QVariantAnimation.startValue>` and the :meth:`end value<PySide.QtCore.QVariantAnimation.endValue>` , using the current time for progress. The value itself is obtained from :meth:`PySide.QtCore.QVariantAnimation.interpolated` , which is called repeatedly as the animation is running.
+
+    :class:`PySide.QtCore.QVariantAnimation` calls the virtual :meth:`PySide.QtCore.QVariantAnimation.updateCurrentValue` function when the current value changes. This is particularly useful for subclasses that need to track updates. For example, :class:`PySide.QtCore.QPropertyAnimation` uses this function to animate Qt :ref:`properties<properties.html>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.startValue`  :meth:`PySide.QtCore.QVariantAnimation.endValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.easingCurve()
+
+
+    :rtype: :class:`PySide.QtCore.QEasingCurve`
+
+
+
+
+    This property holds the easing curve of the animation.
+
+    This property defines the easing curve of the animation. By default, a linear easing curve is used, resulting in linear interpolation. Other curves are provided, for instance, :attr:`QEasingCurve.InCirc<QEasingCurve.Type>` , which provides a circular entry curve. Another example is :attr:`QEasingCurve.InOutElastic<QEasingCurve.Type>` , which provides an elastic effect on the values of the interpolated variant.
+
+    :class:`PySide.QtCore.QVariantAnimation` will use the :meth:`QEasingCurve.valueForProgress()<PySide.QtCore.QEasingCurve.valueForProgress>` to transform the "normalized progress" ( :meth:`PySide.QtCore.QAbstractAnimation.currentTime` / totalDuration) of the animation into the effective progress actually used by the animation. It is this effective progress that will be the progress when :meth:`PySide.QtCore.QVariantAnimation.interpolated` is called. Also, the steps in the keyValues are referring to this effective progress.
+
+    The easing curve is used with the interpolator, the :meth:`PySide.QtCore.QVariantAnimation.interpolated` virtual function, the animation's duration, and iterationCount, to control how the current value changes as the animation progresses.
+
+
+
+.. method:: PySide.QtCore.QVariantAnimation.endValue()
+
+
+    :rtype: object
+
+
+
+
+    This property holds the end value of the animation.
+
+    This property describes the end value of the animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.startValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.interpolated(from, to, progress)
+
+
+    :param from: object
+    :param to: object
+    :param progress: :class:`PySide.QtCore.qreal`
+    :rtype: object
+
+
+
+
+    This virtual function returns the linear interpolation between variants ``from`` and ``to`` , at ``progress`` , usually a value between 0 and 1. You can reimplement this function in a subclass of :class:`PySide.QtCore.QVariantAnimation` to provide your own interpolation algorithm.
+
+    Note that in order for the interpolation to work with a :class:`PySide.QtCore.QEasingCurve` that return a value smaller than 0 or larger than 1 (such as :attr:`QEasingCurve.InBack<QEasingCurve.Type>` ) you should make sure that it can extrapolate. If the semantic of the datatype does not allow extrapolation this function should handle that gracefully.
+
+    You should call the :class:`PySide.QtCore.QVariantAnimation` implementation of this function if you want your class to handle the types already supported by Qt (see class :class:`PySide.QtCore.QVariantAnimation` description for a list of supported types).
+
+    .. seealso::  :class:`PySide.QtCore.QEasingCurve` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.keyValueAt(step)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :rtype: object
+
+
+
+
+    Returns the key frame value for the given ``step`` . The given ``step`` must be in the range 0 to 1. If there is no :class:`~PySide.QtCore.KeyValue` for ``step`` , it returns an invalid :class:`PySide.QtCore.QVariant` .
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.keyValues`  :meth:`PySide.QtCore.QVariantAnimation.setKeyValueAt` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.keyValues()
+
+
+    :rtype: 
+
+
+
+
+    Returns the key frames of this animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.keyValueAt`  :meth:`PySide.QtCore.QVariantAnimation.setKeyValues` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setDuration(msecs)
+
+
+    :param msecs: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the duration of the animation.
+
+    This property describes the duration in milliseconds of the animation. The default duration is 250 milliseconds.
+
+    .. seealso::  :meth:`QAbstractAnimation.duration()<PySide.QtCore.QAbstractAnimation.duration>` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setEasingCurve(easing)
+
+
+    :param easing: :class:`PySide.QtCore.QEasingCurve`
+
+
+
+
+    This property holds the easing curve of the animation.
+
+    This property defines the easing curve of the animation. By default, a linear easing curve is used, resulting in linear interpolation. Other curves are provided, for instance, :attr:`QEasingCurve.InCirc<QEasingCurve.Type>` , which provides a circular entry curve. Another example is :attr:`QEasingCurve.InOutElastic<QEasingCurve.Type>` , which provides an elastic effect on the values of the interpolated variant.
+
+    :class:`PySide.QtCore.QVariantAnimation` will use the :meth:`QEasingCurve.valueForProgress()<PySide.QtCore.QEasingCurve.valueForProgress>` to transform the "normalized progress" ( :meth:`PySide.QtCore.QAbstractAnimation.currentTime` / totalDuration) of the animation into the effective progress actually used by the animation. It is this effective progress that will be the progress when :meth:`PySide.QtCore.QVariantAnimation.interpolated` is called. Also, the steps in the keyValues are referring to this effective progress.
+
+    The easing curve is used with the interpolator, the :meth:`PySide.QtCore.QVariantAnimation.interpolated` virtual function, the animation's duration, and iterationCount, to control how the current value changes as the animation progresses.
+
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setEndValue(value)
+
+
+    :param value: object
+
+
+
+
+    This property holds the end value of the animation.
+
+    This property describes the end value of the animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.startValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setKeyValueAt(step, value)
+
+
+    :param step: :class:`PySide.QtCore.qreal`
+    :param value: object
+
+
+
+
+    Creates a key frame at the given ``step`` with the given ``value`` . The given ``step`` must be in the range 0 to 1.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.setKeyValues`  :meth:`PySide.QtCore.QVariantAnimation.keyValueAt` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setKeyValues(values)
+
+
+    :param values: 
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QVariantAnimation.setStartValue(value)
+
+
+    :param value: object
+
+
+
+
+    This property holds the optional start value of the animation.
+
+    This property describes the optional start value of the animation. If omitted, or if a null :class:`PySide.QtCore.QVariant` is assigned as the start value, the animation will use the current position of the end when the animation is started.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.endValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.startValue()
+
+
+    :rtype: object
+
+
+
+
+    This property holds the optional start value of the animation.
+
+    This property describes the optional start value of the animation. If omitted, or if a null :class:`PySide.QtCore.QVariant` is assigned as the start value, the animation will use the current position of the end when the animation is started.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.endValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.updateCurrentValue(value)
+
+
+    :param value: object
+
+
+
+
+    This pure virtual function is called every time the animation's current value changes. The ``value`` argument is the new current value.
+
+    .. seealso::  :meth:`PySide.QtCore.QVariantAnimation.currentValue` 
+
+
+.. method:: PySide.QtCore.QVariantAnimation.valueChanged(value)
+
+
+    :param value: object
+
+
+
+
+
+
+

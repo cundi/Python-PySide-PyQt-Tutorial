@@ -1,0 +1,413 @@
+.. module:: PySide.QtGui
+.. _QTextBlockFormat:
+
+QTextBlockFormat
+****************
+
+.. inheritance-diagram:: QTextBlockFormat
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QTextBlockFormat.alignment>` ()
+*    def :meth:`bottomMargin<PySide.QtGui.QTextBlockFormat.bottomMargin>` ()
+*    def :meth:`indent<PySide.QtGui.QTextBlockFormat.indent>` ()
+*    def :meth:`leftMargin<PySide.QtGui.QTextBlockFormat.leftMargin>` ()
+*    def :meth:`lineHeight<PySide.QtGui.QTextBlockFormat.lineHeight>` ()
+*    def :meth:`lineHeight<PySide.QtGui.QTextBlockFormat.lineHeight>` (scriptLineHeight, scaling)
+*    def :meth:`lineHeightType<PySide.QtGui.QTextBlockFormat.lineHeightType>` ()
+*    def :meth:`nonBreakableLines<PySide.QtGui.QTextBlockFormat.nonBreakableLines>` ()
+*    def :meth:`pageBreakPolicy<PySide.QtGui.QTextBlockFormat.pageBreakPolicy>` ()
+*    def :meth:`rightMargin<PySide.QtGui.QTextBlockFormat.rightMargin>` ()
+*    def :meth:`setAlignment<PySide.QtGui.QTextBlockFormat.setAlignment>` (alignment)
+*    def :meth:`setBottomMargin<PySide.QtGui.QTextBlockFormat.setBottomMargin>` (margin)
+*    def :meth:`setIndent<PySide.QtGui.QTextBlockFormat.setIndent>` (indent)
+*    def :meth:`setLeftMargin<PySide.QtGui.QTextBlockFormat.setLeftMargin>` (margin)
+*    def :meth:`setLineHeight<PySide.QtGui.QTextBlockFormat.setLineHeight>` (height, heightType)
+*    def :meth:`setNonBreakableLines<PySide.QtGui.QTextBlockFormat.setNonBreakableLines>` (b)
+*    def :meth:`setPageBreakPolicy<PySide.QtGui.QTextBlockFormat.setPageBreakPolicy>` (flags)
+*    def :meth:`setRightMargin<PySide.QtGui.QTextBlockFormat.setRightMargin>` (margin)
+*    def :meth:`setTabPositions<PySide.QtGui.QTextBlockFormat.setTabPositions>` (tabs)
+*    def :meth:`setTextIndent<PySide.QtGui.QTextBlockFormat.setTextIndent>` (aindent)
+*    def :meth:`setTopMargin<PySide.QtGui.QTextBlockFormat.setTopMargin>` (margin)
+*    def :meth:`tabPositions<PySide.QtGui.QTextBlockFormat.tabPositions>` ()
+*    def :meth:`textIndent<PySide.QtGui.QTextBlockFormat.textIndent>` ()
+*    def :meth:`topMargin<PySide.QtGui.QTextBlockFormat.topMargin>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextBlockFormat` class provides formatting information for blocks of text in a :class:`PySide.QtGui.QTextDocument` .
+
+    A document is composed of a list of blocks, represented by :class:`PySide.QtGui.QTextBlock` objects. Each block can contain an item of some kind, such as a paragraph of text, a table, a list, or an image. Every block has an associated :class:`PySide.QtGui.QTextBlockFormat` that specifies its characteristics.
+
+    To cater for left-to-right and right-to-left languages you can set a block's direction with setDirection(). Paragraph alignment is set with :meth:`PySide.QtGui.QTextBlockFormat.setAlignment` . Margins are controlled by :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin` , :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin` , :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin` , :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin` . Overall indentation is set with :meth:`PySide.QtGui.QTextBlockFormat.setIndent` , the indentation of the first line with :meth:`PySide.QtGui.QTextBlockFormat.setTextIndent` .
+
+    Line spacing is set with :meth:`PySide.QtGui.QTextBlockFormat.setLineHeight` and retrieved via :meth:`PySide.QtGui.QTextBlockFormat.lineHeight` and :meth:`PySide.QtGui.QTextBlockFormat.lineHeightType` . The types of line spacing available are in the :attr:`QTextBlockFormat.LineHeightTypes` enum.
+
+    Line breaking can be enabled and disabled with :meth:`PySide.QtGui.QTextBlockFormat.setNonBreakableLines` .
+
+    The brush used to paint the paragraph's background is set with :meth:`PySide.QtGui.QTextFormat.setBackground` , and other aspects of the text's appearance can be customized by using the :meth:`PySide.QtGui.QTextFormat.setProperty` function with the ``OutlinePen`` , ``ForegroundBrush`` , and ``BackgroundBrush``\ :attr:`QTextFormat.Property` values.
+
+    If a text block is part of a list, it can also have a list format that is accessible with the listFormat() function.
+
+    .. seealso::  :class:`PySide.QtGui.QTextBlock`  :class:`PySide.QtGui.QTextCharFormat` 
+
+.. class:: QTextBlockFormat()
+           QTextBlockFormat(QTextBlockFormat)
+           QTextBlockFormat(fmt)
+
+    :param fmt: :class:`PySide.QtGui.QTextFormat`
+    :param QTextBlockFormat: :class:`PySide.QtGui.QTextBlockFormat`
+
+    Constructs a new :class:`PySide.QtGui.QTextBlockFormat` .
+
+
+
+
+    Creates a new block format with the same attributes as the ``given`` text format.
+
+
+.. attribute:: PySide.QtGui.QTextBlockFormat.LineHeightTypes
+
+    This enum describes the various types of line spacing support paragraphs can have.
+
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                |
+    +===================================+===========================================================================================================+
+    |QTextBlockFormat.SingleHeight      |This is the default line height: single spacing.                                                           |
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBlockFormat.ProportionalHeight|This sets the spacing proportional to the line (in percentage). For example, set to 200 for double spacing.|
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBlockFormat.FixedHeight       |This sets the line height to a fixed line height (in pixels).                                              |
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBlockFormat.MinimumHeight     |This sets the minimum line height (in pixels).                                                             |
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+    |QTextBlockFormat.LineDistanceHeight|This adds the specified height between lines (in pixels).                                                  |
+    +-----------------------------------+-----------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.lineHeight`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeightType`  :meth:`PySide.QtGui.QTextBlockFormat.setLineHeight` 
+
+.. note:: This enum was introduced or modified in Qt 4.8
+.. method:: PySide.QtGui.QTextBlockFormat.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the paragraph's alignment.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setAlignment` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.bottomMargin()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the paragraph's bottom margin.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin`  :meth:`PySide.QtGui.QTextBlockFormat.topMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.indent()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the paragraph's indent.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setIndent` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.leftMargin()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the paragraph's left margin.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.rightMargin`  :meth:`PySide.QtGui.QTextBlockFormat.indent` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.lineHeight(scriptLineHeight, scaling)
+
+
+    :param scriptLineHeight: :class:`PySide.QtCore.qreal`
+    :param scaling: :class:`PySide.QtCore.qreal`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the height of the lines in the paragraph based on the height of the script line given by ``scriptLineHeight`` and the specified ``scaling`` factor.
+
+    The value that is returned is also dependent on the given :attr:`LineHeightType<QTextFormat.Property>` of the paragraph as well as the :attr:`LineHeight<QTextFormat.Property>` setting that has been set for the paragraph.
+
+    The scaling is needed for heights that include a fixed number of pixels, to scale them appropriately for printing.
+
+    .. seealso::  :attr:`QTextBlockFormat.LineHeightTypes`  :meth:`PySide.QtGui.QTextBlockFormat.setLineHeight`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeightType` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.lineHeight()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This returns the :attr:`LineHeight<QTextFormat.Property>` property for the paragraph.
+
+    .. seealso::  :attr:`QTextBlockFormat.LineHeightTypes`  :meth:`PySide.QtGui.QTextBlockFormat.setLineHeight`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeightType` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.lineHeightType()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This returns the :attr:`LineHeightType<QTextFormat.Property>` property of the paragraph.
+
+    .. seealso::  :attr:`QTextBlockFormat.LineHeightTypes`  :meth:`PySide.QtGui.QTextBlockFormat.setLineHeight`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeight` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.nonBreakableLines()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the lines in the paragraph are non-breakable; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setNonBreakableLines` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.pageBreakPolicy()
+
+
+    :rtype: :class:`PySide.QtGui.QTextFormat.PageBreakFlags`
+
+
+
+
+    Returns the currently set page break policy for the paragraph. The default is :attr:`QTextFormat.PageBreak_Auto<QTextFormat.PageBreakFlag>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setPageBreakPolicy` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.rightMargin()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the paragraph's right margin.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin`  :meth:`PySide.QtGui.QTextBlockFormat.leftMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setBottomMargin(margin)
+
+
+    :param margin: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the paragraph's bottom ``margin`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.bottomMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setIndent(indent)
+
+
+    :param indent: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the paragraph's ``indentation`` . Margins are set independently of indentation with :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin` and :meth:`PySide.QtGui.QTextBlockFormat.setTextIndent` . The ``indentation`` is an integer that is multiplied with the document-wide standard indent, resulting in the actual indent of the paragraph.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.indent`  :meth:`QTextDocument.indentWidth()<PySide.QtGui.QTextDocument.indentWidth>` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setLeftMargin(margin)
+
+
+    :param margin: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the paragraph's left ``margin`` . Indentation can be applied separately with :meth:`PySide.QtGui.QTextBlockFormat.setIndent` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.leftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setLineHeight(height, heightType)
+
+
+    :param height: :class:`PySide.QtCore.qreal`
+    :param heightType: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the line height for the paragraph to the value given by ``height`` which is dependent on ``heightType`` in the way described by the :attr:`QTextBlockFormat.LineHeightTypes` enum.
+
+    .. seealso::  :attr:`QTextBlockFormat.LineHeightTypes`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeight`  :meth:`PySide.QtGui.QTextBlockFormat.lineHeightType` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setNonBreakableLines(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``b`` is true, the lines in the paragraph are treated as non-breakable; otherwise they are breakable.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.nonBreakableLines` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setPageBreakPolicy(flags)
+
+
+    :param flags: :class:`PySide.QtGui.QTextFormat.PageBreakFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setRightMargin(margin)
+
+
+    :param margin: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the paragraph's right ``margin`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.rightMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setTabPositions(tabs)
+
+
+    :param tabs: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setTextIndent(aindent)
+
+
+    :param aindent: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the ``indent`` for the first line in the block. This allows the first line of a paragraph to be indented differently to the other lines, enhancing the readability of the text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.textIndent`  :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.setTopMargin(margin)
+
+
+    :param margin: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the paragraph's top ``margin`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.topMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setBottomMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setLeftMargin`  :meth:`PySide.QtGui.QTextBlockFormat.setRightMargin` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.tabPositions()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of tab positions defined for the text block.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setTabPositions` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.textIndent()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the paragraph's text indent.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setTextIndent` 
+
+
+.. method:: PySide.QtGui.QTextBlockFormat.topMargin()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the paragraph's top margin.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBlockFormat.setTopMargin`  :meth:`PySide.QtGui.QTextBlockFormat.bottomMargin` 
+
+
+

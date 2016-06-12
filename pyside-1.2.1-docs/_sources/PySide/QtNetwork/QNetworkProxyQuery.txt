@@ -1,0 +1,375 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkProxyQuery:
+
+QNetworkProxyQuery
+******************
+
+.. inheritance-diagram:: QNetworkProxyQuery
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QNetworkProxyQuery.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QNetworkProxyQuery.__ne__>` (other)
+*    def :meth:`localPort<PySide.QtNetwork.QNetworkProxyQuery.localPort>` ()
+*    def :meth:`networkConfiguration<PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration>` ()
+*    def :meth:`peerHostName<PySide.QtNetwork.QNetworkProxyQuery.peerHostName>` ()
+*    def :meth:`peerPort<PySide.QtNetwork.QNetworkProxyQuery.peerPort>` ()
+*    def :meth:`protocolTag<PySide.QtNetwork.QNetworkProxyQuery.protocolTag>` ()
+*    def :meth:`queryType<PySide.QtNetwork.QNetworkProxyQuery.queryType>` ()
+*    def :meth:`setLocalPort<PySide.QtNetwork.QNetworkProxyQuery.setLocalPort>` (port)
+*    def :meth:`setNetworkConfiguration<PySide.QtNetwork.QNetworkProxyQuery.setNetworkConfiguration>` (networkConfiguration)
+*    def :meth:`setPeerHostName<PySide.QtNetwork.QNetworkProxyQuery.setPeerHostName>` (hostname)
+*    def :meth:`setPeerPort<PySide.QtNetwork.QNetworkProxyQuery.setPeerPort>` (port)
+*    def :meth:`setProtocolTag<PySide.QtNetwork.QNetworkProxyQuery.setProtocolTag>` (protocolTag)
+*    def :meth:`setQueryType<PySide.QtNetwork.QNetworkProxyQuery.setQueryType>` (type)
+*    def :meth:`setUrl<PySide.QtNetwork.QNetworkProxyQuery.setUrl>` (url)
+*    def :meth:`url<PySide.QtNetwork.QNetworkProxyQuery.url>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkProxyQuery` class is used to query the proxy settings for a socket
+
+    :class:`PySide.QtNetwork.QNetworkProxyQuery` holds the details of a socket being created or request being made. It is used by :class:`PySide.QtNetwork.QNetworkProxy` and :class:`PySide.QtNetwork.QNetworkProxyFactory` to allow applications to have a more fine-grained control over which proxy servers are used, depending on the details of the query. This allows an application to apply different settings, according to the protocol or destination hostname, for instance.
+
+    :class:`PySide.QtNetwork.QNetworkProxyQuery` supports the following criteria for selecting the proxy:
+
+
+    * the type of query
+    * the local port number to use
+    * the destination host name
+    * the destination port number
+    * the protocol name, such as "http" or "ftp"
+    * the URL being requested
+
+    The destination host name is the host in the connection in the case of outgoing connection sockets. It is the ``hostName`` parameter passed to :meth:`QTcpSocket.connectToHost()<PySide.QtNetwork.QTcpSocket.connectToHost>` or the host component of a URL requested with :class:`PySide.QtNetwork.QNetworkRequest` .
+
+    The destination port number is the requested port to connect to in the case of outgoing sockets, while the local port number is the port the socket wishes to use locally before attempting the external connection. In most cases, the local port number is used by listening sockets only ( :class:`PySide.QtNetwork.QTcpSocket` ) or by datagram sockets ( :class:`PySide.QtNetwork.QUdpSocket` ).
+
+    The protocol name is an arbitrary string that indicates the type of connection being attempted. For example, it can match the scheme of a URL, like "http", "https" and "ftp". In most cases, the proxy selection will not change depending on the protocol, but this information is provided in case a better choice can be made, like choosing an caching HTTP proxy for HTTP-based connections, but a more powerful SOCKSv5 proxy for all others.
+
+    The network configuration specifies which configuration to use, when bearer management is used. For example on a mobile phone the proxy settings are likely to be different for the cellular network vs WLAN.
+
+    Some of the criteria may not make sense in all of the types of query. The following table lists the criteria that are most commonly used, according to the type of query.
+
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Query type                                      |Description                                                                                                                                                                                                                                                                                                                                                                         |
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`TcpSocket<QNetworkProxyQuery.QueryType>` |Normal sockets requesting a connection to a remote server, like :class:`PySide.QtNetwork.QTcpSocket` . The peer hostname and peer port match the values passed to :meth:`QTcpSocket.connectToHost()<PySide.QtNetwork.QTcpSocket.connectToHost>` . The local port is usually -1, indicating the socket has no preference in which port should be used. The URL component is not used.|
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`UdpSocket<QNetworkProxyQuery.QueryType>` |Datagram-based sockets, which can both send and receive. The local port, remote host or remote port fields can all be used or be left unused, depending on the characteristics of the socket. The URL component is not used.                                                                                                                                                        |
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`TcpServer<QNetworkProxyQuery.QueryType>` |Passive server sockets that listen on a port and await incoming connections from the network. Normally, only the local port is used, but the remote address could be used in specific circumstances, for example to indicate which remote host a connection is expected from. The URL component is not used.                                                                        |
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:attr:`UrlRequest<QNetworkProxyQuery.QueryType>`|A more high-level request, such as those coming from :class:`PySide.QtNetwork.QNetworkAccessManager` . These requests will inevitably use an outgoing TCP socket, but the this query type is provided to indicate that more detailed information is present in the URL component. For ease of implementation, the URL's host and port are set as the destination address.           |
+    +------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    It should be noted that any of the criteria may be missing or unknown (an empty :class:`PySide.QtCore.QString` for the hostname or protocol name, -1 for the port numbers). If that happens, the functions executing the query should make their best guess or apply some implementation-defined default values.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkProxy`  :class:`PySide.QtNetwork.QNetworkProxyFactory`  :class:`PySide.QtNetwork.QNetworkAccessManager`  :meth:`QAbstractSocket.setProxy()<PySide.QtNetwork.QAbstractSocket.setProxy>` 
+
+.. class:: QNetworkProxyQuery()
+           QNetworkProxyQuery(networkConfiguration, hostname, port[, protocolTag=""[, queryType=TcpSocket]])
+           QNetworkProxyQuery(networkConfiguration, requestUrl[, queryType=UrlRequest])
+           QNetworkProxyQuery(networkConfiguration, bindPort[, protocolTag=""[, queryType=TcpServer]])
+           QNetworkProxyQuery(other)
+           QNetworkProxyQuery(hostname, port[, protocolTag=""[, queryType=TcpSocket]])
+           QNetworkProxyQuery(requestUrl[, queryType=UrlRequest])
+           QNetworkProxyQuery(bindPort[, protocolTag=""[, queryType=TcpServer]])
+
+    :param port: :class:`PySide.QtCore.int`
+    :param bindPort: :class:`PySide.QtCore.quint16`
+    :param protocolTag: unicode
+    :param requestUrl: :class:`PySide.QtCore.QUrl`
+    :param hostname: unicode
+    :param other: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :param networkConfiguration: :class:`PySide.QtNetwork.QNetworkConfiguration`
+    :param queryType: :attr:`PySide.QtNetwork.QNetworkProxyQuery.QueryType`
+
+    Constructs a default :class:`PySide.QtNetwork.QNetworkProxyQuery` object. By default, the query type will be :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` .
+
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` of type ``queryType`` and sets the protocol tag to be ``protocolTag`` . This constructor is suitable for :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` queries, because it sets the peer hostname to ``hostname`` and the peer's port number to ``port`` . The specified ``networkConfiguration`` is used to resolve the proxy settings.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration` 
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` with the URL ``requestUrl`` and sets the query type to ``queryType`` . The specified ``networkConfiguration`` is used to resolve the proxy settings.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.protocolTag`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration` 
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` of type ``queryType`` and sets the protocol tag to be ``protocolTag`` . This constructor is suitable for :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` queries because it sets the local port number to ``bindPort`` . The specified ``networkConfiguration`` is used to resolve the proxy settings.
+
+    Note that ``bindPort`` is of type quint16 to indicate the exact port number that is requested. The value of -1 (unknown) is not allowed in this context.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.localPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration` 
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` object that is a copy of ``other`` .
+
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` of type ``queryType`` and sets the protocol tag to be ``protocolTag`` . This constructor is suitable for :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` queries, because it sets the peer hostname to ``hostname`` and the peer's port number to ``port`` .
+
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` with the URL ``requestUrl`` and sets the query type to ``queryType`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.protocolTag`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort` 
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkProxyQuery` of type ``queryType`` and sets the protocol tag to be ``protocolTag`` . This constructor is suitable for :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` queries because it sets the local port number to ``bindPort`` .
+
+    Note that ``bindPort`` is of type quint16 to indicate the exact port number that is requested. The value of -1 (unknown) is not allowed in this context.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.localPort` 
+
+.. attribute:: PySide.QtNetwork.QNetworkProxyQuery.QueryType
+
+    Describes the type of one :class:`PySide.QtNetwork.QNetworkProxyQuery` query.
+
+    +-----------------------------+----------------------------------------------------------------------+
+    |Constant                     |Description                                                           |
+    +=============================+======================================================================+
+    |QNetworkProxyQuery.TcpSocket |a normal, outgoing TCP socket                                         |
+    +-----------------------------+----------------------------------------------------------------------+
+    |QNetworkProxyQuery.UdpSocket |a datagram-based UDP socket, which could send to multiple destinations|
+    +-----------------------------+----------------------------------------------------------------------+
+    |QNetworkProxyQuery.TcpServer |a TCP server that listens for incoming connections from the network   |
+    +-----------------------------+----------------------------------------------------------------------+
+    |QNetworkProxyQuery.UrlRequest|a more complex request which involves loading of a URL                |
+    +-----------------------------+----------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.queryType`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setQueryType` 
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.localPort()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the port number of the socket that will accept incoming packets from remote servers or -1 if the port is not known.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setLocalPort` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the network configuration of the proxy query.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setNetworkConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QNetworkProxyQuery` object does not contain the same data as ``other`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkProxyQuery`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtNetwork.QNetworkProxyQuery` object contains the same data as ``other`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.peerHostName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the host name or IP address being of the outgoing connection being requested, or an empty string if the remote hostname is not known.
+
+    If the query type is :attr:`QNetworkProxyQuery.UrlRequest<QNetworkProxyQuery.QueryType>` , this function returns the host component of the URL being requested.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.localPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerHostName` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.peerPort()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the port number for the outgoing request or -1 if the port number is not known.
+
+    If the query type is :attr:`QNetworkProxyQuery.UrlRequest<QNetworkProxyQuery.QueryType>` , this function returns the port number of the URL being requested. In general, frameworks will fill in the port number from their default values.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.localPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerPort` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.protocolTag()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the protocol tag for this :class:`PySide.QtNetwork.QNetworkProxyQuery` object, or an empty :class:`PySide.QtCore.QString` in case the protocol tag is unknown.
+
+    In the case of queries of type :attr:`QNetworkProxyQuery.UrlRequest<QNetworkProxyQuery.QueryType>` , this function returns the value of the scheme component of the URL.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setProtocolTag`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.url` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.queryType()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkProxyQuery.QueryType`
+
+
+
+
+    Returns the query type.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setQueryType` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setLocalPort(port)
+
+
+    :param port: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the port number that the socket wishes to use locally to accept incoming packets from remote servers to ``port`` . The local port is most often used with the :attr:`QNetworkProxyQuery.TcpServer<QNetworkProxyQuery.QueryType>` and :attr:`QNetworkProxyQuery.UdpSocket<QNetworkProxyQuery.QueryType>` query types.
+
+    Valid values are 0 to 65535 (with 0 indicating that any port number will be acceptable) or -1, which means the local port number is unknown or not applicable.
+
+    In some circumstances, for special protocols, it's the local port number can also be used with a query of type :attr:`QNetworkProxyQuery.TcpSocket<QNetworkProxyQuery.QueryType>` . When that happens, the socket is indicating it wishes to use the port number ``port`` when connecting to a remote host.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.localPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerHostName` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setNetworkConfiguration(networkConfiguration)
+
+
+    :param networkConfiguration: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Sets the network configuration component of this :class:`PySide.QtNetwork.QNetworkProxyQuery` object to be ``networkConfiguration`` . The network configuration can be used to return different proxy settings based on the network in use, for example WLAN vs cellular networks on a mobile phone.
+
+    In the case of "user choice" or "service network" configurations, you should first start the :class:`PySide.QtNetwork.QNetworkSession` and obtain the active configuration from its properties.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.networkConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setPeerHostName(hostname)
+
+
+    :param hostname: unicode
+
+
+
+
+    Sets the hostname of the outgoing connection being requested to ``hostname`` . An empty hostname can be used to indicate that the remote host is unknown.
+
+    The peer host name can also be used to indicate the expected source address of an incoming connection in the case of :attr:`QNetworkProxyQuery.UdpSocket<QNetworkProxyQuery.QueryType>` or :attr:`QNetworkProxyQuery.TcpServer<QNetworkProxyQuery.QueryType>` query types.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setLocalPort` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setPeerPort(port)
+
+
+    :param port: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the requested port number for the outgoing connection to be ``port`` . Valid values are 1 to 65535, or -1 to indicate that the remote port number is unknown.
+
+    The peer port number can also be used to indicate the expected port number of an incoming connection in the case of :attr:`QNetworkProxyQuery.UdpSocket<QNetworkProxyQuery.QueryType>` or :attr:`QNetworkProxyQuery.TcpServer<QNetworkProxyQuery.QueryType>` query types.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setPeerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setLocalPort` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setProtocolTag(protocolTag)
+
+
+    :param protocolTag: unicode
+
+
+
+
+    Sets the protocol tag for this :class:`PySide.QtNetwork.QNetworkProxyQuery` object to be ``protocolTag`` .
+
+    The protocol tag is an arbitrary string that indicates which protocol is being talked over the socket, such as "http", "xmpp", "telnet", etc. The protocol tag is used by the backend to return a request that is more specific to the protocol in question: for example, a HTTP connection could be use a caching HTTP proxy server, while all other connections use a more powerful SOCKSv5 proxy server.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.protocolTag` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setQueryType(type)
+
+
+    :param type: :attr:`PySide.QtNetwork.QNetworkProxyQuery.QueryType`
+
+
+
+
+    Sets the query type of this object to be ``type`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.queryType` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.setUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets the URL component of this :class:`PySide.QtNetwork.QNetworkProxyQuery` object to be ``url`` . Setting the URL will also set the protocol tag, the remote host name and port number. This is done so as to facilitate the implementation of the code that determines the proxy server to be used.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.url`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerHostName`  :meth:`PySide.QtNetwork.QNetworkProxyQuery.peerPort` 
+
+
+.. method:: PySide.QtNetwork.QNetworkProxyQuery.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the URL component of this :class:`PySide.QtNetwork.QNetworkProxyQuery` object in case of a query of type :attr:`QNetworkProxyQuery.UrlRequest<QNetworkProxyQuery.QueryType>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkProxyQuery.setUrl` 
+
+
+

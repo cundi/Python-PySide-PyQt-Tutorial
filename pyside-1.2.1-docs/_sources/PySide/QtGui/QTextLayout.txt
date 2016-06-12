@@ -1,0 +1,642 @@
+.. module:: PySide.QtGui
+.. _QTextLayout:
+
+QTextLayout
+***********
+
+.. inheritance-diagram:: QTextLayout
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`additionalFormats<PySide.QtGui.QTextLayout.additionalFormats>` ()
+*    def :meth:`beginLayout<PySide.QtGui.QTextLayout.beginLayout>` ()
+*    def :meth:`boundingRect<PySide.QtGui.QTextLayout.boundingRect>` ()
+*    def :meth:`cacheEnabled<PySide.QtGui.QTextLayout.cacheEnabled>` ()
+*    def :meth:`clearAdditionalFormats<PySide.QtGui.QTextLayout.clearAdditionalFormats>` ()
+*    def :meth:`clearLayout<PySide.QtGui.QTextLayout.clearLayout>` ()
+*    def :meth:`createLine<PySide.QtGui.QTextLayout.createLine>` ()
+*    def :meth:`cursorMoveStyle<PySide.QtGui.QTextLayout.cursorMoveStyle>` ()
+*    def :meth:`draw<PySide.QtGui.QTextLayout.draw>` (p, pos[, selections=list()[, clip=QRectF()]])
+*    def :meth:`drawCursor<PySide.QtGui.QTextLayout.drawCursor>` (p, pos, cursorPosition)
+*    def :meth:`drawCursor<PySide.QtGui.QTextLayout.drawCursor>` (p, pos, cursorPosition, width)
+*    def :meth:`endLayout<PySide.QtGui.QTextLayout.endLayout>` ()
+*    def :meth:`font<PySide.QtGui.QTextLayout.font>` ()
+*    def :meth:`isValidCursorPosition<PySide.QtGui.QTextLayout.isValidCursorPosition>` (pos)
+*    def :meth:`leftCursorPosition<PySide.QtGui.QTextLayout.leftCursorPosition>` (oldPos)
+*    def :meth:`lineAt<PySide.QtGui.QTextLayout.lineAt>` (i)
+*    def :meth:`lineCount<PySide.QtGui.QTextLayout.lineCount>` ()
+*    def :meth:`lineForTextPosition<PySide.QtGui.QTextLayout.lineForTextPosition>` (pos)
+*    def :meth:`maximumWidth<PySide.QtGui.QTextLayout.maximumWidth>` ()
+*    def :meth:`minimumWidth<PySide.QtGui.QTextLayout.minimumWidth>` ()
+*    def :meth:`nextCursorPosition<PySide.QtGui.QTextLayout.nextCursorPosition>` (oldPos[, mode=SkipCharacters])
+*    def :meth:`position<PySide.QtGui.QTextLayout.position>` ()
+*    def :meth:`preeditAreaPosition<PySide.QtGui.QTextLayout.preeditAreaPosition>` ()
+*    def :meth:`preeditAreaText<PySide.QtGui.QTextLayout.preeditAreaText>` ()
+*    def :meth:`previousCursorPosition<PySide.QtGui.QTextLayout.previousCursorPosition>` (oldPos[, mode=SkipCharacters])
+*    def :meth:`rightCursorPosition<PySide.QtGui.QTextLayout.rightCursorPosition>` (oldPos)
+*    def :meth:`setAdditionalFormats<PySide.QtGui.QTextLayout.setAdditionalFormats>` (overrides)
+*    def :meth:`setCacheEnabled<PySide.QtGui.QTextLayout.setCacheEnabled>` (enable)
+*    def :meth:`setCursorMoveStyle<PySide.QtGui.QTextLayout.setCursorMoveStyle>` (style)
+*    def :meth:`setFlags<PySide.QtGui.QTextLayout.setFlags>` (flags)
+*    def :meth:`setFont<PySide.QtGui.QTextLayout.setFont>` (f)
+*    def :meth:`setPosition<PySide.QtGui.QTextLayout.setPosition>` (p)
+*    def :meth:`setPreeditArea<PySide.QtGui.QTextLayout.setPreeditArea>` (position, text)
+*    def :meth:`setText<PySide.QtGui.QTextLayout.setText>` (string)
+*    def :meth:`setTextOption<PySide.QtGui.QTextLayout.setTextOption>` (option)
+*    def :meth:`text<PySide.QtGui.QTextLayout.text>` ()
+*    def :meth:`textOption<PySide.QtGui.QTextLayout.textOption>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextLayout` class is used to lay out and render text.
+
+    It offers many features expected from a modern text layout engine, including Unicode compliant rendering, line breaking and handling of cursor positioning. It can also produce and render device independent layout, something that is important for WYSIWYG applications.
+
+    The class has a rather low level API and unless you intend to implement your own text rendering for some specialized widget, you probably won't need to use it directly.
+
+    :class:`PySide.QtGui.QTextLayout` can be used with both plain and rich text.
+
+    :class:`PySide.QtGui.QTextLayout` can be used to create a sequence of :class:`PySide.QtGui.QTextLine` instances with given widths and can position them independently on the screen. Once the layout is done, these lines can be drawn on a paint device.
+
+    The text to be laid out can be provided in the constructor or set with :meth:`PySide.QtGui.QTextLayout.setText` .
+
+    The layout can be seen as a sequence of :class:`PySide.QtGui.QTextLine` objects; use :meth:`PySide.QtGui.QTextLayout.createLine` to create a :class:`PySide.QtGui.QTextLine` instance, and :meth:`PySide.QtGui.QTextLayout.lineAt` or :meth:`PySide.QtGui.QTextLayout.lineForTextPosition` to retrieve created lines.
+
+    Here is a code snippet that demonstrates the layout phase:
+
+    ::
+
+        leading = fontMetrics.leading()
+        height = 0
+        widthUsed = 0
+        textLayout.beginLayout()
+        while True:
+            line = textLayout.createLine()
+            if not line.isValid():
+                break
+
+            line.setLineWidth(lineWidth)
+            height += leading
+            line.setPosition(QPointF(0, height))
+            height += line.height()
+            widthUsed = qMax(widthUsed, line.naturalTextWidth())
+        textLayout.endLayout()
+
+
+    The text can then be rendered by calling the layout's :meth:`PySide.QtGui.QTextLayout.draw` function:
+
+    ::
+
+        painter  = QPainter(self)
+        textLayout.draw(painter, QPoint(0, 0))
+
+
+    For a given position in the text you can find a valid cursor position with :meth:`PySide.QtGui.QTextLayout.isValidCursorPosition` , :meth:`PySide.QtGui.QTextLayout.nextCursorPosition` , and :meth:`PySide.QtGui.QTextLayout.previousCursorPosition` .
+
+    The :class:`PySide.QtGui.QTextLayout` itself can be positioned with :meth:`PySide.QtGui.QTextLayout.setPosition` ; it has a :meth:`PySide.QtGui.QTextLayout.boundingRect` , and a :meth:`PySide.QtGui.QTextLayout.minimumWidth` and a :meth:`PySide.QtGui.QTextLayout.maximumWidth` .
+
+    .. seealso::  :class:`~PySide.QtGui.QStaticText` 
+
+.. class:: QTextLayout()
+           QTextLayout(text)
+           QTextLayout(text, font[, paintdevice=None])
+           QTextLayout(b)
+
+    :param paintdevice: :class:`PySide.QtGui.QPaintDevice`
+    :param b: :class:`PySide.QtGui.QTextBlock`
+    :param text: unicode
+    :param font: :class:`PySide.QtGui.QFont`
+
+    Constructs an empty text layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setText` 
+
+    Constructs a text layout to lay out the given ``text`` .
+
+
+    Constructs a text layout to lay out the given ``text`` with the specified ``font`` .
+
+    All the metric and layout calculations will be done in terms of the paint device, ``paintdevice`` . If ``paintdevice`` is 0 the calculations will be done in screen metrics.
+
+
+    Constructs a text layout to lay out the given ``block`` .
+
+
+.. attribute:: PySide.QtGui.QTextLayout.CursorMode
+
+    +--------------------------+-----------+
+    |Constant                  |Description|
+    +==========================+===========+
+    |QTextLayout.SkipCharacters|           |
+    +--------------------------+-----------+
+    |QTextLayout.SkipWords     |           |
+    +--------------------------+-----------+
+
+
+.. method:: PySide.QtGui.QTextLayout.additionalFormats()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of additional formats supported by the text layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setAdditionalFormats`  :meth:`PySide.QtGui.QTextLayout.clearAdditionalFormats` 
+
+
+.. method:: PySide.QtGui.QTextLayout.beginLayout()
+
+
+
+
+
+
+    Begins the layout process.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.endLayout` 
+
+
+.. method:: PySide.QtGui.QTextLayout.boundingRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    The smallest rectangle that contains all the lines in the layout.
+
+
+
+.. method:: PySide.QtGui.QTextLayout.cacheEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the complete layout information is cached; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setCacheEnabled` 
+
+
+.. method:: PySide.QtGui.QTextLayout.clearAdditionalFormats()
+
+
+
+
+
+
+    Clears the list of additional formats supported by the text layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.additionalFormats`  :meth:`PySide.QtGui.QTextLayout.setAdditionalFormats` 
+
+
+.. method:: PySide.QtGui.QTextLayout.clearLayout()
+
+
+
+
+
+
+    Clears the line information in the layout. After having called this function, :meth:`PySide.QtGui.QTextLayout.lineCount` returns 0.
+
+
+
+.. method:: PySide.QtGui.QTextLayout.createLine()
+
+
+    :rtype: :class:`PySide.QtGui.QTextLine`
+
+
+
+
+    Returns a new text line to be laid out if there is text to be inserted into the layout; otherwise returns an invalid text line.
+
+    The text layout creates a new line object that starts after the last line in the layout, or at the beginning if the layout is empty. The layout maintains an internal cursor, and each line is filled with text from the cursor position onwards when the :meth:`QTextLine.setLineWidth()<PySide.QtGui.QTextLine.setLineWidth>` function is called.
+
+    Once :meth:`QTextLine.setLineWidth()<PySide.QtGui.QTextLine.setLineWidth>` is called, a new line can be created and filled with text. Repeating this process will lay out the whole block of text contained in the :class:`PySide.QtGui.QTextLayout` . If there is no text left to be inserted into the layout, the :class:`PySide.QtGui.QTextLine` returned will not be valid ( :meth:`~PySide.QtGui.QTextLayout.isValid` will return false).
+
+
+
+.. method:: PySide.QtGui.QTextLayout.cursorMoveStyle()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CursorMoveStyle`
+
+
+
+
+    The cursor movement style of this :class:`PySide.QtGui.QTextLayout` . The default is :attr:`Qt.LogicalMoveStyle<Qt.CursorMoveStyle>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setCursorMoveStyle` 
+
+
+.. method:: PySide.QtGui.QTextLayout.draw(p, pos[, selections=list()[, clip=QRectF()]])
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+    :param pos: :class:`PySide.QtCore.QPointF`
+    :param selections: 
+    :param clip: :class:`PySide.QtCore.QRectF`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextLayout.drawCursor(p, pos, cursorPosition)
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+    :param pos: :class:`PySide.QtCore.QPointF`
+    :param cursorPosition: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Draws a text cursor with the current pen at the given ``position`` using the ``painter`` specified. The corresponding position within the text is specified by ``cursorPosition`` .
+
+
+
+.. method:: PySide.QtGui.QTextLayout.drawCursor(p, pos, cursorPosition, width)
+
+
+    :param p: :class:`PySide.QtGui.QPainter`
+    :param pos: :class:`PySide.QtCore.QPointF`
+    :param cursorPosition: :class:`PySide.QtCore.int`
+    :param width: :class:`PySide.QtCore.int`
+
+
+
+
+    Draws a text cursor with the current pen and the specified ``width`` at the given ``position`` using the ``painter`` specified. The corresponding position within the text is specified by ``cursorPosition`` .
+
+
+
+.. method:: PySide.QtGui.QTextLayout.endLayout()
+
+
+
+
+
+
+    Ends the layout process.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.beginLayout` 
+
+
+.. method:: PySide.QtGui.QTextLayout.font()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the current font that is used for the layout, or a default font if none is set.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setFont` 
+
+
+.. method:: PySide.QtGui.QTextLayout.isValidCursorPosition(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    / Returns true if position ``pos`` is a valid cursor position.
+
+    In a Unicode context some positions in the text are not valid cursor positions, because the position is inside a Unicode surrogate or a grapheme cluster.
+
+    A grapheme cluster is a sequence of two or more Unicode characters that form one indivisible entity on the screen. For example the latin character ` .. raw:: html &Auml; ' can be represented in Unicode by two characters, `A' (0x41), and the combining diaresis (0x308). A text cursor can only validly be positioned before or after these two characters, never between them since that wouldn't make sense. In indic languages every syllable forms a grapheme cluster.
+
+
+
+.. method:: PySide.QtGui.QTextLayout.leftCursorPosition(oldPos)
+
+
+    :param oldPos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the cursor position to the left of ``oldPos`` , next to it. The position is dependent on the visual position of characters, after bi-directional reordering.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.rightCursorPosition`  :meth:`PySide.QtGui.QTextLayout.previousCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.lineAt(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextLine`
+
+
+
+
+    Returns the ``i`` -th line of text in this text layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.lineCount`  :meth:`PySide.QtGui.QTextLayout.lineForTextPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.lineCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of lines in this text layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.lineAt` 
+
+
+.. method:: PySide.QtGui.QTextLayout.lineForTextPosition(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QTextLine`
+
+
+
+
+    Returns the line that contains the cursor position specified by ``pos`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.isValidCursorPosition`  :meth:`PySide.QtGui.QTextLayout.lineAt` 
+
+
+.. method:: PySide.QtGui.QTextLayout.maximumWidth()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    The maximum width the layout could expand to; this is essentially the width of the entire text.
+
+    .. warning::  This function only returns a valid value after the layout has been done.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.minimumWidth` 
+
+
+.. method:: PySide.QtGui.QTextLayout.minimumWidth()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    The minimum width the layout needs. This is the width of the layout's smallest non-breakable substring.
+
+    .. warning::  This function only returns a valid value after the layout has been done.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.maximumWidth` 
+
+
+.. method:: PySide.QtGui.QTextLayout.nextCursorPosition(oldPos[, mode=SkipCharacters])
+
+
+    :param oldPos: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QTextLayout.CursorMode`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the next valid cursor position after ``oldPos`` that respects the given cursor ``mode`` . Returns value of ``oldPos`` , if ``oldPos`` is not a valid cursor position.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.isValidCursorPosition`  :meth:`PySide.QtGui.QTextLayout.previousCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.position()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    The global position of the layout. This is independent of the bounding rectangle and of the layout process.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.preeditAreaPosition()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the position of the area in the text layout that will be processed before editing occurs.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.preeditAreaText` 
+
+
+.. method:: PySide.QtGui.QTextLayout.preeditAreaText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the text that is inserted in the layout before editing occurs.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.preeditAreaPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.previousCursorPosition(oldPos[, mode=SkipCharacters])
+
+
+    :param oldPos: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtGui.QTextLayout.CursorMode`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the first valid cursor position before ``oldPos`` that respects the given cursor ``mode`` . Returns value of ``oldPos`` , if ``oldPos`` is not a valid cursor position.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.isValidCursorPosition`  :meth:`PySide.QtGui.QTextLayout.nextCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.rightCursorPosition(oldPos)
+
+
+    :param oldPos: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the cursor position to the right of ``oldPos`` , next to it. The position is dependent on the visual position of characters, after bi-directional reordering.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.leftCursorPosition`  :meth:`PySide.QtGui.QTextLayout.nextCursorPosition` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setAdditionalFormats(overrides)
+
+
+    :param overrides: 
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextLayout.setCacheEnabled(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables caching of the complete layout information if ``enable`` is true; otherwise disables layout caching. Usually :class:`PySide.QtGui.QTextLayout` throws most of the layouting information away after a call to :meth:`PySide.QtGui.QTextLayout.endLayout` to reduce memory consumption. If you however want to draw the laid out text directly afterwards enabling caching might speed up drawing significantly.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.cacheEnabled` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setCursorMoveStyle(style)
+
+
+    :param style: :attr:`PySide.QtCore.Qt.CursorMoveStyle`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextLayout.setFlags(flags)
+
+
+    :param flags: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextLayout.setFont(f)
+
+
+    :param f: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Sets the layout's font to the given ``font`` . The layout is invalidated and must be laid out again.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.font` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setPosition(p)
+
+
+    :param p: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Moves the text layout to point ``p`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.position` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setPreeditArea(position, text)
+
+
+    :param position: :class:`PySide.QtCore.int`
+    :param text: unicode
+
+
+
+
+    Sets the ``position`` and ``text`` of the area in the layout that is processed before editing occurs.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.preeditAreaPosition`  :meth:`PySide.QtGui.QTextLayout.preeditAreaText` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setText(string)
+
+
+    :param string: unicode
+
+
+
+
+    Sets the layout's text to the given ``string`` . The layout is invalidated and must be laid out again.
+
+    Notice that when using this :class:`PySide.QtGui.QTextLayout` as part of a :class:`PySide.QtGui.QTextDocument` this method will have no effect.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.text` 
+
+
+.. method:: PySide.QtGui.QTextLayout.setTextOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QTextOption`
+
+
+
+
+    Sets the text option structure that controls the layout process to the given ``option`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.textOption` 
+
+
+.. method:: PySide.QtGui.QTextLayout.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the layout's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setText` 
+
+
+.. method:: PySide.QtGui.QTextLayout.textOption()
+
+
+    :rtype: :class:`PySide.QtGui.QTextOption`
+
+
+
+
+    Returns the current text option used to control the layout process.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextLayout.setTextOption` 
+
+
+

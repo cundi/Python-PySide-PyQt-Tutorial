@@ -1,0 +1,839 @@
+.. module:: PySide.QtNetwork
+.. _QFtp:
+
+QFtp
+****
+
+.. inheritance-diagram:: QFtp
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bytesAvailable<PySide.QtNetwork.QFtp.bytesAvailable>` ()
+*    def :meth:`cd<PySide.QtNetwork.QFtp.cd>` (dir)
+*    def :meth:`clearPendingCommands<PySide.QtNetwork.QFtp.clearPendingCommands>` ()
+*    def :meth:`close<PySide.QtNetwork.QFtp.close>` ()
+*    def :meth:`connectToHost<PySide.QtNetwork.QFtp.connectToHost>` (host[, port=21])
+*    def :meth:`currentCommand<PySide.QtNetwork.QFtp.currentCommand>` ()
+*    def :meth:`currentDevice<PySide.QtNetwork.QFtp.currentDevice>` ()
+*    def :meth:`currentId<PySide.QtNetwork.QFtp.currentId>` ()
+*    def :meth:`error<PySide.QtNetwork.QFtp.error>` ()
+*    def :meth:`errorString<PySide.QtNetwork.QFtp.errorString>` ()
+*    def :meth:`get<PySide.QtNetwork.QFtp.get>` (file[, dev=None[, type=Binary]])
+*    def :meth:`hasPendingCommands<PySide.QtNetwork.QFtp.hasPendingCommands>` ()
+*    def :meth:`list<PySide.QtNetwork.QFtp.list>` ([dir=""])
+*    def :meth:`login<PySide.QtNetwork.QFtp.login>` ([user=""[, password=""]])
+*    def :meth:`mkdir<PySide.QtNetwork.QFtp.mkdir>` (dir)
+*    def :meth:`put<PySide.QtNetwork.QFtp.put>` (data, file[, type=Binary])
+*    def :meth:`put<PySide.QtNetwork.QFtp.put>` (dev, file[, type=Binary])
+*    def :meth:`rawCommand<PySide.QtNetwork.QFtp.rawCommand>` (command)
+*    def :meth:`read<PySide.QtNetwork.QFtp.read>` (, maxlen)
+*    def :meth:`readAll<PySide.QtNetwork.QFtp.readAll>` ()
+*    def :meth:`remove<PySide.QtNetwork.QFtp.remove>` (file)
+*    def :meth:`rename<PySide.QtNetwork.QFtp.rename>` (oldname, newname)
+*    def :meth:`rmdir<PySide.QtNetwork.QFtp.rmdir>` (dir)
+*    def :meth:`setProxy<PySide.QtNetwork.QFtp.setProxy>` (host, port)
+*    def :meth:`setTransferMode<PySide.QtNetwork.QFtp.setTransferMode>` (mode)
+*    def :meth:`state<PySide.QtNetwork.QFtp.state>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`abort<PySide.QtNetwork.QFtp.abort>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`commandFinished<PySide.QtNetwork.QFtp.commandFinished>` (arg__1, arg__2)
+*    def :meth:`commandStarted<PySide.QtNetwork.QFtp.commandStarted>` (arg__1)
+*    def :meth:`dataTransferProgress<PySide.QtNetwork.QFtp.dataTransferProgress>` (arg__1, arg__2)
+*    def :meth:`done<PySide.QtNetwork.QFtp.done>` (arg__1)
+*    def :meth:`listInfo<PySide.QtNetwork.QFtp.listInfo>` (arg__1)
+*    def :meth:`rawCommandReply<PySide.QtNetwork.QFtp.rawCommandReply>` (arg__1, arg__2)
+*    def :meth:`readyRead<PySide.QtNetwork.QFtp.readyRead>` ()
+*    def :meth:`stateChanged<PySide.QtNetwork.QFtp.stateChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QFtp` class provides an implementation of the client side of FTP protocol.
+
+    This class provides a direct interface to FTP that allows you to have more control over the requests. However, for new applications, it is recommended to use :class:`PySide.QtNetwork.QNetworkAccessManager` and :class:`PySide.QtNetwork.QNetworkReply` , as those classes possess a simpler, yet more powerful API.
+
+    The class works asynchronously, so there are no blocking functions. If an operation cannot be executed immediately, the function will still return straight away and the operation will be scheduled for later execution. The results of scheduled operations are reported via signals. This approach depends on the event loop being in operation.
+
+    The operations that can be scheduled (they are called "commands" in the rest of the documentation) are the following: :meth:`PySide.QtNetwork.QFtp.connectToHost` , :meth:`PySide.QtNetwork.QFtp.login` , :meth:`PySide.QtNetwork.QFtp.close` , :meth:`PySide.QtNetwork.QFtp.list` , :meth:`PySide.QtNetwork.QFtp.cd` , :meth:`PySide.QtNetwork.QFtp.get` , :meth:`PySide.QtNetwork.QFtp.put` , :meth:`PySide.QtNetwork.QFtp.remove` , :meth:`PySide.QtNetwork.QFtp.mkdir` , :meth:`PySide.QtNetwork.QFtp.rmdir` , :meth:`PySide.QtNetwork.QFtp.rename` and :meth:`PySide.QtNetwork.QFtp.rawCommand` .
+
+    All of these commands return a unique identifier that allows you to keep track of the command that is currently being executed. When the execution of a command starts, the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal with the command's identifier is emitted. When the command is finished, the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted with the command's identifier and a bool that indicates whether the command finished with an error.
+
+    In some cases, you might want to execute a sequence of commands, e.g. if you want to connect and login to a FTP server. This is simply achieved:
+
+    ::
+
+        ftp = QFtp(parent)
+        ftp.connectToHost("ftp.trolltech.com")
+        ftp.login()
+
+
+    In this case two FTP commands have been scheduled. When the last scheduled command has finished, a :meth:`PySide.QtNetwork.QFtp.done` signal is emitted with a bool argument that tells you whether the sequence finished with an error.
+
+    If an error occurs during the execution of one of the commands in a sequence of commands, all the pending commands (i.e. scheduled, but not yet executed commands) are cleared and no signals are emitted for them.
+
+    Some commands, e.g. :meth:`PySide.QtNetwork.QFtp.list` , emit additional signals to report their results.
+
+    Example: If you want to download the INSTALL file from the Qt FTP server, you would write this:
+
+    ::
+
+        ftp.connectToHost("ftp.trolltech.com") # id == 1
+        ftp.login()                            # id == 2
+        ftp.cd("qt")                           # id == 3
+        ftp.get("INSTALL")                     # id == 4
+        ftp.close()                            # id == 5
+
+
+    For this example the following sequence of signals is emitted (with small variations, depending on network traffic, etc.):
+
+    ::
+
+        start(1)
+        stateChanged(HostLookup)
+        stateChanged(Connecting)
+        stateChanged(Connected)
+        finished(1, false)
+
+        start(2)
+        stateChanged(LoggedIn)
+        finished(2, false)
+
+        start(3)
+        finished(3, false)
+
+        start(4)
+        dataTransferProgress(0, 3798)
+        dataTransferProgress(2896, 3798)
+        readyRead()
+        dataTransferProgress(3798, 3798)
+        readyRead()
+        finished(4, false)
+
+        start(5)
+        stateChanged(Closing)
+        stateChanged(Unconnected)
+        finished(5, false)
+
+        done(false)
+
+
+    The :meth:`PySide.QtNetwork.QFtp.dataTransferProgress` signal in the above example is useful if you want to show a :class:`progress bar<PySide.QtGui.QProgressBar>` to inform the user about the progress of the download. The :meth:`PySide.QtNetwork.QFtp.readyRead` signal tells you that there is data ready to be read. The amount of data can be queried then with the :meth:`PySide.QtNetwork.QFtp.bytesAvailable` function and it can be read with the :meth:`PySide.QtNetwork.QFtp.read` or :meth:`PySide.QtNetwork.QFtp.readAll` function.
+
+    If the login fails for the above example, the signals would look like this:
+
+    ::
+
+        start(1)
+        stateChanged(HostLookup)
+        stateChanged(Connecting)
+        stateChanged(Connected)
+        finished(1, false)
+
+        start(2)
+        finished(2, true)
+
+        done(true)
+
+
+    You can then get details about the error with the :meth:`PySide.QtNetwork.QFtp.error` and :meth:`PySide.QtNetwork.QFtp.errorString` functions.
+
+    For file transfer, :class:`PySide.QtNetwork.QFtp` can use both active or passive mode, and it uses passive file transfer mode by default; see the documentation for :meth:`PySide.QtNetwork.QFtp.setTransferMode` for more details about this.
+
+    Call :meth:`PySide.QtNetwork.QFtp.setProxy` to make :class:`PySide.QtNetwork.QFtp` connect via an FTP proxy server.
+
+    The functions :meth:`PySide.QtNetwork.QFtp.currentId` and :meth:`PySide.QtNetwork.QFtp.currentCommand` provide more information about the currently executing command.
+
+    The functions :meth:`PySide.QtNetwork.QFtp.hasPendingCommands` and :meth:`PySide.QtNetwork.QFtp.clearPendingCommands` allow you to query and clear the list of pending commands.
+
+    If you are an experienced network programmer and want to have complete control you can use :meth:`PySide.QtNetwork.QFtp.rawCommand` to execute arbitrary FTP commands.
+
+    .. warning::  The current version of :class:`PySide.QtNetwork.QFtp` doesn't fully support non-Unix FTP servers.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkAccessManager`  :class:`PySide.QtNetwork.QNetworkRequest`  :class:`PySide.QtNetwork.QNetworkReply`  :ref:`FTP Example<network/qftp>` 
+
+.. class:: QFtp([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtNetwork.QFtp` object with the given ``parent`` .
+
+
+.. attribute:: PySide.QtNetwork.QFtp.TransferType
+
+    This enum identifies the data transfer type used with get and put commands.
+
+    +-----------+---------------------------------------------------------------------------------------------------------+
+    |Constant   |Description                                                                                              |
+    +===========+=========================================================================================================+
+    |QFtp.Binary|The data will be transferred in Binary mode.                                                             |
+    +-----------+---------------------------------------------------------------------------------------------------------+
+    |QFtp.Ascii |The data will be transferred in Ascii mode and new line characters will be converted to the local format.|
+    +-----------+---------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtNetwork.QFtp.Error
+
+    This enum identifies the error that occurred.
+
+    +----------------------+----------------------------------------------------------------+
+    |Constant              |Description                                                     |
+    +======================+================================================================+
+    |QFtp.NoError          |No error occurred.                                              |
+    +----------------------+----------------------------------------------------------------+
+    |QFtp.HostNotFound     |The host name lookup failed.                                    |
+    +----------------------+----------------------------------------------------------------+
+    |QFtp.ConnectionRefused|The server refused the connection.                              |
+    +----------------------+----------------------------------------------------------------+
+    |QFtp.NotConnected     |Tried to send a command, but there is no connection to a server.|
+    +----------------------+----------------------------------------------------------------+
+    |QFtp.UnknownError     |An error other than those specified above occurred.             |
+    +----------------------+----------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.error` 
+
+.. attribute:: PySide.QtNetwork.QFtp.Command
+
+    This enum is used as the return value for the :meth:`PySide.QtNetwork.QFtp.currentCommand` function. This allows you to perform specific actions for particular commands, e.g. in a FTP client, you might want to clear the directory view when a :meth:`PySide.QtNetwork.QFtp.list` command is started; in this case you can simply check in the slot connected to the start() signal if the :meth:`PySide.QtNetwork.QFtp.currentCommand` is ``List`` .
+
+    +--------------------+--------------------------------------------------------------+
+    |Constant            |Description                                                   |
+    +====================+==============================================================+
+    |QFtp.None           |No command is being executed.                                 |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.SetTransferMode|set the :attr:`transfer<QFtp.TransferMode>` mode.             |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.SetProxy       |switch proxying on or off.                                    |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.ConnectToHost  |:meth:`PySide.QtNetwork.QFtp.connectToHost` is being executed.|
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Login          |:meth:`PySide.QtNetwork.QFtp.login` is being executed.        |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Close          |:meth:`PySide.QtNetwork.QFtp.close` is being executed.        |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.List           |:meth:`PySide.QtNetwork.QFtp.list` is being executed.         |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Cd             |:meth:`PySide.QtNetwork.QFtp.cd` is being executed.           |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Get            |:meth:`PySide.QtNetwork.QFtp.get` is being executed.          |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Put            |:meth:`PySide.QtNetwork.QFtp.put` is being executed.          |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Remove         |:meth:`PySide.QtNetwork.QFtp.remove` is being executed.       |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Mkdir          |:meth:`PySide.QtNetwork.QFtp.mkdir` is being executed.        |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Rmdir          |:meth:`PySide.QtNetwork.QFtp.rmdir` is being executed.        |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.Rename         |:meth:`PySide.QtNetwork.QFtp.rename` is being executed.       |
+    +--------------------+--------------------------------------------------------------+
+    |QFtp.RawCommand     |:meth:`PySide.QtNetwork.QFtp.rawCommand` is being executed.   |
+    +--------------------+--------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.currentCommand` 
+
+.. attribute:: PySide.QtNetwork.QFtp.TransferMode
+
+    FTP works with two socket connections; one for commands and another for transmitting data. While the command connection is always initiated by the client, the second connection can be initiated by either the client or the server.
+
+    This enum defines whether the client (Passive mode) or the server (Active mode) should set up the data connection.
+
+    +------------+-------------------------------------------------------+
+    |Constant    |Description                                            |
+    +============+=======================================================+
+    |QFtp.Passive|The client connects to the server to transmit its data.|
+    +------------+-------------------------------------------------------+
+    |QFtp.Active |The server connects to the client to transmit its data.|
+    +------------+-------------------------------------------------------+
+
+
+.. attribute:: PySide.QtNetwork.QFtp.State
+
+    This enum defines the connection state:
+
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |Constant        |Description                                                                                                                 |
+    +================+============================================================================================================================+
+    |QFtp.Unconnected|There is no connection to the host.                                                                                         |
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |QFtp.HostLookup |A host name lookup is in progress.                                                                                          |
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |QFtp.Connecting |An attempt to connect to the host is in progress.                                                                           |
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |QFtp.Connected  |Connection to the host has been achieved.                                                                                   |
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |QFtp.LoggedIn   |Connection and user login have been achieved.                                                                               |
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+    |QFtp.Closing    |The connection is closing down, but it is not yet closed. (The state will be ``Unconnected`` when the connection is closed.)|
+    +----------------+----------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.stateChanged`  :meth:`PySide.QtNetwork.QFtp.state` 
+
+.. method:: PySide.QtNetwork.QFtp.abort()
+
+
+
+
+
+
+    Aborts the current command and deletes all scheduled commands.
+
+    If there is an unfinished command (i.e. a command for which the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal has been emitted, but for which the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal has not been emitted), this function sends an ``ABORT`` command to the server. When the server replies that the command is aborted, the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal with the ``error`` argument set to ``true`` is emitted for the command. Due to timing issues, it is possible that the command had already finished before the abort request reached the server, in which case, the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted with the ``error`` argument set to ``false`` .
+
+    For all other commands that are affected by the :meth:`PySide.QtNetwork.QFtp.abort` , no signals are emitted.
+
+    If you don't start further FTP commands directly after the :meth:`PySide.QtNetwork.QFtp.abort` , there won't be any scheduled commands and the :meth:`PySide.QtNetwork.QFtp.done` signal is emitted.
+
+    .. warning::  Some FTP servers, for example the BSD FTP daemon (version 0.3), wrongly return a positive reply even when an abort has occurred. For these servers the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal has its error flag set to ``false`` , even though the command did not complete successfully.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.clearPendingCommands` 
+
+
+.. method:: PySide.QtNetwork.QFtp.bytesAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the number of bytes that can be read from the data socket at the moment.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.get`  :meth:`PySide.QtNetwork.QFtp.readyRead`  :meth:`PySide.QtNetwork.QFtp.read`  :meth:`PySide.QtNetwork.QFtp.readAll` 
+
+
+.. method:: PySide.QtNetwork.QFtp.cd(dir)
+
+
+    :param dir: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Changes the working directory of the server to ``dir`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.clearPendingCommands()
+
+
+
+
+
+
+    Deletes all pending commands from the list of scheduled commands. This does not affect the command that is being executed. If you want to stop this as well, use :meth:`PySide.QtNetwork.QFtp.abort` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.hasPendingCommands`  :meth:`PySide.QtNetwork.QFtp.abort` 
+
+
+.. method:: PySide.QtNetwork.QFtp.close()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Closes the connection to the FTP server.
+
+    The :meth:`PySide.QtNetwork.QFtp.stateChanged` signal is emitted when the state of the connecting process changes, e.g. to ``Closing`` , then ``Unconnected`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.stateChanged`  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.commandFinished(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.commandStarted(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.connectToHost(host[, port=21])
+
+
+    :param host: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Connects to the FTP server ``host`` using port ``port`` .
+
+    The :meth:`PySide.QtNetwork.QFtp.stateChanged` signal is emitted when the state of the connecting process changes, e.g. to ``HostLookup`` , then ``Connecting`` , then ``Connected`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.stateChanged`  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.currentCommand()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QFtp.Command`
+
+
+
+
+    Returns the command type of the FTP command being executed or ``None`` if there is no command being executed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.currentId` 
+
+
+.. method:: PySide.QtNetwork.QFtp.currentDevice()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the :class:`PySide.QtCore.QIODevice` pointer that is used by the FTP command to read data from or store data to. If there is no current FTP command being executed or if the command does not use an IO device, this function returns 0.
+
+    This function can be used to delete the :class:`PySide.QtCore.QIODevice` in the slot connected to the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.get`  :meth:`PySide.QtNetwork.QFtp.put` 
+
+
+.. method:: PySide.QtNetwork.QFtp.currentId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the identifier of the FTP command that is being executed or 0 if there is no command being executed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.currentCommand` 
+
+
+.. method:: PySide.QtNetwork.QFtp.dataTransferProgress(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.qint64`
+    :param arg__2: :class:`PySide.QtCore.qint64`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.done(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.error()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QFtp.Error`
+
+
+
+
+    Returns the last error that occurred. This is useful to find out what went wrong when receiving a :meth:`PySide.QtNetwork.QFtp.commandFinished` or a :meth:`PySide.QtNetwork.QFtp.done` signal with the ``error`` argument set to ``true`` .
+
+    If you start a new command, the error status is reset to ``NoError`` .
+
+
+
+.. method:: PySide.QtNetwork.QFtp.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a human-readable description of the last error that occurred. This is useful for presenting a error message to the user when receiving a :meth:`PySide.QtNetwork.QFtp.commandFinished` or a :meth:`PySide.QtNetwork.QFtp.done` signal with the ``error`` argument set to ``true`` .
+
+    The error string is often (but not always) the reply from the server, so it is not always possible to translate the string. If the message comes from Qt, the string has already passed through :meth:`~PySide.QtNetwork.QFtp.tr` .
+
+
+
+.. method:: PySide.QtNetwork.QFtp.get(file[, dev=None[, type=Binary]])
+
+
+    :param file: unicode
+    :param dev: :class:`PySide.QtCore.QIODevice`
+    :param type: :attr:`PySide.QtNetwork.QFtp.TransferType`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Downloads the file ``file`` from the server.
+
+    If ``dev`` is 0, then the :meth:`PySide.QtNetwork.QFtp.readyRead` signal is emitted when there is data available to read. You can then read the data with the :meth:`PySide.QtNetwork.QFtp.read` or :meth:`PySide.QtNetwork.QFtp.readAll` functions.
+
+    If ``dev`` is not 0, the data is written directly to the device ``dev`` . Make sure that the ``dev`` pointer is valid for the duration of the operation (it is safe to delete it when the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted). In this case the :meth:`PySide.QtNetwork.QFtp.readyRead` signal is *not* emitted and you cannot read data with the :meth:`PySide.QtNetwork.QFtp.read` or :meth:`PySide.QtNetwork.QFtp.readAll` functions.
+
+    If you don't read the data immediately it becomes available, i.e. when the :meth:`PySide.QtNetwork.QFtp.readyRead` signal is emitted, it is still available until the next command is started.
+
+    For example, if you want to present the data to the user as soon as there is something available, connect to the :meth:`PySide.QtNetwork.QFtp.readyRead` signal and read the data immediately. On the other hand, if you only want to work with the complete data, you can connect to the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal and read the data when the :meth:`PySide.QtNetwork.QFtp.get` command is finished.
+
+    The data is transferred as Binary or Ascii depending on the value of ``type`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    :meth:`PySide.QtNetwork.QFtp.commandFinished`
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.readyRead`  :meth:`PySide.QtNetwork.QFtp.dataTransferProgress`  :meth:`PySide.QtNetwork.QFtp.commandStarted` 
+
+
+.. method:: PySide.QtNetwork.QFtp.hasPendingCommands()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are any commands scheduled that have not yet been executed; otherwise returns false.
+
+    The command that is being executed is *not* considered as a scheduled command.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.clearPendingCommands`  :meth:`PySide.QtNetwork.QFtp.currentId`  :meth:`PySide.QtNetwork.QFtp.currentCommand` 
+
+
+.. method:: PySide.QtNetwork.QFtp.list([dir=""])
+
+
+    :param dir: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Lists the contents of directory ``dir`` on the FTP server. If ``dir`` is empty, it lists the contents of the current directory.
+
+    The :meth:`PySide.QtNetwork.QFtp.listInfo` signal is emitted for each directory entry found.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.listInfo`  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.listInfo(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtNetwork.QUrlInfo`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.login([user=""[, password=""]])
+
+
+    :param user: unicode
+    :param password: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Logs in to the FTP server with the username ``user`` and the password ``password`` .
+
+    The :meth:`PySide.QtNetwork.QFtp.stateChanged` signal is emitted when the state of the connecting process changes, e.g. to ``LoggedIn`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.mkdir(dir)
+
+
+    :param dir: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Creates a directory called ``dir`` on the server.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.put(data, file[, type=Binary])
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :param file: unicode
+    :param type: :attr:`PySide.QtNetwork.QFtp.TransferType`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Writes a copy of the given ``data`` to the file called ``file`` on the server. The progress of the upload is reported by the :meth:`PySide.QtNetwork.QFtp.dataTransferProgress` signal.
+
+    The data is transferred as Binary or Ascii depending on the value of ``type`` .
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    Since this function takes a copy of the ``data`` , you can discard your own copy when this function returns.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.dataTransferProgress`  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.put(dev, file[, type=Binary])
+
+
+    :param dev: :class:`PySide.QtCore.QIODevice`
+    :param file: unicode
+    :param type: :attr:`PySide.QtNetwork.QFtp.TransferType`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Reads the data from the IO device ``dev`` , and writes it to the file called ``file`` on the server. The data is read in chunks from the IO device, so this overload allows you to transmit large amounts of data without the need to read all the data into memory at once.
+
+    The data is transferred as Binary or Ascii depending on the value of ``type`` .
+
+    Make sure that the ``dev`` pointer is valid for the duration of the operation (it is safe to delete it when the :meth:`PySide.QtNetwork.QFtp.commandFinished` is emitted).
+
+
+
+.. method:: PySide.QtNetwork.QFtp.rawCommand(command)
+
+
+    :param command: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sends the raw FTP command ``command`` to the FTP server. This is useful for low-level FTP access. If the operation you wish to perform has an equivalent :class:`PySide.QtNetwork.QFtp` function, we recommend using the function instead of raw FTP commands since the functions are easier and safer.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.rawCommandReply`  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.rawCommandReply(arg__1, arg__2)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :param arg__2: unicode
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.read(, maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: QByteArray
+
+
+
+
+    Reads ``maxlen`` bytes from the data socket into ``data`` and returns the number of bytes read. Returns -1 if an error occurred.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.get`  :meth:`PySide.QtNetwork.QFtp.readyRead`  :meth:`PySide.QtNetwork.QFtp.bytesAvailable`  :meth:`PySide.QtNetwork.QFtp.readAll` 
+
+
+.. method:: PySide.QtNetwork.QFtp.readAll()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Reads all the bytes available from the data socket and returns them.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.get`  :meth:`PySide.QtNetwork.QFtp.readyRead`  :meth:`PySide.QtNetwork.QFtp.bytesAvailable`  :meth:`PySide.QtNetwork.QFtp.read` 
+
+
+.. method:: PySide.QtNetwork.QFtp.readyRead()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QFtp.remove(file)
+
+
+    :param file: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Deletes the file called ``file`` from the server.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.rename(oldname, newname)
+
+
+    :param oldname: unicode
+    :param newname: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Renames the file called ``oldname`` to ``newname`` on the server.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.rmdir(dir)
+
+
+    :param dir: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Removes the directory called ``dir`` from the server.
+
+    The function does not block and returns immediately. The command is scheduled, and its execution is performed asynchronously. The function returns a unique identifier which is passed by :meth:`PySide.QtNetwork.QFtp.commandStarted` and :meth:`PySide.QtNetwork.QFtp.commandFinished` .
+
+    When the command is started the :meth:`PySide.QtNetwork.QFtp.commandStarted` signal is emitted. When it is finished the :meth:`PySide.QtNetwork.QFtp.commandFinished` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QFtp.commandStarted`  :meth:`PySide.QtNetwork.QFtp.commandFinished` 
+
+
+.. method:: PySide.QtNetwork.QFtp.setProxy(host, port)
+
+
+    :param host: unicode
+    :param port: :class:`PySide.QtCore.quint16`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Enables use of the FTP proxy on host ``host`` and port ``port`` . Calling this function with ``host`` empty disables proxying.
+
+    :class:`PySide.QtNetwork.QFtp` does not support FTP-over-HTTP proxy servers. Use :class:`PySide.QtNetwork.QNetworkAccessManager` for this.
+
+
+
+.. method:: PySide.QtNetwork.QFtp.setTransferMode(mode)
+
+
+    :param mode: :attr:`PySide.QtNetwork.QFtp.TransferMode`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current FTP transfer mode to ``mode`` . The default is :attr:`QFtp.Passive<QFtp.TransferMode>` .
+
+    .. seealso::  :attr:`QFtp.TransferMode` 
+
+
+.. method:: PySide.QtNetwork.QFtp.state()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QFtp.State`
+
+
+
+
+    Returns the current state of the object. When the state changes, the :meth:`PySide.QtNetwork.QFtp.stateChanged` signal is emitted.
+
+    .. seealso::  :attr:`QFtp.State`  :meth:`PySide.QtNetwork.QFtp.stateChanged` 
+
+
+.. method:: PySide.QtNetwork.QFtp.stateChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

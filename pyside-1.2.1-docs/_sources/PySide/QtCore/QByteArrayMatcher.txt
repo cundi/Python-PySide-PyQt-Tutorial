@@ -1,0 +1,112 @@
+.. module:: PySide.QtCore
+.. _QByteArrayMatcher:
+
+QByteArrayMatcher
+*****************
+
+.. inheritance-diagram:: QByteArrayMatcher
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indexIn<PySide.QtCore.QByteArrayMatcher.indexIn>` (ba[, from=0])
+*    def :meth:`indexIn<PySide.QtCore.QByteArrayMatcher.indexIn>` (str, len[, from=0])
+*    def :meth:`pattern<PySide.QtCore.QByteArrayMatcher.pattern>` ()
+*    def :meth:`setPattern<PySide.QtCore.QByteArrayMatcher.setPattern>` (pattern)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QByteArrayMatcher` class holds a sequence of bytes that can be quickly matched in a byte array.
+
+    This class is useful when you have a sequence of bytes that you want to repeatedly match against some byte arrays (perhaps in a loop), or when you want to search for the same sequence of bytes multiple times in the same byte array. Using a matcher object and :meth:`PySide.QtCore.QByteArrayMatcher.indexIn` is faster than matching a plain :class:`PySide.QtCore.QByteArray` with :meth:`QByteArray.indexOf()<PySide.QtCore.QByteArray.indexOf>` if repeated matching takes place. This class offers no benefit if you are doing one-off byte array matches.
+
+    Create the :class:`PySide.QtCore.QByteArrayMatcher` with the :class:`PySide.QtCore.QByteArray` you want to search for. Then call :meth:`PySide.QtCore.QByteArrayMatcher.indexIn` on the :class:`PySide.QtCore.QByteArray` that you want to search.
+
+    .. seealso::  :class:`PySide.QtCore.QByteArray`  :class:`~PySide.QtCore.QStringMatcher` 
+
+.. class:: QByteArrayMatcher()
+           QByteArrayMatcher(pattern)
+           QByteArrayMatcher(other)
+           QByteArrayMatcher(pattern, length)
+
+    :param pattern: :class:`PySide.QtCore.QByteArray`
+    :param length: :class:`PySide.QtCore.int`
+    :param other: :class:`PySide.QtCore.QByteArrayMatcher`
+
+    Constructs an empty byte array matcher that won't match anything. Call :meth:`PySide.QtCore.QByteArrayMatcher.setPattern` to give it a pattern to match.
+
+
+    Constructs a byte array matcher that will search for ``pattern`` . Call :meth:`PySide.QtCore.QByteArrayMatcher.indexIn` to perform a search.
+
+
+    Copies the ``other`` byte array matcher to this byte array matcher.
+
+
+    Constructs a byte array matcher from ``pattern`` . ``pattern`` has the given ``length`` . ``pattern`` must remain in scope, but the destructor does not delete ``pattern`` .
+
+
+.. method:: PySide.QtCore.QByteArrayMatcher.indexIn(str, len[, from=0])
+
+
+    :param str: str
+    :param len: :class:`PySide.QtCore.int`
+    :param from: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Searches the char string ``str`` , which has length ``len`` , from byte position ``from`` (default 0, i.e. from the first byte), for the byte array :meth:`PySide.QtCore.QByteArrayMatcher.pattern` that was set in the constructor or in the most recent call to :meth:`PySide.QtCore.QByteArrayMatcher.setPattern` . Returns the position where the :meth:`PySide.QtCore.QByteArrayMatcher.pattern` matched in ``str`` , or -1 if no match was found.
+
+
+
+.. method:: PySide.QtCore.QByteArrayMatcher.indexIn(ba[, from=0])
+
+
+    :param ba: :class:`PySide.QtCore.QByteArray`
+    :param from: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Searches the byte array ``ba`` , from byte position ``from`` (default 0, i.e. from the first byte), for the byte array :meth:`PySide.QtCore.QByteArrayMatcher.pattern` that was set in the constructor or in the most recent call to :meth:`PySide.QtCore.QByteArrayMatcher.setPattern` . Returns the position where the :meth:`PySide.QtCore.QByteArrayMatcher.pattern` matched in ``ba`` , or -1 if no match was found.
+
+
+
+.. method:: PySide.QtCore.QByteArrayMatcher.pattern()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the byte array pattern that this byte array matcher will search for.
+
+    .. seealso::  :meth:`PySide.QtCore.QByteArrayMatcher.setPattern` 
+
+
+.. method:: PySide.QtCore.QByteArrayMatcher.setPattern(pattern)
+
+
+    :param pattern: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the byte array that this byte array matcher will search for to ``pattern`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QByteArrayMatcher.pattern`  :meth:`PySide.QtCore.QByteArrayMatcher.indexIn` 
+
+
+

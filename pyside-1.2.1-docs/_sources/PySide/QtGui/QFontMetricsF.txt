@@ -1,0 +1,608 @@
+.. module:: PySide.QtGui
+.. _QFontMetricsF:
+
+QFontMetricsF
+*************
+
+.. inheritance-diagram:: QFontMetricsF
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QFontMetricsF.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtGui.QFontMetricsF.__ne__>` (other)
+*    def :meth:`ascent<PySide.QtGui.QFontMetricsF.ascent>` ()
+*    def :meth:`averageCharWidth<PySide.QtGui.QFontMetricsF.averageCharWidth>` ()
+*    def :meth:`boundingRect<PySide.QtGui.QFontMetricsF.boundingRect>` (r, flags, string[, tabstops=0[, tabarray=0]])
+*    def :meth:`boundingRect<PySide.QtGui.QFontMetricsF.boundingRect>` (string)
+*    def :meth:`boundingRectChar<PySide.QtGui.QFontMetricsF.boundingRectChar>` (arg__1)
+*    def :meth:`descent<PySide.QtGui.QFontMetricsF.descent>` ()
+*    def :meth:`elidedText<PySide.QtGui.QFontMetricsF.elidedText>` (text, mode, width[, flags=0])
+*    def :meth:`height<PySide.QtGui.QFontMetricsF.height>` ()
+*    def :meth:`inFont<PySide.QtGui.QFontMetricsF.inFont>` (arg__1)
+*    def :meth:`inFontUcs4<PySide.QtGui.QFontMetricsF.inFontUcs4>` (ucs4)
+*    def :meth:`leading<PySide.QtGui.QFontMetricsF.leading>` ()
+*    def :meth:`leftBearing<PySide.QtGui.QFontMetricsF.leftBearing>` (arg__1)
+*    def :meth:`lineSpacing<PySide.QtGui.QFontMetricsF.lineSpacing>` ()
+*    def :meth:`lineWidth<PySide.QtGui.QFontMetricsF.lineWidth>` ()
+*    def :meth:`maxWidth<PySide.QtGui.QFontMetricsF.maxWidth>` ()
+*    def :meth:`minLeftBearing<PySide.QtGui.QFontMetricsF.minLeftBearing>` ()
+*    def :meth:`minRightBearing<PySide.QtGui.QFontMetricsF.minRightBearing>` ()
+*    def :meth:`overlinePos<PySide.QtGui.QFontMetricsF.overlinePos>` ()
+*    def :meth:`rightBearing<PySide.QtGui.QFontMetricsF.rightBearing>` (arg__1)
+*    def :meth:`size<PySide.QtGui.QFontMetricsF.size>` (flags, str[, tabstops=0[, tabarray=0]])
+*    def :meth:`strikeOutPos<PySide.QtGui.QFontMetricsF.strikeOutPos>` ()
+*    def :meth:`tightBoundingRect<PySide.QtGui.QFontMetricsF.tightBoundingRect>` (text)
+*    def :meth:`underlinePos<PySide.QtGui.QFontMetricsF.underlinePos>` ()
+*    def :meth:`width<PySide.QtGui.QFontMetricsF.width>` (string)
+*    def :meth:`widthChar<PySide.QtGui.QFontMetricsF.widthChar>` (arg__1)
+*    def :meth:`xHeight<PySide.QtGui.QFontMetricsF.xHeight>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFontMetricsF` class provides font metrics information.
+
+    :class:`PySide.QtGui.QFontMetricsF` functions calculate the size of characters and strings for a given font. You can construct a :class:`PySide.QtGui.QFontMetricsF` object with an existing :class:`PySide.QtGui.QFont` to obtain metrics for that font. If the font is changed later, the font metrics object is *not* updated.
+
+    Once created, the object provides functions to access the individual metrics of the font, its characters, and for strings rendered in the font.
+
+    There are several functions that operate on the font: :meth:`PySide.QtGui.QFontMetricsF.ascent` , :meth:`PySide.QtGui.QFontMetricsF.descent` , :meth:`PySide.QtGui.QFontMetricsF.height` , :meth:`PySide.QtGui.QFontMetricsF.leading` and :meth:`PySide.QtGui.QFontMetricsF.lineSpacing` return the basic size properties of the font. The :meth:`PySide.QtGui.QFontMetricsF.underlinePos` , :meth:`PySide.QtGui.QFontMetricsF.overlinePos` , :meth:`PySide.QtGui.QFontMetricsF.strikeOutPos` and :meth:`PySide.QtGui.QFontMetricsF.lineWidth` functions, return the properties of the line that underlines, overlines or strikes out the characters. These functions are all fast.
+
+    There are also some functions that operate on the set of glyphs in the font: :meth:`PySide.QtGui.QFontMetricsF.minLeftBearing` , :meth:`PySide.QtGui.QFontMetricsF.minRightBearing` and :meth:`PySide.QtGui.QFontMetricsF.maxWidth` . These are by necessity slow, and we recommend avoiding them if possible.
+
+    For each character, you can get its :meth:`PySide.QtGui.QFontMetricsF.width` , :meth:`PySide.QtGui.QFontMetricsF.leftBearing` and :meth:`PySide.QtGui.QFontMetricsF.rightBearing` and find out whether it is in the font using :meth:`PySide.QtGui.QFontMetricsF.inFont` . You can also treat the character as a string, and use the string functions on it.
+
+    The string functions include :meth:`PySide.QtGui.QFontMetricsF.width` , to return the width of a string in pixels (or points, for a printer), :meth:`PySide.QtGui.QFontMetricsF.boundingRect` , to return a rectangle large enough to contain the rendered string, and :meth:`PySide.QtGui.QFontMetricsF.size` , to return the size of that rectangle.
+
+    Example:
+
+    ::
+
+        font = QFont("times", 24)
+        fm = QFontMetricsF(font)
+        pixelsWide = fm.width("What's the width of this text?")
+        pixelsHigh = fm.height()
+
+
+    .. seealso::  :class:`PySide.QtGui.QFont`  :class:`PySide.QtGui.QFontInfo`  :class:`PySide.QtGui.QFontDatabase` 
+
+.. class:: QFontMetricsF(arg__1)
+           QFontMetricsF(arg__1, pd)
+           QFontMetricsF(arg__1)
+           QFontMetricsF(arg__1)
+
+    :param pd: :class:`PySide.QtGui.QPaintDevice`
+    :param arg__1: :class:`PySide.QtGui.QFont`
+
+    Constructs a font metrics object for ``font`` .
+
+    The font metrics will be compatible with the paintdevice used to create ``font`` .
+
+    The font metrics object holds the information for the font that is passed in the constructor at the time it is created, and is not updated if the font's attributes are changed later.
+
+    Use :class:`PySide.QtGui.QFontMetricsF` (const :class:`PySide.QtGui.QFont` &, :class:`PySide.QtGui.QPaintDevice` \*) to get the font metrics that are compatible with a certain paint device.
+
+
+    Constructs a font metrics object for ``font`` and ``paintdevice`` .
+
+    The font metrics will be compatible with the paintdevice passed. If the ``paintdevice`` is 0, the metrics will be screen-compatible, ie. the metrics you get if you use the font for drawing text on a :class:`widgets<PySide.QtGui.QWidget>` or :class:`pixmaps<PySide.QtGui.QPixmap>` , not on a :class:`PySide.QtGui.QPicture` or :class:`PySide.QtGui.QPrinter` .
+
+    The font metrics object holds the information for the font that is passed in the constructor at the time it is created, and is not updated if the font's attributes are changed later.
+
+
+    Constructs a font metrics object with floating point precision from the given ``fontMetrics`` object.
+
+
+    Constructs a copy of ``fm`` .
+
+
+.. method:: PySide.QtGui.QFontMetricsF.ascent()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the ascent of the font.
+
+    The ascent of a font is the distance from the baseline to the highest position characters extend to. In practice, some font designers break this rule, e.g. when they put more than one accent on top of a character, or to accommodate an unusual character in an exotic language, so it is possible (though rare) that this value will be too small.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.descent` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.averageCharWidth()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the average width of glyphs in the font.
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.boundingRect(string)
+
+
+    :param string: unicode
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the bounding rectangle of the characters in the string specified by ``text`` . The bounding rectangle always covers at least the set of pixels the text would cover if drawn at (0, 0).
+
+    Note that the bounding rectangle may extend to the left of (0, 0), e.g. for italicized fonts, and that the width of the returned rectangle might be different than what the :meth:`PySide.QtGui.QFontMetricsF.width` method returns.
+
+    If you want to know the advance width of the string (to layout a set of strings next to each other), use :meth:`PySide.QtGui.QFontMetricsF.width` instead.
+
+    Newline characters are processed as normal characters, *not* as linebreaks.
+
+    The height of the bounding rectangle is at least as large as the value returned :meth:`PySide.QtGui.QFontMetricsF.height` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.width`  :meth:`PySide.QtGui.QFontMetricsF.height`  :meth:`QPainter.boundingRect()<PySide.QtGui.QPainter.boundingRect>` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.boundingRect(r, flags, string[, tabstops=0[, tabarray=0]])
+
+
+    :param r: :class:`PySide.QtCore.QRectF`
+    :param flags: :class:`PySide.QtCore.int`
+    :param string: unicode
+    :param tabstops: :class:`PySide.QtCore.int`
+    :param tabarray: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the bounding rectangle of the characters in the given ``text`` . This is the set of pixels the text would cover if drawn when constrained to the bounding rectangle specified by ``rect`` .
+
+    The ``flags`` argument is the bitwise OR of the following flags:
+
+
+    * :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` aligns to the left border, except for Arabic and Hebrew where it aligns to the right.
+    * :attr:`Qt.AlignRight<Qt.AlignmentFlag>` aligns to the right border, except for Arabic and Hebrew where it aligns to the left.
+    * :attr:`Qt.AlignJustify<Qt.AlignmentFlag>` produces justified text.
+    * :attr:`Qt.AlignHCenter<Qt.AlignmentFlag>` aligns horizontally centered.
+    * :attr:`Qt.AlignTop<Qt.AlignmentFlag>` aligns to the top border.
+    * :attr:`Qt.AlignBottom<Qt.AlignmentFlag>` aligns to the bottom border.
+    * :attr:`Qt.AlignVCenter<Qt.AlignmentFlag>` aligns vertically centered
+    * :attr:`Qt.AlignCenter<Qt.AlignmentFlag>` (== ``Qt::AlignHCenter | Qt::AlignVCenter``)
+    * :attr:`Qt.TextSingleLine<Qt.TextFlag>` ignores newline characters in the text.
+    * :attr:`Qt.TextExpandTabs<Qt.TextFlag>` expands tabs (see below)
+    * :attr:`Qt.TextShowMnemonic<Qt.TextFlag>` interprets "&x" as *x*; i.e., underlined.
+    * :attr:`Qt.TextWordWrap<Qt.TextFlag>` breaks the text to fit the rectangle.
+
+    :attr:`Qt.Horizontal<Qt.Orientation>` alignment defaults to :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` and vertical alignment defaults to :attr:`Qt.AlignTop<Qt.AlignmentFlag>` .
+
+    If several of the horizontal or several of the vertical alignment flags are set, the resulting alignment is undefined.
+
+    These flags are defined in :attr:`Qt.AlignmentFlag` .
+
+    If :attr:`Qt.TextExpandTabs<Qt.TextFlag>` is set in ``flags`` , the following behavior is used to interpret tab characters in the text:
+
+
+    * If ``tabArray`` is non-null, it specifies a 0-terminated sequence of pixel-positions for tabs in the text.
+    * If ``tabStops`` is non-zero, it is used as the tab spacing (in pixels).
+
+    Note that the bounding rectangle may extend to the left of (0, 0), e.g. for italicized fonts.
+
+    Newline characters are processed as line breaks.
+
+    Despite the different actual character heights, the heights of the bounding rectangles of "Yes" and "yes" are the same.
+
+    The bounding rectangle returned by this function is somewhat larger than that calculated by the simpler :meth:`PySide.QtGui.QFontMetricsF.boundingRect` function. This function uses the :meth:`maximum left<PySide.QtGui.QFontMetricsF.minLeftBearing>` and :meth:`right<PySide.QtGui.QFontMetricsF.minRightBearing>` font bearings as is necessary for multi-line text to align correctly. Also, fontHeight() and :meth:`PySide.QtGui.QFontMetricsF.lineSpacing` are used to calculate the height, rather than individual character heights.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.width`  :meth:`QPainter.boundingRect()<PySide.QtGui.QPainter.boundingRect>`  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.boundingRectChar(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns the bounding rectangle of the character ``ch`` relative to the left-most point on the base line.
+
+    Note that the bounding rectangle may extend to the left of (0, 0), e.g. for italicized fonts, and that the text output may cover *all* pixels in the bounding rectangle.
+
+    Note that the rectangle usually extends both above and below the base line.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.width` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.descent()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the descent of the font.
+
+    The descent is the distance from the base line to the lowest point characters extend to. (Note that this is different from X, which adds 1 pixel.) In practice, some font designers break this rule, e.g. to accommodate an unusual character in an exotic language, so it is possible (though rare) that this value will be too small.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.ascent` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.elidedText(text, mode, width[, flags=0])
+
+
+    :param text: unicode
+    :param mode: :attr:`PySide.QtCore.Qt.TextElideMode`
+    :param width: :class:`PySide.QtCore.qreal`
+    :param flags: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.height()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the height of the font.
+
+    This is always equal to :meth:`PySide.QtGui.QFontMetricsF.ascent` + :meth:`PySide.QtGui.QFontMetricsF.descent` +1 (the 1 is for the base line).
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.leading`  :meth:`PySide.QtGui.QFontMetricsF.lineSpacing` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.inFont(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if character ``ch`` is a valid character in the font; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.inFontUcs4(ucs4)
+
+
+    :param ucs4: :class:`PySide.QtCore.uint`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the character given by ``ch`` , encoded in UCS-4/UTF-32, is a valid character in the font; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.leading()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the leading of the font.
+
+    This is the natural inter-line spacing.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.height`  :meth:`PySide.QtGui.QFontMetricsF.lineSpacing` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.leftBearing(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the left bearing of character ``ch`` in the font.
+
+    The left bearing is the right-ward distance of the left-most pixel of the character from the logical origin of the character. This value is negative if the pixels of the character extend to the left of the logical origin.
+
+    See width( :class:`PySide.QtCore.QChar` ) for a graphical description of this metric.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.rightBearing`  :meth:`PySide.QtGui.QFontMetricsF.minLeftBearing`  :meth:`PySide.QtGui.QFontMetricsF.width` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.lineSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the distance from one base line to the next.
+
+    This value is always equal to :meth:`PySide.QtGui.QFontMetricsF.leading` + :meth:`PySide.QtGui.QFontMetricsF.height` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.height`  :meth:`PySide.QtGui.QFontMetricsF.leading` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.lineWidth()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the width of the underline and strikeout lines, adjusted for the point size of the font.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.underlinePos`  :meth:`PySide.QtGui.QFontMetricsF.overlinePos`  :meth:`PySide.QtGui.QFontMetricsF.strikeOutPos` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.maxWidth()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the width of the widest character in the font.
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.minLeftBearing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the minimum left bearing of the font.
+
+    This is the smallest leftBearing(char) of all characters in the font.
+
+    Note that this function can be very slow if the font is large.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.minRightBearing`  :meth:`PySide.QtGui.QFontMetricsF.leftBearing` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.minRightBearing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the minimum right bearing of the font.
+
+    This is the smallest rightBearing(char) of all characters in the font.
+
+    Note that this function can be very slow if the font is large.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.minLeftBearing`  :meth:`PySide.QtGui.QFontMetricsF.rightBearing` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.__ne__(other)
+
+
+    :param other: :class:`PySide.QtGui.QFontMetricsF`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the font metrics are not equal to the ``other`` font metrics; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.operator==` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.__eq__(other)
+
+
+    :param other: :class:`PySide.QtGui.QFontMetricsF`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the font metrics are equal to the ``other`` font metrics; otherwise returns false.
+
+    Two font metrics are considered equal if they were constructed from the same :class:`PySide.QtGui.QFont` and the paint devices they were constructed for are considered to be compatible.
+
+
+
+.. method:: PySide.QtGui.QFontMetricsF.overlinePos()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the distance from the base line to where an overline should be drawn.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.underlinePos`  :meth:`PySide.QtGui.QFontMetricsF.strikeOutPos`  :meth:`PySide.QtGui.QFontMetricsF.lineWidth` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.rightBearing(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the right bearing of character ``ch`` in the font.
+
+    The right bearing is the left-ward distance of the right-most pixel of the character from the logical origin of a subsequent character. This value is negative if the pixels of the character extend to the right of the :meth:`PySide.QtGui.QFontMetricsF.width` of the character.
+
+    See :meth:`PySide.QtGui.QFontMetricsF.width` for a graphical description of this metric.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.leftBearing`  :meth:`PySide.QtGui.QFontMetricsF.minRightBearing`  :meth:`PySide.QtGui.QFontMetricsF.width` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.size(flags, str[, tabstops=0[, tabarray=0]])
+
+
+    :param flags: :class:`PySide.QtCore.int`
+    :param str: unicode
+    :param tabstops: :class:`PySide.QtCore.int`
+    :param tabarray: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QSizeF`
+
+
+
+
+    Returns the size in pixels of the characters in the given ``text`` .
+
+    The ``flags`` argument is the bitwise OR of the following flags:
+
+
+    * :attr:`Qt.TextSingleLine<Qt.TextFlag>` ignores newline characters.
+    * :attr:`Qt.TextExpandTabs<Qt.TextFlag>` expands tabs (see below)
+    * :attr:`Qt.TextShowMnemonic<Qt.TextFlag>` interprets "&x" as *x*; i.e., underlined.
+    * Qt::TextWordBreak breaks the text to fit the rectangle.
+
+    These flags are defined in :class:`Qt.TextFlags` .
+
+    If :attr:`Qt.TextExpandTabs<Qt.TextFlag>` is set in ``flags`` , the following behavior is used to interpret tab characters in the text:
+
+
+    * If ``tabArray`` is non-null, it specifies a 0-terminated sequence of pixel-positions for tabs in the text.
+    * If ``tabStops`` is non-zero, it is used as the tab spacing (in pixels).
+
+    Newline characters are processed as line breaks.
+
+    Note: Despite the different actual character heights, the heights of the bounding rectangles of "Yes" and "yes" are the same.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.boundingRect` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.strikeOutPos()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the distance from the base line to where the strikeout line should be drawn.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.underlinePos`  :meth:`PySide.QtGui.QFontMetricsF.overlinePos`  :meth:`PySide.QtGui.QFontMetricsF.lineWidth` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.tightBoundingRect(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtCore.QRectF`
+
+
+
+
+    Returns a tight bounding rectangle around the characters in the string specified by ``text`` . The bounding rectangle always covers at least the set of pixels the text would cover if drawn at (0, 0).
+
+    Note that the bounding rectangle may extend to the left of (0, 0), e.g. for italicized fonts, and that the width of the returned rectangle might be different than what the :meth:`PySide.QtGui.QFontMetricsF.width` method returns.
+
+    If you want to know the advance width of the string (to layout a set of strings next to each other), use :meth:`PySide.QtGui.QFontMetricsF.width` instead.
+
+    Newline characters are processed as normal characters, *not* as linebreaks.
+
+    .. warning::  Calling this method is very slow on Windows.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.width`  :meth:`PySide.QtGui.QFontMetricsF.height`  :meth:`PySide.QtGui.QFontMetricsF.boundingRect` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.underlinePos()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the distance from the base line to where an underscore should be drawn.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.overlinePos`  :meth:`PySide.QtGui.QFontMetricsF.strikeOutPos`  :meth:`PySide.QtGui.QFontMetricsF.lineWidth` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.width(string)
+
+
+    :param string: unicode
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the width in pixels of the characters in the given ``text`` .
+
+    Note that this value is *not* equal to the width returned by :meth:`PySide.QtGui.QFontMetricsF.boundingRect` . :meth:`PySide.QtGui.QFontMetricsF.width` because :meth:`PySide.QtGui.QFontMetricsF.boundingRect` returns a rectangle describing the pixels this string will cover whereas :meth:`PySide.QtGui.QFontMetricsF.width` returns the distance to where the next string should be drawn.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.boundingRect` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.widthChar(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    This is an overloaded function.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/bearings.png
+
+    Returns the logical width of character ``ch`` in pixels. This is a distance appropriate for drawing a subsequent character after ``ch`` .
+
+    Some of the metrics are described in the image to the right. The central dark rectangles cover the logical :meth:`PySide.QtGui.QFontMetricsF.width` of each character. The outer pale rectangles cover the :meth:`PySide.QtGui.QFontMetricsF.leftBearing` and :meth:`PySide.QtGui.QFontMetricsF.rightBearing` of each character. Notice that the bearings of "f" in this particular font are both negative, while the bearings of "o" are both positive.
+
+    .. warning::  This function will produce incorrect results for Arabic characters or non-spacing marks in the middle of a string, as the glyph shaping and positioning of marks that happens when processing strings cannot be taken into account. When implementing an interactive text control, use :class:`PySide.QtGui.QTextLayout` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontMetricsF.boundingRect` 
+
+
+.. method:: PySide.QtGui.QFontMetricsF.xHeight()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the 'x' height of the font. This is often but not always the same as the height of the character 'x'.
+
+
+
+

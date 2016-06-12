@@ -1,0 +1,350 @@
+.. module:: PySide.QtGui
+.. _QFrame:
+
+QFrame
+******
+
+.. inheritance-diagram:: QFrame
+    :parts: 2
+
+**Inherited by:** :ref:`QToolBox`, :ref:`QAbstractScrollArea`, :ref:`QGraphicsView`, :ref:`QDeclarativeView`, :ref:`QAbstractItemView`, :ref:`QTreeView`, :ref:`QHelpContentWidget`, :ref:`QTreeWidget`, :ref:`QHeaderView`, :ref:`QTableView`, :ref:`QTableWidget`, :ref:`QColumnView`, :ref:`QListView`, :ref:`QUndoView`, :ref:`QListWidget`, :ref:`QHelpIndexWidget`, :ref:`QStackedWidget`, :ref:`QSplitter`, :ref:`QScrollArea`, :ref:`QPlainTextEdit`, :ref:`QTextEdit`, :ref:`QTextBrowser`, :ref:`QMdiArea`, :ref:`QLCDNumber`, :ref:`QLabel`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`drawFrame<PySide.QtGui.QFrame.drawFrame>` (arg__1)
+*    def :meth:`frameRect<PySide.QtGui.QFrame.frameRect>` ()
+*    def :meth:`frameShadow<PySide.QtGui.QFrame.frameShadow>` ()
+*    def :meth:`frameShape<PySide.QtGui.QFrame.frameShape>` ()
+*    def :meth:`frameStyle<PySide.QtGui.QFrame.frameStyle>` ()
+*    def :meth:`frameWidth<PySide.QtGui.QFrame.frameWidth>` ()
+*    def :meth:`lineWidth<PySide.QtGui.QFrame.lineWidth>` ()
+*    def :meth:`midLineWidth<PySide.QtGui.QFrame.midLineWidth>` ()
+*    def :meth:`setFrameRect<PySide.QtGui.QFrame.setFrameRect>` (arg__1)
+*    def :meth:`setFrameShadow<PySide.QtGui.QFrame.setFrameShadow>` (arg__1)
+*    def :meth:`setFrameShape<PySide.QtGui.QFrame.setFrameShape>` (arg__1)
+*    def :meth:`setFrameStyle<PySide.QtGui.QFrame.setFrameStyle>` (arg__1)
+*    def :meth:`setLineWidth<PySide.QtGui.QFrame.setLineWidth>` (arg__1)
+*    def :meth:`setMidLineWidth<PySide.QtGui.QFrame.setMidLineWidth>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFrame` class is the base class of widgets that can have a frame.
+
+    :class:`PySide.QtGui.QMenu` uses this to "raise" the menu above the surrounding screen. :class:`PySide.QtGui.QProgressBar` has a "sunken" look. :class:`PySide.QtGui.QLabel` has a flat look. The frames of widgets like these can be changed.
+
+    ::
+
+        label = QLabel()
+        label.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        label.setLineWidth(2)
+
+        pbar = QProgressBar()
+        label.setFrameStyle(QFrame.NoFrame)
+
+
+    The :class:`PySide.QtGui.QFrame` class can also be used directly for creating simple placeholder frames without any contents.
+
+    The frame style is specified by a :attr:`frame shape<QFrame.Shape>` and a :attr:`shadow style<QFrame.Shadow>` that is used to visually separate the frame from surrounding widgets. These properties can be set together using the :meth:`PySide.QtGui.QFrame.setFrameStyle` function and read with :meth:`PySide.QtGui.QFrame.frameStyle` .
+
+    The frame shapes are :attr:`NoFrame<QFrame.Shape>` , :attr:`Box<QFrame.Shape>` , :attr:`Panel<QFrame.Shape>` , :attr:`StyledPanel<QFrame.Shape>` , :attr:`HLine<QFrame.Shape>` and :attr:`VLine<QFrame.Shape>` ; the shadow styles are :attr:`Plain<QFrame.Shadow>` , :attr:`Raised<QFrame.Shadow>` and :attr:`Sunken<QFrame.Shadow>` .
+
+    A frame widget has three attributes that describe the thickness of the border: :meth:`PySide.QtGui.QFrame.lineWidth` , :meth:`PySide.QtGui.QFrame.midLineWidth` , and :meth:`PySide.QtGui.QFrame.frameWidth` .
+
+
+    * The line width is the width of the frame border. It can be modified to customize the frame's appearance.
+    * The mid-line width specifies the width of an extra line in the middle of the frame, which uses a third color to obtain a special 3D effect. Notice that a mid-line is only drawn for :attr:`Box<QFrame.Shape>` , :attr:`HLine<QFrame.Shape>` and :attr:`VLine<QFrame.Shape>` frames that are raised or sunken.
+    * The frame width is determined by the frame style, and the :meth:`PySide.QtGui.QFrame.frameWidth` function is used to obtain the value defined for the style used.
+
+    The margin between the frame and the contents of the frame can be customized with the :meth:`QWidget.setContentsMargins()<PySide.QtGui.QWidget.setContentsMargins>` function.
+
+    This table shows some of the combinations of styles and line widths:
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/frames.png
+
+
+.. class:: QFrame([parent=None[, f=0]])
+
+    :param f: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+.. attribute:: PySide.QtGui.QFrame.StyleMask
+
+    This enum defines two constants that can be used to extract the two components of :meth:`PySide.QtGui.QFrame.frameStyle` :
+
+    +------------------+------------------------------------------------------------------------+
+    |Constant          |Description                                                             |
+    +==================+========================================================================+
+    |QFrame.Shadow_Mask|The :attr:`QFrame.Shadow` part of :meth:`PySide.QtGui.QFrame.frameStyle`|
+    +------------------+------------------------------------------------------------------------+
+    |QFrame.Shape_Mask |The :attr:`QFrame.Shape` part of :meth:`PySide.QtGui.QFrame.frameStyle` |
+    +------------------+------------------------------------------------------------------------+
+
+    Normally, you don't need to use these, since :meth:`PySide.QtGui.QFrame.frameShadow` and :meth:`PySide.QtGui.QFrame.frameShape` already extract the :attr:`QFrame.Shadow` and the :attr:`QFrame.Shape` parts of :meth:`PySide.QtGui.QFrame.frameStyle` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle`  :meth:`PySide.QtGui.QFrame.setFrameStyle` 
+
+.. attribute:: PySide.QtGui.QFrame.Shape
+
+    This enum type defines the shapes of frame available.
+
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant          |Description                                                                                                                                                                                                                                                                                     |
+    +==================+================================================================================================================================================================================================================================================================================================+
+    |QFrame.NoFrame    |:class:`PySide.QtGui.QFrame` draws nothing                                                                                                                                                                                                                                                      |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.Box        |:class:`PySide.QtGui.QFrame` draws a box around its contents                                                                                                                                                                                                                                    |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.Panel      |:class:`PySide.QtGui.QFrame` draws a panel to make the contents appear raised or sunken                                                                                                                                                                                                         |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.StyledPanel|draws a rectangular panel with a look that depends on the current GUI style. It can be raised or sunken.                                                                                                                                                                                        |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.HLine      |:class:`PySide.QtGui.QFrame` draws a horizontal line that frames nothing (useful as separator)                                                                                                                                                                                                  |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.VLine      |:class:`PySide.QtGui.QFrame` draws a vertical line that frames nothing (useful as separator)                                                                                                                                                                                                    |
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.WinPanel   |draws a rectangular panel that can be raised or sunken like those in Windows 2000. Specifying this shape sets the line width to 2 pixels. :attr:`WinPanel<QFrame.Shape>` is provided for compatibility. For GUI style independence we recommend using :attr:`StyledPanel<QFrame.Shape>` instead.|
+    +------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    When it does not call :class:`PySide.QtGui.QStyle` , Shape interacts with :attr:`QFrame.Shadow` , the :meth:`PySide.QtGui.QFrame.lineWidth` and the :meth:`PySide.QtGui.QFrame.midLineWidth` to create the total result. See the picture of the frames in the main class documentation.
+
+    .. seealso::  :attr:`QFrame.Shadow`  :meth:`QFrame.style()<PySide.QtGui.QFrame.style>`  :meth:`QStyle.drawPrimitive()<PySide.QtGui.QStyle.drawPrimitive>` 
+
+.. attribute:: PySide.QtGui.QFrame.Shadow
+
+    This enum type defines the types of shadow that are used to give a 3D effect to frames.
+
+    +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant     |Description                                                                                                                                                     |
+    +=============+================================================================================================================================================================+
+    |QFrame.Plain |the frame and contents appear level with the surroundings; draws using the palette :attr:`QPalette.WindowText<QPalette.ColorRole>` color (without any 3D effect)|
+    +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.Raised|the frame and contents appear raised; draws a 3D raised line using the light and dark colors of the current color group                                         |
+    +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QFrame.Sunken|the frame and contents appear sunken; draws a 3D sunken line using the light and dark colors of the current color group                                         |
+    +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    Shadow interacts with :attr:`QFrame.Shape` , the :meth:`PySide.QtGui.QFrame.lineWidth` and the :meth:`PySide.QtGui.QFrame.midLineWidth` . See the picture of the frames in the main class documentation.
+
+    .. seealso::  :attr:`QFrame.Shape`  :meth:`PySide.QtGui.QFrame.lineWidth`  :meth:`PySide.QtGui.QFrame.midLineWidth` 
+
+.. method:: PySide.QtGui.QFrame.drawFrame(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Mostly for the sake of :class:`~PySide.QtGui.Q3Frame`
+
+
+
+.. method:: PySide.QtGui.QFrame.frameRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This property holds the frame's rectangle.
+
+    The frame's rectangle is the rectangle the frame is drawn in. By default, this is the entire widget. Setting the rectangle does does *not* cause a widget update. The frame rectangle is automatically adjusted when the widget changes size.
+
+    If you set the rectangle to a null rectangle (for example, :class:`PySide.QtCore.QRect` (0, 0, 0, 0)), then the resulting frame rectangle is equivalent to the :meth:`widget rectangle<PySide.QtGui.QWidget.rect>` .
+
+
+
+.. method:: PySide.QtGui.QFrame.frameShadow()
+
+
+    :rtype: :attr:`PySide.QtGui.QFrame.Shadow`
+
+
+
+
+    This property holds the frame shadow value from the frame style.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle`  :meth:`PySide.QtGui.QFrame.frameShape` 
+
+
+.. method:: PySide.QtGui.QFrame.frameShape()
+
+
+    :rtype: :attr:`PySide.QtGui.QFrame.Shape`
+
+
+
+
+    This property holds the frame shape value from the frame style.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle`  :meth:`PySide.QtGui.QFrame.frameShadow` 
+
+
+.. method:: PySide.QtGui.QFrame.frameStyle()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the frame style.
+
+    The default value is :attr:`QFrame.Plain<QFrame.Shadow>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.setFrameStyle`  :meth:`PySide.QtGui.QFrame.frameShape`  :meth:`PySide.QtGui.QFrame.frameShadow` 
+
+
+.. method:: PySide.QtGui.QFrame.frameWidth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the width of the frame that is drawn..
+
+    Note that the frame width depends on the :meth:`frame style<PySide.QtGui.QFrame.setFrameStyle>` , not only the line width and the mid-line width. For example, the style specified by :attr:`NoFrame<QFrame.Shape>` always has a frame width of 0, whereas the style :attr:`Panel<QFrame.Shape>` has a frame width equivalent to the line width.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.lineWidth`  :meth:`PySide.QtGui.QFrame.midLineWidth`  :meth:`PySide.QtGui.QFrame.frameStyle` 
+
+
+.. method:: PySide.QtGui.QFrame.lineWidth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the line width.
+
+    Note that the *total* line width for frames used as separators ( :attr:`HLine<QFrame.Shape>` and :attr:`VLine<QFrame.Shape>` ) is specified by :meth:`PySide.QtGui.QFrame.frameWidth` .
+
+    The default value is 1.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.midLineWidth`  :meth:`PySide.QtGui.QFrame.frameWidth` 
+
+
+.. method:: PySide.QtGui.QFrame.midLineWidth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the width of the mid-line.
+
+    The default value is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.lineWidth`  :meth:`PySide.QtGui.QFrame.frameWidth` 
+
+
+.. method:: PySide.QtGui.QFrame.setFrameRect(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QRect`
+
+
+
+
+    This property holds the frame's rectangle.
+
+    The frame's rectangle is the rectangle the frame is drawn in. By default, this is the entire widget. Setting the rectangle does does *not* cause a widget update. The frame rectangle is automatically adjusted when the widget changes size.
+
+    If you set the rectangle to a null rectangle (for example, :class:`PySide.QtCore.QRect` (0, 0, 0, 0)), then the resulting frame rectangle is equivalent to the :meth:`widget rectangle<PySide.QtGui.QWidget.rect>` .
+
+
+
+.. method:: PySide.QtGui.QFrame.setFrameShadow(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QFrame.Shadow`
+
+
+
+
+    This property holds the frame shadow value from the frame style.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle`  :meth:`PySide.QtGui.QFrame.frameShape` 
+
+
+.. method:: PySide.QtGui.QFrame.setFrameShape(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QFrame.Shape`
+
+
+
+
+    This property holds the frame shape value from the frame style.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle`  :meth:`PySide.QtGui.QFrame.frameShadow` 
+
+
+.. method:: PySide.QtGui.QFrame.setFrameStyle(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the frame style to ``style`` .
+
+    The ``style`` is the bitwise OR between a frame shape and a frame shadow style. See the picture of the frames in the main class documentation.
+
+    The frame shapes are given in :attr:`QFrame.Shape` and the shadow styles in :attr:`QFrame.Shadow` .
+
+    If a mid-line width greater than 0 is specified, an additional line is drawn for :attr:`Raised<QFrame.Shadow>` or :attr:`Sunken<QFrame.Shadow>` :attr:`Box<QFrame.Shape>` , :attr:`HLine<QFrame.Shape>` , and :attr:`VLine<QFrame.Shape>` frames. The mid-color of the current color group is used for drawing middle lines.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.frameStyle` 
+
+
+.. method:: PySide.QtGui.QFrame.setLineWidth(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the line width.
+
+    Note that the *total* line width for frames used as separators ( :attr:`HLine<QFrame.Shape>` and :attr:`VLine<QFrame.Shape>` ) is specified by :meth:`PySide.QtGui.QFrame.frameWidth` .
+
+    The default value is 1.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.midLineWidth`  :meth:`PySide.QtGui.QFrame.frameWidth` 
+
+
+.. method:: PySide.QtGui.QFrame.setMidLineWidth(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the width of the mid-line.
+
+    The default value is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QFrame.lineWidth`  :meth:`PySide.QtGui.QFrame.frameWidth` 
+
+
+

@@ -1,0 +1,817 @@
+.. module:: PySide.QtOpenGL
+.. _QGLWidget:
+
+QGLWidget
+*********
+
+.. inheritance-diagram:: QGLWidget
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoBufferSwap<PySide.QtOpenGL.QGLWidget.autoBufferSwap>` ()
+*    def :meth:`bindTexture<PySide.QtOpenGL.QGLWidget.bindTexture>` (fileName)
+*    def :meth:`bindTexture<PySide.QtOpenGL.QGLWidget.bindTexture>` (image, target, format, options)
+*    def :meth:`bindTexture<PySide.QtOpenGL.QGLWidget.bindTexture>` (image[, target=0x0DE1[, format=0x1908]])
+*    def :meth:`bindTexture<PySide.QtOpenGL.QGLWidget.bindTexture>` (pixmap, target, format, options)
+*    def :meth:`bindTexture<PySide.QtOpenGL.QGLWidget.bindTexture>` (pixmap[, target=0x0DE1[, format=0x1908]])
+*    def :meth:`colormap<PySide.QtOpenGL.QGLWidget.colormap>` ()
+*    def :meth:`context<PySide.QtOpenGL.QGLWidget.context>` ()
+*    def :meth:`deleteTexture<PySide.QtOpenGL.QGLWidget.deleteTexture>` (tx_id)
+*    def :meth:`doneCurrent<PySide.QtOpenGL.QGLWidget.doneCurrent>` ()
+*    def :meth:`doubleBuffer<PySide.QtOpenGL.QGLWidget.doubleBuffer>` ()
+*    def :meth:`drawTexture<PySide.QtOpenGL.QGLWidget.drawTexture>` (point, textureId[, textureTarget=0x0DE1])
+*    def :meth:`drawTexture<PySide.QtOpenGL.QGLWidget.drawTexture>` (target, textureId[, textureTarget=0x0DE1])
+*    def :meth:`format<PySide.QtOpenGL.QGLWidget.format>` ()
+*    def :meth:`grabFrameBuffer<PySide.QtOpenGL.QGLWidget.grabFrameBuffer>` ([withAlpha=false])
+*    def :meth:`isSharing<PySide.QtOpenGL.QGLWidget.isSharing>` ()
+*    def :meth:`isValid<PySide.QtOpenGL.QGLWidget.isValid>` ()
+*    def :meth:`makeCurrent<PySide.QtOpenGL.QGLWidget.makeCurrent>` ()
+*    def :meth:`makeOverlayCurrent<PySide.QtOpenGL.QGLWidget.makeOverlayCurrent>` ()
+*    def :meth:`overlayContext<PySide.QtOpenGL.QGLWidget.overlayContext>` ()
+*    def :meth:`qglClearColor<PySide.QtOpenGL.QGLWidget.qglClearColor>` (c)
+*    def :meth:`qglColor<PySide.QtOpenGL.QGLWidget.qglColor>` (c)
+*    def :meth:`renderPixmap<PySide.QtOpenGL.QGLWidget.renderPixmap>` ([w=0[, h=0[, useContext=false]]])
+*    def :meth:`renderText<PySide.QtOpenGL.QGLWidget.renderText>` (x, y, str[, fnt=QFont()[, listBase=2000]])
+*    def :meth:`renderText<PySide.QtOpenGL.QGLWidget.renderText>` (x, y, z, str[, fnt=QFont()[, listBase=2000]])
+*    def :meth:`setAutoBufferSwap<PySide.QtOpenGL.QGLWidget.setAutoBufferSwap>` (on)
+*    def :meth:`setColormap<PySide.QtOpenGL.QGLWidget.setColormap>` (map)
+*    def :meth:`swapBuffers<PySide.QtOpenGL.QGLWidget.swapBuffers>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`glDraw<PySide.QtOpenGL.QGLWidget.glDraw>` ()
+*    def :meth:`glInit<PySide.QtOpenGL.QGLWidget.glInit>` ()
+*    def :meth:`initializeGL<PySide.QtOpenGL.QGLWidget.initializeGL>` ()
+*    def :meth:`initializeOverlayGL<PySide.QtOpenGL.QGLWidget.initializeOverlayGL>` ()
+*    def :meth:`paintGL<PySide.QtOpenGL.QGLWidget.paintGL>` ()
+*    def :meth:`paintOverlayGL<PySide.QtOpenGL.QGLWidget.paintOverlayGL>` ()
+*    def :meth:`resizeGL<PySide.QtOpenGL.QGLWidget.resizeGL>` (w, h)
+*    def :meth:`resizeOverlayGL<PySide.QtOpenGL.QGLWidget.resizeOverlayGL>` (w, h)
+*    def :meth:`updateGL<PySide.QtOpenGL.QGLWidget.updateGL>` ()
+*    def :meth:`updateOverlayGL<PySide.QtOpenGL.QGLWidget.updateOverlayGL>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`convertToGLFormat<PySide.QtOpenGL.QGLWidget.convertToGLFormat>` (img)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtOpenGL.QGLWidget` class is a widget for rendering OpenGL graphics.
+
+    :class:`PySide.QtOpenGL.QGLWidget` provides functionality for displaying OpenGL graphics integrated into a Qt application. It is very simple to use. You inherit from it and use the subclass like any other :class:`PySide.QtGui.QWidget` , except that you have the choice between using :class:`PySide.QtGui.QPainter` and standard OpenGL rendering commands.
+
+    :class:`PySide.QtOpenGL.QGLWidget` provides three convenient virtual functions that you can reimplement in your subclass to perform the typical OpenGL tasks:
+
+
+    * :meth:`PySide.QtOpenGL.QGLWidget.paintGL` - Renders the OpenGL scene. Gets called whenever the widget needs to be updated.
+    * :meth:`PySide.QtOpenGL.QGLWidget.resizeGL` - Sets up the OpenGL viewport, projection, etc. Gets called whenever the widget has been resized (and also when it is shown for the first time because all newly created widgets get a resize event automatically).
+    * :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` - Sets up the OpenGL rendering context, defines display lists, etc. Gets called once before the first time :meth:`PySide.QtOpenGL.QGLWidget.resizeGL` or :meth:`PySide.QtOpenGL.QGLWidget.paintGL` is called.
+
+    Here is a rough outline of how a :class:`PySide.QtOpenGL.QGLWidget` subclass might look:
+
+    ::
+
+        class MyGLDrawer(QGLWidget):
+
+            def __init__(self, parent):
+                QGLWidget.__init__(self, parent)
+                pass
+
+            def initializeGL(self):
+                # Set up the rendering context, define display lists etc.:
+                ...
+                glClearColor(0.0, 0.0, 0.0, 0.0)
+                glEnable(GL_DEPTH_TEST)
+                ...
+
+            def resizeGL(self, w, h):
+                # setup viewport, projection etc.:
+                glViewport(0, 0, w, h)
+                ...
+                glFrustum(...)
+                ...
+
+            def paintGL(self):
+                # draw the scene:
+                ...
+                glRotatef(...)
+                glMaterialfv(...)
+                glBegin(GL_QUADS)
+                glVertex3f(...)
+                glVertex3f(...)
+                ...
+                glEnd()
+                ...
+
+
+    If you need to trigger a repaint from places other than :meth:`PySide.QtOpenGL.QGLWidget.paintGL` (a typical example is when using :class:`timers<PySide.QtCore.QTimer>` to animate scenes), you should call the widget's :meth:`PySide.QtOpenGL.QGLWidget.updateGL` function.
+
+    Your widget's OpenGL rendering context is made current when :meth:`PySide.QtOpenGL.QGLWidget.paintGL` , :meth:`PySide.QtOpenGL.QGLWidget.resizeGL` , or :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` is called. If you need to call the standard OpenGL API functions from other places (e.g. in your widget's constructor or in your own paint functions), you must call :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` first.
+
+    :class:`PySide.QtOpenGL.QGLWidget` provides functions for requesting a new display :class:`format<PySide.QtOpenGL.QGLFormat>` and you can also create widgets with customized rendering :class:`contexts<PySide.QtOpenGL.QGLContext>` .
+
+    You can also share OpenGL display lists between :class:`PySide.QtOpenGL.QGLWidget` objects (see the documentation of the :class:`PySide.QtOpenGL.QGLWidget` constructors for details).
+
+    Note that under Windows, the :class:`PySide.QtOpenGL.QGLContext` belonging to a :class:`PySide.QtOpenGL.QGLWidget` has to be recreated when the :class:`PySide.QtOpenGL.QGLWidget` is reparented. This is necessary due to limitations on the Windows platform. This will most likely cause problems for users that have subclassed and installed their own :class:`PySide.QtOpenGL.QGLContext` on a :class:`PySide.QtOpenGL.QGLWidget` . It is possible to work around this issue by putting the :class:`PySide.QtOpenGL.QGLWidget` inside a dummy widget and then reparenting the dummy widget, instead of the :class:`PySide.QtOpenGL.QGLWidget` . This will side-step the issue altogether, and is what we recommend for users that need this kind of functionality.
+
+    On Mac OS X, when Qt is built with Cocoa support, a :class:`PySide.QtOpenGL.QGLWidget` can't have any sibling widgets placed ontop of itself. This is due to limitations in the Cocoa API and is not supported by Apple.
+
+    .. _PySide.QtOpenGL.QGLWidget_overlays:
+
+
+
+Overlays
+^^^^^^^^
+
+    The :class:`PySide.QtOpenGL.QGLWidget` creates a GL overlay context in addition to the normal context if overlays are supported by the underlying system.
+
+    If you want to use overlays, you specify it in the :class:`format<PySide.QtOpenGL.QGLFormat>` . (Note: Overlay must be requested in the format passed to the :class:`PySide.QtOpenGL.QGLWidget` constructor.) Your GL widget should also implement some or all of these virtual methods:
+
+
+    * :meth:`PySide.QtOpenGL.QGLWidget.paintOverlayGL`
+    * :meth:`PySide.QtOpenGL.QGLWidget.resizeOverlayGL`
+    * :meth:`PySide.QtOpenGL.QGLWidget.initializeOverlayGL`
+
+    These methods work in the same way as the normal :meth:`PySide.QtOpenGL.QGLWidget.paintGL` etc. functions, except that they will be called when the overlay context is made current. You can explicitly make the overlay context current by using :meth:`PySide.QtOpenGL.QGLWidget.makeOverlayCurrent` , and you can access the overlay context directly (e.g. to ask for its transparent color) by calling :meth:`PySide.QtOpenGL.QGLWidget.overlayContext` .
+
+    On X servers in which the default visual is in an overlay plane, non-GL Qt windows can also be used for overlays.
+
+    .. _PySide.QtOpenGL.QGLWidget_painting-techniques:
+
+
+
+Painting Techniques
+^^^^^^^^^^^^^^^^^^^
+
+    As described above, subclass :class:`PySide.QtOpenGL.QGLWidget` to render pure 3D content in the following way:
+
+
+    * Reimplement the :meth:`QGLWidget.initializeGL()<PySide.QtOpenGL.QGLWidget.initializeGL>` and :meth:`QGLWidget.resizeGL()<PySide.QtOpenGL.QGLWidget.resizeGL>` to set up the OpenGL state and provide a perspective transformation.
+    * Reimplement :meth:`QGLWidget.paintGL()<PySide.QtOpenGL.QGLWidget.paintGL>` to paint the 3D scene, calling only OpenGL functions to draw on the widget.
+
+    It is also possible to draw 2D graphics onto a :class:`PySide.QtOpenGL.QGLWidget` subclass, it is necessary to reimplement :meth:`QGLWidget.paintEvent()<PySide.QtOpenGL.QGLWidget.paintEvent>` and do the following:
+
+
+    * Construct a :class:`PySide.QtGui.QPainter` object.
+    * Initialize it for use on the widget with the :meth:`QPainter.begin()<PySide.QtGui.QPainter.begin>` function.
+    * Draw primitives using :class:`PySide.QtGui.QPainter` 's member functions.
+    * Call :meth:`QPainter.end()<PySide.QtGui.QPainter.end>` to finish painting.
+
+    Overpainting 2D content on top of 3D content takes a little more effort. One approach to doing this is shown in the :ref:`Overpainting<opengl/overpainting>` example.
+
+    .. _PySide.QtOpenGL.QGLWidget_threading:
+
+
+
+Threading
+^^^^^^^^^
+
+    As of Qt version 4.8, support for doing threaded GL rendering has been improved. There are three scenarios that we currently support:
+
+
+    * 1. Buffer swapping in a thread.
+      
+      Swapping buffers in a double buffered context may be a synchronous, locking call that may be a costly operation in some GL implementations. Especially so on embedded devices. It's not optimal to have the CPU idling while the GPU is doing a buffer swap. In those cases it is possible to do the rendering in the main thread and do the actual buffer swap in a separate thread. This can be done with the following steps:
+      
+      1. Call :meth:`PySide.QtOpenGL.QGLWidget.doneCurrent` in the main thread when the rendering is finished.
+      
+      2. Notify the swapping thread that it can grab the context.
+      
+      3. Make the rendering context current in the swapping thread with :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` and then call :meth:`PySide.QtOpenGL.QGLWidget.swapBuffers` .
+      
+      4. Call :meth:`PySide.QtOpenGL.QGLWidget.doneCurrent` in the swapping thread and notify the main thread that swapping is done.
+      
+      Doing this will free up the main thread so that it can continue with, for example, handling UI events or network requests. Even if there is a context swap involved, it may be preferable compared to having the main thread wait while the GPU finishes the swap operation. Note that this is highly implementation dependent.
+    * 2. Texture uploading in a thread.
+      
+      Doing texture uploads in a thread may be very useful for applications handling large amounts of images that needs to be displayed, like for instance a photo gallery application. This is supported in Qt through the existing :meth:`PySide.QtOpenGL.QGLWidget.bindTexture` API. A simple way of doing this is to create two sharing QGLWidgets. One is made current in the main GUI thread, while the other is made current in the texture upload thread. The widget in the uploading thread is never shown, it is only used for sharing textures with the main thread. For each texture that is bound via :meth:`PySide.QtOpenGL.QGLWidget.bindTexture` , notify the main thread so that it can start using the texture.
+    * 3. Using :class:`PySide.QtGui.QPainter` to draw into a :class:`PySide.QtOpenGL.QGLWidget` in a thread.
+      
+      In Qt 4.8, it is possible to draw into a :class:`PySide.QtOpenGL.QGLWidget` using a :class:`PySide.QtGui.QPainter` in a separate thread. Note that this is also possible for QGLPixelBuffers and QGLFramebufferObjects. Since this is only supported in the GL 2 paint engine, OpenGL 2.0 or OpenGL ES 2.0 is required.
+      
+      QGLWidgets can only be created in the main GUI thread. This means a call to :meth:`PySide.QtOpenGL.QGLWidget.doneCurrent` is necessary to release the GL context from the main thread, before the widget can be drawn into by another thread. Also, the main GUI thread will dispatch resize and paint events to a :class:`PySide.QtOpenGL.QGLWidget` when the widget is resized, or parts of it becomes exposed or needs redrawing. It is therefore necessary to handle those events because the default implementations inside :class:`PySide.QtOpenGL.QGLWidget` will try to make the :class:`PySide.QtOpenGL.QGLWidget` 's context current, which again will interfere with any threads rendering into the widget. Reimplement :meth:`QGLWidget.paintEvent()<PySide.QtOpenGL.QGLWidget.paintEvent>` and :meth:`QGLWidget.resizeEvent()<PySide.QtOpenGL.QGLWidget.resizeEvent>` to notify the rendering thread that a resize or update is necessary, and be careful not to call the base class implementation. If you are rendering an animation, it might not be necessary to handle the paint event at all since the rendering thread is doing regular updates. Then it would be enough to reimplement :meth:`QGLWidget.paintEvent()<PySide.QtOpenGL.QGLWidget.paintEvent>` to do nothing.
+
+    As a general rule when doing threaded rendering: be aware that binding and releasing contexts in different threads have to be synchronized by the user. A GL rendering context can only be current in one thread at any time. If you try to open a :class:`PySide.QtGui.QPainter` on a :class:`PySide.QtOpenGL.QGLWidget` and the widget's rendering context is current in another thread, it will fail.
+
+    Note that under X11 it is necessary to set the :attr:`Qt.AA_X11InitThreads<Qt.ApplicationAttribute>` application attribute to make the X11 library and GLX calls thread safe, otherwise the above scenarios will fail.
+
+    In addition to this, rendering using raw GL calls in a separate thread is supported.
+
+    *OpenGL is a trademark of Silicon Graphics, Inc. in the United States and other countries.*\
+
+    .. seealso::  :class:`PySide.QtOpenGL.QGLPixelBuffer`  :ref:`Hello GL Example<opengl/hellogl>`  :ref:`2D Painting Example<opengl/2dpainting>`  :ref:`Overpainting Example<opengl/overpainting>`  :ref:`Grabber Example<opengl/grabber>` 
+
+.. class:: QGLWidget(context[, parent=None[, shareWidget=None[, f=0]]])
+           QGLWidget([parent=None[, shareWidget=None[, f=0]]])
+           QGLWidget(format[, parent=None[, shareWidget=None[, f=0]]])
+
+    :param shareWidget: :class:`PySide.QtOpenGL.QGLWidget`
+    :param f: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param format: :class:`PySide.QtOpenGL.QGLFormat`
+    :param context: :class:`PySide.QtOpenGL.QGLContext`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.autoBufferSwap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the widget is doing automatic GL buffer swapping; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.setAutoBufferSwap` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.bindTexture(pixmap, target, format, options)
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+    :param format: :class:`PySide.QtOpenGL.GLint`
+    :param options: :class:`PySide.QtOpenGL.QGLContext.BindOptions`
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.bindTexture(pixmap[, target=0x0DE1[, format=0x1908]])
+
+
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+    :param format: :class:`PySide.QtOpenGL.GLint`
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Calls QGLContext:::bindTexture(``pixmap`` , ``target`` , ``format`` ) on the currently set context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.deleteTexture` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.bindTexture(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    This is an overloaded function.
+
+    Calls QGLContext::bindTexture(``fileName`` ) on the currently set context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.deleteTexture` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.bindTexture(image, target, format, options)
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+    :param format: :class:`PySide.QtOpenGL.GLint`
+    :param options: :class:`PySide.QtOpenGL.QGLContext.BindOptions`
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.bindTexture(image[, target=0x0DE1[, format=0x1908]])
+
+
+    :param image: :class:`PySide.QtGui.QImage`
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+    :param format: :class:`PySide.QtOpenGL.GLint`
+    :rtype: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Calls QGLContext:::bindTexture(``image`` , ``target`` , ``format`` ) on the currently set context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.deleteTexture` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.colormap()
+
+
+    :rtype: :class:`PySide.QtOpenGL.QGLColormap`
+
+
+
+
+    Returns the colormap for this widget.
+
+    Usually it is only top-level widgets that can have different colormaps installed. Asking for the colormap of a child widget will return the colormap for the child's top-level widget.
+
+    If no colormap has been set for this widget, the :class:`PySide.QtOpenGL.QGLColormap` returned will be empty.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.setColormap`  :meth:`QGLColormap.isEmpty()<PySide.QtOpenGL.QGLColormap.isEmpty>` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.context()
+
+
+    :rtype: :class:`PySide.QtOpenGL.QGLContext`
+
+
+
+
+    Returns the context of this widget.
+
+    It is possible that the context is not valid (see :meth:`PySide.QtOpenGL.QGLWidget.isValid` ), for example, if the underlying hardware does not support the format attributes that were requested.
+
+
+
+.. staticmethod:: PySide.QtOpenGL.QGLWidget.convertToGLFormat(img)
+
+
+    :param img: :class:`PySide.QtGui.QImage`
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Converts the image ``img`` into the unnamed format expected by OpenGL functions such as glTexImage2D(). The returned image is not usable as a :class:`PySide.QtGui.QImage` , but :meth:`QImage.width()<PySide.QtGui.QImage.width>` , :meth:`QImage.height()<PySide.QtGui.QImage.height>` and :meth:`QImage.bits()<PySide.QtGui.QImage.bits>` may be used with OpenGL. The GL format used is ``GL_RGBA`` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.deleteTexture(tx_id)
+
+
+    :param tx_id: :class:`PySide.QtOpenGL.GLuint`
+
+
+
+
+    Calls QGLContext::deleteTexture(``id`` ) on the currently set context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.bindTexture` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.doneCurrent()
+
+
+
+
+
+
+    Makes no GL context the current context. Normally, you do not need to call this function; :class:`PySide.QtOpenGL.QGLContext` calls it as necessary. However, it may be useful in multithreaded environments.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.doubleBuffer()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the contained GL rendering context has double buffering; otherwise returns false.
+
+    .. seealso::  :meth:`QGLFormat.doubleBuffer()<PySide.QtOpenGL.QGLFormat.doubleBuffer>` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.drawTexture(target, textureId[, textureTarget=0x0DE1])
+
+
+    :param target: :class:`PySide.QtCore.QRectF`
+    :param textureId: :class:`PySide.QtOpenGL.GLuint`
+    :param textureTarget: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Calls the corresponding :meth:`QGLContext.drawTexture()<PySide.QtOpenGL.QGLContext.drawTexture>` with ``target`` , ``textureId`` , and ``textureTarget`` for this widget's context.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.drawTexture(point, textureId[, textureTarget=0x0DE1])
+
+
+    :param point: :class:`PySide.QtCore.QPointF`
+    :param textureId: :class:`PySide.QtOpenGL.GLuint`
+    :param textureTarget: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Calls the corresponding :meth:`QGLContext.drawTexture()<PySide.QtOpenGL.QGLContext.drawTexture>` with ``point`` , ``textureId`` , and ``textureTarget`` for this widget's context.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.format()
+
+
+    :rtype: :class:`PySide.QtOpenGL.QGLFormat`
+
+
+
+
+    Returns the format of the contained GL rendering context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.setFormat` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.glDraw()
+
+
+
+
+
+
+    Executes the virtual function :meth:`PySide.QtOpenGL.QGLWidget.paintGL` .
+
+    The widget's rendering context will become the current context and :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` will be called if it hasn't already been called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.glInit()
+
+
+
+
+
+
+    Initializes OpenGL for this widget's context. Calls the virtual function :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.grabFrameBuffer([withAlpha=false])
+
+
+    :param withAlpha: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtGui.QImage`
+
+
+
+
+    Returns an image of the frame buffer. If ``withAlpha`` is true the alpha channel is included.
+
+    Depending on your hardware, you can explicitly select which color buffer to grab with a glReadBuffer() call before calling this function.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.initializeGL()
+
+
+
+
+
+
+    This virtual function is called once before the first call to :meth:`PySide.QtOpenGL.QGLWidget.paintGL` or :meth:`PySide.QtOpenGL.QGLWidget.resizeGL` , and then once whenever the widget has been assigned a new :class:`PySide.QtOpenGL.QGLContext` . Reimplement it in a subclass.
+
+    This function should set up any required OpenGL context rendering flags, defining display lists, etc.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.initializeOverlayGL()
+
+
+
+
+
+
+    This virtual function is used in the same manner as :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` except that it operates on the widget's overlay context instead of the widget's main context. This means that :meth:`PySide.QtOpenGL.QGLWidget.initializeOverlayGL` is called once before the first call to :meth:`PySide.QtOpenGL.QGLWidget.paintOverlayGL` or :meth:`PySide.QtOpenGL.QGLWidget.resizeOverlayGL` . Reimplement it in a subclass.
+
+    This function should set up any required OpenGL context rendering flags, defining display lists, etc. for the overlay context.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeOverlayCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.isSharing()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this widget's GL context is shared with another GL context, otherwise false is returned. Context sharing might not be possible if the widgets use different formats.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.format` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the widget has a valid GL rendering context; otherwise returns false. A widget will be invalid if the system has no :meth:`OpenGL support<PySide.QtOpenGL.QGLFormat.hasOpenGL>` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.makeCurrent()
+
+
+
+
+
+
+    Makes this widget the current widget for OpenGL operations, i.e. makes the widget's rendering context the current OpenGL rendering context.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.makeOverlayCurrent()
+
+
+
+
+
+
+    Makes the overlay context of this widget current. Use this if you need to issue OpenGL commands to the overlay context outside of :meth:`PySide.QtOpenGL.QGLWidget.initializeOverlayGL` , :meth:`PySide.QtOpenGL.QGLWidget.resizeOverlayGL` , and :meth:`PySide.QtOpenGL.QGLWidget.paintOverlayGL` .
+
+    Does nothing if this widget has no overlay.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.overlayContext()
+
+
+    :rtype: :class:`PySide.QtOpenGL.QGLContext`
+
+
+
+
+    Returns the overlay context of this widget, or 0 if this widget has no overlay.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.context` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.paintGL()
+
+
+
+
+
+
+    This virtual function is called whenever the widget needs to be painted. Reimplement it in a subclass.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.paintOverlayGL()
+
+
+
+
+
+
+    This virtual function is used in the same manner as :meth:`PySide.QtOpenGL.QGLWidget.paintGL` except that it operates on the widget's overlay context instead of the widget's main context. This means that :meth:`PySide.QtOpenGL.QGLWidget.paintOverlayGL` is called whenever the widget's overlay needs to be painted. Reimplement it in a subclass.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeOverlayCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.qglClearColor(c)
+
+
+    :param c: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Convenience function for specifying the clearing color to OpenGL. Calls glClearColor (in RGBA mode) or glClearIndex (in color-index mode) with the color ``c`` . Applies to this widgets GL context.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.qglColor`  :meth:`QGLContext.currentContext()<PySide.QtOpenGL.QGLContext.currentContext>`  :class:`PySide.QtGui.QColor` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.qglColor(c)
+
+
+    :param c: :class:`PySide.QtGui.QColor`
+
+
+
+
+    Convenience function for specifying a drawing color to OpenGL. Calls glColor4 (in RGBA mode) or glIndex (in color-index mode) with the color ``c`` . Applies to this widgets GL context.
+
+    .. note::  This function is not supported on OpenGL/ES 2.0 systems.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.qglClearColor`  :meth:`QGLContext.currentContext()<PySide.QtOpenGL.QGLContext.currentContext>`  :class:`PySide.QtGui.QColor` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.renderPixmap([w=0[, h=0[, useContext=false]]])
+
+
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+    :param useContext: :class:`PySide.QtCore.bool`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Renders the current scene on a pixmap and returns the pixmap.
+
+    You can use this method on both visible and invisible :class:`PySide.QtOpenGL.QGLWidget` objects.
+
+    This method will create a pixmap and a temporary :class:`PySide.QtOpenGL.QGLContext` to render on the pixmap. It will then call :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` , :meth:`PySide.QtOpenGL.QGLWidget.resizeGL` , and :meth:`PySide.QtOpenGL.QGLWidget.paintGL` on this context. Finally, the widget's original GL context is restored.
+
+    The size of the pixmap will be ``w`` pixels wide and ``h`` pixels high unless one of these parameters is 0 (the default), in which case the pixmap will have the same size as the widget.
+
+    If ``useContext`` is true, this method will try to be more efficient by using the existing GL context to render the pixmap. The default is false. Only use true if you understand the risks. Note that under Windows a temporary context has to be created and usage of the *useContext* parameter is not supported.
+
+    Overlays are not rendered onto the pixmap.
+
+    If the GL rendering context and the desktop have different bit depths, the result will most likely look surprising.
+
+    Note that the creation of display lists, modifications of the view frustum etc. should be done from within :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` . If this is not done, the temporary :class:`PySide.QtOpenGL.QGLContext` will not be initialized properly, and the rendered pixmap may be incomplete/corrupted.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.renderText(x, y, str[, fnt=QFont()[, listBase=2000]])
+
+
+    :param x: :class:`PySide.QtCore.int`
+    :param y: :class:`PySide.QtCore.int`
+    :param str: unicode
+    :param fnt: :class:`PySide.QtGui.QFont`
+    :param listBase: :class:`PySide.QtCore.int`
+
+
+
+
+    Renders the string ``str`` into the GL context of this widget.
+
+    ``x`` and ``y`` are specified in window coordinates, with the origin in the upper left-hand corner of the window. If ``font`` is not specified, the currently set application font will be used to render the string. To change the color of the rendered text you can use the glColor() call (or the :meth:`PySide.QtOpenGL.QGLWidget.qglColor` convenience function), just before the :meth:`PySide.QtOpenGL.QGLWidget.renderText` call.
+
+    The ``listBase`` parameter is obsolete and will be removed in a future version of Qt.
+
+    .. note::  This function clears the stencil buffer.
+
+    .. note::  This function is not supported on OpenGL/ES systems.
+
+    .. note::  This function temporarily disables depth-testing when the text is drawn.
+
+    .. note::  This function can only be used inside a :meth:`QPainter.beginNativePainting()<PySide.QtGui.QPainter.beginNativePainting>` / :meth:`QPainter.endNativePainting()<PySide.QtGui.QPainter.endNativePainting>` block if the default OpenGL paint engine is :attr:`QPaintEngine.OpenGL<QPaintEngine.Type>` . To make :attr:`QPaintEngine.OpenGL<QPaintEngine.Type>` the default GL engine, call QGL::setPreferredPaintEngine( :attr:`QPaintEngine.OpenGL<QPaintEngine.Type>` ) before the :class:`PySide.QtGui.QApplication` constructor.
+
+    :ref:`Overpaint<opengl/overpainting>` with :meth:`QPainter.drawText()<PySide.QtGui.QPainter.drawText>` instead.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.renderText(x, y, z, str[, fnt=QFont()[, listBase=2000]])
+
+
+    :param x: :class:`PySide.QtCore.double`
+    :param y: :class:`PySide.QtCore.double`
+    :param z: :class:`PySide.QtCore.double`
+    :param str: unicode
+    :param fnt: :class:`PySide.QtGui.QFont`
+    :param listBase: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    ``x`` , ``y`` and ``z`` are specified in scene or object coordinates relative to the currently set projection and model matrices. This can be useful if you want to annotate models with text labels and have the labels move with the model as it is rotated etc.
+
+    .. note::  This function is not supported on OpenGL/ES systems.
+
+    .. note::  If depth testing is enabled before this function is called, then the drawn text will be depth-tested against the models that have already been drawn in the scene. Use ``glDisable(GL_DEPTH_TEST)`` before calling this function to annotate the models without depth-testing the text.
+
+    :ref:`Overpaint<opengl/overpainting>` with :meth:`QPainter.drawText()<PySide.QtGui.QPainter.drawText>` instead.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.resizeGL(w, h)
+
+
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called whenever the widget has been resized. The new size is passed in ``width`` and ``height`` . Reimplement it in a subclass.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.resizeOverlayGL(w, h)
+
+
+    :param w: :class:`PySide.QtCore.int`
+    :param h: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is used in the same manner as :meth:`PySide.QtOpenGL.QGLWidget.paintGL` except that it operates on the widget's overlay context instead of the widget's main context. This means that :meth:`PySide.QtOpenGL.QGLWidget.resizeOverlayGL` is called whenever the widget has been resized. The new size is passed in ``width`` and ``height`` . Reimplement it in a subclass.
+
+    There is no need to call :meth:`PySide.QtOpenGL.QGLWidget.makeOverlayCurrent` because this has already been done when this function is called.
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.setAutoBufferSwap(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``on`` is true automatic GL buffer swapping is switched on; otherwise it is switched off.
+
+    If ``on`` is true and the widget is using a double-buffered format, the background and foreground GL buffers will automatically be swapped after each :meth:`PySide.QtOpenGL.QGLWidget.paintGL` call.
+
+    The buffer auto-swapping is on by default.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.autoBufferSwap`  :meth:`PySide.QtOpenGL.QGLWidget.doubleBuffer`  :meth:`PySide.QtOpenGL.QGLWidget.swapBuffers` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.setColormap(map)
+
+
+    :param map: :class:`PySide.QtOpenGL.QGLColormap`
+
+
+
+
+    Set the colormap for this widget to ``cmap`` . Usually it is only top-level widgets that can have colormaps installed.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.colormap` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.swapBuffers()
+
+
+
+
+
+
+    Swaps the screen contents with an off-screen buffer. This only works if the widget's format specifies double buffer mode.
+
+    Normally, there is no need to explicitly call this function because it is done automatically after each widget repaint, i.e. each time after :meth:`PySide.QtOpenGL.QGLWidget.paintGL` has been executed.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLWidget.doubleBuffer`  :meth:`PySide.QtOpenGL.QGLWidget.setAutoBufferSwap`  :meth:`QGLFormat.setDoubleBuffer()<PySide.QtOpenGL.QGLFormat.setDoubleBuffer>` 
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.updateGL()
+
+
+
+
+
+
+    Updates the widget by calling :meth:`PySide.QtOpenGL.QGLWidget.glDraw` .
+
+
+
+.. method:: PySide.QtOpenGL.QGLWidget.updateOverlayGL()
+
+
+
+
+
+
+    Updates the widget's overlay (if any). Will cause the virtual function :meth:`PySide.QtOpenGL.QGLWidget.paintOverlayGL` to be executed.
+
+    The widget's rendering context will become the current context and :meth:`PySide.QtOpenGL.QGLWidget.initializeGL` will be called if it hasn't already been called.
+
+
+
+

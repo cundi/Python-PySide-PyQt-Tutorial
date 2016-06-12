@@ -1,0 +1,1322 @@
+.. module:: PySide.QtCore
+.. _QSettings:
+
+QSettings
+*********
+
+.. inheritance-diagram:: QSettings
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`allKeys<PySide.QtCore.QSettings.allKeys>` ()
+*    def :meth:`applicationName<PySide.QtCore.QSettings.applicationName>` ()
+*    def :meth:`beginGroup<PySide.QtCore.QSettings.beginGroup>` (prefix)
+*    def :meth:`beginReadArray<PySide.QtCore.QSettings.beginReadArray>` (prefix)
+*    def :meth:`beginWriteArray<PySide.QtCore.QSettings.beginWriteArray>` (prefix[, size=-1])
+*    def :meth:`childGroups<PySide.QtCore.QSettings.childGroups>` ()
+*    def :meth:`childKeys<PySide.QtCore.QSettings.childKeys>` ()
+*    def :meth:`clear<PySide.QtCore.QSettings.clear>` ()
+*    def :meth:`contains<PySide.QtCore.QSettings.contains>` (key)
+*    def :meth:`endArray<PySide.QtCore.QSettings.endArray>` ()
+*    def :meth:`endGroup<PySide.QtCore.QSettings.endGroup>` ()
+*    def :meth:`fallbacksEnabled<PySide.QtCore.QSettings.fallbacksEnabled>` ()
+*    def :meth:`fileName<PySide.QtCore.QSettings.fileName>` ()
+*    def :meth:`format<PySide.QtCore.QSettings.format>` ()
+*    def :meth:`group<PySide.QtCore.QSettings.group>` ()
+*    def :meth:`iniCodec<PySide.QtCore.QSettings.iniCodec>` ()
+*    def :meth:`isWritable<PySide.QtCore.QSettings.isWritable>` ()
+*    def :meth:`organizationName<PySide.QtCore.QSettings.organizationName>` ()
+*    def :meth:`remove<PySide.QtCore.QSettings.remove>` (key)
+*    def :meth:`scope<PySide.QtCore.QSettings.scope>` ()
+*    def :meth:`setArrayIndex<PySide.QtCore.QSettings.setArrayIndex>` (i)
+*    def :meth:`setFallbacksEnabled<PySide.QtCore.QSettings.setFallbacksEnabled>` (b)
+*    def :meth:`setIniCodec<PySide.QtCore.QSettings.setIniCodec>` (codec)
+*    def :meth:`setIniCodec<PySide.QtCore.QSettings.setIniCodec>` (codecName)
+*    def :meth:`setValue<PySide.QtCore.QSettings.setValue>` (key, value)
+*    def :meth:`status<PySide.QtCore.QSettings.status>` ()
+*    def :meth:`sync<PySide.QtCore.QSettings.sync>` ()
+*    def :meth:`value<PySide.QtCore.QSettings.value>` (key[, defaultValue=None])
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultFormat<PySide.QtCore.QSettings.defaultFormat>` ()
+*    def :meth:`setDefaultFormat<PySide.QtCore.QSettings.setDefaultFormat>` (format)
+*    def :meth:`setPath<PySide.QtCore.QSettings.setPath>` (format, scope, path)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSettings` class provides persistent platform-independent application settings.
+
+    Users normally expect an application to remember its settings (window sizes and positions, options, etc.) across sessions. This information is often stored in the system registry on Windows, and in XML preferences files on Mac OS X. On Unix systems, in the absence of a standard, many applications (including the KDE applications) use INI text files.
+
+    :class:`PySide.QtCore.QSettings` is an abstraction around these technologies, enabling you to save and restore application settings in a portable manner. It also supports :meth:`custom storage formats<~PySide.QtCore.QSettings.registerFormat>` .
+
+    :class:`PySide.QtCore.QSettings` 's API is based on :class:`PySide.QtCore.QVariant` , allowing you to save most value-based types, such as :class:`PySide.QtCore.QString` , :class:`PySide.QtCore.QRect` , and :class:`PySide.QtGui.QImage` , with the minimum of effort.
+
+    If all you need is a non-persistent memory-based structure, consider using :class:`QMap` < :class:`PySide.QtCore.QString` , :class:`PySide.QtCore.QVariant` > instead.
+
+    .. _PySide.QtCore.QSettings_basic-usage:
+
+
+
+Basic Usage
+^^^^^^^^^^^
+
+    When creating a :class:`PySide.QtCore.QSettings` object, you must pass the name of your company or organization as well as the name of your application. For example, if your product is called Star Runner and your company is called MySoft, you would construct the :class:`PySide.QtCore.QSettings` object as follows:
+
+    ::
+
+            settings = QSettings("MySoft", "Star Runner")
+
+
+    :class:`PySide.QtCore.QSettings` objects can be created either on the stack or on the heap (i.e. using ``new`` ). Constructing and destroying a :class:`PySide.QtCore.QSettings` object is very fast.
+
+    If you use :class:`PySide.QtCore.QSettings` from many places in your application, you might want to specify the organization name and the application name using :meth:`QCoreApplication.setOrganizationName()<PySide.QtCore.QCoreApplication.setOrganizationName>` and :meth:`QCoreApplication.setApplicationName()<PySide.QtCore.QCoreApplication.setApplicationName>` , and then use the default :class:`PySide.QtCore.QSettings` constructor:
+
+    ::
+
+            QCoreApplication.setOrganizationName("MySoft")
+            QCoreApplication.setOrganizationDomain("mysoft.com")
+            QCoreApplication.setApplicationName("Star Runner")
+            ...
+            settings = QSettings()
+
+
+    (Here, we also specify the organization's Internet domain. When the Internet domain is set, it is used on Mac OS X instead of the organization name, since Mac OS X applications conventionally use Internet domains to identify themselves. If no domain is set, a fake domain is derived from the organization name. See the Platform-Specific Notes below for details.)
+
+    :class:`PySide.QtCore.QSettings` stores settings. Each setting consists of a :class:`PySide.QtCore.QString` that specifies the setting's name (the *key* ) and a :class:`PySide.QtCore.QVariant` that stores the data associated with the key. To write a setting, use :meth:`PySide.QtCore.QSettings.setValue` . For example:
+
+    ::
+
+            settings.setValue("editor/wrapMargin", 68)
+
+
+    If there already exists a setting with the same key, the existing value is overwritten by the new value. For efficiency, the changes may not be saved to permanent storage immediately. (You can always call :meth:`PySide.QtCore.QSettings.sync` to commit your changes.)
+
+    You can get a setting's value back using :meth:`PySide.QtCore.QSettings.value` :
+
+    ::
+
+            margin = int(settings.value("editor/wrapMargin"))
+
+
+    If there is no setting with the specified name, :class:`PySide.QtCore.QSettings` returns a null :class:`PySide.QtCore.QVariant` (which can be converted to the integer 0). You can specify another default value by passing a second argument to :meth:`PySide.QtCore.QSettings.value` :
+
+    ::
+
+            margin = int(settings.value("editor/wrapMargin", 80))
+
+
+    To test whether a given key exists, call :meth:`PySide.QtCore.QSettings.contains` . To remove the setting associated with a key, call :meth:`PySide.QtCore.QSettings.remove` . To obtain the list of all keys, call :meth:`PySide.QtCore.QSettings.allKeys` . To remove all keys, call :meth:`PySide.QtCore.QSettings.clear` .
+
+    .. _PySide.QtCore.QSettings_qvariant-and-gui-types:
+
+
+
+QVariant and GUI Types
+^^^^^^^^^^^^^^^^^^^^^^
+
+    Because :class:`PySide.QtCore.QVariant` is part of the :ref:`QtCore` library, it cannot provide conversion functions to data types such as :class:`PySide.QtGui.QColor` , :class:`PySide.QtGui.QImage` , and :class:`PySide.QtGui.QPixmap` , which are part of :ref:`QtGui` . In other words, there is no ``toColor()`` , ``toImage()`` , or ``toPixmap()`` functions in :class:`PySide.QtCore.QVariant` .
+
+    Instead, you can use the :meth:`QVariant.value` or the :meth:`~PySide.QtCore.QSettings.qVariantValue` template function. For example:
+
+    ::
+
+        settings = QSettings("MySoft", "Star Runner")
+        color = QColor(settings.value("DataPump/bgcolor"))
+
+
+    The inverse conversion (e.g., from :class:`PySide.QtGui.QColor` to :class:`PySide.QtCore.QVariant` ) is automatic for all data types supported by :class:`PySide.QtCore.QVariant` , including GUI-related types:
+
+    ::
+
+        settings = QSettings("MySoft", "Star Runner")
+        color = palette().background().color()
+        settings.setValue("DataPump/bgcolor", color)
+
+
+    Custom types registered using :meth:`~PySide.QtCore.QSettings.qRegisterMetaType` and :meth:`~PySide.QtCore.QSettings.qRegisterMetaTypeStreamOperators` can be stored using :class:`PySide.QtCore.QSettings` .
+
+    .. _PySide.QtCore.QSettings_section-and-key-syntax:
+
+
+
+Section and Key Syntax
+^^^^^^^^^^^^^^^^^^^^^^
+
+    Setting keys can contain any Unicode characters. The Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, follow these simple rules:
+
+    You can form hierarchical keys using the '/' character as a separator, similar to Unix file paths. For example:
+
+    ::
+
+            settings.setValue("mainwindow/size", win.size())
+            settings.setValue("mainwindow/fullScreen", win.isFullScreen())
+            settings.setValue("outputpanel/visible", panel.isVisible())
+
+
+    If you want to save or restore many settings with the same prefix, you can specify the prefix using :meth:`PySide.QtCore.QSettings.beginGroup` and call :meth:`PySide.QtCore.QSettings.endGroup` at the end. Here's the same example again, but this time using the group mechanism:
+
+    ::
+
+            settings.beginGroup("mainwindow")
+            settings.setValue("size", win.size())
+            settings.setValue("fullScreen", win.isFullScreen())
+            settings.endGroup()
+        
+            settings.beginGroup("outputpanel")
+            settings.setValue("visible", panel.isVisible())
+            settings.endGroup()
+
+
+    If a group is set using :meth:`PySide.QtCore.QSettings.beginGroup` , the behavior of most functions changes consequently. Groups can be set recursively.
+
+    In addition to groups, :class:`PySide.QtCore.QSettings` also supports an "array" concept. See :meth:`PySide.QtCore.QSettings.beginReadArray` and :meth:`PySide.QtCore.QSettings.beginWriteArray` for details.
+
+    .. _PySide.QtCore.QSettings_fallback-mechanism:
+
+
+
+Fallback Mechanism
+^^^^^^^^^^^^^^^^^^
+
+    Let's assume that you have created a :class:`PySide.QtCore.QSettings` object with the organization name MySoft and the application name Star Runner. When you look up a value, up to four locations are searched in that order:
+
+    (See Platform-Specific Notes below for information on what these locations are on the different platforms supported by Qt.)
+
+    If a key cannot be found in the first location, the search goes on in the second location, and so on. This enables you to store system-wide or organization-wide settings and to override them on a per-user or per-application basis. To turn off this mechanism, call setFallbacksEnabled(false).
+
+    Although keys from all four locations are available for reading, only the first file (the user-specific location for the application at hand) is accessible for writing. To write to any of the other files, omit the application name and/or specify :attr:`QSettings.SystemScope<QSettings.Scope>` (as opposed to :attr:`QSettings.UserScope<QSettings.Scope>` , the default).
+
+    Let's see with an example:
+
+    ::
+
+            obj1 = QSettings("MySoft", "Star Runner")
+            obj2 = QSettings("MySoft")
+            obj3 = QSettings(QSettings.SystemScope, "MySoft", "Star Runner")
+            obj4 = QSettings(QSettings.SystemScope, "MySoft")
+
+
+    The table below summarizes which :class:`PySide.QtCore.QSettings` objects access which location. "**X** " means that the location is the main location associated to the :class:`PySide.QtCore.QSettings` object and is used both for reading and for writing; "o" means that the location is used as a fallback when reading.
+
+    +-----------------------+---------+---------+---------+---------+
+    |Locations              |``obj1``\|``obj2``\|``obj3``\|``obj4``\|
+    +-----------------------+---------+---------+---------+---------+
+    |1. User, Application   |**X**\   |         |         |         |
+    +-----------------------+---------+---------+---------+---------+
+    |2. User, Organization  |o        |**X**\   |         |         |
+    +-----------------------+---------+---------+---------+---------+
+    |3. System, Application |o        |         |**X**\   |         |
+    +-----------------------+---------+---------+---------+---------+
+    |4. System, Organization|o        |o        |o        |**X**\   |
+    +-----------------------+---------+---------+---------+---------+
+
+    The beauty of this mechanism is that it works on all platforms supported by Qt and that it still gives you a lot of flexibility, without requiring you to specify any file names or registry paths.
+
+    If you want to use INI files on all platforms instead of the native API, you can pass :attr:`QSettings.IniFormat<QSettings.Format>` as the first argument to the :class:`PySide.QtCore.QSettings` constructor, followed by the scope, the organization name, and the application name:
+
+    ::
+
+            settings = QSettings(QSettings.IniFormat, QSettings.UserScope,
+                                 "MySoft", "Star Runner")
+
+
+    The :ref:`Settings Editor<tools/settingseditor>` example lets you experiment with different settings location and with fallbacks turned on or off.
+
+    .. _PySide.QtCore.QSettings_restoring-the-state-of-a-gui-application:
+
+
+
+Restoring the State of a GUI Application
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QSettings` is often used to store the state of a GUI application. The following example illustrates how to use :class:`PySide.QtCore.QSettings` to save and restore the geometry of an application's main window.
+
+    ::
+
+        class MainWindow(QMainWindow):
+            ...
+            def writeSettings(self):
+                self.settings = QSettings("Moose Soft", "Clipper")
+                self.settings.beginGroup("MainWindow")
+                self.settings.setValue("size", self.size())
+                self.settings.setValue("pos", self.pos())
+                self.settings.endGroup()
+        
+            def readSettings(self):
+                self.settings = QSettings("Moose Soft", "Clipper")
+                self.settings.beginGroup("MainWindow")
+                self.resize(settings.value("size", QSize(400, 400)).toSize())
+                self.move(settings.value("pos", QPoint(200, 200)).toPoint())
+                self.settings.endGroup()
+
+
+    See :ref:`Window Geometry<application-windows.html>` for a discussion on why it is better to call :meth:`QWidget.resize()<PySide.QtGui.QWidget.resize>` and :meth:`QWidget.move()<PySide.QtGui.QWidget.move>` rather than :meth:`QWidget.setGeometry()<PySide.QtGui.QWidget.setGeometry>` to restore a window's geometry.
+
+    The ``readSettings()`` and ``writeSettings()`` functions must be called from the main window's constructor and close event handler as follows:
+
+    ::
+
+            def __init__(self):
+                self.settings = None
+            ...
+                self.readSettings()
+
+        
+            # event : QCloseEvent
+            def closeEvent(self, event):
+                if self.userReallyWantsToQuit():
+                    self.writeSettings()
+                    event.accept()
+                else:
+                    event.ignore()
+
+
+    See the :ref:`Application<mainwindows/application>` example for a self-contained example that uses :class:`PySide.QtCore.QSettings` .
+
+    .. _PySide.QtCore.QSettings_accessing-settings-from-multiple-threads-or-processes-simultaneously:
+
+
+
+Accessing Settings from Multiple Threads or Processes Simultaneously
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtCore.QSettings` is :ref:`reentrant<threads-reentrancy.html>` . This means that you can use distinct :class:`PySide.QtCore.QSettings` object in different threads simultaneously. This guarantee stands even when the :class:`PySide.QtCore.QSettings` objects refer to the same files on disk (or to the same entries in the system registry). If a setting is modified through one :class:`PySide.QtCore.QSettings` object, the change will immediately be visible in any other :class:`PySide.QtCore.QSettings` objects that operate on the same location and that live in the same process.
+
+    :class:`PySide.QtCore.QSettings` can safely be used from different processes (which can be different instances of your application running at the same time or different applications altogether) to read and write to the same system locations. It uses advisory file locking and a smart merging algorithm to ensure data integrity. Note that :meth:`PySide.QtCore.QSettings.sync` imports changes made by other processes (in addition to writing the changes from this :class:`PySide.QtCore.QSettings` ).
+
+    .. _PySide.QtCore.QSettings_platform-specific-notes:
+
+
+
+Platform-Specific Notes
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    .. _PySide.QtCore.QSettings_locations-where-application-settings-are-stored:
+
+
+
+Locations Where Application Settings Are Stored
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    As mentioned in the :class:`~PySide.QtCore.Fallback Mechanism` section, :class:`PySide.QtCore.QSettings` stores settings for an application in up to four locations, depending on whether the settings are user-specific or system-wide and whether the settings are application-specific or organization-wide. For simplicity, we're assuming the organization is called MySoft and the application is called Star Runner.
+
+    On Unix systems, if the file format is :attr:`NativeFormat<QSettings.Format>` , the following files are used by default:
+
+    On Mac OS X versions 10.2 and 10.3, these files are used by default:
+
+    On Windows, :attr:`NativeFormat<QSettings.Format>` settings are stored in the following registry paths:
+
+    .. note::  On Windows, for 32-bit programs running in WOW64 mode, settings are stored in the following registry path: ``HKEY_LOCAL_MACHINE\Software\WOW6432node`` .
+
+    If the file format is :attr:`IniFormat<QSettings.Format>` , the following files are used on Unix and Mac OS X:
+
+    On Windows, the following files are used:
+
+    The ``%APPDATA%`` path is usually ``C:\Documents and Settings\*User Name*\Application Data`` ; the ``%COMMON_APPDATA%`` path is usually ``C:\Documents and Settings\All Users\Application Data`` .
+
+    On Symbian, the following files are used for both :attr:`IniFormat<QSettings.Format>` and :attr:`NativeFormat<QSettings.Format>` (in this example, we assume that the application is installed on the ``e-drive`` and its Secure ID is ``0xECB00931`` ):
+
+    The :attr:`SystemScope<QSettings.Scope>` settings location is determined from the installation drive and Secure ID (UID3) of the application. If the application is built-in on the ROM, the drive used for :attr:`SystemScope<QSettings.Scope>` is ``c:`` .
+
+    .. note::  Symbian :attr:`SystemScope<QSettings.Scope>` settings are by default private to the application and not shared between applications, unlike other environments.
+
+    The paths for the ``.ini`` and ``.conf`` files can be changed using :meth:`PySide.QtCore.QSettings.setPath` . On Unix and Mac OS X, the user can override them by by setting the ``XDG_CONFIG_HOME`` environment variable; see :meth:`PySide.QtCore.QSettings.setPath` for details.
+
+    .. _PySide.QtCore.QSettings_accessing-ini-and-plist-files-directly:
+
+
+
+Accessing INI and .plist Files Directly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Sometimes you do want to access settings stored in a specific file or registry path. On all platforms, if you want to read an INI file directly, you can use the :class:`PySide.QtCore.QSettings` constructor that takes a file name as first argument and pass :attr:`QSettings.IniFormat<QSettings.Format>` as second argument. For example:
+
+    ::
+
+        settings = QSettings("/home/petra/misc/myapp.ini",
+                             QSettings.IniFormat)
+
+
+    You can then use the :class:`PySide.QtCore.QSettings` object to read and write settings in the file.
+
+    On Mac OS X, you can access XML-based ``.plist`` files by passing :attr:`QSettings.NativeFormat<QSettings.Format>` as second argument. For example:
+
+    ::
+
+        settings = QSettings("/Users/petra/misc/myapp.plist",
+                             QSettings.NativeFormat)
+
+
+    .. _PySide.QtCore.QSettings_accessing-the-windows-registry-directly:
+
+
+
+Accessing the Windows Registry Directly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Windows, :class:`PySide.QtCore.QSettings` lets you access settings that have been written with :class:`PySide.QtCore.QSettings` (or settings in a supported format, e.g., string data) in the system registry. This is done by constructing a :class:`PySide.QtCore.QSettings` object with a path in the registry and :attr:`QSettings.NativeFormat<QSettings.Format>` .
+
+    For example:
+
+    ::
+
+        settings = QSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Office",
+                             QSettings.NativeFormat)
+
+
+    All the registry entries that appear under the specified path can be read or written through the :class:`PySide.QtCore.QSettings` object as usual (using forward slashes instead of backslashes). For example:
+
+    ::
+
+        settings.setValue("11.0/Outlook/Security/DontTrustInstalledFiles", 0)
+
+
+    Note that the backslash character is, as mentioned, used by :class:`PySide.QtCore.QSettings` to separate subkeys. As a result, you cannot read or write windows registry entries that contain slashes or backslashes; you should use a native windows API if you need to do so.
+
+    .. _PySide.QtCore.QSettings_accessing-common-registry-settings-on-windows:
+
+
+
+Accessing Common Registry Settings on Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Windows, it is possible for a key to have both a value and subkeys. Its default value is accessed by using "Default" or "." in place of a subkey:
+
+    ::
+
+        settings.setValue("HKEY_CURRENT_USER\\MySoft\\Star Runner\\Galaxy", "Milkyway")
+        settings.setValue("HKEY_CURRENT_USER\\MySoft\\Star Runner\\Galaxy\\Sun", "OurStar")
+        settings.value("HKEY_CURRENT_USER\\MySoft\\Star Runner\\Galaxy\\Default")   # returns "Milkyway"
+
+
+    On other platforms than Windows, "Default" and "." would be treated as regular subkeys.
+
+    .. _PySide.QtCore.QSettings_securing-application-settings-in-symbian:
+
+
+
+Securing application settings in Symbian
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :attr:`UserScope<QSettings.Scope>` settings in Symbian are writable by any application by default. To protect the application settings from access and tampering by other applications, the settings need to be placed in the private secure area of the application. This can be done by specifying the settings storage path directly to the private area. The following snippet changes the :attr:`UserScope<QSettings.Scope>` to ``c:/private/ecb00931/MySoft.conf`` (provided the application is installed on the ``c-drive`` and its Secure ID is ``0xECB00931`` :
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/src_corelib_io_qsettings.cpp:30" not found>
+
+    Framework libraries (like Qt itself) may store configuration and cache settings using :attr:`UserScope<QSettings.Scope>` , which is accessible and writable by other applications. If the application is very security sensitive or uses high platform security capabilities, it may be prudent to also force framework settings to be stored in the private directory of the application. This can be done by changing the default path of :attr:`UserScope<QSettings.Scope>` before :class:`PySide.QtGui.QApplication` is created:
+
+    ::
+
+        <Code snippet "doc/src/snippets/code/src_corelib_io_qsettings.cpp:31" not found>
+
+    Note that this may affect framework libraries' functionality if they expect the settings to be shared between applications.
+
+    .. _PySide.QtCore.QSettings_changing-the-location-of-global-qt-settings-on-mac-os-x:
+
+
+
+Changing the location of global Qt settings on Mac OS X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Mac OS X, the global Qt settings (stored in ``com.trolltech.plist`` ) are stored in the application settings file in two situations:
+
+    In these situations, the application settings file is named using the bundle identifier of the application, which must consequently be set in the application's ``Info.plist`` file.
+
+    This feature is provided to ease the acceptance of Qt applications into the Mac App Store, as the default behaviour of storing global Qt settings in the ``com.trolltech.plist`` file does not conform with Mac App Store file system usage requirements. For more information about submitting Qt applications to the Mac App Store, see :ref:`Preparing a Qt application for Mac App Store submission<mac-differences.html>` .
+
+    .. _PySide.QtCore.QSettings_platform-limitations:
+
+
+
+Platform Limitations
+^^^^^^^^^^^^^^^^^^^^
+
+    While :class:`PySide.QtCore.QSettings` attempts to smooth over the differences between the different supported platforms, there are still a few differences that you should be aware of when porting your application:
+
+    .. seealso::  :class:`PySide.QtCore.QVariant`  :class:`PySide.QtGui.QSessionManager`  :ref:`Settings Editor Example<tools/settingseditor>`  :ref:`Application Example<mainwindows/application>` 
+
+.. class:: QSettings([parent=None])
+           QSettings(format, scope, organization[, application=""[, parent=None]])
+           QSettings(scope, organization[, application=""[, parent=None]])
+           QSettings(fileName, format[, parent=None])
+           QSettings(organization[, application=""[, parent=None]])
+
+    :param format: :attr:`PySide.QtCore.QSettings.Format`
+    :param organization: unicode
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param application: unicode
+    :param fileName: unicode
+    :param scope: :attr:`PySide.QtCore.QSettings.Scope`
+
+    Constructs a :class:`PySide.QtCore.QSettings` object for accessing settings of the application and organization set previously with a call to :meth:`QCoreApplication.setOrganizationName()<PySide.QtCore.QCoreApplication.setOrganizationName>` , :meth:`QCoreApplication.setOrganizationDomain()<PySide.QtCore.QCoreApplication.setOrganizationDomain>` , and :meth:`QCoreApplication.setApplicationName()<PySide.QtCore.QCoreApplication.setApplicationName>` .
+
+    The scope is :attr:`QSettings.UserScope<QSettings.Scope>` and the format is :meth:`PySide.QtCore.QSettings.defaultFormat` ( :attr:`QSettings.NativeFormat<QSettings.Format>` by default). Use :meth:`PySide.QtCore.QSettings.setDefaultFormat` before calling this constructor to change the default format used by this constructor.
+
+    The code
+
+    ::
+
+        settings = QSettings("Moose Soft", "Facturo-Pro")
+
+
+    is equivalent to
+
+    ::
+
+        QCoreApplication.setOrganizationName("Moose Soft")
+        QCoreApplication.setApplicationName("Facturo-Pro")
+        settings = QSettings()
+
+
+    If :meth:`QCoreApplication.setOrganizationName()<PySide.QtCore.QCoreApplication.setOrganizationName>` and :meth:`QCoreApplication.setApplicationName()<PySide.QtCore.QCoreApplication.setApplicationName>` has not been previously called, the :class:`PySide.QtCore.QSettings` object will not be able to read or write any settings, and :meth:`PySide.QtCore.QSettings.status` will return :attr:`AccessError<QSettings.Status>` .
+
+    On Mac OS X, if both a name and an Internet domain are specified for the organization, the domain is preferred over the name. On other platforms, the name is preferred over the domain.
+
+    .. seealso::  :meth:`QCoreApplication.setOrganizationName()<PySide.QtCore.QCoreApplication.setOrganizationName>`  :meth:`QCoreApplication.setOrganizationDomain()<PySide.QtCore.QCoreApplication.setOrganizationDomain>`  :meth:`QCoreApplication.setApplicationName()<PySide.QtCore.QCoreApplication.setApplicationName>`  :meth:`PySide.QtCore.QSettings.setDefaultFormat` 
+
+    Constructs a :class:`PySide.QtCore.QSettings` object for accessing settings of the application called ``application`` from the organization called ``organization`` , and with parent ``parent`` .
+
+    If ``scope`` is :attr:`QSettings.UserScope<QSettings.Scope>` , the :class:`PySide.QtCore.QSettings` object searches user-specific settings first, before it searches system-wide settings as a fallback. If ``scope`` is :attr:`QSettings.SystemScope<QSettings.Scope>` , the :class:`PySide.QtCore.QSettings` object ignores user-specific settings and provides access to system-wide settings.
+
+    If ``format`` is :attr:`QSettings.NativeFormat<QSettings.Format>` , the native API is used for storing settings. If ``format`` is :attr:`QSettings.IniFormat<QSettings.Format>` , the INI format is used.
+
+    If no application name is given, the :class:`PySide.QtCore.QSettings` object will only access the organization-wide :class:`locations<~PySide.QtCore.Fallback Mechanism>` .
+
+
+    Constructs a :class:`PySide.QtCore.QSettings` object for accessing settings of the application called ``application`` from the organization called ``organization`` , and with parent ``parent`` .
+
+    If ``scope`` is :attr:`QSettings.UserScope<QSettings.Scope>` , the :class:`PySide.QtCore.QSettings` object searches user-specific settings first, before it searches system-wide settings as a fallback. If ``scope`` is :attr:`QSettings.SystemScope<QSettings.Scope>` , the :class:`PySide.QtCore.QSettings` object ignores user-specific settings and provides access to system-wide settings.
+
+    The storage format is set to :attr:`QSettings.NativeFormat<QSettings.Format>` (i.e. calling :meth:`PySide.QtCore.QSettings.setDefaultFormat` before calling this constructor has no effect).
+
+    If no application name is given, the :class:`PySide.QtCore.QSettings` object will only access the organization-wide :class:`locations<~PySide.QtCore.Fallback Mechanism>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setDefaultFormat` 
+
+    Constructs a :class:`PySide.QtCore.QSettings` object for accessing the settings stored in the file called ``fileName`` , with parent ``parent`` . If the file doesn't already exist, it is created.
+
+    If ``format`` is :attr:`QSettings.NativeFormat<QSettings.Format>` , the meaning of ``fileName`` depends on the platform. On Unix, ``fileName`` is the name of an INI file. On Mac OS X, ``fileName`` is the name of a ``.plist`` file. On Windows, ``fileName`` is a path in the system registry.
+
+    If ``format`` is :attr:`QSettings.IniFormat<QSettings.Format>` , ``fileName`` is the name of an INI file.
+
+    .. warning::  This function is provided for convenience. It works well for accessing INI or ``.plist`` files generated by Qt, but might fail on some syntaxes found in such files originated by other programs. In particular, be aware of the following limitations:
+
+
+    * :class:`PySide.QtCore.QSettings` provides no way of reading INI "path" entries, i.e., entries with unescaped slash characters. (This is because these entries are ambiguous and cannot be resolved automatically.)
+    * In INI files, :class:`PySide.QtCore.QSettings` uses the ``@`` character as a metacharacter in some contexts, to encode Qt-specific data types (e.g., ``@Rect``), and might therefore misinterpret it when it occurs in pure INI files.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.fileName` 
+
+    Constructs a :class:`PySide.QtCore.QSettings` object for accessing settings of the application called ``application`` from the organization called ``organization`` , and with parent ``parent`` .
+
+    Example:
+
+    ::
+
+        settings = QSettings("Moose Tech", "Facturo-Pro")
+
+
+    The scope is set to :attr:`QSettings.UserScope<QSettings.Scope>` , and the format is set to :attr:`QSettings.NativeFormat<QSettings.Format>` (i.e. calling :meth:`PySide.QtCore.QSettings.setDefaultFormat` before calling this constructor has no effect).
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setDefaultFormat`  :class:`~PySide.QtCore.Fallback Mechanism` 
+
+.. attribute:: PySide.QtCore.QSettings.Format
+
+    This enum type specifies the storage format used by :class:`PySide.QtCore.QSettings` .
+
+    +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                                                                                                                                                                             |
+    +=======================+========================================================================================================================================================================================================================================+
+    |QSettings.NativeFormat |Store the settings using the most appropriate storage format for the platform. On Windows, this means the system registry; on Mac OS X, this means the CFPreferences API; on Unix, this means textual configuration files in INI format.|
+    +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSettings.IniFormat    |Store the settings in INI files.                                                                                                                                                                                                        |
+    +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSettings.InvalidFormat|Special value returned by :meth:`~PySide.QtCore.QSettings.registerFormat` .                                                                                                                                                             |
+    +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    On Unix, :attr:`NativeFormat<QSettings.Format>` and :attr:`IniFormat<QSettings.Format>` mean the same thing, except that the file extension is different (``.conf`` for :attr:`NativeFormat<QSettings.Format>` , ``.ini`` for :attr:`IniFormat<QSettings.Format>` ).
+
+    The INI file format is a Windows file format that Qt supports on all platforms. In the absence of an INI standard, we try to follow what Microsoft does, with the following exceptions:
+
+
+    * If you store types that :class:`PySide.QtCore.QVariant` can't convert to :class:`PySide.QtCore.QString` (e.g., :class:`PySide.QtCore.QPoint` , :class:`PySide.QtCore.QRect` , and :class:`PySide.QtCore.QSize` ), Qt uses an ``@``-based syntax to encode the type. For example:
+      
+      ::
+      
+          pos = @Point(100 100)
+      
+      
+      To minimize compatibility issues, any ``@`` that doesn't appear at the first position in the value or that isn't followed by a Qt type (``Point``, ``Rect``, ``Size``, etc.) is treated as a normal character.
+    * Although backslash is a special character in INI files, most Windows applications don't escape backslashes (``\``) in file paths:
+      
+      ::
+      
+          windir = C:\Windows
+      
+      
+      :class:`PySide.QtCore.QSettings` always treats backslash as a special character and provides no API for reading or writing such entries.
+    * The INI file format has severe restrictions on the syntax of a key. Qt works around this by using ``%`` as an escape character in keys. In addition, if you save a top-level setting (a key with no slashes in it, e.g., "someKey"), it will appear in the INI file's "General" section. To avoid overwriting other keys, if you save something using the a key such as "General/someKey", the key will be located in the "%General" section, *not* in the "General" section.
+    * Following the philosophy that we should be liberal in what we accept and conservative in what we generate, :class:`PySide.QtCore.QSettings` will accept Latin-1 encoded INI files, but generate pure ASCII files, where non-ASCII values are encoded using standard INI escape sequences. To make the INI files more readable (but potentially less compatible), call :meth:`PySide.QtCore.QSettings.setIniCodec` .
+
+    .. seealso::  :meth:`~PySide.QtCore.QSettings.registerFormat`  :meth:`PySide.QtCore.QSettings.setPath` 
+
+.. attribute:: PySide.QtCore.QSettings.Status
+
+    The following status values are possible:
+
+    +---------------------+--------------------------------------------------------------------+
+    |Constant             |Description                                                         |
+    +=====================+====================================================================+
+    |QSettings.NoError    |No error occurred.                                                  |
+    +---------------------+--------------------------------------------------------------------+
+    |QSettings.AccessError|An access error occurred (e.g. trying to write to a read-only file).|
+    +---------------------+--------------------------------------------------------------------+
+    |QSettings.FormatError|A format error occurred (e.g. loading a malformed INI file).        |
+    +---------------------+--------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.status` 
+
+.. attribute:: PySide.QtCore.QSettings.Scope
+
+    This enum specifies whether settings are user-specific or shared by all users of the same system.
+
+    +---------------------+-----------------------------------------------------------------------------------------------------------+
+    |Constant             |Description                                                                                                |
+    +=====================+===========================================================================================================+
+    |QSettings.UserScope  |Store settings in a location specific to the current user (e.g., in the user's home directory).            |
+    +---------------------+-----------------------------------------------------------------------------------------------------------+
+    |QSettings.SystemScope|Store settings in a global location, so that all users on the same machine access the same set of settings.|
+    +---------------------+-----------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setPath` 
+
+.. method:: PySide.QtCore.QSettings.allKeys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all keys, including subkeys, that can be read using the :class:`PySide.QtCore.QSettings` object.
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("fridge/color", Qt.white)
+        settings.setValue("fridge/size", QSize(32, 96))
+        settings.setValue("sofa", True)
+        settings.setValue("tv", False)
+
+        keys = settings.allKeys();
+        # keys: ["fridge/color", "fridge/size", "sofa", "tv"]
+
+
+    If a group is set using :meth:`PySide.QtCore.QSettings.beginGroup` , only the keys in the group are returned, without the group prefix:
+
+    ::
+
+        settings.beginGroup("fridge")
+        keys = settings.allKeys()
+        # keys: ["color", "size"]
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.childGroups`  :meth:`PySide.QtCore.QSettings.childKeys` 
+
+
+.. method:: PySide.QtCore.QSettings.applicationName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the application name used for storing the settings.
+
+    .. seealso::  :meth:`QCoreApplication.applicationName()<PySide.QtCore.QCoreApplication.applicationName>`  :meth:`PySide.QtCore.QSettings.format`  :meth:`PySide.QtCore.QSettings.scope`  :meth:`PySide.QtCore.QSettings.organizationName` 
+
+
+.. method:: PySide.QtCore.QSettings.beginGroup(prefix)
+
+
+    :param prefix: unicode
+
+
+
+
+    Appends ``prefix`` to the current group.
+
+    The current group is automatically prepended to all keys specified to :class:`PySide.QtCore.QSettings` . In addition, query functions such as :meth:`PySide.QtCore.QSettings.childGroups` , :meth:`PySide.QtCore.QSettings.childKeys` , and :meth:`PySide.QtCore.QSettings.allKeys` are based on the group. By default, no group is set.
+
+    Groups are useful to avoid typing in the same setting paths over and over. For example:
+
+    ::
+
+        settings.beginGroup("mainwindow")
+        settings.setValue("size", win.size())
+        settings.setValue("fullScreen", win.isFullScreen())
+        settings.endGroup()
+
+        settings.beginGroup("outputpanel")
+        settings.setValue("visible", panel.isVisible())
+        settings.endGroup()
+
+
+    This will set the value of three settings:
+
+
+    * ``mainwindow/size``\
+    * ``mainwindow/fullScreen``\
+    * ``outputpanel/visible``\
+
+    Call :meth:`PySide.QtCore.QSettings.endGroup` to reset the current group to what it was before the corresponding :meth:`PySide.QtCore.QSettings.beginGroup` call. Groups can be nested.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.endGroup`  :meth:`PySide.QtCore.QSettings.group` 
+
+
+.. method:: PySide.QtCore.QSettings.beginReadArray(prefix)
+
+
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds ``prefix`` to the current group and starts reading from an array. Returns the size of the array.
+
+    Example:
+
+    ::
+
+        class Login:
+            userName = ''
+            password = ''
+
+            logins = []
+            ...
+
+            settings = QSettings()
+            size = settings.beginReadArray("logins")
+            for i in range(size):
+                settings.setArrayIndex(i)
+                login = Login()
+                login.userName = settings.value("userName")
+                login.password = settings.value("password")
+                logins.append(login)
+
+            settings.endArray()
+
+
+    Use :meth:`PySide.QtCore.QSettings.beginWriteArray` to write the array in the first place.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.beginWriteArray`  :meth:`PySide.QtCore.QSettings.endArray`  :meth:`PySide.QtCore.QSettings.setArrayIndex` 
+
+
+.. method:: PySide.QtCore.QSettings.beginWriteArray(prefix[, size=-1])
+
+
+    :param prefix: unicode
+    :param size: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds ``prefix`` to the current group and starts writing an array of size ``size`` . If ``size`` is -1 (the default), it is automatically determined based on the indexes of the entries written.
+
+    If you have many occurrences of a certain set of keys, you can use arrays to make your life easier. For example, let's suppose that you want to save a variable-length list of user names and passwords. You could then write:
+
+    ::
+
+        class Login:
+            userName = ''
+            password = ''
+
+            logins = []
+            ...
+
+            settings = QSettings()
+            settings.beginWriteArray("logins")
+            for i in range(logins.size()):
+                settings.setArrayIndex(i)
+                settings.setValue("userName", list.at(i).userName)
+                settings.setValue("password", list.at(i).password)
+
+            settings.endArray()
+
+
+    The generated keys will have the form
+
+
+    * ``logins/size``\
+    * ``logins/1/userName``\
+    * ``logins/1/password``\
+    * ``logins/2/userName``\
+    * ``logins/2/password``\
+    * ``logins/3/userName``\
+    * ``logins/3/password``\
+    * ...
+
+    To read back an array, use :meth:`PySide.QtCore.QSettings.beginReadArray` .
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.beginReadArray`  :meth:`PySide.QtCore.QSettings.endArray`  :meth:`PySide.QtCore.QSettings.setArrayIndex` 
+
+
+.. method:: PySide.QtCore.QSettings.childGroups()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all key top-level groups that contain keys that can be read using the :class:`PySide.QtCore.QSettings` object.
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("fridge/color", Qt.white)
+        settings.setValue("fridge/size", QSize(32, 96));
+        settings.setValue("sofa", True)
+        settings.setValue("tv", False)
+
+        groups = settings.childGroups()
+        # group: ["fridge"]
+
+
+    If a group is set using :meth:`PySide.QtCore.QSettings.beginGroup` , the first-level keys in that group are returned, without the group prefix.
+
+    ::
+
+        settings.beginGroup("fridge")
+        groups = settings.childGroups()
+        # groups: []
+
+
+    You can navigate through the entire setting hierarchy using :meth:`PySide.QtCore.QSettings.childKeys` and :meth:`PySide.QtCore.QSettings.childGroups` recursively.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.childKeys`  :meth:`PySide.QtCore.QSettings.allKeys` 
+
+
+.. method:: PySide.QtCore.QSettings.childKeys()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of all top-level keys that can be read using the :class:`PySide.QtCore.QSettings` object.
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("fridge/color", Qt.white)
+        settings.setValue("fridge/size", QSize(32, 96))
+        settings.setValue("sofa", True)
+        settings.setValue("tv", False)
+
+        keys = settings.childKeys()
+        # keys: ["sofa", "tv"]
+
+
+    If a group is set using :meth:`PySide.QtCore.QSettings.beginGroup` , the top-level keys in that group are returned, without the group prefix:
+
+    ::
+
+        settings.beginGroup("fridge")
+        keys = settings.childKeys()
+        # keys: ["color", "size"]
+
+
+    You can navigate through the entire setting hierarchy using :meth:`PySide.QtCore.QSettings.childKeys` and :meth:`PySide.QtCore.QSettings.childGroups` recursively.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.childGroups`  :meth:`PySide.QtCore.QSettings.allKeys` 
+
+
+.. method:: PySide.QtCore.QSettings.clear()
+
+
+
+
+
+
+    Removes all entries in the primary location associated to this :class:`PySide.QtCore.QSettings` object.
+
+    Entries in fallback locations are not removed.
+
+    If you only want to remove the entries in the current :meth:`PySide.QtCore.QSettings.group` , use remove("") instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.remove`  :meth:`PySide.QtCore.QSettings.setFallbacksEnabled` 
+
+
+.. method:: PySide.QtCore.QSettings.contains(key)
+
+
+    :param key: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there exists a setting called ``key`` ; returns false otherwise.
+
+    If a group is set using :meth:`PySide.QtCore.QSettings.beginGroup` , ``key`` is taken to be relative to that group.
+
+    Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the :class:`~PySide.QtCore.Section and Key Syntax` rules.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.value`  :meth:`PySide.QtCore.QSettings.setValue` 
+
+
+.. staticmethod:: PySide.QtCore.QSettings.defaultFormat()
+
+
+    :rtype: :attr:`PySide.QtCore.QSettings.Format`
+
+
+
+
+    Returns default file format used for storing settings for the :class:`PySide.QtCore.QSettings` ( :class:`PySide.QtCore.QObject` \*) constructor. If no default format is set, :attr:`QSettings.NativeFormat<QSettings.Format>` is used.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setDefaultFormat`  :meth:`PySide.QtCore.QSettings.format` 
+
+
+.. method:: PySide.QtCore.QSettings.endArray()
+
+
+
+
+
+
+    Closes the array that was started using :meth:`PySide.QtCore.QSettings.beginReadArray` or :meth:`PySide.QtCore.QSettings.beginWriteArray` .
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.beginReadArray`  :meth:`PySide.QtCore.QSettings.beginWriteArray` 
+
+
+.. method:: PySide.QtCore.QSettings.endGroup()
+
+
+
+
+
+
+    Resets the group to what it was before the corresponding :meth:`PySide.QtCore.QSettings.beginGroup` call.
+
+    Example:
+
+    ::
+
+        settings.beginGroup("alpha")
+        # settings.group() == "alpha"
+
+        settings.beginGroup("beta")
+        # settings.group() == "alpha/beta"
+
+        settings.endGroup()
+        # settings.group() == "alpha"
+
+        settings.endGroup()
+        # settings.group() == ""
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.beginGroup`  :meth:`PySide.QtCore.QSettings.group` 
+
+
+.. method:: PySide.QtCore.QSettings.fallbacksEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if fallbacks are enabled; returns false otherwise.
+
+    By default, fallbacks are enabled.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setFallbacksEnabled` 
+
+
+.. method:: PySide.QtCore.QSettings.fileName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path where settings written using this :class:`PySide.QtCore.QSettings` object are stored.
+
+    On Windows, if the format is :attr:`QSettings.NativeFormat<QSettings.Format>` , the return value is a system registry path, not a file path.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.isWritable`  :meth:`PySide.QtCore.QSettings.format` 
+
+
+.. method:: PySide.QtCore.QSettings.format()
+
+
+    :rtype: :attr:`PySide.QtCore.QSettings.Format`
+
+
+
+
+    Returns the format used for storing the settings.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.defaultFormat`  :meth:`PySide.QtCore.QSettings.fileName`  :meth:`PySide.QtCore.QSettings.scope`  :meth:`PySide.QtCore.QSettings.organizationName`  :meth:`PySide.QtCore.QSettings.applicationName` 
+
+
+.. method:: PySide.QtCore.QSettings.group()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the current group.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.beginGroup`  :meth:`PySide.QtCore.QSettings.endGroup` 
+
+
+.. method:: PySide.QtCore.QSettings.iniCodec()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec that is used for accessing INI files. By default, no codec is used, so a null pointer is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setIniCodec` 
+
+
+.. method:: PySide.QtCore.QSettings.isWritable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if settings can be written using this :class:`PySide.QtCore.QSettings` object; returns false otherwise.
+
+    One reason why :meth:`PySide.QtCore.QSettings.isWritable` might return false is if :class:`PySide.QtCore.QSettings` operates on a read-only file.
+
+    .. warning::  This function is not perfectly reliable, because the file permissions can change at any time.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.fileName`  :meth:`PySide.QtCore.QSettings.status`  :meth:`PySide.QtCore.QSettings.sync` 
+
+
+.. method:: PySide.QtCore.QSettings.organizationName()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the organization name used for storing the settings.
+
+    .. seealso::  :meth:`QCoreApplication.organizationName()<PySide.QtCore.QCoreApplication.organizationName>`  :meth:`PySide.QtCore.QSettings.format`  :meth:`PySide.QtCore.QSettings.scope`  :meth:`PySide.QtCore.QSettings.applicationName` 
+
+
+.. method:: PySide.QtCore.QSettings.remove(key)
+
+
+    :param key: unicode
+
+
+
+
+    Removes the setting ``key`` and any sub-settings of ``key`` .
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("ape")
+        settings.setValue("monkey", 1)
+        settings.setValue("monkey/sea", 2)
+        settings.setValue("monkey/doe", 4)
+
+        settings.remove("monkey")
+        keys = settings.allKeys()
+        # keys: ["ape"]
+
+
+    Be aware that if one of the fallback locations contains a setting with the same key, that setting will be visible after calling :meth:`PySide.QtCore.QSettings.remove` .
+
+    If ``key`` is an empty string, all keys in the current :meth:`PySide.QtCore.QSettings.group` are removed. For example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("ape")
+        settings.setValue("monkey", 1)
+        settings.setValue("monkey/sea", 2)
+        settings.setValue("monkey/doe", 4)
+
+        settings.beginGroup("monkey")
+        settings.remove("")
+        settings.endGroup()
+
+        keys = settings.allKeys()
+        # keys: ["ape"]
+
+
+    Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the :class:`~PySide.QtCore.Section and Key Syntax` rules.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setValue`  :meth:`PySide.QtCore.QSettings.value`  :meth:`PySide.QtCore.QSettings.contains` 
+
+
+.. method:: PySide.QtCore.QSettings.scope()
+
+
+    :rtype: :attr:`PySide.QtCore.QSettings.Scope`
+
+
+
+
+    Returns the scope used for storing the settings.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.format`  :meth:`PySide.QtCore.QSettings.organizationName`  :meth:`PySide.QtCore.QSettings.applicationName` 
+
+
+.. method:: PySide.QtCore.QSettings.setArrayIndex(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current array index to ``i`` . Calls to functions such as :meth:`PySide.QtCore.QSettings.setValue` , :meth:`PySide.QtCore.QSettings.value` , :meth:`PySide.QtCore.QSettings.remove` , and :meth:`PySide.QtCore.QSettings.contains` will operate on the array entry at that index.
+
+    You must call :meth:`PySide.QtCore.QSettings.beginReadArray` or :meth:`PySide.QtCore.QSettings.beginWriteArray` before you can call this function.
+
+
+
+.. staticmethod:: PySide.QtCore.QSettings.setDefaultFormat(format)
+
+
+    :param format: :attr:`PySide.QtCore.QSettings.Format`
+
+
+
+
+    Sets the default file format to the given ``format`` , which is used for storing settings for the :class:`PySide.QtCore.QSettings` ( :class:`PySide.QtCore.QObject` \*) constructor.
+
+    If no default format is set, :attr:`QSettings.NativeFormat<QSettings.Format>` is used. See the documentation for the :class:`PySide.QtCore.QSettings` constructor you are using to see if that constructor will ignore this function.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.defaultFormat`  :meth:`PySide.QtCore.QSettings.format` 
+
+
+.. method:: PySide.QtCore.QSettings.setFallbacksEnabled(b)
+
+
+    :param b: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets whether fallbacks are enabled to ``b`` .
+
+    By default, fallbacks are enabled.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.fallbacksEnabled` 
+
+
+.. method:: PySide.QtCore.QSettings.setIniCodec(codecName)
+
+
+    :param codecName: str
+
+
+
+
+    This is an overloaded function.
+
+    Sets the codec for accessing INI files (including ``.conf`` files on Unix) to the :class:`PySide.QtCore.QTextCodec` for the encoding specified by ``codecName`` . Common values for ``codecName`` include "ISO 8859-1", "UTF-8", and "UTF-16". If the encoding isn't recognized, nothing happens.
+
+    .. seealso::  :meth:`QTextCodec.codecForName()<PySide.QtCore.QTextCodec.codecForName>` 
+
+
+.. method:: PySide.QtCore.QSettings.setIniCodec(codec)
+
+
+    :param codec: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec for accessing INI files (including ``.conf`` files on Unix) to ``codec`` . The codec is used for decoding any data that is read from the INI file, and for encoding any data that is written to the file. By default, no codec is used, and non-ASCII characters are encoded using standard INI escape sequences.
+
+    .. warning::  The codec must be set immediately after creating the :class:`PySide.QtCore.QSettings` object, before accessing any data.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.iniCodec` 
+
+
+.. staticmethod:: PySide.QtCore.QSettings.setPath(format, scope, path)
+
+
+    :param format: :attr:`PySide.QtCore.QSettings.Format`
+    :param scope: :attr:`PySide.QtCore.QSettings.Scope`
+    :param path: unicode
+
+
+
+
+    Sets the path used for storing settings for the given ``format`` and ``scope`` , to ``path`` . The ``format`` can be a custom format.
+
+    The table below summarizes the default values:
+
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Platform             |Format                                                                      |Scope                               |Path                      |
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Windows              |:attr:`IniFormat<QSettings.Format>`                                         |:attr:`UserScope<QSettings.Scope>`  |``%APPDATA%``\            |
+    +                     +                                                                            +------------------------------------+--------------------------+
+    |                     |                                                                            |:attr:`SystemScope<QSettings.Scope>`|``%COMMON_APPDATA%``\     |
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Unix                 |:attr:`NativeFormat<QSettings.Format>` , :attr:`IniFormat<QSettings.Format>`|:attr:`UserScope<QSettings.Scope>`  |``$HOME/.config``\        |
+    +                     +                                                                            +------------------------------------+--------------------------+
+    |                     |                                                                            |:attr:`SystemScope<QSettings.Scope>`|``/etc/xdg``\             |
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Qt for Embedded Linux|:attr:`NativeFormat<QSettings.Format>` , :attr:`IniFormat<QSettings.Format>`|:attr:`UserScope<QSettings.Scope>`  |``$HOME/Settings``\       |
+    +                     +                                                                            +------------------------------------+--------------------------+
+    |                     |                                                                            |:attr:`SystemScope<QSettings.Scope>`|``/etc/xdg``\             |
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Mac OS X             |:attr:`IniFormat<QSettings.Format>`                                         |:attr:`UserScope<QSettings.Scope>`  |``$HOME/.config``\        |
+    +                     +                                                                            +------------------------------------+--------------------------+
+    |                     |                                                                            |:attr:`SystemScope<QSettings.Scope>`|``/etc/xdg``\             |
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+    |Symbian              |:attr:`NativeFormat<QSettings.Format>` , :attr:`IniFormat<QSettings.Format>`|:attr:`UserScope<QSettings.Scope>`  |``c:/data/.config``\      |
+    +                     +                                                                            +------------------------------------+--------------------------+
+    |                     |                                                                            |:attr:`SystemScope<QSettings.Scope>`|``<drive>/private/<uid>``\|
+    +---------------------+----------------------------------------------------------------------------+------------------------------------+--------------------------+
+
+    The default :attr:`UserScope<QSettings.Scope>` paths on Unix and Mac OS X (``$HOME/.config`` or $HOME/Settings) can be overridden by the user by setting the ``XDG_CONFIG_HOME`` environment variable. The default :attr:`SystemScope<QSettings.Scope>` paths on Unix and Mac OS X (``/etc/xdg`` ) can be overridden when building the Qt library using the ``configure`` script's ``--sysconfdir`` flag (see :class:`PySide.QtCore.QLibraryInfo` for details).
+
+    Setting the :attr:`NativeFormat<QSettings.Format>` paths on Windows and Mac OS X has no effect.
+
+    .. warning::  This function doesn't affect existing :class:`PySide.QtCore.QSettings` objects.
+
+    .. seealso::  :meth:`~PySide.QtCore.QSettings.registerFormat` 
+
+
+.. method:: PySide.QtCore.QSettings.setValue(key, value)
+
+
+    :param key: unicode
+    :param value: object
+
+
+
+
+    Sets the value of setting ``key`` to ``value`` . If the ``key`` already exists, the previous value is overwritten.
+
+    Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the :class:`~PySide.QtCore.Section and Key Syntax` rules.
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("interval", 30)
+        settings.value("interval")      # returns 30
+
+        settings.setValue("interval", 6.55)
+        settings.value("interval")  # returns 6.55
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.value`  :meth:`PySide.QtCore.QSettings.remove`  :meth:`PySide.QtCore.QSettings.contains` 
+
+
+.. method:: PySide.QtCore.QSettings.status()
+
+
+    :rtype: :attr:`PySide.QtCore.QSettings.Status`
+
+
+
+
+    Returns a status code indicating the first error that was met by :class:`PySide.QtCore.QSettings` , or :attr:`QSettings.NoError<QSettings.Status>` if no error occurred.
+
+    Be aware that :class:`PySide.QtCore.QSettings` delays performing some operations. For this reason, you might want to call :meth:`PySide.QtCore.QSettings.sync` to ensure that the data stored in :class:`PySide.QtCore.QSettings` is written to disk before calling :meth:`PySide.QtCore.QSettings.status` .
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.sync` 
+
+
+.. method:: PySide.QtCore.QSettings.sync()
+
+
+
+
+
+
+    Writes any unsaved changes to permanent storage, and reloads any settings that have been changed in the meantime by another application.
+
+    This function is called automatically from :class:`PySide.QtCore.QSettings` 's destructor and by the event loop at regular intervals, so you normally don't need to call it yourself.
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.status` 
+
+
+.. method:: PySide.QtCore.QSettings.value(key[, defaultValue=None])
+
+
+    :param key: unicode
+    :param defaultValue: object
+    :rtype: object
+
+
+
+
+    Returns the value for setting ``key`` . If the setting doesn't exist, returns ``defaultValue`` .
+
+    If no default value is specified, a default :class:`PySide.QtCore.QVariant` is returned.
+
+    Note that the Windows registry and INI files use case-insensitive keys, whereas the Carbon Preferences API on Mac OS X uses case-sensitive keys. To avoid portability problems, see the :class:`~PySide.QtCore.Section and Key Syntax` rules.
+
+    Example:
+
+    ::
+
+        settings = QSettings()
+        settings.setValue("animal/snake", 58)
+        settings.value("animal/snake", 1024)   # returns 58
+        settings.value("animal/zebra", 1024)   # returns 1024
+        settings.value("animal/zebra")         # returns 0
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSettings.setValue`  :meth:`PySide.QtCore.QSettings.contains`  :meth:`PySide.QtCore.QSettings.remove` 
+
+    
+    .. warning:: QSettings.value can return different types (QVariant types) depending on the platform it's running on, so the safest way to use it is always casting the result to the desired type, e.g.: int(settings.value("myKey"))
+    
+
+
+

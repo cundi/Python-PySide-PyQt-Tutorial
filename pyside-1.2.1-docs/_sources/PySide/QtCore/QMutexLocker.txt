@@ -1,0 +1,175 @@
+.. module:: PySide.QtCore
+.. _QMutexLocker:
+
+QMutexLocker
+************
+
+.. inheritance-diagram:: QMutexLocker
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__enter__<PySide.QtCore.QMutexLocker.__enter__>` ()
+*    def :meth:`__exit__<PySide.QtCore.QMutexLocker.__exit__>` (arg__1, arg__2, arg__3)
+*    def :meth:`mutex<PySide.QtCore.QMutexLocker.mutex>` ()
+*    def :meth:`relock<PySide.QtCore.QMutexLocker.relock>` ()
+*    def :meth:`unlock<PySide.QtCore.QMutexLocker.unlock>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QMutexLocker` class is a convenience class that simplifies locking and unlocking mutexes.
+
+    Locking and unlocking a :class:`PySide.QtCore.QMutex` in complex functions and statements or in exception handling code is error-prone and difficult to debug. :class:`PySide.QtCore.QMutexLocker` can be used in such situations to ensure that the state of the mutex is always well-defined.
+
+    :class:`PySide.QtCore.QMutexLocker` should be created within a function where a :class:`PySide.QtCore.QMutex` needs to be locked. The mutex is locked when :class:`PySide.QtCore.QMutexLocker` is created. You can unlock and relock the mutex with ``unlock()`` and ``relock()`` . If locked, the mutex will be unlocked when the :class:`PySide.QtCore.QMutexLocker` is destroyed.
+
+    For example, this complex function locks a :class:`PySide.QtCore.QMutex` upon entering the function and unlocks the mutex at all the exit points:
+
+    ::
+
+        def complexFunction(flag):
+            mutex.lock()
+
+            retVal = 0
+
+            if flag == 0 or flag == 1:
+                mutex.unlock()
+                return moreComplexFunction(flag)
+            elif flag == 2:
+                status = anotherFunction()
+                if status < 0:
+                    mutex.unlock()
+                    return -2
+                retVal = status + flag
+            else:
+                if flag > 10:
+                    mutex.unlock()
+                    return -1
+
+            mutex.unlock()
+            return retVal
+
+
+    This example function will get more complicated as it is developed, which increases the likelihood that errors will occur.
+
+    Using :class:`PySide.QtCore.QMutexLocker` greatly simplifies the code, and makes it more readable:
+
+    ::
+
+        def complexFunction(flag):
+            locker = QMutexLocker(mutex)
+
+            retVal = 0
+
+            if flag == 0 or flag == 1:
+                return moreComplexFunction(flag)
+            elif flag == 2:
+                    status = anotherFunction()
+                    if status < 0:
+                        return -2
+                    retVal = status + flag
+            else:
+                if flag > 10:
+                    return -1
+
+            return retVal
+
+
+    Now, the mutex will always be unlocked when the :class:`PySide.QtCore.QMutexLocker` object is destroyed (when the function returns since ``locker`` is an auto variable).
+
+    The same principle applies to code that throws and catches exceptions. An exception that is not caught in the function that has locked the mutex has no way of unlocking the mutex before the exception is passed up the stack to the calling function.
+
+    :class:`PySide.QtCore.QMutexLocker` also provides a ``mutex()`` member function that returns the mutex on which the :class:`PySide.QtCore.QMutexLocker` is operating. This is useful for code that needs access to the mutex, such as :meth:`QWaitCondition.wait()<PySide.QtCore.QWaitCondition.wait>` . For example:
+
+    ::
+
+        class SignalWaiter:
+            def __init__(mutex):
+                self.locker = mutex
+
+            def waitForSignal():
+                # ...
+                while not signalled:
+                    waitCondition.wait(self.locker.mutex())
+                # ...
+
+
+    .. seealso::  :class:`PySide.QtCore.QReadLocker`  :class:`PySide.QtCore.QWriteLocker`  :class:`PySide.QtCore.QMutex` 
+
+.. class:: QMutexLocker(m)
+
+    :param m: :class:`PySide.QtCore.QMutex`
+
+    Constructs a :class:`PySide.QtCore.QMutexLocker` and locks ``mutex`` . The mutex will be unlocked when the :class:`PySide.QtCore.QMutexLocker` is destroyed. If ``mutex`` is zero, :class:`PySide.QtCore.QMutexLocker` does nothing.
+
+    .. seealso::  :meth:`QMutex.lock()<PySide.QtCore.QMutex.lock>` 
+
+.. method:: PySide.QtCore.QMutexLocker.__enter__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMutexLocker.__exit__(arg__1, arg__2, arg__3)
+
+
+    :param arg__1: :class:`PyObject`
+    :param arg__2: :class:`PyObject`
+    :param arg__3: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QMutexLocker.mutex()
+
+
+    :rtype: :class:`PySide.QtCore.QMutex`
+
+
+
+
+    Returns a pointer to the mutex that was locked in the constructor.
+
+
+
+.. method:: PySide.QtCore.QMutexLocker.relock()
+
+
+
+
+
+
+    Relocks an unlocked mutex locker.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutexLocker.unlock` 
+
+
+.. method:: PySide.QtCore.QMutexLocker.unlock()
+
+
+
+
+
+
+    Unlocks this mutex locker. You can use ``relock()`` to lock it again. It does not need to be locked when destroyed.
+
+    .. seealso::  :meth:`PySide.QtCore.QMutexLocker.relock` 
+
+
+

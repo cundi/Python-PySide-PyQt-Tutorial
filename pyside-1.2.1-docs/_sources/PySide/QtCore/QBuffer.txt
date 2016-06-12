@@ -1,0 +1,185 @@
+.. module:: PySide.QtCore
+.. _QBuffer:
+
+QBuffer
+*******
+
+.. inheritance-diagram:: QBuffer
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`buffer<PySide.QtCore.QBuffer.buffer>` ()
+*    def :meth:`data<PySide.QtCore.QBuffer.data>` ()
+*    def :meth:`setBuffer<PySide.QtCore.QBuffer.setBuffer>` (a)
+*    def :meth:`setData<PySide.QtCore.QBuffer.setData>` (data)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QBuffer` class provides a :class:`PySide.QtCore.QIODevice` interface for a :class:`PySide.QtCore.QByteArray` .
+
+    :class:`PySide.QtCore.QBuffer` allows you to access a :class:`PySide.QtCore.QByteArray` using the :class:`PySide.QtCore.QIODevice` interface. The :class:`PySide.QtCore.QByteArray` is treated just as a standard random-accessed file. Example:
+
+    ::
+
+            buffer = QBuffer()
+
+            buffer.open(QBuffer.ReadWrite)
+            buffer.write("Qt rocks!")
+            buffer.seek(0)
+            ch = buffer.getChar()  # ch == 'Q'
+            ch = buffer.getChar()  # ch == 't'
+            ch = buffer.getChar()  # ch == ' '
+            ch = buffer.getChar()  # ch == 'r'
+
+
+    By default, an internal :class:`PySide.QtCore.QByteArray` buffer is created for you when you create a :class:`PySide.QtCore.QBuffer` . You can access this buffer directly by calling :meth:`PySide.QtCore.QBuffer.buffer` . You can also use :class:`PySide.QtCore.QBuffer` with an existing :class:`PySide.QtCore.QByteArray` by calling :meth:`PySide.QtCore.QBuffer.setBuffer` , or by passing your array to :class:`PySide.QtCore.QBuffer` 's constructor.
+
+    Call :meth:`PySide.QtCore.QBuffer.open` to open the buffer. Then call :meth:`PySide.QtCore.QIODevice.write` or :meth:`PySide.QtCore.QIODevice.putChar` to write to the buffer, and :meth:`PySide.QtCore.QIODevice.read` , :meth:`PySide.QtCore.QIODevice.readLine` , :meth:`PySide.QtCore.QIODevice.readAll` , or :meth:`PySide.QtCore.QIODevice.getChar` to read from it. :meth:`PySide.QtCore.QBuffer.size` returns the current size of the buffer, and you can seek to arbitrary positions in the buffer by calling :meth:`PySide.QtCore.QBuffer.seek` . When you are done with accessing the buffer, call :meth:`PySide.QtCore.QBuffer.close` .
+
+    The following code snippet shows how to write data to a :class:`PySide.QtCore.QByteArray` using :class:`PySide.QtCore.QDataStream` and :class:`PySide.QtCore.QBuffer` :
+
+    ::
+
+            byteArray = QByteArray()
+            buffer = QBuffer(byteArray)
+            buffer.open(QIODevice.WriteOnly)
+
+            out = QDataStream(buffer)
+            out << QApplication.palette()
+
+
+    Effectively, we convert the application's :class:`PySide.QtGui.QPalette` into a byte array. Here's how to read the data from the :class:`PySide.QtCore.QByteArray` :
+
+    ::
+
+            palette = QPalette()
+            buffer = QBuffer(byteArray)
+            buffer.open(QIODevice.ReadOnly)
+
+            in = QDataStream(buffer)
+            in >> palette
+
+
+    :class:`PySide.QtCore.QTextStream` and :class:`PySide.QtCore.QDataStream` also provide convenience constructors that take a :class:`PySide.QtCore.QByteArray` and that create a :class:`PySide.QtCore.QBuffer` behind the scenes.
+
+    :class:`PySide.QtCore.QBuffer` emits :meth:`PySide.QtCore.QIODevice.readyRead` when new data has arrived in the buffer. By connecting to this signal, you can use :class:`PySide.QtCore.QBuffer` to store temporary data before processing it. For example, you can pass the buffer to :class:`PySide.QtNetwork.QFtp` when downloading a file from an FTP server. Whenever a new payload of data has been downloaded, :meth:`PySide.QtCore.QIODevice.readyRead` is emitted, and you can process the data that just arrived. :class:`PySide.QtCore.QBuffer` also emits :meth:`PySide.QtCore.QIODevice.bytesWritten` every time new data has been written to the buffer.
+
+    .. seealso::  :class:`PySide.QtCore.QFile`  :class:`PySide.QtCore.QDataStream`  :class:`PySide.QtCore.QTextStream`  :class:`PySide.QtCore.QByteArray` 
+
+.. class:: QBuffer(buf[, parent=None])
+           QBuffer([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param buf: :class:`PySide.QtCore.QByteArray`
+
+    Constructs a :class:`PySide.QtCore.QBuffer` that uses the :class:`PySide.QtCore.QByteArray` pointed to by ``byteArray`` as its internal buffer, and with the given ``parent`` . The caller is responsible for ensuring that ``byteArray`` remains valid until the :class:`PySide.QtCore.QBuffer` is destroyed, or until :meth:`PySide.QtCore.QBuffer.setBuffer` is called to change the buffer. :class:`PySide.QtCore.QBuffer` doesn't take ownership of the :class:`PySide.QtCore.QByteArray` .
+
+    If you open the buffer in write-only mode or read-write mode and write something into the :class:`PySide.QtCore.QBuffer` , ``byteArray`` will be modified.
+
+    Example:
+
+    ::
+
+            byteArray = QByteArray("abc")
+            buffer = QBuffer(byteArray)
+            buffer.open(QIODevice.WriteOnly)
+            buffer.seek(3)
+            buffer.write("def")
+            buffer.close()
+            # byteArray == "abcdef"
+
+
+    .. seealso::  :meth:`PySide.QtCore.QBuffer.open`  :meth:`PySide.QtCore.QBuffer.setBuffer`  :meth:`PySide.QtCore.QBuffer.setData` 
+
+    Constructs an empty buffer with the given ``parent`` . You can call :meth:`PySide.QtCore.QBuffer.setData` to fill the buffer with data, or you can open it in write mode and use :meth:`PySide.QtCore.QIODevice.write` .
+
+    .. seealso::  :meth:`PySide.QtCore.QBuffer.open` 
+
+.. method:: PySide.QtCore.QBuffer.buffer()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This is an overloaded function.
+
+    This is the same as :meth:`PySide.QtCore.QBuffer.data` .
+
+
+
+.. method:: PySide.QtCore.QBuffer.data()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the data contained in the buffer.
+
+    This is the same as :meth:`PySide.QtCore.QBuffer.buffer` .
+
+    .. seealso::  :meth:`PySide.QtCore.QBuffer.setData`  :meth:`PySide.QtCore.QBuffer.setBuffer` 
+
+
+.. method:: PySide.QtCore.QBuffer.setBuffer(a)
+
+
+    :param a: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Makes :class:`PySide.QtCore.QBuffer` uses the :class:`PySide.QtCore.QByteArray` pointed to by ``byteArray`` as its internal buffer. The caller is responsible for ensuring that ``byteArray`` remains valid until the :class:`PySide.QtCore.QBuffer` is destroyed, or until :meth:`PySide.QtCore.QBuffer.setBuffer` is called to change the buffer. :class:`PySide.QtCore.QBuffer` doesn't take ownership of the :class:`PySide.QtCore.QByteArray` .
+
+    Does nothing if :meth:`PySide.QtCore.QIODevice.isOpen` is true.
+
+    If you open the buffer in write-only mode or read-write mode and write something into the :class:`PySide.QtCore.QBuffer` , ``byteArray`` will be modified.
+
+    Example:
+
+    ::
+
+            byteArray = QByteArray("abc")
+            buffer = QBuffer()
+            buffer.setBuffer(byteArray)
+            buffer.open(QIODevice.WriteOnly)
+            buffer.seek(3)
+            buffer.write("def")
+            buffer.close()
+            # byteArray == "abcdef"
+
+
+    If ``byteArray`` is 0, the buffer creates its own internal :class:`PySide.QtCore.QByteArray` to work on. This byte array is initially empty.
+
+    .. seealso::  :meth:`PySide.QtCore.QBuffer.buffer`  :meth:`PySide.QtCore.QBuffer.setData`  :meth:`PySide.QtCore.QBuffer.open` 
+
+
+.. method:: PySide.QtCore.QBuffer.setData(data)
+
+
+    :param data: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the contents of the internal buffer to be ``data`` . This is the same as assigning ``data`` to :meth:`PySide.QtCore.QBuffer.buffer` .
+
+    Does nothing if :meth:`PySide.QtCore.QIODevice.isOpen` is true.
+
+    .. seealso::  :meth:`PySide.QtCore.QBuffer.data`  :meth:`PySide.QtCore.QBuffer.setBuffer` 
+
+
+

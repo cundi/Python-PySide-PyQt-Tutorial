@@ -1,0 +1,195 @@
+.. module:: PySide.QtScript
+.. _QScriptClassPropertyIterator:
+
+QScriptClassPropertyIterator
+****************************
+
+.. inheritance-diagram:: QScriptClassPropertyIterator
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`object<PySide.QtScript.QScriptClassPropertyIterator.object>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`flags<PySide.QtScript.QScriptClassPropertyIterator.flags>` ()
+*    def :meth:`hasNext<PySide.QtScript.QScriptClassPropertyIterator.hasNext>` ()
+*    def :meth:`hasPrevious<PySide.QtScript.QScriptClassPropertyIterator.hasPrevious>` ()
+*    def :meth:`id<PySide.QtScript.QScriptClassPropertyIterator.id>` ()
+*    def :meth:`name<PySide.QtScript.QScriptClassPropertyIterator.name>` ()
+*    def :meth:`next<PySide.QtScript.QScriptClassPropertyIterator.next>` ()
+*    def :meth:`previous<PySide.QtScript.QScriptClassPropertyIterator.previous>` ()
+*    def :meth:`toBack<PySide.QtScript.QScriptClassPropertyIterator.toBack>` ()
+*    def :meth:`toFront<PySide.QtScript.QScriptClassPropertyIterator.toFront>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtScript.QScriptClassPropertyIterator` class provides an iterator interface for custom Qt Script objects.
+
+    This class is only relevant if you have subclassed :class:`PySide.QtScript.QScriptClass` and want to provide enumeration of your custom properties (e.g. when objects of your class are used with :class:`PySide.QtScript.QScriptValueIterator` , or with the for-in statement in scripts).
+
+    The :meth:`PySide.QtScript.QScriptClassPropertyIterator.object` function returns the Qt Script object the iterator is traversing.
+
+    :meth:`PySide.QtScript.QScriptClassPropertyIterator.toFront` , :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasNext` and :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` provide forward iteration.
+
+    :meth:`PySide.QtScript.QScriptClassPropertyIterator.toBack` , :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasPrevious` and :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` provide backward iteration.
+
+    :meth:`PySide.QtScript.QScriptClassPropertyIterator.name` , :meth:`PySide.QtScript.QScriptClassPropertyIterator.id` and :meth:`PySide.QtScript.QScriptClassPropertyIterator.flags` return information about the last property that was jumped over using :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` or :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` .
+
+    .. seealso::  :meth:`QScriptClass.newIterator()<PySide.QtScript.QScriptClass.newIterator>`  :class:`PySide.QtScript.QScriptValueIterator` 
+
+.. class:: QScriptClassPropertyIterator(object)
+
+    :param object: :class:`PySide.QtScript.QScriptValue`
+
+    Constructs an iterator for traversing ``object`` .
+
+    Subclasses should ensure that the iterator is set to the front of the sequence of properties (before the first property).
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.flags()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue.PropertyFlags`
+
+
+
+
+    Returns the flags of the last property that was jumped over using :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` or :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` .
+
+    The default implementation calls the :meth:`~PySide.QtScript.QScriptClassPropertyIterator.propertyFlags` function of :meth:`PySide.QtScript.QScriptClassPropertyIterator.object` with argument :meth:`PySide.QtScript.QScriptClassPropertyIterator.name` .
+
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.hasNext()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is at least one item ahead of the iterator (i.e. the iterator is *not* at the back of the property sequence); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.next`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasPrevious` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.hasPrevious()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is at least one item behind the iterator (i.e. the iterator is *not* at the front of the property sequence); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasNext` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.id()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the id of the last property that was jumped over using :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` or :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` .
+
+    The default implementation returns 0.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.name` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.name()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptString`
+
+
+
+
+    Returns the name of the last property that was jumped over using :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` or :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` .
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.id` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.next()
+
+
+
+
+
+
+    Advances the iterator by one position.
+
+    Calling this function on an iterator located at the back of the container leads to undefined results.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasNext`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.name` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.object()
+
+
+    :rtype: :class:`PySide.QtScript.QScriptValue`
+
+
+
+
+    Returns the Qt Script object this iterator is traversing.
+
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.previous()
+
+
+
+
+
+
+    Moves the iterator back by one position.
+
+    Calling this function on an iterator located at the front of the container leads to undefined results.
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.hasPrevious`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.next`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.name` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.toBack()
+
+
+
+
+
+
+    Moves the iterator to the back of the :class:`PySide.QtScript.QScriptValue` (after the last property).
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.toFront`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.previous` 
+
+
+.. method:: PySide.QtScript.QScriptClassPropertyIterator.toFront()
+
+
+
+
+
+
+    Moves the iterator to the front of the :class:`PySide.QtScript.QScriptValue` (before the first property).
+
+    .. seealso::  :meth:`PySide.QtScript.QScriptClassPropertyIterator.toBack`  :meth:`PySide.QtScript.QScriptClassPropertyIterator.next` 
+
+
+

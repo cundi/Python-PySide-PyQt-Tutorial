@@ -1,0 +1,234 @@
+.. module:: PySide.QtCore
+.. _QSystemSemaphore:
+
+QSystemSemaphore
+****************
+
+.. inheritance-diagram:: QSystemSemaphore
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`acquire<PySide.QtCore.QSystemSemaphore.acquire>` ()
+*    def :meth:`error<PySide.QtCore.QSystemSemaphore.error>` ()
+*    def :meth:`errorString<PySide.QtCore.QSystemSemaphore.errorString>` ()
+*    def :meth:`key<PySide.QtCore.QSystemSemaphore.key>` ()
+*    def :meth:`release<PySide.QtCore.QSystemSemaphore.release>` ([n=1])
+*    def :meth:`setKey<PySide.QtCore.QSystemSemaphore.setKey>` (key[, initialValue=0[, mode=Open]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSystemSemaphore` class provides a general counting system semaphore.
+
+    A semaphore is a generalization of a mutex. While a mutex can be locked only once, a semaphore can be acquired multiple times. Typically, a semaphore is used to protect a certain number of identical resources.
+
+    Like its lighter counterpart :class:`PySide.QtCore.QSemaphore` , a :class:`PySide.QtCore.QSystemSemaphore` can be accessed from multiple :class:`threads<PySide.QtCore.QThread>` . Unlike :class:`PySide.QtCore.QSemaphore` , a :class:`PySide.QtCore.QSystemSemaphore` can also be accessed from multiple :class:`processes<PySide.QtCore.QProcess>` . This means :class:`PySide.QtCore.QSystemSemaphore` is a much heavier class, so if your application doesn't need to access your semaphores across multiple processes, you will probably want to use :class:`PySide.QtCore.QSemaphore` .
+
+    Semaphores support two fundamental operations, :meth:`PySide.QtCore.QSystemSemaphore.acquire` and :meth:`PySide.QtCore.QSystemSemaphore.release` :
+
+    :meth:`PySide.QtCore.QSystemSemaphore.acquire` tries to acquire one resource. If there isn't a resource available, the call blocks until a resource becomes available. Then the resource is acquired and the call returns.
+
+    :meth:`PySide.QtCore.QSystemSemaphore.release` releases one resource so it can be acquired by another process. The function can also be called with a parameter n > 1, which releases n resources.
+
+    A system semaphore is created with a string key that other processes can use to use the same semaphore.
+
+    Example: Create a system semaphore
+
+    ::
+
+        sem = QSystemSemaphore("market", 3, QSystemSemaphore.Create)
+        # resources available == 3
+        sem.acquire()               # resources available == 2
+        sem.acquire()               # resources available == 1
+        sem.acquire()               # resources available == 0
+        sem.release()               # resources available == 1
+        sem.release(2)              # resources available == 3
+
+
+    A typical application of system semaphores is for controlling access to a circular buffer shared by a producer process and a consumer processes.
+
+    .. _PySide.QtCore.QSystemSemaphore_platform-specific-behavior:
+
+
+
+Platform-Specific Behavior
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    When using this class, be aware of the following platform differences:
+
+    **Windows:**\ :class:`PySide.QtCore.QSystemSemaphore` does not own its underlying system semaphore. Windows owns it. This means that when all instances of :class:`PySide.QtCore.QSystemSemaphore` for a particular key have been destroyed, either by having their destructors called, or because one or more processes crash, Windows removes the underlying system semaphore.
+
+    **Unix:**\
+
+
+    * :class:`PySide.QtCore.QSystemSemaphore` owns the underlying system semaphore in Unix systems. This means that the last process having an instance of :class:`PySide.QtCore.QSystemSemaphore` for a particular key must remove the underlying system semaphore in its destructor. If the last process crashes without running the :class:`PySide.QtCore.QSystemSemaphore` destructor, Unix does not automatically remove the underlying system semaphore, and the semaphore survives the crash. A subsequent process that constructs a :class:`PySide.QtCore.QSystemSemaphore` with the same key will then be given the existing system semaphore. In that case, if the :class:`PySide.QtCore.QSystemSemaphore` constructor has specified its :attr:`access mode<QSystemSemaphore.AccessMode>` as :attr:`Open<QSystemSemaphore.AccessMode>` , its initial resource count will not be reset to the one provided but remain set to the value it received in the crashed process. To protect against this, the first process to create a semaphore for a particular key (usually a server), must pass its :attr:`access mode<QSystemSemaphore.AccessMode>` as :attr:`Create<QSystemSemaphore.AccessMode>` , which will force Unix to reset the resource count in the underlying system semaphore.
+    * When a process using :class:`PySide.QtCore.QSystemSemaphore` terminates for any reason, Unix automatically reverses the effect of all acquire operations that were not released. Thus if the process acquires a resource and then exits without releasing it, Unix will release that resource.
+    * Symbian: :class:`PySide.QtCore.QSystemSemaphore` behaves the same as Windows semaphores. In other words, the operating system owns the semaphore and ignores :attr:`QSystemSemaphore.AccessMode` .
+
+    .. seealso::  :class:`~PySide.QtCore.QSharedMemory`  :class:`PySide.QtCore.QSemaphore` 
+
+.. class:: QSystemSemaphore(key[, initialValue=0[, mode=Open]])
+
+    :param mode: :attr:`PySide.QtCore.QSystemSemaphore.AccessMode`
+    :param key: unicode
+    :param initialValue: :class:`PySide.QtCore.int`
+
+    Requests a system semaphore for the specified ``key`` . The parameters ``initialValue`` and ``mode`` are used according to the following rules, which are system dependent.
+
+    In Unix, if the ``mode`` is :attr:`Open<QSystemSemaphore.AccessMode>` and the system already has a semaphore identified by ``key`` , that semaphore is used, and the semaphore's resource count is not changed, i.e., ``initialValue`` is ignored. But if the system does not already have a semaphore identified by ``key`` , it creates a new semaphore for that key and sets its resource count to ``initialValue`` .
+
+    In Unix, if the ``mode`` is :attr:`Create<QSystemSemaphore.AccessMode>` and the system already has a semaphore identified by ``key`` , that semaphore is used, and its resource count is set to ``initialValue`` . If the system does not already have a semaphore identified by ``key`` , it creates a new semaphore for that key and sets its resource count to ``initialValue`` .
+
+    In QNX, if the ``mode`` is :attr:`Create<QSystemSemaphore.AccessMode>` and the system already has a semaphore identified by ``key`` , that semaphore will be deleted and the new one will be created for that key with a resource count set to ``initialValue`` .
+
+    In Windows and in Symbian, ``mode`` is ignored, and the system always tries to create a semaphore for the specified ``key`` . If the system does not already have a semaphore identified as ``key`` , it creates the semaphore and sets its resource count to ``initialValue`` . But if the system already has a semaphore identified as ``key`` it uses that semaphore and ignores ``initialValue`` .
+
+    The :attr:`mode<QSystemSemaphore.AccessMode>` parameter is only used in Unix systems to handle the case where a semaphore survives a process crash. In that case, the next process to allocate a semaphore with the same ``key`` will get the semaphore that survived the crash, and unless ``mode`` is :attr:`Create<QSystemSemaphore.AccessMode>` , the resource count will not be reset to ``initialValue`` but will retain the initial value it had been given by the crashed process.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.acquire`  :meth:`PySide.QtCore.QSystemSemaphore.key` 
+
+.. attribute:: PySide.QtCore.QSystemSemaphore.AccessMode
+
+    This enum is used by the constructor and :meth:`PySide.QtCore.QSystemSemaphore.setKey` . Its purpose is to enable handling the problem in Unix implementations of semaphores that survive a crash. In Unix, when a semaphore survives a crash, we need a way to force it to reset its resource count, when the system reuses the semaphore. In Windows and in Symbian, where semaphores can't survive a crash, this enum has no effect.
+
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +=======================+===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QSystemSemaphore.Open  |If the semaphore already exists, its initial resource count is not reset. If the semaphore does not already exist, it is created and its initial resource count set.                                                                                                                                                                                                                                                                                                                                                       |
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.Create|:class:`PySide.QtCore.QSystemSemaphore` takes ownership of the semaphore and sets its resource count to the requested value, regardless of whether the semaphore already exists by having survived a crash. This value should be passed to the constructor, when the first semaphore for a particular key is constructed and you know that if the semaphore already exists it could only be because of a crash. In Windows and in Symbian, where a semaphore can't survive a crash, Create and Open have the same behavior.|
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtCore.QSystemSemaphore.SystemSemaphoreError
+
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |Constant                         |Description                                                                               |
+    +=================================+==========================================================================================+
+    |QSystemSemaphore.NoError         |No error occurred.                                                                        |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.PermissionDenied|The operation failed because the caller didn't have the required permissions.             |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.KeyError        |The operation failed because of an invalid key.                                           |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.AlreadyExists   |The operation failed because a system semaphore with the specified key already existed.   |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.NotFound        |The operation failed because a system semaphore with the specified key could not be found.|
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.OutOfResources  |The operation failed because there was not enough memory available to fill the request.   |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+    |QSystemSemaphore.UnknownError    |Something else happened and it was bad.                                                   |
+    +---------------------------------+------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.acquire()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Acquires one of the resources guarded by this semaphore, if there is one available, and returns true. If all the resources guarded by this semaphore have already been acquired, the call blocks until one of them is released by another process or thread having a semaphore with the same key.
+
+    If false is returned, a system error has occurred. Call :meth:`PySide.QtCore.QSystemSemaphore.error` to get a value of :attr:`QSystemSemaphore.SystemSemaphoreError` that indicates which error occurred.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.release` 
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.error()
+
+
+    :rtype: :attr:`PySide.QtCore.QSystemSemaphore.SystemSemaphoreError`
+
+
+
+
+    Returns a value indicating whether an error occurred, and, if so, which error it was.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.errorString` 
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns a text description of the last error that occurred. If :meth:`PySide.QtCore.QSystemSemaphore.error` returns an :attr:`error value<QSystemSemaphore.SystemSemaphoreError>` , call this function to get a text string that describes the error.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.error` 
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.key()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the key assigned to this system semaphore. The key is the name by which the semaphore can be accessed from other processes.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.setKey` 
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.release([n=1])
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Releases ``n`` resources guarded by the semaphore. Returns true unless there is a system error.
+
+    Example: Create a system semaphore having five resources; acquire them all and then release them all.
+
+    ::
+
+        sem = QSystemSemaphore("market", 5, QSystemSemaphore.Create)
+        sem.acquire(5)           # acquire all 5 resources
+        sem.release(5)           # release the 5 resources
+
+
+    This function can also "create" resources. For example, immediately following the sequence of statements above, suppose we add the statement:
+
+    ::
+
+        sem.release(10)          # "create" 10 new resources
+
+
+    Ten new resources are now guarded by the semaphore, in addition to the five that already existed. You would not normally use this function to create more resources.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.acquire` 
+
+
+.. method:: PySide.QtCore.QSystemSemaphore.setKey(key[, initialValue=0[, mode=Open]])
+
+
+    :param key: unicode
+    :param initialValue: :class:`PySide.QtCore.int`
+    :param mode: :attr:`PySide.QtCore.QSystemSemaphore.AccessMode`
+
+
+
+
+    This function works the same as the constructor. It reconstructs this :class:`PySide.QtCore.QSystemSemaphore` object. If the new ``key`` is different from the old key, calling this function is like calling the destructor of the semaphore with the old key, then calling the constructor to create a new semaphore with the new ``key`` . The ``initialValue`` and ``mode`` parameters are as defined for the constructor.
+
+    .. seealso::  :meth:`PySide.QtCore.QSystemSemaphore.QSystemSemaphore`  :meth:`PySide.QtCore.QSystemSemaphore.key` 
+
+
+

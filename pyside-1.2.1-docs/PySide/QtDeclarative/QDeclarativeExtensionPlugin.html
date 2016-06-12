@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QDeclarativeExtensionPlugin &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtDeclarative" href="index.html" />
+    <link rel="next" title="QDeclarativeExpression" href="QDeclarativeExpression.html" />
+    <link rel="prev" title="QDeclarativePropertyMap" href="QDeclarativePropertyMap.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtDeclarative</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QDeclarativeExtensionPlugin</a><ul>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a><ul>
+<li><a class="reference internal" href="#an-example">An example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QDeclarativePropertyMap.html"
+                        title="previous chapter">QDeclarativePropertyMap</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="QDeclarativeExpression.html"
+                        title="next chapter">QDeclarativeExpression</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtDeclarative"></span><div class="section" id="qdeclarativeextensionplugin">
+<span id="id1"></span><h1>QDeclarativeExtensionPlugin<a class="headerlink" href="#qdeclarativeextensionplugin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <a class="reference internal" href="#PySide.QtDeclarative.QDeclarativeExtensionPlugin" title="PySide.QtDeclarative.QDeclarativeExtensionPlugin"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtDeclarative.QDeclarativeExtensionPlugin</span></tt></a> class provides an abstract base for custom QML extension plugins.</p>
+<p><a class="reference internal" href="#PySide.QtDeclarative.QDeclarativeExtensionPlugin" title="PySide.QtDeclarative.QDeclarativeExtensionPlugin"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtDeclarative.QDeclarativeExtensionPlugin</span></tt></a> is a plugin interface that makes it possible to create QML extensions that can be loaded dynamically into QML applications. These extensions allow custom QML types to be made available to the QML engine.</p>
+<p>To write a QML extension plugin:</p>
+<ul class="simple">
+<li>Subclass <a class="reference internal" href="#PySide.QtDeclarative.QDeclarativeExtensionPlugin" title="PySide.QtDeclarative.QDeclarativeExtensionPlugin"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtDeclarative.QDeclarativeExtensionPlugin</span></tt></a> , implement <tt class="xref py py-meth docutils literal"><span class="pre">PySide.QtDeclarative.QDeclarativeExtensionPlugin.registerTypes()</span></tt> method to register types using <tt class="xref py py-meth docutils literal"><span class="pre">qmlRegisterType()</span></tt> , and export the class using the <tt class="xref py py-meth docutils literal"><span class="pre">Q_EXPORT_PLUGIN2()</span></tt> macro</li>
+<li>Write an appropriate project file for the plugin</li>
+<li>Create a <em class="xref std std-ref">qmldir file</em> to describe the plugin</li>
+</ul>
+<p>QML extension plugins can be used to provide either application-specific or library-like plugins. Library plugins should limit themselves to registering types, as any manipulation of the engine&#8217;s root context may cause conflicts or other issues in the library user&#8217;s code.</p>
+</div></blockquote>
+<div class="section" id="an-example">
+<span id="pyside-qtdeclarative-qdeclarativeextensionplugin-an-example"></span><h3>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Suppose there is a new <tt class="docutils literal"><span class="pre">TimeModel</span></tt> C++ class that should be made available as a new QML element. It provides the current time through <tt class="docutils literal"><span class="pre">hour</span></tt> and <tt class="docutils literal"><span class="pre">minute</span></tt> properties, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">TimeModel</span> <span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">getHour</span><span class="p">,</span> <span class="n">notify</span> <span class="o">=</span> <span class="n">timeChanged</span><span class="p">)</span>
+    <span class="n">minute</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">getMinute</span><span class="p">,</span> <span class="n">notify</span> <span class="o">=</span> <span class="n">timeChanged</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>To make this class available as a QML type, create a plugin that registers this type with a specific <em class="xref std std-ref">module</em> using <tt class="xref py py-meth docutils literal"><span class="pre">qmlRegisterType()</span></tt> . For this example the plugin module will be named <tt class="docutils literal"><span class="pre">com.nokia.TimeExample</span></tt> (as defined in the project file further below).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">QExampleQmlPlugin</span> <span class="p">(</span><span class="n">QDeclarativeExtensionPlugin</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">registerTypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">uri</span> <span class="o">==</span> <span class="s">&quot;com.nokia.TimeExample&quot;</span><span class="p">)</span>
+        <span class="n">qmlRegisterType</span><span class="p">(</span><span class="n">TimeModel</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Time&quot;</span><span class="p">)</span>
+
+<span class="c"># This isn&#39;t supported by PySide yet.</span>
+<span class="c"># Q_EXPORT_PLUGIN2(qmlqtimeexampleplugin, QExampleQmlPlugin);</span>
+</pre></div>
+</div>
+<p>This registers the <tt class="docutils literal"><span class="pre">TimeModel</span></tt> class with the 1.0 version of this plugin library, as a QML type called <tt class="docutils literal"><span class="pre">Time</span></tt> . The Q_ASSERT statement ensures the module is imported correctly by any QML components that use this plugin.</p>
+<p>The project file defines the project as a plugin library and specifies it should be built into the <tt class="docutils literal"><span class="pre">com/nokia/TimeExample</span></tt> directory:</p>
+<div class="highlight-python"><pre>TEMPLATE = lib
+CONFIG += qt plugin
+QT += declarative
+
+DESTDIR = com/nokia/TimeExample
+TARGET = qmlqtimeexampleplugin
+...</pre>
+</div>
+<p>Finally, a <em class="xref std std-ref">qmldir file</em> is required in the <tt class="docutils literal"><span class="pre">com/nokia/TimeExample</span></tt> directory that describes the plugin. This directory includes a <tt class="docutils literal"><span class="pre">Clock.qml</span></tt> file that should be bundled with the plugin, so it needs to be specified in the <tt class="docutils literal"><span class="pre">qmldir</span></tt> file:</p>
+<div class="highlight-python"><pre>Clock 1.0 Clock.qml
+plugin qmlqtimeexampleplugin</pre>
+</div>
+<p>Once the project is built and installed, the new <tt class="docutils literal"><span class="pre">Time</span></tt> element can be used by any QML component that imports the <tt class="docutils literal"><span class="pre">com.nokia.TimeExample</span></tt> module:</p>
+<div class="highlight-python"><pre>import com.nokia.TimeExample 1.0 // import types from the plugin
+
+Clock { // this class is defined in QML (com/nokia/TimeExample/Clock.qml)
+
+    Time { // this class is defined in C++ (plugin.cpp)
+        id: time
+    }
+
+    hours: time.hour
+    minutes: time.minute
+}</pre>
+</div>
+<p>The full source code is available in the <em class="xref std std-ref">plugins example</em> .</p>
+<p>The <em class="xref std std-ref">Tutorial: Writing QML extensions with C++</em> also contains a chapter on creating QML plugins.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="QDeclarativeEngine.html#PySide.QtDeclarative.PySide.QtDeclarative.QDeclarativeEngine.importPlugin" title="PySide.QtDeclarative.PySide.QtDeclarative.QDeclarativeEngine.importPlugin"><tt class="xref py py-meth docutils literal"><span class="pre">QDeclarativeEngine.importPlugin()</span></tt></a>  <em class="xref std std-ref">How to Create Qt Plugins</em></p>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="PySide.QtDeclarative.QDeclarativeExtensionPlugin">
+<em class="property">class </em><tt class="descclassname">PySide.QtDeclarative.</tt><tt class="descname">QDeclarativeExtensionPlugin</tt><big>(</big><span class="optional">[</span><em>parent=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PySide.QtDeclarative.QDeclarativeExtensionPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parent</strong> &#8211; <a class="reference internal" href="../QtCore/QObject.html#PySide.QtCore.QObject" title="PySide.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Constructs a QML extension plugin with the given <tt class="docutils literal"><span class="pre">parent</span></tt> .</p>
+<p>Note that this constructor is invoked automatically by the <tt class="xref py py-meth docutils literal"><span class="pre">Q_EXPORT_PLUGIN2()</span></tt> macro, so there is no need for calling it explicitly.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QML Tutorial 3 - States and Transitions &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="QML Tutorial" href="index.html" />
+    <link rel="next" title="QML Advanced Tutorial" href="../qmladvancedtutorial/index.html" />
+    <link rel="prev" title="QML Tutorial 2 - QML Components" href="step2.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../index.html" >PySide tutorials</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">QML Tutorial</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QML Tutorial 3 - States and Transitions</a><ul>
+<li><a class="reference internal" href="#walkthrough">Walkthrough</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="step2.html"
+                        title="previous chapter">QML Tutorial 2 - QML Components</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../qmladvancedtutorial/index.html"
+                        title="next chapter">QML Advanced Tutorial</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qml-tutorial-3-states-and-transitions">
+<span id="qmlstatesandtransitions"></span><h1>QML Tutorial 3 - States and Transitions<a class="headerlink" href="#qml-tutorial-3-states-and-transitions" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter, we make this example a little bit more dynamic by introducing states and transitions.</p>
+<p>We want our text to move to the bottom of the screen, rotate and become red when clicked.</p>
+<div class="figure align-center">
+<img alt="../../_images/declarative-tutorial3_animation.gif" src="../../_images/declarative-tutorial3_animation.gif" />
+</div>
+<p>Here is the QML code:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Rectangle {
+    id: page
+    width: 500; height: 200
+    color: "lightgray"
+
+    Text {
+        id: helloText
+        text: "Hello world!"
+        y: 30
+        anchors.horizontalCenter: page.horizontalCenter
+        font.pointSize: 24; font.bold: true
+
+        MouseArea { id: mouseArea; anchors.fill: parent }
+
+        states: State {
+            name: "down"; when: mouseArea.pressed == true
+            PropertyChanges { target: helloText; y: 160; rotation: 180; color: "red" }
+        }
+
+        transitions: Transition {
+            from: ""; to: "down"; reversible: true
+            ParallelAnimation {
+                NumberAnimation { properties: "y,rotation"; duration: 500; easing.type: Easing.InOutQuad }
+                ColorAnimation { duration: 500 }
+            }
+        }
+    }
+
+    Grid {
+        id: colorPicker
+        x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
+        rows: 2; columns: 3; spacing: 3
+
+        Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "steelblue"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "black"; onClicked: helloText.color = cellColor }
+    }
+}
+</pre>
+</div>
+<div class="section" id="walkthrough">
+<h2>Walkthrough<a class="headerlink" href="#walkthrough" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>        states: State {
+            name: "down"; when: mouseArea.pressed == true
+            PropertyChanges { target: helloText; y: 160; rotation: 180; color: "red" }
+        }
+</pre>
+</div>
+<p>First, we create a new <em>down</em> state for our text element.
+This state will be activated when the MouseArea is pressed, and deactivated when it is released.</p>
+<p>The <em>down</em> state includes a set of property changes from our implicit <em>default state</em>
+(the items as they were initially defined in the QML).
+Specifically, we set the <tt class="docutils literal"><span class="pre">y</span></tt> property of the text to <tt class="docutils literal"><span class="pre">160</span></tt>, the rotation to <tt class="docutils literal"><span class="pre">180</span></tt> and the <tt class="docutils literal"><span class="pre">color</span></tt> to red.</p>
+<div class="highlight-python"><pre>        transitions: Transition {
+            from: ""; to: "down"; reversible: true
+            ParallelAnimation {
+                NumberAnimation { properties: "y,rotation"; duration: 500; easing.type: Easing.InOutQuad }
+                ColorAnimation { duration: 500 }
+            }
+        }
+</pre>
+</div>
+<p>Because we don&#8217;t want the text to appear at the bottom instantly but rather move smoothly,
+we add a transition between our two states.</p>
+<p><tt class="docutils literal"><span class="pre">from</span></tt> and <tt class="docutils literal"><span class="pre">to</span></tt> define the states between which the transition will run.
+In this case, we want a transition from the default state to our <em>down</em> state.</p>
+<p>Because we want the same transition to be run in reverse when changing back from the <em>down</em> state to the default state,
+we set <tt class="docutils literal"><span class="pre">reversible</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>.
+This is equivalent to writing the two transitions separately.</p>
+<p>The ParallelAnimation element makes sure that the two types of animations (number and color) start at the same time.
+We could also run them one after the other by using SequentialAnimation instead.</p>
+<p>[Previous <a class="reference internal" href="step2.html#qmlcomponents"><em>QML Tutorial 2 - QML Components</em></a>]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

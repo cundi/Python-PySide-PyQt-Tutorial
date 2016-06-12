@@ -1,0 +1,225 @@
+.. module:: PySide.QtOpenGL
+.. _QGLFramebufferObjectFormat:
+
+QGLFramebufferObjectFormat
+**************************
+
+.. inheritance-diagram:: QGLFramebufferObjectFormat
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtOpenGL.QGLFramebufferObjectFormat.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtOpenGL.QGLFramebufferObjectFormat.__ne__>` (other)
+*    def :meth:`attachment<PySide.QtOpenGL.QGLFramebufferObjectFormat.attachment>` ()
+*    def :meth:`internalTextureFormat<PySide.QtOpenGL.QGLFramebufferObjectFormat.internalTextureFormat>` ()
+*    def :meth:`mipmap<PySide.QtOpenGL.QGLFramebufferObjectFormat.mipmap>` ()
+*    def :meth:`samples<PySide.QtOpenGL.QGLFramebufferObjectFormat.samples>` ()
+*    def :meth:`setAttachment<PySide.QtOpenGL.QGLFramebufferObjectFormat.setAttachment>` (attachment)
+*    def :meth:`setInternalTextureFormat<PySide.QtOpenGL.QGLFramebufferObjectFormat.setInternalTextureFormat>` (internalTextureFormat)
+*    def :meth:`setMipmap<PySide.QtOpenGL.QGLFramebufferObjectFormat.setMipmap>` (enabled)
+*    def :meth:`setSamples<PySide.QtOpenGL.QGLFramebufferObjectFormat.setSamples>` (samples)
+*    def :meth:`setTextureTarget<PySide.QtOpenGL.QGLFramebufferObjectFormat.setTextureTarget>` (target)
+*    def :meth:`textureTarget<PySide.QtOpenGL.QGLFramebufferObjectFormat.textureTarget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat` class specifies the format of an OpenGL framebuffer object.
+
+    A framebuffer object has several characteristics:
+
+
+    * :meth:`Number of samples per pixels.<PySide.QtOpenGL.QGLFramebufferObjectFormat.setSamples>`
+    * :meth:`Depth and/or stencil attachments.<PySide.QtOpenGL.QGLFramebufferObjectFormat.setAttachment>`
+    * :meth:`Texture target.<PySide.QtOpenGL.QGLFramebufferObjectFormat.setTextureTarget>`
+    * :meth:`Internal texture format.<PySide.QtOpenGL.QGLFramebufferObjectFormat.setInternalTextureFormat>`
+
+    Note that the desired attachments or number of samples per pixels might not be supported by the hardware driver. Call :meth:`QGLFramebufferObject.format()<PySide.QtOpenGL.QGLFramebufferObject.format>` after creating a :class:`PySide.QtOpenGL.QGLFramebufferObject` to find the exact format that was used to create the frame buffer object.
+
+    .. seealso::  :class:`PySide.QtOpenGL.QGLFramebufferObject` 
+
+.. class:: QGLFramebufferObjectFormat()
+           QGLFramebufferObjectFormat(other)
+
+    :param other: :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat`
+
+    Creates a :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat` object for specifying the format of an OpenGL framebuffer object.
+
+    By default the format specifies a non-multisample framebuffer object with no attachments, texture target ``GL_TEXTURE_2D`` , and internal format ``GL_RGBA8`` . On OpenGL/ES systems, the default internal format is ``GL_RGBA`` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.samples`  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.attachment`  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.internalTextureFormat` 
+
+    Constructs a copy of ``other`` .
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.attachment()
+
+
+    :rtype: :attr:`PySide.QtOpenGL.QGLFramebufferObject.Attachment`
+
+
+
+
+    Returns the configuration of the depth and stencil buffers attached to a framebuffer object. The default is :attr:`QGLFramebufferObject.NoAttachment<QGLFramebufferObject.Attachment>` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.setAttachment` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.internalTextureFormat()
+
+
+    :rtype: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Returns the internal format of a framebuffer object's texture or multisample framebuffer object's color buffer. The default is ``GL_RGBA8`` on desktop OpenGL systems, and ``GL_RGBA`` on OpenGL/ES systems.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.setInternalTextureFormat` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.mipmap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if mipmapping is enabled.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.setMipmap` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.__ne__(other)
+
+
+    :param other: :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns false if all the options of this framebuffer object format are the same as ``other`` ; otherwise returns true.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.__eq__(other)
+
+
+    :param other: :class:`PySide.QtOpenGL.QGLFramebufferObjectFormat`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if all the options of this framebuffer object format are the same as ``other`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.samples()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of samples per pixel if a framebuffer object is a multisample framebuffer object. Otherwise, returns 0. The default value is 0.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.setSamples` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.setAttachment(attachment)
+
+
+    :param attachment: :attr:`PySide.QtOpenGL.QGLFramebufferObject.Attachment`
+
+
+
+
+
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.setInternalTextureFormat(internalTextureFormat)
+
+
+    :param internalTextureFormat: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Sets the internal format of a framebuffer object's texture or multisample framebuffer object's color buffer to ``internalTextureFormat`` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.internalTextureFormat` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.setMipmap(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables mipmapping if ``enabled`` is true; otherwise disables it.
+
+    Mipmapping is disabled by default.
+
+    If mipmapping is enabled, additional memory will be allocated for the mipmap levels. The mipmap levels can be updated by binding the texture and calling :meth:`~PySide.QtOpenGL.QGLFramebufferObjectFormat.glGenerateMipmap` . Mipmapping cannot be enabled for multisampled framebuffer objects.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.mipmap`  :meth:`QGLFramebufferObject.texture()<PySide.QtOpenGL.QGLFramebufferObject.texture>` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.setSamples(samples)
+
+
+    :param samples: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the number of samples per pixel for a multisample framebuffer object to ``samples`` . The default sample count of 0 represents a regular non-multisample framebuffer object.
+
+    If the desired amount of samples per pixel is not supported by the hardware then the maximum number of samples per pixel will be used. Note that multisample framebuffer objects can not be bound as textures. Also, the ``GL_EXT_framebuffer_multisample`` extension is required to create a framebuffer with more than one sample per pixel.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.samples` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.setTextureTarget(target)
+
+
+    :param target: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Sets the texture target of the texture attached to a framebuffer object to ``target`` . Ignored for multisample framebuffer objects.
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.textureTarget`  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.samples` 
+
+
+.. method:: PySide.QtOpenGL.QGLFramebufferObjectFormat.textureTarget()
+
+
+    :rtype: :class:`PySide.QtOpenGL.GLenum`
+
+
+
+
+    Returns the texture target of the texture attached to a framebuffer object. Ignored for multisample framebuffer objects. The default is ``GL_TEXTURE_2D`` .
+
+    .. seealso::  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.setTextureTarget`  :meth:`PySide.QtOpenGL.QGLFramebufferObjectFormat.samples` 
+
+
+

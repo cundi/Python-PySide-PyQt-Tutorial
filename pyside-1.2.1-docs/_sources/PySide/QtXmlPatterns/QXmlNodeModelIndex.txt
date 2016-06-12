@@ -1,0 +1,237 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlNodeModelIndex:
+
+QXmlNodeModelIndex
+******************
+
+.. inheritance-diagram:: QXmlNodeModelIndex
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtXmlPatterns.QXmlNodeModelIndex.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtXmlPatterns.QXmlNodeModelIndex.__ne__>` (other)
+*    def :meth:`additionalData<PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData>` ()
+*    def :meth:`data<PySide.QtXmlPatterns.QXmlNodeModelIndex.data>` ()
+*    def :meth:`internalPointer<PySide.QtXmlPatterns.QXmlNodeModelIndex.internalPointer>` ()
+*    def :meth:`isNull<PySide.QtXmlPatterns.QXmlNodeModelIndex.isNull>` ()
+*    def :meth:`model<PySide.QtXmlPatterns.QXmlNodeModelIndex.model>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`create<PySide.QtXmlPatterns.QXmlNodeModelIndex.create>` (d, nm)
+*    def :meth:`create<PySide.QtXmlPatterns.QXmlNodeModelIndex.create>` (data, nm, addData)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` class identifies a node in an XML node model subclassed from :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+    :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` is an index into an :class:`XML node model<PySide.QtXmlPatterns.QAbstractXmlNodeModel>` . It contains:
+
+
+    * A pointer to an :class:`XML node model<PySide.QtXmlPatterns.QAbstractXmlNodeModel>` , which is returned by :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.model` , and
+    * Some data, which is returned by :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.data` , :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.internalPointer` , and :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData` .
+
+    Because :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` is intentionally a simple class, it doesn't have member functions for accessing the properties of nodes. For example, it doesn't have functions for getting a node's name or its list of attributes or child nodes. If you find that you need to retrieve this kind of information from your query results, there are two ways to proceed.
+
+
+    * Send the output of your :ref:`XQuery<xmlprocessing.html>` to an :class:`XML receiver<PySide.QtXmlPatterns.QAbstractXmlReceiver>` , or
+    * Let your :ref:`XQuery<xmlprocessing.html>` do all the work to produce the desired result.
+
+    The second case is explained by example. Suppose you want to populate a list widget with the values of certain attributes from a set of result elements. You could write an :ref:`XQuery<xmlprocessing.html>` to return the set of elements, and then you would write the code to iterate over the result elements, get their attributes, and extract the desired string values. But the simpler way is to just augment your :ref:`XQuery<xmlprocessing.html>` to finding the desired attribute values. Then all you have to do is evaluate the :ref:`XQuery<xmlprocessing.html>` using the version of :meth:`QXmlQuery.evaluateTo()<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` that populates a :class:`PySide.QtCore.QStringList` , which you can send directly to your widget.
+
+    :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` doesn't impose any restrictions on the ``data`` value an :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` should contain. The meaning of the data left to the associated :class:`node model<PySide.QtXmlPatterns.QAbstractXmlNodeModel>` . Because :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` depends on a particular subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` for its existence, the only way you can create an instance of :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` is by asking the node model to create one for you with :meth:`QAbstractXmlNodeModel.createIndex()<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` . Since that function is protected, it is usually a good idea to write a public function that creates a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` from arguments that are appropriate for your particular node model.
+
+    A default constructed node index is said to be null, i.e., :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.isNull` returns true.
+
+    :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` and :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` follow the same design pattern used for :class:`PySide.QtCore.QModelIndex` and :class:`PySide.QtCore.QAbstractItemModel` .
+
+
+.. class:: QXmlNodeModelIndex()
+           QXmlNodeModelIndex(other)
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+    Default constructor. Creates an item that is ``null`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.isNull` 
+
+    Standard copy constructor. Creates a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` instance that is a copy of ``other`` .
+
+
+.. attribute:: PySide.QtXmlPatterns.QXmlNodeModelIndex.NodeKind
+
+    Identifies a kind of node.
+
+    +----------------------------------------+------------------------------------+
+    |Constant                                |Description                         |
+    +========================================+====================================+
+    |QXmlNodeModelIndex.Attribute            |Identifies an attribute node        |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.Text                 |Identifies a text node              |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.Comment              |Identifies a comment node           |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.Document             |Identifies a document node          |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.Element              |Identifies an element node          |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.Namespace            |Identifies a namespace node         |
+    +----------------------------------------+------------------------------------+
+    |QXmlNodeModelIndex.ProcessingInstruction|Identifies a processing instruction.|
+    +----------------------------------------+------------------------------------+
+
+    Note that the optional XML declaration at very beginning of the XML document is not a processing instruction
+
+    .. seealso::  :meth:`QAbstractXmlNodeModel.kind()<PySide.QtXmlPatterns.QAbstractXmlNodeModel.kind>` 
+
+.. attribute:: PySide.QtXmlPatterns.QXmlNodeModelIndex.Constants
+
+
+
+.. attribute:: PySide.QtXmlPatterns.QXmlNodeModelIndex.DocumentOrder
+
+    Identifies the specific node comparison operator that should be used.
+
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                         |
+    +===========================+====================================================================================================+
+    |QXmlNodeModelIndex.Precedes|Signifies the ``\<\<`` operator. Test whether the first operand precedes the second in the document.|
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QXmlNodeModelIndex.Follows |Signifies the ``\>\>`` operator. Test whether the first operand follows the second in the document. |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+    |QXmlNodeModelIndex.Is      |Signifies the ``is`` operator. Test whether two nodes have the same node identity.                  |
+    +---------------------------+----------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the second data value. The node index holds two data values. :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.data` returns the first one.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.data` 
+
+
+.. staticmethod:: PySide.QtXmlPatterns.QXmlNodeModelIndex.create(data, nm, addData)
+
+
+    :param data: :class:`PySide.QtCore.qint64`
+    :param nm: :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel`
+    :param addData: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtXmlPatterns.QXmlNodeModelIndex.create(d, nm)
+
+
+    :param d: :class:`PySide.QtCore.qint64`
+    :param nm: :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel`
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.data()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the first data value. The node index holds two data values. :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData` returns the second one.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.internalPointer()
+
+
+    :rtype: :class:`void`
+
+
+
+
+    Returns the first data value as a void\* pointer.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlNodeModelIndex.additionalData` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` is a default constructed value, otherwise false.
+
+    A null :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` doesn't represent any node and cannot be used in conjunction with :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.model()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel`
+
+
+
+
+    Returns the :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` that this node index refers to. :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` does not own :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` and does not keep track of its lifetime, so this pointer will dangle if the :class:`PySide.QtXmlPatterns.QAbstractXmlNodeModel` is deallocated first.
+
+    There is no setter for the node model because instances of :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` instances are only created with :meth:`QAbstractXmlNodeModel.createIndex()<PySide.QtXmlPatterns.QAbstractXmlNodeModel.createIndex>` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.__ne__(other)
+
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``other`` is the same node as this.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlNodeModelIndex.__eq__(other)
+
+
+    :param other: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this node is the same as ``other`` . This operator does not compare values, children, or names of nodes. It compares node identities, i.e., whether two nodes are from the same document and are found at the exact same place.
+
+
+
+

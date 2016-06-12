@@ -1,0 +1,990 @@
+.. module:: PySide.QtCore
+.. _QTextStream:
+
+QTextStream
+***********
+
+.. inheritance-diagram:: QTextStream
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (, arg__2)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (, arg__2)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (, m)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (array)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (ch)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (ch)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (f)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (i)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (i)
+*    def :meth:`__lshift__<PySide.QtCore.QTextStream.__lshift__>` (s)
+*    def :meth:`__rshift__<PySide.QtCore.QTextStream.__rshift__>` (, arg__2)
+*    def :meth:`__rshift__<PySide.QtCore.QTextStream.__rshift__>` (array)
+*    def :meth:`atEnd<PySide.QtCore.QTextStream.atEnd>` ()
+*    def :meth:`autoDetectUnicode<PySide.QtCore.QTextStream.autoDetectUnicode>` ()
+*    def :meth:`codec<PySide.QtCore.QTextStream.codec>` ()
+*    def :meth:`device<PySide.QtCore.QTextStream.device>` ()
+*    def :meth:`fieldAlignment<PySide.QtCore.QTextStream.fieldAlignment>` ()
+*    def :meth:`fieldWidth<PySide.QtCore.QTextStream.fieldWidth>` ()
+*    def :meth:`flush<PySide.QtCore.QTextStream.flush>` ()
+*    def :meth:`generateByteOrderMark<PySide.QtCore.QTextStream.generateByteOrderMark>` ()
+*    def :meth:`integerBase<PySide.QtCore.QTextStream.integerBase>` ()
+*    def :meth:`locale<PySide.QtCore.QTextStream.locale>` ()
+*    def :meth:`numberFlags<PySide.QtCore.QTextStream.numberFlags>` ()
+*    def :meth:`padChar<PySide.QtCore.QTextStream.padChar>` ()
+*    def :meth:`pos<PySide.QtCore.QTextStream.pos>` ()
+*    def :meth:`read<PySide.QtCore.QTextStream.read>` (maxlen)
+*    def :meth:`readAll<PySide.QtCore.QTextStream.readAll>` ()
+*    def :meth:`readLine<PySide.QtCore.QTextStream.readLine>` ([maxlen=0])
+*    def :meth:`realNumberNotation<PySide.QtCore.QTextStream.realNumberNotation>` ()
+*    def :meth:`realNumberPrecision<PySide.QtCore.QTextStream.realNumberPrecision>` ()
+*    def :meth:`reset<PySide.QtCore.QTextStream.reset>` ()
+*    def :meth:`resetStatus<PySide.QtCore.QTextStream.resetStatus>` ()
+*    def :meth:`seek<PySide.QtCore.QTextStream.seek>` (pos)
+*    def :meth:`setAutoDetectUnicode<PySide.QtCore.QTextStream.setAutoDetectUnicode>` (enabled)
+*    def :meth:`setCodec<PySide.QtCore.QTextStream.setCodec>` (codec)
+*    def :meth:`setCodec<PySide.QtCore.QTextStream.setCodec>` (codecName)
+*    def :meth:`setDevice<PySide.QtCore.QTextStream.setDevice>` (device)
+*    def :meth:`setFieldAlignment<PySide.QtCore.QTextStream.setFieldAlignment>` (alignment)
+*    def :meth:`setFieldWidth<PySide.QtCore.QTextStream.setFieldWidth>` (width)
+*    def :meth:`setGenerateByteOrderMark<PySide.QtCore.QTextStream.setGenerateByteOrderMark>` (generate)
+*    def :meth:`setIntegerBase<PySide.QtCore.QTextStream.setIntegerBase>` (base)
+*    def :meth:`setLocale<PySide.QtCore.QTextStream.setLocale>` (locale)
+*    def :meth:`setNumberFlags<PySide.QtCore.QTextStream.setNumberFlags>` (flags)
+*    def :meth:`setPadChar<PySide.QtCore.QTextStream.setPadChar>` (ch)
+*    def :meth:`setRealNumberNotation<PySide.QtCore.QTextStream.setRealNumberNotation>` (notation)
+*    def :meth:`setRealNumberPrecision<PySide.QtCore.QTextStream.setRealNumberPrecision>` (precision)
+*    def :meth:`setStatus<PySide.QtCore.QTextStream.setStatus>` (status)
+*    def :meth:`skipWhiteSpace<PySide.QtCore.QTextStream.skipWhiteSpace>` ()
+*    def :meth:`status<PySide.QtCore.QTextStream.status>` ()
+*    def :meth:`string<PySide.QtCore.QTextStream.string>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTextStream` class provides a convenient interface for reading and writing text.
+
+    :class:`PySide.QtCore.QTextStream` can operate on a :class:`PySide.QtCore.QIODevice` , a :class:`PySide.QtCore.QByteArray` or a :class:`PySide.QtCore.QString` . Using :class:`PySide.QtCore.QTextStream` 's streaming operators, you can conveniently read and write words, lines and numbers. For generating text, :class:`PySide.QtCore.QTextStream` supports formatting options for field padding and alignment, and formatting of numbers. Example:
+
+    ::
+
+        data = QFile("output.txt")
+        if data.open(QFile.WriteOnly | QFile.Truncate):
+            out = QTextStream(&data)
+            out << "Result: " << qSetFieldWidth(10) << left << 3.14 << 2.7
+            # writes "Result: 3.14      2.7       "
+
+
+
+    It's also common to use :class:`PySide.QtCore.QTextStream` to read console input and write console output. :class:`PySide.QtCore.QTextStream` is locale aware, and will automatically decode standard input using the correct codec. Example:
+
+    ::
+
+        stream = QTextStream(sys.stdin.fileno())
+
+        while(True):
+            line = stream.readLine()
+            if line.isNull():
+                break;
+
+
+    Besides using :class:`PySide.QtCore.QTextStream` 's constructors, you can also set the device or string :class:`PySide.QtCore.QTextStream` operates on by calling :meth:`PySide.QtCore.QTextStream.setDevice` or :meth:`PySide.QtCore.QTextStream.setString` . You can seek to a position by calling :meth:`PySide.QtCore.QTextStream.seek` , and :meth:`PySide.QtCore.QTextStream.atEnd` will return true when there is no data left to be read. If you call :meth:`PySide.QtCore.QTextStream.flush` , :class:`PySide.QtCore.QTextStream` will empty all data from its write buffer into the device and call :meth:`PySide.QtCore.QTextStream.flush` on the device.
+
+    Internally, :class:`PySide.QtCore.QTextStream` uses a Unicode based buffer, and :class:`PySide.QtCore.QTextCodec` is used by :class:`PySide.QtCore.QTextStream` to automatically support different character sets. By default, :meth:`QTextCodec.codecForLocale()<PySide.QtCore.QTextCodec.codecForLocale>` is used for reading and writing, but you can also set the codec by calling :meth:`PySide.QtCore.QTextStream.setCodec` . Automatic Unicode detection is also supported. When this feature is enabled (the default behavior), :class:`PySide.QtCore.QTextStream` will detect the UTF-16 or the UTF-32 BOM (Byte Order Mark) and switch to the appropriate UTF codec when reading. :class:`PySide.QtCore.QTextStream` does not write a BOM by default, but you can enable this by calling setGenerateByteOrderMark(true). When :class:`PySide.QtCore.QTextStream` operates on a :class:`PySide.QtCore.QString` directly, the codec is disabled.
+
+    There are three general ways to use :class:`PySide.QtCore.QTextStream` when reading text files:
+
+
+    * Chunk by chunk, by calling :meth:`PySide.QtCore.QTextStream.readLine` or :meth:`PySide.QtCore.QTextStream.readAll` .
+    * Word by word. :class:`PySide.QtCore.QTextStream` supports streaming into QStrings, QByteArrays and char\* buffers. Words are delimited by space, and leading white space is automatically skipped.
+    * Character by character, by streaming into :class:`PySide.QtCore.QChar` or char types. This method is often used for convenient input handling when parsing files, independent of character encoding and end-of-line semantics. To skip white space, call :meth:`PySide.QtCore.QTextStream.skipWhiteSpace` .
+
+    Since the text stream uses a buffer, you should not read from the stream using the implementation of a superclass. For instance, if you have a :class:`PySide.QtCore.QFile` and read from it directly using :meth:`QFile.readLine()<PySide.QtCore.QFile.readLine>` instead of using the stream, the text stream's internal position will be out of sync with the file's position.
+
+    By default, when reading numbers from a stream of text, :class:`PySide.QtCore.QTextStream` will automatically detect the number's base representation. For example, if the number starts with "0x", it is assumed to be in hexadecimal form. If it starts with the digits 1-9, it is assumed to be in decimal form, and so on. You can set the integer base, thereby disabling the automatic detection, by calling :meth:`PySide.QtCore.QTextStream.setIntegerBase` . Example:
+
+    ::
+
+        in_ = QTextStream("0x50 0x20")
+        firstNumber = 0
+        secondNumber = 0
+
+        in_ >> firstNumber             # firstNumber == 80
+        in_ >> dec >> secondNumber     # secondNumber == 0
+
+        ch = None
+        in_ >> ch                      # ch == 'x'
+
+
+    :class:`PySide.QtCore.QTextStream` supports many formatting options for generating text. You can set the field width and pad character by calling :meth:`PySide.QtCore.QTextStream.setFieldWidth` and :meth:`PySide.QtCore.QTextStream.setPadChar` . Use :meth:`PySide.QtCore.QTextStream.setFieldAlignment` to set the alignment within each field. For real numbers, call :meth:`PySide.QtCore.QTextStream.setRealNumberNotation` and :meth:`PySide.QtCore.QTextStream.setRealNumberPrecision` to set the notation ( :attr:`SmartNotation<QTextStream.RealNumberNotation>` , :attr:`ScientificNotation<QTextStream.RealNumberNotation>` , :attr:`FixedNotation<QTextStream.RealNumberNotation>` ) and precision in digits of the generated number. Some extra number formatting options are also available through :meth:`PySide.QtCore.QTextStream.setNumberFlags` .
+
+    Like ``<iostream>`` in the standard C++ library, :class:`PySide.QtCore.QTextStream` also defines several global manipulator functions:
+
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |Manipulator         |Description                                                                                                                 |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``bin``\            |Same as setIntegerBase(2).                                                                                                  |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``oct``\            |Same as setIntegerBase(8).                                                                                                  |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``dec``\            |Same as setIntegerBase(10).                                                                                                 |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``hex``\            |Same as setIntegerBase(16).                                                                                                 |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``showbase``\       |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` | :attr:`ShowBase<QTextStream.NumberFlag>` ).         |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``forcesign``\      |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` | :attr:`ForceSign<QTextStream.NumberFlag>` ).        |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``forcepoint``\     |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` | :attr:`ForcePoint<QTextStream.NumberFlag>` ).       |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``noshowbase``\     |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` & ~ :attr:`ShowBase<QTextStream.NumberFlag>` ).       |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``noforcesign``\    |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` & ~ :attr:`ForceSign<QTextStream.NumberFlag>` ).      |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``noforcepoint``\   |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` & ~ :attr:`ForcePoint<QTextStream.NumberFlag>` ).     |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``uppercasebase``\  |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` | :attr:`UppercaseBase<QTextStream.NumberFlag>` ).    |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``uppercasedigits``\|Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` | :attr:`UppercaseDigits<QTextStream.NumberFlag>` ).  |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``lowercasebase``\  |Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` & ~ :attr:`UppercaseBase<QTextStream.NumberFlag>` ).  |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``lowercasedigits``\|Same as setNumberFlags( :meth:`PySide.QtCore.QTextStream.numberFlags` & ~ :attr:`UppercaseDigits<QTextStream.NumberFlag>` ).|
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``fixed``\          |Same as setRealNumberNotation( :attr:`FixedNotation<QTextStream.RealNumberNotation>` ).                                     |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``scientific``\     |Same as setRealNumberNotation( :attr:`ScientificNotation<QTextStream.RealNumberNotation>` ).                                |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``left``\           |Same as setFieldAlignment( :attr:`AlignLeft<QTextStream.FieldAlignment>` ).                                                 |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``right``\          |Same as setFieldAlignment( :attr:`AlignRight<QTextStream.FieldAlignment>` ).                                                |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``center``\         |Same as setFieldAlignment( :attr:`AlignCenter<QTextStream.FieldAlignment>` ).                                               |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``endl``\           |Same as operator<<('\n') and :meth:`PySide.QtCore.QTextStream.flush` .                                                      |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``flush``\          |Same as :meth:`PySide.QtCore.QTextStream.flush` .                                                                           |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``reset``\          |Same as :meth:`PySide.QtCore.QTextStream.reset` .                                                                           |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``ws``\             |Same as :meth:`PySide.QtCore.QTextStream.skipWhiteSpace` .                                                                  |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+    |``bom``\            |Same as setGenerateByteOrderMark(true).                                                                                     |
+    +--------------------+----------------------------------------------------------------------------------------------------------------------------+
+
+    In addition, Qt provides three global manipulators that take a parameter: :meth:`~PySide.QtCore.QTextStream.qSetFieldWidth` , :meth:`~PySide.QtCore.QTextStream.qSetPadChar` , and :meth:`~PySide.QtCore.QTextStream.qSetRealNumberPrecision` .
+
+    .. seealso::  :class:`PySide.QtCore.QDataStream`  :class:`PySide.QtCore.QIODevice`  :class:`PySide.QtCore.QFile`  :class:`PySide.QtCore.QBuffer`  :class:`PySide.QtNetwork.QTcpSocket`  :ref:`Codecs Example<tools/codecs>` 
+
+.. class:: QTextStream()
+           QTextStream(array[, openMode=QIODevice.ReadWrite])
+           QTextStream(device)
+
+    :param array: :class:`PySide.QtCore.QByteArray`
+    :param openMode: :class:`PySide.QtCore.QIODevice.OpenMode`
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+    Constructs a :class:`PySide.QtCore.QTextStream` . Before you can use it for reading or writing, you must assign a device or a string.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setDevice`  :meth:`PySide.QtCore.QTextStream.setString` 
+
+
+
+    Constructs a :class:`PySide.QtCore.QTextStream` that operates on ``device`` .
+
+
+
+
+.. attribute:: PySide.QtCore.QTextStream.RealNumberNotation
+
+    This enum specifies which notations to use for expressing ``float`` and ``double`` as strings.
+
+    +------------------------------+-----------------------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                                          |
+    +==============================+=====================================================================================================+
+    |QTextStream.ScientificNotation|Scientific notation (``printf()``'s ``%e`` flag).                                                    |
+    +------------------------------+-----------------------------------------------------------------------------------------------------+
+    |QTextStream.FixedNotation     |Fixed-point notation (``printf()``'s ``%f`` flag).                                                   |
+    +------------------------------+-----------------------------------------------------------------------------------------------------+
+    |QTextStream.SmartNotation     |Scientific or fixed-point notation, depending on which makes most sense (``printf()``'s ``%g`` flag).|
+    +------------------------------+-----------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setRealNumberNotation` 
+
+.. attribute:: PySide.QtCore.QTextStream.NumberFlag
+
+    This enum specifies various flags that can be set to affect the output of integers, ``float``\ s, and ``double``\ s.
+
+    +---------------------------+---------------------------------------------------------------------------+
+    |Constant                   |Description                                                                |
+    +===========================+===========================================================================+
+    |QTextStream.ShowBase       |Show the base as a prefix if the base is 16 ("0x"), 8 ("0"), or 2 ("0b").  |
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.ForcePoint     |Always put the decimal separator in numbers, even if there are no decimals.|
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.ForceSign      |Always put the sign in numbers, even for positive numbers.                 |
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.UppercaseBase  |Use uppercase versions of base prefixes ("0X", "0B").                      |
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.UppercaseDigits|Use uppercase letters for expressing digits 10 to 35 instead of lowercase. |
+    +---------------------------+---------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setNumberFlags` 
+
+.. attribute:: PySide.QtCore.QTextStream.FieldAlignment
+
+    This enum specifies how to align text in fields when the field is wider than the text that occupies it.
+
+    +--------------------------------+--------------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                             |
+    +================================+========================================================================================================+
+    |QTextStream.AlignLeft           |Pad on the right side of fields.                                                                        |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------+
+    |QTextStream.AlignRight          |Pad on the left side of fields.                                                                         |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------+
+    |QTextStream.AlignCenter         |Pad on both sides of field.                                                                             |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------+
+    |QTextStream.AlignAccountingStyle|Same as :attr:`AlignRight<QTextStream.FieldAlignment>` , except that the sign of a number is flush left.|
+    +--------------------------------+--------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setFieldAlignment` 
+
+.. attribute:: PySide.QtCore.QTextStream.Status
+
+    This enum describes the current status of the text stream.
+
+    +---------------------------+---------------------------------------------------------------------------+
+    |Constant                   |Description                                                                |
+    +===========================+===========================================================================+
+    |QTextStream.Ok             |The text stream is operating normally.                                     |
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.ReadPastEnd    |The text stream has read past the end of the data in the underlying device.|
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.ReadCorruptData|The text stream has read corrupt data.                                     |
+    +---------------------------+---------------------------------------------------------------------------+
+    |QTextStream.WriteFailed    |The text stream cannot write to the underlying device.                     |
+    +---------------------------+---------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.status` 
+
+.. method:: PySide.QtCore.QTextStream.atEnd()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is no more data to be read from the :class:`PySide.QtCore.QTextStream` ; otherwise returns false. This is similar to, but not the same as calling :meth:`QIODevice.atEnd()<PySide.QtCore.QIODevice.atEnd>` , as :class:`PySide.QtCore.QTextStream` also takes into account its internal Unicode buffer.
+
+
+
+.. method:: PySide.QtCore.QTextStream.autoDetectUnicode()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if automatic Unicode detection is enabled, otherwise returns false. Automatic Unicode detection is enabled by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setAutoDetectUnicode`  :meth:`PySide.QtCore.QTextStream.setCodec` 
+
+
+.. method:: PySide.QtCore.QTextStream.codec()
+
+
+    :rtype: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Returns the codec that is current assigned to the stream.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setCodec`  :meth:`PySide.QtCore.QTextStream.setAutoDetectUnicode`  :meth:`PySide.QtCore.QTextStream.locale` 
+
+
+.. method:: PySide.QtCore.QTextStream.device()
+
+
+    :rtype: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Returns the current device associated with the :class:`PySide.QtCore.QTextStream` , or 0 if no device has been assigned.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setDevice`  :meth:`PySide.QtCore.QTextStream.string` 
+
+
+.. method:: PySide.QtCore.QTextStream.fieldAlignment()
+
+
+    :rtype: :attr:`PySide.QtCore.QTextStream.FieldAlignment`
+
+
+
+
+    Returns the current field alignment.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setFieldAlignment`  :meth:`PySide.QtCore.QTextStream.fieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.fieldWidth()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current field width.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setFieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.flush()
+
+
+
+
+
+
+    Flushes any buffered data waiting to be written to the device.
+
+    If :class:`PySide.QtCore.QTextStream` operates on a string, this function does nothing.
+
+
+
+.. method:: PySide.QtCore.QTextStream.generateByteOrderMark()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if :class:`PySide.QtCore.QTextStream` is set to generate the UTF BOM (Byte Order Mark) when using a UTF codec; otherwise returns false. UTF BOM generation is set to false by default.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setGenerateByteOrderMark` 
+
+
+.. method:: PySide.QtCore.QTextStream.integerBase()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current base of integers. 0 means that the base is detected when reading, or 10 (decimal) when generating numbers.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setIntegerBase`  :meth:`QString.number`  :meth:`PySide.QtCore.QTextStream.numberFlags` 
+
+
+.. method:: PySide.QtCore.QTextStream.locale()
+
+
+    :rtype: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Returns the locale for this stream. The default locale is C.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setLocale` 
+
+
+.. method:: PySide.QtCore.QTextStream.numberFlags()
+
+
+    :rtype: :class:`PySide.QtCore.QTextStream.NumberFlags`
+
+
+
+
+    Returns the current number flags.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setNumberFlags`  :meth:`PySide.QtCore.QTextStream.integerBase`  :meth:`PySide.QtCore.QTextStream.realNumberNotation` 
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(i)
+
+
+    :param i: :class:`PySide.QtCore.signed long`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Writes the signed long ``i`` to the stream.
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(i)
+
+
+    :param i: long
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Writes the unsigned long ``i`` to the stream.
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(f)
+
+
+    :param f: :class:`PySide.QtCore.double`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Writes the double ``f`` to the stream.
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtGui.QSplitter`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(ch)
+
+
+    :param ch: :class:`PySide.QtCore.char`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Converts ``c`` from ASCII to a :class:`PySide.QtCore.QChar` , then writes it to the stream.
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(, m)
+
+
+    :param m: :class:`PySide.QtCore.QTextStreamManipulator`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(ch)
+
+
+    :param ch: :class:`PySide.QtCore.QChar`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    Writes the character ``c`` to the stream, then returns a reference to the :class:`PySide.QtCore.QTextStream` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setFieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(s)
+
+
+    :param s: unicode
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    Writes the string ``string`` to the stream, and returns a reference to the :class:`PySide.QtCore.QTextStream` . The string is first encoded using the assigned codec (the default codec is :meth:`QTextCodec.codecForLocale()<PySide.QtCore.QTextCodec.codecForLocale>` ) before it is written to the stream.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setFieldWidth`  :meth:`PySide.QtCore.QTextStream.setCodec` 
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(array)
+
+
+    :param array: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Writes ``array`` to the stream. The contents of ``array`` are converted with :meth:`QString.fromAscii` .
+
+
+
+.. method:: PySide.QtCore.QTextStream.__lshift__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtXml.QDomNode`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextStream.__rshift__(array)
+
+
+    :param array: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+    This is an overloaded function.
+
+    Converts the word to ISO-8859-1, then stores it in ``array`` .
+
+    .. seealso::  :meth:`QString.toLatin1` 
+
+
+.. method:: PySide.QtCore.QTextStream.__rshift__(, arg__2)
+
+
+    :param arg__2: :class:`PySide.QtGui.QSplitter`
+    :rtype: :class:`PySide.QtCore.QTextStream`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextStream.padChar()
+
+
+    :rtype: :class:`PySide.QtCore.QChar`
+
+
+
+
+    Returns the current pad character.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setPadChar`  :meth:`PySide.QtCore.QTextStream.setFieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.pos()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the device position corresponding to the current position of the stream, or -1 if an error occurs (e.g., if there is no device or string, or if there's a device error).
+
+    Because :class:`PySide.QtCore.QTextStream` is buffered, this function may have to seek the device to reconstruct a valid device position. This operation can be expensive, so you may want to avoid calling this function in a tight loop.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.seek` 
+
+
+.. method:: PySide.QtCore.QTextStream.read(maxlen)
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: unicode
+
+
+
+
+    Reads at most ``maxlen`` characters from the stream, and returns the data read as a :class:`PySide.QtCore.QString` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.readAll`  :meth:`PySide.QtCore.QTextStream.readLine`  :meth:`QIODevice.read()<PySide.QtCore.QIODevice.read>` 
+
+
+.. method:: PySide.QtCore.QTextStream.readAll()
+
+
+    :rtype: unicode
+
+
+
+
+    Reads the entire content of the stream, and returns it as a :class:`PySide.QtCore.QString` . Avoid this function when working on large files, as it will consume a significant amount of memory.
+
+    Calling :meth:`PySide.QtCore.QTextStream.readLine` is better if you do not know how much data is available.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.readLine` 
+
+
+.. method:: PySide.QtCore.QTextStream.readLine([maxlen=0])
+
+
+    :param maxlen: :class:`PySide.QtCore.qint64`
+    :rtype: unicode
+
+
+
+
+    Reads one line of text from the stream, and returns it as a :class:`PySide.QtCore.QString` . The maximum allowed line length is set to ``maxlen`` . If the stream contains lines longer than this, then the lines will be split after ``maxlen`` characters and returned in parts.
+
+    If ``maxlen`` is 0, the lines can be of any length. A common value for ``maxlen`` is 75.
+
+    The returned line has no trailing end-of-line characters ("\n" or "\r\n"), so calling :meth:`QString.trimmed` is unnecessary.
+
+    If the stream has read to the end of the file, :meth:`PySide.QtCore.QTextStream.readLine` will return a null :class:`PySide.QtCore.QString` . For strings, or for devices that support it, you can explicitly test for the end of the stream using :meth:`PySide.QtCore.QTextStream.atEnd` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.readAll`  :meth:`QIODevice.readLine()<PySide.QtCore.QIODevice.readLine>` 
+
+
+.. method:: PySide.QtCore.QTextStream.realNumberNotation()
+
+
+    :rtype: :attr:`PySide.QtCore.QTextStream.RealNumberNotation`
+
+
+
+
+    Returns the current real number notation.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setRealNumberNotation`  :meth:`PySide.QtCore.QTextStream.realNumberPrecision`  :meth:`PySide.QtCore.QTextStream.numberFlags`  :meth:`PySide.QtCore.QTextStream.integerBase` 
+
+
+.. method:: PySide.QtCore.QTextStream.realNumberPrecision()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current real number precision, or the number of fraction digits :class:`PySide.QtCore.QTextStream` will write when generating real numbers.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setRealNumberPrecision`  :meth:`PySide.QtCore.QTextStream.setRealNumberNotation`  :meth:`PySide.QtCore.QTextStream.realNumberNotation`  :meth:`PySide.QtCore.QTextStream.numberFlags`  :meth:`PySide.QtCore.QTextStream.integerBase` 
+
+
+.. method:: PySide.QtCore.QTextStream.reset()
+
+
+
+
+
+
+    Resets :class:`PySide.QtCore.QTextStream` 's formatting options, bringing it back to its original constructed state. The device, string and any buffered data is left untouched.
+
+
+
+.. method:: PySide.QtCore.QTextStream.resetStatus()
+
+
+
+
+
+
+    Resets the status of the text stream.
+
+    .. seealso::  :attr:`QTextStream.Status`  :meth:`PySide.QtCore.QTextStream.status`  :meth:`PySide.QtCore.QTextStream.setStatus` 
+
+
+.. method:: PySide.QtCore.QTextStream.seek(pos)
+
+
+    :param pos: :class:`PySide.QtCore.qint64`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Seeks to the position ``pos`` in the device. Returns true on success; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QTextStream.setAutoDetectUnicode(enabled)
+
+
+    :param enabled: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``enabled`` is true, :class:`PySide.QtCore.QTextStream` will attempt to detect Unicode encoding by peeking into the stream data to see if it can find the UTF-16 or UTF-32 BOM (Byte Order Mark). If this mark is found, :class:`PySide.QtCore.QTextStream` will replace the current codec with the UTF codec.
+
+    This function can be used together with :meth:`PySide.QtCore.QTextStream.setCodec` . It is common to set the codec to UTF-8, and then enable UTF-16 detection.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.autoDetectUnicode`  :meth:`PySide.QtCore.QTextStream.setCodec` 
+
+
+.. method:: PySide.QtCore.QTextStream.setCodec(codecName)
+
+
+    :param codecName: str
+
+
+
+
+    Sets the codec for this stream to the :class:`PySide.QtCore.QTextCodec` for the encoding specified by ``codecName`` . Common values for ``codecName`` include "ISO 8859-1", "UTF-8", and "UTF-16". If the encoding isn't recognized, nothing happens.
+
+    Example:
+
+    ::
+
+        out = QTextStream(file)
+        out.setCodec("UTF-8")
+
+
+    .. seealso::  :meth:`QTextCodec.codecForName()<PySide.QtCore.QTextCodec.codecForName>`  :meth:`PySide.QtCore.QTextStream.setLocale` 
+
+
+.. method:: PySide.QtCore.QTextStream.setCodec(codec)
+
+
+    :param codec: :class:`PySide.QtCore.QTextCodec`
+
+
+
+
+    Sets the codec for this stream to ``codec`` . The codec is used for decoding any data that is read from the assigned device, and for encoding any data that is written. By default, :meth:`QTextCodec.codecForLocale()<PySide.QtCore.QTextCodec.codecForLocale>` is used, and automatic unicode detection is enabled.
+
+    If :class:`PySide.QtCore.QTextStream` operates on a string, this function does nothing.
+
+    .. warning::  If you call this function while the text stream is reading from an open sequential socket, the internal buffer may still contain text decoded using the old codec.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.codec`  :meth:`PySide.QtCore.QTextStream.setAutoDetectUnicode`  :meth:`PySide.QtCore.QTextStream.setLocale` 
+
+
+.. method:: PySide.QtCore.QTextStream.setDevice(device)
+
+
+    :param device: :class:`PySide.QtCore.QIODevice`
+
+
+
+
+    Sets the current device to ``device`` . If a device has already been assigned, :class:`PySide.QtCore.QTextStream` will call :meth:`PySide.QtCore.QTextStream.flush` before the old device is replaced.
+
+    .. note::  This function resets locale to the default locale ('C') and codec to the default codec, :meth:`QTextCodec.codecForLocale()<PySide.QtCore.QTextCodec.codecForLocale>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.device`  :meth:`PySide.QtCore.QTextStream.setString` 
+
+
+.. method:: PySide.QtCore.QTextStream.setFieldAlignment(alignment)
+
+
+    :param alignment: :attr:`PySide.QtCore.QTextStream.FieldAlignment`
+
+
+
+
+    Sets the field alignment to ``mode`` . When used together with :meth:`PySide.QtCore.QTextStream.setFieldWidth` , this function allows you to generate formatted output with text aligned to the left, to the right or center aligned.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.fieldAlignment`  :meth:`PySide.QtCore.QTextStream.setFieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.setFieldWidth(width)
+
+
+    :param width: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the current field width to ``width`` . If ``width`` is 0 (the default), the field width is equal to the length of the generated text.
+
+    .. note::  The field width applies to every element appended to this stream after this function has been called (e.g., it also pads endl). This behavior is different from similar classes in the STL, where the field width only applies to the next element.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.fieldWidth`  :meth:`PySide.QtCore.QTextStream.setPadChar` 
+
+
+.. method:: PySide.QtCore.QTextStream.setGenerateByteOrderMark(generate)
+
+
+    :param generate: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``generate`` is true and a UTF codec is used, :class:`PySide.QtCore.QTextStream` will insert the BOM (Byte Order Mark) before any data has been written to the device. If ``generate`` is false, no BOM will be inserted. This function must be called before any data is written. Otherwise, it does nothing.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.generateByteOrderMark`  :meth:`~PySide.QtCore.QTextStream.bom` 
+
+
+.. method:: PySide.QtCore.QTextStream.setIntegerBase(base)
+
+
+    :param base: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the base of integers to ``base`` , both for reading and for generating numbers. ``base`` can be either 2 (binary), 8 (octal), 10 (decimal) or 16 (hexadecimal). If ``base`` is 0, :class:`PySide.QtCore.QTextStream` will attempt to detect the base by inspecting the data on the stream. When generating numbers, :class:`PySide.QtCore.QTextStream` assumes base is 10 unless the base has been set explicitly.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.integerBase`  :meth:`QString.number`  :meth:`PySide.QtCore.QTextStream.setNumberFlags` 
+
+
+.. method:: PySide.QtCore.QTextStream.setLocale(locale)
+
+
+    :param locale: :class:`PySide.QtCore.QLocale`
+
+
+
+
+    Sets the locale for this stream to ``locale`` . The specified locale is used for conversions between numbers and their string representations.
+
+    The default locale is C and it is a special case - the thousands group separator is not used for backward compatibility reasons.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.locale` 
+
+
+.. method:: PySide.QtCore.QTextStream.setNumberFlags(flags)
+
+
+    :param flags: :class:`PySide.QtCore.QTextStream.NumberFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTextStream.setPadChar(ch)
+
+
+    :param ch: :class:`PySide.QtCore.QChar`
+
+
+
+
+    Sets the pad character to ``ch`` . The default value is the ASCII space character (' '), or :class:`PySide.QtCore.QChar` (0x20). This character is used to fill in the space in fields when generating text.
+
+    Example:
+
+    ::
+
+        s = QString()
+        out = QTextStream(s)
+        out.setFieldWidth(10)
+        out.setFieldAlignment(QTextStream::AlignCenter)
+        out.setPadChar('-')
+        out << "Qt" << "rocks!"
+
+
+    The string ``s`` contains:
+
+    ::
+
+        ----Qt------rocks!--
+
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.padChar`  :meth:`PySide.QtCore.QTextStream.setFieldWidth` 
+
+
+.. method:: PySide.QtCore.QTextStream.setRealNumberNotation(notation)
+
+
+    :param notation: :attr:`PySide.QtCore.QTextStream.RealNumberNotation`
+
+
+
+
+    Sets the real number notation to ``notation`` ( :attr:`SmartNotation<QTextStream.RealNumberNotation>` , :attr:`FixedNotation<QTextStream.RealNumberNotation>` , :attr:`ScientificNotation<QTextStream.RealNumberNotation>` ). When reading and generating numbers, :class:`PySide.QtCore.QTextStream` uses this value to detect the formatting of real numbers.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.realNumberNotation`  :meth:`PySide.QtCore.QTextStream.setRealNumberPrecision`  :meth:`PySide.QtCore.QTextStream.setNumberFlags`  :meth:`PySide.QtCore.QTextStream.setIntegerBase` 
+
+
+.. method:: PySide.QtCore.QTextStream.setRealNumberPrecision(precision)
+
+
+    :param precision: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the precision of real numbers to ``precision`` . This value describes the number of fraction digits :class:`PySide.QtCore.QTextStream` should write when generating real numbers.
+
+    The precision cannot be a negative value. The default value is 6.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.realNumberPrecision`  :meth:`PySide.QtCore.QTextStream.setRealNumberNotation` 
+
+
+.. method:: PySide.QtCore.QTextStream.setStatus(status)
+
+
+    :param status: :attr:`PySide.QtCore.QTextStream.Status`
+
+
+
+
+    Sets the status of the text stream to the ``status`` given.
+
+    Subsequent calls to :meth:`PySide.QtCore.QTextStream.setStatus` are ignored until :meth:`PySide.QtCore.QTextStream.resetStatus` is called.
+
+    .. seealso::  :attr:`QTextStream.Status`  :meth:`PySide.QtCore.QTextStream.status`  :meth:`PySide.QtCore.QTextStream.resetStatus` 
+
+
+.. method:: PySide.QtCore.QTextStream.skipWhiteSpace()
+
+
+
+
+
+
+    Reads and discards whitespace from the stream until either a non-space character is detected, or until :meth:`PySide.QtCore.QTextStream.atEnd` returns true. This function is useful when reading a stream character by character.
+
+    Whitespace characters are all characters for which :meth:`QChar.isSpace` returns true.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.operator>>` 
+
+
+.. method:: PySide.QtCore.QTextStream.status()
+
+
+    :rtype: :attr:`PySide.QtCore.QTextStream.Status`
+
+
+
+
+    Returns the status of the text stream.
+
+    .. seealso::  :attr:`QTextStream.Status`  :meth:`PySide.QtCore.QTextStream.setStatus`  :meth:`PySide.QtCore.QTextStream.resetStatus` 
+
+
+.. method:: PySide.QtCore.QTextStream.string()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the current string assigned to the :class:`PySide.QtCore.QTextStream` , or 0 if no string has been assigned.
+
+    .. seealso::  :meth:`PySide.QtCore.QTextStream.setString`  :meth:`PySide.QtCore.QTextStream.device` 
+
+
+

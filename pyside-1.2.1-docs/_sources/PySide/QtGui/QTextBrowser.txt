@@ -1,0 +1,460 @@
+.. module:: PySide.QtGui
+.. _QTextBrowser:
+
+QTextBrowser
+************
+
+.. inheritance-diagram:: QTextBrowser
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`backwardHistoryCount<PySide.QtGui.QTextBrowser.backwardHistoryCount>` ()
+*    def :meth:`clearHistory<PySide.QtGui.QTextBrowser.clearHistory>` ()
+*    def :meth:`forwardHistoryCount<PySide.QtGui.QTextBrowser.forwardHistoryCount>` ()
+*    def :meth:`historyTitle<PySide.QtGui.QTextBrowser.historyTitle>` (arg__1)
+*    def :meth:`historyUrl<PySide.QtGui.QTextBrowser.historyUrl>` (arg__1)
+*    def :meth:`isBackwardAvailable<PySide.QtGui.QTextBrowser.isBackwardAvailable>` ()
+*    def :meth:`isForwardAvailable<PySide.QtGui.QTextBrowser.isForwardAvailable>` ()
+*    def :meth:`openExternalLinks<PySide.QtGui.QTextBrowser.openExternalLinks>` ()
+*    def :meth:`openLinks<PySide.QtGui.QTextBrowser.openLinks>` ()
+*    def :meth:`searchPaths<PySide.QtGui.QTextBrowser.searchPaths>` ()
+*    def :meth:`setOpenExternalLinks<PySide.QtGui.QTextBrowser.setOpenExternalLinks>` (open)
+*    def :meth:`setOpenLinks<PySide.QtGui.QTextBrowser.setOpenLinks>` (open)
+*    def :meth:`setSearchPaths<PySide.QtGui.QTextBrowser.setSearchPaths>` (paths)
+*    def :meth:`source<PySide.QtGui.QTextBrowser.source>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`backward<PySide.QtGui.QTextBrowser.backward>` ()
+*    def :meth:`forward<PySide.QtGui.QTextBrowser.forward>` ()
+*    def :meth:`home<PySide.QtGui.QTextBrowser.home>` ()
+*    def :meth:`reload<PySide.QtGui.QTextBrowser.reload>` ()
+*    def :meth:`setSource<PySide.QtGui.QTextBrowser.setSource>` (name)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`anchorClicked<PySide.QtGui.QTextBrowser.anchorClicked>` (arg__1)
+*    def :meth:`backwardAvailable<PySide.QtGui.QTextBrowser.backwardAvailable>` (arg__1)
+*    def :meth:`forwardAvailable<PySide.QtGui.QTextBrowser.forwardAvailable>` (arg__1)
+*    def :meth:`highlighted<PySide.QtGui.QTextBrowser.highlighted>` (arg__1)
+*    def :meth:`highlighted<PySide.QtGui.QTextBrowser.highlighted>` (arg__1)
+*    def :meth:`historyChanged<PySide.QtGui.QTextBrowser.historyChanged>` ()
+*    def :meth:`sourceChanged<PySide.QtGui.QTextBrowser.sourceChanged>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTextBrowser` class provides a rich text browser with hypertext navigation.
+
+    This class extends :class:`PySide.QtGui.QTextEdit` (in read-only mode), adding some navigation functionality so that users can follow links in hypertext documents.
+
+    If you want to provide your users with an editable rich text editor, use :class:`PySide.QtGui.QTextEdit` . If you want a text browser without hypertext navigation use :class:`PySide.QtGui.QTextEdit` , and use :meth:`QTextEdit.setReadOnly()<PySide.QtGui.QTextEdit.setReadOnly>` to disable editing. If you just need to display a small piece of rich text use :class:`PySide.QtGui.QLabel` .
+
+    .. _PySide.QtGui.QTextBrowser_document-source-and-contents:
+
+
+
+Document Source and Contents
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The contents of :class:`PySide.QtGui.QTextEdit` are set with :meth:`PySide.QtGui.QTextEdit.setHtml` or :meth:`PySide.QtGui.QTextEdit.setPlainText` , but :class:`PySide.QtGui.QTextBrowser` also implements the :meth:`PySide.QtGui.QTextBrowser.setSource` function, making it possible to use a named document as the source text. The name is looked up in a list of search paths and in the directory of the current document factory.
+
+    If a document name ends with an anchor (for example, "``#anchor"`` ), the text browser automatically scrolls to that position (using :meth:`PySide.QtGui.QTextEdit.scrollToAnchor` ). When the user clicks on a hyperlink, the browser will call :meth:`PySide.QtGui.QTextBrowser.setSource` itself with the link's ``href`` value as argument. You can track the current source by connecting to the :meth:`PySide.QtGui.QTextBrowser.sourceChanged` signal.
+
+    .. _PySide.QtGui.QTextBrowser_navigation:
+
+
+
+Navigation
+^^^^^^^^^^
+
+    :class:`PySide.QtGui.QTextBrowser` provides :meth:`PySide.QtGui.QTextBrowser.backward` and :meth:`PySide.QtGui.QTextBrowser.forward` slots which you can use to implement Back and Forward buttons. The :meth:`PySide.QtGui.QTextBrowser.home` slot sets the text to the very first document displayed. The :meth:`PySide.QtGui.QTextBrowser.anchorClicked` signal is emitted when the user clicks an anchor. To override the default navigation behavior of the browser, call the :meth:`PySide.QtGui.QTextBrowser.setSource` function to supply new document text in a slot connected to this signal.
+
+    If you want to load documents stored in the Qt resource system use ``qrc`` as the scheme in the URL to load. For example, for the document resource path ``:/docs/index.html`` use ``qrc:/docs/index.html`` as the URL with :meth:`PySide.QtGui.QTextBrowser.setSource` . To access local files, use ``file`` as the scheme in the URL.
+
+    .. seealso::  :class:`PySide.QtGui.QTextEdit`  :class:`PySide.QtGui.QTextDocument` 
+
+.. class:: QTextBrowser([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an empty :class:`PySide.QtGui.QTextBrowser` with parent ``parent`` .
+
+
+.. method:: PySide.QtGui.QTextBrowser.anchorClicked(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.backward()
+
+
+
+
+
+
+    Changes the document displayed to the previous document in the list of documents built by navigating links. Does nothing if there is no previous document.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBrowser.forward`  :meth:`PySide.QtGui.QTextBrowser.backwardAvailable` 
+
+
+.. method:: PySide.QtGui.QTextBrowser.backwardAvailable(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.backwardHistoryCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of locations backward in the history.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.clearHistory()
+
+
+
+
+
+
+    Clears the history of visited documents and disables the forward and backward navigation.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBrowser.backward`  :meth:`PySide.QtGui.QTextBrowser.forward` 
+
+
+.. method:: PySide.QtGui.QTextBrowser.forward()
+
+
+
+
+
+
+    Changes the document displayed to the next document in the list of documents built by navigating links. Does nothing if there is no next document.
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBrowser.backward`  :meth:`PySide.QtGui.QTextBrowser.forwardAvailable` 
+
+
+.. method:: PySide.QtGui.QTextBrowser.forwardAvailable(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.forwardHistoryCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of locations forward in the history.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.highlighted(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.highlighted(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.historyChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.historyTitle(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the :meth:`PySide.QtGui.QTextEdit.documentTitle` of the HistoryItem.
+
+    +----------+----------------------------------------------------------------------------+
+    |Input     |Return                                                                      |
+    +----------+----------------------------------------------------------------------------+
+    |``i`` < 0 |:meth:`PySide.QtGui.QTextBrowser.backward` history                          |
+    +----------+----------------------------------------------------------------------------+
+    |``i`` == 0|current, see :meth:`QTextBrowser.source()<PySide.QtGui.QTextBrowser.source>`|
+    +----------+----------------------------------------------------------------------------+
+    |``i`` > 0 |:meth:`PySide.QtGui.QTextBrowser.forward` history                           |
+    +----------+----------------------------------------------------------------------------+
+
+    ::
+
+        backaction.setToolTip(browser.historyTitle(-1))
+        forwardaction.setToolTip(browser.historyTitle(+1))
+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.historyUrl(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the url of the HistoryItem.
+
+    +----------+----------------------------------------------------------------------------+
+    |Input     |Return                                                                      |
+    +----------+----------------------------------------------------------------------------+
+    |``i`` < 0 |:meth:`PySide.QtGui.QTextBrowser.backward` history                          |
+    +----------+----------------------------------------------------------------------------+
+    |``i`` == 0|current, see :meth:`QTextBrowser.source()<PySide.QtGui.QTextBrowser.source>`|
+    +----------+----------------------------------------------------------------------------+
+    |``i`` > 0 |:meth:`PySide.QtGui.QTextBrowser.forward` history                           |
+    +----------+----------------------------------------------------------------------------+
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.home()
+
+
+
+
+
+
+    Changes the document displayed to be the first document from the history.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.isBackwardAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the text browser can go backward in the document history using :meth:`PySide.QtGui.QTextBrowser.backward` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBrowser.backwardAvailable`  :meth:`PySide.QtGui.QTextBrowser.backward` 
+
+
+.. method:: PySide.QtGui.QTextBrowser.isForwardAvailable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the text browser can go forward in the document history using :meth:`PySide.QtGui.QTextBrowser.forward` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTextBrowser.forwardAvailable`  :meth:`PySide.QtGui.QTextBrowser.forward` 
+
+
+.. method:: PySide.QtGui.QTextBrowser.openExternalLinks()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Specifies whether :class:`PySide.QtGui.QTextBrowser` should automatically open links to external sources using :meth:`QDesktopServices.openUrl()<PySide.QtGui.QDesktopServices.openUrl>` instead of emitting the anchorClicked signal. Links are considered external if their scheme is neither file or qrc.
+
+    The default value is false.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.openLinks()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property specifies whether :class:`PySide.QtGui.QTextBrowser` should automatically open links the user tries to activate by mouse or keyboard.
+
+    Regardless of the value of this property the anchorClicked signal is always emitted.
+
+    The default value is true.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.reload()
+
+
+
+
+
+
+    Reloads the current set source.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.searchPaths()
+
+
+    :rtype: list of strings
+
+
+
+
+    This property holds the search paths used by the text browser to find supporting content.
+
+    :class:`PySide.QtGui.QTextBrowser` uses this list to locate images and documents.
+
+    By default, this property contains an empty string list.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.setOpenExternalLinks(open)
+
+
+    :param open: :class:`PySide.QtCore.bool`
+
+
+
+
+    Specifies whether :class:`PySide.QtGui.QTextBrowser` should automatically open links to external sources using :meth:`QDesktopServices.openUrl()<PySide.QtGui.QDesktopServices.openUrl>` instead of emitting the anchorClicked signal. Links are considered external if their scheme is neither file or qrc.
+
+    The default value is false.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.setOpenLinks(open)
+
+
+    :param open: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property specifies whether :class:`PySide.QtGui.QTextBrowser` should automatically open links the user tries to activate by mouse or keyboard.
+
+    Regardless of the value of this property the anchorClicked signal is always emitted.
+
+    The default value is true.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.setSearchPaths(paths)
+
+
+    :param paths: list of strings
+
+
+
+
+    This property holds the search paths used by the text browser to find supporting content.
+
+    :class:`PySide.QtGui.QTextBrowser` uses this list to locate images and documents.
+
+    By default, this property contains an empty string list.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.setSource(name)
+
+
+    :param name: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds the name of the displayed document..
+
+    This is a an invalid url if no document is displayed or if the source is unknown.
+
+    When setting this property :class:`PySide.QtGui.QTextBrowser` tries to find a document with the specified name in the paths of the :meth:`PySide.QtGui.QTextBrowser.searchPaths` property and directory of the current source, unless the value is an absolute file path. It also checks for optional anchors and scrolls the document accordingly
+
+    If the first tag in the document is ``<qt type=detail>`` , the document is displayed as a popup rather than as new document in the browser window itself. Otherwise, the document is displayed normally in the text browser with the text set to the contents of the named document with :meth:`PySide.QtGui.QTextEdit.setHtml` .
+
+    By default, this property contains an empty URL.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.source()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    This property holds the name of the displayed document..
+
+    This is a an invalid url if no document is displayed or if the source is unknown.
+
+    When setting this property :class:`PySide.QtGui.QTextBrowser` tries to find a document with the specified name in the paths of the :meth:`PySide.QtGui.QTextBrowser.searchPaths` property and directory of the current source, unless the value is an absolute file path. It also checks for optional anchors and scrolls the document accordingly
+
+    If the first tag in the document is ``<qt type=detail>`` , the document is displayed as a popup rather than as new document in the browser window itself. Otherwise, the document is displayed normally in the text browser with the text set to the contents of the named document with :meth:`PySide.QtGui.QTextEdit.setHtml` .
+
+    By default, this property contains an empty URL.
+
+
+
+.. method:: PySide.QtGui.QTextBrowser.sourceChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QUrl`
+
+
+
+
+
+
+

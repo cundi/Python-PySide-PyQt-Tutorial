@@ -1,0 +1,79 @@
+.. module:: PySide.QtXml
+.. _QXmlDTDHandler:
+
+QXmlDTDHandler
+**************
+
+.. inheritance-diagram:: QXmlDTDHandler
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QXmlDTDHandler` class provides an interface to report DTD content of XML data.
+
+    If an application needs information about notations and unparsed entities, it can implement this interface and register an instance with :meth:`QXmlReader.setDTDHandler()<PySide.QtXml.QXmlReader.setDTDHandler>` .
+
+    Note that this interface includes only those DTD events that the XML recommendation requires processors to report, i.e. notation and unparsed entity declarations using :meth:`PySide.QtXml.QXmlDTDHandler.notationDecl` and :meth:`PySide.QtXml.QXmlDTDHandler.unparsedEntityDecl` respectively.
+
+    .. seealso::  :class:`PySide.QtXml.QXmlDeclHandler`  :class:`PySide.QtXml.QXmlContentHandler`  :class:`PySide.QtXml.QXmlEntityResolver`  :class:`PySide.QtXml.QXmlErrorHandler`  :class:`PySide.QtXml.QXmlLexicalHandler`  :ref:`Introduction to SAX2<xml-sax.html>` 
+
+.. class:: QXmlDTDHandler()
+
+
+
+
+.. method:: PySide.QtXml.QXmlDTDHandler.errorString()
+
+
+    :rtype: unicode
+
+
+
+
+    The reader calls this function to get an error string if any of the handler functions returns false.
+
+
+
+.. method:: PySide.QtXml.QXmlDTDHandler.notationDecl(name, publicId, systemId)
+
+
+    :param name: unicode
+    :param publicId: unicode
+    :param systemId: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it has parsed a notation declaration.
+
+    The argument ``name`` is the notation name, ``publicId`` is the notation's public identifier and ``systemId`` is the notation's system identifier.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlDTDHandler.errorString` to get the error message.
+
+
+
+.. method:: PySide.QtXml.QXmlDTDHandler.unparsedEntityDecl(name, publicId, systemId, notationName)
+
+
+    :param name: unicode
+    :param publicId: unicode
+    :param systemId: unicode
+    :param notationName: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    The reader calls this function when it finds an unparsed entity declaration.
+
+    The argument ``name`` is the unparsed entity's name, ``publicId`` is the entity's public identifier, ``systemId`` is the entity's system identifier and ``notationName`` is the name of the associated notation.
+
+    If this function returns false the reader stops parsing and reports an error. The reader uses the function :meth:`PySide.QtXml.QXmlDTDHandler.errorString` to get the error message.
+
+
+
+

@@ -1,0 +1,134 @@
+.. module:: PySide.QtWebKit
+.. _QWebPluginFactory:
+
+QWebPluginFactory
+*****************
+
+.. inheritance-diagram:: QWebPluginFactory
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebPluginFactory` class is used to embed custom data types in web pages.
+
+    The HTML ``<object>`` tag is used to embed arbitrary content into a web page, for example:
+
+    ::
+
+                <object type="application/x-pdf" data="http://qt.nokia.com/document.pdf" width="500" height="400"></object>
+
+
+    QtWebkit will natively handle the most basic data types like ``text/html`` and ``image/jpeg`` , but for any advanced or custom data types you will need to provide a handler yourself.
+
+    :class:`PySide.QtWebKit.QWebPluginFactory` is a factory for creating plugins for :class:`PySide.QtWebKit.QWebPage` , where each plugin provides support for one or more data types. A plugin factory can be installed on a :class:`PySide.QtWebKit.QWebPage` using :meth:`QWebPage.setPluginFactory()<PySide.QtWebKit.QWebPage.setPluginFactory>` .
+
+    .. note::  The plugin factory is only used if plugins are enabled through :class:`PySide.QtWebKit.QWebSettings` .
+
+    You provide a :class:`PySide.QtWebKit.QWebPluginFactory` by implementing the :meth:`PySide.QtWebKit.QWebPluginFactory.plugins` and the :meth:`PySide.QtWebKit.QWebPluginFactory.create` methods. For :meth:`PySide.QtWebKit.QWebPluginFactory.plugins` it is necessary to describe the plugins the factory can create, including a description and the supported MIME types. The MIME types each plugin can handle should match the ones specified in in the HTML ``<object>`` tag of your content.
+
+    The :meth:`PySide.QtWebKit.QWebPluginFactory.create` method is called if the requested MIME type is supported. The implementation has to return a new instance of the plugin requested for the given MIME type and the specified URL.
+
+    The plugins themselves are subclasses of :class:`PySide.QtCore.QObject` , but currently only plugins based on either :class:`PySide.QtGui.QWidget` or :class:`PySide.QtGui.QGraphicsWidget` are supported.
+
+
+.. class:: QWebPluginFactory([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtWebKit.QWebPluginFactory` with parent ``parent`` .
+
+
+.. attribute:: PySide.QtWebKit.QWebPluginFactory.Extension
+
+    This enum describes the types of extensions that the plugin factory can support. Before using these extensions, you should verify that the extension is supported by calling :meth:`PySide.QtWebKit.QWebPluginFactory.supportsExtension` .
+
+    Currently there are no extensions.
+
+
+.. method:: PySide.QtWebKit.QWebPluginFactory.create(mimeType, arg__2, argumentNames, argumentValues)
+
+
+    :param mimeType: unicode
+    :param arg__2: :class:`PySide.QtCore.QUrl`
+    :param argumentNames: list of strings
+    :param argumentValues: list of strings
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Implemented in subclasses to create a new plugin that can display content of the MIME type given by ``mimeType`` . The URL of the content is provided in ``url`` . The returned object should be a :class:`PySide.QtGui.QWidget` .
+
+    The HTML object element can provide parameters through the ``<param>`` tag. The name and the value attributes of these tags are specified by the ``argumentNames`` and ``argumentValues`` string lists.
+
+    For example:
+
+    ::
+
+                <object type="application/x-pdf" data="http://qt.nokia.com/document.pdf" width="500" height="400">
+                    <param name="showTableOfContents" value="true" />
+                    <param name="hideThumbnails" value="false" />
+                </object>
+
+
+    The above object element will result in a call to :meth:`PySide.QtWebKit.QWebPluginFactory.create` with the following arguments:
+
+    +-------------+--------------------------------------+
+    |Parameter    |Value                                 |
+    +-------------+--------------------------------------+
+    |mimeType     |"application/x-pdf"                   |
+    +-------------+--------------------------------------+
+    |url          |"http://qt.nokia.com/document.pdf"    |
+    +-------------+--------------------------------------+
+    |argumentNames|"showTableOfContents" "hideThumbnails"|
+    +-------------+--------------------------------------+
+    |argumentVaues|"true" "false"                        |
+    +-------------+--------------------------------------+
+
+    .. note::  Ownership of the returned object will be transferred to the caller.
+
+
+
+.. method:: PySide.QtWebKit.QWebPluginFactory.plugins()
+
+
+    :rtype: 
+
+
+
+
+    This function is reimplemented in subclasses to return a list of supported plugins the factory can create.
+
+    .. note::  Currently, this function is only called when JavaScript programs access the global ``plugins`` or ``mimetypes`` objects.
+
+
+
+.. method:: PySide.QtWebKit.QWebPluginFactory.refreshPlugins()
+
+
+
+
+
+
+    This function is called to refresh the list of supported plugins. It may be called after a new plugin has been installed in the system.
+
+
+
+.. method:: PySide.QtWebKit.QWebPluginFactory.supportsExtension(extension)
+
+
+    :param extension: :attr:`PySide.QtWebKit.QWebPluginFactory.Extension`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This virtual function returns true if the plugin factory supports ``extension`` ; otherwise false is returned.
+
+    .. seealso::  :meth:`~PySide.QtWebKit.QWebPluginFactory.extension` 
+
+
+

@@ -1,0 +1,307 @@
+.. module:: PySide.QtGui
+.. _QGraphicsLayout:
+
+QGraphicsLayout
+***************
+
+.. inheritance-diagram:: QGraphicsLayout
+    :parts: 2
+
+**Inherited by:** :ref:`QGraphicsLinearLayout`, :ref:`QGraphicsGridLayout`, :ref:`QGraphicsAnchorLayout`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activate<PySide.QtGui.QGraphicsLayout.activate>` ()
+*    def :meth:`addChildLayoutItem<PySide.QtGui.QGraphicsLayout.addChildLayoutItem>` (layoutItem)
+*    def :meth:`isActivated<PySide.QtGui.QGraphicsLayout.isActivated>` ()
+*    def :meth:`setContentsMargins<PySide.QtGui.QGraphicsLayout.setContentsMargins>` (left, top, right, bottom)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`count<PySide.QtGui.QGraphicsLayout.count>` ()
+*    def :meth:`invalidate<PySide.QtGui.QGraphicsLayout.invalidate>` ()
+*    def :meth:`itemAt<PySide.QtGui.QGraphicsLayout.itemAt>` (i)
+*    def :meth:`removeAt<PySide.QtGui.QGraphicsLayout.removeAt>` (index)
+*    def :meth:`widgetEvent<PySide.QtGui.QGraphicsLayout.widgetEvent>` (e)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`instantInvalidatePropagation<PySide.QtGui.QGraphicsLayout.instantInvalidatePropagation>` ()
+*    def :meth:`setInstantInvalidatePropagation<PySide.QtGui.QGraphicsLayout.setInstantInvalidatePropagation>` (enable)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsLayout` class provides the base class for all layouts in Graphics View.
+
+    :class:`PySide.QtGui.QGraphicsLayout` is an abstract class that defines a virtual API for arranging :class:`PySide.QtGui.QGraphicsWidget` children and other :class:`PySide.QtGui.QGraphicsLayoutItem` objects for a :class:`PySide.QtGui.QGraphicsWidget` . :class:`PySide.QtGui.QGraphicsWidget` assigns responsibility to a :class:`PySide.QtGui.QGraphicsLayout` through :meth:`QGraphicsWidget.setLayout()<PySide.QtGui.QGraphicsWidget.setLayout>` . As the widget is resized, the layout will automatically arrange the widget's children. :class:`PySide.QtGui.QGraphicsLayout` inherits :class:`PySide.QtGui.QGraphicsLayoutItem` , so, it can be managed by any layout, including its own subclasses.
+
+    .. _PySide.QtGui.QGraphicsLayout_writing-a-custom-layout:
+
+
+
+Writing a Custom Layout
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    You can use :class:`PySide.QtGui.QGraphicsLayout` as a base to write your own custom layout (e.g., a flowlayout), but it is more common to use one of its subclasses instead - :class:`PySide.QtGui.QGraphicsLinearLayout` or :class:`PySide.QtGui.QGraphicsGridLayout` . When creating a custom layout, the following functions must be reimplemented as a bare minimum:
+
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Function                                                                               |Description                                                                                                                                     |
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QGraphicsLayoutItem.setGeometry()<PySide.QtGui.QGraphicsLayoutItem.setGeometry>`|Notifies you when the geometry of the layout is set. You can store the geometry in your own layout class in a reimplementation of this function.|
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QGraphicsLayoutItem.sizeHint()<PySide.QtGui.QGraphicsLayoutItem.sizeHint>`      |Returns the layout's size hints.                                                                                                                |
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QGraphicsLayout.count()<PySide.QtGui.QGraphicsLayout.count>`                    |Returns the number of items in your layout.                                                                                                     |
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QGraphicsLayout.itemAt()<PySide.QtGui.QGraphicsLayout.itemAt>`                  |Returns a pointer to an item in your layout.                                                                                                    |
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`QGraphicsLayout.removeAt()<PySide.QtGui.QGraphicsLayout.removeAt>`              |Removes an item from your layout without destroying it.                                                                                         |
+    +---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    For more details on how to implement each function, refer to the individual function documentation.
+
+    Each layout defines its own API for arranging widgets and layout items. For example, with a grid layout, you require a row and a column index with optional row and column spans, alignment, spacing, and more. A linear layout, however, requires a single row or column index to position its items. For a grid layout, the order of insertion does not affect the layout in any way, but for a linear layout, the order is essential. When writing your own layout subclass, you are free to choose the API that best suits your layout.
+
+    For adding layout items to the custom layout, the :class:`PySide.QtGui.QGraphicsLayout` provides convenience function :meth:`PySide.QtGui.QGraphicsLayout.addChildLayoutItem` . The function will take care of automatically reparenting graphics items, if needed.
+
+    .. _PySide.QtGui.QGraphicsLayout_activating-the-layout:
+
+
+
+Activating the Layout
+^^^^^^^^^^^^^^^^^^^^^
+
+    When the layout's geometry changes, :class:`PySide.QtGui.QGraphicsLayout` immediately rearranges all of its managed items by calling :meth:`PySide.QtGui.QGraphicsLayoutItem.setGeometry` on each item. This rearrangement is called *activating* the layout.
+
+    :class:`PySide.QtGui.QGraphicsLayout` updates its own geometry to match the :meth:`PySide.QtGui.QGraphicsLayoutItem.contentsRect` of the :class:`PySide.QtGui.QGraphicsLayoutItem` it is managing. Thus, it will automatically rearrange all its items when the widget is resized. :class:`PySide.QtGui.QGraphicsLayout` caches the sizes of all its managed items to avoid calling :meth:`PySide.QtGui.QGraphicsLayoutItem.setGeometry` too often.
+
+    .. note::  A :class:`PySide.QtGui.QGraphicsLayout` will have the same geometry as the :meth:`PySide.QtGui.QGraphicsLayoutItem.contentsRect` of the widget (not the layout) it is assigned to.
+
+    .. _PySide.QtGui.QGraphicsLayout_activating-the-layout-implicitly:
+
+
+
+Activating the Layout Implicitly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The layout can be activated implicitly using one of two ways: by calling :meth:`PySide.QtGui.QGraphicsLayout.activate` or by calling :meth:`PySide.QtGui.QGraphicsLayout.invalidate` . Calling :meth:`PySide.QtGui.QGraphicsLayout.activate` activates the layout immediately. In contrast, calling :meth:`PySide.QtGui.QGraphicsLayout.invalidate` is delayed, as it posts a :attr:`LayoutRequest<QEvent.Type>` event to the managed widget. Due to event compression, the :meth:`PySide.QtGui.QGraphicsLayout.activate` will only be called once after control has returned to the event loop. This is referred to as *invalidating* the layout. Invalidating the layout also invalidates any cached information. Also, the :meth:`PySide.QtGui.QGraphicsLayout.invalidate` function is a virtual function. So, you can invalidate your own cache in a subclass of :class:`PySide.QtGui.QGraphicsLayout` by reimplementing this function.
+
+    .. _PySide.QtGui.QGraphicsLayout_event-handling:
+
+
+
+Event Handling
+^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QGraphicsLayout` listens to events for the widget it manages through the virtual :meth:`PySide.QtGui.QGraphicsLayout.widgetEvent` event handler. When the layout is assigned to a widget, all events delivered to the widget are first processed by :meth:`PySide.QtGui.QGraphicsLayout.widgetEvent` . This allows the layout to be aware of any relevant state changes on the widget such as visibility changes or layout direction changes.
+
+    .. _PySide.QtGui.QGraphicsLayout_margin-handling:
+
+
+
+Margin Handling
+^^^^^^^^^^^^^^^
+
+    The margins of a :class:`PySide.QtGui.QGraphicsLayout` can be modified by reimplementing :meth:`PySide.QtGui.QGraphicsLayout.setContentsMargins` and :meth:`PySide.QtGui.QGraphicsLayout.getContentsMargins` .
+
+
+.. class:: QGraphicsLayout([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+    Contructs a :class:`PySide.QtGui.QGraphicsLayout` object.
+
+    ``parent`` is passed to :class:`PySide.QtGui.QGraphicsLayoutItem` 's constructor and the :class:`PySide.QtGui.QGraphicsLayoutItem` 's isLayout argument is set to *true* .
+
+    If ``parent`` is a :class:`PySide.QtGui.QGraphicsWidget` the layout will be installed on that widget. (Note that installing a layout will delete the old one installed.)
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.activate()
+
+
+
+
+
+
+    Activates the layout, causing all items in the layout to be immediately rearranged. This function is based on calling :meth:`PySide.QtGui.QGraphicsLayout.count` and :meth:`PySide.QtGui.QGraphicsLayout.itemAt` , and then calling :meth:`PySide.QtGui.QGraphicsLayoutItem.setGeometry` on all items sequentially. When activated, the layout will adjust its geometry to its parent's :meth:`PySide.QtGui.QGraphicsLayoutItem.contentsRect` . The parent will then invalidate any layout of its own.
+
+    If called in sequence or recursively, e.g., by one of the arranged items in response to being resized, this function will do nothing.
+
+    Note that the layout is free to use geometry caching to optimize this process. To forcefully invalidate any such cache, you can call :meth:`PySide.QtGui.QGraphicsLayout.invalidate` before calling :meth:`PySide.QtGui.QGraphicsLayout.activate` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.invalidate` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.addChildLayoutItem(layoutItem)
+
+
+    :param layoutItem: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    This function is a convenience function provided for custom layouts, and will go through all items in the layout and reparent their graphics items to the closest :class:`PySide.QtGui.QGraphicsWidget` ancestor of the layout.
+
+    If ``layoutItem`` is already in a different layout, it will be removed from that layout.
+
+    If custom layouts want special behaviour they can ignore to use this function, and implement their own behaviour.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayoutItem.graphicsItem` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This pure virtual function must be reimplemented in a subclass of :class:`PySide.QtGui.QGraphicsLayout` to return the number of items in the layout.
+
+    The subclass is free to decide how to store the items.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.itemAt`  :meth:`PySide.QtGui.QGraphicsLayout.removeAt` 
+
+
+.. staticmethod:: PySide.QtGui.QGraphicsLayout.instantInvalidatePropagation()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    returns true if the complete widget/layout hierarchy is rearranged in one go.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.setInstantInvalidatePropagation` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.invalidate()
+
+
+
+
+
+
+    Clears any cached geometry and size hint information in the layout, and posts a :attr:`LayoutRequest<QEvent.Type>` event to the managed parent :class:`PySide.QtGui.QGraphicsLayoutItem` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.activate`  :meth:`PySide.QtGui.QGraphicsLayoutItem.setGeometry` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.isActivated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the layout is currently being activated; otherwise, returns false. If the layout is being activated, this means that it is currently in the process of rearranging its items (i.e., the :meth:`PySide.QtGui.QGraphicsLayout.activate` function has been called, and has not yet returned).
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.activate`  :meth:`PySide.QtGui.QGraphicsLayout.invalidate` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.itemAt(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    This pure virtual function must be reimplemented in a subclass of :class:`PySide.QtGui.QGraphicsLayout` to return a pointer to the item at index ``i`` . The reimplementation can assume that ``i`` is valid (i.e., it respects the value of :meth:`PySide.QtGui.QGraphicsLayout.count` ). Together with :meth:`PySide.QtGui.QGraphicsLayout.count` , it is provided as a means of iterating over all items in a layout.
+
+    The subclass is free to decide how to store the items, and the visual arrangement does not have to be reflected through this function.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.count`  :meth:`PySide.QtGui.QGraphicsLayout.removeAt` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.removeAt(index)
+
+
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+    This pure virtual function must be reimplemented in a subclass of :class:`PySide.QtGui.QGraphicsLayout` to remove the item at ``index`` . The reimplementation can assume that ``index`` is valid (i.e., it respects the value of :meth:`PySide.QtGui.QGraphicsLayout.count` ).
+
+    The implementation must ensure that the :meth:`PySide.QtGui.QGraphicsLayoutItem.parentLayoutItem` of the removed item does not point to this layout, since the item is considered to be removed from the layout hierarchy.
+
+    If the layout is to be reused between applications, we recommend that the layout deletes the item, but the graphics view framework does not depend on this.
+
+    The subclass is free to decide how to store the items.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.itemAt`  :meth:`PySide.QtGui.QGraphicsLayout.count` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.setContentsMargins(left, top, right, bottom)
+
+
+    :param left: :class:`PySide.QtCore.qreal`
+    :param top: :class:`PySide.QtCore.qreal`
+    :param right: :class:`PySide.QtCore.qreal`
+    :param bottom: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the contents margins to ``left`` , ``top`` , ``right`` and ``bottom`` . The default contents margins for toplevel layouts are style dependent (by querying the pixelMetric for :attr:`QStyle.PM_LayoutLeftMargin<QStyle.PixelMetric>` , :attr:`QStyle.PM_LayoutTopMargin<QStyle.PixelMetric>` , :attr:`QStyle.PM_LayoutRightMargin<QStyle.PixelMetric>` and :attr:`QStyle.PM_LayoutBottomMargin<QStyle.PixelMetric>` ).
+
+    For sublayouts the default margins are 0.
+
+    Changing the contents margins automatically invalidates the layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.invalidate` 
+
+
+.. staticmethod:: PySide.QtGui.QGraphicsLayout.setInstantInvalidatePropagation(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    Calling this function with ``enable`` set to true will enable a feature that makes propagation of invalidation up to ancestor layout items to be done in one go. It will propagate up the :meth:`PySide.QtGui.QGraphicsLayoutItem.parentLayoutItem` hierarchy until it has reached the root. If the root item is a :class:`PySide.QtGui.QGraphicsWidget` , it will \*post\* a layout request to it. When the layout request is consumed it will traverse down the hierarchy of layouts and widgets and activate all layouts that is invalid (not activated). This is the recommended behaviour.
+
+    If not set it will also propagate up the :meth:`PySide.QtGui.QGraphicsLayoutItem.parentLayoutItem` hierarchy, but it will stop at the *first widget* it encounters, and post a layout request to the widget. When the layout request is consumed, this might cause it to continue propagation up to the :meth:`PySide.QtGui.QGraphicsLayoutItem.parentLayoutItem` of the widget. It will continue in this fashion until it has reached a widget with no :meth:`PySide.QtGui.QGraphicsLayoutItem.parentLayoutItem` . This strategy might cause drawing artifacts, since it is not done in one go, and the consumption of layout requests might be interleaved by consumption of paint events, which might cause significant flicker. Note, this is not the recommended behavior, but for compatibility reasons this is the default behaviour.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsLayout.instantInvalidatePropagation` 
+
+
+.. method:: PySide.QtGui.QGraphicsLayout.widgetEvent(e)
+
+
+    :param e: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This virtual event handler receives all events for the managed widget. :class:`PySide.QtGui.QGraphicsLayout` uses this event handler to listen for layout related events such as geometry changes, layout changes or layout direction changes.
+
+    ``e`` is a pointer to the event.
+
+    You can reimplement this event handler to track similar events for your own custom layout.
+
+    .. seealso::  :meth:`QGraphicsWidget.event()<PySide.QtGui.QGraphicsWidget.event>`  :meth:`QGraphicsItem.sceneEvent()<PySide.QtGui.QGraphicsItem.sceneEvent>` 
+
+
+

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ListProperty &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="PySide.QtDeclarative" href="index.html" />
+    <link rel="next" title="PySide.QtGui" href="../QtGui/index.html" />
+    <link rel="prev" title="QDeclarativeView" href="QDeclarativeView.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../../modules.html" >PySide modules</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">PySide.QtDeclarative</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ListProperty</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#detailed-description">Detailed Description</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QDeclarativeView.html"
+                        title="previous chapter">QDeclarativeView</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../QtGui/index.html"
+                        title="next chapter">PySide.QtGui</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PySide.QtDeclarative"></span><div class="section" id="listproperty">
+<span id="id1"></span><h1>ListProperty<a class="headerlink" href="#listproperty" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>The The <tt class="xref py py-class docutils literal"><span class="pre">ListProperty</span></tt> class allows applications to expose list-like properties to QML.</div></blockquote>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The <tt class="xref py py-class docutils literal"><span class="pre">ListProperty</span></tt> class provides a replacement to QDeclarativeListProperty.</p>
+<p><tt class="xref py py-class docutils literal"><span class="pre">ListProperty</span></tt> is a subclass of <tt class="xref py py-class docutils literal"><span class="pre">QtCore.Property</span></tt>, that support the following keywords.</p>
+<p><cite>type</cite>      the type used in the list
+<cite>append</cite>    Function used to append itens
+<cite>at</cite>        Function used to retrieve item from the list
+<cite>clear</cite>     Function used to clear the list
+<cite>count</cite>     Function used to retrieve the list size</p>
+<p>QML has many list properties, where more than one object value can be assigned. The use of a list property from QML looks like this:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>FruitBasket {</dt>
+<dd><dl class="first docutils">
+<dt>fruit: [</dt>
+<dd>Apple {},
+Orange{},
+Banana{}</dd>
+</dl>
+<p class="last">]</p>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">ListProperty</span></tt> encapsulates a group of callbacks that represent the set of actions QML can perform on the list - adding items, retrieving items and clearing the list. In the future, additional operations may be supported. All list properties must implement the append operation, but the rest are optional.
+To provide a list property, a class must implement the operation callbacks, and then return an appropriate value from the property getter. List properties should have no setter. In the example above, the  ListProperty declarative will look like this:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>slices = ListProperty(PieSlice, append=appendSlice)</dd>
+</dl>
+<p>Note: <tt class="xref py py-class docutils literal"><span class="pre">ListProperty</span></tt> can only be used for lists of QObject-derived object pointers.</p>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QML Tutorial 2 - QML Components &mdash; PySide 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/pysidedocs.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PySide 1.2.1 documentation" href="../../index.html" />
+    <link rel="up" title="QML Tutorial" href="index.html" />
+    <link rel="next" title="QML Tutorial 3 - States and Transitions" href="step3.html" />
+    <link rel="prev" title="QML Tutorial 1 - Basic Types" href="step1.html" /> 
+  </head>
+  <body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="../../_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="../../index.html">PySide 1.2.1 documentation</a></li>
+                <li> &raquo; <a href="../index.html" >PySide tutorials</a></li>
+                <li> &raquo; <a href="index.html" accesskey="U">QML Tutorial</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QML Tutorial 2 - QML Components</a><ul>
+<li><a class="reference internal" href="#walkthrough">Walkthrough</a><ul>
+<li><a class="reference internal" href="#the-cell-component">The Cell Component</a></li>
+<li><a class="reference internal" href="#the-main-qml-file">The main QML file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="step1.html"
+                        title="previous chapter">QML Tutorial 1 - Basic Types</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="step3.html"
+                        title="next chapter">QML Tutorial 3 - States and Transitions</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" id="q" size="18" />
+      <input type="submit" value="Go" id="search_button" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qml-tutorial-2-qml-components">
+<span id="qmlcomponents"></span><h1>QML Tutorial 2 - QML Components<a class="headerlink" href="#qml-tutorial-2-qml-components" title="Permalink to this headline">¶</a></h1>
+<p>This chapter adds a color picker to change the color of the text.</p>
+<div class="figure align-center">
+<img alt="../../_images/declarative-tutorial2.png" src="../../_images/declarative-tutorial2.png" />
+</div>
+<p>Our color picker is made of six cells with different colors.
+To avoid writing the same code multiple times for each cell, we create a new <tt class="docutils literal"><span class="pre">Cell</span></tt> component.
+A component provides a way of defining a new type that we can re-use in other QML files.
+A QML component is like a black-box and interacts with the outside world through properties, signals and functions and is generally
+defined in its own QML file.
+The component&#8217;s filename must always start with a capital letter.</p>
+<p>Here is the QML code for <tt class="docutils literal"><span class="pre">Cell.qml</span></tt>:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Item {
+    id: container
+    property alias cellColor: rectangle.color
+    signal clicked(color cellColor)
+
+    width: 40; height: 25
+
+    Rectangle {
+        id: rectangle
+        border.color: "white"
+        anchors.fill: parent
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: container.clicked(container.cellColor)
+    }
+}
+</pre>
+</div>
+<div class="section" id="walkthrough">
+<h2>Walkthrough<a class="headerlink" href="#walkthrough" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-cell-component">
+<h3>The Cell Component<a class="headerlink" href="#the-cell-component" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>Item {
+    id: container
+    property alias cellColor: rectangle.color
+    signal clicked(color cellColor)
+
+    width: 40; height: 25
+</pre>
+</div>
+<p>The root element of our component is an Item with the <tt class="docutils literal"><span class="pre">id</span></tt> <em>container</em>.
+An Item is the most basic visual element in QML and is often used as a container for other elements.</p>
+<div class="highlight-python"><pre>    property alias cellColor: rectangle.color
+</pre>
+</div>
+<p>We declare a <tt class="docutils literal"><span class="pre">cellColor</span></tt> property. This property is accessible from  <em>outside</em> our component, this allows us
+to instantiate the cells with different colors.
+This property is just an alias to an existing property - the color of the rectangle that compose the cell.</p>
+<div class="highlight-python"><pre>    signal clicked(color cellColor)
+</pre>
+</div>
+<p>We want our component to also have a signal that we call <em>clicked</em> with a <em>cellColor</em> parameter of type <em>color</em>.
+We will use this signal to change the color of the text in the main QML file later.</p>
+<div class="highlight-python"><pre>    Rectangle {
+        id: rectangle
+        border.color: "white"
+        anchors.fill: parent
+    }
+</pre>
+</div>
+<p>Our cell component is basically a colored rectangle with the <tt class="docutils literal"><span class="pre">id</span></tt> <em>rectangle</em>.</p>
+<p>The <tt class="docutils literal"><span class="pre">anchors.fill</span></tt> property is a convenient way to set the size of an element.
+In this case the rectangle will have the same size as its parent.</p>
+<div class="highlight-python"><pre>    MouseArea {
+        anchors.fill: parent
+        onClicked: container.clicked(container.cellColor)
+    }
+</pre>
+</div>
+<p>In order to change the color of the text when clicking on a cell, we create a MouseArea element with
+the same size as its parent.</p>
+<p>A MouseArea defines a signal called <em>clicked</em>.
+When this signal is triggered we want to emit our own <em>clicked</em> signal with the color as parameter.</p>
+</div>
+<div class="section" id="the-main-qml-file">
+<h3>The main QML file<a class="headerlink" href="#the-main-qml-file" title="Permalink to this headline">¶</a></h3>
+<p>In our main QML file, we use our <tt class="docutils literal"><span class="pre">Cell</span></tt> component to create the color picker:</p>
+<div class="highlight-python"><pre>import QtQuick 1.0
+
+Rectangle {
+    id: page
+    width: 500; height: 200
+    color: "lightgray"
+
+    Text {
+        id: helloText
+        text: "Hello world!"
+        y: 30
+        anchors.horizontalCenter: page.horizontalCenter
+        font.pointSize: 24; font.bold: true
+    }
+
+    Grid {
+        id: colorPicker
+        x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
+        rows: 2; columns: 3; spacing: 3
+
+        Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "steelblue"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "black"; onClicked: helloText.color = cellColor }
+    }
+}
+</pre>
+</div>
+<p>We create the color picker by putting 6 cells with different colors in a grid.</p>
+<div class="highlight-python"><pre>        Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
+</pre>
+</div>
+<p>When the <em>clicked</em> signal of our cell is triggered, we want to set the color of the text to the <em>cellColor</em> passed as a parameter.
+We can react to any signal of our component through a property of the name <em>&#8216;onSignalName&#8217;</em>.</p>
+<p>[Previous <a class="reference internal" href="step1.html#qmlbasictypes"><em>QML Tutorial 1 - Basic Types</em></a>][Next <a class="reference internal" href="step3.html#qmlstatesandtransitions"><em>QML Tutorial 3 - States and Transitions</em></a>]</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.indt.org.br"><img src="../../_static/logo_indt.jpg" alt="Indt" border="0" /></a>
+    <a href="http://www.openbossa.org"><img src="../../_static/logo_openbossa.png" alt="Openbossa" border="0" /></a>
+    <a href="http://qt.nokia.com/"><img src="../../_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="../../_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

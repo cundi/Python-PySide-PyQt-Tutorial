@@ -1,0 +1,134 @@
+.. module:: PySide.QtXml
+.. _QDomAttr:
+
+QDomAttr
+********
+
+.. inheritance-diagram:: QDomAttr
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`name<PySide.QtXml.QDomAttr.name>` ()
+*    def :meth:`ownerElement<PySide.QtXml.QDomAttr.ownerElement>` ()
+*    def :meth:`setValue<PySide.QtXml.QDomAttr.setValue>` (arg__1)
+*    def :meth:`specified<PySide.QtXml.QDomAttr.specified>` ()
+*    def :meth:`value<PySide.QtXml.QDomAttr.value>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXml.QDomAttr` class represents one attribute of a :class:`PySide.QtXml.QDomElement` .
+
+    For example, the following piece of XML produces an element with no children, but two attributes:
+
+    ::
+
+        <link href="http://qtsoftware.com" color="red" />
+
+
+    You can access the attributes of an element with code like this:
+
+    ::
+
+        e = # some QDomElement...
+        #...
+        a = e.attributeNode("href")
+        print a.value()                         # prints "http://qtsoftware.com"
+        a.setValue("http://doc.trolltech.com")  # change the node's attribute
+        a2 = e.attributeNode("href")
+        print a2.value()                        # prints "http://doc.trolltech.com"
+
+
+    This example also shows that changing an attribute received from an element changes the attribute of the element. If you do not want to change the value of the element's attribute you must use :meth:`PySide.QtXml.QDomNode.cloneNode` to get an independent copy of the attribute.
+
+    :class:`PySide.QtXml.QDomAttr` can return the :meth:`PySide.QtXml.QDomAttr.name` and :meth:`PySide.QtXml.QDomAttr.value` of an attribute. An attribute's value is set with :meth:`PySide.QtXml.QDomAttr.setValue` . If :meth:`PySide.QtXml.QDomAttr.specified` returns true the value was set with :meth:`PySide.QtXml.QDomAttr.setValue` . The node this attribute is attached to (if any) is returned by :meth:`PySide.QtXml.QDomAttr.ownerElement` .
+
+    For further information about the Document Object Model see http://www.w3.org/TR/REC-DOM-Level-1/ and http://www.w3.org/TR/DOM-Level-2-Core/. For a more general introduction of the DOM implementation see the :class:`PySide.QtXml.QDomDocument` documentation.
+
+
+.. class:: QDomAttr()
+           QDomAttr(x)
+
+    :param x: :class:`PySide.QtXml.QDomAttr`
+
+    Constructs an empty attribute.
+
+
+    Constructs a copy of ``x`` .
+
+    The data of the copy is shared (shallow copy): modifying one node will also change the other. If you want to make a deep copy, use :meth:`PySide.QtXml.QDomNode.cloneNode` .
+
+
+.. method:: PySide.QtXml.QDomAttr.name()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the attribute's name.
+
+
+
+.. method:: PySide.QtXml.QDomAttr.ownerElement()
+
+
+    :rtype: :class:`PySide.QtXml.QDomElement`
+
+
+
+
+    Returns the element node this attribute is attached to or a :meth:`null node<PySide.QtXml.QDomNode.isNull>` if this attribute is not attached to any element.
+
+
+
+.. method:: PySide.QtXml.QDomAttr.setValue(arg__1)
+
+
+    :param arg__1: unicode
+
+
+
+
+    Sets the attribute's value to ``v`` .
+
+    .. seealso::  :meth:`PySide.QtXml.QDomAttr.value` 
+
+
+.. method:: PySide.QtXml.QDomAttr.specified()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the attribute has been set by the user with :meth:`PySide.QtXml.QDomAttr.setValue` . Returns false if the value hasn't been specified or set.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomAttr.setValue` 
+
+
+.. method:: PySide.QtXml.QDomAttr.value()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the value of the attribute or an empty string if the attribute has not been specified.
+
+    .. seealso::  :meth:`PySide.QtXml.QDomAttr.specified`  :meth:`PySide.QtXml.QDomAttr.setValue` 
+
+
+

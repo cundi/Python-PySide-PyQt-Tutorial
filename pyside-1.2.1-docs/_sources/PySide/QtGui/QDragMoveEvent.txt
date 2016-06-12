@@ -1,0 +1,88 @@
+.. module:: PySide.QtGui
+.. _QDragMoveEvent:
+
+QDragMoveEvent
+**************
+
+.. inheritance-diagram:: QDragMoveEvent
+    :parts: 2
+
+**Inherited by:** :ref:`QDragEnterEvent`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accept<PySide.QtGui.QDragMoveEvent.accept>` (r)
+*    def :meth:`answerRect<PySide.QtGui.QDragMoveEvent.answerRect>` ()
+*    def :meth:`ignore<PySide.QtGui.QDragMoveEvent.ignore>` (r)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDragMoveEvent` class provides an event which is sent while a drag and drop action is in progress.
+
+    A widget will receive drag move events repeatedly while the drag is within its boundaries, if it accepts :meth:`drop events<PySide.QtGui.QWidget.setAcceptDrops>` and :meth:`enter events<PySide.QtGui.QWidget.dragEnterEvent>` . The widget should examine the event to see what kind of data it :meth:`PySide.QtGui.QDragMoveEvent.provides` , and call the :meth:`PySide.QtGui.QDragMoveEvent.accept` function to accept the drop if appropriate.
+
+    The rectangle supplied by the :meth:`PySide.QtGui.QDragMoveEvent.answerRect` function can be used to restrict drops to certain parts of the widget. For example, we can check whether the rectangle intersects with the geometry of a certain child widget and only call :meth:`PySide.QtGui.QDropEvent.acceptProposedAction` if that is the case.
+
+    Note that this class inherits most of its functionality from :class:`PySide.QtGui.QDropEvent` .
+
+    .. seealso::  :class:`PySide.QtGui.QDragEnterEvent`  :class:`PySide.QtGui.QDragLeaveEvent`  :class:`PySide.QtGui.QDropEvent` 
+
+.. class:: QDragMoveEvent(pos, actions, data, buttons, modifiers[, type=DragMove])
+
+    :param actions: :class:`PySide.QtCore.Qt.DropActions`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+    :param data: :class:`PySide.QtCore.QMimeData`
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :param buttons: :class:`PySide.QtCore.Qt.MouseButtons`
+
+
+
+.. method:: PySide.QtGui.QDragMoveEvent.accept(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+
+
+
+
+    The same as :meth:`PySide.QtGui.QDragMoveEvent.accept` , but also notifies that future moves will also be acceptable if they remain within the ``rectangle`` given on the widget. This can improve performance, but may also be ignored by the underlying system.
+
+    If the rectangle is empty, drag move events will be sent continuously. This is useful if the source is scrolling in a timer event.
+
+
+
+.. method:: PySide.QtGui.QDragMoveEvent.answerRect()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rectangle in the widget where the drop will occur if accepted. You can use this information to restrict drops to certain places on the widget.
+
+
+
+.. method:: PySide.QtGui.QDragMoveEvent.ignore(r)
+
+
+    :param r: :class:`PySide.QtCore.QRect`
+
+
+
+
+    The opposite of the accept(const :class:`PySide.QtCore.QRect` &) function. Moves within the ``rectangle`` are not acceptable, and will be ignored.
+
+
+
+

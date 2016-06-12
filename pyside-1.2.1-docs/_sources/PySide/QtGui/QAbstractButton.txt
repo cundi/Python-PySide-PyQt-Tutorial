@@ -1,0 +1,603 @@
+.. module:: PySide.QtGui
+.. _QAbstractButton:
+
+QAbstractButton
+***************
+
+.. inheritance-diagram:: QAbstractButton
+    :parts: 2
+
+**Inherited by:** :ref:`QPushButton`, :ref:`QCommandLinkButton`, :ref:`QCheckBox`, :ref:`QToolButton`, :ref:`QRadioButton`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`autoExclusive<PySide.QtGui.QAbstractButton.autoExclusive>` ()
+*    def :meth:`autoRepeat<PySide.QtGui.QAbstractButton.autoRepeat>` ()
+*    def :meth:`autoRepeatDelay<PySide.QtGui.QAbstractButton.autoRepeatDelay>` ()
+*    def :meth:`autoRepeatInterval<PySide.QtGui.QAbstractButton.autoRepeatInterval>` ()
+*    def :meth:`group<PySide.QtGui.QAbstractButton.group>` ()
+*    def :meth:`icon<PySide.QtGui.QAbstractButton.icon>` ()
+*    def :meth:`iconSize<PySide.QtGui.QAbstractButton.iconSize>` ()
+*    def :meth:`isCheckable<PySide.QtGui.QAbstractButton.isCheckable>` ()
+*    def :meth:`isChecked<PySide.QtGui.QAbstractButton.isChecked>` ()
+*    def :meth:`isDown<PySide.QtGui.QAbstractButton.isDown>` ()
+*    def :meth:`setAutoExclusive<PySide.QtGui.QAbstractButton.setAutoExclusive>` (arg__1)
+*    def :meth:`setAutoRepeat<PySide.QtGui.QAbstractButton.setAutoRepeat>` (arg__1)
+*    def :meth:`setAutoRepeatDelay<PySide.QtGui.QAbstractButton.setAutoRepeatDelay>` (arg__1)
+*    def :meth:`setAutoRepeatInterval<PySide.QtGui.QAbstractButton.setAutoRepeatInterval>` (arg__1)
+*    def :meth:`setCheckable<PySide.QtGui.QAbstractButton.setCheckable>` (arg__1)
+*    def :meth:`setDown<PySide.QtGui.QAbstractButton.setDown>` (arg__1)
+*    def :meth:`setIcon<PySide.QtGui.QAbstractButton.setIcon>` (icon)
+*    def :meth:`setShortcut<PySide.QtGui.QAbstractButton.setShortcut>` (key)
+*    def :meth:`setText<PySide.QtGui.QAbstractButton.setText>` (text)
+*    def :meth:`shortcut<PySide.QtGui.QAbstractButton.shortcut>` ()
+*    def :meth:`text<PySide.QtGui.QAbstractButton.text>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`checkStateSet<PySide.QtGui.QAbstractButton.checkStateSet>` ()
+*    def :meth:`hitButton<PySide.QtGui.QAbstractButton.hitButton>` (pos)
+*    def :meth:`nextCheckState<PySide.QtGui.QAbstractButton.nextCheckState>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`animateClick<PySide.QtGui.QAbstractButton.animateClick>` ([msec=100])
+*    def :meth:`click<PySide.QtGui.QAbstractButton.click>` ()
+*    def :meth:`setChecked<PySide.QtGui.QAbstractButton.setChecked>` (arg__1)
+*    def :meth:`setIconSize<PySide.QtGui.QAbstractButton.setIconSize>` (size)
+*    def :meth:`toggle<PySide.QtGui.QAbstractButton.toggle>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clicked<PySide.QtGui.QAbstractButton.clicked>` ([checked=false])
+*    def :meth:`pressed<PySide.QtGui.QAbstractButton.pressed>` ()
+*    def :meth:`released<PySide.QtGui.QAbstractButton.released>` ()
+*    def :meth:`toggled<PySide.QtGui.QAbstractButton.toggled>` (checked)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractButton` class is the abstract base class of button widgets, providing functionality common to buttons.
+
+    This class implements an *abstract* button. Subclasses of this class handle user actions, and specify how the button is drawn.
+
+    :class:`PySide.QtGui.QAbstractButton` provides support for both push buttons and checkable (toggle) buttons. Checkable buttons are implemented in the :class:`PySide.QtGui.QRadioButton` and :class:`PySide.QtGui.QCheckBox` classes. Push buttons are implemented in the :class:`PySide.QtGui.QPushButton` and :class:`PySide.QtGui.QToolButton` classes; these also provide toggle behavior if required.
+
+    Any button can display a label containing text and an icon. :meth:`PySide.QtGui.QAbstractButton.setText` sets the text; :meth:`PySide.QtGui.QAbstractButton.setIcon` sets the icon. If a button is disabled, its label is changed to give the button a "disabled" appearance.
+
+    If the button is a text button with a string containing an ampersand ('&'), :class:`PySide.QtGui.QAbstractButton` automatically creates a shortcut key. For example:
+
+    ::
+
+        button = QPushButton(QObject.tr("Ro&ck && Roll"), self)
+
+
+    The **Alt+C** shortcut is assigned to the button, i.e., when the user presses **Alt+C** the button will call :meth:`PySide.QtGui.QAbstractButton.animateClick` . See the :class:`QShortcut<~PySide.QtGui.QShortcut#mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    You can also set a custom shortcut key using the :meth:`PySide.QtGui.QAbstractButton.setShortcut` function. This is useful mostly for buttons that do not have any text, because they have no automatic shortcut.
+
+    ::
+
+        button.setIcon(QIcon(":/images/print.png"))
+        button.setShortcut(tr("Alt+F7"))
+
+
+    All of the buttons provided by Qt ( :class:`PySide.QtGui.QPushButton` , :class:`PySide.QtGui.QToolButton` , :class:`PySide.QtGui.QCheckBox` , and :class:`PySide.QtGui.QRadioButton` ) can display both :meth:`PySide.QtGui.QAbstractButton.text` and :meth:`icons<PySide.QtGui.QAbstractButton.icon>` .
+
+    A button can be made the default button in a dialog are provided by :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` and :meth:`QPushButton.setAutoDefault()<PySide.QtGui.QPushButton.setAutoDefault>` .
+
+    :class:`PySide.QtGui.QAbstractButton` provides most of the states used for buttons:
+
+
+    * :meth:`PySide.QtGui.QAbstractButton.isDown` indicates whether the button is *pressed* down.
+    * :meth:`PySide.QtGui.QAbstractButton.isChecked` indicates whether the button is *checked*. Only checkable buttons can be checked and unchecked (see below).
+    * :meth:`PySide.QtGui.QWidget.isEnabled` indicates whether the button can be pressed by the user. **Note:** As opposed to other widgets, buttons derived from :class:`PySide.QtGui.QAbstractButton` accepts mouse and context menu events when disabled.
+    * :meth:`PySide.QtGui.QAbstractButton.setAutoRepeat` sets whether the button will auto-repeat if the user holds it down. :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` and :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` define how auto-repetition is done.
+    * :meth:`PySide.QtGui.QAbstractButton.setCheckable` sets whether the button is a toggle button or not.
+
+    The difference between :meth:`PySide.QtGui.QAbstractButton.isDown` and :meth:`PySide.QtGui.QAbstractButton.isChecked` is as follows. When the user clicks a toggle button to check it, the button is first *pressed* then released into the *checked* state. When the user clicks it again (to uncheck it), the button moves first to the *pressed* state, then to the *unchecked* state ( :meth:`PySide.QtGui.QAbstractButton.isChecked` and :meth:`PySide.QtGui.QAbstractButton.isDown` are both false).
+
+    :class:`PySide.QtGui.QAbstractButton` provides four signals:
+
+    To subclass :class:`PySide.QtGui.QAbstractButton` , you must reimplement at least :meth:`PySide.QtGui.QAbstractButton.paintEvent` to draw the button's outline and its text or pixmap. It is generally advisable to reimplement :meth:`PySide.QtGui.QWidget.sizeHint` as well, and sometimes :meth:`PySide.QtGui.QAbstractButton.hitButton` (to determine whether a button press is within the button). For buttons with more than two states (like tri-state buttons), you will also have to reimplement :meth:`PySide.QtGui.QAbstractButton.checkStateSet` and :meth:`PySide.QtGui.QAbstractButton.nextCheckState` .
+
+    .. seealso::  :class:`PySide.QtGui.QButtonGroup` 
+
+.. class:: QAbstractButton([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an abstract button with a ``parent`` .
+
+
+.. method:: PySide.QtGui.QAbstractButton.animateClick([msec=100])
+
+
+    :param msec: :class:`PySide.QtCore.int`
+
+
+
+
+    Performs an animated click: the button is pressed immediately, and released ``msec`` milliseconds later (the default is 100 ms).
+
+    Calling this function again before the button was released will reset the release timer.
+
+    All signals associated with a click are emitted as appropriate.
+
+    This function does nothing if the button is :meth:`disabled.<PySide.QtGui.QWidget.setEnabled>`
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.click` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.autoExclusive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether auto-exclusivity is enabled.
+
+    If auto-exclusivity is enabled, checkable buttons that belong to the same parent widget behave as if they were part of the same exclusive button group. In an exclusive button group, only one button can be checked at any time; checking another button automatically unchecks the previously checked one.
+
+    The property has no effect on buttons that belong to a button group.
+
+    :meth:`PySide.QtGui.QAbstractButton.autoExclusive` is off by default, except for radio buttons.
+
+    .. seealso::  :class:`PySide.QtGui.QRadioButton` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.autoRepeat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then the :meth:`PySide.QtGui.QAbstractButton.pressed` , :meth:`PySide.QtGui.QAbstractButton.released` , and :meth:`PySide.QtGui.QAbstractButton.clicked` signals are emitted at regular intervals when the button is down. :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is off by default. The initial delay and the repetition interval are defined in milliseconds by :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` and :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` .
+
+    Note: If a button is pressed down by a shortcut key, then auto-repeat is enabled and timed by the system and not by this class. The :meth:`PySide.QtGui.QAbstractButton.pressed` , :meth:`PySide.QtGui.QAbstractButton.released` , and :meth:`PySide.QtGui.QAbstractButton.clicked` signals will be emitted like in the normal case.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.autoRepeatDelay()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the initial delay of auto-repetition.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` defines the initial delay in milliseconds before auto-repetition kicks in.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.autoRepeat`  :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.autoRepeatInterval()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the interval of auto-repetition.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` defines the length of the auto-repetition interval in millisecons.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.autoRepeat`  :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.checkStateSet()
+
+
+
+
+
+
+    This virtual handler is called when :meth:`PySide.QtGui.QAbstractButton.setChecked` was called, unless it was called from within :meth:`PySide.QtGui.QAbstractButton.nextCheckState` . It allows subclasses to reset their intermediate button states.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.nextCheckState` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.click()
+
+
+
+
+
+
+    Performs a click.
+
+    All the usual signals associated with a click are emitted as appropriate. If the button is checkable, the state of the button is toggled.
+
+    This function does nothing if the button is :meth:`disabled.<PySide.QtGui.QWidget.setEnabled>`
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.animateClick` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.clicked([checked=false])
+
+
+    :param checked: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.group()
+
+
+    :rtype: :class:`PySide.QtGui.QButtonGroup`
+
+
+
+
+    Returns the group that this button belongs to.
+
+    If the button is not a member of any :class:`PySide.QtGui.QButtonGroup` , this function returns 0.
+
+    .. seealso::  :class:`PySide.QtGui.QButtonGroup` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.hitButton(pos)
+
+
+    :param pos: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``pos`` is inside the clickable button rectangle; otherwise returns false.
+
+    By default, the clickable area is the entire widget. Subclasses may reimplement this function to provide support for clickable areas of different shapes and sizes.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the icon shown on the button.
+
+    The icon's default size is defined by the GUI style, but can be adjusted by setting the :meth:`PySide.QtGui.QAbstractButton.iconSize` property.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.iconSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the icon size used for this button..
+
+    The default size is defined by the GUI style. This is a maximum size for the icons. Smaller icons will not be scaled up.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.isCheckable()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is checkable.
+
+    By default, the button is not checkable.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractButton.checked` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.isChecked()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is checked.
+
+    Only checkable buttons can be checked. By default, the button is unchecked.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractButton.checkable` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.isDown()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is pressed down.
+
+    If this property is true, the button is pressed down. The signals :meth:`PySide.QtGui.QAbstractButton.pressed` and :meth:`PySide.QtGui.QAbstractButton.clicked` are not emitted if you set this property to true. The default is false.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.nextCheckState()
+
+
+
+
+
+
+    This virtual handler is called when a button is clicked. The default implementation calls setChecked(! :meth:`PySide.QtGui.QAbstractButton.isChecked` ) if the button :meth:`PySide.QtGui.QAbstractButton.isCheckable` . It allows subclasses to implement intermediate button states.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.checkStateSet` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.pressed()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.released()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setAutoExclusive(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether auto-exclusivity is enabled.
+
+    If auto-exclusivity is enabled, checkable buttons that belong to the same parent widget behave as if they were part of the same exclusive button group. In an exclusive button group, only one button can be checked at any time; checking another button automatically unchecks the previously checked one.
+
+    The property has no effect on buttons that belong to a button group.
+
+    :meth:`PySide.QtGui.QAbstractButton.autoExclusive` is off by default, except for radio buttons.
+
+    .. seealso::  :class:`PySide.QtGui.QRadioButton` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.setAutoRepeat(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then the :meth:`PySide.QtGui.QAbstractButton.pressed` , :meth:`PySide.QtGui.QAbstractButton.released` , and :meth:`PySide.QtGui.QAbstractButton.clicked` signals are emitted at regular intervals when the button is down. :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is off by default. The initial delay and the repetition interval are defined in milliseconds by :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` and :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` .
+
+    Note: If a button is pressed down by a shortcut key, then auto-repeat is enabled and timed by the system and not by this class. The :meth:`PySide.QtGui.QAbstractButton.pressed` , :meth:`PySide.QtGui.QAbstractButton.released` , and :meth:`PySide.QtGui.QAbstractButton.clicked` signals will be emitted like in the normal case.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setAutoRepeatDelay(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the initial delay of auto-repetition.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` defines the initial delay in milliseconds before auto-repetition kicks in.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.autoRepeat`  :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.setAutoRepeatInterval(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the interval of auto-repetition.
+
+    If :meth:`PySide.QtGui.QAbstractButton.autoRepeat` is enabled, then :meth:`PySide.QtGui.QAbstractButton.autoRepeatInterval` defines the length of the auto-repetition interval in millisecons.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractButton.autoRepeat`  :meth:`PySide.QtGui.QAbstractButton.autoRepeatDelay` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.setCheckable(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is checkable.
+
+    By default, the button is not checkable.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractButton.checked` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.setChecked(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is checked.
+
+    Only checkable buttons can be checked. By default, the button is unchecked.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractButton.checkable` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.setDown(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button is pressed down.
+
+    If this property is true, the button is pressed down. The signals :meth:`PySide.QtGui.QAbstractButton.pressed` and :meth:`PySide.QtGui.QAbstractButton.clicked` are not emitted if you set this property to true. The default is false.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the icon shown on the button.
+
+    The icon's default size is defined by the GUI style, but can be adjusted by setting the :meth:`PySide.QtGui.QAbstractButton.iconSize` property.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setIconSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the icon size used for this button..
+
+    The default size is defined by the GUI style. This is a maximum size for the icons. Smaller icons will not be scaled up.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setShortcut(key)
+
+
+    :param key: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    This property holds the mnemonic associated with the button.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.setText(text)
+
+
+    :param text: unicode
+
+
+
+
+    This property holds the text shown on the button.
+
+    If the button has no text, the :meth:`PySide.QtGui.QAbstractButton.text` function will return a an empty string.
+
+    If the text contains an ampersand character ('&'), a shortcut is automatically created for it. The character that follows the '&' will be used as the shortcut key. Any previous shortcut will be overwritten, or cleared if no shortcut is defined by the text. See the :class:`QShortcut<~PySide.QtGui.QShortcut#mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    There is no default text.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.shortcut()
+
+
+    :rtype: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    This property holds the mnemonic associated with the button.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the text shown on the button.
+
+    If the button has no text, the :meth:`PySide.QtGui.QAbstractButton.text` function will return a an empty string.
+
+    If the text contains an ampersand character ('&'), a shortcut is automatically created for it. The character that follows the '&' will be used as the shortcut key. Any previous shortcut will be overwritten, or cleared if no shortcut is defined by the text. See the :class:`QShortcut<~PySide.QtGui.QShortcut#mnemonic>` documentation for details (to display an actual ampersand, use '&&').
+
+    There is no default text.
+
+
+
+.. method:: PySide.QtGui.QAbstractButton.toggle()
+
+
+
+
+
+
+    Toggles the state of a checkable button.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractButton.checked` 
+
+
+.. method:: PySide.QtGui.QAbstractButton.toggled(checked)
+
+
+    :param checked: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+

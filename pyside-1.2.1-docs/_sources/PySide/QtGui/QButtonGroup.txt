@@ -1,0 +1,283 @@
+.. module:: PySide.QtGui
+.. _QButtonGroup:
+
+QButtonGroup
+************
+
+.. inheritance-diagram:: QButtonGroup
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addButton<PySide.QtGui.QButtonGroup.addButton>` (arg__1)
+*    def :meth:`addButton<PySide.QtGui.QButtonGroup.addButton>` (arg__1, id)
+*    def :meth:`button<PySide.QtGui.QButtonGroup.button>` (id)
+*    def :meth:`buttons<PySide.QtGui.QButtonGroup.buttons>` ()
+*    def :meth:`checkedButton<PySide.QtGui.QButtonGroup.checkedButton>` ()
+*    def :meth:`checkedId<PySide.QtGui.QButtonGroup.checkedId>` ()
+*    def :meth:`exclusive<PySide.QtGui.QButtonGroup.exclusive>` ()
+*    def :meth:`id<PySide.QtGui.QButtonGroup.id>` (button)
+*    def :meth:`removeButton<PySide.QtGui.QButtonGroup.removeButton>` (arg__1)
+*    def :meth:`setExclusive<PySide.QtGui.QButtonGroup.setExclusive>` (arg__1)
+*    def :meth:`setId<PySide.QtGui.QButtonGroup.setId>` (button, id)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`buttonClicked<PySide.QtGui.QButtonGroup.buttonClicked>` (arg__1)
+*    def :meth:`buttonClicked<PySide.QtGui.QButtonGroup.buttonClicked>` (arg__1)
+*    def :meth:`buttonPressed<PySide.QtGui.QButtonGroup.buttonPressed>` (arg__1)
+*    def :meth:`buttonPressed<PySide.QtGui.QButtonGroup.buttonPressed>` (arg__1)
+*    def :meth:`buttonReleased<PySide.QtGui.QButtonGroup.buttonReleased>` (arg__1)
+*    def :meth:`buttonReleased<PySide.QtGui.QButtonGroup.buttonReleased>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QButtonGroup` class provides a container to organize groups of button widgets.
+
+    :class:`PySide.QtGui.QButtonGroup` provides an abstract container into which button widgets can be placed. It does not provide a visual representation of this container (see :class:`PySide.QtGui.QGroupBox` for a container widget), but instead manages the states of each of the buttons in the group.
+
+    An :meth:`PySide.QtGui.QButtonGroup.exclusive` button group switches off all checkable (toggle) buttons except the one that was clicked. By default, a button group is exclusive. The buttons in a button group are usually checkable :class:`PySide.QtGui.QPushButton` 's, :class:`PySide.QtGui.QCheckBox` es (normally for non-exclusive button groups), or :class:`PySide.QtGui.QRadioButton` s. If you create an exclusive button group, you should ensure that one of the buttons in the group is initially checked; otherwise, the group will initially be in a state where no buttons are checked.
+
+    A button is added to the group with :meth:`PySide.QtGui.QButtonGroup.addButton` . It can be removed from the group with :meth:`PySide.QtGui.QButtonGroup.removeButton` . If the group is exclusive, the currently checked button is available as :meth:`PySide.QtGui.QButtonGroup.checkedButton` . If a button is clicked the :meth:`PySide.QtGui.QButtonGroup.buttonClicked` signal is emitted. For a checkable button in an exclusive group this means that the button was checked. The list of buttons in the group is returned by :meth:`PySide.QtGui.QButtonGroup.buttons` .
+
+    In addition, :class:`PySide.QtGui.QButtonGroup` can map between integers and buttons. You can assign an integer id to a button with :meth:`PySide.QtGui.QButtonGroup.setId` , and retrieve it with :meth:`PySide.QtGui.QButtonGroup.id` . The id of the currently checked button is available with :meth:`PySide.QtGui.QButtonGroup.checkedId` , and there is an overloaded signal :meth:`PySide.QtGui.QButtonGroup.buttonClicked` which emits the id of the button. The id ``-1`` is reserved by :class:`PySide.QtGui.QButtonGroup` to mean "no such button". The purpose of the mapping mechanism is to simplify the representation of enum values in a user interface.
+
+    .. seealso::  :class:`PySide.QtGui.QGroupBox`  :class:`PySide.QtGui.QPushButton`  :class:`PySide.QtGui.QCheckBox`  :class:`PySide.QtGui.QRadioButton` 
+
+.. class:: QButtonGroup([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a new, empty button group with the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.addButton`  :meth:`PySide.QtGui.QButtonGroup.setExclusive` 
+
+.. method:: PySide.QtGui.QButtonGroup.addButton(arg__1, id)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    Adds the given ``button`` to the button group, with the given ``id`` . It is recommended to assign only positive ids.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.removeButton`  :meth:`PySide.QtGui.QButtonGroup.buttons` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.addButton(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Adds the given ``button`` to the end of the group's internal list of buttons. An id will be assigned to the button by this :class:`PySide.QtGui.QButtonGroup` . Automatically assigned ids are guaranteed to be negative, starting with -2. If you are also assigning your own ids, use positive values to avoid conflicts.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.removeButton`  :meth:`PySide.QtGui.QButtonGroup.buttons` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.button(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns the button with the specified ``id`` , or 0 if no such button exists.
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonClicked(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonClicked(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonPressed(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonPressed(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonReleased(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttonReleased(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.buttons()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of this groups's buttons. This may be empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.addButton`  :meth:`PySide.QtGui.QButtonGroup.removeButton` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.checkedButton()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Returns the button group's checked button, or 0 if no buttons are checked.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.buttonClicked` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.checkedId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the id of the :meth:`PySide.QtGui.QButtonGroup.checkedButton` , or -1 if no button is checked.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.setId` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.exclusive()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button group is exclusive.
+
+    If this property is true then only one button in the group can be checked at any given time. The user can click on any button to check it, and that button will replace the existing one as the checked button in the group.
+
+    In an exclusive group, the user cannot uncheck the currently checked button by clicking on it; instead, another button in the group must be clicked to set the new checked button for that group.
+
+    By default, this property is true.
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.id(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the id for the specified ``button`` , or -1 if no such button exists.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.setId` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.removeButton(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Removes the given ``button`` from the button group.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.addButton`  :meth:`PySide.QtGui.QButtonGroup.buttons` 
+
+
+.. method:: PySide.QtGui.QButtonGroup.setExclusive(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the button group is exclusive.
+
+    If this property is true then only one button in the group can be checked at any given time. The user can click on any button to check it, and that button will replace the existing one as the checked button in the group.
+
+    In an exclusive group, the user cannot uncheck the currently checked button by clicking on it; instead, another button in the group must be clicked to set the new checked button for that group.
+
+    By default, this property is true.
+
+
+
+.. method:: PySide.QtGui.QButtonGroup.setId(button, id)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :param id: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the ``id`` for the specified ``button`` . Note that ``id`` can not be -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QButtonGroup.id` 
+
+
+

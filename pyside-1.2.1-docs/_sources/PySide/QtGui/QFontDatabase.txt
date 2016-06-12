@@ -1,0 +1,604 @@
+.. module:: PySide.QtGui
+.. _QFontDatabase:
+
+QFontDatabase
+*************
+
+.. inheritance-diagram:: QFontDatabase
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`bold<PySide.QtGui.QFontDatabase.bold>` (family, style)
+*    def :meth:`families<PySide.QtGui.QFontDatabase.families>` ([writingSystem=Any])
+*    def :meth:`font<PySide.QtGui.QFontDatabase.font>` (family, style, pointSize)
+*    def :meth:`hasFamily<PySide.QtGui.QFontDatabase.hasFamily>` (family)
+*    def :meth:`isBitmapScalable<PySide.QtGui.QFontDatabase.isBitmapScalable>` (family[, style=""])
+*    def :meth:`isFixedPitch<PySide.QtGui.QFontDatabase.isFixedPitch>` (family[, style=""])
+*    def :meth:`isScalable<PySide.QtGui.QFontDatabase.isScalable>` (family[, style=""])
+*    def :meth:`isSmoothlyScalable<PySide.QtGui.QFontDatabase.isSmoothlyScalable>` (family[, style=""])
+*    def :meth:`italic<PySide.QtGui.QFontDatabase.italic>` (family, style)
+*    def :meth:`pointSizes<PySide.QtGui.QFontDatabase.pointSizes>` (family[, style=""])
+*    def :meth:`smoothSizes<PySide.QtGui.QFontDatabase.smoothSizes>` (family, style)
+*    def :meth:`styleString<PySide.QtGui.QFontDatabase.styleString>` (font)
+*    def :meth:`styleString<PySide.QtGui.QFontDatabase.styleString>` (fontInfo)
+*    def :meth:`styles<PySide.QtGui.QFontDatabase.styles>` (family)
+*    def :meth:`weight<PySide.QtGui.QFontDatabase.weight>` (family, style)
+*    def :meth:`writingSystems<PySide.QtGui.QFontDatabase.writingSystems>` ()
+*    def :meth:`writingSystems<PySide.QtGui.QFontDatabase.writingSystems>` (family)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addApplicationFont<PySide.QtGui.QFontDatabase.addApplicationFont>` (fileName)
+*    def :meth:`addApplicationFontFromData<PySide.QtGui.QFontDatabase.addApplicationFontFromData>` (fontData)
+*    def :meth:`applicationFontFamilies<PySide.QtGui.QFontDatabase.applicationFontFamilies>` (id)
+*    def :meth:`createDatabase<PySide.QtGui.QFontDatabase.createDatabase>` ()
+*    def :meth:`parseFontName<PySide.QtGui.QFontDatabase.parseFontName>` (name, foundry, family)
+*    def :meth:`removeAllApplicationFonts<PySide.QtGui.QFontDatabase.removeAllApplicationFonts>` ()
+*    def :meth:`removeApplicationFont<PySide.QtGui.QFontDatabase.removeApplicationFont>` (id)
+*    def :meth:`resolveFontFamilyAlias<PySide.QtGui.QFontDatabase.resolveFontFamilyAlias>` (family)
+*    def :meth:`standardSizes<PySide.QtGui.QFontDatabase.standardSizes>` ()
+*    def :meth:`supportsThreadedFontRendering<PySide.QtGui.QFontDatabase.supportsThreadedFontRendering>` ()
+*    def :meth:`writingSystemName<PySide.QtGui.QFontDatabase.writingSystemName>` (writingSystem)
+*    def :meth:`writingSystemSample<PySide.QtGui.QFontDatabase.writingSystemSample>` (writingSystem)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFontDatabase` class provides information about the fonts available in the underlying window system.
+
+    The most common uses of this class are to query the database for the list of font :meth:`PySide.QtGui.QFontDatabase.families` and for the :meth:`PySide.QtGui.QFontDatabase.pointSizes` and :meth:`PySide.QtGui.QFontDatabase.styles` that are available for each family. An alternative to :meth:`PySide.QtGui.QFontDatabase.pointSizes` is :meth:`PySide.QtGui.QFontDatabase.smoothSizes` which returns the sizes at which a given family and style will look attractive.
+
+    If the font family is available from two or more foundries the foundry name is included in the family name; for example: "Helvetica [Adobe]" and "Helvetica [Cronyx]". When you specify a family, you can either use the old hyphenated "foundry-family" format or the bracketed "family [foundry]" format; for example: "Cronyx-Helvetica" or "Helvetica [Cronyx]". If the family has a foundry it is always returned using the bracketed format, as is the case with the value returned by :meth:`PySide.QtGui.QFontDatabase.families` .
+
+    The :meth:`PySide.QtGui.QFontDatabase.font` function returns a :class:`PySide.QtGui.QFont` given a family, style and point size.
+
+    A family and style combination can be checked to see if it is :meth:`PySide.QtGui.QFontDatabase.italic` or :meth:`PySide.QtGui.QFontDatabase.bold` , and to retrieve its :meth:`PySide.QtGui.QFontDatabase.weight` . Similarly we can call :meth:`PySide.QtGui.QFontDatabase.isBitmapScalable` , :meth:`PySide.QtGui.QFontDatabase.isSmoothlyScalable` , :meth:`PySide.QtGui.QFontDatabase.isScalable` and :meth:`PySide.QtGui.QFontDatabase.isFixedPitch` .
+
+    Use the :meth:`PySide.QtGui.QFontDatabase.styleString` to obtain a text version of a style.
+
+    The :class:`PySide.QtGui.QFontDatabase` class also supports some static functions, for example, :meth:`PySide.QtGui.QFontDatabase.standardSizes` . You can retrieve the description of a writing system using :meth:`PySide.QtGui.QFontDatabase.writingSystemName` , and a sample of characters in a writing system with :meth:`PySide.QtGui.QFontDatabase.writingSystemSample` .
+
+    Example:
+
+    ::
+
+            database = QFontDatabase()
+            fontTree = QTreeWidget()
+            fontTree.setColumnCount(2)
+            fontTree.setHeaderLabels(QStringList() << "Font" << "Smooth Sizes")
+
+            for family in database.families():
+                familyItem = QTreeWidgetItem(fontTree)
+                familyItem.setText(0, family)
+
+                for style in database.styles(family):
+                    styleItem = QTreeWidgetItem(familyItem)
+                    styleItem.setText(0, style)
+
+                    sizes = 0
+                    for points in database.smoothSizes(family, style):
+                        sizes += QString.number(points) + " "
+
+                    styleItem.setText(1, sizes.trimmed())
+
+
+
+
+    This example gets the list of font families, the list of styles for each family, and the point sizes that are available for each combination of family and style, displaying this information in a tree view.
+
+    .. seealso::  :class:`PySide.QtGui.QFont`  :class:`PySide.QtGui.QFontInfo`  :class:`PySide.QtGui.QFontMetrics`  :class:`PySide.QtGui.QFontComboBox`  :ref:`Character Map Example<widgets/charactermap>` 
+
+.. class:: QFontDatabase()
+           QFontDatabase(QFontDatabase)
+
+    :param QFontDatabase: :class:`PySide.QtGui.QFontDatabase`
+
+    Creates a font database object.
+
+
+
+
+.. attribute:: PySide.QtGui.QFontDatabase.WritingSystem
+
+    +--------------------------------+--------------------+
+    |Constant                        |Description         |
+    +================================+====================+
+    |QFontDatabase.Any               |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Latin             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Greek             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Cyrillic          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Armenian          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Hebrew            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Arabic            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Syriac            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Thaana            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Devanagari        |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Bengali           |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Gurmukhi          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Gujarati          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Oriya             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Tamil             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Telugu            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Kannada           |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Malayalam         |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Sinhala           |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Thai              |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Lao               |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Tibetan           |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Myanmar           |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Georgian          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Khmer             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.SimplifiedChinese |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.TraditionalChinese|                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Japanese          |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Korean            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Vietnamese        |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Symbol            |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Other             |(the same as Symbol)|
+    +--------------------------------+--------------------+
+    |QFontDatabase.Ogham             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Runic             |                    |
+    +--------------------------------+--------------------+
+    |QFontDatabase.Nko               |                    |
+    +--------------------------------+--------------------+
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.addApplicationFont(fileName)
+
+
+    :param fileName: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Loads the font from the file specified by ``fileName`` and makes it available to the application. An ID is returned that can be used to remove the font again with :meth:`PySide.QtGui.QFontDatabase.removeApplicationFont` or to retrieve the list of family names contained in the font.
+
+    The function returns -1 if the font could not be loaded.
+
+    Currently only TrueType fonts, TrueType font collections, and OpenType fonts are supported.
+
+    .. note::  Adding application fonts on Unix/X11 platforms without fontconfig is currently not supported.
+
+    .. note::  On Symbian, the font family names get truncated to a length of 20 characters.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.addApplicationFontFromData`  :meth:`PySide.QtGui.QFontDatabase.applicationFontFamilies`  :meth:`PySide.QtGui.QFontDatabase.removeApplicationFont` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.addApplicationFontFromData(fontData)
+
+
+    :param fontData: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Loads the font from binary data specified by ``fontData`` and makes it available to the application. An ID is returned that can be used to remove the font again with :meth:`PySide.QtGui.QFontDatabase.removeApplicationFont` or to retrieve the list of family names contained in the font.
+
+    The function returns -1 if the font could not be loaded.
+
+    Currently only TrueType fonts and TrueType font collections are supported.
+
+    .. note::  Adding application fonts on Unix/X11 platforms without fontconfig is currently not supported.
+
+    .. note::  On Symbian, the font family names get truncated to a length of 20 characters.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.addApplicationFont`  :meth:`PySide.QtGui.QFontDatabase.applicationFontFamilies`  :meth:`PySide.QtGui.QFontDatabase.removeApplicationFont` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.applicationFontFamilies(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: list of strings
+
+
+
+
+    Returns a list of font families for the given application font identified by ``id`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.addApplicationFont`  :meth:`PySide.QtGui.QFontDatabase.addApplicationFontFromData` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.bold(family, style)
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is bold; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.italic`  :meth:`PySide.QtGui.QFontDatabase.weight` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.createDatabase()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.families([writingSystem=Any])
+
+
+    :param writingSystem: :attr:`PySide.QtGui.QFontDatabase.WritingSystem`
+    :rtype: list of strings
+
+
+
+
+    Returns a sorted list of the available font families which support the ``writingSystem`` .
+
+    If a family exists in several foundries, the returned name for that font is in the form "family [foundry]". Examples: "Times [Adobe]", "Times [Cronyx]", "Palatino".
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.writingSystems` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.font(family, style, pointSize)
+
+
+    :param family: unicode
+    :param style: unicode
+    :param pointSize: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns a :class:`PySide.QtGui.QFont` object that has family ``family`` , style ``style`` and point size ``pointSize`` . If no matching font could be created, a :class:`PySide.QtGui.QFont` object that uses the application's default font is returned.
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.hasFamily(family)
+
+
+    :param family: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.isBitmapScalable(family[, style=""])
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is a scalable bitmap font; otherwise returns false. Scaling a bitmap font usually produces an unattractive hardly readable result, because the pixels of the font are scaled. If you need to scale a bitmap font it is better to scale it to one of the fixed sizes returned by :meth:`PySide.QtGui.QFontDatabase.smoothSizes` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.isScalable`  :meth:`PySide.QtGui.QFontDatabase.isSmoothlyScalable` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.isFixedPitch(family[, style=""])
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is fixed pitch; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.isScalable(family[, style=""])
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is scalable; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.isBitmapScalable`  :meth:`PySide.QtGui.QFontDatabase.isSmoothlyScalable` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.isSmoothlyScalable(family[, style=""])
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is smoothly scalable; otherwise returns false. If this function returns true, it's safe to scale this font to any size, and the result will always look attractive.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.isScalable`  :meth:`PySide.QtGui.QFontDatabase.isBitmapScalable` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.italic(family, style)
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the font that has family ``family`` and style ``style`` is italic; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.weight`  :meth:`PySide.QtGui.QFontDatabase.bold` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.parseFontName(name, foundry, family)
+
+
+    :param name: unicode
+    :param foundry: unicode
+    :param family: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.pointSizes(family[, style=""])
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: 
+
+
+
+
+    Returns a list of the point sizes available for the font with the given ``family`` and ``style`` . The list may be empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.smoothSizes`  :meth:`PySide.QtGui.QFontDatabase.standardSizes` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.removeAllApplicationFonts()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes all application-local fonts previously added using :meth:`PySide.QtGui.QFontDatabase.addApplicationFont` and :meth:`PySide.QtGui.QFontDatabase.addApplicationFontFromData` .
+
+    Returns true if unloading of the fonts succeeded; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.removeApplicationFont`  :meth:`PySide.QtGui.QFontDatabase.addApplicationFont`  :meth:`PySide.QtGui.QFontDatabase.addApplicationFontFromData` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.removeApplicationFont(id)
+
+
+    :param id: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the previously loaded application font identified by ``id`` . Returns true if unloading of the font succeeded; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.removeAllApplicationFonts`  :meth:`PySide.QtGui.QFontDatabase.addApplicationFont`  :meth:`PySide.QtGui.QFontDatabase.addApplicationFontFromData` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.resolveFontFamilyAlias(family)
+
+
+    :param family: unicode
+    :rtype: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.smoothSizes(family, style)
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: 
+
+
+
+
+    Returns the point sizes of a font with the given ``family`` and ``style`` that will look attractive. The list may be empty. For non-scalable fonts and bitmap scalable fonts, this function is equivalent to :meth:`PySide.QtGui.QFontDatabase.pointSizes` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.pointSizes`  :meth:`PySide.QtGui.QFontDatabase.standardSizes` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.standardSizes()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of standard font sizes.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.smoothSizes`  :meth:`PySide.QtGui.QFontDatabase.pointSizes` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.styleString(fontInfo)
+
+
+    :param fontInfo: :class:`PySide.QtGui.QFontInfo`
+    :rtype: unicode
+
+
+
+
+    Returns a string that describes the style of the ``fontInfo`` . For example, "Bold Italic", "Bold", "Italic" or "Normal". An empty string may be returned.
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.styleString(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+    :rtype: unicode
+
+
+
+
+    Returns a string that describes the style of the ``font`` . For example, "Bold Italic", "Bold", "Italic" or "Normal". An empty string may be returned.
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.styles(family)
+
+
+    :param family: unicode
+    :rtype: list of strings
+
+
+
+
+    Returns a list of the styles available for the font family ``family`` . Some example styles: "Light", "Light Italic", "Bold", "Oblique", "Demi". The list may be empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.families` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.supportsThreadedFontRendering()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if font rendering is supported outside the GUI thread, false otherwise. In other words, a return value of false means that all :meth:`QPainter.drawText()<PySide.QtGui.QPainter.drawText>` calls outside the GUI thread will not produce readable output.
+
+    .. seealso::  :ref:`Painting In Threads<threads-modules.html>` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.weight(family, style)
+
+
+    :param family: unicode
+    :param style: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the weight of the font that has family ``family`` and style ``style`` . If there is no such family and style combination, returns -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.italic`  :meth:`PySide.QtGui.QFontDatabase.bold` 
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.writingSystemName(writingSystem)
+
+
+    :param writingSystem: :attr:`PySide.QtGui.QFontDatabase.WritingSystem`
+    :rtype: unicode
+
+
+
+
+    Returns the names the ``writingSystem`` (e.g. for displaying to the user in a dialog).
+
+
+
+.. staticmethod:: PySide.QtGui.QFontDatabase.writingSystemSample(writingSystem)
+
+
+    :param writingSystem: :attr:`PySide.QtGui.QFontDatabase.WritingSystem`
+    :rtype: unicode
+
+
+
+
+    Returns a string with sample characters from ``writingSystem`` .
+
+
+
+.. method:: PySide.QtGui.QFontDatabase.writingSystems()
+
+
+    :rtype: 
+
+
+
+
+    Returns a sorted list of the available writing systems. This is list generated from information about all installed fonts on the system.
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.families` 
+
+
+.. method:: PySide.QtGui.QFontDatabase.writingSystems(family)
+
+
+    :param family: unicode
+    :rtype: 
+
+
+
+
+    Returns a sorted list of the writing systems supported by a given font ``family`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QFontDatabase.families` 
+
+
+

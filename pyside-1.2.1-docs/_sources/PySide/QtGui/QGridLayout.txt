@@ -1,0 +1,440 @@
+.. module:: PySide.QtGui
+.. _QGridLayout:
+
+QGridLayout
+***********
+
+.. inheritance-diagram:: QGridLayout
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addItem<PySide.QtGui.QGridLayout.addItem>` (item, row, column[, rowSpan=1[, columnSpan=1[, alignment=0]]])
+*    def :meth:`addLayout<PySide.QtGui.QGridLayout.addLayout>` (arg__1, row, column, rowSpan, columnSpan[, alignment=0])
+*    def :meth:`addLayout<PySide.QtGui.QGridLayout.addLayout>` (arg__1, row, column[, alignment=0])
+*    def :meth:`addWidget<PySide.QtGui.QGridLayout.addWidget>` (arg__1, row, column, rowSpan, columnSpan[, alignment=0])
+*    def :meth:`addWidget<PySide.QtGui.QGridLayout.addWidget>` (arg__1, row, column[, alignment=0])
+*    def :meth:`cellRect<PySide.QtGui.QGridLayout.cellRect>` (row, column)
+*    def :meth:`columnCount<PySide.QtGui.QGridLayout.columnCount>` ()
+*    def :meth:`columnMinimumWidth<PySide.QtGui.QGridLayout.columnMinimumWidth>` (column)
+*    def :meth:`columnStretch<PySide.QtGui.QGridLayout.columnStretch>` (column)
+*    def :meth:`getItemPosition<PySide.QtGui.QGridLayout.getItemPosition>` (idx)
+*    def :meth:`horizontalSpacing<PySide.QtGui.QGridLayout.horizontalSpacing>` ()
+*    def :meth:`itemAtPosition<PySide.QtGui.QGridLayout.itemAtPosition>` (row, column)
+*    def :meth:`originCorner<PySide.QtGui.QGridLayout.originCorner>` ()
+*    def :meth:`rowCount<PySide.QtGui.QGridLayout.rowCount>` ()
+*    def :meth:`rowMinimumHeight<PySide.QtGui.QGridLayout.rowMinimumHeight>` (row)
+*    def :meth:`rowStretch<PySide.QtGui.QGridLayout.rowStretch>` (row)
+*    def :meth:`setColumnMinimumWidth<PySide.QtGui.QGridLayout.setColumnMinimumWidth>` (column, minSize)
+*    def :meth:`setColumnStretch<PySide.QtGui.QGridLayout.setColumnStretch>` (column, stretch)
+*    def :meth:`setDefaultPositioning<PySide.QtGui.QGridLayout.setDefaultPositioning>` (n, orient)
+*    def :meth:`setHorizontalSpacing<PySide.QtGui.QGridLayout.setHorizontalSpacing>` (spacing)
+*    def :meth:`setOriginCorner<PySide.QtGui.QGridLayout.setOriginCorner>` (arg__1)
+*    def :meth:`setRowMinimumHeight<PySide.QtGui.QGridLayout.setRowMinimumHeight>` (row, minSize)
+*    def :meth:`setRowStretch<PySide.QtGui.QGridLayout.setRowStretch>` (row, stretch)
+*    def :meth:`setVerticalSpacing<PySide.QtGui.QGridLayout.setVerticalSpacing>` (spacing)
+*    def :meth:`verticalSpacing<PySide.QtGui.QGridLayout.verticalSpacing>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGridLayout` class lays out widgets in a grid.
+
+    :class:`PySide.QtGui.QGridLayout` takes the space made available to it (by its parent layout or by the :meth:`PySide.QtGui.QLayout.parentWidget` ), divides it up into rows and columns, and puts each widget it manages into the correct cell.
+
+    Columns and rows behave identically; we will discuss columns, but there are equivalent functions for rows.
+
+    Each column has a minimum width and a stretch factor. The minimum width is the greatest of that set using :meth:`PySide.QtGui.QGridLayout.setColumnMinimumWidth` and the minimum width of each widget in that column. The stretch factor is set using :meth:`PySide.QtGui.QGridLayout.setColumnStretch` and determines how much of the available space the column will get over and above its necessary minimum.
+
+    Normally, each managed widget or layout is put into a cell of its own using :meth:`PySide.QtGui.QGridLayout.addWidget` . It is also possible for a widget to occupy multiple cells using the row and column spanning overloads of :meth:`PySide.QtGui.QGridLayout.addItem` and :meth:`PySide.QtGui.QGridLayout.addWidget` . If you do this, :class:`PySide.QtGui.QGridLayout` will guess how to distribute the size over the columns/rows (based on the stretch factors).
+
+    To remove a widget from a layout, call :meth:`PySide.QtGui.QLayout.removeWidget` . Calling :meth:`QWidget.hide()<PySide.QtGui.QWidget.hide>` on a widget also effectively removes the widget from the layout until :meth:`QWidget.show()<PySide.QtGui.QWidget.show>` is called.
+
+    This illustration shows a fragment of a dialog with a five-column, three-row grid (the grid is shown overlaid in magenta):
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/gridlayout.png
+
+    Columns 0, 2 and 4 in this dialog fragment are made up of a :class:`PySide.QtGui.QLabel` , a :class:`PySide.QtGui.QLineEdit` , and a :ref:`QListBox<porting4.html>` . Columns 1 and 3 are placeholders made with :meth:`PySide.QtGui.QGridLayout.setColumnMinimumWidth` . Row 0 consists of three :class:`PySide.QtGui.QLabel` objects, row 1 of three :class:`PySide.QtGui.QLineEdit` objects and row 2 of three :ref:`QListBox<porting4.html>` objects. We used placeholder columns (1 and 3) to get the right amount of space between the columns.
+
+    Note that the columns and rows are not equally wide or tall. If you want two columns to have the same width, you must set their minimum widths and stretch factors to be the same yourself. You do this using :meth:`PySide.QtGui.QGridLayout.setColumnMinimumWidth` and :meth:`PySide.QtGui.QGridLayout.setColumnStretch` .
+
+    If the :class:`PySide.QtGui.QGridLayout` is not the top-level layout (i.e. does not manage all of the widget's area and children), you must add it to its parent layout when you create it, but before you do anything with it. The normal way to add a layout is by calling :meth:`PySide.QtGui.QGridLayout.addLayout` on the parent layout.
+
+    Once you have added your layout you can start putting widgets and other layouts into the cells of your grid layout using :meth:`PySide.QtGui.QGridLayout.addWidget` , :meth:`PySide.QtGui.QGridLayout.addItem` , and :meth:`PySide.QtGui.QGridLayout.addLayout` .
+
+    :class:`PySide.QtGui.QGridLayout` also includes two margin widths: the :meth:`contents margin<PySide.QtGui.QLayout.getContentsMargins>` and the :meth:`PySide.QtGui.QGridLayout.spacing` . The contents margin is the width of the reserved space along each of the :class:`PySide.QtGui.QGridLayout` 's four sides. The :meth:`PySide.QtGui.QGridLayout.spacing` is the width of the automatically allocated spacing between neighboring boxes.
+
+    The default contents margin values are provided by the :meth:`style<PySide.QtGui.QStyle.pixelMetric>` . The default value Qt styles specify is 9 for child widgets and 11 for windows. The spacing defaults to the same as the margin width for a top-level layout, or to the same as the parent layout.
+
+    .. seealso::  :class:`PySide.QtGui.QBoxLayout`  :class:`PySide.QtGui.QStackedLayout`  :ref:`Layout Management<layout.html>`  :ref:`Basic Layouts Example<layouts/basiclayouts>` 
+
+.. class:: QGridLayout()
+           QGridLayout(parent)
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new grid layout.
+
+    You must insert this grid into another layout. You can insert widgets and layouts into this layout at any time, but laying out will not be performed before this is inserted into another layout.
+
+
+    Constructs a new :class:`PySide.QtGui.QGridLayout` with parent widget, ``parent`` . The layout has one row and one column initially, and will expand when new items are inserted.
+
+
+.. method:: PySide.QtGui.QGridLayout.addItem(item, row, column[, rowSpan=1[, columnSpan=1[, alignment=0]]])
+
+
+    :param item: :class:`PySide.QtGui.QLayoutItem`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param rowSpan: :class:`PySide.QtCore.int`
+    :param columnSpan: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.addLayout(arg__1, row, column, rowSpan, columnSpan[, alignment=0])
+
+
+    :param arg__1: :class:`PySide.QtGui.QLayout`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param rowSpan: :class:`PySide.QtCore.int`
+    :param columnSpan: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.addLayout(arg__1, row, column[, alignment=0])
+
+
+    :param arg__1: :class:`PySide.QtGui.QLayout`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.addWidget(arg__1, row, column[, alignment=0])
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.addWidget(arg__1, row, column, rowSpan, columnSpan[, alignment=0])
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param rowSpan: :class:`PySide.QtCore.int`
+    :param columnSpan: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.cellRect(row, column)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of the cell with row ``row`` and column ``column`` in the grid. Returns an invalid rectangle if ``row`` or ``column`` is outside the grid.
+
+    .. warning::  in the current version of Qt this function does not return valid results until :meth:`PySide.QtGui.QGridLayout.setGeometry` has been called, i.e. after the :meth:`PySide.QtGui.QLayout.parentWidget` is visible.
+
+
+
+.. method:: PySide.QtGui.QGridLayout.columnCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of columns in this grid.
+
+
+
+.. method:: PySide.QtGui.QGridLayout.columnMinimumWidth(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the column spacing for column ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setColumnMinimumWidth` 
+
+
+.. method:: PySide.QtGui.QGridLayout.columnStretch(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor for column ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setColumnStretch` 
+
+
+.. method:: PySide.QtGui.QGridLayout.getItemPosition(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the position information of the item with the given ``index`` .
+
+    The variables passed as ``row`` and ``column`` are updated with the position of the item in the layout, and the ``rowSpan`` and ``columnSpan`` variables are updated with the vertical and horizontal spans of the item.
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.itemAtPosition`  :meth:`PySide.QtGui.QGridLayout.itemAt` 
+
+
+.. method:: PySide.QtGui.QGridLayout.horizontalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setHorizontalSpacing` 
+
+
+.. method:: PySide.QtGui.QGridLayout.itemAtPosition(row, column)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QLayoutItem`
+
+
+
+
+    Returns the layout item that occupies cell (``row`` , ``column`` ), or 0 if the cell is empty.
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.getItemPosition`  :meth:`PySide.QtGui.QLayout.indexOf` 
+
+
+.. method:: PySide.QtGui.QGridLayout.originCorner()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Corner`
+
+
+
+
+    Returns the corner that's used for the grid's origin, i.e. for position (0, 0).
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setOriginCorner` 
+
+
+.. method:: PySide.QtGui.QGridLayout.rowCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rows in this grid.
+
+
+
+.. method:: PySide.QtGui.QGridLayout.rowMinimumHeight(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the minimum width set for row ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setRowMinimumHeight` 
+
+
+.. method:: PySide.QtGui.QGridLayout.rowStretch(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor for row ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setRowStretch` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setColumnMinimumWidth(column, minSize)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param minSize: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the minimum width of column ``column`` to ``minSize`` pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.columnMinimumWidth`  :meth:`PySide.QtGui.QGridLayout.setRowMinimumHeight` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setColumnStretch(column, stretch)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor of column ``column`` to ``stretch`` . The first column is number 0.
+
+    The stretch factor is relative to the other columns in this grid. Columns with a higher stretch factor take more of the available space.
+
+    The default stretch factor is 0. If the stretch factor is 0 and no other column in this table can grow at all, the column may still grow.
+
+    An alternative approach is to add spacing using :meth:`PySide.QtGui.QGridLayout.addItem` with a :class:`PySide.QtGui.QSpacerItem` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.columnStretch`  :meth:`PySide.QtGui.QGridLayout.setRowStretch` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setDefaultPositioning(n, orient)
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :param orient: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.setHorizontalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.horizontalSpacing` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setOriginCorner(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.Corner`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGridLayout.setRowMinimumHeight(row, minSize)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param minSize: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the minimum height of row ``row`` to ``minSize`` pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.rowMinimumHeight`  :meth:`PySide.QtGui.QGridLayout.setColumnMinimumWidth` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setRowStretch(row, stretch)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor of row ``row`` to ``stretch`` . The first row is number 0.
+
+    The stretch factor is relative to the other rows in this grid. Rows with a higher stretch factor take more of the available space.
+
+    The default stretch factor is 0. If the stretch factor is 0 and no other row in this table can grow at all, the row may still grow.
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.rowStretch`  :meth:`PySide.QtGui.QGridLayout.setRowMinimumHeight`  :meth:`PySide.QtGui.QGridLayout.setColumnStretch` 
+
+
+.. method:: PySide.QtGui.QGridLayout.setVerticalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.verticalSpacing` 
+
+
+.. method:: PySide.QtGui.QGridLayout.verticalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    .. seealso::  :meth:`PySide.QtGui.QGridLayout.setVerticalSpacing` 
+
+
+

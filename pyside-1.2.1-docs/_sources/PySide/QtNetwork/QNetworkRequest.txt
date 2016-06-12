@@ -1,0 +1,440 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkRequest:
+
+QNetworkRequest
+***************
+
+.. inheritance-diagram:: QNetworkRequest
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtNetwork.QNetworkRequest.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtNetwork.QNetworkRequest.__ne__>` (other)
+*    def :meth:`attribute<PySide.QtNetwork.QNetworkRequest.attribute>` (code[, defaultValue=None])
+*    def :meth:`hasRawHeader<PySide.QtNetwork.QNetworkRequest.hasRawHeader>` (headerName)
+*    def :meth:`header<PySide.QtNetwork.QNetworkRequest.header>` (header)
+*    def :meth:`originatingObject<PySide.QtNetwork.QNetworkRequest.originatingObject>` ()
+*    def :meth:`priority<PySide.QtNetwork.QNetworkRequest.priority>` ()
+*    def :meth:`rawHeader<PySide.QtNetwork.QNetworkRequest.rawHeader>` (headerName)
+*    def :meth:`rawHeaderList<PySide.QtNetwork.QNetworkRequest.rawHeaderList>` ()
+*    def :meth:`setAttribute<PySide.QtNetwork.QNetworkRequest.setAttribute>` (code, value)
+*    def :meth:`setHeader<PySide.QtNetwork.QNetworkRequest.setHeader>` (header, value)
+*    def :meth:`setOriginatingObject<PySide.QtNetwork.QNetworkRequest.setOriginatingObject>` (object)
+*    def :meth:`setPriority<PySide.QtNetwork.QNetworkRequest.setPriority>` (priority)
+*    def :meth:`setRawHeader<PySide.QtNetwork.QNetworkRequest.setRawHeader>` (headerName, value)
+*    def :meth:`setSslConfiguration<PySide.QtNetwork.QNetworkRequest.setSslConfiguration>` (configuration)
+*    def :meth:`setUrl<PySide.QtNetwork.QNetworkRequest.setUrl>` (url)
+*    def :meth:`sslConfiguration<PySide.QtNetwork.QNetworkRequest.sslConfiguration>` ()
+*    def :meth:`url<PySide.QtNetwork.QNetworkRequest.url>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkRequest` class holds a request to be sent with :class:`PySide.QtNetwork.QNetworkAccessManager` .
+
+    :class:`PySide.QtNetwork.QNetworkRequest` is part of the Network Access API and is the class holding the information necessary to send a request over the network. It contains a URL and some ancillary information that can be used to modify the request.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkReply`  :class:`PySide.QtNetwork.QNetworkAccessManager` 
+
+.. class:: QNetworkRequest(other)
+           QNetworkRequest([url=QUrl()])
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :param other: :class:`PySide.QtNetwork.QNetworkRequest`
+
+    Creates a copy of ``other`` .
+
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkRequest` object with ``url`` as the URL to be requested.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.url`  :meth:`PySide.QtNetwork.QNetworkRequest.setUrl` 
+
+.. attribute:: PySide.QtNetwork.QNetworkRequest.CacheLoadControl
+
+    Controls the caching mechanism of :class:`PySide.QtNetwork.QNetworkAccessManager` .
+
+    +-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                     |Description                                                                                                                            |
+    +=============================+=======================================================================================================================================+
+    |QNetworkRequest.AlwaysNetwork|always load from network and do not check if the cache has a valid entry (similar to the "Reload" feature in browsers)                 |
+    +-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.PreferNetwork|default value; load from the network if the cached entry is older than the network entry                                               |
+    +-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.PreferCache  |load from cache if available, otherwise load from network. Note that this can return possibly stale (but not expired) items from cache.|
+    +-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.AlwaysCache  |only load from cache, indicating error if the item was not cached (i.e., off-line mode)                                                |
+    +-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtNetwork.QNetworkRequest.KnownHeaders
+
+    List of known header types that :class:`PySide.QtNetwork.QNetworkRequest` parses. Each known header is also represented in raw form with its full HTTP name.
+
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                                          |
+    +===================================+=====================================================================================================================================================================================+
+    |QNetworkRequest.ContentTypeHeader  |corresponds to the HTTP Content-Type header and contains a string containing the media (MIME) type and any auxiliary data (for instance, charset)                                    |
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.ContentLengthHeader|corresponds to the HTTP Content-Length header and contains the length in bytes of the data transmitted.                                                                              |
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.LocationHeader     |corresponds to the HTTP Location header and contains a URL representing the actual location of the data, including the destination URL in case of redirections.                      |
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.LastModifiedHeader |corresponds to the HTTP Last-Modified header and contains a :class:`PySide.QtCore.QDateTime` representing the last modification date of the contents                                 |
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CookieHeader       |corresponds to the HTTP Cookie header and contains a :class:`QList` < :class:`PySide.QtNetwork.QNetworkCookie` > representing the cookies to be sent back to the server              |
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.SetCookieHeader    |corresponds to the HTTP Set-Cookie header and contains a :class:`QList` < :class:`PySide.QtNetwork.QNetworkCookie` > representing the cookies sent by the server to be stored locally|
+    +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.header`  :meth:`PySide.QtNetwork.QNetworkRequest.setHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.rawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.setRawHeader` 
+
+.. attribute:: PySide.QtNetwork.QNetworkRequest.Priority
+
+    This enum lists the possible network request priorities.
+
+    +------------------------------+---------------+
+    |Constant                      |Description    |
+    +==============================+===============+
+    |QNetworkRequest.HighPriority  |High priority  |
+    +------------------------------+---------------+
+    |QNetworkRequest.NormalPriority|Normal priority|
+    +------------------------------+---------------+
+    |QNetworkRequest.LowPriority   |Low priority   |
+    +------------------------------+---------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtNetwork.QNetworkRequest.Attribute
+
+    Attribute codes for the :class:`PySide.QtNetwork.QNetworkRequest` and :class:`PySide.QtNetwork.QNetworkReply` .
+
+    Attributes are extra meta-data that are used to control the behavior of the request and to pass further information from the reply back to the application. Attributes are also extensible, allowing custom implementations to pass custom values.
+
+    The following table explains what the default attribute codes are, the :class:`PySide.QtCore.QVariant` types associated, the default value if said attribute is missing and whether it's used in requests or replies.
+
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                      |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +==============================================+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QNetworkRequest.HttpStatusCodeAttribute       |Replies only, type: :attr:`QVariant.Int<QVariant.Type>` (no default) Indicates the HTTP status code received from the HTTP server (like 200, 304, 404, 401, etc.). If the connection was not HTTP-based, this attribute will not be present.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.HttpReasonPhraseAttribute     |Replies only, type: :attr:`QVariant.ByteArray<QVariant.Type>` (no default) Indicates the HTTP reason phrase as received from the HTTP server (like "Ok", "Found", "Not Found", "Access Denied", etc.) This is the human-readable representation of the status code (see above). If the connection was not HTTP-based, this attribute will not be present.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.RedirectionTargetAttribute    |Replies only, type: :attr:`QVariant.Url<QVariant.Type>` (no default) If present, it indicates that the server is redirecting the request to a different URL. The Network Access API does not by default follow redirections: it's up to the application to determine if the requested redirection should be allowed, according to its security policies. The returned URL might be relative. Use :meth:`QUrl.resolved()<PySide.QtCore.QUrl.resolved>` to create an absolute URL out of it.                                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.ConnectionEncryptedAttribute  |Replies only, type: :attr:`QVariant.Bool<QVariant.Type>` (default: false) Indicates whether the data was obtained through an encrypted (secure) connection.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CacheLoadControlAttribute     |Requests only, type: :attr:`QVariant.Int<QVariant.Type>` (default: :attr:`QNetworkRequest.PreferNetwork<QNetworkRequest.CacheLoadControl>` ) Controls how the cache should be accessed. The possible values are those of :attr:`QNetworkRequest.CacheLoadControl` . Note that the default :class:`PySide.QtNetwork.QNetworkAccessManager` implementation does not support caching. However, this attribute may be used by certain backends to modify their requests (for example, for caching proxies).                                                                                                                                                                                                                                                                                                                                                |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CacheSaveControlAttribute     |Requests only, type: :attr:`QVariant.Bool<QVariant.Type>` (default: true) Controls if the data obtained should be saved to cache for future uses. If the value is false, the data obtained will not be automatically cached. If true, data may be cached, provided it is cacheable (what is cacheable depends on the protocol being used).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.SourceIsFromCacheAttribute    |Replies only, type: :attr:`QVariant.Bool<QVariant.Type>` (default: false) Indicates whether the data was obtained from cache or not.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.DoNotBufferUploadDataAttribute|Requests only, type: :attr:`QVariant.Bool<QVariant.Type>` (default: false) Indicates whether the :class:`PySide.QtNetwork.QNetworkAccessManager` code is allowed to buffer the upload data, e.g. when doing a HTTP POST. When using this flag with sequential upload data, the :attr:`ContentLengthHeader<QNetworkRequest.KnownHeaders>` header must be set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.HttpPipeliningAllowedAttribute|Requests only, type: :attr:`QVariant.Bool<QVariant.Type>` (default: false) Indicates whether the :class:`PySide.QtNetwork.QNetworkAccessManager` code is allowed to use HTTP pipelining with this request.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.HttpPipeliningWasUsedAttribute|Replies only, type: :attr:`QVariant.Bool<QVariant.Type>` Indicates whether the HTTP pipelining was used for receiving this reply.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CustomVerbAttribute           |Requests only, type: :attr:`QVariant.ByteArray<QVariant.Type>` Holds the value for the custom HTTP verb to send (destined for usage of other verbs than GET, POST, PUT and DELETE). This verb is set when calling :meth:`QNetworkAccessManager.sendCustomRequest()<PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest>` .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CookieLoadControlAttribute    |Requests only, type: :attr:`QVariant.Int<QVariant.Type>` (default: :attr:`QNetworkRequest.Automatic<QNetworkRequest.LoadControl>` ) Indicates whether to send 'Cookie' headers in the request. This attribute is set to false by :ref:`QtWebKit` when creating a cross-origin :ref:`XMLHttpRequest<qdeclarativeglobalobject.html>` where withCredentials has not been set explicitly to true by the Javascript that created the request. See here for more information. (This value was introduced in 4.7.)                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.CookieSaveControlAttribute    |Requests only, type: :attr:`QVariant.Int<QVariant.Type>` (default: :attr:`QNetworkRequest.Automatic<QNetworkRequest.LoadControl>` ) Indicates whether to save 'Cookie' headers received from the server in reply to the request. This attribute is set to false by :ref:`QtWebKit` when creating a cross-origin :ref:`XMLHttpRequest<qdeclarativeglobalobject.html>` where withCredentials has not been set explicitly to true by the Javascript that created the request. See here for more information. (This value was introduced in 4.7.)                                                                                                                                                                                                                                                                                                          |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.AuthenticationReuseAttribute  |Requests only, type: :attr:`QVariant.Int<QVariant.Type>` (default: :attr:`QNetworkRequest.Automatic<QNetworkRequest.LoadControl>` ) Indicates whether to use cached authorization credentials in the request, if available. If this is set to :attr:`QNetworkRequest.Manual<QNetworkRequest.LoadControl>` and the authentication mechanism is 'Basic' or 'Digest', Qt will not send an an 'Authorization' HTTP header with any cached credentials it may have for the request's URL. This attribute is set to :attr:`QNetworkRequest.Manual<QNetworkRequest.LoadControl>` by :ref:`QtWebKit` when creating a cross-origin :ref:`XMLHttpRequest<qdeclarativeglobalobject.html>` where withCredentials has not been set explicitly to true by the Javascript that created the request. See here for more information. (This value was introduced in 4.7.)|
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.User                          |Special type. Additional information can be passed in :ref:`QVariants<qtwebkit-bridge.html>` with types ranging from User to :attr:`UserMax<QNetworkRequest.Attribute>` . The default implementation of Network Access will ignore any request attributes in this range and it will not produce any attributes in this range in replies. The range is reserved for extensions of :class:`PySide.QtNetwork.QNetworkAccessManager` .                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkRequest.UserMax                       |Special type. See User.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtNetwork.QNetworkRequest.LoadControl
+
+    Indicates if an aspect of the request's loading mechanism has been manually overridden, e.g. by :ref:`QtWebKit` .
+
+    +-------------------------+-------------------------------------------------+
+    |Constant                 |Description                                      |
+    +=========================+=================================================+
+    |QNetworkRequest.Automatic|default value: indicates default behaviour.      |
+    +-------------------------+-------------------------------------------------+
+    |QNetworkRequest.Manual   |indicates behaviour has been manually overridden.|
+    +-------------------------+-------------------------------------------------+
+
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. method:: PySide.QtNetwork.QNetworkRequest.attribute(code[, defaultValue=None])
+
+
+    :param code: :attr:`PySide.QtNetwork.QNetworkRequest.Attribute`
+    :param defaultValue: object
+    :rtype: object
+
+
+
+
+    Returns the attribute associated with the code ``code`` . If the attribute has not been set, it returns ``defaultValue`` .
+
+    Note: this function does not apply the defaults listed in :attr:`QNetworkRequest.Attribute` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.setAttribute`  :attr:`QNetworkRequest.Attribute` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.hasRawHeader(headerName)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the raw header ``headerName`` is present in this network request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.rawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.setRawHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.header(header)
+
+
+    :param header: :attr:`PySide.QtNetwork.QNetworkRequest.KnownHeaders`
+    :rtype: object
+
+
+
+
+    Returns the value of the known network header ``header`` if it is present in this request. If it is not present, returns :meth:`~PySide.QtNetwork.QNetworkRequest.QVariant` (i.e., an invalid variant).
+
+    .. seealso::  :attr:`QNetworkRequest.KnownHeaders`  :meth:`PySide.QtNetwork.QNetworkRequest.rawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.setHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.__ne__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkRequest`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns false if this object is not the same as ``other`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.operator==` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.__eq__(other)
+
+
+    :param other: :class:`PySide.QtNetwork.QNetworkRequest`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object is the same as ``other`` (i.e., if they have the same URL, same headers and same meta-data settings).
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.operator!=` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.originatingObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Returns a reference to the object that initiated this network request; returns 0 if not set or the object has been destroyed.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.setOriginatingObject` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.priority()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkRequest.Priority`
+
+
+
+
+    Return the priority of this request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.setPriority` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.rawHeader(headerName)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Returns the raw form of header ``headerName`` . If no such header is present, an empty :class:`PySide.QtCore.QByteArray` is returned, which may be indistinguishable from a header that is present but has no content (use :meth:`PySide.QtNetwork.QNetworkRequest.hasRawHeader` to find out if the header exists or not).
+
+    Raw headers can be set with :meth:`PySide.QtNetwork.QNetworkRequest.setRawHeader` or with :meth:`PySide.QtNetwork.QNetworkRequest.setHeader` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.header`  :meth:`PySide.QtNetwork.QNetworkRequest.setRawHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.rawHeaderList()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all raw headers that are set in this network request. The list is in the order that the headers were set.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.hasRawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.rawHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setAttribute(code, value)
+
+
+    :param code: :attr:`PySide.QtNetwork.QNetworkRequest.Attribute`
+    :param value: object
+
+
+
+
+    Sets the attribute associated with code ``code`` to be value ``value`` . If the attribute is already set, the previous value is discarded. In special, if ``value`` is an invalid :class:`PySide.QtCore.QVariant` , the attribute is unset.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.attribute`  :attr:`QNetworkRequest.Attribute` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setHeader(header, value)
+
+
+    :param header: :attr:`PySide.QtNetwork.QNetworkRequest.KnownHeaders`
+    :param value: object
+
+
+
+
+    Sets the value of the known header ``header`` to be ``value`` , overriding any previously set headers. This operation also sets the equivalent raw HTTP header.
+
+    .. seealso::  :attr:`QNetworkRequest.KnownHeaders`  :meth:`PySide.QtNetwork.QNetworkRequest.setRawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.header` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setOriginatingObject(object)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+
+
+
+
+    Allows setting a reference to the ``object`` initiating the request.
+
+    For example :ref:`QtWebKit` sets the originating object to the :class:`PySide.QtWebKit.QWebFrame` that initiated the request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.originatingObject` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setPriority(priority)
+
+
+    :param priority: :attr:`PySide.QtNetwork.QNetworkRequest.Priority`
+
+
+
+
+    Set the priority of this request to ``priority`` .
+
+    .. note::  The ``priority`` is only a hint to the network access manager. It can use it or not. Currently it is used for HTTP to decide which request should be sent first to a server.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.priority` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setRawHeader(headerName, value)
+
+
+    :param headerName: :class:`PySide.QtCore.QByteArray`
+    :param value: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    Sets the header ``headerName`` to be of value ``headerValue`` . If ``headerName`` corresponds to a known header (see :attr:`QNetworkRequest.KnownHeaders` ), the raw format will be parsed and the corresponding "cooked" header will be set as well.
+
+    For example:
+
+    ::
+
+        request.setRawHeader("Last-Modified", "Sun, 06 Nov 1994 08:49:37 GMT")
+
+
+    will also set the known header :attr:`LastModifiedHeader<QNetworkRequest.KnownHeaders>` to be the :class:`PySide.QtCore.QDateTime` object of the parsed date.
+
+    Note: setting the same header twice overrides the previous setting. To accomplish the behaviour of multiple HTTP headers of the same name, you should concatenate the two values, separating them with a comma (",") and set one single raw header.
+
+    .. seealso::  :attr:`QNetworkRequest.KnownHeaders`  :meth:`PySide.QtNetwork.QNetworkRequest.setHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.hasRawHeader`  :meth:`PySide.QtNetwork.QNetworkRequest.rawHeader` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setSslConfiguration(configuration)
+
+
+    :param configuration: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Sets this network request's SSL configuration to be ``config`` . The settings that apply are the private key, the local certificate, the SSL protocol (SSLv2, SSLv3, TLSv1 where applicable), the CA certificates and the ciphers that the SSL backend is allowed to use.
+
+    By default, no SSL configuration is set, which allows the backends to choose freely what configuration is best for them.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.sslConfiguration`  :meth:`QSslConfiguration.defaultConfiguration()<PySide.QtNetwork.QSslConfiguration.defaultConfiguration>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.setUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Sets the URL this network request is referring to to be ``url`` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.url` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.sslConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QSslConfiguration`
+
+
+
+
+    Returns this network request's SSL configuration. By default, no SSL settings are specified.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.setSslConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkRequest.url()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the URL this network request is referring to.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkRequest.setUrl` 
+
+
+

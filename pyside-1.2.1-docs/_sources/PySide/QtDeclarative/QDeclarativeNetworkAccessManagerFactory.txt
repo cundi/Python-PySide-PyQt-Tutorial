@@ -1,0 +1,51 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativeNetworkAccessManagerFactory:
+
+QDeclarativeNetworkAccessManagerFactory
+***************************************
+
+.. inheritance-diagram:: QDeclarativeNetworkAccessManagerFactory
+    :parts: 2
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory` class creates :class:`PySide.QtNetwork.QNetworkAccessManager` instances for a QML engine.
+
+    A QML engine uses :class:`PySide.QtNetwork.QNetworkAccessManager` for all network access. By implementing a factory, it is possible to provide the QML engine with custom :class:`PySide.QtNetwork.QNetworkAccessManager` instances with specialized caching, proxy and cookies support.
+
+    To implement a factory, subclass :class:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory` and implement the virtual :meth:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory.create` method, then assign it to the relevant QML engine using :meth:`QDeclarativeEngine.setNetworkAccessManagerFactory()<PySide.QtDeclarative.QDeclarativeEngine.setNetworkAccessManagerFactory>` .
+
+    Note the QML engine may create :class:`PySide.QtNetwork.QNetworkAccessManager` instances from multiple threads. Because of this, the implementation of the :meth:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory.create` method must be :ref:`reentrant<threads-reentrancy.html>` . In addition, the developer should be careful if the signals of the object to be returned from :meth:`PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory.create` are connected to the slots of an object that may be created in a different thread:
+
+
+    * The QML engine internally handles all requests, and cleans up any :class:`PySide.QtNetwork.QNetworkReply` objects it creates. Receiving the :meth:`QNetworkAccessManager.finished()<PySide.QtNetwork.QNetworkAccessManager.finished>` signal in another thread may not provide the receiver with a valid reply object if it has already been deleted.
+    * Authentication details provided to :meth:`QNetworkAccessManager.authenticationRequired()<PySide.QtNetwork.QNetworkAccessManager.authenticationRequired>` must be provided immediately, so this signal cannot be connected as a :attr:`Qt.QueuedConnection<Qt.ConnectionType>` (or as the default :attr:`Qt.AutoConnection<Qt.ConnectionType>` from another thread).
+
+    For more information about signals and threads, see :ref:`Threads and QObjects<threads-qobject.html>` and :ref:`Signals and Slots Across Threads<threads-qobject.html>` .
+
+    .. seealso::  :ref:`NetworkAccessManagerFactory example<declarative/cppextensions/networkaccessmanagerfactory>` 
+
+.. class:: QDeclarativeNetworkAccessManagerFactory()
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativeNetworkAccessManagerFactory.create(parent)
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :rtype: :class:`PySide.QtNetwork.QNetworkAccessManager`
+
+
+
+
+    Creates and returns a network access manager with the specified ``parent`` . This method must return a new :class:`PySide.QtNetwork.QNetworkAccessManager` instance each time it is called.
+
+    Note: this method may be called by multiple threads, so ensure the implementation of this method is reentrant.
+
+
+
+

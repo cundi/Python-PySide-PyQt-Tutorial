@@ -1,0 +1,216 @@
+.. module:: PySide.QtDeclarative
+.. _QDeclarativePropertyMap:
+
+QDeclarativePropertyMap
+***********************
+
+.. inheritance-diagram:: QDeclarativePropertyMap
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtDeclarative.QDeclarativePropertyMap.clear>` (key)
+*    def :meth:`contains<PySide.QtDeclarative.QDeclarativePropertyMap.contains>` (key)
+*    def :meth:`count<PySide.QtDeclarative.QDeclarativePropertyMap.count>` ()
+*    def :meth:`insert<PySide.QtDeclarative.QDeclarativePropertyMap.insert>` (key, value)
+*    def :meth:`isEmpty<PySide.QtDeclarative.QDeclarativePropertyMap.isEmpty>` ()
+*    def :meth:`keys<PySide.QtDeclarative.QDeclarativePropertyMap.keys>` ()
+*    def :meth:`operator[]<PySide.QtDeclarative.QDeclarativePropertyMap.operator[]>` (key)
+*    def :meth:`size<PySide.QtDeclarative.QDeclarativePropertyMap.size>` ()
+*    def :meth:`value<PySide.QtDeclarative.QDeclarativePropertyMap.value>` (key)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueChanged<PySide.QtDeclarative.QDeclarativePropertyMap.valueChanged>` (key, value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtDeclarative.QDeclarativePropertyMap` class allows you to set key-value pairs that can be used in QML bindings.
+
+    :class:`PySide.QtDeclarative.QDeclarativePropertyMap` provides a convenient way to expose domain data to the UI layer. The following example shows how you might declare data in C++ and then access it in QML.
+
+    In the C++ file:
+
+    ::
+
+                # create our data
+                ownerData = QDeclarativePropertyMap()
+                ownerData.insert("name", "John Smith")
+                ownerData.insert("phone", "555-5555")
+                
+                # expose it to the UI layer
+                view = QDeclarativeView()
+                ctxt = view.rootContext()
+                ctxt.setContextProperty("owner", ownerData)
+                
+                view.setSource(QUrl.fromLocalFile("main.qml"))
+                view.show()
+
+
+    Then, in ``main.qml`` :
+
+    ::
+
+                Text { text: owner.name + " " + owner.phone }
+
+
+    The binding is dynamic - whenever a key's value is updated, anything bound to that key will be updated as well.
+
+    To detect value changes made in the UI layer you can connect to the :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.valueChanged` signal. However, note that :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.valueChanged` is **NOT** emitted when changes are made by calling :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.insert` or :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.clear` - it is only emitted when a value is updated from QML.
+
+    .. note::  It is not possible to remove keys from the map; once a key has been added, you can only modify or clear its associated value.
+
+
+.. class:: QDeclarativePropertyMap([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a bindable map with parent object ``parent`` .
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.clear(key)
+
+
+    :param key: unicode
+
+
+
+
+    Clears the value (if any) associated with ``key`` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.contains(key)
+
+
+    :param key: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the map contains ``key`` .
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.size` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This is an overloaded function.
+
+    Same as :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.size` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.insert(key, value)
+
+
+    :param key: unicode
+    :param value: object
+
+
+
+
+    Sets the value associated with ``key`` to ``value`` .
+
+    If the key doesn't exist, it is automatically created.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the map contains no keys; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.size` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.keys()
+
+
+    :rtype: list of strings
+
+
+
+
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.operator[](key)
+
+
+    :param key: unicode
+    :rtype: object
+
+
+
+
+    This is an overloaded function.
+
+    Same as :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.value` .
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.size()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of keys in the map.
+
+    .. seealso::  :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.isEmpty`  :meth:`PySide.QtDeclarative.QDeclarativePropertyMap.count` 
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.value(key)
+
+
+    :param key: unicode
+    :rtype: object
+
+
+
+
+    Returns the value associated with ``key`` .
+
+    If no value has been set for this key (or if the value has been cleared), an invalid :class:`PySide.QtCore.QVariant` is returned.
+
+
+
+.. method:: PySide.QtDeclarative.QDeclarativePropertyMap.valueChanged(key, value)
+
+
+    :param key: unicode
+    :param value: object
+
+
+
+
+
+
+

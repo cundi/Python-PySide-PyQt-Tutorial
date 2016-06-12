@@ -1,0 +1,300 @@
+.. module:: PySide.QtGui
+.. _QLayoutItem:
+
+QLayoutItem
+***********
+
+.. inheritance-diagram:: QLayoutItem
+    :parts: 2
+
+**Inherited by:** :ref:`QWidgetItem`, :ref:`QSpacerItem`, :ref:`QLayout`, :ref:`QStackedLayout`, :ref:`QGridLayout`, :ref:`QFormLayout`, :ref:`QBoxLayout`, :ref:`QVBoxLayout`, :ref:`QHBoxLayout`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QLayoutItem.alignment>` ()
+*    def :meth:`controlTypes<PySide.QtGui.QLayoutItem.controlTypes>` ()
+*    def :meth:`setAlignment<PySide.QtGui.QLayoutItem.setAlignment>` (a)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`expandingDirections<PySide.QtGui.QLayoutItem.expandingDirections>` ()
+*    def :meth:`geometry<PySide.QtGui.QLayoutItem.geometry>` ()
+*    def :meth:`hasHeightForWidth<PySide.QtGui.QLayoutItem.hasHeightForWidth>` ()
+*    def :meth:`heightForWidth<PySide.QtGui.QLayoutItem.heightForWidth>` (arg__1)
+*    def :meth:`invalidate<PySide.QtGui.QLayoutItem.invalidate>` ()
+*    def :meth:`isEmpty<PySide.QtGui.QLayoutItem.isEmpty>` ()
+*    def :meth:`layout<PySide.QtGui.QLayoutItem.layout>` ()
+*    def :meth:`maximumSize<PySide.QtGui.QLayoutItem.maximumSize>` ()
+*    def :meth:`minimumHeightForWidth<PySide.QtGui.QLayoutItem.minimumHeightForWidth>` (arg__1)
+*    def :meth:`minimumSize<PySide.QtGui.QLayoutItem.minimumSize>` ()
+*    def :meth:`setGeometry<PySide.QtGui.QLayoutItem.setGeometry>` (arg__1)
+*    def :meth:`sizeHint<PySide.QtGui.QLayoutItem.sizeHint>` ()
+*    def :meth:`spacerItem<PySide.QtGui.QLayoutItem.spacerItem>` ()
+*    def :meth:`widget<PySide.QtGui.QLayoutItem.widget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QLayoutItem` class provides an abstract item that a :class:`PySide.QtGui.QLayout` manipulates.
+
+    This is used by custom layouts.
+
+    Pure virtual functions are provided to return information about the layout, including, :meth:`PySide.QtGui.QLayoutItem.sizeHint` , :meth:`PySide.QtGui.QLayoutItem.minimumSize` , :meth:`PySide.QtGui.QLayoutItem.maximumSize` and expanding().
+
+    The layout's geometry can be set and retrieved with :meth:`PySide.QtGui.QLayoutItem.setGeometry` and :meth:`PySide.QtGui.QLayoutItem.geometry` , and its alignment with :meth:`PySide.QtGui.QLayoutItem.setAlignment` and :meth:`PySide.QtGui.QLayoutItem.alignment` .
+
+    :meth:`PySide.QtGui.QLayoutItem.isEmpty` returns whether the layout item is empty. If the concrete item is a :class:`PySide.QtGui.QWidget` , it can be retrieved using :meth:`PySide.QtGui.QLayoutItem.widget` . Similarly for :meth:`PySide.QtGui.QLayoutItem.layout` and :meth:`PySide.QtGui.QLayoutItem.spacerItem` .
+
+    Some layouts have width and height interdependencies. These can be expressed using :meth:`PySide.QtGui.QLayoutItem.hasHeightForWidth` , :meth:`PySide.QtGui.QLayoutItem.heightForWidth` , and :meth:`PySide.QtGui.QLayoutItem.minimumHeightForWidth` . For more explanation see the *Qt Quarterly* article Trading Height for Width.
+
+    .. seealso::  :class:`PySide.QtGui.QLayout` 
+
+.. class:: QLayoutItem([alignment=0])
+
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+.. attribute:: PySide.QtGui.QLayoutItem.align
+
+
+.. method:: PySide.QtGui.QLayoutItem.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the alignment of this item.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayoutItem.setAlignment` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.controlTypes()
+
+
+    :rtype: :class:`PySide.QtGui.QSizePolicy.ControlTypes`
+
+
+
+
+    Returns the control type(s) for the layout item. For a :class:`PySide.QtGui.QWidgetItem` , the control type comes from the widget's size policy; for a :class:`PySide.QtGui.QLayoutItem` , the control types is derived from the layout's contents.
+
+    .. seealso::  :meth:`QSizePolicy.controlType()<PySide.QtGui.QSizePolicy.controlType>` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.expandingDirections()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Orientations`
+
+
+
+
+    Returns whether this layout item can make use of more space than :meth:`PySide.QtGui.QLayoutItem.sizeHint` . A value of :attr:`Qt.Vertical<Qt.Orientation>` or :attr:`Qt.Horizontal<Qt.Orientation>` means that it wants to grow in only one dimension, whereas :attr:`Qt.Vertical<Qt.Orientation>` | :attr:`Qt.Horizontal<Qt.Orientation>` means that it wants to grow in both dimensions.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.geometry()
+
+
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rectangle covered by this layout item.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayoutItem.setGeometry` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.hasHeightForWidth()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this layout's preferred height depends on its width; otherwise returns false. The default implementation returns false.
+
+    Reimplement this function in layout managers that support height for width.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayoutItem.heightForWidth`  :meth:`QWidget.heightForWidth()<PySide.QtGui.QWidget.heightForWidth>` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.heightForWidth(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the preferred height for this layout item, given the width ``w`` .
+
+    The default implementation returns -1, indicating that the preferred height is independent of the width of the item. Using the function :meth:`PySide.QtGui.QLayoutItem.hasHeightForWidth` will typically be much faster than calling this function and testing for -1.
+
+    Reimplement this function in layout managers that support height for width. A typical implementation will look like this:
+
+    ::
+
+        def heightForWidth(self, w):
+            if cache_dirty or cached_width != w:
+                h = calculateHeightForWidth(w)
+                self.cached_hfw = h
+                return h
+            return cached_hfw
+
+
+    Caching is strongly recommended; without it layout will take exponential time.
+
+    .. seealso::  :meth:`PySide.QtGui.QLayoutItem.hasHeightForWidth` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.invalidate()
+
+
+
+
+
+
+    Invalidates any cached information in this layout item.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Implemented in subclasses to return whether this item is empty, i.e. whether it contains any widgets.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.layout()
+
+
+    :rtype: :class:`PySide.QtGui.QLayout`
+
+
+
+
+    If this item is a :class:`PySide.QtGui.QLayout` , it is returned as a :class:`PySide.QtGui.QLayout` ; otherwise 0 is returned. This function provides type-safe casting.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.maximumSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Implemented in subclasses to return the maximum size of this item.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.minimumHeightForWidth(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the minimum height this widget needs for the given width, ``w`` . The default implementation simply returns heightForWidth(``w`` ).
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.minimumSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Implemented in subclasses to return the minimum size of this item.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.setAlignment(a)
+
+
+    :param a: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.setGeometry(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Implemented in subclasses to set this item's geometry to ``r`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QLayoutItem.geometry` 
+
+
+.. method:: PySide.QtGui.QLayoutItem.sizeHint()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Implemented in subclasses to return the preferred size of this item.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.spacerItem()
+
+
+    :rtype: :class:`PySide.QtGui.QSpacerItem`
+
+
+
+
+    If this item is a :class:`PySide.QtGui.QSpacerItem` , it is returned as a :class:`PySide.QtGui.QSpacerItem` ; otherwise 0 is returned. This function provides type-safe casting.
+
+
+
+.. method:: PySide.QtGui.QLayoutItem.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    If this item is a :class:`PySide.QtGui.QWidget` , it is returned as a :class:`PySide.QtGui.QWidget` ; otherwise 0 is returned. This function provides type-safe casting.
+
+
+
+

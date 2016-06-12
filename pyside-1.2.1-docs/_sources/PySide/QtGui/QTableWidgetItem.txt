@@ -1,0 +1,602 @@
+.. module:: PySide.QtGui
+.. _QTableWidgetItem:
+
+QTableWidgetItem
+****************
+
+.. inheritance-diagram:: QTableWidgetItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`background<PySide.QtGui.QTableWidgetItem.background>` ()
+*    def :meth:`checkState<PySide.QtGui.QTableWidgetItem.checkState>` ()
+*    def :meth:`column<PySide.QtGui.QTableWidgetItem.column>` ()
+*    def :meth:`flags<PySide.QtGui.QTableWidgetItem.flags>` ()
+*    def :meth:`font<PySide.QtGui.QTableWidgetItem.font>` ()
+*    def :meth:`foreground<PySide.QtGui.QTableWidgetItem.foreground>` ()
+*    def :meth:`icon<PySide.QtGui.QTableWidgetItem.icon>` ()
+*    def :meth:`isSelected<PySide.QtGui.QTableWidgetItem.isSelected>` ()
+*    def :meth:`row<PySide.QtGui.QTableWidgetItem.row>` ()
+*    def :meth:`setBackground<PySide.QtGui.QTableWidgetItem.setBackground>` (brush)
+*    def :meth:`setCheckState<PySide.QtGui.QTableWidgetItem.setCheckState>` (state)
+*    def :meth:`setFlags<PySide.QtGui.QTableWidgetItem.setFlags>` (flags)
+*    def :meth:`setFont<PySide.QtGui.QTableWidgetItem.setFont>` (font)
+*    def :meth:`setForeground<PySide.QtGui.QTableWidgetItem.setForeground>` (brush)
+*    def :meth:`setIcon<PySide.QtGui.QTableWidgetItem.setIcon>` (icon)
+*    def :meth:`setSelected<PySide.QtGui.QTableWidgetItem.setSelected>` (select)
+*    def :meth:`setSizeHint<PySide.QtGui.QTableWidgetItem.setSizeHint>` (size)
+*    def :meth:`setStatusTip<PySide.QtGui.QTableWidgetItem.setStatusTip>` (statusTip)
+*    def :meth:`setText<PySide.QtGui.QTableWidgetItem.setText>` (text)
+*    def :meth:`setTextAlignment<PySide.QtGui.QTableWidgetItem.setTextAlignment>` (alignment)
+*    def :meth:`setToolTip<PySide.QtGui.QTableWidgetItem.setToolTip>` (toolTip)
+*    def :meth:`setWhatsThis<PySide.QtGui.QTableWidgetItem.setWhatsThis>` (whatsThis)
+*    def :meth:`sizeHint<PySide.QtGui.QTableWidgetItem.sizeHint>` ()
+*    def :meth:`statusTip<PySide.QtGui.QTableWidgetItem.statusTip>` ()
+*    def :meth:`tableWidget<PySide.QtGui.QTableWidgetItem.tableWidget>` ()
+*    def :meth:`text<PySide.QtGui.QTableWidgetItem.text>` ()
+*    def :meth:`textAlignment<PySide.QtGui.QTableWidgetItem.textAlignment>` ()
+*    def :meth:`toolTip<PySide.QtGui.QTableWidgetItem.toolTip>` ()
+*    def :meth:`type<PySide.QtGui.QTableWidgetItem.type>` ()
+*    def :meth:`whatsThis<PySide.QtGui.QTableWidgetItem.whatsThis>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__lt__<PySide.QtGui.QTableWidgetItem.__lt__>` (other)
+*    def :meth:`clone<PySide.QtGui.QTableWidgetItem.clone>` ()
+*    def :meth:`data<PySide.QtGui.QTableWidgetItem.data>` (role)
+*    def :meth:`read<PySide.QtGui.QTableWidgetItem.read>` (in)
+*    def :meth:`setData<PySide.QtGui.QTableWidgetItem.setData>` (role, value)
+*    def :meth:`write<PySide.QtGui.QTableWidgetItem.write>` (out)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QTableWidgetItem` class provides an item for use with the :class:`PySide.QtGui.QTableWidget` class.
+
+    Table items are used to hold pieces of information for table widgets. Items usually contain text, icons, or checkboxes
+
+    The :class:`PySide.QtGui.QTableWidgetItem` class is a convenience class that replaces the ``QTableItem`` class in Qt 3. It provides an item for use with the :class:`PySide.QtGui.QTableWidget` class.
+
+    Top-level items are constructed without a parent then inserted at the position specified by a pair of row and column numbers:
+
+    ::
+
+            newItem = QTableWidgetItem(tr("%s" % pow(row, column+1)))
+            tableWidget.setItem(row, column, newItem)
+
+
+    Each item can have its own background brush which is set with the :meth:`PySide.QtGui.QTableWidgetItem.setBackground` function. The current background brush can be found with :meth:`PySide.QtGui.QTableWidgetItem.background` . The text label for each item can be rendered with its own font and brush. These are specified with the :meth:`PySide.QtGui.QTableWidgetItem.setFont` and :meth:`PySide.QtGui.QTableWidgetItem.setForeground` functions, and read with :meth:`PySide.QtGui.QTableWidgetItem.font` and :meth:`PySide.QtGui.QTableWidgetItem.foreground` .
+
+    By default, items are enabled, editable, selectable, checkable, and can be used both as the source of a drag and drop operation and as a drop target. Each item's flags can be changed by calling :meth:`PySide.QtGui.QTableWidgetItem.setFlags` with the appropriate value (see :class:`Qt.ItemFlags` ). Checkable items can be checked and unchecked with the :meth:`PySide.QtGui.QTableWidgetItem.setCheckState` function. The corresponding :meth:`PySide.QtGui.QTableWidgetItem.checkState` function indicates whether the item is currently checked.
+
+    .. _PySide.QtGui.QTableWidgetItem_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When subclassing :class:`PySide.QtGui.QTableWidgetItem` to provide custom items, it is possible to define new types for them so that they can be distinguished from standard items. The constructors for subclasses that require this feature need to call the base class constructor with a new type value equal to or greater than :attr:`UserType<QTableWidgetItem.ItemType>` .
+
+    .. seealso::  :class:`PySide.QtGui.QTableWidget`  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtGui.QListWidgetItem`  :class:`PySide.QtGui.QTreeWidgetItem` 
+
+.. class:: QTableWidgetItem(icon, text[, type=Type])
+           QTableWidgetItem(text[, type=Type])
+           QTableWidgetItem(other)
+           QTableWidgetItem([type=Type])
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param other: :class:`PySide.QtGui.QTableWidgetItem`
+    :param type: :class:`PySide.QtCore.int`
+    :param text: unicode
+
+    Constructs a table item with the given ``icon`` and ``text`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.type` 
+
+    Constructs a table item with the given ``text`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.type` 
+
+    Constructs a copy of ``other`` . Note that :meth:`PySide.QtGui.QTableWidgetItem.type` and :meth:`PySide.QtGui.QTableWidgetItem.tableWidget` are not copied.
+
+    This function is useful when reimplementing :meth:`PySide.QtGui.QTableWidgetItem.clone` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.data`  :meth:`PySide.QtGui.QTableWidgetItem.flags` 
+
+    Constructs a table item of the specified ``type`` that does not belong to any table.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.type` 
+
+.. attribute:: PySide.QtGui.QTableWidgetItem.ItemType
+
+    This enum describes the types that are used to describe table widget items.
+
+    +-------------------------+----------------------------------------------------------------------------------------------------------------+
+    |Constant                 |Description                                                                                                     |
+    +=========================+================================================================================================================+
+    |QTableWidgetItem.Type    |The default type for table widget items.                                                                        |
+    +-------------------------+----------------------------------------------------------------------------------------------------------------+
+    |QTableWidgetItem.UserType|The minimum value for custom types. Values below :attr:`UserType<QTableWidgetItem.ItemType>` are reserved by Qt.|
+    +-------------------------+----------------------------------------------------------------------------------------------------------------+
+
+    You can define new user types in :class:`PySide.QtGui.QTableWidgetItem` subclasses to ensure that custom items are treated specially.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.type` 
+
+.. method:: PySide.QtGui.QTableWidgetItem.background()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to render the item's background.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setBackground`  :meth:`PySide.QtGui.QTableWidgetItem.foreground` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.checkState()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+    Returns the checked state of the table item.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setCheckState`  :meth:`PySide.QtGui.QTableWidgetItem.flags` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.clone()
+
+
+    :rtype: :class:`PySide.QtGui.QTableWidgetItem`
+
+
+
+
+    Creates a copy of the item.
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.column()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the column of the item in the table. If the item is not in a table, this function will return -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.row` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.data(role)
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the item's data for the given ``role`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setData` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.flags()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.ItemFlags`
+
+
+
+
+    Returns the flags used to describe the item. These determine whether the item can be checked, edited, and selected.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setFlags` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.font()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the font used to render the item's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setFont` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.foreground()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush used to render the item's foreground (e.g. text).
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setForeground`  :meth:`PySide.QtGui.QTableWidgetItem.background` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.icon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the item's icon.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setIcon`  :meth:`PySide.QtGui.QAbstractItemView.iconSize` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.isSelected()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the item is selected, otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setSelected` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.__lt__(other)
+
+
+    :param other: :class:`PySide.QtGui.QTableWidgetItem`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the item is less than the ``other`` item; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.read(in)
+
+
+    :param in: :class:`PySide.QtCore.QDataStream`
+
+
+
+
+    Reads the item from stream ``in`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.write` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.row()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the row of the item in the table. If the item is not in a table, this function will return -1.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.column` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setBackground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the item's background brush to the specified ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.background`  :meth:`PySide.QtGui.QTableWidgetItem.setForeground` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setCheckState(state)
+
+
+    :param state: :attr:`PySide.QtCore.Qt.CheckState`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setData(role, value)
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :param value: object
+
+
+
+
+    Sets the item's data for the given ``role`` to the specified ``value`` .
+
+    .. seealso::  :attr:`Qt.ItemDataRole`  :meth:`PySide.QtGui.QTableWidgetItem.data` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setFlags(flags)
+
+
+    :param flags: :class:`PySide.QtCore.Qt.ItemFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setFont(font)
+
+
+    :param font: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Sets the font used to display the item's text to the given ``font`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.font`  :meth:`PySide.QtGui.QTableWidgetItem.setText`  :meth:`PySide.QtGui.QTableWidgetItem.setForeground` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setForeground(brush)
+
+
+    :param brush: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Sets the item's foreground brush to the specified ``brush`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.foreground`  :meth:`PySide.QtGui.QTableWidgetItem.setBackground` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Sets the item's icon to the ``icon`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.icon`  :meth:`PySide.QtGui.QTableWidgetItem.setText`  :meth:`PySide.QtGui.QAbstractItemView.iconSize` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setSelected(select)
+
+
+    :param select: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the selected state of the item to ``select`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.isSelected` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setSizeHint(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Sets the size hint for the table item to be ``size`` . If no size hint is set, the item delegate will compute the size hint based on the item data.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.sizeHint` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setStatusTip(statusTip)
+
+
+    :param statusTip: unicode
+
+
+
+
+    Sets the status tip for the table item to the text specified by ``statusTip`` . :class:`PySide.QtGui.QTableWidget` mouse tracking needs to be enabled for this feature to work.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.statusTip`  :meth:`PySide.QtGui.QTableWidgetItem.setToolTip`  :meth:`PySide.QtGui.QTableWidgetItem.setWhatsThis` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setText(text)
+
+
+    :param text: unicode
+
+
+
+
+    Sets the item's text to the ``text`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.text`  :meth:`PySide.QtGui.QTableWidgetItem.setFont`  :meth:`PySide.QtGui.QTableWidgetItem.setForeground` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setTextAlignment(alignment)
+
+
+    :param alignment: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the text alignment for the item's text to the ``alignment`` specified.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.textAlignment`  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setToolTip(toolTip)
+
+
+    :param toolTip: unicode
+
+
+
+
+    Sets the item's tooltip to the string specified by ``toolTip`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.toolTip`  :meth:`PySide.QtGui.QTableWidgetItem.setStatusTip`  :meth:`PySide.QtGui.QTableWidgetItem.setWhatsThis` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.setWhatsThis(whatsThis)
+
+
+    :param whatsThis: unicode
+
+
+
+
+    Sets the item's "What's This?" help to the string specified by ``whatsThis`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.whatsThis`  :meth:`PySide.QtGui.QTableWidgetItem.setStatusTip`  :meth:`PySide.QtGui.QTableWidgetItem.setToolTip` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.sizeHint()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    Returns the size hint set for the table item.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setSizeHint` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.statusTip()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the item's status tip.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setStatusTip` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.tableWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QTableWidget`
+
+
+
+
+    Returns the table widget that contains the item.
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the item's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setText` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.textAlignment()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the text alignment for the item's text.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setTextAlignment`  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.toolTip()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the item's tooltip.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setToolTip` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.type()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the type passed to the :class:`PySide.QtGui.QTableWidgetItem` constructor.
+
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.whatsThis()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the item's "What's This?" help.
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.setWhatsThis` 
+
+
+.. method:: PySide.QtGui.QTableWidgetItem.write(out)
+
+
+    :param out: :class:`PySide.QtCore.QDataStream`
+
+
+
+
+    Writes the item to stream ``out`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QTableWidgetItem.read` 
+
+
+

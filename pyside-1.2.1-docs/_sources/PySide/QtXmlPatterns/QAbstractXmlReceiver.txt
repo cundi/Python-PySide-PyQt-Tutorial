@@ -1,0 +1,298 @@
+.. module:: PySide.QtXmlPatterns
+.. _QAbstractXmlReceiver:
+
+QAbstractXmlReceiver
+********************
+
+.. inheritance-diagram:: QAbstractXmlReceiver
+    :parts: 2
+
+**Inherited by:** :ref:`QXmlSerializer`, :ref:`QXmlFormatter`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`sendFromAxis<PySide.QtXmlPatterns.QAbstractXmlReceiver.sendFromAxis>` (node)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`atomicValue<PySide.QtXmlPatterns.QAbstractXmlReceiver.atomicValue>` (value)
+*    def :meth:`attribute<PySide.QtXmlPatterns.QAbstractXmlReceiver.attribute>` (name, value)
+*    def :meth:`characters<PySide.QtXmlPatterns.QAbstractXmlReceiver.characters>` (value)
+*    def :meth:`comment<PySide.QtXmlPatterns.QAbstractXmlReceiver.comment>` (value)
+*    def :meth:`endDocument<PySide.QtXmlPatterns.QAbstractXmlReceiver.endDocument>` ()
+*    def :meth:`endElement<PySide.QtXmlPatterns.QAbstractXmlReceiver.endElement>` ()
+*    def :meth:`endOfSequence<PySide.QtXmlPatterns.QAbstractXmlReceiver.endOfSequence>` ()
+*    def :meth:`namespaceBinding<PySide.QtXmlPatterns.QAbstractXmlReceiver.namespaceBinding>` (name)
+*    def :meth:`processingInstruction<PySide.QtXmlPatterns.QAbstractXmlReceiver.processingInstruction>` (target, value)
+*    def :meth:`startDocument<PySide.QtXmlPatterns.QAbstractXmlReceiver.startDocument>` ()
+*    def :meth:`startElement<PySide.QtXmlPatterns.QAbstractXmlReceiver.startElement>` (name)
+*    def :meth:`startOfSequence<PySide.QtXmlPatterns.QAbstractXmlReceiver.startOfSequence>` ()
+*    def :meth:`whitespaceOnly<PySide.QtXmlPatterns.QAbstractXmlReceiver.whitespaceOnly>` (value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` class provides a callback interface for transforming the output of a :class:`PySide.QtXmlPatterns.QXmlQuery` .
+
+    :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` is an abstract base class that provides a callback interface for receiving an :class:`XQuery sequence<~PySide.QtXmlPatterns.XQuery Sequence>` , usually the output of an :class:`PySide.QtXmlPatterns.QXmlQuery` , and transforming that sequence into a structure of your choosing, usually XML. Consider the example:
+
+    ::
+
+        QXmlQuery query;
+        query.setQuery("doc('index.html')/html/body/p[1]");
+
+        QXmlSerializer serializer(query, myOutputDevice);
+        query.evaluateTo(&serializer);
+
+
+    First it constructs a :class:`query<PySide.QtXmlPatterns.QXmlQuery>` that gets the first paragraph from document ``index.html`` . Then it constructs an :class:`XML serializer<PySide.QtXmlPatterns.QXmlSerializer>` with the :class:`query<PySide.QtXmlPatterns.QXmlQuery>` and :class:`myOutputDevice<PySide.QtCore.QIODevice>` (Note the :class:`serializer<PySide.QtXmlPatterns.QXmlSerializer>` is an *XML receiver* , ie a subclass of :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` ). Finally, it :meth:`evaluates<PySide.QtXmlPatterns.QXmlQuery.evaluateTo>` the :class:`query<PySide.QtXmlPatterns.QXmlQuery>` , producing an ordered sequence of calls to the :class:`serializer's<PySide.QtXmlPatterns.QXmlSerializer>` callback functions. The sequence of callbacks transforms the query output to XML and writes it to :class:`myOutputDevice<PySide.QtCore.QIODevice>` .
+
+    Although the example uses :class:`PySide.QtXmlPatterns.QXmlQuery` to produce the sequence of callbacks to functions in :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` , you can call the callback functions directly as long as your sequence of calls represents a valid :class:`XQuery sequence<~PySide.QtXmlPatterns.XQuery Sequence>` .
+
+    .. _PySide.QtXmlPatterns.QAbstractXmlReceiver_xquery-sequences:
+
+
+
+XQuery Sequences
+^^^^^^^^^^^^^^^^
+
+    An :ref:`XQuery<xmlprocessing.html>` ``sequence`` is an ordered collection of zero, one, or many *items* . Each *item* is either an *atomic value* or a *node* . An *atomic value* is a simple data value.
+
+    There are six kinds of *nodes* .
+
+
+    * An *Element Node* represents an XML element.
+    * An *Attribute Node* represents an XML attribute.
+    * A *Document Node* represents an entire XML document.
+    * A *Text Node* represents character data (element content).
+    * A *Processing Instruction Node* represents an XML processing instruction, which is used in an XML document to tell the application reading the document to perform some action. A typical example is to use a processing instruction to tell the application to use a particular XSLT stylesheet to display the document.
+    * And a *Comment node* represents an XML comment.
+
+    The *sequence* of *nodes* and *atomic values* obeys the following rules. Note that *Namespace Node* refers to a special *Attribute Node* with name *xmlns* .
+
+
+    * Each *node* appears in the *sequence* before its children and their descendants appear.
+    * A *node*'s descendants appear in the *sequence* before any of its siblings appear.
+    * A *Document Node* represents an entire document. Zero or more *Document Nodes* can appear in a *sequence*, but they can only be top level items (i.e., a *Document Node* can't be a child of another *node*.
+    * *Namespace Nodes* immediately follow the *Element Node* with which they are associated.
+    * *Attribute Nodes* immediately follow the *Namespace Nodes* of the element with which they are associated, or...
+    * If there are no *Namespace Nodes* following an element, then the *Attribute Nodes* immediately follow the element.
+    * An *atomic value* can only appear as a top level *item*, i.e., it can't appear as a child of a *node*.
+    * *Processing Instruction Nodes* do not have children, and their parent is either a *Document Node* or an *Element Node*.
+    * *Comment Nodes* do not have children, and their parent is either a *Document Node* or an *Element Node*.
+
+    The *sequence* of *nodes* and *atomic values* is sent to an :class:`PySide.QtXmlPatterns.QAbstractXmlReceiver` ( :class:`PySide.QtXmlPatterns.QXmlSerializer` in the example above) as a sequence of calls to the receiver's callback functions. The mapping of callback functions to sequence items is as follows.
+
+
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.startDocument` and :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.endDocument` are called for each *Document Node* in the *sequence*. :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.endDocument` is not called until all the *Document Node's* children have appeared in the *sequence*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.startElement` and :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.endElement` are called for each *Element Node*. :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.endElement` is not called until all the *Element Node's* children have appeared in the *sequence*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.attribute` is called for each *Attribute Node*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.comment` is called for each *Comment Node*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.characters` is called for each *Text Node*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.processingInstruction` is called for each *Processing Instruction Node*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.namespaceBinding` is called for each *Namespace Node*.
+    * :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.atomicValue` is called for each *atomic value*.
+
+    For a complete explanation of :ref:`XQuery<xmlprocessing.html>` sequences, visit :ref:`XQuery<xmlprocessing.html>` Data Model.
+
+    .. seealso::  :class:`PySide.QtXmlPatterns.QXmlSerializer`  :class:`PySide.QtXmlPatterns.QXmlResultItems` 
+
+.. class:: QAbstractXmlReceiver()
+
+
+    Constructs an abstract xml receiver.
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.atomicValue(value)
+
+
+    :param value: object
+
+
+
+
+    This callback is called when an atomic value appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . The ``value`` is a simple :class:`data value<PySide.QtCore.QVariant>` . It is guaranteed to be :meth:`valid<QVariant.isValid>` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.attribute(name, value)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+    :param value: :class:`PySide.QtCore.QStringRef`
+
+
+
+
+    This callback is called when an attribute node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . ``name`` is the :class:`attribute name<PySide.QtXmlPatterns.QXmlName>` and the ``value`` string contains the attribute value.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.characters(value)
+
+
+    :param value: :class:`PySide.QtCore.QStringRef`
+
+
+
+
+    This callback is called when a text node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . The ``value`` contains the text. Adjacent text nodes may not occur in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` , i.e., this callback must not be called twice in a row.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.comment(value)
+
+
+    :param value: unicode
+
+
+
+
+    This callback is called when a comment node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . The ``value`` is the comment text, which must not contain the string "--".
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.endDocument()
+
+
+
+
+
+
+    This callback is called when the end of a document node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.endElement()
+
+
+
+
+
+
+    This callback is called when the end of an element node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.endOfSequence()
+
+
+
+
+
+
+    This callback is called once only, right after the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` ends.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.namespaceBinding(name)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    This callback is called when a namespace binding is in scope of an element. A namespace is defined by a URI. In the :class:`PySide.QtXmlPatterns.QXmlName` ``name`` , the value of :meth:`QXmlName.namespaceUri()<PySide.QtXmlPatterns.QXmlName.namespaceUri>` is that URI. The value of :meth:`QXmlName.prefix()<PySide.QtXmlPatterns.QXmlName.prefix>` is the prefix that the URI is bound to. The local name is insignificant and can be an arbitrary value.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.processingInstruction(target, value)
+
+
+    :param target: :class:`PySide.QtXmlPatterns.QXmlName`
+    :param value: unicode
+
+
+
+
+    This callback is called when a processing instruction appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . A processing instruction is used in an XML document to tell the application reading the document to perform some action. A typical example is to use a processing instruction to tell the application to use a particular XSLT stylesheet to process the document.
+
+    ::
+
+        <?xml-stylesheet type="test/xsl" href="formatter.xsl"?>
+
+
+    ``target`` is the :class:`name<PySide.QtXmlPatterns.QXmlName>` of the processing instruction. Its *prefix* and *namespace URI* must both be empty. Its *local name* is the target. In the above example, the name is *xml-stylesheet* .
+
+    The ``value`` specifies the action to be taken. Note that the ``value`` must not contain the string "?>". In the above example, the ``value`` is *type="test/xsl" href="formatter.xsl* .
+
+    Generally, use of processing instructions should be avoided, because they are not namespace aware and in many contexts are stripped out anyway. Processing instructions can often be replaced with elements from a custom namespace.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.sendFromAxis(node)
+
+
+    :param node: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.startDocument()
+
+
+
+
+
+
+    This callback is called when a document node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` .
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.startElement(name)
+
+
+    :param name: :class:`PySide.QtXmlPatterns.QXmlName`
+
+
+
+
+    This callback is called when a new element node appears in the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` . ``name`` is the valid :class:`name<PySide.QtXmlPatterns.QXmlName>` of the node element.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.startOfSequence()
+
+
+
+
+
+
+    This callback is called once only, right before the :class:`sequence<~PySide.QtXmlPatterns.XQuery Sequence>` begins.
+
+
+
+.. method:: PySide.QtXmlPatterns.QAbstractXmlReceiver.whitespaceOnly(value)
+
+
+    :param value: :class:`PySide.QtCore.QStringRef`
+
+
+
+
+    This function may be called instead of :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.characters` if, and only if, ``value`` consists only of whitespace.
+
+    The caller gurantees that ``value`` is not empty.
+
+    *Whitespace* refers to a sequence of characters that are either spaces, tabs, or newlines, in any order. In other words, not all the Unicode whitespace category is considered whitespace here.
+
+    However, there is no guarantee or requirement that :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.whitespaceOnly` is called for text nodes containing whitespace only. :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.characters` may be called just as well. This is why the default implementation for :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.whitespaceOnly` calls :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.characters` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QAbstractXmlReceiver.characters` 
+
+
+

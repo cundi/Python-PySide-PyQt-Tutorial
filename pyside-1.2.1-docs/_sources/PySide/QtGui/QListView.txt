@@ -1,0 +1,743 @@
+.. module:: PySide.QtGui
+.. _QListView:
+
+QListView
+*********
+
+.. inheritance-diagram:: QListView
+    :parts: 2
+
+**Inherited by:** :ref:`QUndoView`, :ref:`QListWidget`, :ref:`QHelpIndexWidget`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`batchSize<PySide.QtGui.QListView.batchSize>` ()
+*    def :meth:`clearPropertyFlags<PySide.QtGui.QListView.clearPropertyFlags>` ()
+*    def :meth:`contentsSize<PySide.QtGui.QListView.contentsSize>` ()
+*    def :meth:`flow<PySide.QtGui.QListView.flow>` ()
+*    def :meth:`gridSize<PySide.QtGui.QListView.gridSize>` ()
+*    def :meth:`internalDrag<PySide.QtGui.QListView.internalDrag>` (supportedActions)
+*    def :meth:`internalDrop<PySide.QtGui.QListView.internalDrop>` (e)
+*    def :meth:`isRowHidden<PySide.QtGui.QListView.isRowHidden>` (row)
+*    def :meth:`isSelectionRectVisible<PySide.QtGui.QListView.isSelectionRectVisible>` ()
+*    def :meth:`isWrapping<PySide.QtGui.QListView.isWrapping>` ()
+*    def :meth:`layoutMode<PySide.QtGui.QListView.layoutMode>` ()
+*    def :meth:`modelColumn<PySide.QtGui.QListView.modelColumn>` ()
+*    def :meth:`movement<PySide.QtGui.QListView.movement>` ()
+*    def :meth:`rectForIndex<PySide.QtGui.QListView.rectForIndex>` (index)
+*    def :meth:`resizeContents<PySide.QtGui.QListView.resizeContents>` (width, height)
+*    def :meth:`resizeMode<PySide.QtGui.QListView.resizeMode>` ()
+*    def :meth:`setBatchSize<PySide.QtGui.QListView.setBatchSize>` (batchSize)
+*    def :meth:`setFlow<PySide.QtGui.QListView.setFlow>` (flow)
+*    def :meth:`setGridSize<PySide.QtGui.QListView.setGridSize>` (size)
+*    def :meth:`setLayoutMode<PySide.QtGui.QListView.setLayoutMode>` (mode)
+*    def :meth:`setModelColumn<PySide.QtGui.QListView.setModelColumn>` (column)
+*    def :meth:`setMovement<PySide.QtGui.QListView.setMovement>` (movement)
+*    def :meth:`setPositionForIndex<PySide.QtGui.QListView.setPositionForIndex>` (position, index)
+*    def :meth:`setResizeMode<PySide.QtGui.QListView.setResizeMode>` (mode)
+*    def :meth:`setRowHidden<PySide.QtGui.QListView.setRowHidden>` (row, hide)
+*    def :meth:`setSelectionRectVisible<PySide.QtGui.QListView.setSelectionRectVisible>` (show)
+*    def :meth:`setSpacing<PySide.QtGui.QListView.setSpacing>` (space)
+*    def :meth:`setUniformItemSizes<PySide.QtGui.QListView.setUniformItemSizes>` (enable)
+*    def :meth:`setViewMode<PySide.QtGui.QListView.setViewMode>` (mode)
+*    def :meth:`setWordWrap<PySide.QtGui.QListView.setWordWrap>` (on)
+*    def :meth:`setWrapping<PySide.QtGui.QListView.setWrapping>` (enable)
+*    def :meth:`spacing<PySide.QtGui.QListView.spacing>` ()
+*    def :meth:`uniformItemSizes<PySide.QtGui.QListView.uniformItemSizes>` ()
+*    def :meth:`viewMode<PySide.QtGui.QListView.viewMode>` ()
+*    def :meth:`visualIndex<PySide.QtGui.QListView.visualIndex>` (index)
+*    def :meth:`wordWrap<PySide.QtGui.QListView.wordWrap>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`indexesMoved<PySide.QtGui.QListView.indexesMoved>` (indexes)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QListView` class provides a list or icon view onto a model.
+
+    A :class:`PySide.QtGui.QListView` presents items stored in a model, either as a simple non-hierarchical list, or as a collection of icons. This class is used to provide lists and icon views that were previously provided by the ``QListBox`` and ``QIconView`` classes, but using the more flexible approach provided by Qt's model/view architecture.
+
+    The :class:`PySide.QtGui.QListView` class is one of the :ref:`Model/View Classes<model-view>` and is part of Qt's :ref:`model/view framework<model-view-programming.html>` .
+
+    This view does not display horizontal or vertical headers; to display a list of items with a horizontal header, use :class:`PySide.QtGui.QTreeView` instead.
+
+    :class:`PySide.QtGui.QListView` implements the interfaces defined by the :class:`PySide.QtGui.QAbstractItemView` class to allow it to display data provided by models derived from the :class:`PySide.QtCore.QAbstractItemModel` class.
+
+    Items in a list view can be displayed using one of two view modes: In :attr:`ListMode<QListView.ViewMode>` , the items are displayed in the form of a simple list; in :attr:`IconMode<QListView.ViewMode>` , the list view takes the form of an *icon view* in which the items are displayed with icons like files in a file manager. By default, the list view is in :attr:`ListMode<QListView.ViewMode>` . To change the view mode, use the :meth:`PySide.QtGui.QListView.setViewMode` function, and to determine the current view mode, use :meth:`PySide.QtGui.QListView.viewMode` .
+
+    Items in these views are laid out in the direction specified by the :meth:`PySide.QtGui.QListView.flow` of the list view. The items may be fixed in place, or allowed to move, depending on the view's :meth:`PySide.QtGui.QListView.movement` state.
+
+    If the items in the model cannot be completely laid out in the direction of flow, they can be wrapped at the boundary of the view widget; this depends on :meth:`PySide.QtGui.QListView.isWrapping` . This property is useful when the items are being represented by an icon view.
+
+    The :meth:`PySide.QtGui.QListView.resizeMode` and :meth:`PySide.QtGui.QListView.layoutMode` govern how and when the items are laid out. Items are spaced according to their :meth:`PySide.QtGui.QListView.spacing` , and can exist within a notional grid of size specified by :meth:`PySide.QtGui.QListView.gridSize` . The items can be rendered as large or small icons depending on their :meth:`PySide.QtGui.QAbstractItemView.iconSize` .
+
+    +-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/windowsxp-listview.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/macintosh-listview.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-listview.png|
+    +-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+    |A :ref:`Windows XP style<gallery-windowsxp.html>` list view.                                         |A :ref:`Macintosh style<gallery-macintosh.html>` list view.                                          |A :ref:`Plastique style<gallery-plastique.html>` list view.                                          |
+    +-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+
+    .. _PySide.QtGui.QListView_improving-performance:
+
+
+
+Improving Performance
+^^^^^^^^^^^^^^^^^^^^^
+
+    It is possible to give the view hints about the data it is handling in order to improve its performance when displaying large numbers of items. One approach that can be taken for views that are intended to display items with equal sizes is to set the :meth:`PySide.QtGui.QListView.uniformItemSizes` property to true.
+
+    .. seealso::  :ref:`View Classes<model-view-programming.html>`  :class:`PySide.QtGui.QTreeView`  :class:`PySide.QtGui.QTableView`  :class:`PySide.QtGui.QListWidget` 
+
+.. class:: QListView([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Creates a new :class:`PySide.QtGui.QListView` with the given ``parent`` to view a model. Use :meth:`PySide.QtGui.QAbstractItemView.setModel` to set the model.
+
+
+.. attribute:: PySide.QtGui.QListView.ResizeMode
+
+    +----------------+-----------------------------------------------------------------+
+    |Constant        |Description                                                      |
+    +================+=================================================================+
+    |QListView.Fixed |The items will only be laid out the first time the view is shown.|
+    +----------------+-----------------------------------------------------------------+
+    |QListView.Adjust|The items will be laid out every time the view is resized.       |
+    +----------------+-----------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QListView.LayoutMode
+
+    +--------------------+------------------------------------------------------------------------------------+
+    |Constant            |Description                                                                         |
+    +====================+====================================================================================+
+    |QListView.SinglePass|The items are laid out all at once.                                                 |
+    +--------------------+------------------------------------------------------------------------------------+
+    |QListView.Batched   |The items are laid out in batches of :meth:`PySide.QtGui.QListView.batchSize` items.|
+    +--------------------+------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.batchSize` 
+
+.. attribute:: PySide.QtGui.QListView.ViewMode
+
+    +------------------+----------------------------------------------------------------------------------------------------------+
+    |Constant          |Description                                                                                               |
+    +==================+==========================================================================================================+
+    |QListView.ListMode|The items are laid out using :attr:`TopToBottom<QListView.Flow>` flow, with Small size and Static movement|
+    +------------------+----------------------------------------------------------------------------------------------------------+
+    |QListView.IconMode|The items are laid out using :attr:`LeftToRight<QListView.Flow>` flow, with Large size and Free movement  |
+    +------------------+----------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QListView.Flow
+
+    +---------------------+--------------------------------------------------------------+
+    |Constant             |Description                                                   |
+    +=====================+==============================================================+
+    |QListView.LeftToRight|The items are laid out in the view from the left to the right.|
+    +---------------------+--------------------------------------------------------------+
+    |QListView.TopToBottom|The items are laid out in the view from the top to the bottom.|
+    +---------------------+--------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QListView.Movement
+
+    +----------------+-------------------------------------------------------------------------------------------------+
+    |Constant        |Description                                                                                      |
+    +================+=================================================================================================+
+    |QListView.Static|The items cannot be moved by the user.                                                           |
+    +----------------+-------------------------------------------------------------------------------------------------+
+    |QListView.Free  |The items can be moved freely by the user.                                                       |
+    +----------------+-------------------------------------------------------------------------------------------------+
+    |QListView.Snap  |The items snap to the specified grid when moved; see :meth:`PySide.QtGui.QListView.setGridSize` .|
+    +----------------+-------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QListView.batchSize()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of items laid out in each batch if :meth:`PySide.QtGui.QListView.layoutMode` is set to :attr:`Batched<QListView.LayoutMode>` .
+
+    The default value is 100.
+
+
+
+.. method:: PySide.QtGui.QListView.clearPropertyFlags()
+
+
+
+
+
+
+    Clears the :class:`PySide.QtGui.QListView` -specific property flags. See :meth:`PySide.QtGui.QListView.viewMode` .
+
+    Properties inherited from :class:`PySide.QtGui.QAbstractItemView` are not covered by the property flags. Specifically, :meth:`PySide.QtGui.QAbstractItemView.dragEnabled` and :meth:`acceptsDrops<PySide.QtGui.QAbstractItemView.acceptDrops>` are computed by :class:`PySide.QtGui.QListView` when calling :meth:`PySide.QtGui.QListView.setMovement` or :meth:`PySide.QtGui.QListView.setViewMode` .
+
+
+
+.. method:: PySide.QtGui.QListView.contentsSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListView.flow()
+
+
+    :rtype: :attr:`PySide.QtGui.QListView.Flow`
+
+
+
+
+    This property holds which direction the items layout should flow..
+
+    If this property is :attr:`LeftToRight<QListView.Flow>` , the items will be laid out left to right. If the :meth:`PySide.QtGui.QListView.isWrapping` property is true, the layout will wrap when it reaches the right side of the visible area. If this property is :attr:`TopToBottom<QListView.Flow>` , the items will be laid out from the top of the visible area, wrapping when it reaches the bottom.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is set to :attr:`TopToBottom<QListView.Flow>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.gridSize()
+
+
+    :rtype: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the size of the layout grid.
+
+    This property is the size of the grid in which the items are laid out. The default is an empty size which means that there is no grid and the layout is not done in a grid. Setting this property to a non-empty size switches on the grid layout. (When a grid layout is in force the :meth:`PySide.QtGui.QListView.spacing` property is ignored.)
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.indexesMoved(indexes)
+
+
+    :param indexes: :class:`PySide.QtCore.QModelIndexList`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListView.internalDrag(supportedActions)
+
+
+    :param supportedActions: :class:`PySide.QtCore.Qt.DropActions`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListView.internalDrop(e)
+
+
+    :param e: :class:`PySide.QtGui.QDropEvent`
+
+
+
+
+    Called whenever items from the view is dropped on the viewport. The ``event`` provides additional information.
+
+
+
+.. method:: PySide.QtGui.QListView.isRowHidden(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the ``row`` is hidden; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QListView.isSelectionRectVisible()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds if the selection rectangle should be visible.
+
+    If this property is true then the selection rectangle is visible; otherwise it will be hidden.
+
+    .. note::  The selection rectangle will only be visible if the selection mode is in a mode where more than one item can be selected; i.e., it will not draw a selection rectangle if the selection mode is :attr:`QAbstractItemView.SingleSelection<QAbstractItemView.SelectionMode>` .
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QListView.isWrapping()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the items layout should wrap..
+
+    This property holds whether the layout should wrap when there is no more space in the visible area. The point at which the layout wraps depends on the :meth:`PySide.QtGui.QListView.flow` property.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is false.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.layoutMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QListView.LayoutMode`
+
+
+
+
+    This property determines whether the layout of items should happen immediately or be delayed..
+
+    This property holds the layout mode for the items. When the mode is :attr:`SinglePass<QListView.LayoutMode>` (the default), the items are laid out all in one go. When the mode is :attr:`Batched<QListView.LayoutMode>` , the items are laid out in batches of :meth:`PySide.QtGui.QListView.batchSize` items, while processing events. This makes it possible to instantly view and interact with the visible items while the rest are being laid out.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.modelColumn()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the column in the model that is visible.
+
+    By default, this property contains 0, indicating that the first column in the model will be shown.
+
+
+
+.. method:: PySide.QtGui.QListView.movement()
+
+
+    :rtype: :attr:`PySide.QtGui.QListView.Movement`
+
+
+
+
+    This property holds whether the items can be moved freely, are snapped to a grid, or cannot be moved at all..
+
+    This property determines how the user can move the items in the view. :attr:`Static<QListView.Movement>` means that the items can't be moved the user. :attr:`Free<QListView.Movement>` means that the user can drag and drop the items to any position in the view. :attr:`Snap<QListView.Movement>` means that the user can drag and drop the items, but only to the positions in a notional grid signified by the :meth:`PySide.QtGui.QListView.gridSize` property.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is set to :attr:`Static<QListView.Movement>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.resizeMode`  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.rectForIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the rectangle of the item at position ``index`` in the model. The rectangle is in contents coordinates.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.visualRect` 
+
+
+.. method:: PySide.QtGui.QListView.resizeContents(width, height)
+
+
+    :param width: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.int`
+
+
+
+
+    Resize the internal contents to ``width`` and ``height`` and set the scroll bar ranges accordingly.
+
+
+
+.. method:: PySide.QtGui.QListView.resizeMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QListView.ResizeMode`
+
+
+
+
+    This property holds whether the items are laid out again when the view is resized..
+
+    If this property is :attr:`Adjust<QListView.ResizeMode>` , the items will be laid out again when the view is resized. If the value is :attr:`Fixed<QListView.ResizeMode>` , the items will not be laid out when the view is resized.
+
+    By default, this property is set to :attr:`Fixed<QListView.ResizeMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.movement`  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setBatchSize(batchSize)
+
+
+    :param batchSize: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of items laid out in each batch if :meth:`PySide.QtGui.QListView.layoutMode` is set to :attr:`Batched<QListView.LayoutMode>` .
+
+    The default value is 100.
+
+
+
+.. method:: PySide.QtGui.QListView.setFlow(flow)
+
+
+    :param flow: :attr:`PySide.QtGui.QListView.Flow`
+
+
+
+
+    This property holds which direction the items layout should flow..
+
+    If this property is :attr:`LeftToRight<QListView.Flow>` , the items will be laid out left to right. If the :meth:`PySide.QtGui.QListView.isWrapping` property is true, the layout will wrap when it reaches the right side of the visible area. If this property is :attr:`TopToBottom<QListView.Flow>` , the items will be laid out from the top of the visible area, wrapping when it reaches the bottom.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is set to :attr:`TopToBottom<QListView.Flow>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setGridSize(size)
+
+
+    :param size: :class:`PySide.QtCore.QSize`
+
+
+
+
+    This property holds the size of the layout grid.
+
+    This property is the size of the grid in which the items are laid out. The default is an empty size which means that there is no grid and the layout is not done in a grid. Setting this property to a non-empty size switches on the grid layout. (When a grid layout is in force the :meth:`PySide.QtGui.QListView.spacing` property is ignored.)
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setLayoutMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QListView.LayoutMode`
+
+
+
+
+    This property determines whether the layout of items should happen immediately or be delayed..
+
+    This property holds the layout mode for the items. When the mode is :attr:`SinglePass<QListView.LayoutMode>` (the default), the items are laid out all in one go. When the mode is :attr:`Batched<QListView.LayoutMode>` , the items are laid out in batches of :meth:`PySide.QtGui.QListView.batchSize` items, while processing events. This makes it possible to instantly view and interact with the visible items while the rest are being laid out.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setModelColumn(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the column in the model that is visible.
+
+    By default, this property contains 0, indicating that the first column in the model will be shown.
+
+
+
+.. method:: PySide.QtGui.QListView.setMovement(movement)
+
+
+    :param movement: :attr:`PySide.QtGui.QListView.Movement`
+
+
+
+
+    This property holds whether the items can be moved freely, are snapped to a grid, or cannot be moved at all..
+
+    This property determines how the user can move the items in the view. :attr:`Static<QListView.Movement>` means that the items can't be moved the user. :attr:`Free<QListView.Movement>` means that the user can drag and drop the items to any position in the view. :attr:`Snap<QListView.Movement>` means that the user can drag and drop the items, but only to the positions in a notional grid signified by the :meth:`PySide.QtGui.QListView.gridSize` property.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is set to :attr:`Static<QListView.Movement>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.resizeMode`  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setPositionForIndex(position, index)
+
+
+    :param position: :class:`PySide.QtCore.QPoint`
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Sets the contents position of the item at ``index`` in the model to the given ``position`` . If the list view's movement mode is Static or its view mode is :ref:`ListView` , this function will have no effect.
+
+
+
+.. method:: PySide.QtGui.QListView.setResizeMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QListView.ResizeMode`
+
+
+
+
+    This property holds whether the items are laid out again when the view is resized..
+
+    If this property is :attr:`Adjust<QListView.ResizeMode>` , the items will be laid out again when the view is resized. If the value is :attr:`Fixed<QListView.ResizeMode>` , the items will not be laid out when the view is resized.
+
+    By default, this property is set to :attr:`Fixed<QListView.ResizeMode>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.movement`  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setRowHidden(row, hide)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param hide: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``hide`` is true, the given ``row`` will be hidden; otherwise the ``row`` will be shown.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.isRowHidden` 
+
+
+.. method:: PySide.QtGui.QListView.setSelectionRectVisible(show)
+
+
+    :param show: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds if the selection rectangle should be visible.
+
+    If this property is true then the selection rectangle is visible; otherwise it will be hidden.
+
+    .. note::  The selection rectangle will only be visible if the selection mode is in a mode where more than one item can be selected; i.e., it will not draw a selection rectangle if the selection mode is :attr:`QAbstractItemView.SingleSelection<QAbstractItemView.SelectionMode>` .
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QListView.setSpacing(space)
+
+
+    :param space: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the space around the items in the layout.
+
+    This property is the size of the empty space that is padded around an item in the layout.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property contains a value of 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.setUniformItemSizes(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether all items in the listview have the same size.
+
+    This property should only be set to true if it is guaranteed that all items in the view have the same size. This enables the view to do some optimizations for performance purposes.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QListView.setViewMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QListView.ViewMode`
+
+
+
+
+    This property holds the view mode of the :class:`PySide.QtGui.QListView` ..
+
+    This property will change the other unset properties to conform with the set view mode. :class:`PySide.QtGui.QListView` -specific properties that have already been set will not be changed, unless :meth:`PySide.QtGui.QListView.clearPropertyFlags` has been called.
+
+    Setting the view mode will enable or disable drag and drop based on the selected movement. For :attr:`ListMode<QListView.ViewMode>` , the default movement is :attr:`Static<QListView.Movement>` (drag and drop disabled); for :attr:`IconMode<QListView.ViewMode>` , the default movement is :attr:`Free<QListView.Movement>` (drag and drop enabled).
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.isWrapping`  :meth:`PySide.QtGui.QListView.spacing`  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.flow`  :meth:`PySide.QtGui.QListView.movement`  :meth:`PySide.QtGui.QListView.resizeMode` 
+
+
+.. method:: PySide.QtGui.QListView.setWordWrap(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the item text word-wrapping policy.
+
+    If this property is true then the item text is wrapped where necessary at word-breaks; otherwise it is not wrapped at all. This property is false by default.
+
+    Please note that even if wrapping is enabled, the cell will not be expanded to make room for the text. It will print ellipsis for text that cannot be shown, according to the view's :meth:`PySide.QtGui.QAbstractItemView.textElideMode` .
+
+
+
+.. method:: PySide.QtGui.QListView.setWrapping(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the items layout should wrap..
+
+    This property holds whether the layout should wrap when there is no more space in the visible area. The point at which the layout wraps depends on the :meth:`PySide.QtGui.QListView.flow` property.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property is false.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.spacing()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the space around the items in the layout.
+
+    This property is the size of the empty space that is padded around an item in the layout.
+
+    Setting this property when the view is visible will cause the items to be laid out again.
+
+    By default, this property contains a value of 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.viewMode` 
+
+
+.. method:: PySide.QtGui.QListView.uniformItemSizes()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether all items in the listview have the same size.
+
+    This property should only be set to true if it is guaranteed that all items in the view have the same size. This enables the view to do some optimizations for performance purposes.
+
+    By default, this property is false.
+
+
+
+.. method:: PySide.QtGui.QListView.viewMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QListView.ViewMode`
+
+
+
+
+    This property holds the view mode of the :class:`PySide.QtGui.QListView` ..
+
+    This property will change the other unset properties to conform with the set view mode. :class:`PySide.QtGui.QListView` -specific properties that have already been set will not be changed, unless :meth:`PySide.QtGui.QListView.clearPropertyFlags` has been called.
+
+    Setting the view mode will enable or disable drag and drop based on the selected movement. For :attr:`ListMode<QListView.ViewMode>` , the default movement is :attr:`Static<QListView.Movement>` (drag and drop disabled); for :attr:`IconMode<QListView.ViewMode>` , the default movement is :attr:`Free<QListView.Movement>` (drag and drop enabled).
+
+    .. seealso::  :meth:`PySide.QtGui.QListView.isWrapping`  :meth:`PySide.QtGui.QListView.spacing`  :meth:`PySide.QtGui.QListView.gridSize`  :meth:`PySide.QtGui.QListView.flow`  :meth:`PySide.QtGui.QListView.movement`  :meth:`PySide.QtGui.QListView.resizeMode` 
+
+
+.. method:: PySide.QtGui.QListView.visualIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QListView.wordWrap()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the item text word-wrapping policy.
+
+    If this property is true then the item text is wrapped where necessary at word-breaks; otherwise it is not wrapped at all. This property is false by default.
+
+    Please note that even if wrapping is enabled, the cell will not be expanded to make room for the text. It will print ellipsis for text that cannot be shown, according to the view's :meth:`PySide.QtGui.QAbstractItemView.textElideMode` .
+
+
+
+

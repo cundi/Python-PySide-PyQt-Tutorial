@@ -1,0 +1,368 @@
+.. module:: PySide.QtGui
+.. _QPaintEngineState:
+
+QPaintEngineState
+*****************
+
+.. inheritance-diagram:: QPaintEngineState
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`backgroundBrush<PySide.QtGui.QPaintEngineState.backgroundBrush>` ()
+*    def :meth:`backgroundMode<PySide.QtGui.QPaintEngineState.backgroundMode>` ()
+*    def :meth:`brush<PySide.QtGui.QPaintEngineState.brush>` ()
+*    def :meth:`brushNeedsResolving<PySide.QtGui.QPaintEngineState.brushNeedsResolving>` ()
+*    def :meth:`brushOrigin<PySide.QtGui.QPaintEngineState.brushOrigin>` ()
+*    def :meth:`clipOperation<PySide.QtGui.QPaintEngineState.clipOperation>` ()
+*    def :meth:`clipPath<PySide.QtGui.QPaintEngineState.clipPath>` ()
+*    def :meth:`clipRegion<PySide.QtGui.QPaintEngineState.clipRegion>` ()
+*    def :meth:`compositionMode<PySide.QtGui.QPaintEngineState.compositionMode>` ()
+*    def :meth:`font<PySide.QtGui.QPaintEngineState.font>` ()
+*    def :meth:`isClipEnabled<PySide.QtGui.QPaintEngineState.isClipEnabled>` ()
+*    def :meth:`matrix<PySide.QtGui.QPaintEngineState.matrix>` ()
+*    def :meth:`opacity<PySide.QtGui.QPaintEngineState.opacity>` ()
+*    def :meth:`painter<PySide.QtGui.QPaintEngineState.painter>` ()
+*    def :meth:`pen<PySide.QtGui.QPaintEngineState.pen>` ()
+*    def :meth:`penNeedsResolving<PySide.QtGui.QPaintEngineState.penNeedsResolving>` ()
+*    def :meth:`renderHints<PySide.QtGui.QPaintEngineState.renderHints>` ()
+*    def :meth:`state<PySide.QtGui.QPaintEngineState.state>` ()
+*    def :meth:`transform<PySide.QtGui.QPaintEngineState.transform>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QPaintEngineState` class provides information about the active paint engine's current state.
+
+    :class:`PySide.QtGui.QPaintEngineState` records which properties that have changed since the last time the paint engine was updated, as well as their current value.
+
+    Which properties that have changed can at any time be retrieved using the :meth:`PySide.QtGui.QPaintEngineState.state` function. This function returns an instance of the :class:`QPaintEngine.DirtyFlags` type which stores an OR combination of :attr:`QPaintEngine.DirtyFlag` values. The :attr:`QPaintEngine.DirtyFlag` enum defines whether a property has changed since the last update or not.
+
+    If a property is marked with a dirty flag, its current value can be retrieved using the corresponding get function:
+
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |Property Flag                                                                                                                |Current Property Value                                |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyBackground<QPaintEngine.DirtyFlag>`                                                                 |:meth:`PySide.QtGui.QPaintEngineState.backgroundBrush`|
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyBackgroundMode<QPaintEngine.DirtyFlag>`                                                             |:meth:`PySide.QtGui.QPaintEngineState.backgroundMode` |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyBrush<QPaintEngine.DirtyFlag>`                                                                      |:meth:`PySide.QtGui.QPaintEngineState.brush`          |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyBrushOrigin<QPaintEngine.DirtyFlag>`                                                                |:meth:`PySide.QtGui.QPaintEngineState.brushOrigin`    |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyClipRegion<QPaintEngine.DirtyFlag>` *or*\ :attr:`QPaintEngine.DirtyClipPath<QPaintEngine.DirtyFlag>`|:meth:`PySide.QtGui.QPaintEngineState.clipOperation`  |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyClipPath<QPaintEngine.DirtyFlag>`                                                                   |:meth:`PySide.QtGui.QPaintEngineState.clipPath`       |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyClipRegion<QPaintEngine.DirtyFlag>`                                                                 |:meth:`PySide.QtGui.QPaintEngineState.clipRegion`     |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyCompositionMode<QPaintEngine.DirtyFlag>`                                                            |:meth:`PySide.QtGui.QPaintEngineState.compositionMode`|
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyFont<QPaintEngine.DirtyFlag>`                                                                       |:meth:`PySide.QtGui.QPaintEngineState.font`           |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyTransform<QPaintEngine.DirtyFlag>`                                                                  |:meth:`PySide.QtGui.QPaintEngineState.transform`      |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyClipEnabled<QPaintEngine.DirtyFlag>`                                                                |:meth:`PySide.QtGui.QPaintEngineState.isClipEnabled`  |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyPen<QPaintEngine.DirtyFlag>`                                                                        |:meth:`PySide.QtGui.QPaintEngineState.pen`            |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+    |:attr:`QPaintEngine.DirtyHints<QPaintEngine.DirtyFlag>`                                                                      |:meth:`PySide.QtGui.QPaintEngineState.renderHints`    |
+    +-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------+
+
+    The :class:`PySide.QtGui.QPaintEngineState` class also provide the :meth:`PySide.QtGui.QPaintEngineState.painter` function which returns a pointer to the painter that is currently updating the paint engine.
+
+    An instance of this class, representing the current state of the active paint engine, is passed as argument to the :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` function. The only situation in which you will have to use this class directly is when implementing your own paint engine.
+
+    .. seealso::  :class:`PySide.QtGui.QPaintEngine` 
+
+.. class:: QPaintEngineState()
+
+
+
+
+.. attribute:: PySide.QtGui.QPaintEngineState.dirtyFlags
+
+
+.. method:: PySide.QtGui.QPaintEngineState.backgroundBrush()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the background brush in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyBackground<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.backgroundMode()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.BGMode`
+
+
+
+
+    Returns the background mode in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyBackgroundMode<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.brush()
+
+
+    :rtype: :class:`PySide.QtGui.QBrush`
+
+
+
+
+    Returns the brush in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyBrush<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.brushNeedsResolving()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether the coordinate of the fill have been specified as bounded by the current rendering operation and have to be resolved (about the currently rendered primitive).
+
+
+
+.. method:: PySide.QtGui.QPaintEngineState.brushOrigin()
+
+
+    :rtype: :class:`PySide.QtCore.QPointF`
+
+
+
+
+    Returns the brush origin in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyBrushOrigin<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.clipOperation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ClipOperation`
+
+
+
+
+    Returns the clip operation in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes either the :attr:`QPaintEngine.DirtyClipPath<QPaintEngine.DirtyFlag>` or the :attr:`QPaintEngine.DirtyClipRegion<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.clipPath()
+
+
+    :rtype: :class:`PySide.QtGui.QPainterPath`
+
+
+
+
+    Returns the clip path in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyClipPath<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.clipRegion()
+
+
+    :rtype: :class:`PySide.QtGui.QRegion`
+
+
+
+
+    Returns the clip region in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyClipRegion<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.compositionMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QPainter.CompositionMode`
+
+
+
+
+    Returns the composition mode in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyCompositionMode<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.font()
+
+
+    :rtype: :class:`PySide.QtGui.QFont`
+
+
+
+
+    Returns the font in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyFont<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.isClipEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether clipping is enabled or not in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyClipEnabled<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.matrix()
+
+
+    :rtype: :class:`PySide.QtGui.QMatrix`
+
+
+
+
+    Returns the matrix in the current paint engine state.
+
+    .. note::  It is advisable to use :meth:`PySide.QtGui.QPaintEngineState.transform` instead of this function to preserve the properties of perspective transformations.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyTransform<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.opacity()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the opacity in the current paint engine state.
+
+
+
+.. method:: PySide.QtGui.QPaintEngineState.painter()
+
+
+    :rtype: :class:`PySide.QtGui.QPainter`
+
+
+
+
+    Returns a pointer to the painter currently updating the paint engine.
+
+
+
+.. method:: PySide.QtGui.QPaintEngineState.pen()
+
+
+    :rtype: :class:`PySide.QtGui.QPen`
+
+
+
+
+    Returns the pen in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyPen<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.penNeedsResolving()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns whether the coordinate of the stroke have been specified as bounded by the current rendering operation and have to be resolved (about the currently rendered primitive).
+
+
+
+.. method:: PySide.QtGui.QPaintEngineState.renderHints()
+
+
+    :rtype: :class:`PySide.QtGui.QPainter.RenderHints`
+
+
+
+
+    Returns the render hints in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyHints<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.state()
+
+
+    :rtype: :class:`PySide.QtGui.QPaintEngine.DirtyFlags`
+
+
+
+
+    Returns a combination of flags identifying the set of properties that need to be updated when updating the paint engine's state (i.e. during a call to the :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` function).
+
+    .. seealso::  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+.. method:: PySide.QtGui.QPaintEngineState.transform()
+
+
+    :rtype: :class:`PySide.QtGui.QTransform`
+
+
+
+
+    Returns the matrix in the current paint engine state.
+
+    This variable should only be used when the :meth:`PySide.QtGui.QPaintEngineState.state` returns a combination which includes the :attr:`QPaintEngine.DirtyTransform<QPaintEngine.DirtyFlag>` flag.
+
+    .. seealso::  :meth:`PySide.QtGui.QPaintEngineState.state`  :meth:`QPaintEngine.updateState()<PySide.QtGui.QPaintEngine.updateState>` 
+
+
+

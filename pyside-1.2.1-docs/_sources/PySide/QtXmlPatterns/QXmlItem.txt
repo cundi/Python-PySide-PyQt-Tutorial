@@ -1,0 +1,149 @@
+.. module:: PySide.QtXmlPatterns
+.. _QXmlItem:
+
+QXmlItem
+********
+
+.. inheritance-diagram:: QXmlItem
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`internalIsAtomicValue<PySide.QtXmlPatterns.QXmlItem.internalIsAtomicValue>` ()
+*    def :meth:`isAtomicValue<PySide.QtXmlPatterns.QXmlItem.isAtomicValue>` ()
+*    def :meth:`isNode<PySide.QtXmlPatterns.QXmlItem.isNode>` ()
+*    def :meth:`isNull<PySide.QtXmlPatterns.QXmlItem.isNull>` ()
+*    def :meth:`toAtomicValue<PySide.QtXmlPatterns.QXmlItem.toAtomicValue>` ()
+*    def :meth:`toNodeModelIndex<PySide.QtXmlPatterns.QXmlItem.toNodeModelIndex>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtXmlPatterns.QXmlItem` class contains either an XML node or an atomic value.
+
+    In :ref:`XQuery<xmlprocessing.html>` , all expressions evaluate to a sequence of items, where each item is either an XML node or an atomic value. The query in the following snippet evaluates to sequence of five items.
+
+    ::
+
+        <aNode/>,
+        xs:base64Binary("FFFF"),
+        current-date(),
+        3e3, (: A floating point value :)
+        attribute {"name"} {()}
+
+
+    The five items are: An element, an atomic value (binary data encoded in base64), a date, a float, and an attribute.
+
+    :class:`PySide.QtXmlPatterns.QXmlItem` is the class that represents these :ref:`XQuery<xmlprocessing.html>` items in the :ref:`QtXmlPatterns` API. A non-null instance of :class:`PySide.QtXmlPatterns.QXmlItem` is either a node or an atomic value. Calling :meth:`PySide.QtXmlPatterns.QXmlItem.isNode` or :meth:`PySide.QtXmlPatterns.QXmlItem.isAtomicValue` tells you which it is. Atomic values are represented elsewhere in the Qt API as instances of :class:`PySide.QtCore.QVariant` , and an instance of :class:`PySide.QtXmlPatterns.QXmlItem` that represents an atomic value can be converted to a :class:`PySide.QtCore.QVariant` by calling :meth:`PySide.QtXmlPatterns.QXmlItem.toAtomicValue` . A :class:`PySide.QtXmlPatterns.QXmlItem` that wraps a node is represented elsewhere as an instance of :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` . A node :class:`PySide.QtXmlPatterns.QXmlItem` can be converted to a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` by calling :meth:`PySide.QtXmlPatterns.QXmlItem.toNodeModelIndex` .
+
+    A default constructed :class:`PySide.QtXmlPatterns.QXmlItem` instance is neither a node nor an atomic value. It is considered null, in which case :meth:`PySide.QtXmlPatterns.QXmlItem.isNull` returns true.
+
+    An instance of :class:`PySide.QtXmlPatterns.QXmlItem` will be left dangling if the :class:`XML node model<PySide.QtXmlPatterns.QAbstractXmlNodeModel>` it refers to is deleted, if it is a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` .
+
+
+.. class:: QXmlItem()
+           QXmlItem(atomicValue)
+           QXmlItem(other)
+           QXmlItem(node)
+
+    :param node: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+    :param other: :class:`PySide.QtXmlPatterns.QXmlItem`
+    :param atomicValue: object
+
+    Constructs a null :class:`PySide.QtXmlPatterns.QXmlItem` that is neither a node nor an atomic value. :meth:`PySide.QtXmlPatterns.QXmlItem.isNull` returns true for a default constructed instance.
+
+
+    Constructs an atomic value :class:`PySide.QtXmlPatterns.QXmlItem` with ``atomicValue`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isAtomicValue` 
+
+    The copy constructor constructs a copy of ``other`` .
+
+
+    Constructs a node :class:`PySide.QtXmlPatterns.QXmlItem` that is a copy of ``node`` .
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isNode` 
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.internalIsAtomicValue()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.isAtomicValue()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this item is an atomic value. Returns false if it is a node or null.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isNull`  :meth:`PySide.QtXmlPatterns.QXmlItem.isNode` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.isNode()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this item is a Node. Returns false if it is an atomic value or null.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isNull`  :meth:`PySide.QtXmlPatterns.QXmlItem.isAtomicValue` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.isNull()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this :class:`PySide.QtXmlPatterns.QXmlItem` is neither a node nor an atomic value. Default constructed instances of :class:`PySide.QtXmlPatterns.QXmlItem` are null.
+
+
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.toAtomicValue()
+
+
+    :rtype: object
+
+
+
+
+    If this :class:`PySide.QtXmlPatterns.QXmlItem` represents an atomic value, it is converted to an appropriate :class:`PySide.QtCore.QVariant` and returned. If this :class:`PySide.QtXmlPatterns.QXmlItem` is not an atomic value, the return value is a default constructed :class:`PySide.QtCore.QVariant` . You can call :meth:`PySide.QtXmlPatterns.QXmlItem.isAtomicValue` to test whether the item is an atomic value.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isAtomicValue` 
+
+
+.. method:: PySide.QtXmlPatterns.QXmlItem.toNodeModelIndex()
+
+
+    :rtype: :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex`
+
+
+
+
+    If this :class:`PySide.QtXmlPatterns.QXmlItem` represents a node, it returns the item as a :class:`PySide.QtXmlPatterns.QXmlNodeModelIndex` . If this :class:`PySide.QtXmlPatterns.QXmlItem` is not a node, the return value is undefined. You can call :meth:`PySide.QtXmlPatterns.QXmlItem.isNode` to test whether the item is a node.
+
+    .. seealso::  :meth:`PySide.QtXmlPatterns.QXmlItem.isNode` 
+
+
+

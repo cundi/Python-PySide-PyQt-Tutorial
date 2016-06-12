@@ -1,0 +1,493 @@
+.. module:: PySide.QtGui
+.. _QWizardPage:
+
+QWizardPage
+***********
+
+.. inheritance-diagram:: QWizardPage
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`buttonText<PySide.QtGui.QWizardPage.buttonText>` (which)
+*    def :meth:`field<PySide.QtGui.QWizardPage.field>` (name)
+*    def :meth:`isCommitPage<PySide.QtGui.QWizardPage.isCommitPage>` ()
+*    def :meth:`isFinalPage<PySide.QtGui.QWizardPage.isFinalPage>` ()
+*    def :meth:`pixmap<PySide.QtGui.QWizardPage.pixmap>` (which)
+*    def :meth:`registerField<PySide.QtGui.QWizardPage.registerField>` (name, widget[, property=0[, changedSignal=0]])
+*    def :meth:`setButtonText<PySide.QtGui.QWizardPage.setButtonText>` (which, text)
+*    def :meth:`setCommitPage<PySide.QtGui.QWizardPage.setCommitPage>` (commitPage)
+*    def :meth:`setField<PySide.QtGui.QWizardPage.setField>` (name, value)
+*    def :meth:`setFinalPage<PySide.QtGui.QWizardPage.setFinalPage>` (finalPage)
+*    def :meth:`setPixmap<PySide.QtGui.QWizardPage.setPixmap>` (which, pixmap)
+*    def :meth:`setSubTitle<PySide.QtGui.QWizardPage.setSubTitle>` (subTitle)
+*    def :meth:`setTitle<PySide.QtGui.QWizardPage.setTitle>` (title)
+*    def :meth:`subTitle<PySide.QtGui.QWizardPage.subTitle>` ()
+*    def :meth:`title<PySide.QtGui.QWizardPage.title>` ()
+*    def :meth:`wizard<PySide.QtGui.QWizardPage.wizard>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cleanupPage<PySide.QtGui.QWizardPage.cleanupPage>` ()
+*    def :meth:`initializePage<PySide.QtGui.QWizardPage.initializePage>` ()
+*    def :meth:`isComplete<PySide.QtGui.QWizardPage.isComplete>` ()
+*    def :meth:`nextId<PySide.QtGui.QWizardPage.nextId>` ()
+*    def :meth:`validatePage<PySide.QtGui.QWizardPage.validatePage>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`completeChanged<PySide.QtGui.QWizardPage.completeChanged>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QWizardPage` class is the base class for wizard pages.
+
+    :class:`PySide.QtGui.QWizard` represents a wizard. Each page is a :class:`PySide.QtGui.QWizardPage` . When you create your own wizards, you can use :class:`PySide.QtGui.QWizardPage` directly, or you can subclass it for more control.
+
+    A page has the following attributes, which are rendered by :class:`PySide.QtGui.QWizard` : a :meth:`PySide.QtGui.QWizardPage.title` , a :meth:`PySide.QtGui.QWizardPage.subTitle` , and a :meth:`set of pixmaps<PySide.QtGui.QWizardPage.setPixmap>` . See :class:`~PySide.QtGui.Elements of a Wizard Page` for details. Once a page is added to the wizard (using :meth:`QWizard.addPage()<PySide.QtGui.QWizard.addPage>` or :meth:`QWizard.setPage()<PySide.QtGui.QWizard.setPage>` ), :meth:`PySide.QtGui.QWizardPage.wizard` returns a pointer to the associated :class:`PySide.QtGui.QWizard` object.
+
+    Page provides five virtual functions that can be reimplemented to provide custom behavior:
+
+
+    * :meth:`PySide.QtGui.QWizardPage.initializePage` is called to initialize the page's contents when the user clicks the wizard's **Next** button. If you want to derive the page's default from what the user entered on previous pages, this is the function to reimplement.
+    * :meth:`PySide.QtGui.QWizardPage.cleanupPage` is called to reset the page's contents when the user clicks the wizard's **Back** button.
+    * :meth:`PySide.QtGui.QWizardPage.validatePage` validates the page when the user clicks **Next** or **Finish**. It is often used to show an error message if the user has entered incomplete or invalid information.
+    * :meth:`PySide.QtGui.QWizardPage.nextId` returns the ID of the next page. It is useful when :class:`~PySide.QtGui.creating non-linear wizards` , which allow different traversal paths based on the information provided by the user.
+    * :meth:`PySide.QtGui.QWizardPage.isComplete` is called to determine whether the **Next** and/or **Finish** button should be enabled or disabled. If you reimplement :meth:`PySide.QtGui.QWizardPage.isComplete` , also make sure that :meth:`PySide.QtGui.QWizardPage.completeChanged` is emitted whenever the complete state changes.
+
+    Normally, the **Next** button and the **Finish** button of a wizard are mutually exclusive. If :meth:`PySide.QtGui.QWizardPage.isFinalPage` returns true, **Finish** is available; otherwise, **Next** is available. By default, :meth:`PySide.QtGui.QWizardPage.isFinalPage` is true only when :meth:`PySide.QtGui.QWizardPage.nextId` returns -1. If you want to show **Next** and **Final** simultaneously for a page (letting the user perform an "early finish"), call setFinalPage(true) on that page. For wizards that support early finishes, you might also want to set the :attr:`HaveNextButtonOnLastPage<QWizard.WizardOption>` and :attr:`HaveFinishButtonOnEarlyPages<QWizard.WizardOption>` options on the wizard.
+
+    In many wizards, the contents of a page may affect the default values of the fields of a later page. To make it easy to communicate between pages, :class:`PySide.QtGui.QWizard` supports a :class:`"field" mechanism<~PySide.QtGui.Registering and Using Fields>` that allows you to register a field (e.g., a :class:`PySide.QtGui.QLineEdit` ) on a page and to access its value from any page. Fields are global to the entire wizard and make it easy for any single page to access information stored by another page, without having to put all the logic in :class:`PySide.QtGui.QWizard` or having the pages know explicitly about each other. Fields are registered using :meth:`PySide.QtGui.QWizardPage.registerField` and can be accessed at any time using :meth:`PySide.QtGui.QWizardPage.field` and :meth:`PySide.QtGui.QWizardPage.setField` .
+
+    .. seealso::  :class:`PySide.QtGui.QWizard`  :ref:`Class Wizard Example<dialogs/classwizard>`  :ref:`License Wizard Example<dialogs/licensewizard>` 
+
+.. class:: QWizardPage([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a wizard page with the given ``parent`` .
+
+    When the page is inserted into a wizard using :meth:`QWizard.addPage()<PySide.QtGui.QWizard.addPage>` or :meth:`QWizard.setPage()<PySide.QtGui.QWizard.setPage>` , the parent is automatically set to be the wizard.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.wizard` 
+
+.. method:: PySide.QtGui.QWizardPage.buttonText(which)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :rtype: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizardPage.cleanupPage()
+
+
+
+
+
+
+    This virtual function is called by :meth:`QWizard.cleanupPage()<PySide.QtGui.QWizard.cleanupPage>` when the user leaves the page by clicking **Back** (unless the :attr:`QWizard.IndependentPages<QWizard.WizardOption>` option is set).
+
+    The default implementation resets the page's fields to their original values (the values they had before :meth:`PySide.QtGui.QWizardPage.initializePage` was called).
+
+    .. seealso::  :meth:`QWizard.cleanupPage()<PySide.QtGui.QWizard.cleanupPage>`  :meth:`PySide.QtGui.QWizardPage.initializePage`  :attr:`QWizard.IndependentPages<QWizard.WizardOption>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.completeChanged()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizardPage.field(name)
+
+
+    :param name: unicode
+    :rtype: object
+
+
+
+
+    Returns the value of the field called ``name`` .
+
+    This function can be used to access fields on any page of the wizard. It is equivalent to calling :meth:`PySide.QtGui.QWizardPage.wizard` ->``name`` :meth:` <PySide.QtGui.QWizard.field>` ).
+
+    Example:
+
+    ::
+
+            def initializePage(self):
+                className = field("className")
+                self.headerLineEdit.setText(className.lower() + ".h")
+                self.implementationLineEdit.setText(className.lower() + ".cpp")
+                self.outputDirLineEdit.setText(QDir.convertSeparators(QDir.tempPath()))
+
+
+    .. seealso::  :meth:`QWizard.field()<PySide.QtGui.QWizard.field>`  :meth:`PySide.QtGui.QWizardPage.setField`  :meth:`PySide.QtGui.QWizardPage.registerField` 
+
+
+.. method:: PySide.QtGui.QWizardPage.initializePage()
+
+
+
+
+
+
+    This virtual function is called by :meth:`QWizard.initializePage()<PySide.QtGui.QWizard.initializePage>` to prepare the page just before it is shown either as a result of :meth:`QWizard.restart()<PySide.QtGui.QWizard.restart>` being called, or as a result of the user clicking **Next** . (However, if the :attr:`QWizard.IndependentPages<QWizard.WizardOption>` option is set, this function is only called the first time the page is shown.)
+
+    By reimplementing this function, you can ensure that the page's fields are properly initialized based on fields from previous pages. For example:
+
+    ::
+
+            def initializePage(self):
+                className = field("className")
+                self.headerLineEdit.setText(className.lower() + ".h")
+                self.implementationLineEdit.setText(className.lower() + ".cpp")
+                self.outputDirLineEdit.setText(QDir.convertSeparators(QDir.tempPath()))
+
+
+    The default implementation does nothing.
+
+    .. seealso::  :meth:`QWizard.initializePage()<PySide.QtGui.QWizard.initializePage>`  :meth:`PySide.QtGui.QWizardPage.cleanupPage`  :attr:`QWizard.IndependentPages<QWizard.WizardOption>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.isCommitPage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this page is a commit page; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.setCommitPage` 
+
+
+.. method:: PySide.QtGui.QWizardPage.isComplete()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This virtual function is called by :class:`PySide.QtGui.QWizard` to determine whether the **Next** or **Finish** button should be enabled or disabled.
+
+    The default implementation returns true if all :class:`~PySide.QtGui.mandatory fields` are filled; otherwise, it returns false.
+
+    If you reimplement this function, make sure to emit :meth:`PySide.QtGui.QWizardPage.completeChanged` , from the rest of your implementation, whenever the value of :meth:`PySide.QtGui.QWizardPage.isComplete` changes. This ensures that :class:`PySide.QtGui.QWizard` updates the enabled or disabled state of its buttons. An example of the reimplementation is available here.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.completeChanged`  :meth:`PySide.QtGui.QWizardPage.isFinalPage` 
+
+
+.. method:: PySide.QtGui.QWizardPage.isFinalPage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called by :class:`PySide.QtGui.QWizard` to determine whether the **Finish** button should be shown for this page or not.
+
+    By default, it returns true if there is no next page (i.e., :meth:`PySide.QtGui.QWizardPage.nextId` returns -1); otherwise, it returns false.
+
+    By explicitly calling setFinalPage(true), you can let the user perform an "early finish".
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.isComplete`  :attr:`QWizard.HaveFinishButtonOnEarlyPages<QWizard.WizardOption>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.nextId()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This virtual function is called by :meth:`QWizard.nextId()<PySide.QtGui.QWizard.nextId>` to find out which page to show when the user clicks the **Next** button.
+
+    The return value is the ID of the next page, or -1 if no page follows.
+
+    By default, this function returns the lowest ID greater than the ID of the current page, or -1 if there is no such ID.
+
+    By reimplementing this function, you can specify a dynamic page order. For example:
+
+    ::
+
+        # class IntroPage
+        def nextId(self):
+
+            if evaluateRadioButton.isChecked():
+                return LicenseWizard.Page_Evaluate
+            else:
+                return LicenseWizard.Page_Register
+
+
+    .. seealso::  :meth:`QWizard.nextId()<PySide.QtGui.QWizard.nextId>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.pixmap(which)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardPixmap`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizardPage.registerField(name, widget[, property=0[, changedSignal=0]])
+
+
+    :param name: unicode
+    :param widget: :class:`PySide.QtGui.QWidget`
+    :param property: str
+    :param changedSignal: str
+
+
+
+
+    Creates a field called ``name`` associated with the given ``property`` of the given ``widget`` . From then on, that property becomes accessible using :meth:`PySide.QtGui.QWizardPage.field` and :meth:`PySide.QtGui.QWizardPage.setField` .
+
+    Fields are global to the entire wizard and make it easy for any single page to access information stored by another page, without having to put all the logic in :class:`PySide.QtGui.QWizard` or having the pages know explicitly about each other.
+
+    If ``name`` ends with an asterisk (``*`` ), the field is a mandatory field. When a page has mandatory fields, the **Next** and/or **Finish** buttons are enabled only when all mandatory fields are filled. This requires a ``changedSignal`` to be specified, to tell :class:`PySide.QtGui.QWizard` to recheck the value stored by the mandatory field.
+
+    :class:`PySide.QtGui.QWizard` knows the most common Qt widgets. For these (or their subclasses), you don't need to specify a ``property`` or a ``changedSignal`` . The table below lists these widgets:
+
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |Widget                               |Property                                                                    |Change Notification Signal                        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QAbstractButton`|bool :meth:`PySide.QtGui.QAbstractButton.checked`                           |:meth:`PySide.QtGui.QAbstractButton.toggled`      |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QAbstractSlider`|int :meth:`PySide.QtGui.QAbstractSlider.value`                              |:meth:`PySide.QtGui.QAbstractSlider.valueChanged` |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QComboBox`      |int :meth:`PySide.QtGui.QComboBox.currentIndex`                             |:meth:`PySide.QtGui.QComboBox.currentIndexChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QDateTimeEdit`  |:class:`PySide.QtCore.QDateTime` :meth:`PySide.QtGui.QDateTimeEdit.dateTime`|:meth:`PySide.QtGui.QDateTimeEdit.dateTimeChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QLineEdit`      |:class:`PySide.QtCore.QString` :meth:`PySide.QtGui.QLineEdit.text`          |:meth:`PySide.QtGui.QLineEdit.textChanged`        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QListWidget`    |int :meth:`PySide.QtGui.QListWidget.currentRow`                             |:meth:`PySide.QtGui.QListWidget.currentRowChanged`|
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+    |:class:`PySide.QtGui.QSpinBox`       |int :meth:`PySide.QtGui.QSpinBox.value`                                     |:meth:`PySide.QtGui.QSpinBox.valueChanged`        |
+    +-------------------------------------+----------------------------------------------------------------------------+--------------------------------------------------+
+
+    You can use :meth:`QWizard.setDefaultProperty()<PySide.QtGui.QWizard.setDefaultProperty>` to add entries to this table or to override existing entries.
+
+    To consider a field "filled", :class:`PySide.QtGui.QWizard` simply checks that their current value doesn't equal their original value (the value they had before :meth:`PySide.QtGui.QWizardPage.initializePage` was called). For :class:`PySide.QtGui.QLineEdit` , it also checks that :meth:`PySide.QtGui.QLineEdit.hasAcceptableInput` returns true, to honor any validator or mask.
+
+    :class:`PySide.QtGui.QWizard` 's mandatory field mechanism is provided for convenience. It can be bypassed by reimplementing :meth:`QWizardPage.isComplete()<PySide.QtGui.QWizardPage.isComplete>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.field`  :meth:`PySide.QtGui.QWizardPage.setField`  :meth:`QWizard.setDefaultProperty()<PySide.QtGui.QWizard.setDefaultProperty>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.setButtonText(which, text)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardButton`
+    :param text: unicode
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizardPage.setCommitPage(commitPage)
+
+
+    :param commitPage: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets this page to be a commit page if ``commitPage`` is true; otherwise, sets it to be a normal page.
+
+    A commit page is a page that represents an action which cannot be undone by clicking **Back** or **Cancel** .
+
+    A **Commit** button replaces the **Next** button on a commit page. Clicking this button simply calls :meth:`QWizard.next()<PySide.QtGui.QWizard.next>` just like clicking **Next** does.
+
+    A page entered directly from a commit page has its **Back** button disabled.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.isCommitPage` 
+
+
+.. method:: PySide.QtGui.QWizardPage.setField(name, value)
+
+
+    :param name: unicode
+    :param value: object
+
+
+
+
+    Sets the value of the field called ``name`` to ``value`` .
+
+    This function can be used to set fields on any page of the wizard. It is equivalent to calling :meth:`PySide.QtGui.QWizardPage.wizard` ->``name`` :meth:` <PySide.QtGui.QWizard.setField>` , ``value`` ).
+
+    .. seealso::  :meth:`QWizard.setField()<PySide.QtGui.QWizard.setField>`  :meth:`PySide.QtGui.QWizardPage.field`  :meth:`PySide.QtGui.QWizardPage.registerField` 
+
+
+.. method:: PySide.QtGui.QWizardPage.setFinalPage(finalPage)
+
+
+    :param finalPage: :class:`PySide.QtCore.bool`
+
+
+
+
+    Explicitly sets this page to be final if ``finalPage`` is true.
+
+    After calling setFinalPage(true), :meth:`PySide.QtGui.QWizardPage.isFinalPage` returns true and the **Finish** button is visible (and enabled if :meth:`PySide.QtGui.QWizardPage.isComplete` returns true).
+
+    After calling setFinalPage(false), :meth:`PySide.QtGui.QWizardPage.isFinalPage` returns true if :meth:`PySide.QtGui.QWizardPage.nextId` returns -1; otherwise, it returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.isFinalPage`  :meth:`PySide.QtGui.QWizardPage.isComplete`  :attr:`QWizard.HaveFinishButtonOnEarlyPages<QWizard.WizardOption>` 
+
+
+.. method:: PySide.QtGui.QWizardPage.setPixmap(which, pixmap)
+
+
+    :param which: :attr:`PySide.QtGui.QWizard.WizardPixmap`
+    :param pixmap: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QWizardPage.setSubTitle(subTitle)
+
+
+    :param subTitle: unicode
+
+
+
+
+    This property holds the subtitle of the page.
+
+    The subtitle is shown by the :class:`PySide.QtGui.QWizard` , between the title and the actual page. Subtitles are optional. In :attr:`ClassicStyle<QWizard.WizardStyle>` and :attr:`ModernStyle<QWizard.WizardStyle>` , using subtitles is necessary to make the header appear. In :attr:`MacStyle<QWizard.WizardStyle>` , the subtitle is shown as a text label just above the actual page.
+
+    The subtitle may be plain text or HTML, depending on the value of the :meth:`QWizard.subTitleFormat<PySide.QtGui.QWizard.subTitleFormat>` property.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.title`  :attr:`QWizard.IgnoreSubTitles<QWizard.WizardOption>`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizardPage.setTitle(title)
+
+
+    :param title: unicode
+
+
+
+
+    This property holds the title of the page.
+
+    The title is shown by the :class:`PySide.QtGui.QWizard` , above the actual page. All pages should have a title.
+
+    The title may be plain text or HTML, depending on the value of the :meth:`QWizard.titleFormat<PySide.QtGui.QWizard.titleFormat>` property.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.subTitle`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizardPage.subTitle()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the subtitle of the page.
+
+    The subtitle is shown by the :class:`PySide.QtGui.QWizard` , between the title and the actual page. Subtitles are optional. In :attr:`ClassicStyle<QWizard.WizardStyle>` and :attr:`ModernStyle<QWizard.WizardStyle>` , using subtitles is necessary to make the header appear. In :attr:`MacStyle<QWizard.WizardStyle>` , the subtitle is shown as a text label just above the actual page.
+
+    The subtitle may be plain text or HTML, depending on the value of the :meth:`QWizard.subTitleFormat<PySide.QtGui.QWizard.subTitleFormat>` property.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.title`  :attr:`QWizard.IgnoreSubTitles<QWizard.WizardOption>`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizardPage.title()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the title of the page.
+
+    The title is shown by the :class:`PySide.QtGui.QWizard` , above the actual page. All pages should have a title.
+
+    The title may be plain text or HTML, depending on the value of the :meth:`QWizard.titleFormat<PySide.QtGui.QWizard.titleFormat>` property.
+
+    By default, this property contains an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QWizardPage.subTitle`  :class:`~PySide.QtGui.Elements of a Wizard Page` 
+
+
+.. method:: PySide.QtGui.QWizardPage.validatePage()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This virtual function is called by :meth:`QWizard.validateCurrentPage()<PySide.QtGui.QWizard.validateCurrentPage>` when the user clicks **Next** or **Finish** to perform some last-minute validation. If it returns true, the next page is shown (or the wizard finishes); otherwise, the current page stays up.
+
+    The default implementation returns true.
+
+    When possible, it is usually better style to disable the **Next** or **Finish** button (by specifying :class:`~PySide.QtGui.mandatory fields` or reimplementing :meth:`PySide.QtGui.QWizardPage.isComplete` ) than to reimplement :meth:`PySide.QtGui.QWizardPage.validatePage` .
+
+    .. seealso::  :meth:`QWizard.validateCurrentPage()<PySide.QtGui.QWizard.validateCurrentPage>`  :meth:`PySide.QtGui.QWizardPage.isComplete` 
+
+
+.. method:: PySide.QtGui.QWizardPage.wizard()
+
+
+    :rtype: :class:`PySide.QtGui.QWizard`
+
+
+
+
+    Returns the wizard associated with this page, or 0 if this page hasn't been inserted into a :class:`PySide.QtGui.QWizard` yet.
+
+    .. seealso::  :meth:`QWizard.addPage()<PySide.QtGui.QWizard.addPage>`  :meth:`QWizard.setPage()<PySide.QtGui.QWizard.setPage>` 
+
+
+

@@ -1,0 +1,123 @@
+.. module:: PySide.QtCore
+.. _QPropertyAnimation:
+
+QPropertyAnimation
+******************
+
+.. inheritance-diagram:: QPropertyAnimation
+    :parts: 2
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`propertyName<PySide.QtCore.QPropertyAnimation.propertyName>` ()
+*    def :meth:`setPropertyName<PySide.QtCore.QPropertyAnimation.setPropertyName>` (propertyName)
+*    def :meth:`setTargetObject<PySide.QtCore.QPropertyAnimation.setTargetObject>` (target)
+*    def :meth:`targetObject<PySide.QtCore.QPropertyAnimation.targetObject>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QPropertyAnimation` class animates Qt properties
+
+    :class:`PySide.QtCore.QPropertyAnimation` interpolates over :ref:`Qt properties<properties.html>` . As property values are stored in :class:`PySide.QtCore.QVariant` s, the class inherits :class:`PySide.QtCore.QVariantAnimation` , and supports animation of the same :attr:`variant types<QVariant.Type>` as its super class.
+
+    A class declaring properties must be a :class:`PySide.QtCore.QObject` . To make it possible to animate a property, it must provide a setter (so that :class:`PySide.QtCore.QPropertyAnimation` can set the property's value). Note that this makes it possible to animate many of Qt's widgets. Let's look at an example:
+
+    ::
+
+                QPropertyAnimation *animation = new QPropertyAnimation(myWidget, "geometry");
+                animation->setDuration(10000);
+                animation->setStartValue(QRect(0, 0, 100, 30));
+                animation->setEndValue(QRect(250, 250, 100, 30));
+                
+                animation->start();
+
+
+    The property name and the :class:`PySide.QtCore.QObject` instance of which property should be animated are passed to the constructor. You can then specify the start and end value of the property. The procedure is equal for properties in classes you have implemented yourself--just check with :class:`PySide.QtCore.QVariantAnimation` that your :class:`PySide.QtCore.QVariant` type is supported.
+
+    The :class:`PySide.QtCore.QVariantAnimation` class description explains how to set up the animation in detail. Note, however, that if a start value is not set, the property will start at the value it had when the :class:`PySide.QtCore.QPropertyAnimation` instance was created.
+
+    :class:`PySide.QtCore.QPropertyAnimation` works like a charm on its own. For complex animations that, for instance, contain several objects, :class:`PySide.QtCore.QAnimationGroup` is provided. An animation group is an animation that can contain other animations, and that can manage when its animations are played. Look at :class:`PySide.QtCore.QParallelAnimationGroup` for an example.
+
+    .. seealso::  :class:`PySide.QtCore.QVariantAnimation`  :class:`PySide.QtCore.QAnimationGroup`  :ref:`The Animation Framework<animation-overview.html>` 
+
+.. class:: QPropertyAnimation([parent=None])
+           QPropertyAnimation(target, propertyName[, parent=None])
+
+    :param propertyName: :class:`PySide.QtCore.QByteArray`
+    :param target: :class:`PySide.QtCore.QObject`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Construct a :class:`PySide.QtCore.QPropertyAnimation` object. ``parent`` is passed to :class:`PySide.QtCore.QObject` 's constructor.
+
+
+    Construct a :class:`PySide.QtCore.QPropertyAnimation` object. ``parent`` is passed to :class:`PySide.QtCore.QObject` 's constructor. The animation changes the property ``propertyName`` on ``target`` . The default duration is 250ms.
+
+    .. seealso::  :meth:`PySide.QtCore.QPropertyAnimation.targetObject`  :meth:`PySide.QtCore.QPropertyAnimation.propertyName` 
+
+.. method:: PySide.QtCore.QPropertyAnimation.propertyName()
+
+
+    :rtype: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This property holds the target property name for this animation.
+
+    This property defines the target property name for this animation. The property name is required for the animation to operate.
+
+
+
+.. method:: PySide.QtCore.QPropertyAnimation.setPropertyName(propertyName)
+
+
+    :param propertyName: :class:`PySide.QtCore.QByteArray`
+
+
+
+
+    This property holds the target property name for this animation.
+
+    This property defines the target property name for this animation. The property name is required for the animation to operate.
+
+
+
+.. method:: PySide.QtCore.QPropertyAnimation.setTargetObject(target)
+
+
+    :param target: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the target :class:`PySide.QtCore.QObject` for this animation..
+
+    This property defines the target :class:`PySide.QtCore.QObject` for this animation.
+
+
+
+.. method:: PySide.QtCore.QPropertyAnimation.targetObject()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the target :class:`PySide.QtCore.QObject` for this animation..
+
+    This property defines the target :class:`PySide.QtCore.QObject` for this animation.
+
+
+
+

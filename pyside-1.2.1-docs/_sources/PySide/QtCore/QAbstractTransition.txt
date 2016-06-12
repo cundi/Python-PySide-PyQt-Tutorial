@@ -1,0 +1,233 @@
+.. module:: PySide.QtCore
+.. _QAbstractTransition:
+
+QAbstractTransition
+*******************
+
+.. inheritance-diagram:: QAbstractTransition
+    :parts: 2
+
+**Inherited by:** :ref:`QSignalTransition`, :ref:`QEventTransition`, :ref:`QMouseEventTransition`, :ref:`QKeyEventTransition`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addAnimation<PySide.QtCore.QAbstractTransition.addAnimation>` (animation)
+*    def :meth:`animations<PySide.QtCore.QAbstractTransition.animations>` ()
+*    def :meth:`machine<PySide.QtCore.QAbstractTransition.machine>` ()
+*    def :meth:`removeAnimation<PySide.QtCore.QAbstractTransition.removeAnimation>` (animation)
+*    def :meth:`setTargetState<PySide.QtCore.QAbstractTransition.setTargetState>` (target)
+*    def :meth:`setTargetStates<PySide.QtCore.QAbstractTransition.setTargetStates>` (targets)
+*    def :meth:`sourceState<PySide.QtCore.QAbstractTransition.sourceState>` ()
+*    def :meth:`targetState<PySide.QtCore.QAbstractTransition.targetState>` ()
+*    def :meth:`targetStates<PySide.QtCore.QAbstractTransition.targetStates>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`eventTest<PySide.QtCore.QAbstractTransition.eventTest>` (event)
+*    def :meth:`onTransition<PySide.QtCore.QAbstractTransition.onTransition>` (event)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`triggered<PySide.QtCore.QAbstractTransition.triggered>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QAbstractTransition` class is the base class of transitions between :class:`PySide.QtCore.QAbstractState` objects.
+
+    The :class:`PySide.QtCore.QAbstractTransition` class is the abstract base class of transitions between states ( :class:`PySide.QtCore.QAbstractState` objects) of a :class:`PySide.QtCore.QStateMachine` . :class:`PySide.QtCore.QAbstractTransition` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    The :meth:`PySide.QtCore.QAbstractTransition.sourceState` function returns the source of the transition. The :meth:`PySide.QtCore.QAbstractTransition.targetStates` function returns the targets of the transition. The :meth:`PySide.QtCore.QAbstractTransition.machine` function returns the state machine that the transition is part of.
+
+    The :meth:`PySide.QtCore.QAbstractTransition.triggered` signal is emitted when the transition has been triggered.
+
+    Transitions can cause animations to be played. Use the :meth:`PySide.QtCore.QAbstractTransition.addAnimation` function to add an animation to the transition.
+
+    .. _PySide.QtCore.QAbstractTransition_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    The :meth:`PySide.QtCore.QAbstractTransition.eventTest` function is called by the state machine to determine whether an event should trigger the transition. In your reimplementation you typically check the event type and cast the event object to the proper type, and check that one or more properties of the event meet your criteria.
+
+    The :meth:`PySide.QtCore.QAbstractTransition.onTransition` function is called when the transition is triggered; reimplement this function to perform custom processing for the transition.
+
+
+.. class:: QAbstractTransition([sourceState=None])
+
+    :param sourceState: :class:`PySide.QtCore.QState`
+
+    Constructs a new :class:`PySide.QtCore.QAbstractTransition` object with the given ``sourceState`` .
+
+
+.. method:: PySide.QtCore.QAbstractTransition.addAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Adds the given ``animation`` to this transition. The transition does not take ownership of the animation.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractTransition.removeAnimation`  :meth:`PySide.QtCore.QAbstractTransition.animations` 
+
+
+.. method:: PySide.QtCore.QAbstractTransition.animations()
+
+
+    :rtype: 
+
+
+
+
+    Returns the list of animations associated with this transition, or an empty list if it has no animations.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractTransition.addAnimation` 
+
+
+.. method:: PySide.QtCore.QAbstractTransition.eventTest(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function is called to determine whether the given ``event`` should cause this transition to trigger. Reimplement this function and return true if the event should trigger the transition, otherwise return false.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.machine()
+
+
+    :rtype: :class:`PySide.QtCore.QStateMachine`
+
+
+
+
+    Returns the state machine that this transition is part of, or 0 if the transition is not part of a state machine.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.onTransition(event)
+
+
+    :param event: :class:`PySide.QtCore.QEvent`
+
+
+
+
+    This function is called when the transition is triggered. The given ``event`` is what caused the transition to trigger. Reimplement this function to perform custom processing when the transition is triggered.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.removeAnimation(animation)
+
+
+    :param animation: :class:`PySide.QtCore.QAbstractAnimation`
+
+
+
+
+    Removes the given ``animation`` from this transition.
+
+    .. seealso::  :meth:`PySide.QtCore.QAbstractTransition.addAnimation` 
+
+
+.. method:: PySide.QtCore.QAbstractTransition.setTargetState(target)
+
+
+    :param target: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the target state of this transition.
+
+    If a transition has no target state, the transition may still be triggered, but this will not cause the state machine's configuration to change (i.e. the current state will not be exited and re-entered).
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.setTargetStates(targets)
+
+
+    :param targets: 
+
+
+
+
+    This property holds the target states of this transition.
+
+    If multiple states are specified, all must be descendants of the same parallel group state.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.sourceState()
+
+
+    :rtype: :class:`PySide.QtCore.QState`
+
+
+
+
+    This property holds the source state (parent) of this transition.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.targetState()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractState`
+
+
+
+
+    This property holds the target state of this transition.
+
+    If a transition has no target state, the transition may still be triggered, but this will not cause the state machine's configuration to change (i.e. the current state will not be exited and re-entered).
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.targetStates()
+
+
+    :rtype: 
+
+
+
+
+    This property holds the target states of this transition.
+
+    If multiple states are specified, all must be descendants of the same parallel group state.
+
+
+
+.. method:: PySide.QtCore.QAbstractTransition.triggered()
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,256 @@
+.. module:: PySide.QtCore
+.. _QModelIndex:
+
+QModelIndex
+***********
+
+.. inheritance-diagram:: QModelIndex
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtCore.QModelIndex.__eq__>` (other)
+*    def :meth:`__lt__<PySide.QtCore.QModelIndex.__lt__>` (other)
+*    def :meth:`__ne__<PySide.QtCore.QModelIndex.__ne__>` (other)
+*    def :meth:`child<PySide.QtCore.QModelIndex.child>` (row, column)
+*    def :meth:`column<PySide.QtCore.QModelIndex.column>` ()
+*    def :meth:`data<PySide.QtCore.QModelIndex.data>` ([role=Qt.DisplayRole])
+*    def :meth:`flags<PySide.QtCore.QModelIndex.flags>` ()
+*    def :meth:`internalId<PySide.QtCore.QModelIndex.internalId>` ()
+*    def :meth:`internalPointer<PySide.QtCore.QModelIndex.internalPointer>` ()
+*    def :meth:`isValid<PySide.QtCore.QModelIndex.isValid>` ()
+*    def :meth:`model<PySide.QtCore.QModelIndex.model>` ()
+*    def :meth:`parent<PySide.QtCore.QModelIndex.parent>` ()
+*    def :meth:`row<PySide.QtCore.QModelIndex.row>` ()
+*    def :meth:`sibling<PySide.QtCore.QModelIndex.sibling>` (row, column)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QModelIndex` class is used to locate data in a data model.
+
+    This class is used as an index into item models derived from :class:`PySide.QtCore.QAbstractItemModel` . The index is used by item views, delegates, and selection models to locate an item in the model.
+
+    New :class:`PySide.QtCore.QModelIndex` objects are created by the model using the :meth:`QAbstractItemModel.createIndex()<PySide.QtCore.QAbstractItemModel.createIndex>` function. An *invalid* model index can be constructed with the :class:`PySide.QtCore.QModelIndex` constructor. Invalid indexes are often used as parent indexes when referring to top-level items in a model.
+
+    Model indexes refer to items in models, and contain all the information required to specify their locations in those models. Each index is located in a given row and column, and may have a parent index; use :meth:`PySide.QtCore.QModelIndex.row` , :meth:`PySide.QtCore.QModelIndex.column` , and :meth:`PySide.QtCore.QModelIndex.parent` to obtain this information. Each top-level item in a model is represented by a model index that does not have a parent index - in this case, :meth:`PySide.QtCore.QModelIndex.parent` will return an invalid model index, equivalent to an index constructed with the zero argument form of the :meth:`PySide.QtCore.QModelIndex.QModelIndex` constructor.
+
+    To obtain a model index that refers to an existing item in a model, call :meth:`QAbstractItemModel.index()<PySide.QtCore.QAbstractItemModel.index>` with the required row and column values, and the model index of the parent. When referring to top-level items in a model, supply :meth:`PySide.QtCore.QModelIndex.QModelIndex` as the parent index.
+
+    The :meth:`PySide.QtCore.QModelIndex.model` function returns the model that the index references as a :class:`PySide.QtCore.QAbstractItemModel` . The :meth:`PySide.QtCore.QModelIndex.child` function is used to examine items held under the index in the model. The :meth:`PySide.QtCore.QModelIndex.sibling` function allows you to traverse items in the model on the same level as the index.
+
+    .. note::  Model indexes should be used immediately and then discarded. You should not rely on indexes to remain valid after calling model functions that change the structure of the model or delete items. If you need to keep a model index over time use a :class:`PySide.QtCore.QPersistentModelIndex` .
+
+    .. seealso::  :ref:`Model/View Programming<model-view-programming.html>`  :class:`PySide.QtCore.QPersistentModelIndex`  :class:`PySide.QtCore.QAbstractItemModel` 
+
+.. class:: QModelIndex()
+           QModelIndex(other)
+
+    :param other: :class:`PySide.QtCore.QModelIndex`
+
+    Creates a new empty model index. This type of model index is used to indicate that the position in the model is invalid.
+
+    .. seealso::  :meth:`PySide.QtCore.QModelIndex.isValid`  :class:`PySide.QtCore.QAbstractItemModel` 
+
+    Creates a new model index that is a copy of the ``other`` model index.
+
+
+.. method:: PySide.QtCore.QModelIndex.child(row, column)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the child of the model index that is stored in the given ``row`` and ``column`` .
+
+    .. note::  This function does not work for an invalid model index which is often used as the root index.
+
+    .. seealso::  :meth:`PySide.QtCore.QModelIndex.parent`  :meth:`PySide.QtCore.QModelIndex.sibling` 
+
+
+.. method:: PySide.QtCore.QModelIndex.column()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the column this model index refers to.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.data([role=Qt.DisplayRole])
+
+
+    :param role: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the data for the given ``role`` for the item referred to by the index.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.flags()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.ItemFlags`
+
+
+
+
+    Returns the flags for the item referred to by the index.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.internalId()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns a ``qint64`` used by the model to associate the index with the internal data structure.
+
+    .. seealso::  :meth:`QAbstractItemModel.createIndex()<PySide.QtCore.QAbstractItemModel.createIndex>` 
+
+
+.. method:: PySide.QtCore.QModelIndex.internalPointer()
+
+
+    :rtype: :class:`void`
+
+
+
+
+    Returns a ``void``\ ``*`` pointer used by the model to associate the index with the internal data structure.
+
+    .. seealso::  :meth:`QAbstractItemModel.createIndex()<PySide.QtCore.QAbstractItemModel.createIndex>` 
+
+
+.. method:: PySide.QtCore.QModelIndex.isValid()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this model index is valid; otherwise returns false.
+
+    A valid index belongs to a model, and has non-negative row and column numbers.
+
+    .. seealso::  :meth:`PySide.QtCore.QModelIndex.model`  :meth:`PySide.QtCore.QModelIndex.row`  :meth:`PySide.QtCore.QModelIndex.column` 
+
+
+.. method:: PySide.QtCore.QModelIndex.model()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns a pointer to the model containing the item that this index refers to.
+
+    A const pointer to the model is returned because calls to non-const functions of the model might invalidate the model index and possibly crash your application.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.__ne__(other)
+
+
+    :param other: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this model index does not refer to the same location as the ``other`` model index; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.__lt__(other)
+
+
+    :param other: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this model index is smaller than the ``other`` model index; otherwise returns false.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.__eq__(other)
+
+
+    :param other: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this model index refers to the same location as the ``other`` model index; otherwise returns false.
+
+    All values in the model index are used when comparing with another model index.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.parent()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the parent of the model index, or :meth:`PySide.QtCore.QModelIndex.QModelIndex` if it has no parent.
+
+    .. seealso::  :meth:`PySide.QtCore.QModelIndex.child`  :meth:`PySide.QtCore.QModelIndex.sibling`  :meth:`PySide.QtCore.QModelIndex.model` 
+
+
+.. method:: PySide.QtCore.QModelIndex.row()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the row this model index refers to.
+
+
+
+.. method:: PySide.QtCore.QModelIndex.sibling(row, column)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the sibling at ``row`` and ``column`` . If there is no sibling at this position, an invalid :class:`PySide.QtCore.QModelIndex` is returned.
+
+    .. seealso::  :meth:`PySide.QtCore.QModelIndex.parent`  :meth:`PySide.QtCore.QModelIndex.child` 
+
+
+

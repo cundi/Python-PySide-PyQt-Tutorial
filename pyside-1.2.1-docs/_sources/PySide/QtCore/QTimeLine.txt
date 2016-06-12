@@ -1,0 +1,631 @@
+.. module:: PySide.QtCore
+.. _QTimeLine:
+
+QTimeLine
+*********
+
+.. inheritance-diagram:: QTimeLine
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`currentFrame<PySide.QtCore.QTimeLine.currentFrame>` ()
+*    def :meth:`currentTime<PySide.QtCore.QTimeLine.currentTime>` ()
+*    def :meth:`currentValue<PySide.QtCore.QTimeLine.currentValue>` ()
+*    def :meth:`curveShape<PySide.QtCore.QTimeLine.curveShape>` ()
+*    def :meth:`direction<PySide.QtCore.QTimeLine.direction>` ()
+*    def :meth:`duration<PySide.QtCore.QTimeLine.duration>` ()
+*    def :meth:`easingCurve<PySide.QtCore.QTimeLine.easingCurve>` ()
+*    def :meth:`endFrame<PySide.QtCore.QTimeLine.endFrame>` ()
+*    def :meth:`frameForTime<PySide.QtCore.QTimeLine.frameForTime>` (msec)
+*    def :meth:`loopCount<PySide.QtCore.QTimeLine.loopCount>` ()
+*    def :meth:`setCurveShape<PySide.QtCore.QTimeLine.setCurveShape>` (shape)
+*    def :meth:`setDirection<PySide.QtCore.QTimeLine.setDirection>` (direction)
+*    def :meth:`setDuration<PySide.QtCore.QTimeLine.setDuration>` (duration)
+*    def :meth:`setEasingCurve<PySide.QtCore.QTimeLine.setEasingCurve>` (curve)
+*    def :meth:`setEndFrame<PySide.QtCore.QTimeLine.setEndFrame>` (frame)
+*    def :meth:`setFrameRange<PySide.QtCore.QTimeLine.setFrameRange>` (startFrame, endFrame)
+*    def :meth:`setLoopCount<PySide.QtCore.QTimeLine.setLoopCount>` (count)
+*    def :meth:`setStartFrame<PySide.QtCore.QTimeLine.setStartFrame>` (frame)
+*    def :meth:`setUpdateInterval<PySide.QtCore.QTimeLine.setUpdateInterval>` (interval)
+*    def :meth:`startFrame<PySide.QtCore.QTimeLine.startFrame>` ()
+*    def :meth:`state<PySide.QtCore.QTimeLine.state>` ()
+*    def :meth:`updateInterval<PySide.QtCore.QTimeLine.updateInterval>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`valueForTime<PySide.QtCore.QTimeLine.valueForTime>` (msec)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`resume<PySide.QtCore.QTimeLine.resume>` ()
+*    def :meth:`setCurrentTime<PySide.QtCore.QTimeLine.setCurrentTime>` (msec)
+*    def :meth:`setPaused<PySide.QtCore.QTimeLine.setPaused>` (paused)
+*    def :meth:`start<PySide.QtCore.QTimeLine.start>` ()
+*    def :meth:`stop<PySide.QtCore.QTimeLine.stop>` ()
+*    def :meth:`toggleDirection<PySide.QtCore.QTimeLine.toggleDirection>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`finished<PySide.QtCore.QTimeLine.finished>` ()
+*    def :meth:`frameChanged<PySide.QtCore.QTimeLine.frameChanged>` (arg__1)
+*    def :meth:`stateChanged<PySide.QtCore.QTimeLine.stateChanged>` (newState)
+*    def :meth:`valueChanged<PySide.QtCore.QTimeLine.valueChanged>` (x)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QTimeLine` class provides a timeline for controlling animations.
+
+    It's most commonly used to animate a GUI control by calling a slot periodically. You can construct a timeline by passing its duration in milliseconds to :class:`PySide.QtCore.QTimeLine` 's constructor. The timeline's duration describes for how long the animation will run. Then you set a suitable frame range by calling :meth:`PySide.QtCore.QTimeLine.setFrameRange` . Finally connect the :meth:`PySide.QtCore.QTimeLine.frameChanged` signal to a suitable slot in the widget you wish to animate (e.g., :meth:`~PySide.QtCore.QTimeLine.setValue` in :class:`PySide.QtGui.QProgressBar` ). When you proceed to calling :meth:`PySide.QtCore.QTimeLine.start` , :class:`PySide.QtCore.QTimeLine` will enter Running state, and start emitting :meth:`PySide.QtCore.QTimeLine.frameChanged` at regular intervals, causing your widget's connected property's value to grow from the lower end to the upper and of your frame range, at a steady rate. You can specify the update interval by calling :meth:`PySide.QtCore.QTimeLine.setUpdateInterval` . When done, :class:`PySide.QtCore.QTimeLine` enters :attr:`NotRunning<QTimeLine.State>` state, and emits :meth:`PySide.QtCore.QTimeLine.finished` .
+
+    Example:
+
+    ::
+
+        ...
+        progressBar = QProgressBar(self)
+        progressBar.setRange(0, 100)
+
+        # Construct a 1-second timeline with a frame range of 0 - 100
+        timeLine = QTimeLine(1000, self)
+        timeLine.setFrameRange(0, 100)
+        timeLine.frameChanged[int].connect(progressBar.setValue)
+
+        # Clicking the push button will start the progress bar animation
+        pushButton = QPushButton(QObject.tr("Start animation"), self)
+        pushButton.clicked.connect(timeLine.start)
+        ...
+
+
+    You can also use :class:`PySide.QtCore.QTimeLine` with the :ref:`Graphics View framework<graphicsview.html>` for animations. The :class:`PySide.QtGui.QGraphicsItemAnimation` class implements animation of :class:`QGraphicsItems<PySide.QtGui.QGraphicsItem>` with a timeline.
+
+    By default the timeline runs once, from the beginning and towards the end, upon which you must call :meth:`PySide.QtCore.QTimeLine.start` again to restart from the beginning. To make the timeline loop, you can call :meth:`PySide.QtCore.QTimeLine.setLoopCount` , passing the number of times the timeline should run before finishing. The direction can also be changed, causing the timeline to run backward, by calling :meth:`PySide.QtCore.QTimeLine.setDirection` . You can also pause and unpause the timeline while it's running by calling :meth:`PySide.QtCore.QTimeLine.setPaused` . For interactive control, the :meth:`PySide.QtCore.QTimeLine.setCurrentTime` function is provided, which sets the time position of the time line directly. Although most useful in :attr:`NotRunning<QTimeLine.State>` state, (e.g., connected to a :meth:`PySide.QtCore.QTimeLine.valueChanged` signal in a :class:`PySide.QtGui.QSlider` ,) this function can be called at any time.
+
+    The frame interface is useful for standard widgets, but :class:`PySide.QtCore.QTimeLine` can be used to control any type of animation. The heart of :class:`PySide.QtCore.QTimeLine` lies in the :meth:`PySide.QtCore.QTimeLine.valueForTime` function, which generates a *value* between 0 and 1 for a given time. This value is typically used to describe the steps of an animation, where 0 is the first step of an animation, and 1 is the last step. When running, :class:`PySide.QtCore.QTimeLine` generates values between 0 and 1 by calling :meth:`PySide.QtCore.QTimeLine.valueForTime` and emitting :meth:`PySide.QtCore.QTimeLine.valueChanged` . By default, :meth:`PySide.QtCore.QTimeLine.valueForTime` applies an interpolation algorithm to generate these value. You can choose from a set of predefined timeline algorithms by calling :meth:`PySide.QtCore.QTimeLine.setCurveShape` .
+
+    Note that by default, :class:`PySide.QtCore.QTimeLine` uses the EaseInOut curve shape, which provides a value that grows slowly, then grows steadily, and finally grows slowly. For a custom timeline, you can reimplement :meth:`PySide.QtCore.QTimeLine.valueForTime` , in which case :class:`PySide.QtCore.QTimeLine` 's :meth:`PySide.QtCore.QTimeLine.curveShape` property is ignored.
+
+    .. seealso::  :class:`PySide.QtGui.QProgressBar`  :class:`PySide.QtGui.QProgressDialog`  :class:`PySide.QtGui.QGraphicsItemAnimation` 
+
+.. class:: QTimeLine([duration=1000[, parent=None]])
+
+    :param duration: :class:`PySide.QtCore.int`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a timeline with a duration of ``duration`` milliseconds. ``parent`` is passed to :class:`PySide.QtCore.QObject` 's constructor. The default duration is 1000 milliseconds.
+
+
+.. attribute:: PySide.QtCore.QTimeLine.Direction
+
+    This enum describes the direction of the timeline when in :attr:`Running<QTimeLine.State>` state.
+
+    +------------------+---------------------------------------------------------------------------------------------------------+
+    |Constant          |Description                                                                                              |
+    +==================+=========================================================================================================+
+    |QTimeLine.Forward |The current time of the timeline increases with time (i.e., moves from 0 and towards the end / duration).|
+    +------------------+---------------------------------------------------------------------------------------------------------+
+    |QTimeLine.Backward|The current time of the timeline decreases with time (i.e., moves from the end / duration and towards 0).|
+    +------------------+---------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.setDirection` 
+
+.. attribute:: PySide.QtCore.QTimeLine.CurveShape
+
+    This enum describes the default shape of :class:`PySide.QtCore.QTimeLine` 's value curve. The default, shape is :attr:`EaseInOutCurve<QTimeLine.CurveShape>` . The curve defines the relation between the value and the timeline.
+
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |Constant                |Description                                                                                  |
+    +========================+=============================================================================================+
+    |QTimeLine.EaseInCurve   |The value starts growing slowly, then increases in speed.                                    |
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |QTimeLine.EaseOutCurve  |The value starts growing steadily, then ends slowly.                                         |
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |QTimeLine.EaseInOutCurve|The value starts growing slowly, then runs steadily, then grows slowly again.                |
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |QTimeLine.LinearCurve   |The value grows linearly (e.g., if the duration is 1000 ms, the value at time 500 ms is 0.5).|
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |QTimeLine.SineCurve     |The value grows sinusoidally.                                                                |
+    +------------------------+---------------------------------------------------------------------------------------------+
+    |QTimeLine.CosineCurve   |The value grows cosinusoidally.                                                              |
+    +------------------------+---------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.setCurveShape` 
+
+.. attribute:: PySide.QtCore.QTimeLine.State
+
+    This enum describes the state of the timeline.
+
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant            |Description                                                                                                                                                                                                                                                                                                                                                                |
+    +====================+===========================================================================================================================================================================================================================================================================================================================================================================+
+    |QTimeLine.NotRunning|The timeline is not running. This is the initial state of :class:`PySide.QtCore.QTimeLine` , and the state :class:`PySide.QtCore.QTimeLine` reenters when finished. The current time, frame and value remain unchanged until either :meth:`PySide.QtCore.QTimeLine.setCurrentTime` is called, or the timeline is started by calling :meth:`PySide.QtCore.QTimeLine.start` .|
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTimeLine.Paused    |The timeline is paused (i.e., temporarily suspended). Calling setPaused(false) will resume timeline activity.                                                                                                                                                                                                                                                              |
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QTimeLine.Running   |The timeline is running. While control is in the event loop, :class:`PySide.QtCore.QTimeLine` will update its current time at regular intervals, emitting :meth:`PySide.QtCore.QTimeLine.valueChanged` and :meth:`PySide.QtCore.QTimeLine.frameChanged` when appropriate.                                                                                                  |
+    +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.state`  :meth:`PySide.QtCore.QTimeLine.stateChanged` 
+
+.. method:: PySide.QtCore.QTimeLine.currentFrame()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the frame corresponding to the current time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.currentTime`  :meth:`PySide.QtCore.QTimeLine.frameForTime`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.currentTime()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current time of the time line..
+
+    When :class:`PySide.QtCore.QTimeLine` is in Running state, this value is updated continuously as a function of the duration and direction of the timeline. Otherwise, it is value that was current when :meth:`PySide.QtCore.QTimeLine.stop` was called last, or the value set by :meth:`PySide.QtCore.QTimeLine.setCurrentTime` .
+
+    By default, this property contains a value of 0.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.currentValue()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the value corresponding to the current time.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.valueForTime`  :meth:`PySide.QtCore.QTimeLine.currentFrame` 
+
+
+.. method:: PySide.QtCore.QTimeLine.curveShape()
+
+
+    :rtype: :attr:`PySide.QtCore.QTimeLine.CurveShape`
+
+
+
+
+    This property holds the shape of the timeline curve..
+
+    The curve shape describes the relation between the time and value for the base implementation of :meth:`PySide.QtCore.QTimeLine.valueForTime` .
+
+    If you have reimplemented :meth:`PySide.QtCore.QTimeLine.valueForTime` , this value is ignored.
+
+    By default, this property is set to :attr:`EaseInOutCurve<QTimeLine.CurveShape>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.valueForTime` 
+
+
+.. method:: PySide.QtCore.QTimeLine.direction()
+
+
+    :rtype: :attr:`PySide.QtCore.QTimeLine.Direction`
+
+
+
+
+    This property holds the direction of the timeline when :class:`PySide.QtCore.QTimeLine` is in :attr:`Running<QTimeLine.State>` state..
+
+    This direction indicates whether the time moves from 0 towards the timeline duration, or from the value of the duration and towards 0 after :meth:`PySide.QtCore.QTimeLine.start` has been called.
+
+    By default, this property is set to :attr:`Forward<QTimeLine.Direction>` .
+
+
+
+.. method:: PySide.QtCore.QTimeLine.duration()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the total duration of the timeline in milliseconds..
+
+    By default, this value is 1000 (i.e., 1 second), but you can change this by either passing a duration to :class:`PySide.QtCore.QTimeLine` 's constructor, or by calling :meth:`PySide.QtCore.QTimeLine.setDuration` . The duration must be larger than 0.
+
+    .. note::  Changing the duration does not cause the current time to be reset to zero or the new duration. You also need to call :meth:`PySide.QtCore.QTimeLine.setCurrentTime` with the desired value.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.easingCurve()
+
+
+    :rtype: :class:`PySide.QtCore.QEasingCurve`
+
+
+
+
+    Specifies the easing curve that the timeline will use. If both easing curve and :meth:`PySide.QtCore.QTimeLine.curveShape` are set, the last set property will override the previous one. (If :meth:`PySide.QtCore.QTimeLine.valueForTime` is reimplemented it will override both)
+
+
+
+.. method:: PySide.QtCore.QTimeLine.endFrame()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the end frame, which is the frame corresponding to the end of the timeline (i.e., the frame for which the current value is 1).
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.setEndFrame`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.finished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTimeLine.frameChanged(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTimeLine.frameForTime(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the frame corresponding to the time ``msec`` . This value is calculated using a linear interpolation of the start and end frame, based on the value returned by :meth:`PySide.QtCore.QTimeLine.valueForTime` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.valueForTime`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.loopCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of times the timeline should loop before it's finished..
+
+    A loop count of of 0 means that the timeline will loop forever.
+
+    By default, this property contains a value of 1.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.resume()
+
+
+
+
+
+
+    Resumes the timeline from the current time. :class:`PySide.QtCore.QTimeLine` will reenter Running state, and once it enters the event loop, it will update its current time, frame and value at regular intervals.
+
+    In contrast to :meth:`PySide.QtCore.QTimeLine.start` , this function does not restart the timeline before it resumes.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.start`  :meth:`PySide.QtCore.QTimeLine.updateInterval`  :meth:`PySide.QtCore.QTimeLine.frameChanged`  :meth:`PySide.QtCore.QTimeLine.valueChanged` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setCurrentTime(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current time of the time line..
+
+    When :class:`PySide.QtCore.QTimeLine` is in Running state, this value is updated continuously as a function of the duration and direction of the timeline. Otherwise, it is value that was current when :meth:`PySide.QtCore.QTimeLine.stop` was called last, or the value set by :meth:`PySide.QtCore.QTimeLine.setCurrentTime` .
+
+    By default, this property contains a value of 0.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.setCurveShape(shape)
+
+
+    :param shape: :attr:`PySide.QtCore.QTimeLine.CurveShape`
+
+
+
+
+    This property holds the shape of the timeline curve..
+
+    The curve shape describes the relation between the time and value for the base implementation of :meth:`PySide.QtCore.QTimeLine.valueForTime` .
+
+    If you have reimplemented :meth:`PySide.QtCore.QTimeLine.valueForTime` , this value is ignored.
+
+    By default, this property is set to :attr:`EaseInOutCurve<QTimeLine.CurveShape>` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.valueForTime` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setDirection(direction)
+
+
+    :param direction: :attr:`PySide.QtCore.QTimeLine.Direction`
+
+
+
+
+    This property holds the direction of the timeline when :class:`PySide.QtCore.QTimeLine` is in :attr:`Running<QTimeLine.State>` state..
+
+    This direction indicates whether the time moves from 0 towards the timeline duration, or from the value of the duration and towards 0 after :meth:`PySide.QtCore.QTimeLine.start` has been called.
+
+    By default, this property is set to :attr:`Forward<QTimeLine.Direction>` .
+
+
+
+.. method:: PySide.QtCore.QTimeLine.setDuration(duration)
+
+
+    :param duration: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the total duration of the timeline in milliseconds..
+
+    By default, this value is 1000 (i.e., 1 second), but you can change this by either passing a duration to :class:`PySide.QtCore.QTimeLine` 's constructor, or by calling :meth:`PySide.QtCore.QTimeLine.setDuration` . The duration must be larger than 0.
+
+    .. note::  Changing the duration does not cause the current time to be reset to zero or the new duration. You also need to call :meth:`PySide.QtCore.QTimeLine.setCurrentTime` with the desired value.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.setEasingCurve(curve)
+
+
+    :param curve: :class:`PySide.QtCore.QEasingCurve`
+
+
+
+
+    Specifies the easing curve that the timeline will use. If both easing curve and :meth:`PySide.QtCore.QTimeLine.curveShape` are set, the last set property will override the previous one. (If :meth:`PySide.QtCore.QTimeLine.valueForTime` is reimplemented it will override both)
+
+
+
+.. method:: PySide.QtCore.QTimeLine.setEndFrame(frame)
+
+
+    :param frame: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the end frame, which is the frame corresponding to the end of the timeline (i.e., the frame for which the current value is 1), to ``frame`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.endFrame`  :meth:`PySide.QtCore.QTimeLine.startFrame`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setFrameRange(startFrame, endFrame)
+
+
+    :param startFrame: :class:`PySide.QtCore.int`
+    :param endFrame: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the timeline's frame counter to start at ``startFrame`` , and end and ``endFrame`` . For each time value, :class:`PySide.QtCore.QTimeLine` will find the corresponding frame when you call :meth:`PySide.QtCore.QTimeLine.currentFrame` or :meth:`PySide.QtCore.QTimeLine.frameForTime` by interpolating, using the return value of :meth:`PySide.QtCore.QTimeLine.valueForTime` .
+
+    When in Running state, :class:`PySide.QtCore.QTimeLine` also emits the :meth:`PySide.QtCore.QTimeLine.frameChanged` signal when the frame changes.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.startFrame`  :meth:`PySide.QtCore.QTimeLine.endFrame`  :meth:`PySide.QtCore.QTimeLine.start`  :meth:`PySide.QtCore.QTimeLine.currentFrame` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setLoopCount(count)
+
+
+    :param count: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the number of times the timeline should loop before it's finished..
+
+    A loop count of of 0 means that the timeline will loop forever.
+
+    By default, this property contains a value of 1.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.setPaused(paused)
+
+
+    :param paused: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``paused`` is true, the timeline is paused, causing :class:`PySide.QtCore.QTimeLine` to enter Paused state. No updates will be signaled until either :meth:`PySide.QtCore.QTimeLine.start` or setPaused(false) is called. If ``paused`` is false, the timeline is resumed and continues where it left.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.state`  :meth:`PySide.QtCore.QTimeLine.start` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setStartFrame(frame)
+
+
+    :param frame: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the start frame, which is the frame corresponding to the start of the timeline (i.e., the frame for which the current value is 0), to ``frame`` .
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.startFrame`  :meth:`PySide.QtCore.QTimeLine.endFrame`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.setUpdateInterval(interval)
+
+
+    :param interval: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the time in milliseconds between each time :class:`PySide.QtCore.QTimeLine` updates its current time..
+
+    When updating the current time, :class:`PySide.QtCore.QTimeLine` will emit :meth:`PySide.QtCore.QTimeLine.valueChanged` if the current value changed, and :meth:`PySide.QtCore.QTimeLine.frameChanged` if the frame changed.
+
+    By default, the interval is 40 ms, which corresponds to a rate of 25 updates per second.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.start()
+
+
+
+
+
+
+    Starts the timeline. :class:`PySide.QtCore.QTimeLine` will enter Running state, and once it enters the event loop, it will update its current time, frame and value at regular intervals. The default interval is 40 ms (i.e., 25 times per second). You can change the update interval by calling :meth:`PySide.QtCore.QTimeLine.setUpdateInterval` .
+
+    The timeline will start from position 0, or the end if going backward. If you want to resume a stopped timeline without restarting, you can call :meth:`PySide.QtCore.QTimeLine.resume` instead.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.resume`  :meth:`PySide.QtCore.QTimeLine.updateInterval`  :meth:`PySide.QtCore.QTimeLine.frameChanged`  :meth:`PySide.QtCore.QTimeLine.valueChanged` 
+
+
+.. method:: PySide.QtCore.QTimeLine.startFrame()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the start frame, which is the frame corresponding to the start of the timeline (i.e., the frame for which the current value is 0).
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.setStartFrame`  :meth:`PySide.QtCore.QTimeLine.setFrameRange` 
+
+
+.. method:: PySide.QtCore.QTimeLine.state()
+
+
+    :rtype: :attr:`PySide.QtCore.QTimeLine.State`
+
+
+
+
+    Returns the state of the timeline.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.start`  :meth:`PySide.QtCore.QTimeLine.setPaused`  :meth:`PySide.QtCore.QTimeLine.stop` 
+
+
+.. method:: PySide.QtCore.QTimeLine.stateChanged(newState)
+
+
+    :param newState: :attr:`PySide.QtCore.QTimeLine.State`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTimeLine.stop()
+
+
+
+
+
+
+    Stops the timeline, causing :class:`PySide.QtCore.QTimeLine` to enter :attr:`NotRunning<QTimeLine.State>` state.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.start` 
+
+
+.. method:: PySide.QtCore.QTimeLine.toggleDirection()
+
+
+
+
+
+
+    Toggles the direction of the timeline. If the direction was Forward, it becomes Backward, and vice verca.
+
+    .. seealso::  :meth:`PySide.QtCore.QTimeLine.setDirection` 
+
+
+.. method:: PySide.QtCore.QTimeLine.updateInterval()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the time in milliseconds between each time :class:`PySide.QtCore.QTimeLine` updates its current time..
+
+    When updating the current time, :class:`PySide.QtCore.QTimeLine` will emit :meth:`PySide.QtCore.QTimeLine.valueChanged` if the current value changed, and :meth:`PySide.QtCore.QTimeLine.frameChanged` if the frame changed.
+
+    By default, the interval is 40 ms, which corresponds to a rate of 25 updates per second.
+
+
+
+.. method:: PySide.QtCore.QTimeLine.valueChanged(x)
+
+
+    :param x: :class:`PySide.QtCore.qreal`
+
+
+
+
+
+
+.. method:: PySide.QtCore.QTimeLine.valueForTime(msec)
+
+
+    :param msec: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the timeline value for the time ``msec`` . The returned value, which varies depending on the curve shape, is always between 0 and 1. If ``msec`` is 0, the default implementation always returns 0.
+
+    Reimplement this function to provide a custom curve shape for your timeline.
+
+    .. seealso::  :attr:`QTimeLine.CurveShape`  :meth:`PySide.QtCore.QTimeLine.frameForTime` 
+
+
+

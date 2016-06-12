@@ -1,0 +1,366 @@
+.. module:: PySide.QtGui
+.. _QUndoGroup:
+
+QUndoGroup
+**********
+
+.. inheritance-diagram:: QUndoGroup
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeStack<PySide.QtGui.QUndoGroup.activeStack>` ()
+*    def :meth:`addStack<PySide.QtGui.QUndoGroup.addStack>` (stack)
+*    def :meth:`canRedo<PySide.QtGui.QUndoGroup.canRedo>` ()
+*    def :meth:`canUndo<PySide.QtGui.QUndoGroup.canUndo>` ()
+*    def :meth:`createRedoAction<PySide.QtGui.QUndoGroup.createRedoAction>` (parent[, prefix=""])
+*    def :meth:`createUndoAction<PySide.QtGui.QUndoGroup.createUndoAction>` (parent[, prefix=""])
+*    def :meth:`isClean<PySide.QtGui.QUndoGroup.isClean>` ()
+*    def :meth:`redoText<PySide.QtGui.QUndoGroup.redoText>` ()
+*    def :meth:`removeStack<PySide.QtGui.QUndoGroup.removeStack>` (stack)
+*    def :meth:`stacks<PySide.QtGui.QUndoGroup.stacks>` ()
+*    def :meth:`undoText<PySide.QtGui.QUndoGroup.undoText>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`redo<PySide.QtGui.QUndoGroup.redo>` ()
+*    def :meth:`setActiveStack<PySide.QtGui.QUndoGroup.setActiveStack>` (stack)
+*    def :meth:`undo<PySide.QtGui.QUndoGroup.undo>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeStackChanged<PySide.QtGui.QUndoGroup.activeStackChanged>` (stack)
+*    def :meth:`canRedoChanged<PySide.QtGui.QUndoGroup.canRedoChanged>` (canRedo)
+*    def :meth:`canUndoChanged<PySide.QtGui.QUndoGroup.canUndoChanged>` (canUndo)
+*    def :meth:`cleanChanged<PySide.QtGui.QUndoGroup.cleanChanged>` (clean)
+*    def :meth:`indexChanged<PySide.QtGui.QUndoGroup.indexChanged>` (idx)
+*    def :meth:`redoTextChanged<PySide.QtGui.QUndoGroup.redoTextChanged>` (redoText)
+*    def :meth:`undoTextChanged<PySide.QtGui.QUndoGroup.undoTextChanged>` (undoText)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QUndoGroup` class is a group of :class:`PySide.QtGui.QUndoStack` objects.
+
+    For an overview of the Qt's undo framework, see the :ref:`overview<qundo.html>` .
+
+    An application often has multiple undo stacks, one for each opened document. At the same time, an application usually has one undo action and one redo action, which triggers undo or redo in the active document.
+
+    :class:`PySide.QtGui.QUndoGroup` is a group of :class:`PySide.QtGui.QUndoStack` objects, one of which may be active. It has an :meth:`PySide.QtGui.QUndoGroup.undo` and :meth:`PySide.QtGui.QUndoGroup.redo` slot, which calls :meth:`QUndoStack.undo()<PySide.QtGui.QUndoStack.undo>` and :meth:`QUndoStack.redo()<PySide.QtGui.QUndoStack.redo>` for the active stack. It also has the functions :meth:`PySide.QtGui.QUndoGroup.createUndoAction` and :meth:`PySide.QtGui.QUndoGroup.createRedoAction` . The actions returned by these functions behave in the same way as those returned by :meth:`QUndoStack.createUndoAction()<PySide.QtGui.QUndoStack.createUndoAction>` and :meth:`QUndoStack.createRedoAction()<PySide.QtGui.QUndoStack.createRedoAction>` of the active stack.
+
+    Stacks are added to a group with :meth:`PySide.QtGui.QUndoGroup.addStack` and removed with :meth:`PySide.QtGui.QUndoGroup.removeStack` . A stack is implicitly added to a group when it is created with the group as its parent :class:`PySide.QtCore.QObject` .
+
+    It is the programmer's responsibility to specify which stack is active by calling :meth:`QUndoStack.setActive()<PySide.QtGui.QUndoStack.setActive>` , usually when the associated document window receives focus. The active stack may also be set with :meth:`PySide.QtGui.QUndoGroup.setActiveStack` , and is returned by :meth:`PySide.QtGui.QUndoGroup.activeStack` .
+
+    When a stack is added to a group using :meth:`PySide.QtGui.QUndoGroup.addStack` , the group does not take ownership of the stack. This means the stack has to be deleted separately from the group. When a stack is deleted, it is automatically removed from a group. A stack may belong to only one group. Adding it to another group will cause it to be removed from the previous group.
+
+    A :class:`PySide.QtGui.QUndoGroup` is also useful in conjunction with :class:`PySide.QtGui.QUndoView` . If a :class:`PySide.QtGui.QUndoView` is set to watch a group using :meth:`QUndoView.setGroup()<PySide.QtGui.QUndoView.setGroup>` , it will update itself to display the active stack.
+
+
+.. class:: QUndoGroup([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Creates an empty :class:`PySide.QtGui.QUndoGroup` object with parent ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.addStack` 
+
+.. method:: PySide.QtGui.QUndoGroup.activeStack()
+
+
+    :rtype: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Returns the active stack of this group.
+
+    If none of the stacks are active, or if the group is empty, this function returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.setActiveStack`  :meth:`QUndoStack.setActive()<PySide.QtGui.QUndoStack.setActive>` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.activeStackChanged(stack)
+
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.addStack(stack)
+
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Adds ``stack`` to this group. The group does not take ownership of the stack. Another way of adding a stack to a group is by specifying the group as the stack's parent :class:`PySide.QtCore.QObject` in :meth:`QUndoStack.QUndoStack()<PySide.QtGui.QUndoStack.QUndoStack>` . In this case, the stack is deleted when the group is deleted, in the usual manner of :ref:`QObjects<qtwebkit-bridge.html>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.removeStack`  :meth:`PySide.QtGui.QUndoGroup.stacks`  :meth:`QUndoStack.QUndoStack()<PySide.QtGui.QUndoStack.QUndoStack>` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.canRedo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the value of the active stack's :meth:`QUndoStack.canRedo()<PySide.QtGui.QUndoStack.canRedo>` .
+
+    If none of the stacks are active, or if the group is empty, this function returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.canUndo`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.canRedoChanged(canRedo)
+
+
+    :param canRedo: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.canUndo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the value of the active stack's :meth:`QUndoStack.canUndo()<PySide.QtGui.QUndoStack.canUndo>` .
+
+    If none of the stacks are active, or if the group is empty, this function returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.canRedo`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.canUndoChanged(canUndo)
+
+
+    :param canUndo: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.cleanChanged(clean)
+
+
+    :param clean: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.createRedoAction(parent[, prefix=""])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates an redo :class:`PySide.QtGui.QAction` object with parent ``parent`` .
+
+    Triggering this action will cause a call to :meth:`QUndoStack.redo()<PySide.QtGui.QUndoStack.redo>` on the active stack. The text of this action will always be the text of the command which will be redone in the next call to :meth:`PySide.QtGui.QUndoGroup.redo` , prefixed by ``prefix`` . If there is no command available for redo, if the group is empty or if none of the stacks are active, this action will be disabled.
+
+    If ``prefix`` is empty, the default template "Redo %1" is used instead of prefix. Before Qt 4.8, the prefix "Redo" was used by default.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.createUndoAction`  :meth:`PySide.QtGui.QUndoGroup.canRedo`  :meth:`QUndoCommand.text()<PySide.QtGui.QUndoCommand.text>` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.createUndoAction(parent[, prefix=""])
+
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param prefix: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Creates an undo :class:`PySide.QtGui.QAction` object with parent ``parent`` .
+
+    Triggering this action will cause a call to :meth:`QUndoStack.undo()<PySide.QtGui.QUndoStack.undo>` on the active stack. The text of this action will always be the text of the command which will be undone in the next call to :meth:`PySide.QtGui.QUndoGroup.undo` , prefixed by ``prefix`` . If there is no command available for undo, if the group is empty or if none of the stacks are active, this action will be disabled.
+
+    If ``prefix`` is empty, the default template "Undo %1" is used instead of prefix. Before Qt 4.8, the prefix "Undo" was used by default.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.createRedoAction`  :meth:`PySide.QtGui.QUndoGroup.canUndo`  :meth:`QUndoCommand.text()<PySide.QtGui.QUndoCommand.text>` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.indexChanged(idx)
+
+
+    :param idx: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.isClean()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns the value of the active stack's :meth:`QUndoStack.isClean()<PySide.QtGui.QUndoStack.isClean>` .
+
+    If none of the stacks are active, or if the group is empty, this function returns true.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.redo()
+
+
+
+
+
+
+    Calls :meth:`QUndoStack.redo()<PySide.QtGui.QUndoStack.redo>` on the active stack.
+
+    If none of the stacks are active, or if the group is empty, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.undo`  :meth:`PySide.QtGui.QUndoGroup.canRedo`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.redoText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the value of the active stack's :meth:`QUndoStack.redoText()<PySide.QtGui.QUndoStack.redoText>` .
+
+    If none of the stacks are active, or if the group is empty, this function returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.undoText`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.redoTextChanged(redoText)
+
+
+    :param redoText: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QUndoGroup.removeStack(stack)
+
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Removes ``stack`` from this group. If the stack was the active stack in the group, the active stack becomes 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.addStack`  :meth:`PySide.QtGui.QUndoGroup.stacks`  :meth:`QUndoStack.~QUndoStack()<PySide.QtGui.QUndoStack.~QUndoStack>` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.setActiveStack(stack)
+
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Sets the active stack of this group to ``stack`` .
+
+    If the stack is not a member of this group, this function does nothing.
+
+    Synonymous with calling :meth:`QUndoStack.setActive()<PySide.QtGui.QUndoStack.setActive>` on ``stack`` .
+
+    The actions returned by :meth:`PySide.QtGui.QUndoGroup.createUndoAction` and :meth:`PySide.QtGui.QUndoGroup.createRedoAction` will now behave in the same way as those returned by ``stack`` 's :meth:`QUndoStack.createUndoAction()<PySide.QtGui.QUndoStack.createUndoAction>` and :meth:`QUndoStack.createRedoAction()<PySide.QtGui.QUndoStack.createRedoAction>` .
+
+    .. seealso::  :meth:`QUndoStack.setActive()<PySide.QtGui.QUndoStack.setActive>`  :meth:`PySide.QtGui.QUndoGroup.activeStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.stacks()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of stacks in this group.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.addStack`  :meth:`PySide.QtGui.QUndoGroup.removeStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.undo()
+
+
+
+
+
+
+    Calls :meth:`QUndoStack.undo()<PySide.QtGui.QUndoStack.undo>` on the active stack.
+
+    If none of the stacks are active, or if the group is empty, this function does nothing.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.redo`  :meth:`PySide.QtGui.QUndoGroup.canUndo`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.undoText()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the value of the active stack's :meth:`QUndoStack.undoText()<PySide.QtGui.QUndoStack.undoText>` .
+
+    If none of the stacks are active, or if the group is empty, this function returns an empty string.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoGroup.redoText`  :meth:`PySide.QtGui.QUndoGroup.setActiveStack` 
+
+
+.. method:: PySide.QtGui.QUndoGroup.undoTextChanged(undoText)
+
+
+    :param undoText: unicode
+
+
+
+
+
+
+

@@ -1,0 +1,370 @@
+.. module:: PySide.QtGui
+.. _QDialog:
+
+QDialog
+*******
+
+.. inheritance-diagram:: QDialog
+    :parts: 2
+
+**Inherited by:** :ref:`QAbstractPrintDialog`, :ref:`QPrintDialog`, :ref:`QAbstractPageSetupDialog`, :ref:`QPageSetupDialog`, :ref:`QFileDialog`, :ref:`QWizard`, :ref:`QProgressDialog`, :ref:`QPrintPreviewDialog`, :ref:`QFontDialog`, :ref:`QMessageBox`, :ref:`QInputDialog`, :ref:`QErrorMessage`, :ref:`QColorDialog`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`adjustPosition<PySide.QtGui.QDialog.adjustPosition>` (arg__1)
+*    def :meth:`isSizeGripEnabled<PySide.QtGui.QDialog.isSizeGripEnabled>` ()
+*    def :meth:`result<PySide.QtGui.QDialog.result>` ()
+*    def :meth:`setModal<PySide.QtGui.QDialog.setModal>` (modal)
+*    def :meth:`setResult<PySide.QtGui.QDialog.setResult>` (r)
+*    def :meth:`setSizeGripEnabled<PySide.QtGui.QDialog.setSizeGripEnabled>` (arg__1)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accept<PySide.QtGui.QDialog.accept>` ()
+*    def :meth:`done<PySide.QtGui.QDialog.done>` (arg__1)
+*    def :meth:`reject<PySide.QtGui.QDialog.reject>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`exec_<PySide.QtGui.QDialog.exec_>` ()
+*    def :meth:`open<PySide.QtGui.QDialog.open>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accepted<PySide.QtGui.QDialog.accepted>` ()
+*    def :meth:`finished<PySide.QtGui.QDialog.finished>` (result)
+*    def :meth:`rejected<PySide.QtGui.QDialog.rejected>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDialog` class is the base class of dialog windows.
+
+    A dialog window is a top-level window mostly used for short-term tasks and brief communications with the user. QDialogs may be modal or modeless. QDialogs can provide a :class:`return value<~PySide.QtGui.#return>` , and they can have :class:`default buttons<~PySide.QtGui.#default>` . QDialogs can also have a :class:`PySide.QtGui.QSizeGrip` in their lower-right corner, using :meth:`PySide.QtGui.QDialog.setSizeGripEnabled` .
+
+    Note that :class:`PySide.QtGui.QDialog` (and any other widget that has type ``Qt::Dialog`` ) uses the parent widget slightly differently from other classes in Qt. A dialog is always a top-level widget, but if it has a parent, its default location is centered on top of the parent's top-level widget (if it is not top-level itself). It will also share the parent's taskbar entry.
+
+    Use the overload of the :meth:`QWidget.setParent()<PySide.QtGui.QWidget.setParent>` function to change the ownership of a :class:`PySide.QtGui.QDialog` widget. This function allows you to explicitly set the window flags of the reparented widget; using the overloaded function will clear the window flags specifying the window-system properties for the widget (in particular it will reset the :attr:`Qt.Dialog<Qt.WindowType>` flag).
+
+    .. _PySide.QtGui.QDialog_modal-dialogs:
+
+
+
+Modal Dialogs
+^^^^^^^^^^^^^
+
+    A **modal** dialog is a dialog that blocks input to other visible windows in the same application. Dialogs that are used to request a file name from the user or that are used to set application preferences are usually modal. Dialogs can be :attr:`application modal<Qt.WindowModality>` (the default) or :attr:`window modal<Qt.WindowModality>` .
+
+    When an application modal dialog is opened, the user must finish interacting with the dialog and close it before they can access any other window in the application. Window modal dialogs only block access to the window associated with the dialog, allowing the user to continue to use other windows in an application.
+
+    The most common way to display a modal dialog is to call its :meth:`~PySide.QtGui.QDialog.exec` function. When the user closes the dialog, :meth:`~PySide.QtGui.QDialog.exec` will provide a useful :class:`return value<~PySide.QtGui.#return>` . Typically, to get the dialog to close and return the appropriate value, we connect a default button, e.g. **OK** , to the :meth:`PySide.QtGui.QDialog.accept` slot and a **Cancel** button to the :meth:`PySide.QtGui.QDialog.reject` slot. Alternatively you can call the :meth:`PySide.QtGui.QDialog.done` slot with ``Accepted`` or ``Rejected`` .
+
+    An alternative is to call setModal(true) or :meth:`PySide.QtGui.QWidget.setWindowModality` , then :meth:`PySide.QtGui.QWidget.show` . Unlike :meth:`~PySide.QtGui.QDialog.exec` , :meth:`PySide.QtGui.QWidget.show` returns control to the caller immediately. Calling setModal(true) is especially useful for progress dialogs, where the user must have the ability to interact with the dialog, e.g. to cancel a long running operation. If you use :meth:`PySide.QtGui.QWidget.show` and setModal(true) together to perform a long operation, you must call :meth:`QApplication.processEvents()<PySide.QtGui.QApplication.processEvents>` periodically during processing to enable the user to interact with the dialog. (See :class:`PySide.QtGui.QProgressDialog` .)
+
+    .. _PySide.QtGui.QDialog_modeless-dialogs:
+
+
+
+Modeless Dialogs
+^^^^^^^^^^^^^^^^
+
+    A **modeless** dialog is a dialog that operates independently of other windows in the same application. Find and replace dialogs in word-processors are often modeless to allow the user to interact with both the application's main window and with the dialog.
+
+    Modeless dialogs are displayed using :meth:`PySide.QtGui.QWidget.show` , which returns control to the caller immediately.
+
+    If you invoke the :meth:`PySide.QtGui.QWidget.show` function after hiding a dialog, the dialog will be displayed in its original position. This is because the window manager decides the position for windows that have not been explicitly placed by the programmer. To preserve the position of a dialog that has been moved by the user, save its position in your :meth:`PySide.QtGui.QWidget.closeEvent` handler and then move the dialog to that position, before showing it again.
+
+    .. _PySide.QtGui.QDialog_default-button:
+
+
+
+Default Button
+^^^^^^^^^^^^^^
+
+    A dialog's *default* button is the button that's pressed when the user presses Enter (Return). This button is used to signify that the user accepts the dialog's settings and wants to close the dialog. Use :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` , :meth:`QPushButton.isDefault()<PySide.QtGui.QPushButton.isDefault>` and :meth:`QPushButton.autoDefault()<PySide.QtGui.QPushButton.autoDefault>` to set and control the dialog's default button.
+
+    .. _PySide.QtGui.QDialog_escape-key:
+
+
+
+Escape Key
+^^^^^^^^^^
+
+    If the user presses the Esc key in a dialog, :meth:`QDialog.reject()<PySide.QtGui.QDialog.reject>` will be called. This will cause the window to close: The :class:`close event<PySide.QtGui.QCloseEvent>` cannot be :meth:`ignored<PySide.QtGui.QCloseEvent.ignore>` .
+
+    .. _PySide.QtGui.QDialog_extensibility:
+
+
+
+Extensibility
+^^^^^^^^^^^^^
+
+    Extensibility is the ability to show the dialog in two ways: a partial dialog that shows the most commonly used options, and a full dialog that shows all the options. Typically an extensible dialog will initially appear as a partial dialog, but with a **More** toggle button. If the user presses the **More** button down, the dialog is expanded. The :ref:`Extension Example<dialogs/extension>` shows how to achieve extensible dialogs using Qt.
+
+    .. _PySide.QtGui.QDialog_return-value-modal-dialogs:
+
+
+
+Return Value (Modal Dialogs)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Modal dialogs are often used in situations where a return value is required, e.g. to indicate whether the user pressed **OK** or **Cancel** . A dialog can be closed by calling the :meth:`PySide.QtGui.QDialog.accept` or the :meth:`PySide.QtGui.QDialog.reject` slots, and :meth:`~PySide.QtGui.QDialog.exec` will return ``Accepted`` or ``Rejected`` as appropriate. The :meth:`~PySide.QtGui.QDialog.exec` call returns the result of the dialog. The result is also available from :meth:`PySide.QtGui.QDialog.result` if the dialog has not been destroyed.
+
+    In order to modify your dialog's close behavior, you can reimplement the functions :meth:`PySide.QtGui.QDialog.accept` , :meth:`PySide.QtGui.QDialog.reject` or :meth:`PySide.QtGui.QDialog.done` . The :meth:`PySide.QtGui.QWidget.closeEvent` function should only be reimplemented to preserve the dialog's position or to override the standard close or reject behavior.
+
+    .. _PySide.QtGui.QDialog_code-examples:
+
+
+
+Code Examples
+^^^^^^^^^^^^^
+
+    A modal dialog:
+
+    ::
+
+        def countWords(self):
+            dialog = WordCountDialog(self)
+            dialog.setWordCount(document().wordCount())
+            dialog.exec_()
+
+
+
+    A modeless dialog:
+
+    ::
+
+        def find(self)
+
+            if !self.findDialog:
+                self.findDialog = FindDialog(self)
+                connect(findDialog, SIGNAL("findNext()"), self, SLOT("findNext()"))
+
+
+            self.findDialog.show()
+            self.findDialog.raise()
+            self.findDialog.activateWindow()
+
+
+
+    .. seealso::  :class:`PySide.QtGui.QDialogButtonBox`  :class:`PySide.QtGui.QTabWidget`  :class:`PySide.QtGui.QWidget`  :class:`PySide.QtGui.QProgressDialog`  :ref:`GUI Design Handbook: Dialogs, Standard<guibooks.html>`  :ref:`Extension Example<dialogs/extension>`  :ref:`Standard Dialogs Example<dialogs/standarddialogs>` 
+
+.. class:: QDialog([parent=None[, f=0]])
+
+    :param f: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+.. attribute:: PySide.QtGui.QDialog.DialogCode
+
+    The value returned by a modal dialog.
+
+    +----------------+-----------+
+    |Constant        |Description|
+    +================+===========+
+    |QDialog.Accepted|           |
+    +----------------+-----------+
+    |QDialog.Rejected|           |
+    +----------------+-----------+
+
+
+.. method:: PySide.QtGui.QDialog.accept()
+
+
+
+
+
+
+    Hides the modal dialog and sets the result code to ``Accepted`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.reject`  :meth:`PySide.QtGui.QDialog.done` 
+
+
+.. method:: PySide.QtGui.QDialog.accepted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialog.adjustPosition(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialog.done(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    Closes the dialog and sets its result code to ``r`` . If this dialog is shown with :meth:`~PySide.QtGui.QDialog.exec` , :meth:`PySide.QtGui.QDialog.done` causes the local event loop to finish, and :meth:`~PySide.QtGui.QDialog.exec` to return ``r`` .
+
+    As with :meth:`QWidget.close()<PySide.QtGui.QWidget.close>` , :meth:`PySide.QtGui.QDialog.done` deletes the dialog if the :attr:`Qt.WA_DeleteOnClose<Qt.WidgetAttribute>` flag is set. If the dialog is the application's main widget, the application terminates. If the dialog is the last window closed, the :meth:`QApplication.lastWindowClosed()<PySide.QtGui.QApplication.lastWindowClosed>` signal is emitted.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.accept`  :meth:`PySide.QtGui.QDialog.reject`  :meth:`QApplication.activeWindow()<PySide.QtGui.QApplication.activeWindow>`  :meth:`QApplication.quit()<PySide.QtGui.QApplication.quit>` 
+
+
+.. method:: PySide.QtGui.QDialog.exec_()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Shows the dialog as a :class:`modal dialog<~PySide.QtGui.QDialog#Modal Dialogs>` , blocking until the user closes it. The function returns a :attr:`QDialog.DialogCode` result.
+
+    If the dialog is :attr:`application modal<Qt.WindowModality>` , users cannot interact with any other window in the same application until they close the dialog. If the dialog is :attr:`window modal<Qt.WindowModality>` , only interaction with the parent window is blocked while the dialog is open. By default, the dialog is application modal.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.open`  :meth:`PySide.QtGui.QWidget.show`  :meth:`PySide.QtGui.QDialog.result`  :meth:`PySide.QtGui.QWidget.setWindowModality` 
+
+
+.. method:: PySide.QtGui.QDialog.finished(result)
+
+
+    :param result: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialog.isSizeGripEnabled()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the size grip is enabled.
+
+    A :class:`PySide.QtGui.QSizeGrip` is placed in the bottom-right corner of the dialog when this property is enabled. By default, the size grip is disabled.
+
+
+
+.. method:: PySide.QtGui.QDialog.open()
+
+
+
+
+
+
+    Shows the dialog as a :class:`window modal dialog<~PySide.QtGui.QDialog#Modal Dialogs>` , returning immediately.
+
+    .. seealso::  :meth:`~PySide.QtGui.QDialog.exec`  :meth:`PySide.QtGui.QWidget.show`  :meth:`PySide.QtGui.QDialog.result`  :meth:`PySide.QtGui.QWidget.setWindowModality` 
+
+
+.. method:: PySide.QtGui.QDialog.reject()
+
+
+
+
+
+
+    Hides the modal dialog and sets the result code to ``Rejected`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.accept`  :meth:`PySide.QtGui.QDialog.done` 
+
+
+.. method:: PySide.QtGui.QDialog.rejected()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialog.result()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    In general returns the modal dialog's result code, ``Accepted`` or ``Rejected`` .
+
+    .. note::  When used from :class:`PySide.QtGui.QMessageBox` instance the result code type is :attr:`QMessageBox.StandardButton`
+
+    Do not call this function if the dialog was constructed with the :attr:`Qt.WA_DeleteOnClose<Qt.WidgetAttribute>` attribute.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.setResult` 
+
+
+.. method:: PySide.QtGui.QDialog.setModal(modal)
+
+
+    :param modal: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether :meth:`PySide.QtGui.QWidget.show` should pop up the dialog as modal or modeless.
+
+    By default, this property is false and :meth:`PySide.QtGui.QWidget.show` pops up the dialog as modeless. Setting his property to true is equivalent to setting :meth:`QWidget.windowModality<PySide.QtGui.QWidget.windowModality>` to :attr:`Qt.ApplicationModal<Qt.WindowModality>` .
+
+    :meth:`~PySide.QtGui.QDialog.exec` ignores the value of this property and always pops up the dialog as modal.
+
+    .. seealso::  :meth:`QWidget.windowModality<PySide.QtGui.QWidget.windowModality>`  :meth:`PySide.QtGui.QWidget.show`  :meth:`~PySide.QtGui.QDialog.exec` 
+
+
+.. method:: PySide.QtGui.QDialog.setResult(r)
+
+
+    :param r: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the modal dialog's result code to ``i`` .
+
+    .. note::  We recommend that you use one of the values defined by :attr:`QDialog.DialogCode` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDialog.result` 
+
+
+.. method:: PySide.QtGui.QDialog.setSizeGripEnabled(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the size grip is enabled.
+
+    A :class:`PySide.QtGui.QSizeGrip` is placed in the bottom-right corner of the dialog when this property is enabled. By default, the size grip is disabled.
+
+
+
+

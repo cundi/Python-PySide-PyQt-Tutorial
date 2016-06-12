@@ -1,0 +1,168 @@
+.. module:: PySide.QtCore
+.. _QSemaphore:
+
+QSemaphore
+**********
+
+.. inheritance-diagram:: QSemaphore
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`acquire<PySide.QtCore.QSemaphore.acquire>` ([n=1])
+*    def :meth:`available<PySide.QtCore.QSemaphore.available>` ()
+*    def :meth:`release<PySide.QtCore.QSemaphore.release>` ([n=1])
+*    def :meth:`tryAcquire<PySide.QtCore.QSemaphore.tryAcquire>` ([n=1])
+*    def :meth:`tryAcquire<PySide.QtCore.QSemaphore.tryAcquire>` (n, timeout)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QSemaphore` class provides a general counting semaphore.
+
+    A semaphore is a generalization of a mutex. While a mutex can only be locked once, it's possible to acquire a semaphore multiple times. Semaphores are typically used to protect a certain number of identical resources.
+
+    Semaphores support two fundamental operations, :meth:`PySide.QtCore.QSemaphore.acquire` and :meth:`PySide.QtCore.QSemaphore.release` :
+
+
+    * acquire(*n*) tries to acquire *n* resources. If there aren't that many resources available, the call will block until this is the case.
+    * release(*n*) releases *n* resources.
+
+    There's also a :meth:`PySide.QtCore.QSemaphore.tryAcquire` function that returns immediately if it cannot acquire the resources, and an :meth:`PySide.QtCore.QSemaphore.available` function that returns the number of available resources at any time.
+
+    Example:
+
+    ::
+
+        sem = QSemaphore(5)      # sem.available() == 5
+
+        sem.acquire(3)           # sem.available() == 2
+        sem.acquire(2)           # sem.available() == 0
+        sem.release(5)           # sem.available() == 5
+        sem.release(5)           # sem.available() == 10
+
+        sem.tryAcquire(1)        # sem.available() == 9, returns true
+        sem.tryAcquire(250)      # sem.available() == 9, returns false
+
+
+    A typical application of semaphores is for controlling access to a circular buffer shared by a producer thread and a consumer thread. The :ref:`Semaphores<threads/semaphores>` example shows how to use :class:`PySide.QtCore.QSemaphore` to solve that problem.
+
+    A non-computing example of a semaphore would be dining at a restaurant. A semaphore is initialized with the number of chairs in the restaurant. As people arrive, they want a seat. As seats are filled, :meth:`PySide.QtCore.QSemaphore.available` is decremented. As people leave, the :meth:`PySide.QtCore.QSemaphore.available` is incremented, allowing more people to enter. If a party of 10 people want to be seated, but there are only 9 seats, those 10 people will wait, but a party of 4 people would be seated (taking the available seats to 5, making the party of 10 people wait longer).
+
+    .. seealso::  :class:`PySide.QtCore.QMutex`  :class:`PySide.QtCore.QWaitCondition`  :class:`PySide.QtCore.QThread`  :ref:`Semaphores Example<threads/semaphores>` 
+
+.. class:: QSemaphore([n=0])
+
+    :param n: :class:`PySide.QtCore.int`
+
+    Creates a new semaphore and initializes the number of resources it guards to ``n`` (by default, 0).
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.release`  :meth:`PySide.QtCore.QSemaphore.available` 
+
+.. method:: PySide.QtCore.QSemaphore.acquire([n=1])
+
+
+    :param n: :class:`PySide.QtCore.int`
+
+
+
+
+    Tries to acquire ``n`` resources guarded by the semaphore. If ``n`` > :meth:`PySide.QtCore.QSemaphore.available` , this call will block until enough resources are available.
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.release`  :meth:`PySide.QtCore.QSemaphore.available`  :meth:`PySide.QtCore.QSemaphore.tryAcquire` 
+
+
+.. method:: PySide.QtCore.QSemaphore.available()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of resources currently available to the semaphore. This number can never be negative.
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.acquire`  :meth:`PySide.QtCore.QSemaphore.release` 
+
+
+.. method:: PySide.QtCore.QSemaphore.release([n=1])
+
+
+    :param n: :class:`PySide.QtCore.int`
+
+
+
+
+    Releases ``n`` resources guarded by the semaphore.
+
+    This function can be used to "create" resources as well. For example:
+
+    ::
+
+        sem = QSemaphore(5)     # a semaphore that guards 5 resources
+        sem.acquire(5)          # acquire all 5 resources
+        sem.release(5)          # release the 5 resources
+        sem.release(10)         # "create" 10 new resources
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.acquire`  :meth:`PySide.QtCore.QSemaphore.available` 
+
+
+.. method:: PySide.QtCore.QSemaphore.tryAcquire([n=1])
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Tries to acquire ``n`` resources guarded by the semaphore and returns true on success. If :meth:`PySide.QtCore.QSemaphore.available` < ``n`` , this call immediately returns false without acquiring any resources.
+
+    Example:
+
+    ::
+
+        sem = QSemaphore(5)      # sem.available() == 5
+        sem.tryAcquire(250)      # sem.available() == 5, returns false
+        sem.tryAcquire(3)        # sem.available() == 2, returns true
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.acquire` 
+
+
+.. method:: PySide.QtCore.QSemaphore.tryAcquire(n, timeout)
+
+
+    :param n: :class:`PySide.QtCore.int`
+    :param timeout: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Tries to acquire ``n`` resources guarded by the semaphore and returns true on success. If :meth:`PySide.QtCore.QSemaphore.available` < ``n`` , this call will wait for at most ``timeout`` milliseconds for resources to become available.
+
+    Note: Passing a negative number as the ``timeout`` is equivalent to calling :meth:`PySide.QtCore.QSemaphore.acquire` , i.e. this function will wait forever for resources to become available if ``timeout`` is negative.
+
+    Example:
+
+    ::
+
+        sem = QSemaphore(5)             # sem.available() == 5
+        sem.tryAcquire(250, 1000)       # sem.available() == 5, waits 1000 milliseconds and returns false
+        sem.tryAcquire(3, 30000)        # sem.available() == 2, returns true without waiting
+
+
+    .. seealso::  :meth:`PySide.QtCore.QSemaphore.acquire` 
+
+
+

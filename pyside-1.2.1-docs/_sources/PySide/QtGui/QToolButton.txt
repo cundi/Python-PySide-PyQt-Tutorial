@@ -1,0 +1,317 @@
+.. module:: PySide.QtGui
+.. _QToolButton:
+
+QToolButton
+***********
+
+.. inheritance-diagram:: QToolButton
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`arrowType<PySide.QtGui.QToolButton.arrowType>` ()
+*    def :meth:`autoRaise<PySide.QtGui.QToolButton.autoRaise>` ()
+*    def :meth:`defaultAction<PySide.QtGui.QToolButton.defaultAction>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QToolButton.initStyleOption>` (option)
+*    def :meth:`menu<PySide.QtGui.QToolButton.menu>` ()
+*    def :meth:`popupMode<PySide.QtGui.QToolButton.popupMode>` ()
+*    def :meth:`setArrowType<PySide.QtGui.QToolButton.setArrowType>` (type)
+*    def :meth:`setAutoRaise<PySide.QtGui.QToolButton.setAutoRaise>` (enable)
+*    def :meth:`setMenu<PySide.QtGui.QToolButton.setMenu>` (menu)
+*    def :meth:`setPopupMode<PySide.QtGui.QToolButton.setPopupMode>` (mode)
+*    def :meth:`toolButtonStyle<PySide.QtGui.QToolButton.toolButtonStyle>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setDefaultAction<PySide.QtGui.QToolButton.setDefaultAction>` (arg__1)
+*    def :meth:`setToolButtonStyle<PySide.QtGui.QToolButton.setToolButtonStyle>` (style)
+*    def :meth:`showMenu<PySide.QtGui.QToolButton.showMenu>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`triggered<PySide.QtGui.QToolButton.triggered>` (arg__1)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QToolButton` class provides a quick-access button to commands or options, usually used inside a :class:`PySide.QtGui.QToolBar` .
+
+    A tool button is a special button that provides quick-access to specific commands or options. As opposed to a normal command button, a tool button usually doesn't show a text label, but shows an icon instead.
+
+    Tool buttons are normally created when new :class:`PySide.QtGui.QAction` instances are created with :meth:`QToolBar.addAction()<PySide.QtGui.QToolBar.addAction>` or existing actions are added to a toolbar with :meth:`QToolBar.addAction()<PySide.QtGui.QToolBar.addAction>` . It is also possible to construct tool buttons in the same way as any other widget, and arrange them alongside other widgets in layouts.
+
+    One classic use of a tool button is to select tools; for example, the "pen" tool in a drawing program. This would be implemented by using a :class:`PySide.QtGui.QToolButton` as a toggle button (see :meth:`~PySide.QtGui.QToolButton.setToggleButton` ).
+
+    :class:`PySide.QtGui.QToolButton` supports auto-raising. In auto-raise mode, the button draws a 3D frame only when the mouse points at it. The feature is automatically turned on when a button is used inside a :class:`PySide.QtGui.QToolBar` . Change it with :meth:`PySide.QtGui.QToolButton.setAutoRaise` .
+
+    A tool button's icon is set as :class:`PySide.QtGui.QIcon` . This makes it possible to specify different pixmaps for the disabled and active state. The disabled pixmap is used when the button's functionality is not available. The active pixmap is displayed when the button is auto-raised because the mouse pointer is hovering over it.
+
+    The button's look and dimension is adjustable with :meth:`PySide.QtGui.QToolButton.setToolButtonStyle` and :meth:`PySide.QtGui.QAbstractButton.setIconSize` . When used inside a :class:`PySide.QtGui.QToolBar` in a :class:`PySide.QtGui.QMainWindow` , the button automatically adjusts to :class:`PySide.QtGui.QMainWindow` 's settings (see :meth:`QMainWindow.setToolButtonStyle()<PySide.QtGui.QMainWindow.setToolButtonStyle>` and :meth:`QMainWindow.setIconSize()<PySide.QtGui.QMainWindow.setIconSize>` ). Instead of an icon, a tool button can also display an arrow symbol, specified with :meth:`PySide.QtGui.QToolButton.arrowType` .
+
+    A tool button can offer additional choices in a popup menu. The popup menu can be set using :meth:`PySide.QtGui.QToolButton.setMenu` . Use :meth:`PySide.QtGui.QToolButton.setPopupMode` to configure the different modes available for tool buttons with a menu set. The default mode is DelayedPopupMode which is sometimes used with the "Back" button in a web browser. After pressing and holding the button down for a while, a menu pops up showing a list of possible pages to jump to. The default delay is 600 ms; you can adjust it with :meth:`~PySide.QtGui.QToolButton.setPopupDelay` .
+
+    +---------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/assistant-toolbar.png                 |
+    +---------------------------------------------------------------------------------------------------------------------+
+    |Qt Assistant's toolbar contains tool buttons that are associated with actions used in other parts of the main window.|
+    +---------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :class:`PySide.QtGui.QPushButton`  :class:`PySide.QtGui.QToolBar`  :class:`PySide.QtGui.QMainWindow`  :class:`PySide.QtGui.QAction`  :ref:`GUI Design Handbook: Push Button<guibooks.html>` 
+
+.. class:: QToolButton([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an empty tool button with parent ``parent`` .
+
+
+.. attribute:: PySide.QtGui.QToolButton.ToolButtonPopupMode
+
+    Describes how a menu should be popped up for tool buttons that has a menu set or contains a list of actions.
+
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                   |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+    +===========================+===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QToolButton.DelayedPopup   |After pressing and holding the tool button down for a certain amount of time (the timeout is style dependant, see :attr:`QStyle.SH_ToolButton_PopupDelay<QStyle.StyleHint>` ), the menu is displayed. A typical application example is the "back" button in some web browsers's tool bars. If the user clicks it, the browser simply browses back to the previous page. If the user presses and holds the button down for a while, the tool button shows a menu containing the current history list|
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QToolButton.MenuButtonPopup|In this mode the tool button displays a special arrow to indicate that a menu is present. The menu is displayed when the arrow part of the button is pressed.                                                                                                                                                                                                                                                                                                                                      |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QToolButton.InstantPopup   |The menu is displayed, without delay, when the tool button is pressed. In this mode, the button's own action is not triggered.                                                                                                                                                                                                                                                                                                                                                                     |
+    +---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QToolButton.arrowType()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ArrowType`
+
+
+
+
+    This property holds whether the button displays an arrow instead of a normal icon.
+
+    This displays an arrow as the icon for the :class:`PySide.QtGui.QToolButton` .
+
+    By default, this property is set to :attr:`Qt.NoArrow<Qt.ArrowType>` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.autoRaise()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether auto-raising is enabled or not..
+
+    The default is disabled (i.e. false).
+
+    This property is currently ignored on Mac OS X when using :class:`PySide.QtGui.QMacStyle` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.defaultAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the default action.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolButton.setDefaultAction` 
+
+
+.. method:: PySide.QtGui.QToolButton.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionToolButton`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QToolButton` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionToolButton` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QToolButton.menu()
+
+
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Returns the associated menu, or 0 if no menu has been defined.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolButton.setMenu` 
+
+
+.. method:: PySide.QtGui.QToolButton.popupMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QToolButton.ToolButtonPopupMode`
+
+
+
+
+    This property describes the way that popup menus are used with tool buttons.
+
+    By default, this property is set to :attr:`DelayedPopup<QToolButton.ToolButtonPopupMode>` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.setArrowType(type)
+
+
+    :param type: :attr:`PySide.QtCore.Qt.ArrowType`
+
+
+
+
+    This property holds whether the button displays an arrow instead of a normal icon.
+
+    This displays an arrow as the icon for the :class:`PySide.QtGui.QToolButton` .
+
+    By default, this property is set to :attr:`Qt.NoArrow<Qt.ArrowType>` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.setAutoRaise(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether auto-raising is enabled or not..
+
+    The default is disabled (i.e. false).
+
+    This property is currently ignored on Mac OS X when using :class:`PySide.QtGui.QMacStyle` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.setDefaultAction(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Sets the default action to ``action`` .
+
+    If a tool button has a default action, the action defines the button's properties like text, icon, tool tip, etc.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolButton.defaultAction` 
+
+
+.. method:: PySide.QtGui.QToolButton.setMenu(menu)
+
+
+    :param menu: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Associates the given ``menu`` with this tool button.
+
+    The menu will be shown according to the button's :meth:`PySide.QtGui.QToolButton.popupMode` .
+
+    Ownership of the menu is not transferred to the tool button.
+
+    .. seealso::  :meth:`PySide.QtGui.QToolButton.menu` 
+
+
+.. method:: PySide.QtGui.QToolButton.setPopupMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QToolButton.ToolButtonPopupMode`
+
+
+
+
+    This property describes the way that popup menus are used with tool buttons.
+
+    By default, this property is set to :attr:`DelayedPopup<QToolButton.ToolButtonPopupMode>` .
+
+
+
+.. method:: PySide.QtGui.QToolButton.setToolButtonStyle(style)
+
+
+    :param style: :attr:`PySide.QtCore.Qt.ToolButtonStyle`
+
+
+
+
+    This property holds whether the tool button displays an icon only, text only, or text beside/below the icon..
+
+    The default is :attr:`Qt.ToolButtonIconOnly<Qt.ToolButtonStyle>` .
+
+    To have the style of toolbuttons follow the system settings (as available in GNOME and KDE desktop environments), set this property to :attr:`Qt.ToolButtonFollowStyle<Qt.ToolButtonStyle>` .
+
+    :class:`PySide.QtGui.QToolButton` automatically connects this slot to the relevant signal in the :class:`PySide.QtGui.QMainWindow` in which is resides.
+
+
+
+.. method:: PySide.QtGui.QToolButton.showMenu()
+
+
+
+
+
+
+    Shows (pops up) the associated popup menu. If there is no such menu, this function does nothing. This function does not return until the popup menu has been closed by the user.
+
+
+
+.. method:: PySide.QtGui.QToolButton.toolButtonStyle()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.ToolButtonStyle`
+
+
+
+
+    This property holds whether the tool button displays an icon only, text only, or text beside/below the icon..
+
+    The default is :attr:`Qt.ToolButtonIconOnly<Qt.ToolButtonStyle>` .
+
+    To have the style of toolbuttons follow the system settings (as available in GNOME and KDE desktop environments), set this property to :attr:`Qt.ToolButtonFollowStyle<Qt.ToolButtonStyle>` .
+
+    :class:`PySide.QtGui.QToolButton` automatically connects this slot to the relevant signal in the :class:`PySide.QtGui.QMainWindow` in which is resides.
+
+
+
+.. method:: PySide.QtGui.QToolButton.triggered(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+

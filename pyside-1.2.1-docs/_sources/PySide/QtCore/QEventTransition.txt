@@ -1,0 +1,123 @@
+.. module:: PySide.QtCore
+.. _QEventTransition:
+
+QEventTransition
+****************
+
+.. inheritance-diagram:: QEventTransition
+    :parts: 2
+
+**Inherited by:** :ref:`QMouseEventTransition`, :ref:`QKeyEventTransition`
+
+.. note:: This class was introduced in Qt 4.6
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`eventSource<PySide.QtCore.QEventTransition.eventSource>` ()
+*    def :meth:`eventType<PySide.QtCore.QEventTransition.eventType>` ()
+*    def :meth:`setEventSource<PySide.QtCore.QEventTransition.setEventSource>` (object)
+*    def :meth:`setEventType<PySide.QtCore.QEventTransition.setEventType>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtCore.QEventTransition` class provides a :class:`PySide.QtCore.QObject` -specific transition for Qt events.
+
+    A :class:`PySide.QtCore.QEventTransition` object binds an event to a particular :class:`PySide.QtCore.QObject` . :class:`PySide.QtCore.QEventTransition` is part of :ref:`The State Machine Framework<statemachine-api.html>` .
+
+    Example:
+
+    ::
+
+                QPushButton *button = ...;
+                QState *s1 = ...;
+                QState *s2 = ...;
+                // If in s1 and the button receives an Enter event, transition to s2
+                QEventTransition *enterTransition = new QEventTransition(button, QEvent::Enter);
+                enterTransition->setTargetState(s2);
+                s1->addTransition(enterTransition);
+                // If in s2 and the button receives an Exit event, transition back to s1
+                QEventTransition *leaveTransition = new QEventTransition(button, QEvent::Leave);
+                leaveTransition->setTargetState(s1);
+                s2->addTransition(leaveTransition);
+
+
+    .. _PySide.QtCore.QEventTransition_subclassing:
+
+
+
+Subclassing
+^^^^^^^^^^^
+
+    When reimplementing the :meth:`PySide.QtCore.QEventTransition.eventTest` function, you should first call the base implementation to verify that the event is a :class:`QStateMachine.WrappedEvent` for the proper object and event type. You may then cast the event to a :class:`QStateMachine.WrappedEvent` and get the original event by calling :meth:`QStateMachine.WrappedEvent.event()<PySide.QtCore.QStateMachine.WrappedEvent.event>` , and perform additional checks on that object.
+
+    .. seealso::  :meth:`QState.addTransition()<PySide.QtCore.QState.addTransition>` 
+
+.. class:: QEventTransition(object, type[, sourceState=None])
+           QEventTransition([sourceState=None])
+
+    :param sourceState: :class:`PySide.QtCore.QState`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+    :param object: :class:`PySide.QtCore.QObject`
+
+
+
+    Constructs a new :class:`PySide.QtCore.QEventTransition` object with the given ``sourceState`` .
+
+
+.. method:: PySide.QtCore.QEventTransition.eventSource()
+
+
+    :rtype: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the event source that this event transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QEventTransition.eventType()
+
+
+    :rtype: :attr:`PySide.QtCore.QEvent.Type`
+
+
+
+
+    This property holds the type of event that this event transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QEventTransition.setEventSource(object)
+
+
+    :param object: :class:`PySide.QtCore.QObject`
+
+
+
+
+    This property holds the event source that this event transition is associated with.
+
+
+
+.. method:: PySide.QtCore.QEventTransition.setEventType(type)
+
+
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+
+
+
+
+    This property holds the type of event that this event transition is associated with.
+
+
+
+

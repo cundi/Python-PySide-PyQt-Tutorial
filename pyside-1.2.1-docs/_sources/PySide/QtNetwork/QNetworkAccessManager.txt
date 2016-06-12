@@ -1,0 +1,654 @@
+.. module:: PySide.QtNetwork
+.. _QNetworkAccessManager:
+
+QNetworkAccessManager
+*********************
+
+.. inheritance-diagram:: QNetworkAccessManager
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activeConfiguration<PySide.QtNetwork.QNetworkAccessManager.activeConfiguration>` ()
+*    def :meth:`cache<PySide.QtNetwork.QNetworkAccessManager.cache>` ()
+*    def :meth:`configuration<PySide.QtNetwork.QNetworkAccessManager.configuration>` ()
+*    def :meth:`cookieJar<PySide.QtNetwork.QNetworkAccessManager.cookieJar>` ()
+*    def :meth:`deleteResource<PySide.QtNetwork.QNetworkAccessManager.deleteResource>` (request)
+*    def :meth:`get<PySide.QtNetwork.QNetworkAccessManager.get>` (request)
+*    def :meth:`head<PySide.QtNetwork.QNetworkAccessManager.head>` (request)
+*    def :meth:`networkAccessible<PySide.QtNetwork.QNetworkAccessManager.networkAccessible>` ()
+*    def :meth:`post<PySide.QtNetwork.QNetworkAccessManager.post>` (request, data)
+*    def :meth:`post<PySide.QtNetwork.QNetworkAccessManager.post>` (request, data)
+*    def :meth:`proxy<PySide.QtNetwork.QNetworkAccessManager.proxy>` ()
+*    def :meth:`proxyFactory<PySide.QtNetwork.QNetworkAccessManager.proxyFactory>` ()
+*    def :meth:`put<PySide.QtNetwork.QNetworkAccessManager.put>` (request, data)
+*    def :meth:`put<PySide.QtNetwork.QNetworkAccessManager.put>` (request, data)
+*    def :meth:`sendCustomRequest<PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest>` (request, verb[, data=None])
+*    def :meth:`setCache<PySide.QtNetwork.QNetworkAccessManager.setCache>` (cache)
+*    def :meth:`setConfiguration<PySide.QtNetwork.QNetworkAccessManager.setConfiguration>` (config)
+*    def :meth:`setCookieJar<PySide.QtNetwork.QNetworkAccessManager.setCookieJar>` (cookieJar)
+*    def :meth:`setNetworkAccessible<PySide.QtNetwork.QNetworkAccessManager.setNetworkAccessible>` (accessible)
+*    def :meth:`setProxy<PySide.QtNetwork.QNetworkAccessManager.setProxy>` (proxy)
+*    def :meth:`setProxyFactory<PySide.QtNetwork.QNetworkAccessManager.setProxyFactory>` (factory)
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createRequest<PySide.QtNetwork.QNetworkAccessManager.createRequest>` (op, request[, outgoingData=None])
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`authenticationRequired<PySide.QtNetwork.QNetworkAccessManager.authenticationRequired>` (reply, authenticator)
+*    def :meth:`finished<PySide.QtNetwork.QNetworkAccessManager.finished>` (reply)
+*    def :meth:`networkAccessibleChanged<PySide.QtNetwork.QNetworkAccessManager.networkAccessibleChanged>` (accessible)
+*    def :meth:`networkSessionConnected<PySide.QtNetwork.QNetworkAccessManager.networkSessionConnected>` ()
+*    def :meth:`proxyAuthenticationRequired<PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired>` (proxy, authenticator)
+*    def :meth:`sslErrors<PySide.QtNetwork.QNetworkAccessManager.sslErrors>` (reply, errors)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtNetwork.QNetworkAccessManager` class allows the application to send network requests and receive replies
+
+    The Network Access API is constructed around one :class:`PySide.QtNetwork.QNetworkAccessManager` object, which holds the common configuration and settings for the requests it sends. It contains the proxy and cache configuration, as well as the signals related to such issues, and reply signals that can be used to monitor the progress of a network operation. One :class:`PySide.QtNetwork.QNetworkAccessManager` should be enough for the whole Qt application.
+
+    Once a :class:`PySide.QtNetwork.QNetworkAccessManager` object has been created, the application can use it to send requests over the network. A group of standard functions are supplied that take a request and optional data, and each return a :class:`PySide.QtNetwork.QNetworkReply` object. The returned object is used to obtain any data returned in response to the corresponding request.
+
+    A simple download off the network could be accomplished with:
+
+    ::
+
+        manager = QNetworkAccessManager(self)
+        manager.finished[QNetworkReply].connect(self.replyFinished)
+
+        manager.get(QNetworkRequest(QUrl("http://qt.nokia.com")))
+
+
+    :class:`PySide.QtNetwork.QNetworkAccessManager` has an asynchronous API. When the ``replyFinished`` slot above is called, the parameter it takes is the :class:`PySide.QtNetwork.QNetworkReply` object containing the downloaded data as well as meta-data (headers, etc.).
+
+    .. note::  After the request has finished, it is the responsibility of the user to delete the :class:`PySide.QtNetwork.QNetworkReply` object at an appropriate time. Do not directly delete it inside the slot connected to :meth:`PySide.QtNetwork.QNetworkAccessManager.finished` . You can use the :meth:`PySide.QtCore.QObject.deleteLater` function.
+
+    .. note:: \ :class:`PySide.QtNetwork.QNetworkAccessManager` queues the requests it receives. The number of requests executed in parallel is dependent on the protocol. Currently, for the HTTP protocol on desktop platforms, 6 requests are executed in parallel for one host/port combination.
+
+    A more involved example, assuming the manager is already existent, can be:
+
+    ::
+
+        request = QNetworkRequest()
+        request.setUrl(QUrl("http://qt.nokia.com"))
+        request.setRawHeader("User-Agent", "MyOwnBrowser 1.0")
+
+        reply = manager.get(request)
+        reply.readyRead.connect(self.slotReadyRead)
+        reply.error[QNetworkReply.NetworkError].connect(self..slotError)
+        reply.sslErrors.connect(self.slotSslErrors)
+
+
+    .. _PySide.QtNetwork.QNetworkAccessManager_network-and-roaming-support:
+
+
+
+Network and Roaming support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    With the addition of the :ref:`Bearer Management<bearer-management.html>` API to Qt 4.7 :class:`PySide.QtNetwork.QNetworkAccessManager` gained the ability to manage network connections. :class:`PySide.QtNetwork.QNetworkAccessManager` can start the network interface if the device is offline and terminates the interface if the current process is the last one to use the uplink. Note that some platform utilize grace periods from when the last application stops using a uplink until the system actually terminates the connectivity link. Roaming is equally transparent. Any queued/pending network requests are automatically transferred to new access point.
+
+    Clients wanting to utilize this feature should not require any changes. In fact it is likely that existing platform specific connection code can simply be removed from the application.
+
+    .. note::  The network and roaming support in :class:`PySide.QtNetwork.QNetworkAccessManager` is conditional upon the platform supporting connection management. The :attr:`QNetworkConfigurationManager.NetworkSessionRequired<QNetworkConfigurationManager.Capability>` can be used to detect whether :class:`PySide.QtNetwork.QNetworkAccessManager` utilizes this feature. Currently only Meego/Harmattan and Symbian platforms provide connection management support.
+
+    .. note::  This feature cannot be used in combination with the Bearer Management API as provided by QtMobility. Applications have to migrate to the Qt version of Bearer Management.
+
+    .. _PySide.QtNetwork.QNetworkAccessManager_symbian-platform-security-requirements:
+
+
+
+Symbian Platform Security Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    On Symbian, processes which use this class must have the ``NetworkServices`` platform security capability. If the client process lacks this capability, operations will result in a panic.
+
+    Platform security capabilities are added via the :ref:`TARGET.CAPABILITY<qmake-variable-reference.html>` qmake variable.
+
+    .. seealso::  :class:`PySide.QtNetwork.QNetworkRequest`  :class:`PySide.QtNetwork.QNetworkReply`  :class:`PySide.QtNetwork.QNetworkProxy` 
+
+.. class:: QNetworkAccessManager([parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a :class:`PySide.QtNetwork.QNetworkAccessManager` object that is the center of the Network Access API and sets ``parent`` as the parent object.
+
+
+.. attribute:: PySide.QtNetwork.QNetworkAccessManager.NetworkAccessibility
+
+    Indicates whether the network is accessible via this network access manager.
+
+    +------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                  |Description                                                                                                                                                                                                                     |
+    +==========================================+================================================================================================================================================================================================================================+
+    |QNetworkAccessManager.UnknownAccessibility|The network accessibility cannot be determined.                                                                                                                                                                                 |
+    +------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.NotAccessible       |The network is not currently accessible, either because there is currently no network coverage or network access has been explicitly disabled by a call to :meth:`PySide.QtNetwork.QNetworkAccessManager.setNetworkAccessible` .|
+    +------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.Accessible          |The network is accessible.                                                                                                                                                                                                      |
+    +------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.networkAccessible` 
+
+.. note:: This enum was introduced or modified in Qt 4.7
+.. attribute:: PySide.QtNetwork.QNetworkAccessManager.Operation
+
+    Indicates the operation this reply is processing.
+
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                                                                       |
+    +=====================================+==================================================================================================================================+
+    |QNetworkAccessManager.HeadOperation  |retrieve headers operation (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.head` )                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.GetOperation   |retrieve headers and download contents (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.get` )                         |
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.PutOperation   |upload contents operation (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.put` )                                      |
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.PostOperation  |send the contents of an HTML form for processing via HTTP POST (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.post` )|
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.DeleteOperation|delete contents operation (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.deleteResource` )                           |
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+    |QNetworkAccessManager.CustomOperation|custom operation (created with :meth:`PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest` )                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`QNetworkReply.operation()<PySide.QtNetwork.QNetworkReply.operation>` 
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.activeConfiguration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the current active network configuration.
+
+    If the network configuration returned by :meth:`PySide.QtNetwork.QNetworkAccessManager.configuration` is of type :attr:`QNetworkConfiguration.ServiceNetwork<QNetworkConfiguration.Type>` this function will return the current active child network configuration of that configuration. Otherwise returns the same network configuration as :meth:`PySide.QtNetwork.QNetworkAccessManager.configuration` .
+
+    Use this function to return the actual network configuration currently in use by the network session.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.configuration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.authenticationRequired(reply, authenticator)
+
+
+    :param reply: :class:`PySide.QtNetwork.QNetworkReply`
+    :param authenticator: :class:`PySide.QtNetwork.QAuthenticator`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.cache()
+
+
+    :rtype: :class:`PySide.QtNetwork.QAbstractNetworkCache`
+
+
+
+
+    Returns the cache that is used to store data obtained from the network.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.setCache` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.configuration()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Returns the network configuration that will be used to create the :class:`network session<PySide.QtNetwork.QNetworkSession>` which will be used when processing network requests.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.setConfiguration`  :meth:`PySide.QtNetwork.QNetworkAccessManager.activeConfiguration` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.cookieJar()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkCookieJar`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkCookieJar` that is used to store cookies obtained from the network as well as cookies that are about to be sent.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.setCookieJar` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.createRequest(op, request[, outgoingData=None])
+
+
+    :param op: :attr:`PySide.QtNetwork.QNetworkAccessManager.Operation`
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param outgoingData: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Returns a new :class:`PySide.QtNetwork.QNetworkReply` object to handle the operation ``op`` and request ``req`` . The device ``outgoingData`` is always 0 for Get and Head requests, but is the value passed to :meth:`PySide.QtNetwork.QNetworkAccessManager.post` and :meth:`PySide.QtNetwork.QNetworkAccessManager.put` in those operations (the :class:`PySide.QtCore.QByteArray` variants will pass a :class:`PySide.QtCore.QBuffer` object).
+
+    The default implementation calls :meth:`QNetworkCookieJar.cookiesForUrl()<PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl>` on the cookie jar set with :meth:`PySide.QtNetwork.QNetworkAccessManager.setCookieJar` to obtain the cookies to be sent to the remote server.
+
+    The returned object must be in an open state.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.deleteResource(request)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Sends a request to delete the resource identified by the URL of ``request`` .
+
+    .. note::  This feature is currently available for HTTP only, performing an HTTP DELETE request.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.get`  :meth:`PySide.QtNetwork.QNetworkAccessManager.post`  :meth:`PySide.QtNetwork.QNetworkAccessManager.put`  :meth:`PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.finished(reply)
+
+
+    :param reply: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.get(request)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Posts a request to obtain the contents of the target ``request`` and returns a new :class:`PySide.QtNetwork.QNetworkReply` object opened for reading which emits the :meth:`PySide.QtCore.QIODevice.readyRead` signal whenever new data arrives.
+
+    The contents as well as associated headers will be downloaded.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.post`  :meth:`PySide.QtNetwork.QNetworkAccessManager.put`  :meth:`PySide.QtNetwork.QNetworkAccessManager.deleteResource`  :meth:`PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.head(request)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Posts a request to obtain the network headers for ``request`` and returns a new :class:`PySide.QtNetwork.QNetworkReply` object which will contain such headers.
+
+    The function is named after the HTTP request associated (HEAD).
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.networkAccessible()
+
+
+    :rtype: :attr:`PySide.QtNetwork.QNetworkAccessManager.NetworkAccessibility`
+
+
+
+
+    This property holds whether the network is currently accessible via this network access manager..
+
+    If the network is :attr:`not accessible<QNetworkAccessManager.NetworkAccessibility>` the network access manager will not process any new network requests, all such requests will fail with an error. Requests with URLs with the file:// scheme will still be processed.
+
+    By default the value of this property reflects the physical state of the device. Applications may override it to disable all network requests via this network access manager by calling
+
+    ::
+
+        networkAccessManager.setNetworkAccessible(QNetworkAccessManager.NotAccessible)
+
+
+    Network requests can be reenabled again by calling
+
+    ::
+
+        networkAccessManager.setNetworkAccessible(QNetworkAccessManager.Accessible)
+
+
+    .. note::  Calling :meth:`PySide.QtNetwork.QNetworkAccessManager.setNetworkAccessible` does not change the network state.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.networkAccessibleChanged(accessible)
+
+
+    :param accessible: :attr:`PySide.QtNetwork.QNetworkAccessManager.NetworkAccessibility`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.networkSessionConnected()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.post(request, data)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    This is an overloaded function.
+
+    Sends the contents of the ``data`` byte array to the destination specified by ``request`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.post(request, data)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param data: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Sends an HTTP POST request to the destination specified by ``request`` and returns a new :class:`PySide.QtNetwork.QNetworkReply` object opened for reading that will contain the reply sent by the server. The contents of the ``data`` device will be uploaded to the server.
+
+    ``data`` must be open for reading and must remain valid until the :meth:`PySide.QtNetwork.QNetworkAccessManager.finished` signal is emitted for this reply.
+
+    .. note::  Sending a POST request on protocols other than HTTP and HTTPS is undefined and will probably fail.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.get`  :meth:`PySide.QtNetwork.QNetworkAccessManager.put`  :meth:`PySide.QtNetwork.QNetworkAccessManager.deleteResource`  :meth:`PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.proxy()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Returns the :class:`PySide.QtNetwork.QNetworkProxy` that the requests sent using this :class:`PySide.QtNetwork.QNetworkAccessManager` object will use. The default value for the proxy is :attr:`QNetworkProxy.DefaultProxy<QNetworkProxy.ProxyType>` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxy`  :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxyFactory`  :meth:`PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired(proxy, authenticator)
+
+
+    :param proxy: :class:`PySide.QtNetwork.QNetworkProxy`
+    :param authenticator: :class:`PySide.QtNetwork.QAuthenticator`
+
+
+
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.proxyFactory()
+
+
+    :rtype: :class:`PySide.QtNetwork.QNetworkProxyFactory`
+
+
+
+
+    Returns the proxy factory that this :class:`PySide.QtNetwork.QNetworkAccessManager` object is using to determine the proxies to be used for requests.
+
+    Note that the pointer returned by this function is managed by :class:`PySide.QtNetwork.QNetworkAccessManager` and could be deleted at any time.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxyFactory`  :meth:`PySide.QtNetwork.QNetworkAccessManager.proxy` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.put(request, data)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param data: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Uploads the contents of ``data`` to the destination ``request`` and returnes a new :class:`PySide.QtNetwork.QNetworkReply` object that will be open for reply.
+
+    ``data`` must be opened for reading when this function is called and must remain valid until the :meth:`PySide.QtNetwork.QNetworkAccessManager.finished` signal is emitted for this reply.
+
+    Whether anything will be available for reading from the returned object is protocol dependent. For HTTP, the server may send a small HTML page indicating the upload was successful (or not). Other protocols will probably have content in their replies.
+
+    .. note::  For HTTP, this request will send a PUT request, which most servers do not allow. Form upload mechanisms, including that of uploading files through HTML forms, use the POST mechanism.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.get`  :meth:`PySide.QtNetwork.QNetworkAccessManager.post`  :meth:`PySide.QtNetwork.QNetworkAccessManager.deleteResource`  :meth:`PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.put(request, data)
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param data: :class:`PySide.QtCore.QByteArray`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    This is an overloaded function.
+
+    Sends the contents of the ``data`` byte array to the destination specified by ``request`` .
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.sendCustomRequest(request, verb[, data=None])
+
+
+    :param request: :class:`PySide.QtNetwork.QNetworkRequest`
+    :param verb: :class:`PySide.QtCore.QByteArray`
+    :param data: :class:`PySide.QtCore.QIODevice`
+    :rtype: :class:`PySide.QtNetwork.QNetworkReply`
+
+
+
+
+    Sends a custom request to the server identified by the URL of ``request`` .
+
+    It is the user's responsibility to send a ``verb`` to the server that is valid according to the HTTP specification.
+
+    This method provides means to send verbs other than the common ones provided via :meth:`PySide.QtNetwork.QNetworkAccessManager.get` or :meth:`PySide.QtNetwork.QNetworkAccessManager.post` etc., for instance sending an HTTP OPTIONS command.
+
+    If ``data`` is not empty, the contents of the ``data`` device will be uploaded to the server; in that case, data must be open for reading and must remain valid until the :meth:`PySide.QtNetwork.QNetworkAccessManager.finished` signal is emitted for this reply.
+
+    .. note::  This feature is currently available for HTTP(S) only.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.get`  :meth:`PySide.QtNetwork.QNetworkAccessManager.post`  :meth:`PySide.QtNetwork.QNetworkAccessManager.put`  :meth:`PySide.QtNetwork.QNetworkAccessManager.deleteResource` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setCache(cache)
+
+
+    :param cache: :class:`PySide.QtNetwork.QAbstractNetworkCache`
+
+
+
+
+    Sets the manager's network cache to be the ``cache`` specified. The cache is used for all requests dispatched by the manager.
+
+    Use this function to set the network cache object to a class that implements additional features, like saving the cookies to permanent storage.
+
+    .. note:: \ :class:`PySide.QtNetwork.QNetworkAccessManager` takes ownership of the ``cache`` object.
+
+    :class:`PySide.QtNetwork.QNetworkAccessManager` by default does not have a set cache. Qt provides a simple disk cache, :class:`PySide.QtNetwork.QNetworkDiskCache` , which can be used.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.cache`  :attr:`QNetworkRequest.CacheLoadControl` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setConfiguration(config)
+
+
+    :param config: :class:`PySide.QtNetwork.QNetworkConfiguration`
+
+
+
+
+    Sets the network configuration that will be used when creating the :class:`network session<PySide.QtNetwork.QNetworkSession>` to ``config`` .
+
+    The network configuration is used to create and open a network session before any request that requires network access is process. If no network configuration is explicitly set via this function the network configuration returned by :meth:`QNetworkConfigurationManager.defaultConfiguration()<PySide.QtNetwork.QNetworkConfigurationManager.defaultConfiguration>` will be used.
+
+    To restore the default network configuration set the network configuration to the value returned from :meth:`QNetworkConfigurationManager.defaultConfiguration()<PySide.QtNetwork.QNetworkConfigurationManager.defaultConfiguration>` .
+
+    ::
+
+        manager = QNetworkConfigurationManager()
+        networkAccessManager.setConfiguration(manager.defaultConfiguration())
+
+
+    If an invalid network configuration is set, a network session will not be created. In this case network requests will be processed regardless, but may fail. For example:
+
+    ::
+
+        networkAccessManager.setConfiguration(QNetworkConfiguration())
+
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.configuration`  :class:`PySide.QtNetwork.QNetworkSession` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setCookieJar(cookieJar)
+
+
+    :param cookieJar: :class:`PySide.QtNetwork.QNetworkCookieJar`
+
+
+
+
+    Sets the manager's cookie jar to be the ``cookieJar`` specified. The cookie jar is used by all requests dispatched by the manager.
+
+    Use this function to set the cookie jar object to a class that implements additional features, like saving the cookies to permanent storage.
+
+    .. note:: \ :class:`PySide.QtNetwork.QNetworkAccessManager` takes ownership of the ``cookieJar`` object.
+
+    If ``cookieJar`` is in the same thread as this :class:`PySide.QtNetwork.QNetworkAccessManager` , it will set the parent of the ``cookieJar`` so that the cookie jar is deleted when this object is deleted as well. If you want to share cookie jars between different :class:`PySide.QtNetwork.QNetworkAccessManager` objects, you may want to set the cookie jar's parent to 0 after calling this function.
+
+    :class:`PySide.QtNetwork.QNetworkAccessManager` by default does not implement any cookie policy of its own: it accepts all cookies sent by the server, as long as they are well formed and meet the minimum security requirements (cookie domain matches the request's and cookie path matches the request's). In order to implement your own security policy, override the :meth:`QNetworkCookieJar.cookiesForUrl()<PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl>` and :meth:`QNetworkCookieJar.setCookiesFromUrl()<PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl>` virtual functions. Those functions are called by :class:`PySide.QtNetwork.QNetworkAccessManager` when it detects a new cookie.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.cookieJar`  :meth:`QNetworkCookieJar.cookiesForUrl()<PySide.QtNetwork.QNetworkCookieJar.cookiesForUrl>`  :meth:`QNetworkCookieJar.setCookiesFromUrl()<PySide.QtNetwork.QNetworkCookieJar.setCookiesFromUrl>` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setNetworkAccessible(accessible)
+
+
+    :param accessible: :attr:`PySide.QtNetwork.QNetworkAccessManager.NetworkAccessibility`
+
+
+
+
+    This property holds whether the network is currently accessible via this network access manager..
+
+    If the network is :attr:`not accessible<QNetworkAccessManager.NetworkAccessibility>` the network access manager will not process any new network requests, all such requests will fail with an error. Requests with URLs with the file:// scheme will still be processed.
+
+    By default the value of this property reflects the physical state of the device. Applications may override it to disable all network requests via this network access manager by calling
+
+    ::
+
+        networkAccessManager.setNetworkAccessible(QNetworkAccessManager.NotAccessible)
+
+
+    Network requests can be reenabled again by calling
+
+    ::
+
+        networkAccessManager.setNetworkAccessible(QNetworkAccessManager.Accessible)
+
+
+    .. note::  Calling :meth:`PySide.QtNetwork.QNetworkAccessManager.setNetworkAccessible` does not change the network state.
+
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setProxy(proxy)
+
+
+    :param proxy: :class:`PySide.QtNetwork.QNetworkProxy`
+
+
+
+
+    Sets the proxy to be used in future requests to be ``proxy`` . This does not affect requests that have already been sent. The :meth:`PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired` signal will be emitted if the proxy requests authentication.
+
+    A proxy set with this function will be used for all requests issued by :class:`PySide.QtNetwork.QNetworkAccessManager` . In some cases, it might be necessary to select different proxies depending on the type of request being sent or the destination host. If that's the case, you should consider using :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxyFactory` .
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.proxy`  :meth:`PySide.QtNetwork.QNetworkAccessManager.proxyAuthenticationRequired` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.setProxyFactory(factory)
+
+
+    :param factory: :class:`PySide.QtNetwork.QNetworkProxyFactory`
+
+
+
+
+    Sets the proxy factory for this class to be ``factory`` . A proxy factory is used to determine a more specific list of proxies to be used for a given request, instead of trying to use the same proxy value for all requests.
+
+    All queries sent by :class:`PySide.QtNetwork.QNetworkAccessManager` will have type :attr:`QNetworkProxyQuery.UrlRequest<QNetworkProxyQuery.QueryType>` .
+
+    For example, a proxy factory could apply the following rules:
+
+
+    * if the target address is in the local network (for example, if the hostname contains no dots or if it's an IP address in the organization's range), return :attr:`QNetworkProxy.NoProxy<QNetworkProxy.ProxyType>`
+    * if the request is FTP, return an FTP proxy
+    * if the request is HTTP or HTTPS, then return an HTTP proxy
+    * otherwise, return a SOCKSv5 proxy server
+
+    The lifetime of the object ``factory`` will be managed by :class:`PySide.QtNetwork.QNetworkAccessManager` . It will delete the object when necessary.
+
+    .. note::  If a specific proxy is set with :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxy` , the factory will not be used.
+
+    .. seealso::  :meth:`PySide.QtNetwork.QNetworkAccessManager.proxyFactory`  :meth:`PySide.QtNetwork.QNetworkAccessManager.setProxy`  :class:`PySide.QtNetwork.QNetworkProxyQuery` 
+
+
+.. method:: PySide.QtNetwork.QNetworkAccessManager.sslErrors(reply, errors)
+
+
+    :param reply: :class:`PySide.QtNetwork.QNetworkReply`
+    :param errors: 
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+.. module:: PySide.QtGui
+.. _QFocusFrame:
+
+QFocusFrame
+***********
+
+.. inheritance-diagram:: QFocusFrame
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`initStyleOption<PySide.QtGui.QFocusFrame.initStyleOption>` (option)
+*    def :meth:`setWidget<PySide.QtGui.QFocusFrame.setWidget>` (widget)
+*    def :meth:`widget<PySide.QtGui.QFocusFrame.widget>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QFocusFrame` widget provides a focus frame which can be outside of a widget's normal paintable area.
+
+    Normally an application will not need to create its own :class:`PySide.QtGui.QFocusFrame` as :class:`PySide.QtGui.QStyle` will handle this detail for you. A style writer can optionally use a :class:`PySide.QtGui.QFocusFrame` to have a focus area outside of the widget's paintable geometry. In this way space need not be reserved for the widget to have focus but only set on a :class:`PySide.QtGui.QWidget` with QFocusFrame::setWidget. It is, however, legal to create your own :class:`PySide.QtGui.QFocusFrame` on a custom widget and set its geometry manually via QWidget::setGeometry however you will not get auto-placement when the focused widget changes size or placement.
+
+
+.. class:: QFocusFrame([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a :class:`PySide.QtGui.QFocusFrame` .
+
+    The focus frame will not monitor ``parent`` for updates but rather can be placed manually or by using QFocusFrame::setWidget. A :class:`PySide.QtGui.QFocusFrame` sets :attr:`Qt.WA_NoChildEventsForParent<Qt.WidgetAttribute>` attribute; as a result the parent will not receive a :attr:`QEvent.ChildInserted<QEvent.Type>` event, this will make it possible to manually set the geometry of the :class:`PySide.QtGui.QFocusFrame` inside of a :class:`PySide.QtGui.QSplitter` or other child event monitoring widget.
+
+    .. seealso::  :meth:`QFocusFrame.setWidget()<PySide.QtGui.QFocusFrame.setWidget>` 
+
+.. method:: PySide.QtGui.QFocusFrame.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOption`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QFocusFrame` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOption` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QFocusFrame.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    :class:`PySide.QtGui.QFocusFrame` will track changes to ``widget`` and resize itself automatically. If the monitored widget's parent changes, :class:`PySide.QtGui.QFocusFrame` will follow the widget and place itself around the widget automatically. If the monitored widget is deleted, :class:`PySide.QtGui.QFocusFrame` will set it to zero.
+
+    .. seealso::  :meth:`QFocusFrame.widget()<PySide.QtGui.QFocusFrame.widget>` 
+
+
+.. method:: PySide.QtGui.QFocusFrame.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the currently monitored widget for automatically resize and update.
+
+    .. seealso::  :meth:`QFocusFrame.setWidget()<PySide.QtGui.QFocusFrame.setWidget>` 
+
+
+

@@ -1,0 +1,430 @@
+.. module:: PySide.QtGui
+.. _QDirModel:
+
+QDirModel
+*********
+
+.. inheritance-diagram:: QDirModel
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`fileIcon<PySide.QtGui.QDirModel.fileIcon>` (index)
+*    def :meth:`fileInfo<PySide.QtGui.QDirModel.fileInfo>` (index)
+*    def :meth:`fileName<PySide.QtGui.QDirModel.fileName>` (index)
+*    def :meth:`filePath<PySide.QtGui.QDirModel.filePath>` (index)
+*    def :meth:`filter<PySide.QtGui.QDirModel.filter>` ()
+*    def :meth:`iconProvider<PySide.QtGui.QDirModel.iconProvider>` ()
+*    def :meth:`index<PySide.QtGui.QDirModel.index>` (path[, column=0])
+*    def :meth:`isDir<PySide.QtGui.QDirModel.isDir>` (index)
+*    def :meth:`isReadOnly<PySide.QtGui.QDirModel.isReadOnly>` ()
+*    def :meth:`lazyChildCount<PySide.QtGui.QDirModel.lazyChildCount>` ()
+*    def :meth:`mkdir<PySide.QtGui.QDirModel.mkdir>` (parent, name)
+*    def :meth:`nameFilters<PySide.QtGui.QDirModel.nameFilters>` ()
+*    def :meth:`remove<PySide.QtGui.QDirModel.remove>` (index)
+*    def :meth:`resolveSymlinks<PySide.QtGui.QDirModel.resolveSymlinks>` ()
+*    def :meth:`rmdir<PySide.QtGui.QDirModel.rmdir>` (index)
+*    def :meth:`setFilter<PySide.QtGui.QDirModel.setFilter>` (filters)
+*    def :meth:`setIconProvider<PySide.QtGui.QDirModel.setIconProvider>` (provider)
+*    def :meth:`setLazyChildCount<PySide.QtGui.QDirModel.setLazyChildCount>` (enable)
+*    def :meth:`setNameFilters<PySide.QtGui.QDirModel.setNameFilters>` (filters)
+*    def :meth:`setReadOnly<PySide.QtGui.QDirModel.setReadOnly>` (enable)
+*    def :meth:`setResolveSymlinks<PySide.QtGui.QDirModel.setResolveSymlinks>` (enable)
+*    def :meth:`setSorting<PySide.QtGui.QDirModel.setSorting>` (sort)
+*    def :meth:`sorting<PySide.QtGui.QDirModel.sorting>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`refresh<PySide.QtGui.QDirModel.refresh>` ([parent=QModelIndex()])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDirModel` class provides a data model for the local filesystem.
+
+    The usage of :class:`PySide.QtGui.QDirModel` is not recommended anymore. The :class:`PySide.QtGui.QFileSystemModel` class is a more performant alternative.
+
+    This class provides access to the local filesystem, providing functions for renaming and removing files and directories, and for creating new directories. In the simplest case, it can be used with a suitable display widget as part of a browser or filer.
+
+    :class:`PySide.QtGui.QDirModel` keeps a cache with file information. The cache needs to be updated with :meth:`PySide.QtGui.QDirModel.refresh` .
+
+    :class:`PySide.QtGui.QDirModel` can be accessed using the standard interface provided by :class:`PySide.QtCore.QAbstractItemModel` , but it also provides some convenience functions that are specific to a directory model. The :meth:`PySide.QtGui.QDirModel.fileInfo` and :meth:`PySide.QtGui.QDirModel.isDir` functions provide information about the underlying files and directories related to items in the model.
+
+    Directories can be created and removed using :meth:`PySide.QtGui.QDirModel.mkdir` , :meth:`PySide.QtGui.QDirModel.rmdir` , and the model will be automatically updated to take the changes into account.
+
+    .. note:: \ :class:`PySide.QtGui.QDirModel` requires an instance of a GUI application.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.nameFilters`  :meth:`PySide.QtGui.QDirModel.setFilter`  :meth:`PySide.QtGui.QDirModel.filter`  :class:`PySide.QtGui.QListView`  :class:`PySide.QtGui.QTreeView`  :class:`PySide.QtGui.QFileSystemModel`  :ref:`Dir View Example<itemviews/dirview>`  :ref:`Model Classes<model-view-programming.html>` 
+
+.. class:: QDirModel([parent=None])
+           QDirModel(nameFilters, filters, sort[, parent=None])
+
+    :param parent: :class:`PySide.QtCore.QObject`
+    :param nameFilters: list of strings
+    :param sort: :class:`PySide.QtCore.QDir.SortFlags`
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+
+    Constructs a directory model with the given ``parent`` .
+
+
+
+
+.. attribute:: PySide.QtGui.QDirModel.Roles
+
+    +----------------------+-----------+
+    |Constant              |Description|
+    +======================+===========+
+    |QDirModel.FileIconRole|           |
+    +----------------------+-----------+
+    |QDirModel.FilePathRole|           |
+    +----------------------+-----------+
+    |QDirModel.FileNameRole|           |
+    +----------------------+-----------+
+
+
+.. method:: PySide.QtGui.QDirModel.fileIcon(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the icons for the item stored in the model under the given ``index`` .
+
+
+
+.. method:: PySide.QtGui.QDirModel.fileInfo(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.QFileInfo`
+
+
+
+
+    Returns the file information for the specified model ``index`` .
+
+    .. note::  If the model index represents a symbolic link in the underlying filing system, the file information returned will contain information about the symbolic link itself, regardless of whether :meth:`PySide.QtGui.QDirModel.resolveSymlinks` is enabled or not.
+
+    .. seealso::  :meth:`QFileInfo.symLinkTarget()<PySide.QtCore.QFileInfo.symLinkTarget>` 
+
+
+.. method:: PySide.QtGui.QDirModel.fileName(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the name of the item stored in the model under the ``index`` given.
+
+
+
+.. method:: PySide.QtGui.QDirModel.filePath(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the path of the item stored in the model under the ``index`` given.
+
+
+
+.. method:: PySide.QtGui.QDirModel.filter()
+
+
+    :rtype: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+    Returns the filter specification for the directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.setFilter`  :class:`QDir.Filters` 
+
+
+.. method:: PySide.QtGui.QDirModel.iconProvider()
+
+
+    :rtype: :class:`PySide.QtGui.QFileIconProvider`
+
+
+
+
+    Returns the file icon provider for this directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.setIconProvider` 
+
+
+.. method:: PySide.QtGui.QDirModel.index(path[, column=0])
+
+
+    :param path: unicode
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the model item index for the given ``path`` .
+
+
+
+.. method:: PySide.QtGui.QDirModel.isDir(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the model item ``index`` represents a directory; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QDirModel.isReadOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model allows writing to the file system.
+
+    If this property is set to false, the directory model will allow renaming, copying and deleting of files and directories.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QDirModel.lazyChildCount()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model optimizes the hasChildren function to only check if the item is a directory..
+
+    If this property is set to false, the directory model will make sure that a directory actually containes any files before reporting that it has children. Otherwise the directory model will report that an item has children if the item is a directory.
+
+    This property is false by default
+
+
+
+.. method:: PySide.QtGui.QDirModel.mkdir(parent, name)
+
+
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Create a directory with the ``name`` in the ``parent`` model item.
+
+
+
+.. method:: PySide.QtGui.QDirModel.nameFilters()
+
+
+    :rtype: list of strings
+
+
+
+
+    Returns a list of filters applied to the names in the model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.setNameFilters` 
+
+
+.. method:: PySide.QtGui.QDirModel.refresh([parent=QModelIndex()])
+
+
+    :param parent: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    :class:`PySide.QtGui.QDirModel` caches file information. This function updates the cache. The ``parent`` parameter is the directory from which the model is updated; the default value will update the model from root directory of the file system (the entire model).
+
+
+
+.. method:: PySide.QtGui.QDirModel.remove(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the model item ``index`` from the directory model and **deletes the corresponding file from the file system** , returning true if successful. If the item cannot be removed, false is returned.
+
+    .. warning::  This function deletes files from the file system; it does **not** move them to a location where they can be recovered.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.rmdir` 
+
+
+.. method:: PySide.QtGui.QDirModel.resolveSymlinks()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model should resolve symbolic links.
+
+    This is only relevant on operating systems that support symbolic links.
+
+
+
+.. method:: PySide.QtGui.QDirModel.rmdir(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Removes the directory corresponding to the model item ``index`` in the directory model and **deletes the corresponding directory from the file system** , returning true if successful. If the directory cannot be removed, false is returned.
+
+    .. warning::  This function deletes directories from the file system; it does **not** move them to a location where they can be recovered.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.remove` 
+
+
+.. method:: PySide.QtGui.QDirModel.setFilter(filters)
+
+
+    :param filters: :class:`PySide.QtCore.QDir.Filters`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDirModel.setIconProvider(provider)
+
+
+    :param provider: :class:`PySide.QtGui.QFileIconProvider`
+
+
+
+
+    Sets the ``provider`` of file icons for the directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.iconProvider` 
+
+
+.. method:: PySide.QtGui.QDirModel.setLazyChildCount(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model optimizes the hasChildren function to only check if the item is a directory..
+
+    If this property is set to false, the directory model will make sure that a directory actually containes any files before reporting that it has children. Otherwise the directory model will report that an item has children if the item is a directory.
+
+    This property is false by default
+
+
+
+.. method:: PySide.QtGui.QDirModel.setNameFilters(filters)
+
+
+    :param filters: list of strings
+
+
+
+
+    Sets the name ``filters`` for the directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.nameFilters` 
+
+
+.. method:: PySide.QtGui.QDirModel.setReadOnly(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model allows writing to the file system.
+
+    If this property is set to false, the directory model will allow renaming, copying and deleting of files and directories.
+
+    This property is true by default
+
+
+
+.. method:: PySide.QtGui.QDirModel.setResolveSymlinks(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether the directory model should resolve symbolic links.
+
+    This is only relevant on operating systems that support symbolic links.
+
+
+
+.. method:: PySide.QtGui.QDirModel.setSorting(sort)
+
+
+    :param sort: :class:`PySide.QtCore.QDir.SortFlags`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDirModel.sorting()
+
+
+    :rtype: :class:`PySide.QtCore.QDir.SortFlags`
+
+
+
+
+    Returns the sorting method used for the directory model.
+
+    .. seealso::  :meth:`PySide.QtGui.QDirModel.setSorting`  :class:`QDir.SortFlags` 
+
+
+

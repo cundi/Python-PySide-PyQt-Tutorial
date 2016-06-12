@@ -1,0 +1,737 @@
+.. module:: PySide.QtWebKit
+.. _QWebSettings:
+
+QWebSettings
+************
+
+.. inheritance-diagram:: QWebSettings
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`defaultTextEncoding<PySide.QtWebKit.QWebSettings.defaultTextEncoding>` ()
+*    def :meth:`fontFamily<PySide.QtWebKit.QWebSettings.fontFamily>` (which)
+*    def :meth:`fontSize<PySide.QtWebKit.QWebSettings.fontSize>` (type)
+*    def :meth:`localStoragePath<PySide.QtWebKit.QWebSettings.localStoragePath>` ()
+*    def :meth:`resetAttribute<PySide.QtWebKit.QWebSettings.resetAttribute>` (attr)
+*    def :meth:`resetFontFamily<PySide.QtWebKit.QWebSettings.resetFontFamily>` (which)
+*    def :meth:`resetFontSize<PySide.QtWebKit.QWebSettings.resetFontSize>` (type)
+*    def :meth:`setAttribute<PySide.QtWebKit.QWebSettings.setAttribute>` (attr, on)
+*    def :meth:`setDefaultTextEncoding<PySide.QtWebKit.QWebSettings.setDefaultTextEncoding>` (encoding)
+*    def :meth:`setFontFamily<PySide.QtWebKit.QWebSettings.setFontFamily>` (which, family)
+*    def :meth:`setFontSize<PySide.QtWebKit.QWebSettings.setFontSize>` (type, size)
+*    def :meth:`setLocalStoragePath<PySide.QtWebKit.QWebSettings.setLocalStoragePath>` (path)
+*    def :meth:`setUserStyleSheetUrl<PySide.QtWebKit.QWebSettings.setUserStyleSheetUrl>` (location)
+*    def :meth:`testAttribute<PySide.QtWebKit.QWebSettings.testAttribute>` (attr)
+*    def :meth:`userStyleSheetUrl<PySide.QtWebKit.QWebSettings.userStyleSheetUrl>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clearIconDatabase<PySide.QtWebKit.QWebSettings.clearIconDatabase>` ()
+*    def :meth:`clearMemoryCaches<PySide.QtWebKit.QWebSettings.clearMemoryCaches>` ()
+*    def :meth:`enablePersistentStorage<PySide.QtWebKit.QWebSettings.enablePersistentStorage>` ([path=""])
+*    def :meth:`globalSettings<PySide.QtWebKit.QWebSettings.globalSettings>` ()
+*    def :meth:`iconDatabasePath<PySide.QtWebKit.QWebSettings.iconDatabasePath>` ()
+*    def :meth:`iconForUrl<PySide.QtWebKit.QWebSettings.iconForUrl>` (url)
+*    def :meth:`maximumPagesInCache<PySide.QtWebKit.QWebSettings.maximumPagesInCache>` ()
+*    def :meth:`offlineStorageDefaultQuota<PySide.QtWebKit.QWebSettings.offlineStorageDefaultQuota>` ()
+*    def :meth:`offlineStoragePath<PySide.QtWebKit.QWebSettings.offlineStoragePath>` ()
+*    def :meth:`offlineWebApplicationCachePath<PySide.QtWebKit.QWebSettings.offlineWebApplicationCachePath>` ()
+*    def :meth:`offlineWebApplicationCacheQuota<PySide.QtWebKit.QWebSettings.offlineWebApplicationCacheQuota>` ()
+*    def :meth:`setIconDatabasePath<PySide.QtWebKit.QWebSettings.setIconDatabasePath>` (location)
+*    def :meth:`setMaximumPagesInCache<PySide.QtWebKit.QWebSettings.setMaximumPagesInCache>` (pages)
+*    def :meth:`setObjectCacheCapacities<PySide.QtWebKit.QWebSettings.setObjectCacheCapacities>` (cacheMinDeadCapacity, cacheMaxDead, totalCapacity)
+*    def :meth:`setOfflineStorageDefaultQuota<PySide.QtWebKit.QWebSettings.setOfflineStorageDefaultQuota>` (maximumSize)
+*    def :meth:`setOfflineStoragePath<PySide.QtWebKit.QWebSettings.setOfflineStoragePath>` (path)
+*    def :meth:`setOfflineWebApplicationCachePath<PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCachePath>` (path)
+*    def :meth:`setOfflineWebApplicationCacheQuota<PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCacheQuota>` (maximumSize)
+*    def :meth:`setWebGraphic<PySide.QtWebKit.QWebSettings.setWebGraphic>` (type, graphic)
+*    def :meth:`webGraphic<PySide.QtWebKit.QWebSettings.webGraphic>` (type)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtWebKit.QWebSettings` class provides an object to store the settings used by :class:`PySide.QtWebKit.QWebPage` and :class:`PySide.QtWebKit.QWebFrame` .
+
+    Each :class:`PySide.QtWebKit.QWebPage` object has its own :class:`PySide.QtWebKit.QWebSettings` object, which configures the settings for that page. If a setting is not configured, then it is looked up in the global settings object, which can be accessed using :meth:`PySide.QtWebKit.QWebSettings.globalSettings` .
+
+    :class:`PySide.QtWebKit.QWebSettings` allows configuration of browser properties, such as font sizes and families, the location of a custom style sheet, and generic attributes like JavaScript and plugins. Individual attributes are set using the :meth:`PySide.QtWebKit.QWebSettings.setAttribute` function. The :attr:`QWebSettings.WebAttribute` enum further describes each attribute.
+
+    :class:`PySide.QtWebKit.QWebSettings` also configures global properties such as the web page memory cache, icon database, local database storage and offline applications storage.
+
+    .. _PySide.QtWebKit.QWebSettings_enabling-plugins:
+
+
+
+Enabling Plugins
+^^^^^^^^^^^^^^^^
+
+    Support for browser plugins can enabled by setting the :attr:`PluginsEnabled<QWebSettings.WebAttribute>` attribute. For many applications, this attribute is enabled for all pages by setting it on the :meth:`global settings object<PySide.QtWebKit.QWebSettings.globalSettings>` . :ref:`QtWebKit` will always ignore this setting when processing Qt plugins. The decision to allow a Qt plugin is made by the client in its reimplementation of :meth:`QWebPage.createPlugin()<PySide.QtWebKit.QWebPage.createPlugin>` .
+
+    .. _PySide.QtWebKit.QWebSettings_web-application-support:
+
+
+
+Web Application Support
+^^^^^^^^^^^^^^^^^^^^^^^
+
+    :ref:`WebKit<webkit.html>` provides support for features specified in :ref:`HTML 5<http://www.w3.org/TR/html5/>` that improve the performance and capabilities of Web applications. These include client-side (offline) storage and the use of a Web application cache.
+
+    Client-side (offline) storage is an improvement over the use of cookies to store persistent data in Web applications. Applications can configure and enable the use of an offline storage database by calling the :meth:`PySide.QtWebKit.QWebSettings.setOfflineStoragePath` with an appropriate file path, and can limit the quota for each application by calling :meth:`PySide.QtWebKit.QWebSettings.setOfflineStorageDefaultQuota` .
+
+    .. seealso::  :meth:`QWebPage.settings()<PySide.QtWebKit.QWebPage.settings>`  :meth:`QWebView.settings()<PySide.QtWebKit.QWebView.settings>`  :ref:`Web Browser<demos-browser.html>` 
+
+
+
+.. attribute:: PySide.QtWebKit.QWebSettings.FontSize
+
+    This enum describes the font sizes configurable through :class:`PySide.QtWebKit.QWebSettings` .
+
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                           |Description                                                                                                                                                     |
+    +===================================+================================================================================================================================================================+
+    |QWebSettings.MinimumFontSize       |The hard minimum font size.                                                                                                                                     |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.MinimumLogicalFontSize|The minimum logical font size that is applied when zooming out with :meth:`QWebFrame.setTextSizeMultiplier()<PySide.QtWebKit.QWebFrame.setTextSizeMultiplier>` .|
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.DefaultFontSize       |The default font size for regular text.                                                                                                                         |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.DefaultFixedFontSize  |The default font size for fixed-pitch text.                                                                                                                     |
+    +-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtWebKit.QWebSettings.WebGraphic
+
+    This enums describes the standard graphical elements used in webpages.
+
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |Constant                                     |Description                                                                                  |
+    +=============================================+=============================================================================================+
+    |QWebSettings.MissingImageGraphic             |The replacement graphic shown when an image could not be loaded.                             |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.MissingPluginGraphic            |The replacement graphic shown when a plugin could not be loaded.                             |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.DefaultFrameIconGraphic         |The default icon for :meth:`QWebFrame.icon()<PySide.QtWebKit.QWebFrame.icon>` .              |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.TextAreaSizeGripCornerGraphic   |The graphic shown for the size grip of text areas.                                           |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.DeleteButtonGraphic             |The graphic shown for the :ref:`WebKit<webkit.html>` -Editing-Delete-Button in Deletion UI.  |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.InputSpeechButtonGraphic        |The graphic shown in input fields that support speech recognition.                           |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.SearchCancelButtonGraphic       |The graphic shown for clearing the text in a search field.                                   |
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+    |QWebSettings.SearchCancelButtonPressedGraphic|The graphic shown when :attr:`SearchCancelButtonGraphic<QWebSettings.WebGraphic>` is pressed.|
+    +---------------------------------------------+---------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtWebKit.QWebSettings.FontFamily
+
+    This enum describes the generic font families defined by CSS 2. For more information see the CSS standard.
+
+    +--------------------------+-----------+
+    |Constant                  |Description|
+    +==========================+===========+
+    |QWebSettings.StandardFont |           |
+    +--------------------------+-----------+
+    |QWebSettings.FixedFont    |           |
+    +--------------------------+-----------+
+    |QWebSettings.SerifFont    |           |
+    +--------------------------+-----------+
+    |QWebSettings.SansSerifFont|           |
+    +--------------------------+-----------+
+    |QWebSettings.CursiveFont  |           |
+    +--------------------------+-----------+
+    |QWebSettings.FantasyFont  |           |
+    +--------------------------+-----------+
+
+
+.. attribute:: PySide.QtWebKit.QWebSettings.WebAttribute
+
+    This enum describes various attributes that are configurable through :class:`PySide.QtWebKit.QWebSettings` .
+
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                                      |Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +==============================================+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
+    |QWebSettings.AutoLoadImages                   |Specifies whether images are automatically loaded in web pages. This is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.DnsPrefetchEnabled               |Specifies whether QtWebkit will try to pre-fetch DNS entries to speed up browsing. This only works as a global attribute. Only for Qt 4.6 and later. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.JavascriptEnabled                |Enables or disables the running of JavaScript programs. This is enabled by default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.JavaEnabled                      |Enables or disables Java applets. Currently Java applets are not supported.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.PluginsEnabled                   |Enables or disables plugins in Web pages (e.g. using NPAPI). Qt plugins with a mimetype such as "application/x-qt-plugin" are not affected by this setting. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.PrivateBrowsingEnabled           |Private browsing prevents :ref:`WebKit<webkit.html>` from recording visited pages in the history and storing web page icons. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.JavascriptCanOpenWindows         |Specifies whether JavaScript programs can open new windows. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.JavascriptCanCloseWindows        |Specifies whether JavaScript programs can close windows. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.JavascriptCanAccessClipboard     |Specifies whether JavaScript programs can read or write to the clipboard. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.DeveloperExtrasEnabled           |Enables extra tools for Web developers. Currently this enables the "Inspect" element in the context menu as well as the use of :class:`PySide.QtWebKit.QWebInspector` which controls the web inspector for web site debugging. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.SpatialNavigationEnabled         |Enables or disables the Spatial Navigation feature, which consists in the ability to navigate between focusable elements in a Web page, such as hyperlinks and form controls, by using Left, Right, Up and Down arrow keys. For example, if a user presses the Right key, heuristics determine whether there is an element he might be trying to reach towards the right and which element he probably wants. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                             |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.LinksIncludedInFocusChain        |Specifies whether hyperlinks should be included in the keyboard focus chain. This is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.ZoomTextOnly                     |Specifies whether the zoom factor on a frame applies only to the text or to all content. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.PrintElementBackgrounds          |Specifies whether the background color and images are also drawn when the page is printed. This is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.OfflineStorageDatabaseEnabled    |Specifies whether support for the HTML 5 offline storage feature is enabled or not. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.OfflineWebApplicationCacheEnabled|Specifies whether support for the HTML 5 web application cache feature is enabled or not. This is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.LocalStorageEnabled              |Specifies whether support for the HTML 5 local storage feature is enabled or not. This is disabled by default. (This value was introduced in 4.6.)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.LocalStorageDatabaseEnabled      |*This enum value is deprecated.* Use :attr:`QWebSettings.LocalStorageEnabled<QWebSettings.WebAttribute>` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.LocalContentCanAccessRemoteUrls  |Specifies whether locally loaded documents are allowed to access remote urls. This is disabled by default. For more information about security origins and local vs. remote content see :class:`PySide.QtWebKit.QWebSecurityOrigin` . (This value was introduced in 4.6.)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.LocalContentCanAccessFileUrls    |Specifies whether locally loaded documents are allowed to access other local urls. This is enabled by default. For more information about security origins and local vs. remote content see :class:`PySide.QtWebKit.QWebSecurityOrigin` .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.XSSAuditingEnabled               |Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Enabling this feature might have an impact on performance and it is disabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.AcceleratedCompositingEnabled    |This feature, when used in conjunction with :class:`PySide.QtWebKit.QGraphicsWebView` , accelerates animations of web content. CSS animations of the transform and opacity properties will be rendered by composing the cached content of the animated elements. This is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.TiledBackingStoreEnabled         |This setting enables the tiled backing store feature for a :class:`PySide.QtWebKit.QGraphicsWebView` . With the tiled backing store enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The tiles are automatically kept in sync with the web page as it changes. Enabling tiling can significantly speed up painting heavy operations like scrolling. Enabling the feature increases memory consumption. It does not work well with contents using CSS fixed positioning (see also :meth:`PySide.QtWebKit.QGraphicsWebView.resizesToContents` property). :meth:`PySide.QtWebKit.QGraphicsWebView.tiledBackingStoreFrozen` property allows application to temporarily freeze the contents of the backing store. This is disabled by default.|
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.FrameFlatteningEnabled           |With this setting each subframe is expanded to its contents. On touch devices, it is desired to not have any scrollable sub parts of the page as it results in a confusing user experience, with scrolling sometimes scrolling sub parts and at other times scrolling the page itself. For this reason iframes and framesets are barely usable on touch devices. This will flatten all the frames to become one scrollable page. This is disabled by default.                                                                                                                                                                                                                                                                                                                                          |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QWebSettings.SiteSpecificQuirksEnabled        |This setting enables :ref:`WebKit<webkit.html>` 's workaround for broken sites. It is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    +----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.clearIconDatabase()
+
+
+
+
+
+
+    Clears the icon database.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.clearMemoryCaches()
+
+
+
+
+
+
+    Frees up as much memory as possible by cleaning all memory caches such as page, object and font cache.
+
+
+
+.. method:: PySide.QtWebKit.QWebSettings.defaultTextEncoding()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the default text encoding.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setDefaultTextEncoding` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.enablePersistentStorage([path=""])
+
+
+    :param path: unicode
+
+
+
+
+    Enables :ref:`WebKit<webkit.html>` data persistence and sets the path to ``path`` . If ``path`` is empty, the user-specific data location specified by :attr:`DataLocation<QDesktopServices.StandardLocation>` will be used instead.
+
+    This method will simultaneously set and enable the :meth:`PySide.QtWebKit.QWebSettings.iconDatabasePath` , :meth:`PySide.QtWebKit.QWebSettings.localStoragePath` , :meth:`PySide.QtWebKit.QWebSettings.offlineStoragePath` and :meth:`PySide.QtWebKit.QWebSettings.offlineWebApplicationCachePath` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.localStoragePath` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.fontFamily(which)
+
+
+    :param which: :attr:`PySide.QtWebKit.QWebSettings.FontFamily`
+    :rtype: unicode
+
+
+
+
+    Returns the actual font family for the specified generic font family, ``which`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setFontFamily` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.fontSize(type)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebSettings.FontSize`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the default font size for ``type`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setFontSize` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.globalSettings()
+
+
+    :rtype: :class:`PySide.QtWebKit.QWebSettings`
+
+
+
+
+    Returns the global settings object.
+
+    Any setting changed on the default object is automatically applied to all :class:`PySide.QtWebKit.QWebPage` instances where the particular setting is not overriden already.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.iconDatabasePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path of the icon database or an empty string if the icon database is disabled.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setIconDatabasePath`  :meth:`PySide.QtWebKit.QWebSettings.clearIconDatabase` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.iconForUrl(url)
+
+
+    :param url: :class:`PySide.QtCore.QUrl`
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    Returns the web site's icon for ``url`` .
+
+    If the web site does not specify an icon **OR** if the icon is not in the database, a null :class:`PySide.QtGui.QIcon` is returned.
+
+    .. note::  The returned icon's size is arbitrary.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setIconDatabasePath` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.localStoragePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path for HTML5 local storage.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setLocalStoragePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.maximumPagesInCache()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the maximum number of web pages that are kept in the memory cache.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setMaximumPagesInCache` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.offlineStorageDefaultQuota()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the value of the default quota for new offline storage databases.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setOfflineStorageDefaultQuota` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.offlineStoragePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path of the HTML5 client-side database storage or an empty string if the feature is disabled.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setOfflineStoragePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.offlineWebApplicationCachePath()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the path of the HTML5 offline web application cache storage or an empty string if the feature is disabled.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCachePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.offlineWebApplicationCacheQuota()
+
+
+    :rtype: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Returns the value of the quota for the offline web application cache.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCacheQuota` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.resetAttribute(attr)
+
+
+    :param attr: :attr:`PySide.QtWebKit.QWebSettings.WebAttribute`
+
+
+
+
+    Resets the setting of ``attribute`` to the value specified in the global :class:`PySide.QtWebKit.QWebSettings` instance.
+
+    This function has no effect on the global :class:`PySide.QtWebKit.QWebSettings` instance.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.globalSettings` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.resetFontFamily(which)
+
+
+    :param which: :attr:`PySide.QtWebKit.QWebSettings.FontFamily`
+
+
+
+
+    Resets the actual font family specified by ``which`` to the one set in the global :class:`PySide.QtWebKit.QWebSettings` instance.
+
+    This function has no effect on the global :class:`PySide.QtWebKit.QWebSettings` instance.
+
+
+
+.. method:: PySide.QtWebKit.QWebSettings.resetFontSize(type)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebSettings.FontSize`
+
+
+
+
+    Resets the font size for ``type`` to the size specified in the global settings object.
+
+    This function has no effect on the global :class:`PySide.QtWebKit.QWebSettings` instance.
+
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setAttribute(attr, on)
+
+
+    :param attr: :attr:`PySide.QtWebKit.QWebSettings.WebAttribute`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    Enables or disables the specified ``attribute`` feature depending on the value of ``on`` .
+
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setDefaultTextEncoding(encoding)
+
+
+    :param encoding: unicode
+
+
+
+
+    Specifies the default text encoding system.
+
+    The ``encoding`` , must be a string describing an encoding such as "utf-8", "iso-8859-1", etc. If left empty a default value will be used. For a more extensive list of encoding names see :class:`PySide.QtCore.QTextCodec`
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.defaultTextEncoding` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setFontFamily(which, family)
+
+
+    :param which: :attr:`PySide.QtWebKit.QWebSettings.FontFamily`
+    :param family: unicode
+
+
+
+
+    Sets the actual font family to ``family`` for the specified generic family, ``which`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.fontFamily` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setFontSize(type, size)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebSettings.FontSize`
+    :param size: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the font size for ``type`` to ``size`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.fontSize` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setIconDatabasePath(location)
+
+
+    :param location: unicode
+
+
+
+
+    Sets the path of the icon database to ``path`` . The icon database is used to store "favicons" associated with web sites.
+
+    ``path`` must point to an existing directory.
+
+    Setting an empty path disables the icon database.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.iconDatabasePath`  :meth:`PySide.QtWebKit.QWebSettings.clearIconDatabase` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setLocalStoragePath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Sets the path for HTML5 local storage to ``path`` .
+
+    For more information on HTML5 local storage see the Web Storage standard.
+
+    Support for local storage can enabled by setting the :attr:`LocalStorageEnabled<QWebSettings.WebAttribute>` attribute.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.localStoragePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setMaximumPagesInCache(pages)
+
+
+    :param pages: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the maximum number of pages to hold in the memory page cache to ``pages`` .
+
+    The Page Cache allows for a nicer user experience when navigating forth or back to pages in the forward/back history, by pausing and resuming up to ``pages`` .
+
+    For more information about the feature, please refer to:
+
+    http://webkit.org/blog/427/webkit-page-cache-i-the-basics/
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.maximumPagesInCache` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setObjectCacheCapacities(cacheMinDeadCapacity, cacheMaxDead, totalCapacity)
+
+
+    :param cacheMinDeadCapacity: :class:`PySide.QtCore.int`
+    :param cacheMaxDead: :class:`PySide.QtCore.int`
+    :param totalCapacity: :class:`PySide.QtCore.int`
+
+
+
+
+    Specifies the capacities for the memory cache for dead objects such as stylesheets or scripts.
+
+    The ``cacheMinDeadCapacity`` specifies the *minimum* number of bytes that dead objects should consume when the cache is under pressure.
+
+    ``cacheMaxDead`` is the *maximum* number of bytes that dead objects should consume when the cache is **not** under pressure.
+
+    ``totalCapacity`` specifies the *maximum* number of bytes that the cache should consume **overall** .
+
+    The cache is enabled by default. Calling setObjectCacheCapacities(0, 0, 0) will disable the cache. Calling it with one non-zero enables it again.
+
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setOfflineStorageDefaultQuota(maximumSize)
+
+
+    :param maximumSize: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the value of the default quota for new offline storage databases to ``maximumSize`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.offlineStorageDefaultQuota` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setOfflineStoragePath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Sets ``path`` as the save location for HTML5 client-side database storage data.
+
+    ``path`` must point to an existing directory.
+
+    Setting an empty path disables the feature.
+
+    Support for client-side databases can enabled by setting the :attr:`OfflineStorageDatabaseEnabled<QWebSettings.WebAttribute>` attribute.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.offlineStoragePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCachePath(path)
+
+
+    :param path: unicode
+
+
+
+
+    Sets the path for HTML5 offline web application cache storage to ``path`` .
+
+    An application cache acts like an HTTP cache in some sense. For documents that use the application cache via JavaScript, the loader engine will first ask the application cache for the contents, before hitting the network.
+
+    The feature is described in details at: http://dev.w3.org/html5/spec/Overview.html#appcache
+
+    ``path`` must point to an existing directory.
+
+    Setting an empty path disables the feature.
+
+    Support for offline web application cache storage can enabled by setting the :attr:`OfflineWebApplicationCacheEnabled<QWebSettings.WebAttribute>` attribute.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.offlineWebApplicationCachePath` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setOfflineWebApplicationCacheQuota(maximumSize)
+
+
+    :param maximumSize: :class:`PySide.QtCore.qint64`
+
+
+
+
+    Sets the value of the quota for the offline web application cache to ``maximumSize`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.offlineWebApplicationCacheQuota` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.setUserStyleSheetUrl(location)
+
+
+    :param location: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Specifies the location of a user stylesheet to load with every web page.
+
+    The ``location`` must be either a path on the local filesystem, or a data URL with UTF-8 and Base64 encoded data, such as:
+
+    "data:text/css;charset=utf-8;base64,cCB7IGJhY2tncm91bmQtY29sb3I6IHJlZCB9Ow=="
+
+    .. note::  If the base64 data is not valid, the style will not be applied.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.userStyleSheetUrl` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.setWebGraphic(type, graphic)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebSettings.WebGraphic`
+    :param graphic: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Sets ``graphic`` to be drawn when :ref:`QtWebKit` needs to draw an image of the given ``type`` .
+
+    For example, when an image cannot be loaded, the pixmap specified by :attr:`MissingImageGraphic<QWebSettings.WebGraphic>` is drawn instead.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.webGraphic` 
+
+
+.. method:: PySide.QtWebKit.QWebSettings.testAttribute(attr)
+
+
+    :param attr: :attr:`PySide.QtWebKit.QWebSettings.WebAttribute`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``attribute`` is enabled; otherwise returns false.
+
+
+
+.. method:: PySide.QtWebKit.QWebSettings.userStyleSheetUrl()
+
+
+    :rtype: :class:`PySide.QtCore.QUrl`
+
+
+
+
+    Returns the location of the user stylesheet.
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setUserStyleSheetUrl` 
+
+
+.. staticmethod:: PySide.QtWebKit.QWebSettings.webGraphic(type)
+
+
+    :param type: :attr:`PySide.QtWebKit.QWebSettings.WebGraphic`
+    :rtype: :class:`PySide.QtGui.QPixmap`
+
+
+
+
+    Returns a previously set pixmap used to draw replacement graphics of the specified ``type`` .
+
+    .. seealso::  :meth:`PySide.QtWebKit.QWebSettings.setWebGraphic` 
+
+
+

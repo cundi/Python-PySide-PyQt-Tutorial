@@ -1,0 +1,774 @@
+.. module:: PySide.QtGui
+.. _QKeySequence:
+
+QKeySequence
+************
+
+.. inheritance-diagram:: QKeySequence
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QKeySequence.__eq__>` (other)
+*    def :meth:`__ge__<PySide.QtGui.QKeySequence.__ge__>` (other)
+*    def :meth:`__getitem__<PySide.QtGui.QKeySequence.__getitem__>` ()
+*    def :meth:`__gt__<PySide.QtGui.QKeySequence.__gt__>` (other)
+*    def :meth:`__le__<PySide.QtGui.QKeySequence.__le__>` (other)
+*    def :meth:`__lt__<PySide.QtGui.QKeySequence.__lt__>` (ks)
+*    def :meth:`__ne__<PySide.QtGui.QKeySequence.__ne__>` (other)
+*    def :meth:`__reduce__<PySide.QtGui.QKeySequence.__reduce__>` ()
+*    def :meth:`__repr__<PySide.QtGui.QKeySequence.__repr__>` ()
+*    def :meth:`assign<PySide.QtGui.QKeySequence.assign>` (str)
+*    def :meth:`assign<PySide.QtGui.QKeySequence.assign>` (str, format)
+*    def :meth:`count<PySide.QtGui.QKeySequence.count>` ()
+*    def :meth:`isEmpty<PySide.QtGui.QKeySequence.isEmpty>` ()
+*    def :meth:`matches<PySide.QtGui.QKeySequence.matches>` (seq)
+*    def :meth:`setKey<PySide.QtGui.QKeySequence.setKey>` (key, index)
+*    def :meth:`swap<PySide.QtGui.QKeySequence.swap>` (other)
+*    def :meth:`toString<PySide.QtGui.QKeySequence.toString>` ([format=PortableText])
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`decodeString<PySide.QtGui.QKeySequence.decodeString>` (ks)
+*    def :meth:`encodeString<PySide.QtGui.QKeySequence.encodeString>` (key)
+*    def :meth:`fromString<PySide.QtGui.QKeySequence.fromString>` (str[, format=PortableText])
+*    def :meth:`keyBindings<PySide.QtGui.QKeySequence.keyBindings>` (key)
+*    def :meth:`mnemonic<PySide.QtGui.QKeySequence.mnemonic>` (text)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QKeySequence` class encapsulates a key sequence as used by shortcuts.
+
+    In its most common form, a key sequence describes a combination of keys that must be used together to perform some action. Key sequences are used with :class:`PySide.QtGui.QAction` objects to specify which keyboard shortcuts can be used to trigger actions.
+
+    Key sequences can be constructed for use as keyboard shortcuts in three different ways:
+
+
+    * For standard shortcuts, a :attr:`standard key<QKeySequence.StandardKey>` can be used to request the platform-specific key sequence associated with each shortcut.
+    * For custom shortcuts, human-readable strings such as "Ctrl+X" can be used, and these can be translated into the appropriate shortcuts for users of different languages. Translations are made in the " :class:`PySide.QtGui.QShortcut` " context.
+    * For hard-coded shortcuts, integer key codes can be specified with a combination of values defined by the :attr:`Qt.Key` and :attr:`Qt.Modifier` enum values. Each key code consists of a single :attr:`Qt.Key` value and zero or more modifiers, such as :attr:`Qt.SHIFT<Qt.Modifier>` , :attr:`Qt.CTRL<Qt.Modifier>` , :attr:`Qt.ALT<Qt.Modifier>` and :attr:`Qt.META<Qt.Modifier>` .
+
+    For example, **Ctrl P** might be a sequence used as a shortcut for printing a document, and can be specified in any of the following ways:
+
+    ::
+
+        QKeySequence(QKeySequence.Print)
+        QKeySequence(tr("Ctrl+P"))
+        QKeySequence(tr("Ctrl+p"))
+        QKeySequence(Qt.CTRL + Qt.Key_P)
+
+
+    Note that, for letters, the case used in the specification string does not matter. In the above examples, the user does not need to hold down the **Shift** key to activate a shortcut specified with "Ctrl+P". However, for other keys, the use of **Shift** as an unspecified extra modifier key can lead to confusion for users of an application whose keyboards have different layouts to those used by the developers. See the :class:`~PySide.QtGui.Keyboard Layout Issues` section below for more details.
+
+    It is preferable to use standard shortcuts where possible. When creating key sequences for non-standard shortcuts, you should use human-readable strings in preference to hard-coded integer values.
+
+    :class:`PySide.QtGui.QKeySequence` objects can be cast to a :class:`PySide.QtCore.QString` to obtain a human-readable translated version of the sequence. Similarly, the :meth:`PySide.QtGui.QKeySequence.toString` function produces human-readable strings for use in menus. On Mac OS X, the appropriate symbols are used to describe keyboard shortcuts using special keys on the Macintosh keyboard.
+
+    An alternative way to specify hard-coded key codes is to use the Unicode code point of the character; for example, 'A' gives the same key sequence as :attr:`Qt.Key_A<Qt.Key>` .
+
+    .. note::  On Mac OS X, references to "Ctrl", :attr:`Qt.CTRL<Qt.Modifier>` , Qt::Control and :attr:`Qt.ControlModifier<Qt.KeyboardModifier>` correspond to the **Command** keys on the Macintosh keyboard, and references to "Meta", :attr:`Qt.META<Qt.Modifier>` , Qt::Meta and :attr:`Qt.MetaModifier<Qt.KeyboardModifier>` correspond to the **Control** keys. Developers on Mac OS X can use the same shortcut descriptions across all platforms, and their applications will automatically work as expected on Mac OS X.
+
+    .. _PySide.QtGui.QKeySequence_standard-shortcuts:
+
+
+
+Standard Shortcuts
+^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QKeySequence` defines many :attr:`standard keyboard shortcuts<QKeySequence.StandardKey>` to reduce the amount of effort required when setting up actions in a typical application. The table below shows some common key sequences that are often used for these standard shortcuts by applications on four widely-used platforms. Note that on Mac OS X, the **Ctrl** value corresponds to the **Command** keys on the Macintosh keyboard, and the **Meta** value corresponds to the **Control** keys.
+
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`QKeySequence.StandardKey`                          |Windows                                  |Mac OS X                                  |KDE                              |GNOME                 |S60             |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`HelpContents<QKeySequence.StandardKey>`            |F1                                       |Ctrl+?                                    |F1                               |F1                    |F2              |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`WhatsThis<QKeySequence.StandardKey>`               |Shift+F1                                 |Shift+F1                                  |Shift+F1                         |Shift+F1              |Shift+F1        |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Open                                                      |Ctrl+O                                   |Ctrl+O                                    |Ctrl+O                           |Ctrl+O                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Close                                                     |Ctrl+F4, Ctrl+W                          |Ctrl+W, Ctrl+F4                           |Ctrl+W                           |Ctrl+W                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Save                                                      |Ctrl+S                                   |Ctrl+S                                    |Ctrl+S                           |Ctrl+S                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Quit                                                      |                                         |Ctrl+Q                                    |Qtrl+Q                           |Qtrl+Q                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SaveAs<QKeySequence.StandardKey>`                  |                                         |Ctrl+Shift+S                              |                                 |Ctrl+Shift+S          |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |New                                                       |Ctrl+N                                   |Ctrl+N                                    |Ctrl+N                           |Ctrl+N                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Delete                                                    |Del                                      |Del, Meta+D                               |Del, Ctrl+D                      |Del, Ctrl+D           |Del             |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Cut                                                       |Ctrl+X, Shift+Del                        |Ctrl+X                                    |Ctrl+X, F20, Shift+Del           |Ctrl+X, F20, Shift+Del|Ctrl+X          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Copy                                                      |Ctrl+C, Ctrl+Ins                         |Ctrl+C                                    |Ctrl+C, F16, Ctrl+Ins            |Ctrl+C, F16, Ctrl+Ins |Ctrl+C          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Paste                                                     |Ctrl+V, Shift+Ins                        |Ctrl+V                                    |Ctrl+V, F18, Shift+Ins           |Ctrl+V, F18, Shift+Ins|Ctrl+V          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Preferences                                               |                                         |Ctrl+,                                    |                                 |                      |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Undo                                                      |Ctrl+Z, Alt+Backspace                    |Ctrl+Z                                    |Ctrl+Z, F14                      |Ctrl+Z, F14           |Ctrl+Z          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Redo                                                      |Ctrl+Y, Shift+Ctrl+Z, Alt+Shift+Backspace|Ctrl+Shift+Z                              |Ctrl+Shift+Z                     |Ctrl+Shift+Z          |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Back                                                      |Alt+Left, Backspace                      |Ctrl+[                                    |Alt+Left                         |Alt+Left              |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Forward                                                   |Alt+Right, Shift+Backspace               |Ctrl+]                                    |Alt+Right                        |Alt+Right             |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Refresh                                                   |F5                                       |F5                                        |F5                               |Ctrl+R, F5            |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`ZoomIn<QKeySequence.StandardKey>`                  |Ctrl+Plus                                |Ctrl+Plus                                 |Ctrl+Plus                        |Ctrl+Plus             |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`ZoomOut<QKeySequence.StandardKey>`                 |Ctrl+Minus                               |Ctrl+Minus                                |Ctrl+Minus                       |Ctrl+Minus            |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Print                                                     |Ctrl+P                                   |Ctrl+P                                    |Ctrl+P                           |Ctrl+P                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`AddTab<QKeySequence.StandardKey>`                  |Ctrl+T                                   |Ctrl+T                                    |Ctrl+Shift+N, Ctrl+T             |Ctrl+T                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`NextChild<QKeySequence.StandardKey>`               |Ctrl+Tab, Forward, Ctrl+F6               |Ctrl+}, Forward, Ctrl+Tab                 |Ctrl+Tab, Forward, Ctrl+Comma    |Ctrl+Tab, Forward     |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`PreviousChild<QKeySequence.StandardKey>`           |Ctrl+Shift+Tab, Back, Ctrl+Shift+F6      |Ctrl+{, Back, Ctrl+Shift+Tab              |Ctrl+Shift+Tab, Back, Ctrl+Period|Ctrl+Shift+Tab, Back  |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Find                                                      |Ctrl+F                                   |Ctrl+F                                    |Ctrl+F                           |Ctrl+F                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`FindNext<QKeySequence.StandardKey>`                |F3, Ctrl+G                               |Ctrl+G                                    |F3                               |Ctrl+G, F3            |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`FindPrevious<QKeySequence.StandardKey>`            |Shift+F3, Ctrl+Shift+G                   |Ctrl+Shift+G                              |Shift+F3                         |Ctrl+Shift+G, Shift+F3|(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Replace                                                   |Ctrl+H                                   |(none)                                    |Ctrl+R                           |Ctrl+H                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectAll<QKeySequence.StandardKey>`               |Ctrl+A                                   |Ctrl+A                                    |Ctrl+A                           |Ctrl+A                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Bold                                                      |Ctrl+B                                   |Ctrl+B                                    |Ctrl+B                           |Ctrl+B                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Italic                                                    |Ctrl+I                                   |Ctrl+I                                    |Ctrl+I                           |Ctrl+I                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |Underline                                                 |Ctrl+U                                   |Ctrl+U                                    |Ctrl+U                           |Ctrl+U                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToNextChar<QKeySequence.StandardKey>`          |Right                                    |Right                                     |Right                            |Right                 |Right           |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToPreviousChar<QKeySequence.StandardKey>`      |Left                                     |Left                                      |Left                             |Left                  |Left            |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToNextWord<QKeySequence.StandardKey>`          |Ctrl+Right                               |Alt+Right                                 |Ctrl+Right                       |Ctrl+Right            |Ctrl+Right      |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToPreviousWord<QKeySequence.StandardKey>`      |Ctrl+Left                                |Alt+Left                                  |Ctrl+Left                        |Ctrl+Left             |Ctrl+Left       |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToNextLine<QKeySequence.StandardKey>`          |Down                                     |Down                                      |Down                             |Down                  |Down            |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToPreviousLine<QKeySequence.StandardKey>`      |Up                                       |Up                                        |Up                               |Up                    |Up              |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToNextPage<QKeySequence.StandardKey>`          |PgDown                                   |PgDown, Alt+PgDown, Meta+Down, Meta+PgDown|PgDown                           |PgDown                |PgDown          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToPreviousPage<QKeySequence.StandardKey>`      |PgUp                                     |PgUp, Alt+PgUp, Meta+Up, Meta+PgUp        |PgUp                             |PgUp                  |PgUp            |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToStartOfLine<QKeySequence.StandardKey>`       |Home                                     |Ctrl+Left, Meta+Left                      |Home                             |Home                  |Home            |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToEndOfLine<QKeySequence.StandardKey>`         |End                                      |Ctrl+Right, Meta+Right                    |End                              |End                   |End             |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToStartOfBlock<QKeySequence.StandardKey>`      |(none)                                   |Alt+Up, Meta+A                            |(none)                           |(none)                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToEndOfBlock<QKeySequence.StandardKey>`        |(none)                                   |Alt+Down, Meta+E                          |(none)                           |(none)                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToStartOfDocument<QKeySequence.StandardKey>`   |Ctrl+Home                                |Ctrl+Up, Home                             |Ctrl+Home                        |Ctrl+Home             |Ctrl+Home       |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`MoveToEndOfDocument<QKeySequence.StandardKey>`     |Ctrl+End                                 |Ctrl+Down, End                            |Ctrl+End                         |Ctrl+End              |Ctrl+End        |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectNextChar<QKeySequence.StandardKey>`          |Shift+Right                              |Shift+Right                               |Shift+Right                      |Shift+Right           |Shift+Right     |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectPreviousChar<QKeySequence.StandardKey>`      |Shift+Left                               |Shift+Left                                |Shift+Left                       |Shift+Left            |Shift+Left      |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectNextWord<QKeySequence.StandardKey>`          |Ctrl+Shift+Right                         |Alt+Shift+Right                           |Ctrl+Shift+Right                 |Ctrl+Shift+Right      |Ctrl+Shift+Right|
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectPreviousWord<QKeySequence.StandardKey>`      |Ctrl+Shift+Left                          |Alt+Shift+Left                            |Ctrl+Shift+Left                  |Ctrl+Shift+Left       |Ctrl+Shift+Left |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectNextLine<QKeySequence.StandardKey>`          |Shift+Down                               |Shift+Down                                |Shift+Down                       |Shift+Down            |Shift+Down      |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectPreviousLine<QKeySequence.StandardKey>`      |Shift+Up                                 |Shift+Up                                  |Shift+Up                         |Shift+Up              |Shift+Up        |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectNextPage<QKeySequence.StandardKey>`          |Shift+PgDown                             |Shift+PgDown                              |Shift+PgDown                     |Shift+PgDown          |Shift+PgDown    |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectPreviousPage<QKeySequence.StandardKey>`      |Shift+PgUp                               |Shift+PgUp                                |Shift+PgUp                       |Shift+PgUp            |Shift+PgUp      |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectStartOfLine<QKeySequence.StandardKey>`       |Shift+Home                               |Ctrl+Shift+Left                           |Shift+Home                       |Shift+Home            |Shift+Home      |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectEndOfLine<QKeySequence.StandardKey>`         |Shift+End                                |Ctrl+Shift+Right                          |Shift+End                        |Shift+End             |Shift+End       |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectStartOfBlock<QKeySequence.StandardKey>`      |(none)                                   |Alt+Shift+Up, Meta+Shift+A                |(none)                           |(none)                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectEndOfBlock<QKeySequence.StandardKey>`        |(none)                                   |Alt+Shift+Down, Meta+Shift+E              |(none)                           |(none)                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectStartOfDocument<QKeySequence.StandardKey>`   |Ctrl+Shift+Home                          |Ctrl+Shift+Up, Shift+Home                 |Ctrl+Shift+Home                  |Ctrl+Shift+Home       |Ctrl+Shift+Home |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`SelectEndOfDocument<QKeySequence.StandardKey>`     |Ctrl+Shift+End                           |Ctrl+Shift+Down, Shift+End                |Ctrl+Shift+End                   |Ctrl+Shift+End        |Ctrl+Shift+End  |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`DeleteStartOfWord<QKeySequence.StandardKey>`       |Ctrl+Backspace                           |Alt+Backspace                             |Ctrl+Backspace                   |Ctrl+Backspace        |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`DeleteEndOfWord<QKeySequence.StandardKey>`         |Ctrl+Del                                 |(none)                                    |Ctrl+Del                         |Ctrl+Del              |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`DeleteEndOfLine<QKeySequence.StandardKey>`         |(none)                                   |(none)                                    |Ctrl+K                           |Ctrl+K                |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`InsertParagraphSeparator<QKeySequence.StandardKey>`|Enter                                    |Enter                                     |Enter                            |Enter                 |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+    |:attr:`InsertLineSeparator<QKeySequence.StandardKey>`     |Shift+Enter                              |Meta+Enter                                |Shift+Enter                      |Shift+Enter           |(none)          |
+    +----------------------------------------------------------+-----------------------------------------+------------------------------------------+---------------------------------+----------------------+----------------+
+
+    Note that, since the key sequences used for the standard shortcuts differ between platforms, you still need to test your shortcuts on each platform to ensure that you do not unintentionally assign the same key sequence to many actions.
+
+    .. _PySide.QtGui.QKeySequence_keyboard-layout-issues:
+
+
+
+Keyboard Layout Issues
+^^^^^^^^^^^^^^^^^^^^^^
+
+    Many key sequence specifications are chosen by developers based on the layout of certain types of keyboard, rather than choosing keys that represent the first letter of an action's name, such as **Ctrl S** ("Ctrl+S") or **Ctrl C** ("Ctrl+C"). Additionally, because certain symbols can only be entered with the help of modifier keys on certain keyboard layouts, key sequences intended for use with one keyboard layout may map to a different key, map to no keys at all, or require an additional modifier key to be used on different keyboard layouts.
+
+    For example, the shortcuts, **Ctrl plus** and **Ctrl minus** , are often used as shortcuts for zoom operations in graphics applications, and these may be specified as "Ctrl++" and "Ctrl+-" respectively. However, the way these shortcuts are specified and interpreted depends on the keyboard layout. Users of Norwegian keyboards will note that the **+** and **-** keys are not adjacent on the keyboard, but will still be able to activate both shortcuts without needing to press the **Shift** key. However, users with British keyboards will need to hold down the **Shift** key to enter the **+** symbol, making the shortcut effectively the same as "Ctrl+Shift+=".
+
+    Although some developers might resort to fully specifying all the modifiers they use on their keyboards to activate a shortcut, this will also result in unexpected behavior for users of different keyboard layouts.
+
+    For example, a developer using a British keyboard may decide to specify "Ctrl+Shift+=" as the key sequence in order to create a shortcut that coincidentally behaves in the same way as **Ctrl plus** . However, the **=** key needs to be accessed using the **Shift** key on Norwegian keyboard, making the required shortcut effectively **Ctrl Shift Shift =** (an impossible key combination).
+
+    As a result, both human-readable strings and hard-coded key codes can both be problematic to use when specifying a key sequence that can be used on a variety of different keyboard layouts. Only the use of :attr:`standard shortcuts<QKeySequence.StandardKey>` guarantees that the user will be able to use the shortcuts that the developer intended.
+
+    Despite this, we can address this issue by ensuring that human-readable strings are used, making it possible for translations of key sequences to be made for users of different languages. This approach will be successful for users whose keyboards have the most typical layout for the language they are using.
+
+    .. _PySide.QtGui.QKeySequence_gnu-emacs-style-key-sequences:
+
+
+
+GNU Emacs Style Key Sequences
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Key sequences similar to those used in :ref:`GNU Emacs<http://www.gnu.org/software/emacs/>` , allowing up to four key codes, can be created by using the multiple argument constructor, or by passing a human-readable string of comma-separated key sequences.
+
+    For example, the key sequence, **Ctrl X** followed by **Ctrl C** , can be specified using either of the following ways:
+
+    ::
+
+        QKeySequence(tr("Ctrl+X, Ctrl+C"))
+        QKeySequence(Qt.CTRL + Qt.Key_X, Qt.CTRL + Qt.Key_C)
+
+
+    .. warning::  A :class:`PySide.QtGui.QApplication` instance must have been constructed before a :class:`PySide.QtGui.QKeySequence` is created; otherwise, your application may crash.
+
+    .. seealso::  :class:`PySide.QtGui.QShortcut` 
+
+.. class:: QKeySequence()
+           QKeySequence(key)
+           QKeySequence(ks)
+           QKeySequence(key)
+           QKeySequence(key, format)
+           QKeySequence(k1[, k2=0[, k3=0[, k4=0]]])
+
+    :param format: :attr:`PySide.QtGui.QKeySequence.SequenceFormat`
+    :param key: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+    :param ks: :class:`PySide.QtGui.QKeySequence`
+    :param k1: :class:`PySide.QtCore.int`
+    :param k2: :class:`PySide.QtCore.int`
+    :param k3: :class:`PySide.QtCore.int`
+    :param k4: :class:`PySide.QtCore.int`
+
+    Constructs an empty key sequence.
+
+
+    Constructs a :class:`PySide.QtGui.QKeySequence` object for the given ``key`` . The result will depend on the currently running platform.
+
+    The resulting object will be based on the first element in the list of key bindings for the ``key`` .
+
+
+    Copy constructor. Makes a copy of ``keysequence`` .
+
+
+    Creates a key sequence from the ``key`` string. For example "Ctrl+O" gives CTRL+'O'. The strings "Ctrl", "Shift", "Alt" and "Meta" are recognized, as well as their translated equivalents in the " :class:`PySide.QtGui.QShortcut` " context (using :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` ).
+
+    Up to four key codes may be entered by separating them with commas, e.g. "Alt+X,Ctrl+S,Q".
+
+    ``key`` should be in :attr:`NativeText<QKeySequence.SequenceFormat>` format.
+
+    This constructor is typically used with :meth:`PySide.QtCore.QObject.tr` (), so that shortcut keys can be replaced in translations:
+
+    ::
+
+        file = QMenu(self)
+        file.addAction(tr("&Open..."), self, SLOT("open()"),
+                       QKeySequence(tr("Ctrl+O", "File|Open")))
+
+
+    Note the "File|Open" translator comment. It is by no means necessary, but it provides some context for the human translator.
+
+
+    Creates a key sequence from the ``key`` string based on ``format`` .
+
+
+    Constructs a key sequence with up to 4 keys ``k1`` , ``k2`` , ``k3`` and ``k4`` .
+
+    The key codes are listed in :attr:`Qt.Key` and can be combined with modifiers (see :attr:`Qt.Modifier` ) such as :attr:`Qt.SHIFT<Qt.Modifier>` , :attr:`Qt.CTRL<Qt.Modifier>` , :attr:`Qt.ALT<Qt.Modifier>` , or :attr:`Qt.META<Qt.Modifier>` .
+
+
+.. attribute:: PySide.QtGui.QKeySequence.SequenceFormat
+
+    +-------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                 |Description                                                                                                                                                                                                                          |
+    +=========================+=====================================================================================================================================================================================================================================+
+    |QKeySequence.NativeText  |The key sequence as a platform specific string. This means that it will be shown translated and on the Mac it will resemble a key sequence from the menu bar. This enum is best used when you want to display the string to the user.|
+    +-------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QKeySequence.PortableText|The key sequence is given in a "portable" format, suitable for reading and writing to a file. In many cases, it will look similar to the native text on Windows and X11.                                                             |
+    +-------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QKeySequence.StandardKey
+
+    This enum represent standard key bindings. They can be used to assign platform dependent keyboard shortcuts to a :class:`PySide.QtGui.QAction` .
+
+    Note that the key bindings are platform dependent. The currently bound shortcuts can be queried using :meth:`PySide.QtGui.QKeySequence.keyBindings` .
+
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |Constant                             |Description                                                                       |
+    +=====================================+==================================================================================+
+    |QKeySequence.AddTab                  |Add new tab.                                                                      |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Back                    |Navigate back.                                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Bold                    |Bold text.                                                                        |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Close                   |Close document/tab.                                                               |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Copy                    |Copy.                                                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Cut                     |Cut.                                                                              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Delete                  |Delete.                                                                           |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.DeleteEndOfLine         |Delete end of line.                                                               |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.DeleteEndOfWord         |Delete word from the end of the cursor.                                           |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.DeleteStartOfWord       |Delete the beginning of a word up to the cursor.                                  |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Find                    |Find in document.                                                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.FindNext                |Find next result.                                                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.FindPrevious            |Find previous result.                                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Forward                 |Navigate forward.                                                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.HelpContents            |Open help contents.                                                               |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.InsertLineSeparator     |Insert a new line.                                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.InsertParagraphSeparator|Insert a new paragraph.                                                           |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Italic                  |Italic text.                                                                      |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToEndOfBlock        |Move cursor to end of block. This shortcut is only used on the OS X.              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToEndOfDocument     |Move cursor to end of document.                                                   |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToEndOfLine         |Move cursor to end of line.                                                       |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToNextChar          |Move cursor to next character.                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToNextLine          |Move cursor to next line.                                                         |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToNextPage          |Move cursor to next page.                                                         |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToNextWord          |Move cursor to next word.                                                         |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToPreviousChar      |Move cursor to previous character.                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToPreviousLine      |Move cursor to previous line.                                                     |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToPreviousPage      |Move cursor to previous page.                                                     |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToPreviousWord      |Move cursor to previous word.                                                     |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToStartOfBlock      |Move cursor to start of a block. This shortcut is only used on OS X.              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToStartOfDocument   |Move cursor to start of document.                                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.MoveToStartOfLine       |Move cursor to start of line.                                                     |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.New                     |Create new document.                                                              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.NextChild               |Navigate to next tab or child window.                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Open                    |Open document.                                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Paste                   |Paste.                                                                            |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Preferences             |Open the preferences dialog.                                                      |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.PreviousChild           |Navigate to previous tab or child window.                                         |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Print                   |Print document.                                                                   |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Quit                    |Quit the application.                                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Redo                    |Redo.                                                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Refresh                 |Refresh or reload current document.                                               |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Replace                 |Find and replace.                                                                 |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SaveAs                  |Save document after prompting the user for a file name.                           |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Save                    |Save document.                                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectAll               |Select all text.                                                                  |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectEndOfBlock        |Extend selection to the end of a text block. This shortcut is only used on OS X.  |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectEndOfDocument     |Extend selection to end of document.                                              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectEndOfLine         |Extend selection to end of line.                                                  |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectNextChar          |Extend selection to next character.                                               |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectNextLine          |Extend selection to next line.                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectNextPage          |Extend selection to next page.                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectNextWord          |Extend selection to next word.                                                    |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectPreviousChar      |Extend selection to previous character.                                           |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectPreviousLine      |Extend selection to previous line.                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectPreviousPage      |Extend selection to previous page.                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectPreviousWord      |Extend selection to previous word.                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectStartOfBlock      |Extend selection to the start of a text block. This shortcut is only used on OS X.|
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectStartOfDocument   |Extend selection to start of document.                                            |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.SelectStartOfLine       |Extend selection to start of line.                                                |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Underline               |Underline text.                                                                   |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.Undo                    |Undo.                                                                             |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.UnknownKey              |Unbound key.                                                                      |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.WhatsThis               |Activate whats this.                                                              |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.ZoomIn                  |Zoom in.                                                                          |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+    |QKeySequence.ZoomOut                 |Zoom out.                                                                         |
+    +-------------------------------------+----------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QKeySequence.SequenceMatch
+
+    +-------------------------+-------------------------------------------------------------+
+    |Constant                 |Description                                                  |
+    +=========================+=============================================================+
+    |QKeySequence.NoMatch     |The key sequences are different; not even partially matching.|
+    +-------------------------+-------------------------------------------------------------+
+    |QKeySequence.PartialMatch|The key sequences match partially, but are not the same.     |
+    +-------------------------+-------------------------------------------------------------+
+    |QKeySequence.ExactMatch  |The key sequences are the same.                              |
+    +-------------------------+-------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QKeySequence.__getitem__()
+
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.__reduce__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.__repr__()
+
+
+    :rtype: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.assign(str)
+
+
+    :param str: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.assign(str, format)
+
+
+    :param str: unicode
+    :param format: :attr:`PySide.QtGui.QKeySequence.SequenceFormat`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.count()
+
+
+    :rtype: :class:`PySide.QtCore.uint`
+
+
+
+
+    Returns the number of keys in the key sequence. The maximum is 4.
+
+
+
+.. staticmethod:: PySide.QtGui.QKeySequence.decodeString(ks)
+
+
+    :param ks: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QKeySequence.encodeString(key)
+
+
+    :param key: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+
+
+.. staticmethod:: PySide.QtGui.QKeySequence.fromString(str[, format=PortableText])
+
+
+    :param str: unicode
+    :param format: :attr:`PySide.QtGui.QKeySequence.SequenceFormat`
+    :rtype: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    Return a :class:`PySide.QtGui.QKeySequence` from the string ``str`` based on ``format`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.toString` 
+
+
+.. method:: PySide.QtGui.QKeySequence.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the key sequence is empty; otherwise returns false.
+
+
+
+.. staticmethod:: PySide.QtGui.QKeySequence.keyBindings(key)
+
+
+    :param key: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+    :rtype: 
+
+
+
+
+    Returns a list of key bindings for the given ``key`` . The result of calling this function will vary based on the target platform. The first element of the list indicates the primary shortcut for the given platform. If the result contains more than one result, these can be considered alternative shortcuts on the same platform for the given ``key`` .
+
+
+
+.. method:: PySide.QtGui.QKeySequence.matches(seq)
+
+
+    :param seq: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :attr:`PySide.QtGui.QKeySequence.SequenceMatch`
+
+
+
+
+    Matches the sequence with ``seq`` . Returns :attr:`ExactMatch<QKeySequence.SequenceMatch>` if successful, :attr:`PartialMatch<QKeySequence.SequenceMatch>` if ``seq`` matches incompletely, and :attr:`NoMatch<QKeySequence.SequenceMatch>` if the sequences have nothing in common. Returns :attr:`NoMatch<QKeySequence.SequenceMatch>` if ``seq`` is shorter.
+
+
+
+.. staticmethod:: PySide.QtGui.QKeySequence.mnemonic(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    Returns the shortcut key sequence for the mnemonic in ``text`` , or an empty key sequence if no mnemonics are found.
+
+    For example, mnemonic("E&xit") returns ``Qt::ALT+Qt::Key_X`` , mnemonic("&Quit") returns ``ALT+Key_Q`` , and mnemonic("Quit") returns an empty :class:`PySide.QtGui.QKeySequence` .
+
+    We provide a :ref:`list of common mnemonics<accelerators.html>` in English. At the time of writing, Microsoft and Open Group do not appear to have issued equivalent recommendations for other languages.
+
+    .. seealso::  :meth:`~PySide.QtGui.QKeySequence.qt\_set\_sequence\_auto\_mnemonic` 
+
+
+.. method:: PySide.QtGui.QKeySequence.__ne__(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key sequence is not equal to the ``other`` key sequence; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QKeySequence.__lt__(ks)
+
+
+    :param ks: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Provides an arbitrary comparison of this key sequence and ``other`` key sequence. All that is guaranteed is that the operator returns false if both key sequences are equal and that (ks1 < ks2) == !( ks2 < ks1) if the key sequences are not equal.
+
+    This function is useful in some circumstances, for example if you want to use :class:`PySide.QtGui.QKeySequence` objects as keys in a :class:`QMap` .
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.operator==`  :meth:`PySide.QtGui.QKeySequence.operator!=`  :meth:`PySide.QtGui.QKeySequence.operator>`  :meth:`PySide.QtGui.QKeySequence.operator<=`  :meth:`PySide.QtGui.QKeySequence.operator>=` 
+
+
+.. method:: PySide.QtGui.QKeySequence.__le__(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key sequence is smaller or equal to the ``other`` key sequence; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.operator==`  :meth:`PySide.QtGui.QKeySequence.operator!=`  :meth:`PySide.QtGui.QKeySequence.operator<`  :meth:`PySide.QtGui.QKeySequence.operator>`  :meth:`PySide.QtGui.QKeySequence.operator>=` 
+
+
+.. method:: PySide.QtGui.QKeySequence.__eq__(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key sequence is equal to the ``other`` key sequence; otherwise returns false.
+
+
+
+.. method:: PySide.QtGui.QKeySequence.__gt__(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key sequence is larger than the ``other`` key sequence; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.operator==`  :meth:`PySide.QtGui.QKeySequence.operator!=`  :meth:`PySide.QtGui.QKeySequence.operator<`  :meth:`PySide.QtGui.QKeySequence.operator<=`  :meth:`PySide.QtGui.QKeySequence.operator>=` 
+
+
+.. method:: PySide.QtGui.QKeySequence.__ge__(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this key sequence is larger or equal to the ``other`` key sequence; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.operator==`  :meth:`PySide.QtGui.QKeySequence.operator!=`  :meth:`PySide.QtGui.QKeySequence.operator<`  :meth:`PySide.QtGui.QKeySequence.operator>`  :meth:`PySide.QtGui.QKeySequence.operator<=` 
+
+
+.. method:: PySide.QtGui.QKeySequence.setKey(key, index)
+
+
+    :param key: :class:`PySide.QtCore.int`
+    :param index: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeySequence.swap(other)
+
+
+    :param other: :class:`PySide.QtGui.QKeySequence`
+
+
+
+
+    Swaps key sequence ``other`` with this key sequence. This operation is very fast and never fails.
+
+
+
+.. method:: PySide.QtGui.QKeySequence.toString([format=PortableText])
+
+
+    :param format: :attr:`PySide.QtGui.QKeySequence.SequenceFormat`
+    :rtype: unicode
+
+
+
+
+    Return a string representation of the key sequence, based on ``format`` .
+
+    For example, the value :attr:`Qt.CTRL<Qt.Modifier>` + :attr:`Qt.Key_O<Qt.Key>` results in "Ctrl+O". If the key sequence has multiple key codes, each is separated by commas in the string returned, such as "Alt+X, Ctrl+Y, Z". The strings, "Ctrl", "Shift", etc. are translated using :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` in the " :class:`PySide.QtGui.QShortcut` " context.
+
+    If the key sequence has no keys, an empty string is returned.
+
+    On Mac OS X, the string returned resembles the sequence that is shown in the menu bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QKeySequence.fromString` 
+
+
+

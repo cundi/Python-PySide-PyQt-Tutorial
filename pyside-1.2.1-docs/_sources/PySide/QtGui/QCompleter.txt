@@ -1,0 +1,714 @@
+.. module:: PySide.QtGui
+.. _QCompleter:
+
+QCompleter
+**********
+
+.. inheritance-diagram:: QCompleter
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`caseSensitivity<PySide.QtGui.QCompleter.caseSensitivity>` ()
+*    def :meth:`completionColumn<PySide.QtGui.QCompleter.completionColumn>` ()
+*    def :meth:`completionCount<PySide.QtGui.QCompleter.completionCount>` ()
+*    def :meth:`completionMode<PySide.QtGui.QCompleter.completionMode>` ()
+*    def :meth:`completionModel<PySide.QtGui.QCompleter.completionModel>` ()
+*    def :meth:`completionPrefix<PySide.QtGui.QCompleter.completionPrefix>` ()
+*    def :meth:`completionRole<PySide.QtGui.QCompleter.completionRole>` ()
+*    def :meth:`currentCompletion<PySide.QtGui.QCompleter.currentCompletion>` ()
+*    def :meth:`currentIndex<PySide.QtGui.QCompleter.currentIndex>` ()
+*    def :meth:`currentRow<PySide.QtGui.QCompleter.currentRow>` ()
+*    def :meth:`maxVisibleItems<PySide.QtGui.QCompleter.maxVisibleItems>` ()
+*    def :meth:`model<PySide.QtGui.QCompleter.model>` ()
+*    def :meth:`modelSorting<PySide.QtGui.QCompleter.modelSorting>` ()
+*    def :meth:`popup<PySide.QtGui.QCompleter.popup>` ()
+*    def :meth:`setCaseSensitivity<PySide.QtGui.QCompleter.setCaseSensitivity>` (caseSensitivity)
+*    def :meth:`setCompletionColumn<PySide.QtGui.QCompleter.setCompletionColumn>` (column)
+*    def :meth:`setCompletionMode<PySide.QtGui.QCompleter.setCompletionMode>` (mode)
+*    def :meth:`setCompletionRole<PySide.QtGui.QCompleter.setCompletionRole>` (role)
+*    def :meth:`setCurrentRow<PySide.QtGui.QCompleter.setCurrentRow>` (row)
+*    def :meth:`setMaxVisibleItems<PySide.QtGui.QCompleter.setMaxVisibleItems>` (maxItems)
+*    def :meth:`setModel<PySide.QtGui.QCompleter.setModel>` (c)
+*    def :meth:`setModelSorting<PySide.QtGui.QCompleter.setModelSorting>` (sorting)
+*    def :meth:`setPopup<PySide.QtGui.QCompleter.setPopup>` (popup)
+*    def :meth:`setWidget<PySide.QtGui.QCompleter.setWidget>` (widget)
+*    def :meth:`widget<PySide.QtGui.QCompleter.widget>` ()
+*    def :meth:`wrapAround<PySide.QtGui.QCompleter.wrapAround>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`pathFromIndex<PySide.QtGui.QCompleter.pathFromIndex>` (index)
+*    def :meth:`splitPath<PySide.QtGui.QCompleter.splitPath>` (path)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`complete<PySide.QtGui.QCompleter.complete>` ([rect=QRect()])
+*    def :meth:`setCompletionPrefix<PySide.QtGui.QCompleter.setCompletionPrefix>` (prefix)
+*    def :meth:`setWrapAround<PySide.QtGui.QCompleter.setWrapAround>` (wrap)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`activated<PySide.QtGui.QCompleter.activated>` (index)
+*    def :meth:`activated<PySide.QtGui.QCompleter.activated>` (text)
+*    def :meth:`highlighted<PySide.QtGui.QCompleter.highlighted>` (index)
+*    def :meth:`highlighted<PySide.QtGui.QCompleter.highlighted>` (text)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QCompleter` class provides completions based on an item model.
+
+    You can use :class:`PySide.QtGui.QCompleter` to provide auto completions in any Qt widget, such as :class:`PySide.QtGui.QLineEdit` and :class:`PySide.QtGui.QComboBox` . When the user starts typing a word, :class:`PySide.QtGui.QCompleter` suggests possible ways of completing the word, based on a word list. The word list is provided as a :class:`PySide.QtCore.QAbstractItemModel` . (For simple applications, where the word list is static, you can pass a :class:`PySide.QtCore.QStringList` to :class:`PySide.QtGui.QCompleter` 's constructor.)
+
+    .. _PySide.QtGui.QCompleter_basic-usage:
+
+
+
+Basic Usage
+^^^^^^^^^^^
+
+    A :class:`PySide.QtGui.QCompleter` is used typically with a :class:`PySide.QtGui.QLineEdit` or :class:`PySide.QtGui.QComboBox` . For example, here's how to provide auto completions from a simple word list in a :class:`PySide.QtGui.QLineEdit` :
+
+    ::
+
+        wordList = ["alpha", "omega", "omicron", "zeta"]
+
+        lineEdit = QLineEdit(self)
+
+        completer = QCompleter(wordList, self)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        lineEdit.setCompleter(completer)
+
+
+    A :class:`PySide.QtGui.QFileSystemModel` can be used to provide auto completion of file names. For example:
+
+    ::
+
+        completer = QCompleter(self)
+        completer.setModel(QDirModel(completer))
+        lineEdit.setCompleter(completer)
+
+
+    To set the model on which :class:`PySide.QtGui.QCompleter` should operate, call :meth:`PySide.QtGui.QCompleter.setModel` . By default, :class:`PySide.QtGui.QCompleter` will attempt to match the :meth:`completion prefix<PySide.QtGui.QCompleter.completionPrefix>` (i.e., the word that the user has started typing) against the :attr:`Qt.EditRole<Qt.ItemDataRole>` data stored in column 0 in the model case sensitively. This can be changed using :meth:`PySide.QtGui.QCompleter.setCompletionRole` , :meth:`PySide.QtGui.QCompleter.setCompletionColumn` , and :meth:`PySide.QtGui.QCompleter.setCaseSensitivity` .
+
+    If the model is sorted on the column and role that are used for completion, you can call :meth:`PySide.QtGui.QCompleter.setModelSorting` with either :attr:`QCompleter.CaseSensitivelySortedModel<QCompleter.ModelSorting>` or :attr:`QCompleter.CaseInsensitivelySortedModel<QCompleter.ModelSorting>` as the argument. On large models, this can lead to significant performance improvements, because :class:`PySide.QtGui.QCompleter` can then use binary search instead of linear search.
+
+    The model can be a :class:`list model<PySide.QtCore.QAbstractListModel>` , a :class:`table model<PySide.QtCore.QAbstractTableModel>` , or a :class:`tree model<PySide.QtCore.QAbstractItemModel>` . Completion on tree models is slightly more involved and is covered in the :class:`~PySide.QtGui.Handling Tree Models` section below.
+
+    The :meth:`PySide.QtGui.QCompleter.completionMode` determines the mode used to provide completions to the user.
+
+    .. _PySide.QtGui.QCompleter_iterating-through-completions:
+
+
+
+Iterating Through Completions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    To retrieve a single candidate string, call :meth:`PySide.QtGui.QCompleter.setCompletionPrefix` with the text that needs to be completed and call :meth:`PySide.QtGui.QCompleter.currentCompletion` . You can iterate through the list of completions as below:
+
+    ::
+
+        i = 0
+        while completer.setCurrentRow(i):
+            print "%s is match number %d" % (completer.currentCompletion(), i)
+            i += 1
+
+
+    :meth:`PySide.QtGui.QCompleter.completionCount` returns the total number of completions for the current prefix. :meth:`PySide.QtGui.QCompleter.completionCount` should be avoided when possible, since it requires a scan of the entire model.
+
+    .. _PySide.QtGui.QCompleter_the-completion-model:
+
+
+
+The Completion Model
+^^^^^^^^^^^^^^^^^^^^
+
+    :meth:`PySide.QtGui.QCompleter.completionModel` return a list model that contains all possible completions for the current completion prefix, in the order in which they appear in the model. This model can be used to display the current completions in a custom view. Calling :meth:`PySide.QtGui.QCompleter.setCompletionPrefix` automatically refreshes the completion model.
+
+    .. _PySide.QtGui.QCompleter_handling-tree-models:
+
+
+
+Handling Tree Models
+^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QCompleter` can look for completions in tree models, assuming that any item (or sub-item or sub-sub-item) can be unambiguously represented as a string by specifying the path to the item. The completion is then performed one level at a time.
+
+    Let's take the example of a user typing in a file system path. The model is a (hierarchical) :class:`PySide.QtGui.QFileSystemModel` . The completion occurs for every element in the path. For example, if the current text is ``C:\Wind`` , :class:`PySide.QtGui.QCompleter` might suggest ``Windows`` to complete the current path element. Similarly, if the current text is ``C:\Windows\Sy`` , :class:`PySide.QtGui.QCompleter` might suggest ``System`` .
+
+    For this kind of completion to work, :class:`PySide.QtGui.QCompleter` needs to be able to split the path into a list of strings that are matched at each level. For ``C:\Windows\Sy`` , it needs to be split as "C:", "Windows" and "Sy". The default implementation of :meth:`PySide.QtGui.QCompleter.splitPath` , splits the :meth:`PySide.QtGui.QCompleter.completionPrefix` using :meth:`QDir.separator()<PySide.QtCore.QDir.separator>` if the model is a :class:`PySide.QtGui.QFileSystemModel` .
+
+    To provide completions, :class:`PySide.QtGui.QCompleter` needs to know the path from an index. This is provided by :meth:`PySide.QtGui.QCompleter.pathFromIndex` . The default implementation of :meth:`PySide.QtGui.QCompleter.pathFromIndex` , returns the data for the :attr:`edit role<Qt.ItemDataRole>` for list models and the absolute file path if the mode is a :class:`PySide.QtGui.QFileSystemModel` .
+
+    .. seealso::  :class:`PySide.QtCore.QAbstractItemModel`  :class:`PySide.QtGui.QLineEdit`  :class:`PySide.QtGui.QComboBox`  :ref:`Completer Example<tools/completer>` 
+
+.. class:: QCompleter(model[, parent=None])
+           QCompleter([parent=None])
+           QCompleter(completions[, parent=None])
+
+    :param completions: list of strings
+    :param model: :class:`PySide.QtCore.QAbstractItemModel`
+    :param parent: :class:`PySide.QtCore.QObject`
+
+    Constructs a completer object with the given ``parent`` that provides completions from the specified ``model`` .
+
+
+    Constructs a completer object with the given ``parent`` .
+
+
+    Constructs a :class:`PySide.QtGui.QCompleter` object with the given ``parent`` that uses the specified ``list`` as a source of possible completions.
+
+
+.. attribute:: PySide.QtGui.QCompleter.ModelSorting
+
+    This enum specifies how the items in the model are sorted.
+
+    +---------------------------------------+---------------------------------------+
+    |Constant                               |Description                            |
+    +=======================================+=======================================+
+    |QCompleter.UnsortedModel               |The model is unsorted.                 |
+    +---------------------------------------+---------------------------------------+
+    |QCompleter.CaseSensitivelySortedModel  |The model is sorted case sensitively.  |
+    +---------------------------------------+---------------------------------------+
+    |QCompleter.CaseInsensitivelySortedModel|The model is sorted case insensitively.|
+    +---------------------------------------+---------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setModelSorting` 
+
+.. attribute:: PySide.QtGui.QCompleter.CompletionMode
+
+    This enum specifies how completions are provided to the user.
+
+    +------------------------------------+--------------------------------------------------------------------------------------------------------------+
+    |Constant                            |Description                                                                                                   |
+    +====================================+==============================================================================================================+
+    |QCompleter.PopupCompletion          |Current completions are displayed in a popup window.                                                          |
+    +------------------------------------+--------------------------------------------------------------------------------------------------------------+
+    |QCompleter.InlineCompletion         |Completions appear inline (as selected text).                                                                 |
+    +------------------------------------+--------------------------------------------------------------------------------------------------------------+
+    |QCompleter.UnfilteredPopupCompletion|All possible completions are displayed in a popup window with the most likely suggestion indicated as current.|
+    +------------------------------------+--------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCompletionMode` 
+
+.. method:: PySide.QtGui.QCompleter.activated(text)
+
+
+    :param text: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCompleter.activated(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCompleter.caseSensitivity()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.CaseSensitivity`
+
+
+
+
+    This property holds the case sensitivity of the matching.
+
+    The default is :attr:`Qt.CaseSensitive<Qt.CaseSensitivity>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionColumn`  :meth:`PySide.QtGui.QCompleter.completionRole`  :meth:`PySide.QtGui.QCompleter.modelSorting` 
+
+
+.. method:: PySide.QtGui.QCompleter.complete([rect=QRect()])
+
+
+    :param rect: :class:`PySide.QtCore.QRect`
+
+
+
+
+    For :attr:`QCompleter.PopupCompletion<QCompleter.CompletionMode>` and QCompletion::UnfilteredPopupCompletion modes, calling this function displays the popup displaying the current completions. By default, if ``rect`` is not specified, the popup is displayed on the bottom of the :meth:`PySide.QtGui.QCompleter.widget` . If ``rect`` is specified the popup is displayed on the left edge of the rectangle.
+
+    For :attr:`QCompleter.InlineCompletion<QCompleter.CompletionMode>` mode, the :meth:`PySide.QtGui.QCompleter.highlighted` signal is fired with the current completion.
+
+
+
+.. method:: PySide.QtGui.QCompleter.completionColumn()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the column in the model in which completions are searched for..
+
+    If the :meth:`PySide.QtGui.QCompleter.popup` is a :class:`PySide.QtGui.QListView` , it is automatically setup to display this column.
+
+    By default, the match column is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionRole`  :meth:`PySide.QtGui.QCompleter.caseSensitivity` 
+
+
+.. method:: PySide.QtGui.QCompleter.completionCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of completions for the current prefix. For an unsorted model with a large number of items this can be expensive. Use :meth:`PySide.QtGui.QCompleter.setCurrentRow` and :meth:`PySide.QtGui.QCompleter.currentCompletion` to iterate through all the completions.
+
+
+
+.. method:: PySide.QtGui.QCompleter.completionMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QCompleter.CompletionMode`
+
+
+
+
+    This property holds how the completions are provided to the user.
+
+    The default value is :attr:`QCompleter.PopupCompletion<QCompleter.CompletionMode>` .
+
+
+
+.. method:: PySide.QtGui.QCompleter.completionModel()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the completion model. The completion model is a read-only list model that contains all the possible matches for the current completion prefix. The completion model is auto-updated to reflect the current completions.
+
+    .. note::  The return value of this function is defined to be an :class:`PySide.QtCore.QAbstractItemModel` purely for generality. This actual kind of model returned is an instance of an :class:`PySide.QtGui.QAbstractProxyModel` subclass.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionPrefix`  :meth:`PySide.QtGui.QCompleter.model` 
+
+
+.. method:: PySide.QtGui.QCompleter.completionPrefix()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the completion prefix used to provide completions..
+
+    The :meth:`PySide.QtGui.QCompleter.completionModel` is updated to reflect the list of possible matches for ``prefix`` .
+
+
+
+.. method:: PySide.QtGui.QCompleter.completionRole()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the item role to be used to query the contents of items for matching..
+
+    The default role is :attr:`Qt.EditRole<Qt.ItemDataRole>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionColumn`  :meth:`PySide.QtGui.QCompleter.caseSensitivity` 
+
+
+.. method:: PySide.QtGui.QCompleter.currentCompletion()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the current completion string. This includes the :meth:`PySide.QtGui.QCompleter.completionPrefix` . When used alongside :meth:`PySide.QtGui.QCompleter.setCurrentRow` , it can be used to iterate through all the matches.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCurrentRow`  :meth:`PySide.QtGui.QCompleter.currentIndex` 
+
+
+.. method:: PySide.QtGui.QCompleter.currentIndex()
+
+
+    :rtype: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+    Returns the model index of the current completion in the :meth:`PySide.QtGui.QCompleter.completionModel` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCurrentRow`  :meth:`PySide.QtGui.QCompleter.currentCompletion`  :meth:`PySide.QtGui.QCompleter.model` 
+
+
+.. method:: PySide.QtGui.QCompleter.currentRow()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the current row.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCurrentRow` 
+
+
+.. method:: PySide.QtGui.QCompleter.highlighted(text)
+
+
+    :param text: unicode
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCompleter.highlighted(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QCompleter.maxVisibleItems()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the maximum allowed size on screen of the completer, measured in items.
+
+    By default, this property has a value of 7.
+
+
+
+.. method:: PySide.QtGui.QCompleter.model()
+
+
+    :rtype: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Returns the model that provides completion strings.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setModel`  :meth:`PySide.QtGui.QCompleter.completionModel` 
+
+
+.. method:: PySide.QtGui.QCompleter.modelSorting()
+
+
+    :rtype: :attr:`PySide.QtGui.QCompleter.ModelSorting`
+
+
+
+
+    This property holds the way the model is sorted.
+
+    By default, no assumptions are made about the order of the items in the model that provides the completions.
+
+    If the model's data for the :meth:`PySide.QtGui.QCompleter.completionColumn` and :meth:`PySide.QtGui.QCompleter.completionRole` is sorted in ascending order, you can set this property to :attr:`CaseSensitivelySortedModel<QCompleter.ModelSorting>` or :attr:`CaseInsensitivelySortedModel<QCompleter.ModelSorting>` . On large models, this can lead to significant performance improvements because the completer object can then use a binary search algorithm instead of linear search algorithm.
+
+    The sort order (i.e ascending or descending order) of the model is determined dynamically by inspecting the contents of the model.
+
+    .. note::  The performance improvements described above cannot take place when the completer's :meth:`PySide.QtGui.QCompleter.caseSensitivity` is different to the case sensitivity used by the model's when sorting.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCaseSensitivity`  :attr:`QCompleter.ModelSorting` 
+
+
+.. method:: PySide.QtGui.QCompleter.pathFromIndex(index)
+
+
+    :param index: :class:`PySide.QtCore.QModelIndex`
+    :rtype: unicode
+
+
+
+
+    Returns the path for the given ``index`` . The completer object uses this to obtain the completion text from the underlying model.
+
+    The default implementation returns the :attr:`edit role<Qt.ItemDataRole>` of the item for list models. It returns the absolute file path if the model is a :class:`PySide.QtGui.QFileSystemModel` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.splitPath` 
+
+
+.. method:: PySide.QtGui.QCompleter.popup()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractItemView`
+
+
+
+
+    Returns the popup used to display completions.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setPopup` 
+
+
+.. method:: PySide.QtGui.QCompleter.setCaseSensitivity(caseSensitivity)
+
+
+    :param caseSensitivity: :attr:`PySide.QtCore.Qt.CaseSensitivity`
+
+
+
+
+    This property holds the case sensitivity of the matching.
+
+    The default is :attr:`Qt.CaseSensitive<Qt.CaseSensitivity>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionColumn`  :meth:`PySide.QtGui.QCompleter.completionRole`  :meth:`PySide.QtGui.QCompleter.modelSorting` 
+
+
+.. method:: PySide.QtGui.QCompleter.setCompletionColumn(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the column in the model in which completions are searched for..
+
+    If the :meth:`PySide.QtGui.QCompleter.popup` is a :class:`PySide.QtGui.QListView` , it is automatically setup to display this column.
+
+    By default, the match column is 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionRole`  :meth:`PySide.QtGui.QCompleter.caseSensitivity` 
+
+
+.. method:: PySide.QtGui.QCompleter.setCompletionMode(mode)
+
+
+    :param mode: :attr:`PySide.QtGui.QCompleter.CompletionMode`
+
+
+
+
+    This property holds how the completions are provided to the user.
+
+    The default value is :attr:`QCompleter.PopupCompletion<QCompleter.CompletionMode>` .
+
+
+
+.. method:: PySide.QtGui.QCompleter.setCompletionPrefix(prefix)
+
+
+    :param prefix: unicode
+
+
+
+
+    This property holds the completion prefix used to provide completions..
+
+    The :meth:`PySide.QtGui.QCompleter.completionModel` is updated to reflect the list of possible matches for ``prefix`` .
+
+
+
+.. method:: PySide.QtGui.QCompleter.setCompletionRole(role)
+
+
+    :param role: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the item role to be used to query the contents of items for matching..
+
+    The default role is :attr:`Qt.EditRole<Qt.ItemDataRole>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionColumn`  :meth:`PySide.QtGui.QCompleter.caseSensitivity` 
+
+
+.. method:: PySide.QtGui.QCompleter.setCurrentRow(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the current row to the ``row`` specified. Returns true if successful; otherwise returns false.
+
+    This function may be used along with :meth:`PySide.QtGui.QCompleter.currentCompletion` to iterate through all the possible completions.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.currentRow`  :meth:`PySide.QtGui.QCompleter.currentCompletion`  :meth:`PySide.QtGui.QCompleter.completionCount` 
+
+
+.. method:: PySide.QtGui.QCompleter.setMaxVisibleItems(maxItems)
+
+
+    :param maxItems: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the maximum allowed size on screen of the completer, measured in items.
+
+    By default, this property has a value of 7.
+
+
+
+.. method:: PySide.QtGui.QCompleter.setModel(c)
+
+
+    :param c: :class:`PySide.QtCore.QAbstractItemModel`
+
+
+
+
+    Sets the model which provides completions to ``model`` . The ``model`` can be list model or a tree model. If a model has been already previously set and it has the :class:`PySide.QtGui.QCompleter` as its parent, it is deleted.
+
+    For convenience, if ``model`` is a :class:`PySide.QtGui.QFileSystemModel` , :class:`PySide.QtGui.QCompleter` switches its :meth:`PySide.QtGui.QCompleter.caseSensitivity` to :attr:`Qt.CaseInsensitive<Qt.CaseSensitivity>` on Windows and :attr:`Qt.CaseSensitive<Qt.CaseSensitivity>` on other platforms.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.completionModel`  :meth:`PySide.QtGui.QCompleter.modelSorting`  :class:`~PySide.QtGui.Handling Tree Models` 
+
+
+.. method:: PySide.QtGui.QCompleter.setModelSorting(sorting)
+
+
+    :param sorting: :attr:`PySide.QtGui.QCompleter.ModelSorting`
+
+
+
+
+    This property holds the way the model is sorted.
+
+    By default, no assumptions are made about the order of the items in the model that provides the completions.
+
+    If the model's data for the :meth:`PySide.QtGui.QCompleter.completionColumn` and :meth:`PySide.QtGui.QCompleter.completionRole` is sorted in ascending order, you can set this property to :attr:`CaseSensitivelySortedModel<QCompleter.ModelSorting>` or :attr:`CaseInsensitivelySortedModel<QCompleter.ModelSorting>` . On large models, this can lead to significant performance improvements because the completer object can then use a binary search algorithm instead of linear search algorithm.
+
+    The sort order (i.e ascending or descending order) of the model is determined dynamically by inspecting the contents of the model.
+
+    .. note::  The performance improvements described above cannot take place when the completer's :meth:`PySide.QtGui.QCompleter.caseSensitivity` is different to the case sensitivity used by the model's when sorting.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setCaseSensitivity`  :attr:`QCompleter.ModelSorting` 
+
+
+.. method:: PySide.QtGui.QCompleter.setPopup(popup)
+
+
+    :param popup: :class:`PySide.QtGui.QAbstractItemView`
+
+
+
+
+    Sets the popup used to display completions to ``popup`` . :class:`PySide.QtGui.QCompleter` takes ownership of the view.
+
+    A :class:`PySide.QtGui.QListView` is automatically created when the :meth:`PySide.QtGui.QCompleter.completionMode` is set to :attr:`QCompleter.PopupCompletion<QCompleter.CompletionMode>` or :attr:`QCompleter.UnfilteredPopupCompletion<QCompleter.CompletionMode>` . The default popup displays the :meth:`PySide.QtGui.QCompleter.completionColumn` .
+
+    Ensure that this function is called before the view settings are modified. This is required since view's properties may require that a model has been set on the view (for example, hiding columns in the view requires a model to be set on the view).
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.popup` 
+
+
+.. method:: PySide.QtGui.QCompleter.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets the widget for which completion are provided for to ``widget`` . This function is automatically called when a :class:`PySide.QtGui.QCompleter` is set on a :class:`PySide.QtGui.QLineEdit` using :meth:`QLineEdit.setCompleter()<PySide.QtGui.QLineEdit.setCompleter>` or on a :class:`PySide.QtGui.QComboBox` using :meth:`QComboBox.setCompleter()<PySide.QtGui.QComboBox.setCompleter>` . The widget needs to be set explicitly when providing completions for custom widgets.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.widget`  :meth:`PySide.QtGui.QCompleter.setModel`  :meth:`PySide.QtGui.QCompleter.setPopup` 
+
+
+.. method:: PySide.QtGui.QCompleter.setWrapAround(wrap)
+
+
+    :param wrap: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the completions wrap around when navigating through items.
+
+    The default is true.
+
+
+
+.. method:: PySide.QtGui.QCompleter.splitPath(path)
+
+
+    :param path: unicode
+    :rtype: list of strings
+
+
+
+
+    Splits the given ``path`` into strings that are used to match at each level in the :meth:`PySide.QtGui.QCompleter.model` .
+
+    The default implementation of :meth:`PySide.QtGui.QCompleter.splitPath` splits a file system path based on :meth:`QDir.separator()<PySide.QtCore.QDir.separator>` when the sourceModel() is a :class:`PySide.QtGui.QFileSystemModel` .
+
+    When used with list models, the first item in the returned list is used for matching.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.pathFromIndex`  :class:`~PySide.QtGui.Handling Tree Models` 
+
+
+.. method:: PySide.QtGui.QCompleter.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the widget for which the completer object is providing completions.
+
+    .. seealso::  :meth:`PySide.QtGui.QCompleter.setWidget` 
+
+
+.. method:: PySide.QtGui.QCompleter.wrapAround()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the completions wrap around when navigating through items.
+
+    The default is true.
+
+
+
+

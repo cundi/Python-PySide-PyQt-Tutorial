@@ -1,0 +1,614 @@
+.. module:: PySide.QtGui
+.. _QAbstractSlider:
+
+QAbstractSlider
+***************
+
+.. inheritance-diagram:: QAbstractSlider
+    :parts: 2
+
+**Inherited by:** :ref:`QSlider`, :ref:`QDial`, :ref:`QScrollBar`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hasTracking<PySide.QtGui.QAbstractSlider.hasTracking>` ()
+*    def :meth:`invertedAppearance<PySide.QtGui.QAbstractSlider.invertedAppearance>` ()
+*    def :meth:`invertedControls<PySide.QtGui.QAbstractSlider.invertedControls>` ()
+*    def :meth:`isSliderDown<PySide.QtGui.QAbstractSlider.isSliderDown>` ()
+*    def :meth:`maximum<PySide.QtGui.QAbstractSlider.maximum>` ()
+*    def :meth:`minimum<PySide.QtGui.QAbstractSlider.minimum>` ()
+*    def :meth:`orientation<PySide.QtGui.QAbstractSlider.orientation>` ()
+*    def :meth:`pageStep<PySide.QtGui.QAbstractSlider.pageStep>` ()
+*    def :meth:`repeatAction<PySide.QtGui.QAbstractSlider.repeatAction>` ()
+*    def :meth:`setInvertedAppearance<PySide.QtGui.QAbstractSlider.setInvertedAppearance>` (arg__1)
+*    def :meth:`setInvertedControls<PySide.QtGui.QAbstractSlider.setInvertedControls>` (arg__1)
+*    def :meth:`setMaximum<PySide.QtGui.QAbstractSlider.setMaximum>` (arg__1)
+*    def :meth:`setMinimum<PySide.QtGui.QAbstractSlider.setMinimum>` (arg__1)
+*    def :meth:`setPageStep<PySide.QtGui.QAbstractSlider.setPageStep>` (arg__1)
+*    def :meth:`setRange<PySide.QtGui.QAbstractSlider.setRange>` (min, max)
+*    def :meth:`setRepeatAction<PySide.QtGui.QAbstractSlider.setRepeatAction>` (action[, thresholdTime=500[, repeatTime=50]])
+*    def :meth:`setSingleStep<PySide.QtGui.QAbstractSlider.setSingleStep>` (arg__1)
+*    def :meth:`setSliderDown<PySide.QtGui.QAbstractSlider.setSliderDown>` (arg__1)
+*    def :meth:`setSliderPosition<PySide.QtGui.QAbstractSlider.setSliderPosition>` (arg__1)
+*    def :meth:`setTracking<PySide.QtGui.QAbstractSlider.setTracking>` (enable)
+*    def :meth:`singleStep<PySide.QtGui.QAbstractSlider.singleStep>` ()
+*    def :meth:`sliderPosition<PySide.QtGui.QAbstractSlider.sliderPosition>` ()
+*    def :meth:`triggerAction<PySide.QtGui.QAbstractSlider.triggerAction>` (action)
+*    def :meth:`value<PySide.QtGui.QAbstractSlider.value>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`sliderChange<PySide.QtGui.QAbstractSlider.sliderChange>` (change)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setOrientation<PySide.QtGui.QAbstractSlider.setOrientation>` (arg__1)
+*    def :meth:`setValue<PySide.QtGui.QAbstractSlider.setValue>` (arg__1)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionTriggered<PySide.QtGui.QAbstractSlider.actionTriggered>` (action)
+*    def :meth:`rangeChanged<PySide.QtGui.QAbstractSlider.rangeChanged>` (min, max)
+*    def :meth:`sliderMoved<PySide.QtGui.QAbstractSlider.sliderMoved>` (position)
+*    def :meth:`sliderPressed<PySide.QtGui.QAbstractSlider.sliderPressed>` ()
+*    def :meth:`sliderReleased<PySide.QtGui.QAbstractSlider.sliderReleased>` ()
+*    def :meth:`valueChanged<PySide.QtGui.QAbstractSlider.valueChanged>` (value)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractSlider` class provides an integer value within a range.
+
+    The class is designed as a common super class for widgets like :class:`PySide.QtGui.QScrollBar` , :class:`PySide.QtGui.QSlider` and :class:`PySide.QtGui.QDial` .
+
+    Here are the main properties of the class:
+
+    Unity (1) may be viewed as a third step size. :meth:`PySide.QtGui.QAbstractSlider.setValue` lets you set the current value to any integer in the allowed range, not just :meth:`PySide.QtGui.QAbstractSlider.minimum` + *n* \* :meth:`PySide.QtGui.QAbstractSlider.singleStep` for integer values of *n* . Some widgets may allow the user to set any value at all; others may just provide multiples of :meth:`PySide.QtGui.QAbstractSlider.singleStep` or :meth:`PySide.QtGui.QAbstractSlider.pageStep` .
+
+    :class:`PySide.QtGui.QAbstractSlider` emits a comprehensive set of signals:
+
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |Signal                                              |Emitted when                                                                                                                                |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.valueChanged`   |the value has changed. The :meth:`~PySide.QtGui.QAbstractSlider.tracking` determines whether this signal is emitted during user interaction.|
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderPressed`  |the user starts to drag the slider.                                                                                                         |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderMoved`    |the user drags the slider.                                                                                                                  |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.sliderReleased` |the user releases the slider.                                                                                                               |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.actionTriggered`|a slider action was triggerd.                                                                                                               |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+    |:meth:`PySide.QtGui.QAbstractSlider.rangeChanged`   |a the range has changed.                                                                                                                    |
+    +----------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+
+    :class:`PySide.QtGui.QAbstractSlider` provides a virtual :meth:`PySide.QtGui.QAbstractSlider.sliderChange` function that is well suited for updating the on-screen representation of sliders. By calling :meth:`PySide.QtGui.QAbstractSlider.triggerAction` , subclasses trigger slider actions. Two helper functions :meth:`QStyle.sliderPositionFromValue()<PySide.QtGui.QStyle.sliderPositionFromValue>` and :meth:`QStyle.sliderValueFromPosition()<PySide.QtGui.QStyle.sliderValueFromPosition>` help subclasses and styles to map screen coordinates to logical range values.
+
+    .. seealso::  :class:`PySide.QtGui.QAbstractSpinBox`  :class:`PySide.QtGui.QSlider`  :class:`PySide.QtGui.QDial`  :class:`PySide.QtGui.QScrollBar`  :ref:`Sliders Example<widgets/sliders>` 
+
+.. class:: QAbstractSlider([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an abstract slider.
+
+    The ``parent`` argument is sent to the :class:`PySide.QtGui.QWidget` constructor.
+
+    The :meth:`PySide.QtGui.QAbstractSlider.minimum` defaults to 0, the :meth:`PySide.QtGui.QAbstractSlider.maximum` to 99, with a :meth:`PySide.QtGui.QAbstractSlider.singleStep` size of 1 and a :meth:`PySide.QtGui.QAbstractSlider.pageStep` size of 10, and an initial :meth:`PySide.QtGui.QAbstractSlider.value` of 0.
+
+
+.. attribute:: PySide.QtGui.QAbstractSlider.SliderAction
+
+    +-----------------------------------+-----------+
+    |Constant                           |Description|
+    +===================================+===========+
+    |QAbstractSlider.SliderNoAction     |           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderSingleStepAdd|           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderSingleStepSub|           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderPageStepAdd  |           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderPageStepSub  |           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderToMinimum    |           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderToMaximum    |           |
+    +-----------------------------------+-----------+
+    |QAbstractSlider.SliderMove         |           |
+    +-----------------------------------+-----------+
+
+
+.. attribute:: PySide.QtGui.QAbstractSlider.SliderChange
+
+    +---------------------------------------+-----------+
+    |Constant                               |Description|
+    +=======================================+===========+
+    |QAbstractSlider.SliderRangeChange      |           |
+    +---------------------------------------+-----------+
+    |QAbstractSlider.SliderOrientationChange|           |
+    +---------------------------------------+-----------+
+    |QAbstractSlider.SliderStepsChange      |           |
+    +---------------------------------------+-----------+
+    |QAbstractSlider.SliderValueChange      |           |
+    +---------------------------------------+-----------+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.actionTriggered(action)
+
+
+    :param action: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.hasTracking()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether slider tracking is enabled.
+
+    If tracking is enabled (the default), the slider emits the :meth:`PySide.QtGui.QAbstractSlider.valueChanged` signal while the slider is being dragged. If tracking is disabled, the slider emits the :meth:`PySide.QtGui.QAbstractSlider.valueChanged` signal only when the user releases the slider.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractSlider.sliderDown` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.invertedAppearance()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not a slider shows its values inverted..
+
+    If this property is false (the default), the minimum and maximum will be shown in its classic position for the inherited widget. If the value is true, the minimum and maximum appear at their opposite location.
+
+    Note: This property makes most sense for sliders and dials. For scroll bars, the visual effect of the scroll bar subcontrols depends on whether or not the styles understand inverted appearance; most styles ignore this property for scroll bars.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.invertedControls()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not the slider inverts its wheel and key events..
+
+    If this property is false, scrolling the mouse wheel "up" and using keys like page up will increase the slider's value towards its maximum. Otherwise pressing page up will move value towards the slider's minimum.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.isSliderDown()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the slider is pressed down..
+
+    The property is set by subclasses in order to let the abstract slider know whether or not :meth:`~PySide.QtGui.QAbstractSlider.tracking` has any effect.
+
+    Changing the slider down property emits the :meth:`PySide.QtGui.QAbstractSlider.sliderPressed` and :meth:`PySide.QtGui.QAbstractSlider.sliderReleased` signals.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.maximum()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the slider's maximum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QAbstractSlider.minimum` is adjusted if necessary to ensure that the range remains valid. Also the slider's current value is adjusted to be within the new range.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.minimum()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the sliders's minimum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QAbstractSlider.maximum` is adjusted if necessary to ensure that the range remains valid. Also the slider's current value is adjusted to be within the new range.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the slider.
+
+    The orientation must be :attr:`Qt.Vertical<Qt.Orientation>` (the default) or :attr:`Qt.Horizontal<Qt.Orientation>` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.pageStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the page step..
+
+    The larger of two natural steps that an abstract slider provides and typically corresponds to the user pressing PageUp or PageDown.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.singleStep` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.rangeChanged(min, max)
+
+
+    :param min: :class:`PySide.QtCore.int`
+    :param max: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.repeatAction()
+
+
+    :rtype: :attr:`PySide.QtGui.QAbstractSlider.SliderAction`
+
+
+
+
+    Returns the current repeat action.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.setRepeatAction` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setInvertedAppearance(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not a slider shows its values inverted..
+
+    If this property is false (the default), the minimum and maximum will be shown in its classic position for the inherited widget. If the value is true, the minimum and maximum appear at their opposite location.
+
+    Note: This property makes most sense for sliders and dials. For scroll bars, the visual effect of the scroll bar subcontrols depends on whether or not the styles understand inverted appearance; most styles ignore this property for scroll bars.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setInvertedControls(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether or not the slider inverts its wheel and key events..
+
+    If this property is false, scrolling the mouse wheel "up" and using keys like page up will increase the slider's value towards its maximum. Otherwise pressing page up will move value towards the slider's minimum.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setMaximum(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the slider's maximum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QAbstractSlider.minimum` is adjusted if necessary to ensure that the range remains valid. Also the slider's current value is adjusted to be within the new range.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setMinimum(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the sliders's minimum value.
+
+    When setting this property, the :meth:`PySide.QtGui.QAbstractSlider.maximum` is adjusted if necessary to ensure that the range remains valid. Also the slider's current value is adjusted to be within the new range.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setOrientation(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the slider.
+
+    The orientation must be :attr:`Qt.Vertical<Qt.Orientation>` (the default) or :attr:`Qt.Horizontal<Qt.Orientation>` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setPageStep(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the page step..
+
+    The larger of two natural steps that an abstract slider provides and typically corresponds to the user pressing PageUp or PageDown.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.singleStep` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setRange(min, max)
+
+
+    :param min: :class:`PySide.QtCore.int`
+    :param max: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the slider's minimum to ``min`` and its maximum to ``max`` .
+
+    If ``max`` is smaller than ``min`` , ``min`` becomes the only legal value.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.minimum`  :meth:`PySide.QtGui.QAbstractSlider.maximum` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setRepeatAction(action[, thresholdTime=500[, repeatTime=50]])
+
+
+    :param action: :attr:`PySide.QtGui.QAbstractSlider.SliderAction`
+    :param thresholdTime: :class:`PySide.QtCore.int`
+    :param repeatTime: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets action ``action`` to be triggered repetitively in intervals of ``repeatTime`` , after an initial delay of ``thresholdTime`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.triggerAction`  :meth:`PySide.QtGui.QAbstractSlider.repeatAction` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setSingleStep(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the single step..
+
+    The smaller of two natural steps that an abstract sliders provides and typically corresponds to the user pressing an arrow key.
+
+    If the property is modified during an auto repeating key event, behavior is undefined.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.pageStep` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setSliderDown(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the slider is pressed down..
+
+    The property is set by subclasses in order to let the abstract slider know whether or not :meth:`~PySide.QtGui.QAbstractSlider.tracking` has any effect.
+
+    Changing the slider down property emits the :meth:`PySide.QtGui.QAbstractSlider.sliderPressed` and :meth:`PySide.QtGui.QAbstractSlider.sliderReleased` signals.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setSliderPosition(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current slider position.
+
+    If :meth:`~PySide.QtGui.QAbstractSlider.tracking` is enabled (the default), this is identical to :meth:`PySide.QtGui.QAbstractSlider.value` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setTracking(enable)
+
+
+    :param enable: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether slider tracking is enabled.
+
+    If tracking is enabled (the default), the slider emits the :meth:`PySide.QtGui.QAbstractSlider.valueChanged` signal while the slider is being dragged. If tracking is disabled, the slider emits the :meth:`PySide.QtGui.QAbstractSlider.valueChanged` signal only when the user releases the slider.
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractSlider.sliderDown` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.setValue(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the slider's current value.
+
+    The slider forces the value to be within the legal range: :meth:`PySide.QtGui.QAbstractSlider.minimum` <= ``value`` <= :meth:`PySide.QtGui.QAbstractSlider.maximum` .
+
+    Changing the value also changes the :meth:`PySide.QtGui.QAbstractSlider.sliderPosition` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.singleStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the single step..
+
+    The smaller of two natural steps that an abstract sliders provides and typically corresponds to the user pressing an arrow key.
+
+    If the property is modified during an auto repeating key event, behavior is undefined.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.pageStep` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.sliderChange(change)
+
+
+    :param change: :attr:`PySide.QtGui.QAbstractSlider.SliderChange`
+
+
+
+
+    Reimplement this virtual function to track slider changes such as :attr:`SliderRangeChange<QAbstractSlider.SliderChange>` , :attr:`SliderOrientationChange<QAbstractSlider.SliderChange>` , :attr:`SliderStepsChange<QAbstractSlider.SliderChange>` , or :attr:`SliderValueChange<QAbstractSlider.SliderChange>` . The default implementation only updates the display and ignores the ``change`` parameter.
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.sliderMoved(position)
+
+
+    :param position: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.sliderPosition()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the current slider position.
+
+    If :meth:`~PySide.QtGui.QAbstractSlider.tracking` is enabled (the default), this is identical to :meth:`PySide.QtGui.QAbstractSlider.value` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.sliderPressed()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.sliderReleased()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.triggerAction(action)
+
+
+    :param action: :attr:`PySide.QtGui.QAbstractSlider.SliderAction`
+
+
+
+
+    Triggers a slider ``action`` . Possible actions are :attr:`SliderSingleStepAdd<QAbstractSlider.SliderAction>` , :attr:`SliderSingleStepSub<QAbstractSlider.SliderAction>` , :attr:`SliderPageStepAdd<QAbstractSlider.SliderAction>` , :attr:`SliderPageStepSub<QAbstractSlider.SliderAction>` , :attr:`SliderToMinimum<QAbstractSlider.SliderAction>` , :attr:`SliderToMaximum<QAbstractSlider.SliderAction>` , and :attr:`SliderMove<QAbstractSlider.SliderAction>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSlider.actionTriggered` 
+
+
+.. method:: PySide.QtGui.QAbstractSlider.value()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds the slider's current value.
+
+    The slider forces the value to be within the legal range: :meth:`PySide.QtGui.QAbstractSlider.minimum` <= ``value`` <= :meth:`PySide.QtGui.QAbstractSlider.maximum` .
+
+    Changing the value also changes the :meth:`PySide.QtGui.QAbstractSlider.sliderPosition` .
+
+
+
+.. method:: PySide.QtGui.QAbstractSlider.valueChanged(value)
+
+
+    :param value: :class:`PySide.QtCore.int`
+
+
+
+
+
+
+

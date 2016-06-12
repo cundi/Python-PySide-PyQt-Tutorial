@@ -1,0 +1,147 @@
+.. module:: PySide.QtGui
+.. _QMacStyle:
+
+QMacStyle
+*********
+
+.. inheritance-diagram:: QMacStyle
+    :parts: 2
+
+Synopsis
+--------
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`focusRectPolicy<PySide.QtGui.QMacStyle.focusRectPolicy>` (w)
+*    def :meth:`setFocusRectPolicy<PySide.QtGui.QMacStyle.setFocusRectPolicy>` (w, policy)
+*    def :meth:`setWidgetSizePolicy<PySide.QtGui.QMacStyle.setWidgetSizePolicy>` (w, policy)
+*    def :meth:`widgetSizePolicy<PySide.QtGui.QMacStyle.widgetSizePolicy>` (w)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMacStyle` class provides a Mac OS X style using the Apple Appearance Manager.
+
+    This class is implemented as a wrapper to the HITheme APIs, allowing applications to be styled according to the current theme in use on Mac OS X. This is done by having primitives in :class:`PySide.QtGui.QStyle` implemented in terms of what Mac OS X would normally theme.
+
+    .. warning::  This style is only available on Mac OS X because it relies on the HITheme APIs.
+
+    There are additional issues that should be taken into consideration to make an application compatible with the Apple Human Interface Guidelines. Some of these issues are outlined below.
+
+
+    * Layout - The restrictions on window layout are such that some aspects of layout that are style-dependent cannot be achieved using :class:`PySide.QtGui.QLayout` . Changes are being considered (and feedback would be appreciated) to make layouts :class:`PySide.QtGui.QStyle` -able. Some of the restrictions involve horizontal and vertical widget alignment and widget size (covered below).
+    * Widget size - Mac OS X allows widgets to have specific fixed sizes. Qt does not fully implement this behavior so as to maintain cross-platform compatibility. As a result some widgets sizes may be inappropriate (and subsequently not rendered correctly by the HITheme APIs).The :meth:`QWidget.sizeHint()<PySide.QtGui.QWidget.sizeHint>` will return the appropriate size for many managed widgets (widgets enumerated in :attr:`QStyle.ContentsType` ).
+    * Effects - :class:`PySide.QtGui.QMacStyle` uses HITheme for performing most of the drawing, but also uses emulation in a few cases where HITheme does not provide the required functionality (for example, tab bars on Panther, the toolbar separator, etc). We tried to make the emulation as close to the original as possible. Please report any issues you see in effects or non-standard widgets.
+
+    There are other issues that need to be considered in the feel of your application (including the general color scheme to match the Aqua colors). The Guidelines mentioned above will remain current with new advances and design suggestions for Mac OS X.
+
+    Note that the functions provided by :class:`PySide.QtGui.QMacStyle` are reimplementations of :class:`PySide.QtGui.QStyle` functions; see :class:`PySide.QtGui.QStyle` for their documentation.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmacstyle.png
+
+    .. seealso::  :class:`~PySide.QtGui.QWindowsXPStyle`  :class:`PySide.QtGui.QWindowsStyle`  :class:`PySide.QtGui.QPlastiqueStyle`  :class:`PySide.QtGui.QCDEStyle`  :class:`PySide.QtGui.QMotifStyle` 
+
+.. class:: QMacStyle()
+
+
+    Constructs a :class:`PySide.QtGui.QMacStyle` object.
+
+
+.. attribute:: PySide.QtGui.QMacStyle.FocusRectPolicy
+
+    This type is used to signify a widget's focus rectangle policy.
+
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant               |Description                                                                                                                                                                                                                                                                                        |
+    +=======================+===================================================================================================================================================================================================================================================================================================+
+    |QMacStyle.FocusEnabled |show a focus rectangle when the widget has focus.                                                                                                                                                                                                                                                  |
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMacStyle.FocusDisabled|never show a focus rectangle for the widget.                                                                                                                                                                                                                                                       |
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMacStyle.FocusDefault |show a focus rectangle when the widget has focus and the widget is a QSpinWidget, :class:`PySide.QtGui.QDateTimeEdit` , :class:`PySide.QtGui.QLineEdit` , :ref:`QListBox<porting4.html>` , :class:`PySide.QtGui.QListView` , editable :class:`PySide.QtGui.QTextEdit` , or one of their subclasses.|
+    +-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. attribute:: PySide.QtGui.QMacStyle.WidgetSizePolicy
+
+    +---------------------+-----------+
+    |Constant             |Description|
+    +=====================+===========+
+    |QMacStyle.SizeSmall  |           |
+    +---------------------+-----------+
+    |QMacStyle.SizeLarge  |           |
+    +---------------------+-----------+
+    |QMacStyle.SizeMini   |           |
+    +---------------------+-----------+
+    |QMacStyle.SizeDefault|           |
+    +---------------------+-----------+
+
+
+.. staticmethod:: PySide.QtGui.QMacStyle.focusRectPolicy(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :attr:`PySide.QtGui.QMacStyle.FocusRectPolicy`
+
+
+
+
+    Returns the focus rectangle policy for the widget ``w`` .
+
+    The focus rectangle policy can be one of :attr:`QMacStyle.FocusRectPolicy` .
+
+    In 4.3 and up this function will simply test for the :attr:`Qt.WA_MacShowFocusRect<Qt.WidgetAttribute>` attribute and will never return :attr:`QMacStyle.FocusDefault<QMacStyle.FocusRectPolicy>` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMacStyle.setFocusRectPolicy`  :meth:`QWidget.testAttribute()<PySide.QtGui.QWidget.testAttribute>` 
+
+
+.. staticmethod:: PySide.QtGui.QMacStyle.setFocusRectPolicy(w, policy)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param policy: :attr:`PySide.QtGui.QMacStyle.FocusRectPolicy`
+
+
+
+
+    Sets the focus rectangle policy of ``w`` . The ``policy`` can be one of :attr:`QMacStyle.FocusRectPolicy` .
+
+    This is now simply an interface to the :attr:`Qt.WA_MacShowFocusRect<Qt.WidgetAttribute>` attribute and the :attr:`FocusDefault<QMacStyle.FocusRectPolicy>` value does nothing anymore. If you want to set a widget back to its default value, you must save the old value of the attribute before you change it.
+
+    .. seealso::  :meth:`PySide.QtGui.QMacStyle.focusRectPolicy`  :meth:`QWidget.setAttribute()<PySide.QtGui.QWidget.setAttribute>` 
+
+
+.. staticmethod:: PySide.QtGui.QMacStyle.setWidgetSizePolicy(w, policy)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param policy: :attr:`PySide.QtGui.QMacStyle.WidgetSizePolicy`
+
+
+
+
+    Call :meth:`QWidget.setAttribute()<PySide.QtGui.QWidget.setAttribute>` with :attr:`Qt.WA_MacMiniSize<Qt.WidgetAttribute>` , :attr:`Qt.WA_MacSmallSize<Qt.WidgetAttribute>` , or :attr:`Qt.WA_MacNormalSize<Qt.WidgetAttribute>` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QMacStyle.widgetSizePolicy` 
+
+
+.. staticmethod:: PySide.QtGui.QMacStyle.widgetSizePolicy(w)
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :rtype: :attr:`PySide.QtGui.QMacStyle.WidgetSizePolicy`
+
+
+
+
+    Call :meth:`QWidget.testAttribute()<PySide.QtGui.QWidget.testAttribute>` with :attr:`Qt.WA_MacMiniSize<Qt.WidgetAttribute>` , :attr:`Qt.WA_MacSmallSize<Qt.WidgetAttribute>` , or :attr:`Qt.WA_MacNormalSize<Qt.WidgetAttribute>` instead.
+
+    .. seealso::  :meth:`PySide.QtGui.QMacStyle.setWidgetSizePolicy` 
+
+
+

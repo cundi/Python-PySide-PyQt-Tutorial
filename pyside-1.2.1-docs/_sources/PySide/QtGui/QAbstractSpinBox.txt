@@ -1,0 +1,682 @@
+.. module:: PySide.QtGui
+.. _QAbstractSpinBox:
+
+QAbstractSpinBox
+****************
+
+.. inheritance-diagram:: QAbstractSpinBox
+    :parts: 2
+
+**Inherited by:** :ref:`QDateTimeEdit`, :ref:`QTimeEdit`, :ref:`QDateEdit`, :ref:`QDoubleSpinBox`, :ref:`QSpinBox`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`alignment<PySide.QtGui.QAbstractSpinBox.alignment>` ()
+*    def :meth:`buttonSymbols<PySide.QtGui.QAbstractSpinBox.buttonSymbols>` ()
+*    def :meth:`correctionMode<PySide.QtGui.QAbstractSpinBox.correctionMode>` ()
+*    def :meth:`hasAcceptableInput<PySide.QtGui.QAbstractSpinBox.hasAcceptableInput>` ()
+*    def :meth:`hasFrame<PySide.QtGui.QAbstractSpinBox.hasFrame>` ()
+*    def :meth:`initStyleOption<PySide.QtGui.QAbstractSpinBox.initStyleOption>` (option)
+*    def :meth:`interpretText<PySide.QtGui.QAbstractSpinBox.interpretText>` ()
+*    def :meth:`isAccelerated<PySide.QtGui.QAbstractSpinBox.isAccelerated>` ()
+*    def :meth:`isReadOnly<PySide.QtGui.QAbstractSpinBox.isReadOnly>` ()
+*    def :meth:`keyboardTracking<PySide.QtGui.QAbstractSpinBox.keyboardTracking>` ()
+*    def :meth:`lineEdit<PySide.QtGui.QAbstractSpinBox.lineEdit>` ()
+*    def :meth:`setAccelerated<PySide.QtGui.QAbstractSpinBox.setAccelerated>` (on)
+*    def :meth:`setAlignment<PySide.QtGui.QAbstractSpinBox.setAlignment>` (flag)
+*    def :meth:`setButtonSymbols<PySide.QtGui.QAbstractSpinBox.setButtonSymbols>` (bs)
+*    def :meth:`setCorrectionMode<PySide.QtGui.QAbstractSpinBox.setCorrectionMode>` (cm)
+*    def :meth:`setFrame<PySide.QtGui.QAbstractSpinBox.setFrame>` (arg__1)
+*    def :meth:`setKeyboardTracking<PySide.QtGui.QAbstractSpinBox.setKeyboardTracking>` (kt)
+*    def :meth:`setLineEdit<PySide.QtGui.QAbstractSpinBox.setLineEdit>` (edit)
+*    def :meth:`setReadOnly<PySide.QtGui.QAbstractSpinBox.setReadOnly>` (r)
+*    def :meth:`setSpecialValueText<PySide.QtGui.QAbstractSpinBox.setSpecialValueText>` (txt)
+*    def :meth:`setWrapping<PySide.QtGui.QAbstractSpinBox.setWrapping>` (w)
+*    def :meth:`specialValueText<PySide.QtGui.QAbstractSpinBox.specialValueText>` ()
+*    def :meth:`text<PySide.QtGui.QAbstractSpinBox.text>` ()
+*    def :meth:`wrapping<PySide.QtGui.QAbstractSpinBox.wrapping>` ()
+
+
+Virtual functions
+^^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`clear<PySide.QtGui.QAbstractSpinBox.clear>` ()
+*    def :meth:`fixup<PySide.QtGui.QAbstractSpinBox.fixup>` (input)
+*    def :meth:`stepBy<PySide.QtGui.QAbstractSpinBox.stepBy>` (steps)
+*    def :meth:`stepEnabled<PySide.QtGui.QAbstractSpinBox.stepEnabled>` ()
+*    def :meth:`validate<PySide.QtGui.QAbstractSpinBox.validate>` (input, pos)
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`selectAll<PySide.QtGui.QAbstractSpinBox.selectAll>` ()
+*    def :meth:`stepDown<PySide.QtGui.QAbstractSpinBox.stepDown>` ()
+*    def :meth:`stepUp<PySide.QtGui.QAbstractSpinBox.stepUp>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`editingFinished<PySide.QtGui.QAbstractSpinBox.editingFinished>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QAbstractSpinBox` class provides a spinbox and a line edit to display values.
+
+    The class is designed as a common super class for widgets like :class:`PySide.QtGui.QSpinBox` , :class:`PySide.QtGui.QDoubleSpinBox` and :class:`PySide.QtGui.QDateTimeEdit`
+
+    Here are the main properties of the class:
+
+    :class:`PySide.QtGui.QAbstractSpinBox` provides a virtual :meth:`PySide.QtGui.QAbstractSpinBox.stepBy` function that is called whenever the user triggers a step. This function takes an integer value to signify how many steps were taken. E.g. Pressing :attr:`Qt.Key_Down<Qt.Key>` will trigger a call to stepBy(-1).
+
+    :class:`PySide.QtGui.QAbstractSpinBox` also provide a virtual function :meth:`PySide.QtGui.QAbstractSpinBox.stepEnabled` to determine whether stepping up/down is allowed at any point. This function returns a bitset of :class:`~PySide.QtGui.StepEnabled` .
+
+    .. seealso::  :class:`PySide.QtGui.QAbstractSlider`  :class:`PySide.QtGui.QSpinBox`  :class:`PySide.QtGui.QDoubleSpinBox`  :class:`PySide.QtGui.QDateTimeEdit`  :ref:`Spin Boxes Example<widgets/spinboxes>` 
+
+.. class:: QAbstractSpinBox([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs an abstract spinbox with the given ``parent`` with default :meth:`PySide.QtGui.QAbstractSpinBox.wrapping` , and :meth:`PySide.QtGui.QAbstractSpinBox.alignment` properties.
+
+
+.. attribute:: PySide.QtGui.QAbstractSpinBox.StepEnabledFlag
+
+    +--------------------------------+-----------+
+    |Constant                        |Description|
+    +================================+===========+
+    |QAbstractSpinBox.StepNone       |           |
+    +--------------------------------+-----------+
+    |QAbstractSpinBox.StepUpEnabled  |           |
+    +--------------------------------+-----------+
+    |QAbstractSpinBox.StepDownEnabled|           |
+    +--------------------------------+-----------+
+
+
+.. attribute:: PySide.QtGui.QAbstractSpinBox.CorrectionMode
+
+    This enum type describes the mode the spinbox will use to correct an :attr:`Intermediate<QValidator.State>` value if editing finishes.
+
+    +---------------------------------------+---------------------------------------------------+
+    |Constant                               |Description                                        |
+    +=======================================+===================================================+
+    |QAbstractSpinBox.CorrectToPreviousValue|The spinbox will revert to the last valid value.   |
+    +---------------------------------------+---------------------------------------------------+
+    |QAbstractSpinBox.CorrectToNearestValue |The spinbox will revert to the nearest valid value.|
+    +---------------------------------------+---------------------------------------------------+
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.correctionMode` 
+
+.. attribute:: PySide.QtGui.QAbstractSpinBox.ButtonSymbols
+
+    This enum type describes the symbols that can be displayed on the buttons in a spin box.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qspinbox-updown.png .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qspinbox-plusminus.png
+
+    +-----------------------------+-----------------------------------+
+    |Constant                     |Description                        |
+    +=============================+===================================+
+    |QAbstractSpinBox.UpDownArrows|Little arrows in the classic style.|
+    +-----------------------------+-----------------------------------+
+    |QAbstractSpinBox.PlusMinus   |**+** and **-** symbols.           |
+    +-----------------------------+-----------------------------------+
+    |QAbstractSpinBox.NoButtons   |Don't display buttons.             |
+    +-----------------------------+-----------------------------------+
+
+    .. seealso::  :meth:`QAbstractSpinBox.buttonSymbols<PySide.QtGui.QAbstractSpinBox.buttonSymbols>` 
+
+.. method:: PySide.QtGui.QAbstractSpinBox.alignment()
+
+
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the spin box.
+
+    Possible Values are :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` , :attr:`Qt.AlignRight<Qt.AlignmentFlag>` , and :attr:`Qt.AlignHCenter<Qt.AlignmentFlag>` .
+
+    By default, the alignment is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>`
+
+    Attempting to set the alignment to an illegal flag combination does nothing.
+
+    .. seealso::  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.buttonSymbols()
+
+
+    :rtype: :attr:`PySide.QtGui.QAbstractSpinBox.ButtonSymbols`
+
+
+
+
+    This property holds the current button symbol mode.
+
+    The possible values can be either ``UpDownArrows`` or ``PlusMinus`` . The default is ``UpDownArrows`` .
+
+    Note that some styles might render :attr:`PlusMinus<QAbstractSpinBox.ButtonSymbols>` and :attr:`UpDownArrows<QAbstractSpinBox.ButtonSymbols>` identically.
+
+    .. seealso::  :attr:`QAbstractSpinBox.ButtonSymbols` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.clear()
+
+
+
+
+
+
+    Clears the lineedit of all text but prefix and suffix.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.correctionMode()
+
+
+    :rtype: :attr:`PySide.QtGui.QAbstractSpinBox.CorrectionMode`
+
+
+
+
+    This property holds the mode to correct an :attr:`Intermediate<QValidator.State>` value if editing finishes.
+
+    The default mode is :attr:`QAbstractSpinBox.CorrectToPreviousValue<QAbstractSpinBox.CorrectionMode>` .
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractSpinBox.acceptableInput`  :meth:`PySide.QtGui.QAbstractSpinBox.validate`  :meth:`PySide.QtGui.QAbstractSpinBox.fixup` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.editingFinished()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.fixup(input)
+
+
+    :param input: unicode
+
+
+
+
+    This virtual function is called by the :class:`PySide.QtGui.QAbstractSpinBox` if the ``input`` is not validated to :attr:`QValidator.Acceptable<QValidator.State>` when Return is pressed or :meth:`PySide.QtGui.QAbstractSpinBox.interpretText` is called. It will try to change the text so it is valid. Reimplemented in the various subclasses.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.hasAcceptableInput()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the input satisfies the current validation.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.validate`  :meth:`PySide.QtGui.QAbstractSpinBox.fixup`  :meth:`PySide.QtGui.QAbstractSpinBox.correctionMode` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.hasFrame()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box draws itself with a frame.
+
+    If enabled (the default) the spin box draws itself inside a frame, otherwise the spin box draws itself without any frame.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.initStyleOption(option)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionSpinBox`
+
+
+
+
+    Initialize ``option`` with the values from this :class:`PySide.QtGui.QSpinBox` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionSpinBox` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.interpretText()
+
+
+
+
+
+
+    This function interprets the text of the spin box. If the value has changed since last interpretation it will emit signals.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.isAccelerated()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box will accelerate the frequency of the steps when pressing the step Up/Down buttons..
+
+    If enabled the spin box will increase/decrease the value faster the longer you hold the button down.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.isReadOnly()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box is read only..
+
+    In read-only mode, the user can still copy the text to the clipboard, or drag and drop the text; but cannot edit it.
+
+    The :class:`PySide.QtGui.QLineEdit` in the :class:`PySide.QtGui.QAbstractSpinBox` does not show a cursor in read-only mode.
+
+    .. seealso::  :meth:`QLineEdit.readOnly<PySide.QtGui.QLineEdit.readOnly>` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.keyboardTracking()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether keyboard tracking is enabled for the spinbox..
+
+    If keyboard tracking is enabled (the default), the spinbox emits the valueChanged() signal while the new value is being entered from the keyboard.
+
+    E.g. when the user enters the value 600 by typing 6, 0, and 0, the spinbox emits 3 signals with the values 6, 60, and 600 respectively.
+
+    If keyboard tracking is disabled, the spinbox doesn't emit the valueChanged() signal while typing. It emits the signal later, when the return key is pressed, when keyboard focus is lost, or when other spinbox functionality is used, e.g. pressing an arrow key.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.lineEdit()
+
+
+    :rtype: :class:`PySide.QtGui.QLineEdit`
+
+
+
+
+    This function returns a pointer to the line edit of the spin box.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.setLineEdit` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.selectAll()
+
+
+
+
+
+
+    Selects all the text in the spinbox except the prefix and suffix.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setAccelerated(on)
+
+
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box will accelerate the frequency of the steps when pressing the step Up/Down buttons..
+
+    If enabled the spin box will increase/decrease the value faster the longer you hold the button down.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setAlignment(flag)
+
+
+    :param flag: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    This property holds the alignment of the spin box.
+
+    Possible Values are :attr:`Qt.AlignLeft<Qt.AlignmentFlag>` , :attr:`Qt.AlignRight<Qt.AlignmentFlag>` , and :attr:`Qt.AlignHCenter<Qt.AlignmentFlag>` .
+
+    By default, the alignment is :attr:`Qt.AlignLeft<Qt.AlignmentFlag>`
+
+    Attempting to set the alignment to an illegal flag combination does nothing.
+
+    .. seealso::  :class:`Qt.Alignment` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setButtonSymbols(bs)
+
+
+    :param bs: :attr:`PySide.QtGui.QAbstractSpinBox.ButtonSymbols`
+
+
+
+
+    This property holds the current button symbol mode.
+
+    The possible values can be either ``UpDownArrows`` or ``PlusMinus`` . The default is ``UpDownArrows`` .
+
+    Note that some styles might render :attr:`PlusMinus<QAbstractSpinBox.ButtonSymbols>` and :attr:`UpDownArrows<QAbstractSpinBox.ButtonSymbols>` identically.
+
+    .. seealso::  :attr:`QAbstractSpinBox.ButtonSymbols` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setCorrectionMode(cm)
+
+
+    :param cm: :attr:`PySide.QtGui.QAbstractSpinBox.CorrectionMode`
+
+
+
+
+    This property holds the mode to correct an :attr:`Intermediate<QValidator.State>` value if editing finishes.
+
+    The default mode is :attr:`QAbstractSpinBox.CorrectToPreviousValue<QAbstractSpinBox.CorrectionMode>` .
+
+    .. seealso::  :meth:`~PySide.QtGui.QAbstractSpinBox.acceptableInput`  :meth:`PySide.QtGui.QAbstractSpinBox.validate`  :meth:`PySide.QtGui.QAbstractSpinBox.fixup` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setFrame(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box draws itself with a frame.
+
+    If enabled (the default) the spin box draws itself inside a frame, otherwise the spin box draws itself without any frame.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setKeyboardTracking(kt)
+
+
+    :param kt: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether keyboard tracking is enabled for the spinbox..
+
+    If keyboard tracking is enabled (the default), the spinbox emits the valueChanged() signal while the new value is being entered from the keyboard.
+
+    E.g. when the user enters the value 600 by typing 6, 0, and 0, the spinbox emits 3 signals with the values 6, 60, and 600 respectively.
+
+    If keyboard tracking is disabled, the spinbox doesn't emit the valueChanged() signal while typing. It emits the signal later, when the return key is pressed, when keyboard focus is lost, or when other spinbox functionality is used, e.g. pressing an arrow key.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setLineEdit(edit)
+
+
+    :param edit: :class:`PySide.QtGui.QLineEdit`
+
+
+
+
+    Sets the line edit of the spinbox to be ``lineEdit`` instead of the current line edit widget. ``lineEdit`` can not be 0.
+
+    :class:`PySide.QtGui.QAbstractSpinBox` takes ownership of the new lineEdit
+
+    If :meth:`QLineEdit.validator()<PySide.QtGui.QLineEdit.validator>` for the ``lineEdit`` returns 0, the internal validator of the spinbox will be set on the line edit.
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.lineEdit` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setReadOnly(r)
+
+
+    :param r: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box is read only..
+
+    In read-only mode, the user can still copy the text to the clipboard, or drag and drop the text; but cannot edit it.
+
+    The :class:`PySide.QtGui.QLineEdit` in the :class:`PySide.QtGui.QAbstractSpinBox` does not show a cursor in read-only mode.
+
+    .. seealso::  :meth:`QLineEdit.readOnly<PySide.QtGui.QLineEdit.readOnly>` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setSpecialValueText(txt)
+
+
+    :param txt: unicode
+
+
+
+
+    This property holds the special-value text.
+
+    If set, the spin box will display this text instead of a numeric value whenever the current value is equal to minimum(). Typical use is to indicate that this choice has a special (default) meaning.
+
+    For example, if your spin box allows the user to choose a scale factor (or zoom level) for displaying an image, and your application is able to automatically choose one that will enable the image to fit completely within the display window, you can set up the spin box like this:
+
+    ::
+
+            zoomSpinBox =  QSpinBox()
+            zoomSpinBox.setRange(0, 1000)
+            zoomSpinBox.setSingleStep(10)
+            zoomSpinBox.setSuffix("%")
+            zoomSpinBox.setSpecialValueText(tr("Automatic"))
+            zoomSpinBox.setValue(100)
+
+
+    The user will then be able to choose a scale from 1% to 1000% or select "Auto" to leave it up to the application to choose. Your code must then interpret the spin box value of 0 as a request from the user to scale the image to fit inside the window.
+
+    All values are displayed with the prefix and suffix (if set), *except* for the special value, which only shows the special value text. This special text is passed in the :meth:`QSpinBox.valueChanged()<PySide.QtGui.QSpinBox.valueChanged>` signal that passes a :class:`PySide.QtCore.QString` .
+
+    To turn off the special-value text display, call this function with an empty string. The default is no special-value text, i.e. the numeric value is shown as usual.
+
+    If no special-value text is set, :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` returns an empty string.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.setWrapping(w)
+
+
+    :param w: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box is circular..
+
+    If wrapping is true stepping up from maximum() value will take you to the minimum() value and vica versa. Wrapping only make sense if you have minimum() and maximum() values set.
+
+    ::
+
+        spinBox = QSpinBox(self)
+        spinBox.setRange(0, 100)
+        spinBox.setWrapping(True)
+        spinBox.setValue(100)
+        spinBox.stepBy(1)
+        // value is 0
+
+
+    .. seealso::  :meth:`QSpinBox.minimum()<PySide.QtGui.QSpinBox.minimum>`  :meth:`QSpinBox.maximum()<PySide.QtGui.QSpinBox.maximum>` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.specialValueText()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the special-value text.
+
+    If set, the spin box will display this text instead of a numeric value whenever the current value is equal to minimum(). Typical use is to indicate that this choice has a special (default) meaning.
+
+    For example, if your spin box allows the user to choose a scale factor (or zoom level) for displaying an image, and your application is able to automatically choose one that will enable the image to fit completely within the display window, you can set up the spin box like this:
+
+    ::
+
+            zoomSpinBox =  QSpinBox()
+            zoomSpinBox.setRange(0, 1000)
+            zoomSpinBox.setSingleStep(10)
+            zoomSpinBox.setSuffix("%")
+            zoomSpinBox.setSpecialValueText(tr("Automatic"))
+            zoomSpinBox.setValue(100)
+
+
+    The user will then be able to choose a scale from 1% to 1000% or select "Auto" to leave it up to the application to choose. Your code must then interpret the spin box value of 0 as a request from the user to scale the image to fit inside the window.
+
+    All values are displayed with the prefix and suffix (if set), *except* for the special value, which only shows the special value text. This special text is passed in the :meth:`QSpinBox.valueChanged()<PySide.QtGui.QSpinBox.valueChanged>` signal that passes a :class:`PySide.QtCore.QString` .
+
+    To turn off the special-value text display, call this function with an empty string. The default is no special-value text, i.e. the numeric value is shown as usual.
+
+    If no special-value text is set, :meth:`PySide.QtGui.QAbstractSpinBox.specialValueText` returns an empty string.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.stepBy(steps)
+
+
+    :param steps: :class:`PySide.QtCore.int`
+
+
+
+
+    Virtual function that is called whenever the user triggers a step. The ``steps`` parameter indicates how many steps were taken, e.g. Pressing :attr:`Qt.Key_Down<Qt.Key>` will trigger a call to stepBy(-1), whereas pressing :attr:`Qt.Key_Prior<Qt.Key>` will trigger a call to stepBy(10).
+
+    If you subclass :class:`PySide.QtGui.QAbstractSpinBox` you must reimplement this function. Note that this function is called even if the resulting value will be outside the bounds of minimum and maximum. It's this function's job to handle these situations.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.stepDown()
+
+
+
+
+
+
+    Steps down by one linestep Calling this slot is analogous to calling stepBy(-1);
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.stepBy`  :meth:`PySide.QtGui.QAbstractSpinBox.stepUp` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.stepEnabled()
+
+
+    :rtype: :class:`PySide.QtGui.QAbstractSpinBox.StepEnabled`
+
+
+
+
+    Virtual function that determines whether stepping up and down is legal at any given time.
+
+    The up arrow will be painted as disabled unless ( :meth:`PySide.QtGui.QAbstractSpinBox.stepEnabled` & :attr:`StepUpEnabled<QAbstractSpinBox.StepEnabledFlag>` ) != 0.
+
+    The default implementation will return ( :attr:`StepUpEnabled<QAbstractSpinBox.StepEnabledFlag>` | :attr:`StepDownEnabled<QAbstractSpinBox.StepEnabledFlag>` ) if wrapping is turned on. Else it will return :attr:`StepDownEnabled<QAbstractSpinBox.StepEnabledFlag>` if value is > minimum() or'ed with :attr:`StepUpEnabled<QAbstractSpinBox.StepEnabledFlag>` if value < maximum().
+
+    If you subclass :class:`PySide.QtGui.QAbstractSpinBox` you will need to reimplement this function.
+
+    .. seealso::  :meth:`QSpinBox.minimum()<PySide.QtGui.QSpinBox.minimum>`  :meth:`QSpinBox.maximum()<PySide.QtGui.QSpinBox.maximum>`  :meth:`PySide.QtGui.QAbstractSpinBox.wrapping` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.stepUp()
+
+
+
+
+
+
+    Steps up by one linestep Calling this slot is analogous to calling stepBy(1);
+
+    .. seealso::  :meth:`PySide.QtGui.QAbstractSpinBox.stepBy`  :meth:`PySide.QtGui.QAbstractSpinBox.stepDown` 
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.text()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the spin box's text, including any prefix and suffix.
+
+    There is no default text.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.validate(input, pos)
+
+
+    :param input: unicode
+    :param pos: :class:`PySide.QtCore.int`
+    :rtype: PyObject
+
+
+
+
+    This virtual function is called by the :class:`PySide.QtGui.QAbstractSpinBox` to determine whether ``input`` is valid. The ``pos`` parameter indicates the position in the string. Reimplemented in the various subclasses.
+
+
+
+.. method:: PySide.QtGui.QAbstractSpinBox.wrapping()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the spin box is circular..
+
+    If wrapping is true stepping up from maximum() value will take you to the minimum() value and vica versa. Wrapping only make sense if you have minimum() and maximum() values set.
+
+    ::
+
+        spinBox = QSpinBox(self)
+        spinBox.setRange(0, 100)
+        spinBox.setWrapping(True)
+        spinBox.setValue(100)
+        spinBox.stepBy(1)
+        // value is 0
+
+
+    .. seealso::  :meth:`QSpinBox.minimum()<PySide.QtGui.QSpinBox.minimum>`  :meth:`QSpinBox.maximum()<PySide.QtGui.QSpinBox.maximum>` 
+
+
+

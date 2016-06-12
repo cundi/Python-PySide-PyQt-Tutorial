@@ -1,0 +1,511 @@
+.. module:: PySide.QtGui
+.. _QMenuBar:
+
+QMenuBar
+********
+
+.. inheritance-diagram:: QMenuBar
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`actionAt<PySide.QtGui.QMenuBar.actionAt>` (arg__1)
+*    def :meth:`actionGeometry<PySide.QtGui.QMenuBar.actionGeometry>` (arg__1)
+*    def :meth:`activeAction<PySide.QtGui.QMenuBar.activeAction>` ()
+*    def :meth:`addAction<PySide.QtGui.QMenuBar.addAction>` (arg__1, arg__2)
+*    def :meth:`addAction<PySide.QtGui.QMenuBar.addAction>` (text)
+*    def :meth:`addAction<PySide.QtGui.QMenuBar.addAction>` (text, receiver, member)
+*    def :meth:`addMenu<PySide.QtGui.QMenuBar.addMenu>` (icon, title)
+*    def :meth:`addMenu<PySide.QtGui.QMenuBar.addMenu>` (menu)
+*    def :meth:`addMenu<PySide.QtGui.QMenuBar.addMenu>` (title)
+*    def :meth:`addSeparator<PySide.QtGui.QMenuBar.addSeparator>` ()
+*    def :meth:`clear<PySide.QtGui.QMenuBar.clear>` ()
+*    def :meth:`cornerWidget<PySide.QtGui.QMenuBar.cornerWidget>` ([corner=Qt.TopRightCorner])
+*    def :meth:`initStyleOption<PySide.QtGui.QMenuBar.initStyleOption>` (option, action)
+*    def :meth:`insertMenu<PySide.QtGui.QMenuBar.insertMenu>` (before, menu)
+*    def :meth:`insertSeparator<PySide.QtGui.QMenuBar.insertSeparator>` (before)
+*    def :meth:`isDefaultUp<PySide.QtGui.QMenuBar.isDefaultUp>` ()
+*    def :meth:`isNativeMenuBar<PySide.QtGui.QMenuBar.isNativeMenuBar>` ()
+*    def :meth:`setActiveAction<PySide.QtGui.QMenuBar.setActiveAction>` (action)
+*    def :meth:`setCornerWidget<PySide.QtGui.QMenuBar.setCornerWidget>` (w[, corner=Qt.TopRightCorner])
+*    def :meth:`setDefaultUp<PySide.QtGui.QMenuBar.setDefaultUp>` (arg__1)
+*    def :meth:`setNativeMenuBar<PySide.QtGui.QMenuBar.setNativeMenuBar>` (nativeMenuBar)
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`hovered<PySide.QtGui.QMenuBar.hovered>` (action)
+*    def :meth:`triggered<PySide.QtGui.QMenuBar.triggered>` (action)
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`macUpdateMenuBar<PySide.QtGui.QMenuBar.macUpdateMenuBar>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMenuBar` class provides a horizontal menu bar.
+
+    A menu bar consists of a list of pull-down menu items. You add menu items with :meth:`PySide.QtGui.QMenuBar.addMenu` . For example, asuming that ``menubar`` is a pointer to a :class:`PySide.QtGui.QMenuBar` and ``fileMenu`` is a pointer to a :class:`PySide.QtGui.QMenu` , the following statement inserts the menu into the menu bar:
+
+    ::
+
+        menubar.addMenu(fileMenu)
+
+
+    The ampersand in the menu item's text sets Alt+F as a shortcut for this menu. (You can use "&&" to get a real ampersand in the menu bar.)
+
+    There is no need to lay out a menu bar. It automatically sets its own geometry to the top of the parent widget and changes it appropriately whenever the parent is resized.
+
+    .. _PySide.QtGui.QMenuBar_usage:
+
+
+
+Usage
+^^^^^
+
+    In most main window style applications you would use the :meth:`PySide.QtGui.QMainWindow.menuBar` function provided in :class:`PySide.QtGui.QMainWindow` , adding :class:`PySide.QtGui.QMenu` s to the menu bar and adding :class:`PySide.QtGui.QAction` s to the pop-up menus.
+
+    Example (from the :ref:`Menus<mainwindows/menus>` example):
+
+    ::
+
+            fileMenu = menuBar().addMenu(tr("&File"))
+            fileMenu.addAction(Act)
+
+
+    Menu items may be removed with :meth:`PySide.QtGui.QWidget.removeAction` .
+
+    Widgets can be added to menus by using instances of the :class:`PySide.QtGui.QWidgetAction` class to hold them. These actions can then be inserted into menus in the usual way; see the :class:`PySide.QtGui.QMenu` documentation for more details.
+
+    .. _PySide.QtGui.QMenuBar_platform-dependent-look-and-feel:
+
+
+
+Platform Dependent Look and Feel
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Different platforms have different requirements for the appearance of menu bars and their behavior when the user interacts with them. For example, Windows systems are often configured so that the underlined character mnemonics that indicate keyboard shortcuts for items in the menu bar are only shown when the **Alt** key is pressed.
+
+    +----------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/plastique-menubar.png Plastique widget style.|The :class:`Plastique widget style<PySide.QtGui.QPlastiqueStyle>` , like most other styles, handles the **Help** menu in the same way as it handles any other menu.|
+    +----------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/motif-menubar.png Motif widget style.        |The :class:`Motif widget style<PySide.QtGui.QMotifStyle>` treats **Help** menus in a special way, placing them at right-hand end of the menu bar.                  |
+    +----------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. _PySide.QtGui.QMenuBar_qmenubar-on-mac-os-x:
+
+
+
+QMenuBar on Mac OS X
+^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QMenuBar` on Mac OS X is a wrapper for using the system-wide menu bar. If you have multiple menu bars in one dialog the outermost menu bar (normally inside a widget with widget flag :attr:`Qt.Window<Qt.WindowType>` ) will be used for the system-wide menu bar.
+
+    Qt for Mac OS X also provides a menu bar merging feature to make :class:`PySide.QtGui.QMenuBar` conform more closely to accepted Mac OS X menu bar layout. The merging functionality is based on string matching the title of a :class:`PySide.QtGui.QMenu` entry. These strings are translated (using :meth:`QObject.tr()<PySide.QtCore.QObject.tr>` ) in the " :class:`PySide.QtGui.QMenuBar` " context. If an entry is moved its slots will still fire as if it was in the original place. The table below outlines the strings looked for and where the entry is placed if matched:
+
+    +-----------------------------------------------+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |String matches                                 |Placement                                  |Notes                                                                                                                                                       |
+    +-----------------------------------------------+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |about.\*                                       |Application Menu | About <application name>|The application name is fetched from the ``Info.plist`` file (see note below). If this entry is not found no About item will appear in the Application Menu.|
+    +-----------------------------------------------+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |config, options, setup, settings or preferences|Application Menu | Preferences             |If this entry is not found the Settings item will be disabled                                                                                               |
+    +-----------------------------------------------+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |quit or exit                                   |Application Menu | Quit <application name> |If this entry is not found a default Quit item will be created to call :meth:`QApplication.quit()<PySide.QtGui.QApplication.quit>`                          |
+    +-----------------------------------------------+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+    You can override this behavior by using the :meth:`QAction.menuRole()<PySide.QtGui.QAction.menuRole>` property.
+
+    If you want all windows in a Mac application to share one menu bar, you must create a menu bar that does not have a parent. Create a parent-less menu bar this way:
+
+    ::
+
+        menuBar = QMenuBar()
+
+
+    .. note::  Do *not* call :meth:`QMainWindow.menuBar()<PySide.QtGui.QMainWindow.menuBar>` to create the shared menu bar, because that menu bar will have the :class:`PySide.QtGui.QMainWindow` as its parent. That menu bar would only be displayed for the parent :class:`PySide.QtGui.QMainWindow` .
+
+    .. note::  The text used for the application name in the menu bar is obtained from the value set in the ``Info.plist`` file in the application's bundle. See :ref:`Deploying an Application on Mac OS X<deployment-mac.html>` for more information.
+
+    .. _PySide.QtGui.QMenuBar_qmenubar-on-windows-ce:
+
+
+
+QMenuBar on Windows CE
+^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QMenuBar` on Windows CE is a wrapper for using the system-wide menu bar, similar to the Mac. This feature is activated for Windows Mobile and integrates :class:`PySide.QtGui.QMenuBar` with the native soft keys. The left soft key can be controlled with :meth:`QMenuBar.setDefaultAction()<PySide.QtGui.QMenuBar.setDefaultAction>` and the right soft key can be used to access the menu bar.
+
+    The :meth:`PySide.QtGui.QMenuBar.hovered` signal is not supported for the native menu integration. Also, it is not possible to display an icon in a native menu on Windows Mobile.
+
+    .. _PySide.QtGui.QMenuBar_examples:
+
+
+
+Examples
+^^^^^^^^
+
+    The :ref:`Menus<mainwindows/menus>` example shows how to use :class:`PySide.QtGui.QMenuBar` and :class:`PySide.QtGui.QMenu` . The other :ref:`main window application examples<examples-mainwindow.html>` also provide menus using these classes.
+
+    .. seealso::  :class:`PySide.QtGui.QMenu`  :class:`PySide.QtGui.QShortcut`  :class:`PySide.QtGui.QAction`  :ref:`GUI Design Handbook: Menu Bar<guibooks.html>`  :ref:`Menus Example<mainwindows/menus>` 
+
+.. class:: QMenuBar([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a menu bar with parent ``parent`` .
+
+
+.. method:: PySide.QtGui.QMenuBar.actionAt(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.QPoint`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QAction` at ``pt`` . Returns 0 if there is no action at ``pt`` or if the location has a separator.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenuBar.addAction`  :meth:`PySide.QtGui.QMenuBar.addSeparator` 
+
+
+.. method:: PySide.QtGui.QMenuBar.actionGeometry(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtCore.QRect`
+
+
+
+
+    Returns the geometry of action ``act`` as a :class:`PySide.QtCore.QRect` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMenuBar.actionAt` 
+
+
+.. method:: PySide.QtGui.QMenuBar.activeAction()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QAction` that is currently highlighted. A null pointer will be returned if no action is currently selected.
+
+    .. seealso::  :meth:`PySide.QtGui.QMenuBar.setActiveAction` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addAction(text)
+
+
+    :param text: unicode
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with ``text`` . The function adds the newly created action to the menu's list of actions, and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QWidget.actions()<PySide.QtGui.QWidget.actions>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addAction(text, receiver, member)
+
+
+    :param text: unicode
+    :param receiver: :class:`PySide.QtCore.QObject`
+    :param member: str
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This is an overloaded function.
+
+    This convenience function creates a new action with the given ``text`` . The action's :meth:`PySide.QtGui.QMenuBar.triggered` signal is connected to the ``receiver`` 's ``member`` slot. The function adds the newly created action to the menu's list of actions and returns it.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QWidget.actions()<PySide.QtGui.QWidget.actions>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addAction(arg__1, arg__2)
+
+
+    :param arg__1: unicode
+    :param arg__2: :class:`PyObject`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenuBar.addMenu(icon, title)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+    :param title: unicode
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Appends a new :class:`PySide.QtGui.QMenu` with ``icon`` and ``title`` to the menu bar. The menu bar takes ownership of the menu. Returns the new menu.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addMenu(menu)
+
+
+    :param menu: :class:`PySide.QtGui.QMenu`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Appends ``menu`` to the menu bar. Returns the menu's menuAction().
+
+    .. note::  The returned :class:`PySide.QtGui.QAction` object can be used to hide the corresponding menu.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addMenu(title)
+
+
+    :param title: unicode
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Appends a new :class:`PySide.QtGui.QMenu` with ``title`` to the menu bar. The menu bar takes ownership of the menu. Returns the new menu.
+
+    .. seealso::  :meth:`QWidget.addAction()<PySide.QtGui.QWidget.addAction>`  :meth:`QMenu.menuAction()<PySide.QtGui.QMenu.menuAction>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.addSeparator()
+
+
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Appends a separator to the menu.
+
+
+
+.. method:: PySide.QtGui.QMenuBar.clear()
+
+
+
+
+
+
+    Removes all the actions from the menu bar.
+
+    .. note::  On Mac OS X, menu items that have been merged to the system menu bar are not removed by this function. One way to handle this would be to remove the extra actions yourself. You can set the :attr:`menu role<QAction.MenuRole>` on the different menus, so that you know ahead of time which menu items get merged and which do not. Then decide what to recreate or remove yourself.
+
+    .. seealso::  :meth:`PySide.QtGui.QWidget.removeAction` 
+
+
+.. method:: PySide.QtGui.QMenuBar.cornerWidget([corner=Qt.TopRightCorner])
+
+
+    :param corner: :attr:`PySide.QtCore.Qt.Corner`
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenuBar.hovered(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenuBar.initStyleOption(option, action)
+
+
+    :param option: :class:`PySide.QtGui.QStyleOptionMenuItem`
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Initialize ``option`` with the values from the menu bar and information from ``action`` . This method is useful for subclasses when they need a :class:`PySide.QtGui.QStyleOptionMenuItem` , but don't want to fill in all the information themselves.
+
+    .. seealso::  :meth:`QStyleOption.initFrom()<PySide.QtGui.QStyleOption.initFrom>`  :meth:`QMenu.initStyleOption()<PySide.QtGui.QMenu.initStyleOption>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.insertMenu(before, menu)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :param menu: :class:`PySide.QtGui.QMenu`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function inserts ``menu`` before action ``before`` and returns the menus menuAction().
+
+    .. seealso::  :meth:`QWidget.insertAction()<PySide.QtGui.QWidget.insertAction>`  :meth:`PySide.QtGui.QMenuBar.addMenu` 
+
+
+.. method:: PySide.QtGui.QMenuBar.insertSeparator(before)
+
+
+    :param before: :class:`PySide.QtGui.QAction`
+    :rtype: :class:`PySide.QtGui.QAction`
+
+
+
+
+    This convenience function creates a new separator action, i.e. an action with :meth:`QAction.isSeparator()<PySide.QtGui.QAction.isSeparator>` returning true. The function inserts the newly created action into this menu bar's list of actions before action ``before`` and returns it.
+
+    .. seealso::  :meth:`QWidget.insertAction()<PySide.QtGui.QWidget.insertAction>`  :meth:`PySide.QtGui.QMenuBar.addSeparator` 
+
+
+.. method:: PySide.QtGui.QMenuBar.isDefaultUp()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the popup orientation.
+
+    The default popup orientation. By default, menus pop "down" the screen. By setting the property to true, the menu will pop "up". You might call this for menus that are *below* the document to which they refer.
+
+    If the menu would not fit on the screen, the other direction is used automatically.
+
+
+
+.. method:: PySide.QtGui.QMenuBar.isNativeMenuBar()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether or not a menubar will be used as a native menubar on platforms that support it.
+
+    This property specifies whether or not the menubar should be used as a native menubar on platforms that support it. The currently supported platforms are Mac OS X and Windows CE. On these platforms if this property is true, the menubar is used in the native menubar and is not in the window of its parent, if false the menubar remains in the window. On other platforms the value of this attribute has no effect.
+
+    The default is to follow whether the :attr:`Qt.AA_DontUseNativeMenuBar<Qt.ApplicationAttribute>` attribute is set for the application. Explicitly settings this property overrides the presence (or abscence) of the attribute.
+
+    .. seealso::  :ref:`void-qt-mac-set-native-menubar-bool-enable<exportedfunctions.html>` 
+
+
+.. staticmethod:: PySide.QtGui.QMenuBar.macUpdateMenuBar()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This function will update the current menu bar and set it as the active menu bar in the Menu Manager.
+
+    .. warning::  This function is not portable.
+
+    .. seealso::  :meth:`QMenu.macMenu()<PySide.QtGui.QMenu.macMenu>`  :meth:`QMenuBar.macMenu()<PySide.QtGui.QMenuBar.macMenu>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.setActiveAction(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+    Sets the currently highlighted action to ``act`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMenuBar.activeAction` 
+
+
+.. method:: PySide.QtGui.QMenuBar.setCornerWidget(w[, corner=Qt.TopRightCorner])
+
+
+    :param w: :class:`PySide.QtGui.QWidget`
+    :param corner: :attr:`PySide.QtCore.Qt.Corner`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMenuBar.setDefaultUp(arg__1)
+
+
+    :param arg__1: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds the popup orientation.
+
+    The default popup orientation. By default, menus pop "down" the screen. By setting the property to true, the menu will pop "up". You might call this for menus that are *below* the document to which they refer.
+
+    If the menu would not fit on the screen, the other direction is used automatically.
+
+
+
+.. method:: PySide.QtGui.QMenuBar.setNativeMenuBar(nativeMenuBar)
+
+
+    :param nativeMenuBar: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds Whether or not a menubar will be used as a native menubar on platforms that support it.
+
+    This property specifies whether or not the menubar should be used as a native menubar on platforms that support it. The currently supported platforms are Mac OS X and Windows CE. On these platforms if this property is true, the menubar is used in the native menubar and is not in the window of its parent, if false the menubar remains in the window. On other platforms the value of this attribute has no effect.
+
+    The default is to follow whether the :attr:`Qt.AA_DontUseNativeMenuBar<Qt.ApplicationAttribute>` attribute is set for the application. Explicitly settings this property overrides the presence (or abscence) of the attribute.
+
+    .. seealso::  :ref:`void-qt-mac-set-native-menubar-bool-enable<exportedfunctions.html>` 
+
+
+.. method:: PySide.QtGui.QMenuBar.triggered(action)
+
+
+    :param action: :class:`PySide.QtGui.QAction`
+
+
+
+
+
+
+

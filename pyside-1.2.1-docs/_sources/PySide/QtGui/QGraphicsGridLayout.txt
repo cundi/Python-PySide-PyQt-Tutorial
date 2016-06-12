@@ -1,0 +1,632 @@
+.. module:: PySide.QtGui
+.. _QGraphicsGridLayout:
+
+QGraphicsGridLayout
+*******************
+
+.. inheritance-diagram:: QGraphicsGridLayout
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addItem<PySide.QtGui.QGraphicsGridLayout.addItem>` (item, row, column, rowSpan, columnSpan[, alignment=0])
+*    def :meth:`addItem<PySide.QtGui.QGraphicsGridLayout.addItem>` (item, row, column[, alignment=0])
+*    def :meth:`alignment<PySide.QtGui.QGraphicsGridLayout.alignment>` (item)
+*    def :meth:`columnAlignment<PySide.QtGui.QGraphicsGridLayout.columnAlignment>` (column)
+*    def :meth:`columnCount<PySide.QtGui.QGraphicsGridLayout.columnCount>` ()
+*    def :meth:`columnMaximumWidth<PySide.QtGui.QGraphicsGridLayout.columnMaximumWidth>` (column)
+*    def :meth:`columnMinimumWidth<PySide.QtGui.QGraphicsGridLayout.columnMinimumWidth>` (column)
+*    def :meth:`columnPreferredWidth<PySide.QtGui.QGraphicsGridLayout.columnPreferredWidth>` (column)
+*    def :meth:`columnSpacing<PySide.QtGui.QGraphicsGridLayout.columnSpacing>` (column)
+*    def :meth:`columnStretchFactor<PySide.QtGui.QGraphicsGridLayout.columnStretchFactor>` (column)
+*    def :meth:`horizontalSpacing<PySide.QtGui.QGraphicsGridLayout.horizontalSpacing>` ()
+*    def :meth:`itemAt<PySide.QtGui.QGraphicsGridLayout.itemAt>` (row, column)
+*    def :meth:`removeItem<PySide.QtGui.QGraphicsGridLayout.removeItem>` (item)
+*    def :meth:`rowAlignment<PySide.QtGui.QGraphicsGridLayout.rowAlignment>` (row)
+*    def :meth:`rowCount<PySide.QtGui.QGraphicsGridLayout.rowCount>` ()
+*    def :meth:`rowMaximumHeight<PySide.QtGui.QGraphicsGridLayout.rowMaximumHeight>` (row)
+*    def :meth:`rowMinimumHeight<PySide.QtGui.QGraphicsGridLayout.rowMinimumHeight>` (row)
+*    def :meth:`rowPreferredHeight<PySide.QtGui.QGraphicsGridLayout.rowPreferredHeight>` (row)
+*    def :meth:`rowSpacing<PySide.QtGui.QGraphicsGridLayout.rowSpacing>` (row)
+*    def :meth:`rowStretchFactor<PySide.QtGui.QGraphicsGridLayout.rowStretchFactor>` (row)
+*    def :meth:`setAlignment<PySide.QtGui.QGraphicsGridLayout.setAlignment>` (item, alignment)
+*    def :meth:`setColumnAlignment<PySide.QtGui.QGraphicsGridLayout.setColumnAlignment>` (column, alignment)
+*    def :meth:`setColumnFixedWidth<PySide.QtGui.QGraphicsGridLayout.setColumnFixedWidth>` (column, width)
+*    def :meth:`setColumnMaximumWidth<PySide.QtGui.QGraphicsGridLayout.setColumnMaximumWidth>` (column, width)
+*    def :meth:`setColumnMinimumWidth<PySide.QtGui.QGraphicsGridLayout.setColumnMinimumWidth>` (column, width)
+*    def :meth:`setColumnPreferredWidth<PySide.QtGui.QGraphicsGridLayout.setColumnPreferredWidth>` (column, width)
+*    def :meth:`setColumnSpacing<PySide.QtGui.QGraphicsGridLayout.setColumnSpacing>` (column, spacing)
+*    def :meth:`setColumnStretchFactor<PySide.QtGui.QGraphicsGridLayout.setColumnStretchFactor>` (column, stretch)
+*    def :meth:`setHorizontalSpacing<PySide.QtGui.QGraphicsGridLayout.setHorizontalSpacing>` (spacing)
+*    def :meth:`setRowAlignment<PySide.QtGui.QGraphicsGridLayout.setRowAlignment>` (row, alignment)
+*    def :meth:`setRowFixedHeight<PySide.QtGui.QGraphicsGridLayout.setRowFixedHeight>` (row, height)
+*    def :meth:`setRowMaximumHeight<PySide.QtGui.QGraphicsGridLayout.setRowMaximumHeight>` (row, height)
+*    def :meth:`setRowMinimumHeight<PySide.QtGui.QGraphicsGridLayout.setRowMinimumHeight>` (row, height)
+*    def :meth:`setRowPreferredHeight<PySide.QtGui.QGraphicsGridLayout.setRowPreferredHeight>` (row, height)
+*    def :meth:`setRowSpacing<PySide.QtGui.QGraphicsGridLayout.setRowSpacing>` (row, spacing)
+*    def :meth:`setRowStretchFactor<PySide.QtGui.QGraphicsGridLayout.setRowStretchFactor>` (row, stretch)
+*    def :meth:`setSpacing<PySide.QtGui.QGraphicsGridLayout.setSpacing>` (spacing)
+*    def :meth:`setVerticalSpacing<PySide.QtGui.QGraphicsGridLayout.setVerticalSpacing>` (spacing)
+*    def :meth:`verticalSpacing<PySide.QtGui.QGraphicsGridLayout.verticalSpacing>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QGraphicsGridLayout` class provides a grid layout for managing widgets in Graphics View.
+
+    The most common way to use :class:`PySide.QtGui.QGraphicsGridLayout` is to construct an object on the heap with no parent, add widgets and layouts by calling :meth:`PySide.QtGui.QGraphicsGridLayout.addItem` , and finally assign the layout to a widget by calling :meth:`QGraphicsWidget.setLayout()<PySide.QtGui.QGraphicsWidget.setLayout>` . :class:`PySide.QtGui.QGraphicsGridLayout` automatically computes the dimensions of the grid as you add items.
+
+    ::
+
+        scene = QGraphicsScene()
+        textEdit = scene.addWidget(QTextEdit())
+        pushButton = scene.addWidget(QPushButton())
+
+        layout = QGraphicsGridLayout()
+        layout.addItem(textEdit, 0, 0)
+        layout.addItem(pushButton, 0, 1)
+
+        form = QGraphicsWidget()
+        form.setLayout(layout)
+        scene.addItem(form)
+
+
+    The layout takes ownership of the items. In some cases when the layout item also inherits from :class:`PySide.QtGui.QGraphicsItem` (such as :class:`PySide.QtGui.QGraphicsWidget` ) there will be a ambiguity in ownership because the layout item belongs to two ownership hierarchies. See the documentation of :meth:`QGraphicsLayoutItem.setOwnedByLayout()<PySide.QtGui.QGraphicsLayoutItem.setOwnedByLayout>` how to handle this. You can access each item in the layout by calling :meth:`PySide.QtGui.QGraphicsGridLayout.count` and :meth:`PySide.QtGui.QGraphicsGridLayout.itemAt` . Calling :meth:`PySide.QtGui.QGraphicsGridLayout.removeAt` will remove an item from the layout, without destroying it.
+
+    .. _PySide.QtGui.QGraphicsGridLayout_size-hints-and-size-policies-in-qgraphicsgridlayout:
+
+
+
+Size Hints and Size Policies in QGraphicsGridLayout
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QGraphicsGridLayout` respects each item's size hints and size policies, and when a cell in the grid has more space than the items can fill, each item is arranged according to the layout's alignment for that item. You can set an alignment for each item by calling :meth:`PySide.QtGui.QGraphicsGridLayout.setAlignment` , and check the alignment for any item by calling :meth:`PySide.QtGui.QGraphicsGridLayout.alignment` . You can also set the alignment for an entire row or column by calling :meth:`PySide.QtGui.QGraphicsGridLayout.setRowAlignment` and :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnAlignment` respectively. By default, items are aligned to the top left.
+
+    .. seealso::  :class:`PySide.QtGui.QGraphicsLinearLayout`  :class:`PySide.QtGui.QGraphicsWidget` 
+
+.. class:: QGraphicsGridLayout([parent=None])
+
+    :param parent: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+    Constructs a :class:`PySide.QtGui.QGraphicsGridLayout` instance. ``parent`` is passed to :class:`PySide.QtGui.QGraphicsLayout` 's constructor.
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.addItem(item, row, column, rowSpan, columnSpan[, alignment=0])
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param rowSpan: :class:`PySide.QtCore.int`
+    :param columnSpan: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.addItem(item, row, column[, alignment=0])
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.alignment(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the alignment for ``item`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setAlignment` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnAlignment(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the alignment for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnAlignment` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of columns in the grid layout. This is always one more than the index of the last column that is occupied by a layout item (empty columns are counted except for those at the end).
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnMaximumWidth(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the maximum width for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnMaximumWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnMinimumWidth(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the minimum width for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnMinimumWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnPreferredWidth(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the preferred width for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnPreferredWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnSpacing(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the column spacing for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.columnStretchFactor(column)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor for ``column`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setColumnStretchFactor` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.horizontalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the default horizontal spacing for the grid layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setHorizontalSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.itemAt(row, column)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param column: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    Returns a pointer to the layout item at (``row`` , ``column`` ).
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.removeItem(item)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+
+
+
+
+    Removes the layout item ``item`` without destroying it. Ownership of the item is transferred to the caller.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.addItem` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowAlignment(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+    Returns the alignment of ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowAlignment` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowCount()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of rows in the grid layout. This is always one more than the index of the last row that is occupied by a layout item (empty rows are counted except for those at the end).
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowMaximumHeight(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the maximum height for row, ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowMaximumHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowMinimumHeight(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the minimum height for row, ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowMinimumHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowPreferredHeight(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the preferred height for row, ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowPreferredHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowSpacing(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the row spacing for ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.rowStretchFactor(row)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the stretch factor for ``row`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setRowStretchFactor` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setAlignment(item, alignment)
+
+
+    :param item: :class:`PySide.QtGui.QGraphicsLayoutItem`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnAlignment(column, alignment)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnFixedWidth(column, width)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param width: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the fixed width of ``column`` to ``width`` .
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnMaximumWidth(column, width)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param width: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the maximum width of ``column`` to ``width`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.columnMaximumWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnMinimumWidth(column, width)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param width: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the minimum width for ``column`` to ``width`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.columnMinimumWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnPreferredWidth(column, width)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param width: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the preferred width for ``column`` to ``width`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.columnPreferredWidth` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnSpacing(column, spacing)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the spacing for ``column`` to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.columnSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setColumnStretchFactor(column, stretch)
+
+
+    :param column: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor for ``column`` to ``stretch`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.columnStretchFactor` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setHorizontalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the default horizontal spacing for the grid layout to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.horizontalSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowAlignment(row, alignment)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param alignment: :class:`PySide.QtCore.Qt.Alignment`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowFixedHeight(row, height)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the fixed height for row, ``row`` , to ``height`` .
+
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowMaximumHeight(row, height)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the maximum height for row, ``row`` , to ``height`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowMaximumHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowMinimumHeight(row, height)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the minimum height for row, ``row`` , to ``height`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowMinimumHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowPreferredHeight(row, height)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param height: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the preferred height for row, ``row`` , to ``height`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowPreferredHeight` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowSpacing(row, spacing)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the spacing for ``row`` to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setRowStretchFactor(row, stretch)
+
+
+    :param row: :class:`PySide.QtCore.int`
+    :param stretch: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the stretch factor for ``row`` to ``stretch`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowStretchFactor` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the grid layout's default spacing, both vertical and horizontal, to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.rowSpacing`  :meth:`PySide.QtGui.QGraphicsGridLayout.columnSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.setVerticalSpacing(spacing)
+
+
+    :param spacing: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Sets the default vertical spacing for the grid layout to ``spacing`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.verticalSpacing` 
+
+
+.. method:: PySide.QtGui.QGraphicsGridLayout.verticalSpacing()
+
+
+    :rtype: :class:`PySide.QtCore.qreal`
+
+
+
+
+    Returns the default vertical spacing for the grid layout.
+
+    .. seealso::  :meth:`PySide.QtGui.QGraphicsGridLayout.setVerticalSpacing` 
+
+
+

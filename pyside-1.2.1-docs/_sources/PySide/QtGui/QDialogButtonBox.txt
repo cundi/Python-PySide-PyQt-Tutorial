@@ -1,0 +1,492 @@
+.. module:: PySide.QtGui
+.. _QDialogButtonBox:
+
+QDialogButtonBox
+****************
+
+.. inheritance-diagram:: QDialogButtonBox
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`addButton<PySide.QtGui.QDialogButtonBox.addButton>` (button)
+*    def :meth:`addButton<PySide.QtGui.QDialogButtonBox.addButton>` (button, role)
+*    def :meth:`addButton<PySide.QtGui.QDialogButtonBox.addButton>` (text, role)
+*    def :meth:`button<PySide.QtGui.QDialogButtonBox.button>` (which)
+*    def :meth:`buttonRole<PySide.QtGui.QDialogButtonBox.buttonRole>` (button)
+*    def :meth:`buttons<PySide.QtGui.QDialogButtonBox.buttons>` ()
+*    def :meth:`centerButtons<PySide.QtGui.QDialogButtonBox.centerButtons>` ()
+*    def :meth:`clear<PySide.QtGui.QDialogButtonBox.clear>` ()
+*    def :meth:`orientation<PySide.QtGui.QDialogButtonBox.orientation>` ()
+*    def :meth:`removeButton<PySide.QtGui.QDialogButtonBox.removeButton>` (button)
+*    def :meth:`setCenterButtons<PySide.QtGui.QDialogButtonBox.setCenterButtons>` (center)
+*    def :meth:`setOrientation<PySide.QtGui.QDialogButtonBox.setOrientation>` (orientation)
+*    def :meth:`setStandardButtons<PySide.QtGui.QDialogButtonBox.setStandardButtons>` (buttons)
+*    def :meth:`standardButton<PySide.QtGui.QDialogButtonBox.standardButton>` (button)
+*    def :meth:`standardButtons<PySide.QtGui.QDialogButtonBox.standardButtons>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`accepted<PySide.QtGui.QDialogButtonBox.accepted>` ()
+*    def :meth:`clicked<PySide.QtGui.QDialogButtonBox.clicked>` (button)
+*    def :meth:`helpRequested<PySide.QtGui.QDialogButtonBox.helpRequested>` ()
+*    def :meth:`rejected<PySide.QtGui.QDialogButtonBox.rejected>` ()
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QDialogButtonBox` class is a widget that presents buttons in a layout that is appropriate to the current widget style.
+
+    Dialogs and message boxes typically present buttons in a layout that conforms to the interface guidelines for that platform. Invariably, different platforms have different layouts for their dialogs. :class:`PySide.QtGui.QDialogButtonBox` allows a developer to add buttons to it and will automatically use the appropriate layout for the user's desktop environment.
+
+    Most buttons for a dialog follow certain roles. Such roles include:
+
+
+    * Accepting or rejecting the dialog.
+    * Asking for help.
+    * Performing actions on the dialog itself (such as resetting fields or applying changes).
+
+    There can also be alternate ways of dismissing the dialog which may cause destructive results.
+
+    Most dialogs have buttons that can almost be considered standard (e.g. **OK** and **Cancel** buttons). It is sometimes convenient to create these buttons in a standard way.
+
+    There are a couple ways of using :class:`PySide.QtGui.QDialogButtonBox` . One ways is to create the buttons (or button texts) yourself and add them to the button box, specifying their role.
+
+    ::
+
+            findButton = QPushButton(self.tr("&Find"))
+            findButton.setDefault(True)
+
+            moreButton = QPushButton(self.tr("&More"))
+            moreButton.setCheckable(True)
+
+            moreButton.setAutoDefault(False)
+
+            buttonBox = QDialogButtonBox(Qt.Vertical)
+            buttonBox.addButton(findButton, QDialogButtonBox.ActionRole)
+            buttonBox.addButton(moreButton, QDialogButtonBox.ActionRole)
+        <Code snippet "examples/dialogs/extension/finddialog.cpp:6" not found>
+
+    Alternatively, :class:`PySide.QtGui.QDialogButtonBox` provides several standard buttons (e.g. OK, Cancel, Save) that you can use. They exist as flags so you can OR them together in the constructor.
+
+    ::
+
+                self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok
+
+                                             | QDialogButtonBox.Cancel)
+
+                self.buttonBox.accepted.connect(self.accept)
+                self.buttonBox.rejected.connect(self.reject)
+
+
+    You can mix and match normal buttons and standard buttons.
+
+    Currently the buttons are laid out in the following way if the button box is horizontal:
+
+    +-------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-gnomelayout-horizontal.png|Button box laid out in horizontal :attr:`GnomeLayout<QDialogButtonBox.ButtonLayout>`|
+    +-------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-kdelayout-horizontal.png  |Button box laid out in horizontal :attr:`KdeLayout<QDialogButtonBox.ButtonLayout>`  |
+    +-------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-maclayout-horizontal.png  |Button box laid out in horizontal :attr:`MacLayout<QDialogButtonBox.ButtonLayout>`  |
+    +-------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-winlayout-horizontal.png  |Button box laid out in horizontal :attr:`WinLayout<QDialogButtonBox.ButtonLayout>`  |
+    +-------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+
+    The buttons are laid out the following way if the button box is vertical:
+
+    +-----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+
+    |:attr:`GnomeLayout<QDialogButtonBox.ButtonLayout>`                                                               |:attr:`KdeLayout<QDialogButtonBox.ButtonLayout>`                                                               |:attr:`MacLayout<QDialogButtonBox.ButtonLayout>`                                                               |:attr:`WinLayout<QDialogButtonBox.ButtonLayout>`                                                               |
+    +-----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+
+    |.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-gnomelayout-vertical.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-kdelayout-vertical.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-maclayout-vertical.png|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-winlayout-vertical.png|
+    +-----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------+
+
+    Additionally, button boxes that contain only buttons with :attr:`ActionRole<QDialogButtonBox.ButtonRole>` or :attr:`HelpRole<QDialogButtonBox.ButtonRole>` can be considered modeless and have an alternate look on Mac OS X:
+
+    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+    |modeless horizontal :attr:`MacLayout<QDialogButtonBox.ButtonLayout>`|.. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/buttonbox-mac-modeless-horizontal.png|
+    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+
+    When a button is clicked in the button box, the :meth:`PySide.QtGui.QDialogButtonBox.clicked` signal is emitted for the actual button is that is pressed. For convenience, if the button has an :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` , :attr:`RejectRole<QDialogButtonBox.ButtonRole>` , or :attr:`HelpRole<QDialogButtonBox.ButtonRole>` , the :meth:`PySide.QtGui.QDialogButtonBox.accepted` , :meth:`PySide.QtGui.QDialogButtonBox.rejected` , or :meth:`PySide.QtGui.QDialogButtonBox.helpRequested` signals are emitted respectively.
+
+    If you want a specific button to be default you need to call :meth:`QPushButton.setDefault()<PySide.QtGui.QPushButton.setDefault>` on it yourself. However, if there is no default button set and to preserve which button is the default button across platforms when using the :meth:`QPushButton.autoDefault<PySide.QtGui.QPushButton.autoDefault>` property, the first push button with the accept role is made the default button when the :class:`PySide.QtGui.QDialogButtonBox` is shown,
+
+    .. seealso::  :class:`PySide.QtGui.QMessageBox`  :class:`PySide.QtGui.QPushButton`  :class:`PySide.QtGui.QDialog` 
+
+.. class:: QDialogButtonBox(buttons[, orientation=Qt.Horizontal[, parent=None]])
+           QDialogButtonBox([parent=None])
+           QDialogButtonBox(orientation[, parent=None])
+
+    :param parent: :class:`PySide.QtGui.QWidget`
+    :param buttons: :class:`PySide.QtGui.QDialogButtonBox.StandardButtons`
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+    Constructs an empty, horizontal button box with the given ``parent`` .
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.orientation`  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+
+.. attribute:: PySide.QtGui.QDialogButtonBox.ButtonLayout
+
+    This enum describes the layout policy to be used when arranging the buttons contained in the button box.
+
+    +----------------------------+------------------------------------------------------+
+    |Constant                    |Description                                           |
+    +============================+======================================================+
+    |QDialogButtonBox.WinLayout  |Use a policy appropriate for applications on Windows. |
+    +----------------------------+------------------------------------------------------+
+    |QDialogButtonBox.MacLayout  |Use a policy appropriate for applications on Mac OS X.|
+    +----------------------------+------------------------------------------------------+
+    |QDialogButtonBox.KdeLayout  |Use a policy appropriate for applications on KDE.     |
+    +----------------------------+------------------------------------------------------+
+    |QDialogButtonBox.GnomeLayout|Use a policy appropriate for applications on GNOME.   |
+    +----------------------------+------------------------------------------------------+
+
+    The button layout is specified by the :meth:`current style<PySide.QtGui.QWidget.style>` . However, on the X11 platform, it may be influenced by the desktop environment.
+
+
+.. attribute:: PySide.QtGui.QDialogButtonBox.ButtonRole
+
+    This enum describes the roles that can be used to describe buttons in the button box. Combinations of these roles are as flags used to describe different aspects of their behavior.
+
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                         |
+    +================================+====================================================================================================+
+    |QDialogButtonBox.InvalidRole    |The button is invalid.                                                                              |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.AcceptRole     |Clicking the button causes the dialog to be accepted (e.g. OK).                                     |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.RejectRole     |Clicking the button causes the dialog to be rejected (e.g. Cancel).                                 |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.DestructiveRole|Clicking the button causes a destructive change (e.g. for Discarding Changes) and closes the dialog.|
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.ActionRole     |Clicking the button causes changes to the elements within the dialog.                               |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.HelpRole       |The button can be clicked to request help.                                                          |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.YesRole        |The button is a "Yes"-like button.                                                                  |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.NoRole         |The button is a "No"-like button.                                                                   |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.ApplyRole      |The button applies current changes.                                                                 |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.ResetRole      |The button resets the dialog's fields to default values.                                            |
+    +--------------------------------+----------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QDialogButtonBox.StandardButton` 
+
+.. attribute:: PySide.QtGui.QDialogButtonBox.StandardButton
+
+    These enums describe flags for standard buttons. Each button has a defined :attr:`QDialogButtonBox.ButtonRole` .
+
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                        |Description                                                                                                                           |
+    +================================+======================================================================================================================================+
+    |QDialogButtonBox.Ok             |An "OK" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                     |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Open           |A "Open" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                    |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Save           |A "Save" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                    |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Cancel         |A "Cancel" button defined with the :attr:`RejectRole<QDialogButtonBox.ButtonRole>` .                                                  |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Close          |A "Close" button defined with the :attr:`RejectRole<QDialogButtonBox.ButtonRole>` .                                                   |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Discard        |A "Discard" or "Don't Save" button, depending on the platform, defined with the :attr:`DestructiveRole<QDialogButtonBox.ButtonRole>` .|
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Apply          |An "Apply" button defined with the :attr:`ApplyRole<QDialogButtonBox.ButtonRole>` .                                                   |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Reset          |A "Reset" button defined with the :attr:`ResetRole<QDialogButtonBox.ButtonRole>` .                                                    |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.RestoreDefaults|A "Restore Defaults" button defined with the :attr:`ResetRole<QDialogButtonBox.ButtonRole>` .                                         |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Help           |A "Help" button defined with the :attr:`HelpRole<QDialogButtonBox.ButtonRole>` .                                                      |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.SaveAll        |A "Save All" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Yes            |A "Yes" button defined with the :attr:`YesRole<QDialogButtonBox.ButtonRole>` .                                                        |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.YesToAll       |A "Yes to All" button defined with the :attr:`YesRole<QDialogButtonBox.ButtonRole>` .                                                 |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.No             |A "No" button defined with the :attr:`NoRole<QDialogButtonBox.ButtonRole>` .                                                          |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.NoToAll        |A "No to All" button defined with the :attr:`NoRole<QDialogButtonBox.ButtonRole>` .                                                   |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Abort          |An "Abort" button defined with the :attr:`RejectRole<QDialogButtonBox.ButtonRole>` .                                                  |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Retry          |A "Retry" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                   |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.Ignore         |An "Ignore" button defined with the :attr:`AcceptRole<QDialogButtonBox.ButtonRole>` .                                                 |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+    |QDialogButtonBox.NoButton       |An invalid button.                                                                                                                    |
+    +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+
+    .. seealso::  :attr:`QDialogButtonBox.ButtonRole`  :meth:`PySide.QtGui.QDialogButtonBox.standardButtons` 
+
+.. method:: PySide.QtGui.QDialogButtonBox.accepted()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.addButton(text, role)
+
+
+    :param text: unicode
+    :param role: :attr:`PySide.QtGui.QDialogButtonBox.ButtonRole`
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    Creates a push button with the given ``text`` , adds it to the button box for the specified ``role`` , and returns the corresponding push button. If ``role`` is invalid, no button is created, and zero is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.removeButton`  :meth:`PySide.QtGui.QDialogButtonBox.clear` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.addButton(button)
+
+
+    :param button: :attr:`PySide.QtGui.QDialogButtonBox.StandardButton`
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    Adds a standard ``button`` to the button box if it is valid to do so, and returns a push button. If ``button`` is invalid, it is not added to the button box, and zero is returned.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.removeButton`  :meth:`PySide.QtGui.QDialogButtonBox.clear` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.addButton(button, role)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :param role: :attr:`PySide.QtGui.QDialogButtonBox.ButtonRole`
+
+
+
+
+    Adds the given ``button`` to the button box with the specified ``role`` . If the role is invalid, the button is not added.
+
+    If the button has already been added, it is removed and added again with the new role.
+
+    .. note::  The button box takes ownership of the button.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.removeButton`  :meth:`PySide.QtGui.QDialogButtonBox.clear` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.button(which)
+
+
+    :param which: :attr:`PySide.QtGui.QDialogButtonBox.StandardButton`
+    :rtype: :class:`PySide.QtGui.QPushButton`
+
+
+
+
+    Returns the :class:`PySide.QtGui.QPushButton` corresponding to the standard button ``which`` , or 0 if the standard button doesn't exist in this button box.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.standardButton`  :meth:`PySide.QtGui.QDialogButtonBox.standardButtons`  :meth:`PySide.QtGui.QDialogButtonBox.buttons` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.buttonRole(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :rtype: :attr:`PySide.QtGui.QDialogButtonBox.ButtonRole`
+
+
+
+
+    Returns the button role for the specified ``button`` . This function returns :attr:`InvalidRole<QDialogButtonBox.ButtonRole>` if ``button`` is 0 or has not been added to the button box.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.buttons`  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.buttons()
+
+
+    :rtype: 
+
+
+
+
+    Returns a list of all the buttons that have been added to the button box.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.buttonRole`  :meth:`PySide.QtGui.QDialogButtonBox.addButton`  :meth:`PySide.QtGui.QDialogButtonBox.removeButton` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.centerButtons()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the buttons in the button box are centered.
+
+    By default, this property is false. This behavior is appopriate for most types of dialogs. A notable exception is message boxes on most platforms (e.g. Windows), where the button box is centered horizontally.
+
+    .. seealso::  :class:`PySide.QtGui.QMessageBox` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.clear()
+
+
+
+
+
+
+    Clears the button box, deleting all buttons within it.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.removeButton`  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.clicked(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.helpRequested()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.orientation()
+
+
+    :rtype: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the button box.
+
+    By default, the orientation is horizontal (i.e. the buttons are laid out side by side). The possible orientations are :attr:`Qt.Horizontal<Qt.Orientation>` and :attr:`Qt.Vertical<Qt.Orientation>` .
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.rejected()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.removeButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+
+
+
+
+    Removes ``button`` from the button box without deleting it and sets its parent to zero.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.clear`  :meth:`PySide.QtGui.QDialogButtonBox.buttons`  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.setCenterButtons(center)
+
+
+    :param center: :class:`PySide.QtCore.bool`
+
+
+
+
+    This property holds whether the buttons in the button box are centered.
+
+    By default, this property is false. This behavior is appopriate for most types of dialogs. A notable exception is message boxes on most platforms (e.g. Windows), where the button box is centered horizontally.
+
+    .. seealso::  :class:`PySide.QtGui.QMessageBox` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.setOrientation(orientation)
+
+
+    :param orientation: :attr:`PySide.QtCore.Qt.Orientation`
+
+
+
+
+    This property holds the orientation of the button box.
+
+    By default, the orientation is horizontal (i.e. the buttons are laid out side by side). The possible orientations are :attr:`Qt.Horizontal<Qt.Orientation>` and :attr:`Qt.Vertical<Qt.Orientation>` .
+
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.setStandardButtons(buttons)
+
+
+    :param buttons: :class:`PySide.QtGui.QDialogButtonBox.StandardButtons`
+
+
+
+
+    This property holds collection of standard buttons in the button box.
+
+    This property controls which standard buttons are used by the button box.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.standardButton(button)
+
+
+    :param button: :class:`PySide.QtGui.QAbstractButton`
+    :rtype: :attr:`PySide.QtGui.QDialogButtonBox.StandardButton`
+
+
+
+
+    Returns the standard button enum value corresponding to the given ``button`` , or :attr:`NoButton<QDialogButtonBox.StandardButton>` if the given ``button`` isn't a standard button.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.button`  :meth:`PySide.QtGui.QDialogButtonBox.buttons`  :meth:`PySide.QtGui.QDialogButtonBox.standardButtons` 
+
+
+.. method:: PySide.QtGui.QDialogButtonBox.standardButtons()
+
+
+    :rtype: :class:`PySide.QtGui.QDialogButtonBox.StandardButtons`
+
+
+
+
+    This property holds collection of standard buttons in the button box.
+
+    This property controls which standard buttons are used by the button box.
+
+    .. seealso::  :meth:`PySide.QtGui.QDialogButtonBox.addButton` 
+
+
+

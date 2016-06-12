@@ -1,0 +1,247 @@
+.. module:: PySide.QtGui
+.. _QKeyEvent:
+
+QKeyEvent
+*********
+
+.. inheritance-diagram:: QKeyEvent
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtGui.QKeyEvent.__eq__>` (, key)
+*    def :meth:`__eq__<PySide.QtGui.QKeyEvent.__eq__>` (key)
+*    def :meth:`__ne__<PySide.QtGui.QKeyEvent.__ne__>` (arg__1)
+*    def :meth:`count<PySide.QtGui.QKeyEvent.count>` ()
+*    def :meth:`hasExtendedInfo<PySide.QtGui.QKeyEvent.hasExtendedInfo>` ()
+*    def :meth:`isAutoRepeat<PySide.QtGui.QKeyEvent.isAutoRepeat>` ()
+*    def :meth:`key<PySide.QtGui.QKeyEvent.key>` ()
+*    def :meth:`matches<PySide.QtGui.QKeyEvent.matches>` (key)
+*    def :meth:`nativeModifiers<PySide.QtGui.QKeyEvent.nativeModifiers>` ()
+*    def :meth:`nativeScanCode<PySide.QtGui.QKeyEvent.nativeScanCode>` ()
+*    def :meth:`nativeVirtualKey<PySide.QtGui.QKeyEvent.nativeVirtualKey>` ()
+*    def :meth:`text<PySide.QtGui.QKeyEvent.text>` ()
+
+
+Static functions
+^^^^^^^^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`createExtendedKeyEvent<PySide.QtGui.QKeyEvent.createExtendedKeyEvent>` (type, key, modifiers, nativeScanCode, nativeVirtualKey, nativeModifiers[, text=""[, autorep=false[, count=1]]])
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QKeyEvent` class describes a key event.
+
+    Key events are sent to the widget with keyboard input focus when keys are pressed or released.
+
+    A key event contains a special accept flag that indicates whether the receiver will handle the key event. You should call :meth:`PySide.QtCore.QEvent.ignore` if the key press or release event is not handled by your widget. A key event is propagated up the parent widget chain until a widget accepts it with :meth:`PySide.QtCore.QEvent.accept` or an event filter consumes it. Key events for multimedia keys are ignored by default. You should call :meth:`PySide.QtCore.QEvent.accept` if your widget handles those events.
+
+    The QWidget::setEnable() function can be used to enable or disable mouse and keyboard events for a widget.
+
+    The event handlers :meth:`QWidget.keyPressEvent()<PySide.QtGui.QWidget.keyPressEvent>` , :meth:`QWidget.keyReleaseEvent()<PySide.QtGui.QWidget.keyReleaseEvent>` , :meth:`QGraphicsItem.keyPressEvent()<PySide.QtGui.QGraphicsItem.keyPressEvent>` and :meth:`QGraphicsItem.keyReleaseEvent()<PySide.QtGui.QGraphicsItem.keyReleaseEvent>` receive key events.
+
+    .. seealso::  :class:`PySide.QtGui.QFocusEvent`  :meth:`QWidget.grabKeyboard()<PySide.QtGui.QWidget.grabKeyboard>` 
+
+.. class:: QKeyEvent(type, key, modifiers[, text=""[, autorep=false[, count=1]]])
+
+    :param key: :class:`PySide.QtCore.int`
+    :param autorep: :class:`PySide.QtCore.bool`
+    :param count: :class:`PySide.QtCore.ushort`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+    :param text: unicode
+
+
+
+.. attribute:: PySide.QtGui.QKeyEvent.autor
+
+
+.. method:: PySide.QtGui.QKeyEvent.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of keys involved in this event. If :meth:`PySide.QtGui.QKeyEvent.text` is not empty, this is simply the length of the string.
+
+    .. seealso::  :attr:`Qt.WA_KeyCompression<Qt.WidgetAttribute>` 
+
+
+.. staticmethod:: PySide.QtGui.QKeyEvent.createExtendedKeyEvent(type, key, modifiers, nativeScanCode, nativeVirtualKey, nativeModifiers[, text=""[, autorep=false[, count=1]]])
+
+
+    :param type: :attr:`PySide.QtCore.QEvent.Type`
+    :param key: :class:`PySide.QtCore.int`
+    :param modifiers: :class:`PySide.QtCore.Qt.KeyboardModifiers`
+    :param nativeScanCode: :class:`PySide.QtCore.quint32`
+    :param nativeVirtualKey: :class:`PySide.QtCore.quint32`
+    :param nativeModifiers: :class:`PySide.QtCore.quint32`
+    :param text: unicode
+    :param autorep: :class:`PySide.QtCore.bool`
+    :param count: :class:`PySide.QtCore.ushort`
+    :rtype: :class:`PySide.QtGui.QKeyEvent`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.hasExtendedInfo()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.isAutoRepeat()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this event comes from an auto-repeating key; returns false if it comes from an initial key press.
+
+    Note that if the event is a multiple-key compressed event that is partly due to auto-repeat, this function could return either true or false indeterminately.
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.key()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the code of the key that was pressed or released.
+
+    See :attr:`Qt.Key` for the list of keyboard codes. These codes are independent of the underlying window system. Note that this function does not distinguish between capital and non-capital letters, use the :meth:`PySide.QtGui.QKeyEvent.text` function (returning the Unicode text the key generated) for this purpose.
+
+    A value of either 0 or :attr:`Qt.Key_unknown<Qt.Key>` means that the event is not the result of a known key; for example, it may be the result of a compose sequence, a keyboard macro, or due to key event compression.
+
+    .. seealso::  :attr:`Qt.WA_KeyCompression<Qt.WidgetAttribute>` 
+
+
+.. method:: PySide.QtGui.QKeyEvent.matches(key)
+
+
+    :param key: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.nativeModifiers()
+
+
+    :rtype: :class:`PySide.QtCore.quint32`
+
+
+
+
+    Returns the native modifiers of a key event. If the key event does not contain this data 0 is returned.
+
+    Note: The native modifiers may be 0, even if the key event contains extended information.
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.nativeScanCode()
+
+
+    :rtype: :class:`PySide.QtCore.quint32`
+
+
+
+
+    Returns the native scan code of the key event. If the key event does not contain this data 0 is returned.
+
+    Note: The native scan code may be 0, even if the key event contains extended information.
+
+    Note: On Mac OS/X, this function is not useful, because there is no way to get the scan code from Carbon or Cocoa. The function always returns 1 (or 0 in the case explained above).
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.nativeVirtualKey()
+
+
+    :rtype: :class:`PySide.QtCore.quint32`
+
+
+
+
+    Returns the native virtual key, or key sym of the key event. If the key event does not contain this data 0 is returned.
+
+    Note: The native virtual key may be 0, even if the key event contains extended information.
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.__ne__(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.__eq__(key)
+
+
+    :param key: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.__eq__(, key)
+
+
+    :param key: :attr:`PySide.QtGui.QKeySequence.StandardKey`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QKeyEvent.text()
+
+
+    :rtype: unicode
+
+
+
+
+    Returns the Unicode text that this key generated. The text returned can be an empty string in cases where modifier keys, such as Shift, Control, Alt, and Meta, are being pressed or released. In such cases :meth:`PySide.QtGui.QKeyEvent.key` will contain a valid value.
+
+    .. seealso::  :attr:`Qt.WA_KeyCompression<Qt.WidgetAttribute>` 
+
+
+

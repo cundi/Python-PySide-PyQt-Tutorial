@@ -1,0 +1,455 @@
+.. module:: PySide.QtSql
+.. _QSqlRecord:
+
+QSqlRecord
+**********
+
+.. inheritance-diagram:: QSqlRecord
+    :parts: 2
+
+**Inherited by:** :ref:`QSqlIndex`
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`__eq__<PySide.QtSql.QSqlRecord.__eq__>` (other)
+*    def :meth:`__ne__<PySide.QtSql.QSqlRecord.__ne__>` (other)
+*    def :meth:`append<PySide.QtSql.QSqlRecord.append>` (field)
+*    def :meth:`clear<PySide.QtSql.QSqlRecord.clear>` ()
+*    def :meth:`clearValues<PySide.QtSql.QSqlRecord.clearValues>` ()
+*    def :meth:`contains<PySide.QtSql.QSqlRecord.contains>` (name)
+*    def :meth:`count<PySide.QtSql.QSqlRecord.count>` ()
+*    def :meth:`field<PySide.QtSql.QSqlRecord.field>` (i)
+*    def :meth:`field<PySide.QtSql.QSqlRecord.field>` (name)
+*    def :meth:`fieldName<PySide.QtSql.QSqlRecord.fieldName>` (i)
+*    def :meth:`indexOf<PySide.QtSql.QSqlRecord.indexOf>` (name)
+*    def :meth:`insert<PySide.QtSql.QSqlRecord.insert>` (pos, field)
+*    def :meth:`isEmpty<PySide.QtSql.QSqlRecord.isEmpty>` ()
+*    def :meth:`isGenerated<PySide.QtSql.QSqlRecord.isGenerated>` (i)
+*    def :meth:`isGenerated<PySide.QtSql.QSqlRecord.isGenerated>` (name)
+*    def :meth:`isNull<PySide.QtSql.QSqlRecord.isNull>` (i)
+*    def :meth:`isNull<PySide.QtSql.QSqlRecord.isNull>` (name)
+*    def :meth:`remove<PySide.QtSql.QSqlRecord.remove>` (pos)
+*    def :meth:`replace<PySide.QtSql.QSqlRecord.replace>` (pos, field)
+*    def :meth:`setGenerated<PySide.QtSql.QSqlRecord.setGenerated>` (i, generated)
+*    def :meth:`setGenerated<PySide.QtSql.QSqlRecord.setGenerated>` (name, generated)
+*    def :meth:`setNull<PySide.QtSql.QSqlRecord.setNull>` (i)
+*    def :meth:`setNull<PySide.QtSql.QSqlRecord.setNull>` (name)
+*    def :meth:`setValue<PySide.QtSql.QSqlRecord.setValue>` (i, val)
+*    def :meth:`setValue<PySide.QtSql.QSqlRecord.setValue>` (name, val)
+*    def :meth:`value<PySide.QtSql.QSqlRecord.value>` (i)
+*    def :meth:`value<PySide.QtSql.QSqlRecord.value>` (name)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtSql.QSqlRecord` class encapsulates a database record.
+
+    The :class:`PySide.QtSql.QSqlRecord` class encapsulates the functionality and characteristics of a database record (usually a row in a table or view within the database). :class:`PySide.QtSql.QSqlRecord` supports adding and removing fields as well as setting and retrieving field values.
+
+    The values of a record's fields' can be set by name or position with :meth:`PySide.QtSql.QSqlRecord.setValue` ; if you want to set a field to null use :meth:`PySide.QtSql.QSqlRecord.setNull` . To find the position of a field by name use :meth:`PySide.QtSql.QSqlRecord.indexOf` , and to find the name of a field at a particular position use :meth:`PySide.QtSql.QSqlRecord.fieldName` . Use :meth:`PySide.QtSql.QSqlRecord.field` to retrieve a :class:`PySide.QtSql.QSqlField` object for a given field. Use :meth:`PySide.QtSql.QSqlRecord.contains` to see if the record contains a particular field name.
+
+    When queries are generated to be executed on the database only those fields for which :meth:`PySide.QtSql.QSqlRecord.isGenerated` is true are included in the generated SQL.
+
+    A record can have fields added with :meth:`PySide.QtSql.QSqlRecord.append` or :meth:`PySide.QtSql.QSqlRecord.insert` , replaced with :meth:`PySide.QtSql.QSqlRecord.replace` , and removed with :meth:`PySide.QtSql.QSqlRecord.remove` . All the fields can be removed with :meth:`PySide.QtSql.QSqlRecord.clear` . The number of fields is given by :meth:`PySide.QtSql.QSqlRecord.count` ; all their values can be cleared (to null) using :meth:`PySide.QtSql.QSqlRecord.clearValues` .
+
+    .. seealso::  :class:`PySide.QtSql.QSqlField`  :meth:`QSqlQuery.record()<PySide.QtSql.QSqlQuery.record>` 
+
+.. class:: QSqlRecord()
+           QSqlRecord(other)
+
+    :param other: :class:`PySide.QtSql.QSqlRecord`
+
+    Constructs an empty record.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.isEmpty`  :meth:`PySide.QtSql.QSqlRecord.append`  :meth:`PySide.QtSql.QSqlRecord.insert` 
+
+    Constructs a copy of ``other`` .
+
+    :class:`PySide.QtSql.QSqlRecord` is :ref:`implicitly shared<implicit-sharing.html>` . This means you can make copies of a record in :ref:`constant time<containers.html>` .
+
+
+.. method:: PySide.QtSql.QSqlRecord.append(field)
+
+
+    :param field: :class:`PySide.QtSql.QSqlField`
+
+
+
+
+    Append a copy of field ``field`` to the end of the record.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.insert`  :meth:`PySide.QtSql.QSqlRecord.replace`  :meth:`PySide.QtSql.QSqlRecord.remove` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.clear()
+
+
+
+
+
+
+    Removes all the record's fields.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.clearValues`  :meth:`PySide.QtSql.QSqlRecord.isEmpty` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.clearValues()
+
+
+
+
+
+
+    Clears the value of all fields in the record and sets each field to null.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.setValue` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.contains(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there is a field in the record called ``name`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.count()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the number of fields in the record.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.isEmpty` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.field(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtSql.QSqlField`
+
+
+
+
+    Returns the field at position ``index`` . If the ``index`` is out of range, function returns a :ref:`default-constructed value<containers.html>` .
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.field(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtSql.QSqlField`
+
+
+
+
+    This is an overloaded function.
+
+    Returns the field called ``name`` .
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.fieldName(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: unicode
+
+
+
+
+    Returns the name of the field at position ``index`` . If the field does not exist, an empty string is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.indexOf` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.indexOf(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    Returns the position of the field called ``name`` within the record, or -1 if it cannot be found. Field names are not case-sensitive. If more than one field matches, the first one is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.fieldName` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.insert(pos, field)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param field: :class:`PySide.QtSql.QSqlField`
+
+
+
+
+    Inserts the field ``field`` at position ``pos`` in the record.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.append`  :meth:`PySide.QtSql.QSqlRecord.replace`  :meth:`PySide.QtSql.QSqlRecord.remove` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.isEmpty()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if there are no fields in the record; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.append`  :meth:`PySide.QtSql.QSqlRecord.insert`  :meth:`PySide.QtSql.QSqlRecord.clear` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.isGenerated(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the record has a field called ``name`` and this field is to be generated (the default); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.setGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.isGenerated(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the record has a field at position ``index`` and this field is to be generated (the default); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.setGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.isNull(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Returns true if the field ``index`` is null or if there is no field at position ``index`` ; otherwise returns false.
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.isNull(name)
+
+
+    :param name: unicode
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if the field called ``name`` is null or if there is no field called ``name`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.setNull` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.__ne__(other)
+
+
+    :param other: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object is not identical to ``other`` ; otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.operator==` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.__eq__(other)
+
+
+    :param other: :class:`PySide.QtSql.QSqlRecord`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this object is identical to ``other`` (i.e., has the same fields in the same order); otherwise returns false.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.operator!=` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.remove(pos)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+
+
+
+
+    Removes the field at position ``pos`` . If ``pos`` is out of range, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.append`  :meth:`PySide.QtSql.QSqlRecord.insert`  :meth:`PySide.QtSql.QSqlRecord.replace` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.replace(pos, field)
+
+
+    :param pos: :class:`PySide.QtCore.int`
+    :param field: :class:`PySide.QtSql.QSqlField`
+
+
+
+
+    Replaces the field at position ``pos`` with the given ``field`` . If ``pos`` is out of range, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.append`  :meth:`PySide.QtSql.QSqlRecord.insert`  :meth:`PySide.QtSql.QSqlRecord.remove` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.setGenerated(i, generated)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :param generated: :class:`PySide.QtCore.bool`
+
+
+
+
+    This is an overloaded function.
+
+    Sets the generated flag for the field ``index`` to ``generated`` .
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.setGenerated(name, generated)
+
+
+    :param name: unicode
+    :param generated: :class:`PySide.QtCore.bool`
+
+
+
+
+    Sets the generated flag for the field called ``name`` to ``generated`` . If the field does not exist, nothing happens. Only fields that have ``generated`` set to true are included in the SQL that is generated by :class:`PySide.QtSql.QSqlQueryModel` for example.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.isGenerated` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.setNull(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+
+
+
+
+    Sets the value of field ``index`` to null. If the field does not exist, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.isNull`  :meth:`PySide.QtSql.QSqlRecord.setValue` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.setNull(name)
+
+
+    :param name: unicode
+
+
+
+
+    This is an overloaded function.
+
+    Sets the value of the field called ``name`` to null. If the field does not exist, nothing happens.
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.setValue(i, val)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :param val: object
+
+
+
+
+    Sets the value of the field at position ``index`` to ``val`` . If the field does not exist, nothing happens.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.value`  :meth:`PySide.QtSql.QSqlRecord.setNull` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.setValue(name, val)
+
+
+    :param name: unicode
+    :param val: object
+
+
+
+
+    This is an overloaded function.
+
+    Sets the value of the field called ``name`` to ``val`` . If the field does not exist, nothing happens.
+
+
+
+.. method:: PySide.QtSql.QSqlRecord.value(name)
+
+
+    :param name: unicode
+    :rtype: object
+
+
+
+
+    This is an overloaded function.
+
+    Returns the value of the field called ``name`` in the record. If field ``name`` does not exist an invalid variant is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.indexOf` 
+
+
+.. method:: PySide.QtSql.QSqlRecord.value(i)
+
+
+    :param i: :class:`PySide.QtCore.int`
+    :rtype: object
+
+
+
+
+    Returns the value of the field located at position ``index`` in the record. If ``index`` is out of bounds, an invalid :class:`PySide.QtCore.QVariant` is returned.
+
+    .. seealso::  :meth:`PySide.QtSql.QSqlRecord.setValue`  :meth:`PySide.QtSql.QSqlRecord.fieldName`  :meth:`PySide.QtSql.QSqlRecord.isNull` 
+
+
+

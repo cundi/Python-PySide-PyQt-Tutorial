@@ -1,0 +1,354 @@
+.. module:: PySide.QtGui
+.. _QMdiSubWindow:
+
+QMdiSubWindow
+*************
+
+.. inheritance-diagram:: QMdiSubWindow
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`isShaded<PySide.QtGui.QMdiSubWindow.isShaded>` ()
+*    def :meth:`keyboardPageStep<PySide.QtGui.QMdiSubWindow.keyboardPageStep>` ()
+*    def :meth:`keyboardSingleStep<PySide.QtGui.QMdiSubWindow.keyboardSingleStep>` ()
+*    def :meth:`maximizedButtonsWidget<PySide.QtGui.QMdiSubWindow.maximizedButtonsWidget>` ()
+*    def :meth:`maximizedSystemMenuIconWidget<PySide.QtGui.QMdiSubWindow.maximizedSystemMenuIconWidget>` ()
+*    def :meth:`mdiArea<PySide.QtGui.QMdiSubWindow.mdiArea>` ()
+*    def :meth:`setKeyboardPageStep<PySide.QtGui.QMdiSubWindow.setKeyboardPageStep>` (step)
+*    def :meth:`setKeyboardSingleStep<PySide.QtGui.QMdiSubWindow.setKeyboardSingleStep>` (step)
+*    def :meth:`setOption<PySide.QtGui.QMdiSubWindow.setOption>` (option[, on=true])
+*    def :meth:`setSystemMenu<PySide.QtGui.QMdiSubWindow.setSystemMenu>` (systemMenu)
+*    def :meth:`setWidget<PySide.QtGui.QMdiSubWindow.setWidget>` (widget)
+*    def :meth:`systemMenu<PySide.QtGui.QMdiSubWindow.systemMenu>` ()
+*    def :meth:`testOption<PySide.QtGui.QMdiSubWindow.testOption>` (arg__1)
+*    def :meth:`widget<PySide.QtGui.QMdiSubWindow.widget>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`showShaded<PySide.QtGui.QMdiSubWindow.showShaded>` ()
+*    def :meth:`showSystemMenu<PySide.QtGui.QMdiSubWindow.showSystemMenu>` ()
+
+
+Signals
+^^^^^^^
+.. container:: function_list
+
+*    def :meth:`aboutToActivate<PySide.QtGui.QMdiSubWindow.aboutToActivate>` ()
+*    def :meth:`windowStateChanged<PySide.QtGui.QMdiSubWindow.windowStateChanged>` (oldState, newState)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QMdiSubWindow` class provides a subwindow class for :class:`PySide.QtGui.QMdiArea` .
+
+    :class:`PySide.QtGui.QMdiSubWindow` represents a top-level window in a :class:`PySide.QtGui.QMdiArea` , and consists of a title bar with window decorations, an internal widget, and (depending on the current style) a window frame and a size grip. :class:`PySide.QtGui.QMdiSubWindow` has its own layout, which consists of the title bar and a center area for the internal widget.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qmdisubwindowlayout.png
+
+    The most common way to construct a :class:`PySide.QtGui.QMdiSubWindow` is to call :meth:`QMdiArea.addSubWindow()<PySide.QtGui.QMdiArea.addSubWindow>` with the internal widget as the argument. You can also create a subwindow yourself, and set an internal widget by calling :meth:`PySide.QtGui.QMdiSubWindow.setWidget` .
+
+    You use the same API when programming with subwindows as with regular top-level windows (e.g., you can call functions such as :meth:`PySide.QtGui.QWidget.show` , :meth:`PySide.QtGui.QWidget.hide` , :meth:`PySide.QtGui.QWidget.showMaximized` , and :meth:`PySide.QtGui.QWidget.setWindowTitle` ).
+
+    .. _PySide.QtGui.QMdiSubWindow_subwindow-handling:
+
+
+
+Subwindow Handling
+^^^^^^^^^^^^^^^^^^
+
+    :class:`PySide.QtGui.QMdiSubWindow` also supports behavior specific to subwindows in an MDI area.
+
+    By default, each :class:`PySide.QtGui.QMdiSubWindow` is visible inside the MDI area viewport when moved around, but it is also possible to specify transparent window movement and resizing behavior, where only the outline of a subwindow is updated during these operations. The :meth:`PySide.QtGui.QMdiSubWindow.setOption` function is used to enable this behavior.
+
+    The :meth:`PySide.QtGui.QMdiSubWindow.isShaded` function detects whether the subwindow is currently shaded (i.e., the window is collapsed so that only the title bar is visible). To enter shaded mode, call :meth:`PySide.QtGui.QMdiSubWindow.showShaded` . :class:`PySide.QtGui.QMdiSubWindow` emits the :meth:`PySide.QtGui.QMdiSubWindow.windowStateChanged` signal whenever the window state has changed (e.g., when the window becomes minimized, or is restored). It also emits :meth:`PySide.QtGui.QMdiSubWindow.aboutToActivate` before it is activated.
+
+    In keyboard-interactive mode, the windows are moved and resized with the keyboard. You can enter this mode through the system menu of the window. The :meth:`PySide.QtGui.QMdiSubWindow.keyboardSingleStep` and :meth:`PySide.QtGui.QMdiSubWindow.keyboardPageStep` properties control the distance the widget is moved or resized for each keypress event. When shift is pressed down page step is used; otherwise single step is used.
+
+    You can also change the active window with the keyboard. By pressing the control and tab keys at the same time, the next (using the current :attr:`QMdiArea.WindowOrder` ) subwindow will be activated. By pressing control, shift, and tab, you will activate the previous window. This is equivalent to calling :meth:`PySide.QtGui.QMdiArea.activateNextSubWindow` and :meth:`PySide.QtGui.QMdiArea.activatePreviousSubWindow` . Note that these shortcuts overrides global shortcuts, but not the :class:`PySide.QtGui.QMdiArea` s shortcuts.
+
+    .. seealso::  :class:`PySide.QtGui.QMdiArea` 
+
+.. class:: QMdiSubWindow([parent=None[, flags=0]])
+
+    :param flags: :class:`PySide.QtCore.Qt.WindowFlags`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+
+
+.. attribute:: PySide.QtGui.QMdiSubWindow.SubWindowOption
+
+    This enum describes options that customize the behavior of :class:`PySide.QtGui.QMdiSubWindow` .
+
+    +------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Constant                      |Description                                                                                                                                                                                                                                                                                                                                                                                  |
+    +==============================+=============================================================================================================================================================================================================================================================================================================================================================================================+
+    |QMdiSubWindow.RubberBandResize|If you enable this option, a rubber band control is used to represent the subwindow's outline, and the user resizes this instead of the subwindow itself. As a result, the subwindow maintains its original position and size until the resize operation has been completed, at which time it will receive a single :class:`PySide.QtGui.QResizeEvent` . By default, this option is disabled.|
+    +------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |QMdiSubWindow.RubberBandMove  |If you enable this option, a rubber band control is used to represent the subwindow's outline, and the user moves this instead of the subwindow itself. As a result, the subwindow remains in its original position until the move operation has completed, at which time a :class:`PySide.QtGui.QMoveEvent` is sent to the window. By default, this option is disabled.                     |
+    +------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.aboutToActivate()
+
+
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.isShaded()
+
+
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if this window is shaded; otherwise returns false.
+
+    A window is shaded if it is collapsed so that only the title bar is visible.
+
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.keyboardPageStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds sets how far a widget should move or resize when using the keyboard page keys..
+
+    When in keyboard-interactive mode, you can use the arrow and page keys to either move or resize the window. This property controls the page keys. The common way to enter keyboard interactive mode is to enter the subwindow menu, and select either "resize" or "move".
+
+    The default keyboard page step value is 20 pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.keyboardSingleStep` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.keyboardSingleStep()
+
+
+    :rtype: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds sets how far a widget should move or resize when using the keyboard arrow keys..
+
+    When in keyboard-interactive mode, you can use the arrow and page keys to either move or resize the window. This property controls the arrow keys. The common way to enter keyboard interactive mode is to enter the subwindow menu, and select either "resize" or "move".
+
+    The default keyboard single step value is 5 pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.keyboardPageStep` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.maximizedButtonsWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.maximizedSystemMenuIconWidget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.mdiArea()
+
+
+    :rtype: :class:`PySide.QtGui.QMdiArea`
+
+
+
+
+    Returns the area containing this sub-window, or 0 if there is none.
+
+    .. seealso::  :meth:`QMdiArea.addSubWindow()<PySide.QtGui.QMdiArea.addSubWindow>` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.setKeyboardPageStep(step)
+
+
+    :param step: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds sets how far a widget should move or resize when using the keyboard page keys..
+
+    When in keyboard-interactive mode, you can use the arrow and page keys to either move or resize the window. This property controls the page keys. The common way to enter keyboard interactive mode is to enter the subwindow menu, and select either "resize" or "move".
+
+    The default keyboard page step value is 20 pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.keyboardSingleStep` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.setKeyboardSingleStep(step)
+
+
+    :param step: :class:`PySide.QtCore.int`
+
+
+
+
+    This property holds sets how far a widget should move or resize when using the keyboard arrow keys..
+
+    When in keyboard-interactive mode, you can use the arrow and page keys to either move or resize the window. This property controls the arrow keys. The common way to enter keyboard interactive mode is to enter the subwindow menu, and select either "resize" or "move".
+
+    The default keyboard single step value is 5 pixels.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.keyboardPageStep` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.setOption(option[, on=true])
+
+
+    :param option: :attr:`PySide.QtGui.QMdiSubWindow.SubWindowOption`
+    :param on: :class:`PySide.QtCore.bool`
+
+
+
+
+    If ``on`` is true, ``option`` is enabled on the subwindow; otherwise it is disabled. See :attr:`QMdiSubWindow.SubWindowOption` for the effect of each option.
+
+    .. seealso::  :attr:`QMdiSubWindow.SubWindowOption`  :meth:`PySide.QtGui.QMdiSubWindow.testOption` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.setSystemMenu(systemMenu)
+
+
+    :param systemMenu: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Sets ``systemMenu`` as the current system menu for this subwindow.
+
+    By default, each :class:`PySide.QtGui.QMdiSubWindow` has a standard system menu.
+
+    QActions for the system menu created by :class:`PySide.QtGui.QMdiSubWindow` will automatically be updated depending on the current window state; e.g., the minimize action will be disabled after the window is minimized.
+
+    QActions added by the user are not updated by :class:`PySide.QtGui.QMdiSubWindow` .
+
+    :class:`PySide.QtGui.QMdiSubWindow` takes ownership of ``systemMenu`` ; you do not have to delete it. Any existing menus will be deleted.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.systemMenu`  :meth:`PySide.QtGui.QMdiSubWindow.showSystemMenu` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.setWidget(widget)
+
+
+    :param widget: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Sets ``widget`` as the internal widget of this subwindow. The internal widget is displayed in the center of the subwindow beneath the title bar.
+
+    :class:`PySide.QtGui.QMdiSubWindow` takes temporary ownership of ``widget`` ; you do not have to delete it. Any existing internal widget will be removed and reparented to the root window.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.widget` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.showShaded()
+
+
+
+
+
+
+    Calling this function makes the subwindow enter the shaded mode. When the subwindow is shaded, only the title bar is visible.
+
+    Although shading is not supported by all styles, this function will still show the subwindow as shaded, regardless of whether support for shading is available. However, when used with styles without shading support, the user will be unable to return from shaded mode through the user interface (e.g., through a shade button in the title bar).
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.isShaded` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.showSystemMenu()
+
+
+
+
+
+
+    Shows the system menu below the system menu icon in the title bar.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.setSystemMenu`  :meth:`PySide.QtGui.QMdiSubWindow.systemMenu` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.systemMenu()
+
+
+    :rtype: :class:`PySide.QtGui.QMenu`
+
+
+
+
+    Returns a pointer to the current system menu, or zero if no system menu is set. :class:`PySide.QtGui.QMdiSubWindow` provides a default system menu, but you can also set the menu with :meth:`PySide.QtGui.QMdiSubWindow.setSystemMenu` .
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.setSystemMenu`  :meth:`PySide.QtGui.QMdiSubWindow.showSystemMenu` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.testOption(arg__1)
+
+
+    :param arg__1: :attr:`PySide.QtGui.QMdiSubWindow.SubWindowOption`
+    :rtype: :class:`PySide.QtCore.bool`
+
+
+
+
+    Returns true if ``option`` is enabled; otherwise returns false.
+
+    .. seealso::  :attr:`QMdiSubWindow.SubWindowOption`  :meth:`PySide.QtGui.QMdiSubWindow.setOption` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.widget()
+
+
+    :rtype: :class:`PySide.QtGui.QWidget`
+
+
+
+
+    Returns the current internal widget.
+
+    .. seealso::  :meth:`PySide.QtGui.QMdiSubWindow.setWidget` 
+
+
+.. method:: PySide.QtGui.QMdiSubWindow.windowStateChanged(oldState, newState)
+
+
+    :param oldState: :class:`PySide.QtCore.Qt.WindowStates`
+    :param newState: :class:`PySide.QtCore.Qt.WindowStates`
+
+
+
+
+
+
+

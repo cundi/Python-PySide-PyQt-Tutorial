@@ -1,0 +1,180 @@
+.. module:: PySide.QtGui
+.. _QUndoView:
+
+QUndoView
+*********
+
+.. inheritance-diagram:: QUndoView
+    :parts: 2
+
+Synopsis
+--------
+
+Functions
+^^^^^^^^^
+.. container:: function_list
+
+*    def :meth:`cleanIcon<PySide.QtGui.QUndoView.cleanIcon>` ()
+*    def :meth:`emptyLabel<PySide.QtGui.QUndoView.emptyLabel>` ()
+*    def :meth:`group<PySide.QtGui.QUndoView.group>` ()
+*    def :meth:`setCleanIcon<PySide.QtGui.QUndoView.setCleanIcon>` (icon)
+*    def :meth:`setEmptyLabel<PySide.QtGui.QUndoView.setEmptyLabel>` (label)
+*    def :meth:`stack<PySide.QtGui.QUndoView.stack>` ()
+
+
+Slots
+^^^^^
+.. container:: function_list
+
+*    def :meth:`setGroup<PySide.QtGui.QUndoView.setGroup>` (group)
+*    def :meth:`setStack<PySide.QtGui.QUndoView.setStack>` (stack)
+
+
+Detailed Description
+--------------------
+
+
+
+    The :class:`PySide.QtGui.QUndoView` class displays the contents of a :class:`PySide.QtGui.QUndoStack` .
+
+    :class:`PySide.QtGui.QUndoView` is a :class:`PySide.QtGui.QListView` which displays the list of commands pushed on an undo stack. The most recently executed command is always selected. Selecting a different command results in a call to :meth:`QUndoStack.setIndex()<PySide.QtGui.QUndoStack.setIndex>` , rolling the state of the document backwards or forward to the new command.
+
+    The stack can be set explicitly with :meth:`PySide.QtGui.QUndoView.setStack` . Alternatively, a :class:`PySide.QtGui.QUndoGroup` object can be set with :meth:`PySide.QtGui.QUndoView.setGroup` . The view will then update itself automatically whenever the active stack of the group changes.
+
+    .. image:: ../../../../../../qt-everywhere-opensource-src-4.8.5/doc/src/images/qundoview.png
+
+
+.. class:: QUndoView(group[, parent=None])
+           QUndoView(stack[, parent=None])
+           QUndoView([parent=None])
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+    :param group: :class:`PySide.QtGui.QUndoGroup`
+    :param parent: :class:`PySide.QtGui.QWidget`
+
+    Constructs a new view with parent ``parent`` and sets the observed group to ``group`` .
+
+    The view will update itself autmiatically whenever the active stack of the group changes.
+
+
+    Constructs a new view with parent ``parent`` and sets the observed stack to ``stack`` .
+
+
+    Constructs a new view with parent ``parent`` .
+
+
+.. method:: PySide.QtGui.QUndoView.cleanIcon()
+
+
+    :rtype: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the icon used to represent the clean state..
+
+    A stack may have a clean state set with :meth:`QUndoStack.setClean()<PySide.QtGui.QUndoStack.setClean>` . This is usually the state of the document at the point it was saved. :class:`PySide.QtGui.QUndoView` can display an icon in the list of commands to show the clean state. If this property is a null icon, no icon is shown. The default value is the null icon.
+
+
+
+.. method:: PySide.QtGui.QUndoView.emptyLabel()
+
+
+    :rtype: unicode
+
+
+
+
+    This property holds the label used for the empty state..
+
+    The empty label is the topmost element in the list of commands, which represents the state of the document before any commands were pushed on the stack. The default is the string "<empty>".
+
+
+
+.. method:: PySide.QtGui.QUndoView.group()
+
+
+    :rtype: :class:`PySide.QtGui.QUndoGroup`
+
+
+
+
+    Returns the group displayed by this view.
+
+    If the view is not looking at group, this function returns 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoView.setGroup`  :meth:`PySide.QtGui.QUndoView.setStack` 
+
+
+.. method:: PySide.QtGui.QUndoView.setCleanIcon(icon)
+
+
+    :param icon: :class:`PySide.QtGui.QIcon`
+
+
+
+
+    This property holds the icon used to represent the clean state..
+
+    A stack may have a clean state set with :meth:`QUndoStack.setClean()<PySide.QtGui.QUndoStack.setClean>` . This is usually the state of the document at the point it was saved. :class:`PySide.QtGui.QUndoView` can display an icon in the list of commands to show the clean state. If this property is a null icon, no icon is shown. The default value is the null icon.
+
+
+
+.. method:: PySide.QtGui.QUndoView.setEmptyLabel(label)
+
+
+    :param label: unicode
+
+
+
+
+    This property holds the label used for the empty state..
+
+    The empty label is the topmost element in the list of commands, which represents the state of the document before any commands were pushed on the stack. The default is the string "<empty>".
+
+
+
+.. method:: PySide.QtGui.QUndoView.setGroup(group)
+
+
+    :param group: :class:`PySide.QtGui.QUndoGroup`
+
+
+
+
+    Sets the group displayed by this view to ``group`` . If ``group`` is 0, the view will be empty.
+
+    The view will update itself autmiatically whenever the active stack of the group changes.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoView.group`  :meth:`PySide.QtGui.QUndoView.setStack` 
+
+
+.. method:: PySide.QtGui.QUndoView.setStack(stack)
+
+
+    :param stack: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Sets the stack displayed by this view to ``stack`` . If ``stack`` is 0, the view will be empty.
+
+    If the view was previously looking at a :class:`PySide.QtGui.QUndoGroup` , the group is set to 0.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoView.stack`  :meth:`PySide.QtGui.QUndoView.setGroup` 
+
+
+.. method:: PySide.QtGui.QUndoView.stack()
+
+
+    :rtype: :class:`PySide.QtGui.QUndoStack`
+
+
+
+
+    Returns the stack currently displayed by this view. If the view is looking at a :class:`PySide.QtGui.QUndoGroup` , this the group's active stack.
+
+    .. seealso::  :meth:`PySide.QtGui.QUndoView.setStack`  :meth:`PySide.QtGui.QUndoView.setGroup` 
+
+
+
