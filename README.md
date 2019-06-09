@@ -72,3 +72,11 @@
 - 第三部分: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-3/147
 
 - 第四部分: http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-4/148
+
+# asyncio + PyQt5/PySide2
+
+补充：
+
+适合Python3.5+的异步PyQt5/PySide2库
+
+https://github.com/gmarull/asyncqt
